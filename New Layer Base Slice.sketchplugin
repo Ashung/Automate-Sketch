@@ -1,0 +1,49 @@
+/*
+ * Copyright (c) 2015 Ashung Hung (ashung.hung@gamil.com)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *    http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+
+(function(){
+    for(var i = 0; i < selection.count(); i ++) {
+        var layer = context.selection[i];
+        var x = layer.absoluteRect().x(),
+            y = layer.absoluteRect().y(),
+            width = layer.absoluteRect().width(),
+            height= layer.absoluteRect().height(),
+            name = layer.name();
+
+        log("Slice : { x : " + x + ", y : " + y + ", width : " + width +
+            ", height : " + height + ", name : " + name + "}");
+
+        newLayerBaseSlice(width, height, name, layer);
+    }
+
+
+})();
+
+function newLayerBaseSlice(width, height, name, layer) {
+    var slice = [MSSliceLayer new];
+    [[slice frame] setX: 0];
+    [[slice frame] setY: 0];
+    [[slice frame] setWidth: width];
+    [[slice frame] setHeight: height];
+    [slice setName: name];
+    [layer addSlice: slice];
+
+    // var s = [[slice exportOptions] addExportSize];
+    //     [s setFormat: "svg"]
+    //     [s setScale: 2]
+    //     [s setName: "@2x"]
+}
