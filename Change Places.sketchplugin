@@ -1,40 +1,16 @@
-/*
- * Copyright (c) 2015 Ashung Hung (ashung.hung@gamil.com)
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *    http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
 
+if(selection.count() != 2) {
+    var app = [NSApplication sharedApplication];
+    [app displayDialog:"Please select 2 layers or groups." withTitle:"Sorry"];
+    return;
+}
 
+var x1 = selection[0].absoluteRect().x();
+var y1 = selection[0].absoluteRect().y();
+var x2 = selection[1].absoluteRect().x();
+var y2 = selection[1].absoluteRect().y();
 
-
-
-(function(){
-    'use strict'
-
-    if(selection.count() != 2) {
-        var app = [NSApplication sharedApplication];
-        [app displayDialog:"Please select 2 layers or groups." withTitle:"Sorry"];
-        return;
-    }
-
-    var x1 = selection[0].absoluteRect().x();
-    var y1 = selection[0].absoluteRect().y();
-    var x2 = selection[1].absoluteRect().x();
-    var y2 = selection[1].absoluteRect().y();
-
-    selection[0].absoluteRect().x = x2;
-    selection[0].absoluteRect().y = y2;
-    selection[1].absoluteRect().x = x1;
-    selection[1].absoluteRect().y = y1;
-
-})();
+selection[0].absoluteRect().x = x2;
+selection[0].absoluteRect().y = y2;
+selection[1].absoluteRect().x = x1;
+selection[1].absoluteRect().y = y1;
