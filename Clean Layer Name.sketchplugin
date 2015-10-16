@@ -1,4 +1,6 @@
 // (option command l)
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
 if(selection.count() > 0) {
     // Clean Selected Layers

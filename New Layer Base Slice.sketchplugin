@@ -1,3 +1,6 @@
+// (control option command s)
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
 for(var i = 0; i < selection.count(); i ++) {
     var layer = context.selection[i];

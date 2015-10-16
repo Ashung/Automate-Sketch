@@ -1,4 +1,5 @@
-// (shift command f)
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
 var allLayers = [[doc currentPage] children];
 

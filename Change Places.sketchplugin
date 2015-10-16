@@ -1,3 +1,5 @@
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
 if(selection.count() != 2) {
     var app = [NSApplication sharedApplication];

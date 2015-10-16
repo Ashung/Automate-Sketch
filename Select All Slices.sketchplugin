@@ -1,0 +1,13 @@
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
+
+var doc = context.document;
+    [[doc currentPage] deselectAllLayers];
+
+var exportableLayers = [[doc currentPage] exportableLayers];
+for(var i = 0; i < exportableLayers.count(); i++) {
+    var layer = exportableLayers[i];
+    if([layer className] == "MSSliceLayer") {
+        [layer select:true byExpandingSelection:true];
+    }
+}

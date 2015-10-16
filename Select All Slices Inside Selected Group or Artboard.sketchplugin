@@ -1,0 +1,22 @@
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
+
+var doc = context.document;
+    [[doc currentPage] deselectAllLayers];
+
+for(var i = 0; i < [selection count]; i ++) {
+    // log([[selection objectAtIndex:i] className]);
+    // log(selection[i].className());
+    var selected = selection[i];
+    if([selected className] == "MSLayerGroup" ||
+        [selected className] == "MSArtboardGroup") {
+        // log(selection[i].name() + " -> " + selection[i].className());
+        var layers = [selected children];
+        for(var j = 0; j < [layers count]; j++) {
+            var layer = layers[j];
+            if([layer className] == "MSSliceLayer") {
+                [layer select:true byExpandingSelection:true];
+            }
+        }
+    }
+}
