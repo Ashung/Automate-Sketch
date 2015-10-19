@@ -1,3 +1,5 @@
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
 var doc = context.document;
 var exportableLayers = [[doc currentPage] exportableLayers];

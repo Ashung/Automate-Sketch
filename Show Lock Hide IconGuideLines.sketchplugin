@@ -1,13 +1,19 @@
 // Copyright 2015 Ashung Hung.
 // Released under the MIT license.
 
+var doc = context.document;
 var allLayers = [[doc currentPage] children];
-
+var hasIconGuideLines = false;
 for(var i = 0; i < [allLayers count]; i++) {
     var layer = allLayers[i];
     if([layer name] == "IconGuideLines") {
+        hasIconGuideLines = true
         changeStatus(layer);
     }
+}
+
+if(hasIconGuideLines == false) {
+    doc.showMessage("This document have not the \"IconGuideLines\" layer.");
 }
 
 function changeStatus(l) {

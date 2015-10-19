@@ -4,6 +4,7 @@
 if([selection count] > 0) {
 
     var doc = context.document;
+    // t: top, r: right, l: left, b: bottom, w: width; h: heigth
     var x = 0,
         y = 0,
         t = 0,
@@ -13,10 +14,9 @@ if([selection count] > 0) {
         w = 100,
         h = 100;
     var name = [[selection firstObject] name];
-    // var group = [[[selection firstObject] parentGroup] addLayerOfType:"group"];
 
     for(var i = 0; i < [selection count]; i ++) {
-        var layer = [selection objectAtIndex:i]
+        var layer = [selection objectAtIndex:i];
         // log([layer absoluteRect]);
         // init artboard bounds
         if(i == 0) {
@@ -53,23 +53,9 @@ if([selection count] > 0) {
         [frame setHeight:h];
         [[doc currentPage] addSlice:artboard];
 
-    for(var i = 0; i < [selection count]; i ++) {
-        var layer = [selection objectAtIndex:i];
-        var x = [[layer absoluteRect] x];
-
-            // [[layer absoluteRect] setX:0];
-            // [[doc currentView] refresh];
-            // [[layer absoluteRect] setX:x];
-        //log([[layer parentGroup] setName: name])
-
-            //[layer select:true byExpandingSelection:false];
-
-
-    }
-
-
+    [NSApp sendAction:"cut:" to:nil from:doc];
+    [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
 
 } else {
-    var app = [NSApplication sharedApplication];
-        [app displayDialog:"Please select at least 1 layer or group." withTitle:"Sorry"];
+    doc.showMessage("Please select at least 1 layer or group.");
 }

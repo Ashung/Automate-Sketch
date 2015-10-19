@@ -3,12 +3,16 @@
 
 var doc = context.document;
     [[doc currentPage] deselectAllLayers];
-
 var exportableLayers = [[doc currentPage] exportableLayers];
+var haveSelectedLayerGroup = false;
 for(var i = 0; i < exportableLayers.count(); i++) {
     var layer = exportableLayers[i];
     if([layer className] == "MSSliceLayer"
         && [[layer parentGroup] className] == "MSLayerGroup") {
         [layer select:true byExpandingSelection:true];
+        haveSelectedLayerGroup = true;
     }
+}
+if(haveSelectedLayerGroup == false) {
+    doc.showMessage("Please select at least 1 Group.");
 }

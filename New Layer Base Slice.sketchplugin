@@ -2,6 +2,12 @@
 // Copyright 2015 Ashung Hung.
 // Released under the MIT license.
 
+var doc = context.document;
+
+if(selection.count() == 0){
+    doc.showMessage("Please select at least 1 layer or group.");
+}
+
 for(var i = 0; i < selection.count(); i ++) {
     var layer = context.selection[i];
     var width = layer.absoluteRect().width(),

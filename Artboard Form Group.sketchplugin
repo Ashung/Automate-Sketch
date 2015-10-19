@@ -1,0 +1,30 @@
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
+
+if([selection count] > 0) {
+    var doc = context.document;
+    for(var i = 0; i < [selection count]; i ++) {
+        var group = [selection objectAtIndex:i];
+        var name = [group name];
+        if([group className] == "MSLayerGroup") {
+            var x = [[group absoluteRect] x],
+                y = [[group absoluteRect] y],
+                w = [[group absoluteRect] width],
+                h = [[group absoluteRect] height];
+            var artboard = [MSArtboardGroup new];
+                [artboard setName:name];
+            var frame = [artboard frame];
+                [frame setX:x];
+                [frame setY:y];
+                [frame setWidth:w];
+                [frame setHeight:h];
+                [[doc currentPage] addSlice:artboard];
+
+            [NSApp sendAction:"ungroup:" to:nil from:doc];
+            [NSApp sendAction:"cut:" to:nil from:doc];
+            [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
+        }
+    }
+} else {
+    doc.showMessage("Please select at least 1 group.");
+}

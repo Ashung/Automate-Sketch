@@ -1,6 +1,7 @@
 // Copyright 2015 Ashung Hung.
 // Released under the MIT license.
 
+var doc = context.document;
 var artboards = [[doc currentPage] artboards];
 
 for(var i = 0; i < [artboards count]; i++) {
