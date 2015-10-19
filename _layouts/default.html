@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="{{ site.lang }}">
+<head>
+<meta charset="utf-8">
+<title>{{ page.title }}</title>
+<meta name="description" content="{{ site.description }}">
+<meta name="keywords" content="{{ site.keywords | join: ', ' }}">
+<meta name="author" content="{{ site.author }}, {{ site.email }}">
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+<link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}">
+{% unless site.host == "127.0.0.1" %}
+{% endunless %}
+</head>
+<body>
+<div>
+    <header>
+        <hgroup class="logo">
+            <a href="{{ site.url }}" rel="home">
+                <h1>{{ site.title }}</h1>
+            </a>
+        </hgroup>
+    </header>
+    <section>
+        <ul class="plugins">
+            {% for plugin in page.sketchPlugins %}
+            {% assign title = plugin.title %}
+            {% assign uriFileName =  plugin.title | uri_escape | append: ".sketchplugin" %}
+            {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
+            {% assign fileUrl = site.projectUrl | append: "raw/master/" | append: uriFileName %}
+            {% assign codeUrl = site.projectUrl | append: "blob/master/" | append: uriFileName %}
+            <li>
+                <a href="{{ codeUrl }}">
+                    <figure>
+                        <img src="/images/{{ imageFileName }}" alt="{{ title }}">
+                        <figcaption>{{ title }}</figcaption>
+                    </figure>
+                </a>
+            </li>
+            {% endfor %}
+        </ul>
+    </section>
+    <footer>
+
+
+
+        <ul class="socials">
+            <li>
+                <a rel="me" href="#">
+                    <span class="social-icon ic-">@Ashung</span>
+                </a>
+            </li>
+        </ul>
+    </footer>
+</div>
+</body>
+</html>
