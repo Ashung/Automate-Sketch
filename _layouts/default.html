@@ -12,7 +12,6 @@
 {% endunless %}
 </head>
 <body>
-<div>
     <header>
         <hgroup class="logo">
             <a href="{{ site.url }}" rel="home">
@@ -28,21 +27,23 @@
             {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
             {% assign fileUrl = site.projectUrl | append: "raw/master/" | append: uriFileName %}
             {% assign codeUrl = site.projectUrl | append: "blob/master/" | append: uriFileName %}
-            <li>
-                <a href="{{ codeUrl }}">
-                    <figure>
+            <li id="">
+                <figure>
+                    <a href="{{ codeUrl }}">
                         <img src="/images/{{ imageFileName }}" alt="{{ title }}">
-                        <figcaption>{{ title }}</figcaption>
-                    </figure>
-                </a>
+                    </a>
+                    <figcaption>
+                        <a href="{{ fileUrl }}">{{ title }}</a>
+                    </figcaption>
+                </figure>
             </li>
             {% endfor %}
         </ul>
     </section>
     <footer>
-
-
-
+        <div class="author">
+            Ashung Hung
+        </div>
         <ul class="socials">
             <li>
                 <a rel="me" href="#">
@@ -51,6 +52,5 @@
             </li>
         </ul>
     </footer>
-</div>
 </body>
 </html>
