@@ -4,6 +4,7 @@
 
 
 
+
 $foreground: #262626;
 $background: #fff;
 
@@ -22,6 +23,11 @@ $image_height_desktop_hd: 800px * 3 / 4;
 $image_width_mobile: 300px;
 $image_height_mobile: 300px * 3 / 4;
 
+$fira_cdn: "http://code.cdn.mozilla.net/fonts/";
+$fira_css_cdn: "http://code.cdn.mozilla.net/fonts/fira.css";
+$fira_github: "http://mozilla.github.io/Fira/";
+$fira_css_github: "http://mozilla.github.io/Fira/fira.css";
+
 @mixin media-max-width($width) {
     @media (max-width: $width) {
         @content;
@@ -33,6 +39,16 @@ $image_height_mobile: 300px * 3 / 4;
     }
 }
 
+@font-face{
+    font-family: 'Fira Sans';
+    src: url($fira_cdn + 'eot/FiraSans-Regular.eot');
+    src: local('Fira Sans Regular'),
+    url($fira_cdn + 'eot/FiraSans-Regular.eot') format('embedded-opentype'),
+    url($fira_cdn + 'woff/FiraSans-Regular.woff') format('woff'),
+    url($fira_cdn + 'ttf/FiraSans-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
 
 
 body, ul, p, figure {
@@ -41,6 +57,7 @@ body, ul, p, figure {
 }
 body {
     text-align: center;
+    overflow-x: hidden;
 }
 ul {
     list-style: none;
@@ -48,6 +65,11 @@ ul {
 a:link, a:visited {
     text-decoration: none;
 }
+
+header {
+    height: 200px;
+}
+
 
 
 .plugins {
@@ -89,3 +111,20 @@ a:link, a:visited {
     }
 }
 
+.ribbon {
+    background: none repeat scroll 0% 0% rgb(34, 34, 34);
+    color: white;
+    display: block;
+    font: 13px 'Fira Sans';
+    padding: 8px 150px;
+    position: absolute;
+    right: 0px;
+    text-decoration: none;
+    top: 0px;
+    white-space: nowrap;
+    -webkit-transform: translate(50%, -50%) rotate(45deg) translateY(72px);
+    -moz-transform: translate(50%, -50%) rotate(45deg) translateY(72px);
+    -ms-transform: translate(50%, -50%) rotate(45deg) translateY(72px);
+    -o-transform: translate(50%, -50%) rotate(45deg) translateY(72px);
+    transform: translate(50%, -50%) rotate(45deg) translateY(72px);
+}
