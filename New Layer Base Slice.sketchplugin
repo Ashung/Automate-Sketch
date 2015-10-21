@@ -4,19 +4,19 @@
 
 var doc = context.document;
 
-if(selection.count() == 0){
+if(selection.count() > 0) {
+    for(var i = 0; i < selection.count(); i ++) {
+        var layer = context.selection[i];
+        var width = layer.absoluteRect().width(),
+            height= layer.absoluteRect().height(),
+            name = layer.name();
+
+        log("Slice : { width : " + width + ", height : " + height + ", name : " + name + "}");
+
+        newLayerBaseSlice(width, height, name, layer);
+    }
+} else {
     doc.showMessage("Please select at least 1 layer or group.");
-}
-
-for(var i = 0; i < selection.count(); i ++) {
-    var layer = context.selection[i];
-    var width = layer.absoluteRect().width(),
-        height= layer.absoluteRect().height(),
-        name = layer.name();
-
-    log("Slice : { width : " + width + ", height : " + height + ", name : " + name + "}");
-
-    newLayerBaseSlice(width, height, name, layer);
 }
 
 function newLayerBaseSlice(width, height, name, layer) {

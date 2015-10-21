@@ -1,0 +1,107 @@
+
+
+
+// https://medium.com/sketch-app-sources/sketch-plugin-snippets-for-plugin-developers-e9e1d2ab6827
+var doc = context.document;
+
+var typefaces = [
+    {"en" : "Roboto-Light", "cjk" : "NotoSansCJKsc-Light"},
+    {"en" : "Roboto-Regular", "cjk" : "NotoSansCJKsc-Light"},
+    {"en" : "Roboto-Medium", "cjk" : "NotoSansCJKsc-Light"},
+    {"en" : "Roboto-Black", "cjk" : "NotoSansCJKsc-Light"},
+    {"en" : "Roboto-Bold", "cjk" : "NotoSansCJKsc-Light"},
+    {"en" : "Roboto-Thin", "cjk" : "NotoSansCJKsc-Light"}
+];
+
+// https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)
+// https://en.wikipedia.org/wiki/ISO/IEC_8859-1
+var reg_latin_1 = /[\u0020-\u00FF]+/g;
+
+
+if(selection.count() > 0) {
+    var hasTextLayer = false;
+
+    for(var i = 0; i < selection.count(); i ++) {
+        if(selection[i].className() == "MSTextLayer") {
+            hasTextLayer = true;
+
+            var textLayer = selection[i];
+            var textSize = textLayer.fontSize() * 2;
+            var textString = textLayer.stringValue();
+            var textFont = [NSFont fontWithName:@"ArialMT" size: textSize];
+
+            log(textString);
+
+            var match;
+            while(match = reg_latin_1.exec(textString)) {
+                log(match[0] + ' >>>> range(' + match.index + ', ' + (match.index + match[0].length) + ')');
+                // var range = NSMakeRange(match.index, match.index + match[0].length);
+                var range = NSMakeRange(match.index, match[0].length);
+                textLayer.setIsEditingText(true);
+                textLayer.addAttribute_value_forRange(NSFontAttributeName, textFont, range);
+                textLayer.setIsEditingText(false);
+            }
+
+        }
+    }
+
+    if(hasTextLayer == false) {
+        showMsg();
+    }
+
+} else {
+    showMsg();
+}
+
+function showMsg() {
+    var doc = context.document;
+        doc.showMessage("Please select the text layer.");
+}
+
+
+
+// var text = context.selection[0];
+//     //text.fontSize = 100;
+//
+//
+//     // create text color
+//     var color = [[MSColor alloc] init];
+//
+//     [color setRed:1];
+//     [color setGreen:.50];
+//     [color setBlue:.10];
+//     [color setAlpha:1];
+//
+//
+//     [text setTextColor:color];
+//
+//     // hack to force refresh in the style panel
+//     layer.setIsSelected(false);
+//     layer.setIsSelected(true);
+//
+//
+// var range = NSMakeRange(0, 6);
+
+
+// shortcut for text (shift option cmd l)
+
+// for (var i=0; i<selection.length(); i++) {
+// var layer = selection[i];
+//
+// // create text color
+// var color = [[MSColor alloc] init];
+//
+// [color setRed:.60];
+// [color setGreen:.60];
+// [color setBlue:.60];
+// [color setAlpha:1];
+//
+// [layer setTextColor:color];
+//
+// // create lorem text
+// var loremText = @"Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.";
+//
+// [layer setName:@"Lorem Ipsum"];
+// [layer setStringValue:loremText];
+//
+// }
