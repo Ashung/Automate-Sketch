@@ -21,21 +21,25 @@
     </header>
     <section>
         <ul class="plugins">
-            {% for plugin in page.sketchPlugins %}
+            {% for plugin in page.sketchPlugins reversed %}
+            {% assign count = forloop.length %}
+            {% assign index = forloop.index %}
             {% assign title = plugin.title %}
             {% assign uriFileName =  plugin.title | uri_escape | append: ".sketchplugin" %}
             {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
             {% assign fileUrl = site.projectUrl | append: "raw/master/" | append: uriFileName %}
             {% assign codeUrl = site.projectUrl | append: "blob/master/" | append: uriFileName %}
-            <li id="">
-                <figure>
-                    <a href="{{ codeUrl }}">
-                        <img src="/images/{{ imageFileName }}" alt="{{ title }}">
-                    </a>
-                    <figcaption>
-                        <a href="{{ fileUrl }}">{{ title }}</a>
-                    </figcaption>
-                </figure>
+            <li id="plugin-{{ index }}">
+                <div class="item-figure">
+                    <img class="item-image" src="/images/{{ imageFileName }}" alt="{{ title }}">
+                    <div class="item-links">
+                        <a class="link-code" href="{{ codeUrl }}">View Code</a>
+                        <a class="link-download" href="{{ fileUrl }}">Download Plugin</a>
+                    </div>
+                </div>
+                <div class="item-title">
+                    {{ title }}
+                </div>
             </li>
             {% endfor %}
         </ul>
@@ -51,7 +55,7 @@
                 </a>
             </li>
         </ul>
-        <a class="ribbon" href="{{ site.projectUrl }}">Fork on GitHub</a>
+        <a class="ribbon" href="{{ site.projectUrl }}">Fork me on GitHub</a>
     </footer>
 </body>
 </html>
