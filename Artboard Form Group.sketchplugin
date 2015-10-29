@@ -22,7 +22,13 @@ if([selection count] > 0) {
 
             [NSApp sendAction:"ungroup:" to:nil from:doc];
             [NSApp sendAction:"cut:" to:nil from:doc];
-            [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
+            if([NSApp applicationVersion] < 3.4) {
+                [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
+            } else {
+                [NSApp sendAction:"paste:" to:nil from:doc];
+            }
+            [artboard select:true byExpandingSelection:false];
+            [NSApp sendAction:"moveToFront:" to:nil from:doc];
         }
     }
 } else {

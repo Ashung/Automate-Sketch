@@ -54,7 +54,11 @@ if([selection count] > 0) {
         [[doc currentPage] addSlice:artboard];
 
     [NSApp sendAction:"cut:" to:nil from:doc];
-    [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
+    if([NSApp applicationVersion] < 3.4) {
+        [NSApp sendAction:"pasteInPlace:" to:nil from:doc];
+    } else {
+        [NSApp sendAction:"paste:" to:nil from:doc];
+    }
 
 } else {
     doc.showMessage("Please select at least 1 layer or group.");
