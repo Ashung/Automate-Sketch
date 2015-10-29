@@ -61,11 +61,15 @@ a:link, a:visited {
 header {
     height: 240px;
     overflow: hidden;
-    h1 {
+    a[rel="home"], h1 {
+        display: block;
         width: 224px;
         height: 120px;
         overflow: hidden;
         margin: 64px auto 0;
+    }
+    h1 {
+        margin: 0;
         text-indent: -9999px;
         background: url("logo.svg") no-repeat 50% 0;
     }

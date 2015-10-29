@@ -2,19 +2,22 @@
 <html lang="{{ site.lang }}">
 <head>
 <meta charset="utf-8">
-<title>{{ page.title }}</title>
+<title>{{ site.title }}</title>
 <meta name="description" content="{{ site.description }}">
 <meta name="keywords" content="{{ site.keywords | join: ', ' }}">
 <meta name="author" content="{{ site.author }}, {{ site.email }}">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
-<link rel="stylesheet" href="{{ "/css/style.css" | prepend: site.baseurl }}">
+<link rel="stylesheet" href="{{ "css/style.css" }}">
 {% unless site.host == "127.0.0.1" %}
+    {% assign homeUrl = site.ghpageUrl %}
+{% else unless %}
+    {% assign homeUrl = "/" %}
 {% endunless %}
 </head>
 <body>
     <header>
         <hgroup class="logo">
-            <a href="{{ site.url }}" rel="home">
+            <a href="{{ homeUrl }}" rel="home">
                 <h1>{{ site.title }}</h1>
             </a>
         </hgroup>
@@ -31,7 +34,7 @@
             {% assign codeUrl = site.projectUrl | append: "blob/master/" | append: uriFileName %}
             <li id="plugin-{{ index }}">
                 <div class="item-figure">
-                    <img class="item-image" src="/images/{{ imageFileName }}" alt="{{ title }}">
+                    <img class="item-image" src="images/{{ imageFileName }}" alt="{{ title }}">
                     <div class="item-links">
                         <a class="link-code" href="{{ codeUrl }}">View Code<i>&nbsp;</i></a>
                         <a class="link-download" href="{{ fileUrl }}">Download Plugin<i>&nbsp;</i></a>
@@ -61,12 +64,16 @@
                 <a href="http://weibo.com/ashung">Weibo</a>.
             </p>
         </div>
-        <div>
-            <big>🙇🏻💵💶💷👉😿🍽</big>
-            Paypal
-            Alipay
-            Webchat Pay
+        <!--
+        <div class="donate">
+            <p title="NEED MONEY FOR CAT FOOD" style="font-size:1.5em;">
+                🙇💵💶💷👉😿🍽
+            </p>
+            <p>Paypal</p>
+            <p>Alipay</p>
+            <p>Wechat Pay</p>
         </div>
+        -->
         <a class="ribbon" href="{{ site.projectUrl }}">Fork me on GitHub</a>
     </footer>
 </body>

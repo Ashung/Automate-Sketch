@@ -1,6 +1,8 @@
 title: Automate Sketch
+author: Ashung Hung
 email: Ashung.hung@foxmail.com
-description: Automate Sketch.
+keywords: [sketch, plugin, sketchplugin]
+description: "Automate Sketch is a collection of plugins for Bohemian Coding's Sketch.app."
 baseurl: ""
-url: ""
+ghpageUrl: "http://ashung.github.io/Automate-Sketch/"
 projectUrl: "https://github.com/Ashung/Automate-Sketch/"
