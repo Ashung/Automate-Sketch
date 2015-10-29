@@ -10,18 +10,19 @@ $lineheight: 1.5; // 24px
 $basefont: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
 
 $text_color: rgba(0, 0, 0, .8);
+$text_color_gray: rgba(0, 0, 0, .6);
 $text_color_dark: #000;
 $background: #fff;
-$highlight_color: #f00;
+$highlight_color: #f50;
 
 
 $breakpoint_small: 300px + 8px * 2;
 $breakpoint_medium: 600px + 8px * 2;
 $breakpoint_large: 600px * 2 + 16px * 3;
-$image_width: 600px; // 4:3
+$image_width: 600px;
 $image_height: 400px;
 $image_width_small: 300px;
-$image_height_small: 300px * 3 / 4;
+$image_height_small: 200px;
 
 @mixin media-max-width($width) {
     @media (max-width: $width) {
@@ -34,24 +35,27 @@ $image_height_small: 300px * 3 / 4;
     }
 }
 
-
-
-body, ul, p, figure {
+body {
     margin: 0;
     padding: 0;
-}
-body {
+    color: $text_color;
+    background: $background;
     text-align: center;
     overflow-x: hidden;
     font: #{$fontsize}/#{$lineheight} $basefont;
 }
 ul {
+    margin: 0;
+    padding: 0;
     list-style: none;
 }
-
 a:link, a:visited {
     color: $text_color_dark;
     text-decoration: underline;
+}
+::selection {
+    color: $background;
+    background: $highlight_color;
 }
 
 header {
@@ -95,7 +99,7 @@ header {
 }
 
 .plugins {
-    margin: auto;
+    margin: 0 auto 2.5rem;
     li {
         margin: 0 auto 1rem;
         width: $image_width;
@@ -106,13 +110,11 @@ header {
         width: $image_width;
         height: $image_height;
         overflow: hidden;
-        &:hover .item-links {
-            //visibility: visible;
+        border-radius: 5px;
+        box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
+        &:hover .item-links a {
             opacity: 1;
-            right: .5rem;
-            a.link-download {
-                margin-right: 0;
-            }
+            margin-right: 0;
         }
     }
     .item-image {
@@ -122,15 +124,9 @@ header {
         border-radius: 5px;
     }
     .item-links {
-        //visibility: hidden;
         position: absolute;
-        right: -10rem;
+        right: .5rem;
         bottom: 0;
-        opacity: 0;
-
-        transition: all 200ms cubic-bezier(0, 0, 0.4, 1.0);
-
-
         a {
             display: block;
             float: right;
@@ -138,26 +134,60 @@ header {
             height: 2.25rem;
             line-height: 2.25rem;
             font-size: 87.5%;
-            padding: 0 2.5rem 0 .6rem;
+            padding: 0 .5rem 0 .6rem;
             margin-bottom: .5rem;
             background-color: #FFAA00;
-            background-position: 100% 50%;
-            background-repeat: no-repeat;
             border-radius: 4px;
-
-
-
+            opacity: 0;
+            margin-right: -100px;
+            transition: all 200ms cubic-bezier(0, 0, 0.4, 1.0);
             &:link, &:visited {
                 color: #fff;
                 text-decoration: none;
             }
-            &.link-code {}
+            &:hover, &:active {
+                background-color: $highlight_color;
+            }
+            i {
+                display: block;
+                float: right;
+                width: 24px;
+                height: 24px;
+                margin: .375rem 0 .375rem .5rem;
+                background: url("icon_sprite.svg") no-repeat 0 0;
+            }
+            &.link-code {
+                i {
+                    background-position: 0 0;
+                }
+            }
             &.link-download {
-                //margin-top: 100px;
-                margin-right: -100px;
-                transition: all 200ms linear;
+                transition-delay: 100ms;
+                i {
+                    background-position: 0 -24px;
+                }
             }
         }
+    }
+    .item-title {
+        width: 100%;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
+
+footer {
+    width: $image_width;
+    margin: 0 auto 2.5rem;
+    .diver {
+        width: 200px;
+        height: 2px;
+        margin: 0 auto 2.5rem;
+        background: rgba(0, 0, 0, .2);
+    }
+    .author {
+        color: $text_color_gray;
     }
 }
 
@@ -174,12 +204,36 @@ header {
             height: $image_height_small;
         }
     }
-}
-
-@include media-min-width($breakpoint_medium) {
-
+    footer {
+        width: $image_width_small;
+        .diver {
+            width: 100px;
+        }
+    }
 }
 
 @include media-min-width($breakpoint_large) {
-
+    .plugins {
+        width: $image_width * 2 + 16px;
+        li {
+            float: left;
+            margin-right: 1rem;
+            &:nth-child(2n) {
+                margin-right: 0;
+            }
+        }
+        &:after {
+            content: ".";
+            display: block;
+            clear: both;
+            height: 0;
+            overflow: hidden;
+        }
+    }
+    footer {
+        width: $image_width * 2 + 16px;
+        .diver {
+            width: 400px;
+        }
+    }
 }
