@@ -1,62 +1,21 @@
+// (control option command t)
+// Copyright 2015 Ashung Hung.
+// Released under the MIT license.
 
-
-
-// https://medium.com/sketch-app-sources/sketch-plugin-snippets-for-plugin-developers-e9e1d2ab6827
 var doc = context.document;
-
-
-var title = 'Resize seletions to...';
-var items =  [1, 2, 3, 4];
-
-var accessory = [[NSComboBox alloc] initWithFrame:NSMakeRect(0,0,200,25)];
-                [accessory addItemsWithObjectValues:items];
-                [accessory selectItemAtIndex: 1];
-var alert = [[NSAlert alloc] init];
-            [alert setMessageText: "Change typeface for the ISO 8859-1 (Latin 1) character set."];
-            [alert setInformativeText: "xxx"]
-            [alert addButtonWithTitle: "OK"];
-            [alert addButtonWithTitle: "Cancel"];
-            [alert setAccessoryView: accessory];
-var responseCode = [alert runModal];
-    // var sel = [accessory indexOfSelectedItem];
-    // // Press button OK
-    // if(responseCode == 1000) {
-    //     return sel;
-    // } else {
-    //     return null;
-    // }
-
-
-//
-// var typefaces = [
-//     {
-//         "title" : "iOS 9 SF UI < 20pt",
-//         "en"    : "SFUIText-Regular",
-//         "cjk"   : "NotoSansCJKsc-Light"
-//     },
-//     {
-//         "title" : "iOS 9 SF UI Display >= 20pt",
-//         "en"    : "SFUIDisplay-Regular",
-//         "cjk"   : "PingFangSC-Regular, PingFangHK-Regular, PingFangTC-Regular"
-//     },
-//     {"title" : "Android ", "en" : "Roboto-Thin", "cjk" : "NotoSansCJKsc-Light"},
-//     {"title" : "Android ", "en" : "Roboto-Light", "cjk" : "NotoSansCJKsc-Light"},
-//     {"title" : "Android ", "en" : "Roboto-Regular", "cjk" : "NotoSansCJKsc-Light"},
-//     {"title" : "Android ", "en" : "Roboto-Medium", "cjk" : "NotoSansCJKsc-Light"},
-//     {"title" : "Android ", "en" : "Roboto-Bold", "cjk" : "NotoSansCJKsc-Light"},
-//     {"title" : "Android ", "en" : "Roboto-Black", "cjk" : "NotoSansCJKsc-Light"}
-//
-// ];
-
-// [doc askForUserInput:"Size (w,h pair)" initialValue:1];
-
-
-
 
 // https://en.wikipedia.org/wiki/Basic_Latin_(Unicode_block)
 // https://en.wikipedia.org/wiki/ISO/IEC_8859-1
 var reg_latin_1 = /[\u0020-\u00FF]+/g;
 
+var dialog = {
+    "title" : "Change typeface for the ISO 8859-1 (Latin 1) character set.",
+    "message" : "Use the PostScript name of font. \n" +
+                "PostScript name can be finded in \"Applications\" - \"FontBook.app\".\n" +
+                "Roboto-Regular, HelveticaNeue, SFUIDisplay-Regular",
+    "ok" : "OK",
+    "cancel" : "Cancel"
+};
 
 if(selection.count() > 0) {
     var hasTextLayer = false;
@@ -65,34 +24,43 @@ if(selection.count() > 0) {
         if(selection[i].className() == "MSTextLayer") {
             hasTextLayer = true;
 
-            var textLayer = selection[i];
-            var textSize = textLayer.fontSize();
-            var textString = textLayer.stringValue();
-            var textFont = [NSFont fontWithName:@"ArialMT" size: textSize];
+            var accessory = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0,250,24)];
+            var alert = [[NSAlert alloc] init];
+                [alert setMessageText: dialog.title];
+                [alert setInformativeText: dialog.message];
+                [alert addButtonWithTitle: dialog.ok];
+                [alert addButtonWithTitle: dialog.cancel];
+                [alert setAccessoryView: accessory];
+            var responseCode = [alert runModal];
+            var postScriptName = [accessory stringValue];
 
-            log(textString);
-
-            var match;
-            while(match = reg_latin_1.exec(textString)) {
-                log(match[0] + ' >>>> range(' + match.index + ', ' + (match.index + match[0].length) + ')');
-                var range = NSMakeRange(match.index, match[0].length);
-                textLayer.setIsEditingText(true);
-                textLayer.addAttribute_value_forRange(NSFontAttributeName, textFont, range);
-                textLayer.setIsEditingText(false);
+            if(responseCode == 1000) {
+                if(postScriptName != "") {
+                    var textLayer = selection[i];
+                    var textSize = textLayer.fontSize();
+                    var textString = textLayer.stringValue();
+                    var textFont = [NSFont fontWithName:@""+postScriptName size: textSize];
+                    // log(textString);
+                    var match;
+                    while(match = reg_latin_1.exec(textString)) {
+                        // log(match[0] + ' >>>> range(' + match.index + ', ' + (match.index + match[0].length) + ')');
+                        var range = NSMakeRange(match.index, match[0].length);
+                        textLayer.setIsEditingText(true);
+                        textLayer.addAttribute_value_forRange(NSFontAttributeName, textFont, range);
+                        textLayer.setIsEditingText(false);
+                    }
+                } else {
+                    doc.showMessage("Please enter the PostScript name.");
+                }
             }
 
         }
     }
 
     if(hasTextLayer == false) {
-        showMsg();
+        doc.showMessage("Please select a text layer.");
     }
 
 } else {
-    showMsg();
-}
-
-function showMsg() {
-    var doc = context.document;
-        doc.showMessage("Please select the text layer.");
+    doc.showMessage("Please select a text layer.");
 }
