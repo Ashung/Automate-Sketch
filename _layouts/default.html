@@ -9,9 +9,18 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 <link rel="stylesheet" href="{{ "css/style.css" }}">
 {% unless site.host == "127.0.0.1" %}
-    {% assign homeUrl = site.ghpageUrl %}
+{% assign homeUrl = site.ghpageUrl %}
+<script>
+    var _hmt = _hmt || [];
+    (function() {
+        var hm = document.createElement("script");
+        hm.src = "//hm.baidu.com/hm.js?776d4b84501659ee9df066260e5bd1a0";
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(hm, s);
+    })();
+</script>
 {% else unless %}
-    {% assign homeUrl = "/" %}
+{% assign homeUrl = "/" %}
 {% endunless %}
 </head>
 <body>
