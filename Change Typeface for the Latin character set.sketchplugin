@@ -23,42 +23,46 @@ if(selection.count() > 0) {
     for(var i = 0; i < selection.count(); i ++) {
         if(selection[i].className() == "MSTextLayer") {
             hasTextLayer = true;
-
-            var accessory = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0,250,24)];
-            var alert = [[NSAlert alloc] init];
-                [alert setMessageText: dialog.title];
-                [alert setInformativeText: dialog.message];
-                [alert addButtonWithTitle: dialog.ok];
-                [alert addButtonWithTitle: dialog.cancel];
-                [alert setAccessoryView: accessory];
-            var responseCode = [alert runModal];
-            var postScriptName = [accessory stringValue];
-
-            if(responseCode == 1000) {
-                if(postScriptName != "") {
-                    var textLayer = selection[i];
-                    var textSize = textLayer.fontSize();
-                    var textString = textLayer.stringValue();
-                    var textFont = [NSFont fontWithName:@""+postScriptName size: textSize];
-                    // log(textString);
-                    var match;
-                    while(match = reg_latin_1.exec(textString)) {
-                        // log(match[0] + ' >>>> range(' + match.index + ', ' + (match.index + match[0].length) + ')');
-                        var range = NSMakeRange(match.index, match[0].length);
-                        textLayer.setIsEditingText(true);
-                        textLayer.addAttribute_value_forRange(NSFontAttributeName, textFont, range);
-                        textLayer.setIsEditingText(false);
-                    }
-                } else {
-                    doc.showMessage("Please enter the PostScript name.");
-                }
-            }
-
         }
     }
 
-    if(hasTextLayer == false) {
-        doc.showMessage("Please select a text layer.");
+    if(hasTextLayer == true) {
+        var accessory = [[NSTextField alloc] initWithFrame:NSMakeRect(0,0,250,24)];
+        var alert = [[NSAlert alloc] init];
+            [alert setMessageText: dialog.title];
+            [alert setInformativeText: dialog.message];
+            [alert addButtonWithTitle: dialog.ok];
+            [alert addButtonWithTitle: dialog.cancel];
+            [alert setAccessoryView: accessory];
+        var responseCode = [alert runModal];
+        var postScriptName = [accessory stringValue];
+
+        if(responseCode == 1000) {
+            if(postScriptName != "") {
+                for(var i = 0; i < selection.count(); i ++) {
+                    if(selection[i].className() == "MSTextLayer") {
+                        var textLayer = selection[i];
+                        var textSize = textLayer.fontSize();
+                        var textString = textLayer.stringValue();
+                        var textFont = [NSFont fontWithName:@""+postScriptName size: textSize];
+                        // log(textString);
+                        var match;
+                        while(match = reg_latin_1.exec(textString)) {
+                            // log(match[0] + ' >>>> range(' + match.index + ', ' + (match.index + match[0].length) + ')');
+                            var range = NSMakeRange(match.index, match[0].length);
+                            textLayer.setIsEditingText(true);
+                            textLayer.addAttribute_value_forRange(NSFontAttributeName, textFont, range);
+                            textLayer.setIsEditingText(false);
+                        }
+                    }
+                }
+            } else {
+                doc.showMessage("Please enter the PostScript name.");
+            }
+        }
+
+    } else {
+        doc.showMessage("Your selection have no include a text layer.");
     }
 
 } else {
