@@ -1,0 +1,52 @@
+
+
+
+
+// https://github.com/zizhengwu/text-autospace.js/blob/master/text-autospace.js
+// https://github.com/vinta/paranoid-auto-spacing/blob/master/src/pangu.js
+// https://github.com/huei90/pangu.node/blob/master/pangunode.js
+
+var doc = context.document;
+var unicode = {
+    "latin" : "\u0020-\u2C7F",
+    "cjk_punctuation" : "\u2E00-\u2E7F\u3000-\u303F",
+    "cjk" : "\u2E80-\u2FDF\u3040-\u9FFF"
+};
+
+
+//
+if(selection.count() > 0) {
+
+    var textLayer = selection[0];
+    var text = textLayer.stringValue();
+
+    // doc.showMessage(text);
+    formatText(textLayer);
+
+
+
+
+
+//
+//     for(var i = 0; i < selection.count(); i ++) {
+//         if(selection[i].className() == "MSTextLayer") {
+//             hasTextLayer = true;
+//         }
+//     }
+//
+// } else {
+//     doc.showMessage("Please select 2 layers or groups.");
+}
+
+function formatText(textLayer) {
+    var oldText = textLayer.stringValue();
+
+
+    var newText = oldText.replace(/(\d)(\d)/g, "$1 $2");
+    textLayer.setStringValue(newText);
+    textLayer.setName(newText);
+
+    // Refresh textLayer
+    textLayer.setIsVisible(false);
+    textLayer.setIsVisible(true);
+}

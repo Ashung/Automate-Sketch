@@ -1,0 +1,65 @@
+
+
+// https://github.com/maundytime/sketch-9patch/blob/0fde76697f527c9c83aae05407da9b501a9f8894/library/common.js
+// http://shields.io/
+//
+//
+//
+
+
+var doc = context.document;
+
+if(selection.count() > 0) {
+
+    var layer = selection[0];
+
+    var x = layer.frame().x(),
+        y = layer.frame().y(),
+        w = layer.frame().width(),
+        h = layer.frame().height();
+
+
+        // doc.showMessage(x + "-" + y + "-" + w + "-" + h);
+        //
+        // var color = MSColor.blackColor();
+        //
+
+doc.showMessage(layer instanceof MSLayer);
+//layer.className()
+        // if(layer.className() == "MSLayerGroup") {
+        //     doc.showMessage("xxxx");
+        // }
+        //
+        // if(layer instanceof "MSLayer") {
+        //     doc.showMessage("lll");
+        // }
+
+
+
+// doc.showMessage(layer.parentGroup().name());
+
+
+        // var boundlayer = layer.addLayerOfType("rectangle");
+        //     boundlayer.frame().setX(x);
+        //     boundlayer.frame().setY(y);
+        //     boundlayer.frame().setWidth(w);
+        //     boundlayer.frame().setHeight(h);
+        //     // boundlayer.style.fill.setColor(color);
+        //     boundlayer.setName("bound");
+        //     [[[boundlayer style] fills] addNewStylePart];
+        //     [[[boundlayer style] fill] setColor: color];
+        //
+        //
+
+
+
+//
+//     for(var i = 0; i < selection.count(); i ++) {
+//         if(selection[i].className() == "MSTextLayer") {
+//             hasTextLayer = true;
+//         }
+//     }
+//
+// } else {
+//     doc.showMessage("Please select 2 layers or groups.");
+}
