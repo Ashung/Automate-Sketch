@@ -4,7 +4,7 @@
 if([selection count] > 0) {
 
     var doc = context.document;
-    // t: top, r: right, l: left, b: bottom, w: width; h: heigth
+    // t: top, r: right, l: left, b: bottom, w: width; h: height
     var x = 0,
         y = 0,
         t = 0,
