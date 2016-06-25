@@ -1,0 +1,22 @@
+// Copyright 2016 Ashung Hung.
+// Released under the MIT license.
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if(selection.count() == 2) {
+        var x1 = selection[0].absoluteRect().x();
+        var y1 = selection[0].absoluteRect().y();
+        var x2 = selection[1].absoluteRect().x();
+        var y2 = selection[1].absoluteRect().y();
+            selection[0].absoluteRect().x = x2;
+            selection[0].absoluteRect().y = y2;
+            selection[1].absoluteRect().x = x1;
+            selection[1].absoluteRect().y = y1;
+    } else {
+        doc.showMessage("Please select 2 layers/groups.");
+    }
+
+}

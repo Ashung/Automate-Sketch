@@ -1,0 +1,39 @@
+// Copyright 2016 Ashung Hung.
+// Released under the MIT license.
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var selectionCount = selection.count();
+    var page = doc.currentPage();
+        page.deselectAllLayers();
+
+    if(selectionCount > 0) {
+        var haveSelectedLayerGroup = false;
+        for(var i = 0; i < selectionCount; i ++) {
+            // log([[selection objectAtIndex:i] className]);
+            // log(selection[i].className());
+            var selected = selection[i];
+            if(selected.className() == "MSLayerGroup" ||
+                selected.className() == "MSArtboardGroup") {
+                // log(selection[i].name() + " -> " + selection[i].className());
+
+                haveSelectedLayerGroup = true;
+
+                var layers = selected.children();
+                for(var j = 0; j < layers.count(); j++) {
+                    var layer = layers[j];
+                    if(layer.className() == "MSSliceLayer") {
+                        layer.select_byExpandingSelection(true, true);
+                    }
+                }
+            }
+        }
+        if(haveSelectedLayerGroup == false) {
+            doc.showMessage("Please select at least 1 Group or Artboard.");
+        }
+    } else {
+        doc.showMessage("Please select at least 1 Group or Artboard.");
+    }
+}

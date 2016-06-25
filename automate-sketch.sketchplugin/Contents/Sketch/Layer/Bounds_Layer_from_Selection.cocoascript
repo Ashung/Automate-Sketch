@@ -1,0 +1,71 @@
+// Copyright 2016 Ashung Hung.
+// Released under the MIT license.
+
+var onRun = function(context) {
+
+    var boundLayerName = "#";
+    var boundLayerFillColor = "#000000";
+    var boundLayerAlpha = 20; // [0-100]
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    var red = parseInt(boundLayerFillColor.substr(1, 2), 16),
+        green = parseInt(boundLayerFillColor.substr(3, 2), 16),
+        blue = parseInt(boundLayerFillColor.substr(5, 2), 16),
+        alpha = boundLayerAlpha / 100;
+
+    if(selection.count() == 0) {
+        doc.showMessage("Please select 1 layer.");
+    } else {
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+
+            // var color = MSColor.blackColor();
+            //     color.setAlpha(0.2);
+            var color = MSColor.alloc().init();
+                color.setRed(red);
+                color.setGreen(green);
+                color.setBlue(blue);
+                color.setAlpha(alpha);
+
+            var x = Math.round(layer.frame().x()),
+                y = Math.round(layer.frame().y()),
+                w = Math.round(layer.frame().width()),
+                h = Math.round(layer.frame().height());
+
+            // log("x:" + x + ",y=" + y + ",w=" + w + ",h=" + h);
+
+            doc.currentPage().deselectAllLayers();
+
+            if(/^(MSShapeGroup|MSBitmapLayer|MSTextLayer|MSSliceLayer)$/.test(layer.className())) {
+                // TODO: addLayerOfType
+                var boundlayer = layer.parentGroup().addLayerOfType("rectangle");
+                    boundlayer.frame().setX(x);
+                    boundlayer.frame().setY(y);
+            }
+
+            if(/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
+                var boundlayer = layer.addLayerOfType("rectangle");
+                    boundlayer.frame().setX(0);
+                    boundlayer.frame().setY(0);
+            }
+
+            boundlayer.frame().setWidth(w);
+            boundlayer.frame().setHeight(h);
+            boundlayer.setName(boundLayerName);
+
+            // layer.style().addStylePartOfType(0) // To add a new fill
+            // layer.style().addStylePartOfType(1) // To add a new border
+            // layer.style().addStylePartOfType(2) // To add a new shadow
+            // layer.style().addStylePartOfType(3) // To add a new inner shadow
+            boundlayer.style().addStylePartOfType(0);
+            boundlayer.style().fill().setColor(color);
+            boundlayer.select_byExpandingSelection(true, true);
+
+            // Move To Back
+            [NSApp sendAction:"moveToBack:" to:nil from:doc];
+
+        }
+    }
+}

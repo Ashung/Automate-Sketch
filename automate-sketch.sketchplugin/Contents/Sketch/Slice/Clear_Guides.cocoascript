@@ -1,0 +1,51 @@
+// Copyright 2016 Ashung Hung.
+// Released under the MIT license.
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    if(page.currentArtboard()) {
+        clear_guides(
+            page.currentArtboard()
+        );
+    } else {
+        clear_guides(
+            page
+        );
+    }
+
+    var loop = selection.objectEnumerator();
+    while (select = loop.nextObject()) {
+        if(select.className() == "MSArtboardGroup") {
+            page.setCurrentArtboard(select);
+            clear_guides(
+                page.currentArtboard()
+            );
+            // log(page.currentArtboard());
+        } else if(select.parentGroup().className() == "MSPage")) {
+            clear_guides(
+                page
+            );
+            // log(select.parentGroup());
+        }
+    }
+
+}
+
+function clear_guides(target) {
+    var horRulerData = target.horizontalRulerData();
+    var verRulerData = target.verticalRulerData();
+    var horGuides = horRulerData.numberOfGuides();
+    var verGuides = verRulerData.numberOfGuides();
+    // Clear All Horizontal Guides
+    for(var x = 0; x < horGuides; x++) {
+        horRulerData.removeGuideAtIndex(0);
+    }
+    // Clear All Vertical Guides
+    for(var y = 0; y < verGuides; y++) {
+        verRulerData.removeGuideAtIndex(0);
+    }
+}

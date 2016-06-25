@@ -1,0 +1,17 @@
+// Copyright 2016 Ashung Hung.
+// Released under the MIT license.
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+        page.deselectAllLayers();
+
+    var exportableLayers = page.exportableLayers();
+    for(var i = 0; i < exportableLayers.count(); i++) {
+        var layer = exportableLayers[i];
+        if(layer.className() == "MSSliceLayer") {
+            layer.select_byExpandingSelection(true, true);
+        }
+    }
+}

@@ -1,0 +1,87 @@
+{
+    "name": "Automate Sketch",
+    "description": "Plugins for Bohemian Coding’s Sketch",
+    "author": "Ashung Hung",
+    "email": "Ashung.hung@gmail.com",
+    "homepage": "https://github.com/Ashung/Automate-Sketch",
+    "version": 0.1,
+    "identifier": "com.github.ashung.automate-sketch",
+    "compatibleVersion": 3,
+    "bundleVersion": 1,
+    "commands": [
+        {
+            "name": "Change Places Between Two Layers",
+            "identifier": "change_layer_places",
+            "script": "Layer/Change_Places.cocoascript"
+        },
+        {
+            "name": "Bounds Layer from Selection",
+            "identifier": "layer_bounds",
+            "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
+        },
+        {
+            "name": "Clean Layer Name",
+            "identifier": "clean_layer_name",
+            "shortcut": "option command l",
+            "script": "Layer/Clean_Layer_Name.cocoascript"
+        },
+
+        {
+            "name": "New Layer Base Slice",
+            "identifier": "new_layer_base_slice",
+            "shortcut": "control option command s",
+            "script": "Slice/New_Layer_Base_Slice.cocoascript"
+        },
+        {
+            "name": "Select All Slices",
+            "identifier": "select_all_slices",
+            "script": "Slice/Select_All_Slices.cocoascript"
+        },
+        {
+            "name": "Select Slices In Selected Group/Artboard",
+            "identifier": "select_slices_in_selected_group_or_artboard",
+            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
+        },
+        {
+            "name": "Select Slices In Group",
+            "identifier": "select_slices_in_group",
+            "script": "Slice/Select_Slices_In_Group.cocoascript"
+        },
+
+
+        {
+            "name": "Clear Slices",
+            "identifier": "clear_slices",
+            "script": "Slice/Clear_Slices.cocoascript"
+        },
+        {
+            "name": "Clear Guides",
+            "identifier": "clear_guides",
+            "script": "Slice/Clear_Guides.cocoascript"
+        }
+    ],
+    "menu": {
+        "isRoot": false,
+        "items": [
+            {
+                "title": "Layer",
+                "items": [
+                    "change_layer_places",
+                    "layer_bounds",
+                    "clean_layer_name"
+                ]
+            },
+            {
+                "title": "Slice",
+                "items": [
+                    "new_layer_base_slice",
+                    "select_all_slices",
+                    "select_slices_in_selected_group_or_artboard",
+                    "select_slices_in_group",
+                    "clear_slices",
+                    "clear_guides"
+                ]
+            }
+        ]
+    }
+}
