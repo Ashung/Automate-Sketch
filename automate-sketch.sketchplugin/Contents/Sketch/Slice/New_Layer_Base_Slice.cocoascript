@@ -9,39 +9,43 @@ var onRun = function(context) {
     if(selection.count() > 0) {
         for(var i = 0; i < selection.count(); i ++) {
             var layer = context.selection[i];
-            var width = layer.absoluteRect().width(),
-                height= layer.absoluteRect().height(),
+            var posX = layer.frame().x(),
+                posY = layer.frame().y(),
+                width = layer.frame().width(),
+                height= layer.frame().height(),
                 name = layer.name();
 
-            log("Slice : { width : " + width + ", height : " + height + ", name : " + name + "}");
+            log(
+                "x=" + posX + ", " +
+                "y=" + posY + ", " +
+                "width=" + width + ", " +
+                "height=" + height + ", " +
+                "name=" + name
+            );
 
-            // newLayerBaseSlice(width, height, name, layer);
+            var slice = MSSliceLayer.new();
+                slice.frame().setWidth(width);
+                slice.frame().setHeight(height);
+                slice.setName(name);
 
-            var slice = [MSSliceLayer new];
-            [[slice frame] setX: 0];
-            [[slice frame] setY: 0];
-            [[slice frame] setWidth: width];
-            [[slice frame] setHeight: height];
-            [slice setName: name];
-            // [layer addSlice: slice];
+            if(/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
+                slice.frame().setX(0);
+                slice.frame().setY(0);
+                layer.addLayers([slice]);
 
-                    // TODO: slice in Combined Shape
+                // Move slice to bottom
+                slice.select_byExpandingSelection(true, false);
+                [NSApp sendAction:"moveToBack:" to:nil from:doc];
+            }
 
-            // Insert slice into page
-            //[[doc currentPage] addLayers:sliceLayer];
-            layer.addLayers([slice]);
-
-            // Move slice to bottom
-            slice.select_byExpandingSelection(true,false);
-
-            [NSApp sendAction:"moveToBack:" to:nil from:doc];
+            if(/^(MSShapeGroup|MSBitmapLayer|MSTextLayer|MSSliceLayer)$/.test(layer.className())) {
+                slice.frame().setX(posX);
+                slice.frame().setY(posY);
+                layer.parentGroup().addLayers([slice]);
+            }
 
         }
     } else {
         doc.showMessage("Please select at least 1 layer or group.");
     }
-}
-
-function newLayerBaseSlice(width, height, name, layer) {
-
 }

@@ -1,48 +1,56 @@
-// Copyright 2015 Ashung Hung.
+// Copyright 2016 Ashung Hung.
 // Released under the MIT license.
 
-var doc = context.document;
-var hasTextLayer = false;
+var onRun = function(context) {
 
-if(selection.count() > 0) {
-    var loop = selection.objectEnumerator();
-    while (layer = loop.nextObject()) {
-        if(layer.className() == "MSTextLayer") {
-            hasTextLayer = true;
-            addSpace(layer);
+    var doc = context.document;
+    var selection = context.selection;
+
+    var hasTextLayer = false;
+
+    if(selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            if(layer.className() == "MSTextLayer") {
+                hasTextLayer = true;
+                addSpace(layer);
+            }
+        }
+    } else {
+        var allLayers = doc.currentPage().children();
+        for(var i = 0; i < allLayers.count(); i++) {
+            if(allLayers[i].className() == "MSTextLayer") {
+                hasTextLayer = true;
+                addSpace(allLayers[i]);
+            }
         }
     }
-} else {
-    var allLayers = doc.currentPage().children()
-    for(var i = 0; i < allLayers.count(); i++) {
-        if(allLayers[i].className() == "MSTextLayer") {
-            hasTextLayer = true;
-            addSpace(allLayers[i]);
-        }
+
+    if(!hasTextLayer) {
+        doc.showMessage("Do not have any text layer.");
     }
-}
 
-if(!hasTextLayer) {
-    doc.showMessage("Do not have any text layer.");
-}
+    function addSpace(textlayer) {
+        // http://unicode-table.com/
+        var unicode = {
+            "latin" : "[\u0021-\u2C7F]",
+            "cjk_punctuation" : "[\u2E00-\u2E7F\u3000-\u303F]",
+            "cjk" : "[\u2E80-\u2FDF\u3040-\u9FFF]"
+        };
 
-function addSpace(textlayer) {
-    // http://unicode-table.com/
-    var unicode = {
-        "latin" : "[\u0021-\u2C7F]",
-        "cjk_punctuation" : "[\u2E00-\u2E7F\u3000-\u303F]",
-        "cjk" : "[\u2E80-\u2FDF\u3040-\u9FFF]"
-    };
+        var text = textlayer.stringValue();
+            text = text.replace(new RegExp("(" + unicode.cjk + ")(" + unicode.latin + ")", "g"), "$1 $2");
+            text = text.replace(new RegExp("(" + unicode.latin + ")(" + unicode.cjk + ")", "g"), "$1 $2");
 
-    var text = textlayer.stringValue();
+        textlayer.setStringValue(text);
 
-    text = text.replace(new RegExp("(" + unicode.cjk + ")(" + unicode.latin + ")", "g"), "$1 $2");
-    text = text.replace(new RegExp("(" + unicode.latin + ")(" + unicode.cjk + ")", "g"), "$1 $2");
+        // Refresh textLayer
+        // textlayer.setIsVisible(false);
+        // textlayer.setIsVisible(true);
+        // TODO: no work
+        [textlayer setIsEditingText: true];
+        [textlayer setIsEditingText: false];
 
-    textlayer.setStringValue(text);
-    textlayer.setName(text);
+    }
 
-    // Refresh textLayer
-    textlayer.setIsVisible(false);
-    textlayer.setIsVisible(true);
 }

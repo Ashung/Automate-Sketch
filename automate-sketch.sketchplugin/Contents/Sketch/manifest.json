@@ -47,8 +47,6 @@
             "identifier": "select_slices_in_group",
             "script": "Slice/Select_Slices_In_Group.cocoascript"
         },
-
-
         {
             "name": "Clear Slices",
             "identifier": "clear_slices",
@@ -58,7 +56,30 @@
             "name": "Clear Guides",
             "identifier": "clear_guides",
             "script": "Slice/Clear_Guides.cocoascript"
+        },
+
+        {
+            "name": "Artboard Form Group",
+            "identifier": "artboard_form_group",
+            "script": "Artboard/Artboard_Form_Group.cocoascript"
+        },
+        {
+            "name": "Artboard Form Layers",
+            "identifier": "artboard_form_layers",
+            "script": "Artboard/Artboard_Form_Layers.cocoascript"
+        },
+
+        {
+            "name": "Change Typeface for Latin Character",
+            "identifier": "change_typeface_for_the_latin_character_set",
+            "script": "Font/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
+        },
+        {
+            "name": "Add Space Between CJK and Latin Character",
+            "identifier": "add_space_between_cjk_and_western_character",
+            "script": "Font/Add_Space_Between_CJK_and_Western_Character.cocoascript"
         }
+
     ],
     "menu": {
         "isRoot": false,
@@ -72,6 +93,13 @@
                 ]
             },
             {
+                "title": "Font",
+                "items": [
+                    "change_typeface_for_the_latin_character_set",
+                    "add_space_between_cjk_and_western_character"
+                ]
+            },
+            {
                 "title": "Slice",
                 "items": [
                     "new_layer_base_slice",
@@ -81,7 +109,15 @@
                     "clear_slices",
                     "clear_guides"
                 ]
+            },
+            {
+                "title": "Artboard",
+                "items": [
+                    "artboard_form_group",
+                    "artboard_form_layers"
+                ]
             }
+
         ]
     }
 }
