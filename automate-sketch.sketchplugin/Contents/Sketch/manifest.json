@@ -72,6 +72,7 @@
         {
             "name": "Change Typeface for Latin Character",
             "identifier": "change_typeface_for_the_latin_character_set",
+            "shortcut": "control option command t",
             "script": "Font/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
         },
         {

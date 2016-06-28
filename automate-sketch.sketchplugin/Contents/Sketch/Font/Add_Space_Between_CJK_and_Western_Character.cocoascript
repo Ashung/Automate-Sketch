@@ -31,6 +31,7 @@ var onRun = function(context) {
     }
 
     function addSpace(textlayer) {
+
         // http://unicode-table.com/
         var unicode = {
             "latin" : "[\u0021-\u2C7F]",
@@ -45,11 +46,7 @@ var onRun = function(context) {
         textlayer.setStringValue(text);
 
         // Refresh textLayer
-        // textlayer.setIsVisible(false);
-        // textlayer.setIsVisible(true);
-        // TODO: no work
-        [textlayer setIsEditingText: true];
-        [textlayer setIsEditingText: false];
+        textlayer.adjustFrameToFit();
 
     }
 
