@@ -8,6 +8,18 @@
 <meta name="author" content="{{ site.author }}, {{ site.email }}">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
 <link rel="stylesheet" href="{{ "css/style.css" }}">
+<script>
+    function foo(response) {
+        var data = response.data;
+        var star = data.stargazers_count;
+        if(star) {
+            document.getElementById("project-star").innerHTML = star;
+        }
+    }
+    var script = document.createElement('script');
+    script.src = 'https://api.github.com/repos/Ashung/Automate-Sketch?callback=foo';
+    document.getElementsByTagName('head')[0].appendChild(script);
+</script>
 {% unless site.host == "127.0.0.1" %}
 {% assign homeUrl = site.ghpageUrl %}
 <script>
@@ -29,6 +41,14 @@
             <a href="{{ homeUrl }}" rel="home">
                 <h1>{{ site.title }}</h1>
             </a>
+            <p class="porject-badge">
+                <span class="star">
+                    <i>&nbsp;</i>Star <span id="project-star">0</span>
+                </span>
+                <a class="download" href="https://github.com/Ashung/Automate-Sketch/archive/master.zip">
+                    <i>&nbsp;</i>Download
+                </a>
+            </p>
         </hgroup>
     </header>
     <section>
@@ -37,16 +57,15 @@
             {% assign count = forloop.length %}
             {% assign index = forloop.index %}
             {% assign title = plugin.title %}
-            {% assign uriFileName =  plugin.title | uri_escape | append: ".sketchplugin" %}
+            {% assign code = plugin.code %}
             {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
-            {% assign fileUrl = site.projectUrl | append: "raw/master/" | append: uriFileName %}
-            {% assign codeUrl = site.projectUrl | append: "blob/master/" | append: uriFileName %}
+            {% assign codeUrl = site.projectUrl | append: "tree/master/automate-sketch.sketchplugin/Contents/Sketch/" | append: code %}
             <li id="plugin-{{ index }}">
                 <div class="item-figure">
                     <img class="item-image" src="images/{{ imageFileName }}" alt="{{ title }}">
                     <div class="item-links">
                         <a class="link-code" href="{{ codeUrl }}">View Code<i>&nbsp;</i></a>
-                        <a class="link-download" href="{{ fileUrl }}">Download Plugin<i>&nbsp;</i></a>
+                        <!--<a class="link-download" href="{{ fileUrl }}">Download Plugin<i>&nbsp;</i></a>-->
                     </div>
                 </div>
                 <div class="item-title">
@@ -63,7 +82,7 @@
                 I'm Ashung Hung, a UI designer, web front-end and a Buddhist, who live in Shenzhen China with my lover and 3 cats.
             </p>
             <p>
-                I'm a beginer in Sketch plugin development. Automate Sketch is my collection of plugins for Bohemian Coding's Sketch.app. All plugin released under the MIT license.
+                Automate Sketch plugin released under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International License (CC-BY-SA 4.0)</a>.
             </p>
             <p>
                 Follow me on
@@ -71,18 +90,11 @@
                 <a href="https://dribbble.com/ashung">Dribbble</a>,
                 <a href="https://behance.net/ashung">Behance</a>,
                 <a href="http://weibo.com/ashung">Weibo</a>.
+                Donate via
+                <a href="http://ashung.github.io/assets/img/wechat_rmb_2.png" target="_blank">Wechat</a>,
+                <a href="http://ashung.github.io/assets/img/alipay_rmb_2.png" target="_blank">Alipay</a>.
             </p>
         </div>
-        <!--
-        <div class="donate">
-            <p title="NEED MONEY FOR CAT FOOD" style="font-size:1.5em;">
-                🙇💵💶💷👉😿🍽
-            </p>
-            <p>Paypal</p>
-            <p>Alipay</p>
-            <p>Wechat Pay</p>
-        </div>
-        -->
         <a class="ribbon" href="{{ site.projectUrl }}">Fork me on GitHub</a>
     </footer>
 </body>
