@@ -1,5 +1,13 @@
-// Copyright 2016 Ashung Hung.
-// Released under the MIT license.
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+description:
+version: 2016.2.0629
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
 
 var onRun = function(context) {
 
@@ -15,7 +23,7 @@ var onRun = function(context) {
         blue = parseInt(boundLayerFillColor.substr(5, 2), 16),
         alpha = boundLayerAlpha / 100;
 
-    if(selection.count() == 0) {
+    if (selection.count() == 0) {
         doc.showMessage("Please select 1 layer.");
     } else {
         var loop = selection.objectEnumerator();
@@ -45,7 +53,7 @@ var onRun = function(context) {
                     boundlayer.frame().setY(y);
             }
 
-            if(/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
+            if (/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
                 var boundlayer = layer.addLayerOfType("rectangle");
                     boundlayer.frame().setX(0);
                     boundlayer.frame().setY(0);

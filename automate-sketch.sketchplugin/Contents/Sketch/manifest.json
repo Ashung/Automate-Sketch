@@ -25,6 +25,11 @@
             "shortcut": "option command l",
             "script": "Layer/Clean_Layer_Name.cocoascript"
         },
+        {
+            "name": "Tile Layers Horizontally",
+            "identifier": "tile_layers_horizontally",
+            "script": "Layer/Tile_Layers_Horizontally.cocoascript"
+        },
 
         {
             "name": "New Layer Base Slice",
@@ -89,6 +94,7 @@
                 "title": "Layer",
                 "items": [
                     "change_layer_places",
+                    "tile_layers_horizontally",
                     "layer_bounds",
                     "clean_layer_name"
                 ]
