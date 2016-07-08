@@ -39,11 +39,8 @@ var onRun = function(context) {
             if(/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
                 slice.frame().setX(0);
                 slice.frame().setY(0);
+                //slice.exportOptions().groupContentsOnlyAction();
                 layer.addLayers([slice]);
-
-                // Move slice to bottom
-                slice.select_byExpandingSelection(true, false);
-                [NSApp sendAction:"moveToBack:" to:nil from:doc];
             }
 
             if(/^(MSShapeGroup|MSBitmapLayer|MSTextLayer|MSSliceLayer)$/.test(layer.className())) {
@@ -51,6 +48,10 @@ var onRun = function(context) {
                 slice.frame().setY(posY);
                 layer.parentGroup().addLayers([slice]);
             }
+
+            // Move slice to bottom
+            slice.select_byExpandingSelection(true, false);
+            [NSApp sendAction:"moveToBack:" to:nil from:doc];
 
         }
     } else {
