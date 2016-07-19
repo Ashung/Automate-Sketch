@@ -15,6 +15,11 @@
             "script": "Layer/Change_Places.cocoascript"
         },
         {
+            "name": "Change Places Between Two Layers (center)",
+            "identifier": "change_layer_places_center",
+            "script": "Layer/Change_Places_Center.cocoascript"
+        },
+        {
             "name": "Bounds Layer from Selection",
             "identifier": "layer_bounds",
             "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
@@ -29,6 +34,11 @@
             "name": "Tile Layers Horizontally",
             "identifier": "tile_layers_horizontally",
             "script": "Layer/Tile_Layers_Horizontally.cocoascript"
+        },
+        {
+            "name": "Tile Layers Vertically",
+            "identifier": "tile_layers_vertically",
+            "script": "Layer/Tile_Layers_Vertically.cocoascript"
         },
 
         {
@@ -94,7 +104,9 @@
                 "title": "Layer",
                 "items": [
                     "change_layer_places",
+                    "change_layer_places_center",
                     "tile_layers_horizontally",
+                    "tile_layers_vertically",
                     "layer_bounds",
                     "clean_layer_name"
                 ]

@@ -34,18 +34,18 @@ var onRun = function(context) {
         });
     }
 
-    // Sort by position y
+    // Sort by position x
     layers.sort(function(a, b) {
-        return a.y - b.y;
+        return a.x - b.x;
     });
 
     var gap = doc.askForUserInput_initialValue("The gap between two layers. (px)", 0);
         gap = parseInt(gap);
 
     for (var i = 1; i < layers.length; i ++) {
-        layers[i].y = layers[i-1].y + layers[i-1].h + gap;
-        selection[layers[i].index].frame().setY(
-            layers[i].y
+        layers[i].x = layers[i-1].x + layers[i-1].w + gap;
+        selection[layers[i].index].frame().setX(
+            layers[i].x
         );
     }
 

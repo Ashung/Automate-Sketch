@@ -1,0 +1,30 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+description:
+version: 2016.1.0719
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if(selection.count() == 2) {
+        var x1 = selection[0].frame().midX();
+        var y1 = selection[0].frame().midY();
+        var x2 = selection[1].frame().midX();
+        var y2 = selection[1].frame().midY();
+            selection[0].frame().midX = x2;
+            selection[0].frame().midY = y2;
+            selection[1].frame().midX = x1;
+            selection[1].frame().midY = y1;
+    } else {
+        doc.showMessage("Please select 2 layers/groups.");
+    }
+
+}
