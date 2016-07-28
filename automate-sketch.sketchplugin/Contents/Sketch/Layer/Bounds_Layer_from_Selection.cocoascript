@@ -46,29 +46,34 @@ var onRun = function(context) {
 
             doc.currentPage().deselectAllLayers();
 
+            var rectangle = MSRectangleShape.alloc().init();
+
             if(/^(MSShapeGroup|MSBitmapLayer|MSTextLayer|MSSliceLayer)$/.test(layer.className())) {
-                // TODO: addLayerOfType
-                var boundlayer = layer.parentGroup().addLayerOfType("rectangle");
-                    boundlayer.frame().setX(x);
-                    boundlayer.frame().setY(y);
+                var parent = layer.parentGroup();
+                rectangle.frame().setX(x);
+                rectangle.frame().setY(y);
             }
 
             if (/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
-                var boundlayer = layer.addLayerOfType("rectangle");
-                    boundlayer.frame().setX(0);
-                    boundlayer.frame().setY(0);
+                var parent = layer;
+                rectangle.frame().setX(0);
+                rectangle.frame().setY(0);
             }
 
-            boundlayer.frame().setWidth(w);
-            boundlayer.frame().setHeight(h);
-            boundlayer.setName(boundLayerName);
+            rectangle.frame().setWidth(w);
+            rectangle.frame().setHeight(h);
 
+            var boundlayer = MSShapeGroup.shapeWithPath(rectangle);
+            boundlayer.setName(boundLayerName);
             // layer.style().addStylePartOfType(0) // To add a new fill
             // layer.style().addStylePartOfType(1) // To add a new border
             // layer.style().addStylePartOfType(2) // To add a new shadow
             // layer.style().addStylePartOfType(3) // To add a new inner shadow
             boundlayer.style().addStylePartOfType(0);
             boundlayer.style().fill().setColor(color);
+
+            parent.addLayers([boundlayer]);
+
             boundlayer.select_byExpandingSelection(true, true);
 
             // Move To Back
