@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
-    "version": 0.1,
+    "version": 1.0,
     "identifier": "com.github.ashung.automate-sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -39,6 +39,11 @@
             "name": "Tile Layers Vertically",
             "identifier": "tile_layers_vertically",
             "script": "Layer/Tile_Layers_Vertically.cocoascript"
+        },
+        {
+            "name": "Delete All Hidden Layers",
+            "identifier": "delete_all_hidden_layers",
+            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
         },
 
         {
@@ -108,7 +113,8 @@
                     "tile_layers_horizontally",
                     "tile_layers_vertically",
                     "layer_bounds",
-                    "clean_layer_name"
+                    "clean_layer_name",
+                    "delete_all_hidden_layers"
                 ]
             },
             {

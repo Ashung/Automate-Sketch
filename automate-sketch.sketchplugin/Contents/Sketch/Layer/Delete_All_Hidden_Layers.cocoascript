@@ -1,0 +1,29 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+description: Delete all hidden layers.
+version: 2016.1.0802
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var layers = page.children();
+
+    for(var i = 0; i < layers.count(); i++) {
+        var layer = layers[i];
+        if ((
+            layer.className() == "MSShapeGroup" ||
+            layer.className() == "MSBitmapLayer" ||
+            layer.className() == "MSLayerGroup" ||
+            layer.className() == "MSSymbolInstance"
+        ) && !layer.isVisible()) {
+            layer.parentGroup().removeLayer(layer);
+        }
+    }
+}
