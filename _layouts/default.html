@@ -53,7 +53,7 @@
     </header>
     <section>
         <ul class="plugins">
-            {% for plugin in page.sketchPlugins reversed %}
+            {% for plugin in page.menus reversed %}
             {% assign count = forloop.length %}
             {% assign index = forloop.index %}
             {% assign title = plugin.title %}
@@ -91,13 +91,17 @@
                 <a href="https://behance.net/ashung">Behance</a>,
                 <a href="http://weibo.com/ashung">Weibo</a>.
             </p>
+            <p class="donate-paypal">
+                PayPal:
+                <a href="https://www.paypal.me/ashung/2">$ 2.<small>00</small></a>
+                <a href="https://www.paypal.me/ashung/5">$ 5.<small>00</small></a>
+            </p>
             <p>
-                Donate via <br>
+                打开 "微信" 或 "支付宝", 扫一扫打赏 2 元。<br>
                 <img src="http://ashung.github.io/assets/img/wechat_rmb_2.png" alt="Wechat"/>
                 <img src="http://ashung.github.io/assets/img/alipay_rmb_2.png" alt="Alipay"/>
                 <br>
-                PayPal: <br>
-                <a href="https://www.paypal.me/ashung/2">$2</a>
+                打赏后可 <a href="{{ site.issuesUrl }}">提需求</a>。
             </p>
         </div>
         <a class="ribbon" href="{{ site.projectUrl }}">Fork me on GitHub</a>

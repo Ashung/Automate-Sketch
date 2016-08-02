@@ -232,6 +232,14 @@ footer {
     .author {
         color: $text_color_gray;
     }
+    .donate-paypal {
+        a:link, a:visited {
+            text-decoration: none;
+        }
+        small {
+            vertical-align: text-top;
+        }
+    }
 }
 
 @include media-max-width($breakpoint_medium) {
