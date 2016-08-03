@@ -45,6 +45,11 @@
             "identifier": "delete_all_hidden_layers",
             "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
         },
+        {
+            "name": "Select All Groups",
+            "identifier": "select_all_groups",
+            "script": "Layer/Select_All_Groups.cocoascript"
+        },
 
         {
             "name": "New Layer Base Slice",
@@ -114,6 +119,7 @@
                     "tile_layers_vertically",
                     "layer_bounds",
                     "clean_layer_name",
+                    "select_all_groups",
                     "delete_all_hidden_layers"
                 ]
             },
