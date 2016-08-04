@@ -50,6 +50,11 @@
             "identifier": "select_all_groups",
             "script": "Layer/Select_All_Groups.cocoascript"
         },
+        {
+            "name": "Delete All Empty Groups",
+            "identifier": "delete_all_empty_groups",
+            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
+        },
 
         {
             "name": "New Layer Base Slice",
@@ -120,7 +125,8 @@
                     "layer_bounds",
                     "clean_layer_name",
                     "select_all_groups",
-                    "delete_all_hidden_layers"
+                    "delete_all_hidden_layers",
+                    "delete_all_empty_groups"
                 ]
             },
             {
