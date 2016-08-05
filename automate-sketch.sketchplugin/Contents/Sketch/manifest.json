@@ -46,15 +46,31 @@
             "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
         },
         {
+            "name": "Delete All Hidden Layers in Artboard",
+            "identifier": "delete_all_hidden_layers_in_artboard",
+            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
+        },
+        {
             "name": "Select All Groups",
             "identifier": "select_all_groups",
             "script": "Layer/Select_All_Groups.cocoascript"
+        },
+        {
+            "name": "Select All Groups in Artboard",
+            "identifier": "select_all_groups_in_artboard",
+            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
         },
         {
             "name": "Delete All Empty Groups",
             "identifier": "delete_all_empty_groups",
             "script": "Layer/Delete_All_Empty_Groups.cocoascript"
         },
+        {
+            "name": "Delete All Empty Groups in Artboard",
+            "identifier": "delete_all_empty_groups_in_artboard",
+            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+        },
+
 
         {
             "name": "New Layer Base Slice",
@@ -114,6 +130,7 @@
     ],
     "menu": {
         "isRoot": false,
+        "title": "Automate",
         "items": [
             {
                 "title": "Layer",
@@ -125,8 +142,11 @@
                     "layer_bounds",
                     "clean_layer_name",
                     "select_all_groups",
+                    "select_all_groups_in_artboard",
                     "delete_all_hidden_layers",
-                    "delete_all_empty_groups"
+                    "delete_all_hidden_layers_in_artboard",
+                    "delete_all_empty_groups",
+                    "delete_all_empty_groups_in_artboard"
                 ]
             },
             {

@@ -1,0 +1,53 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+description: Delete all Empty Groups in artboard.
+version: 2016.1.0805
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    var selectedArtboard = [];
+
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator()
+        while (layer = loop.nextObject()) {
+            if (layer.className() == "MSArtboardGroup") {
+                selectedArtboard.push(layer);
+            }
+        }
+    }
+
+    if (selectedArtboard.length == 0) {
+        var loop = page.layers().objectEnumerator()
+        while (layer = loop.nextObject()) {
+            if (layer.className() == "MSArtboardGroup") {
+                selectedArtboard.push(layer);
+            }
+        }
+    }
+
+    if (selectedArtboard.length == 0) {
+        doc.showMessage("Have no Artboard in current Page.");
+        return;
+    }
+
+    for (var i = 0; i < selectedArtboard.length; i++) {
+        var layers = selectedArtboard[i].children();
+        for(var j = 0; j < layers.count(); j++) {
+            var layer = layers[j];
+            if (layer.className() == "MSLayerGroup" && layer.children().count() == 1) {
+                layer.parentGroup().removeLayer(layer);
+            }
+        }
+    }
+
+}

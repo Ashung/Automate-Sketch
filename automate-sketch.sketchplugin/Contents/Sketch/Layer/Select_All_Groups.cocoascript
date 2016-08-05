@@ -3,7 +3,7 @@
 author: Ashung Hung
 email: Ashung.hung@gmail.com
 Homepage: https://github.com/Ashung/Automate-Sketch
-description: Delete all hidden layers.
+description: Select all grous.
 version: 2016.1.0803
 license: CC-BY 4.0
 
@@ -17,7 +17,7 @@ var onRun = function(context) {
     page.deselectAllLayers();
 
     selectGroups(page);
-    
+
 }
 
 function selectGroups(parent) {
