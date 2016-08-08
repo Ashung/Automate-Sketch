@@ -116,15 +116,20 @@
         },
 
         {
+            "name": "Capitalize",
+            "identifier": "capitalize",
+            "script": "Type/Capitalize.cocoascript"
+        },
+        {
             "name": "Change Typeface for Latin Character",
             "identifier": "change_typeface_for_the_latin_character_set",
             "shortcut": "control option command t",
-            "script": "Font/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
+            "script": "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
         },
         {
             "name": "Add Space Between CJK and Latin Character",
             "identifier": "add_space_between_cjk_and_western_character",
-            "script": "Font/Add_Space_Between_CJK_and_Western_Character.cocoascript"
+            "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
         }
 
     ],
@@ -150,8 +155,9 @@
                 ]
             },
             {
-                "title": "Font",
+                "title": "Type",
                 "items": [
+                    "capitalize",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character"
                 ]
