@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "version": 1.0,
-    "identifier": "com.github.ashung.automate-sketch",
+    "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
     "commands": [
@@ -25,12 +25,6 @@
             "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
         },
         {
-            "name": "Clean Layer Name",
-            "identifier": "clean_layer_name",
-            "shortcut": "option command l",
-            "script": "Layer/Clean_Layer_Name.cocoascript"
-        },
-        {
             "name": "Tile Layers Horizontally",
             "identifier": "tile_layers_horizontally",
             "script": "Layer/Tile_Layers_Horizontally.cocoascript"
@@ -40,80 +34,36 @@
             "identifier": "tile_layers_vertically",
             "script": "Layer/Tile_Layers_Vertically.cocoascript"
         },
-        {
-            "name": "Delete All Hidden Layers",
-            "identifier": "delete_all_hidden_layers",
-            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "Delete All Hidden Layers in Artboard",
-            "identifier": "delete_all_hidden_layers_in_artboard",
-            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-        },
+
+
+
         {
             "name": "Select All Groups",
             "identifier": "select_all_groups",
-            "script": "Layer/Select_All_Groups.cocoascript"
+            "script": "Select/Select_All_Groups.cocoascript"
         },
         {
             "name": "Select All Groups in Artboard",
             "identifier": "select_all_groups_in_artboard",
-            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
-        },
-        {
-            "name": "Delete All Empty Groups",
-            "identifier": "delete_all_empty_groups",
-            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
-            "name": "Delete All Empty Groups in Artboard",
-            "identifier": "delete_all_empty_groups_in_artboard",
-            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
-        },
-
-
-        {
-            "name": "New Layer Base Slice",
-            "identifier": "new_layer_base_slice",
-            "shortcut": "control option command s",
-            "script": "Slice/New_Layer_Base_Slice.cocoascript"
+            "script": "Select/Select_All_Groups_in_Artboard.cocoascript"
         },
         {
             "name": "Select All Slices",
             "identifier": "select_all_slices",
-            "script": "Slice/Select_All_Slices.cocoascript"
+            "script": "Select/Select_All_Slices.cocoascript"
         },
         {
             "name": "Select Slices In Selected Group/Artboard",
             "identifier": "select_slices_in_selected_group_or_artboard",
-            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
+            "script": "Select/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
         },
         {
             "name": "Select Slices In Group",
             "identifier": "select_slices_in_group",
-            "script": "Slice/Select_Slices_In_Group.cocoascript"
-        },
-        {
-            "name": "Clear Slices",
-            "identifier": "clear_slices",
-            "script": "Slice/Clear_Slices.cocoascript"
-        },
-        {
-            "name": "Clear Guides",
-            "identifier": "clear_guides",
-            "script": "Slice/Clear_Guides.cocoascript"
+            "script": "Select/Select_Slices_In_Group.cocoascript"
         },
 
-        {
-            "name": "Artboard Form Group",
-            "identifier": "artboard_form_group",
-            "script": "Artboard/Artboard_Form_Group.cocoascript"
-        },
-        {
-            "name": "Artboard Form Layers",
-            "identifier": "artboard_form_layers",
-            "script": "Artboard/Artboard_Form_Layers.cocoascript"
-        },
+
 
         {
             "name": "Capitalize",
@@ -130,7 +80,71 @@
             "name": "Add Space Between CJK and Latin Character",
             "identifier": "add_space_between_cjk_and_western_character",
             "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
+        },
+
+
+
+        {
+            "name": "New Layer Base Slice",
+            "identifier": "new_layer_base_slice",
+            "shortcut": "control option command s",
+            "script": "Slice/New_Layer_Base_Slice.cocoascript"
+        },
+
+
+
+        {
+            "name": "Artboard Form Group",
+            "identifier": "artboard_form_group",
+            "script": "Artboard/Artboard_Form_Group.cocoascript"
+        },
+        {
+            "name": "Artboard Form Layers",
+            "identifier": "artboard_form_layers",
+            "script": "Artboard/Artboard_Form_Layers.cocoascript"
+        },
+
+
+        {
+            "name": "Clear Slices",
+            "identifier": "clear_slices",
+            "script": "Clear/Clear_Slices.cocoascript"
+        },
+        {
+            "name": "Clear Guides",
+            "identifier": "clear_guides",
+            "script": "Clear/Clear_Guides.cocoascript"
+        },
+        {
+            "name": "Clean Layer Name",
+            "identifier": "clean_layer_name",
+            "shortcut": "option command l",
+            "script": "Clear/Clean_Layer_Name.cocoascript"
+        },
+        {
+            "name": "Delete All Hidden Layers",
+            "identifier": "delete_all_hidden_layers",
+            "script": "Clear/Delete_All_Hidden_Layers.cocoascript"
+        },
+        {
+            "name": "Delete All Hidden Layers in Artboard",
+            "identifier": "delete_all_hidden_layers_in_artboard",
+            "script": "Clear/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
+        },
+        {
+            "name": "Delete All Empty Groups",
+            "identifier": "delete_all_empty_groups",
+            "script": "Clear/Delete_All_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "Delete All Empty Groups in Artboard",
+            "identifier": "delete_all_empty_groups_in_artboard",
+            "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
         }
+
+
+
+
 
     ],
     "menu": {
@@ -144,14 +158,17 @@
                     "change_layer_places_center",
                     "tile_layers_horizontally",
                     "tile_layers_vertically",
-                    "layer_bounds",
-                    "clean_layer_name",
+                    "layer_bounds"
+                ]
+            },
+            {
+                "title": "Select",
+                "items": [
                     "select_all_groups",
                     "select_all_groups_in_artboard",
-                    "delete_all_hidden_layers",
-                    "delete_all_hidden_layers_in_artboard",
-                    "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
+                    "select_all_slices",
+                    "select_slices_in_selected_group_or_artboard",
+                    "select_slices_in_group"
                 ]
             },
             {
@@ -165,12 +182,7 @@
             {
                 "title": "Slice",
                 "items": [
-                    "new_layer_base_slice",
-                    "select_all_slices",
-                    "select_slices_in_selected_group_or_artboard",
-                    "select_slices_in_group",
-                    "clear_slices",
-                    "clear_guides"
+                    "new_layer_base_slice"
                 ]
             },
             {
@@ -178,6 +190,18 @@
                 "items": [
                     "artboard_form_group",
                     "artboard_form_layers"
+                ]
+            },
+            {
+                "title": "Clear",
+                "items": [
+                    "clean_layer_name",
+                    "clear_slices",
+                    "clear_guides",
+                    "delete_all_hidden_layers",
+                    "delete_all_hidden_layers_in_artboard",
+                    "delete_all_empty_groups",
+                    "delete_all_empty_groups_in_artboard"
                 ]
             }
 

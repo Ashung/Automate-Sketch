@@ -39,7 +39,10 @@ var onRun = function(context) {
             if(/^(MSLayerGroup|MSArtboardGroup)$/.test(layer.className())) {
                 slice.frame().setX(0);
                 slice.frame().setY(0);
-                //slice.exportOptions().groupContentsOnlyAction();
+                if (layer.className() == "MSLayerGroup") {
+                    // Export Group Contents Only
+                    slice.exportOptions().setLayerOptions(2);
+                }
                 layer.addLayers([slice]);
             }
 
