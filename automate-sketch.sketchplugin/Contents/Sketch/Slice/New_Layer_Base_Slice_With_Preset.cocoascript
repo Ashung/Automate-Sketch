@@ -1,0 +1,136 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x); }
+var new_slice_for_ios_2x = function(context) { addSlice(context, ios2x); }
+var new_slice_for_android_1x = function(context) { addSlice(context, android1x); }
+var new_slice_for_android_2x = function(context) { addSlice(context, android2x); }
+var new_slice_for_web = function(context) { addSlice(context, web); }
+
+function addSlice(context, preset) {
+    var doc = context.document;
+    var selection = context.selection;
+
+    if(selection.count() == 0) return;
+
+    var loop = selection.objectEnumerator();
+    while (layer = loop.nextObject()) {
+
+        if (layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup") {
+
+            var slice = MSSliceLayer.new();
+            slice.frame().setX(0);
+            slice.frame().setY(0);
+            slice.frame().setWidth(layer.frame().width());
+            slice.frame().setHeight(layer.frame().height());
+            slice.setName(layer.name());
+            layer.addLayers([slice]);
+
+            slice.exportOptions().removeAllExportFormats();
+
+            for (var i = 0; i < preset.length; i++) {
+                var size = slice.exportOptions().addExportFormat();
+                var format = preset[i];
+                size.setName(format.suffix);
+                size.setScale(format.scale);
+            }
+
+            // Send slice to back
+            slice.select_byExpandingSelection(true, false);
+            NSApp.sendAction_to_from_("moveToBack:", nil, doc);
+
+        }
+    }
+}
+
+var web = [
+    {
+        scale: 1,
+        suffix: ""
+    },
+    {
+        scale: 2,
+        suffix: "_2x"
+    }
+];
+
+var ios1x = [
+    {
+        scale: 1,
+        suffix: ""
+    },
+    {
+        scale: 2,
+        suffix: "@2x"
+    },
+    {
+        scale: 3,
+        suffix: "@3x"
+    }
+];
+
+var ios2x = [
+    {
+        scale: 0.5,
+        suffix: ""
+    },
+    {
+        scale: 1,
+        suffix: "@2x"
+    },
+    {
+        scale: 1.5,
+        suffix: "@3x"
+    }
+];
+
+var android1x = [
+    {
+        scale: 1,
+        suffix: "_mdpi"
+    },
+    {
+        scale: 1.5,
+        suffix: "_hdpi"
+    },
+    {
+        scale: 2,
+        suffix: "_xhdpi"
+    },
+    {
+        scale: 3,
+        suffix: "_xxhdpi"
+    },
+    {
+        scale: 4,
+        suffix: "_xxxhdpi"
+    }
+];
+
+var android2x = [
+    {
+        scale: 0.5,
+        suffix: "_mdpi"
+    },
+    {
+        scale: 0.75,
+        suffix: "_hdpi"
+    },
+    {
+        scale: 1,
+        suffix: "_xhdpi"
+    },
+    {
+        scale: 1.5,
+        suffix: "_xxhdpi"
+    },
+    {
+        scale: 2,
+        suffix: "_xxxhdpi"
+    }
+];

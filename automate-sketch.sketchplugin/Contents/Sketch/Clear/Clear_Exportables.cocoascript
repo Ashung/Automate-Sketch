@@ -1,0 +1,24 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+    var selectionCount = selection.count();
+
+    var loop = page.exportableLayers().objectEnumerator();
+    while (layer = loop.nextObject()) {
+        if (layer.isLayerExportable() && layer.className() != "MSSliceLayer") {
+            layer.select_byExpandingSelection(true, false);
+            layer.exportOptions().removeAllExportFormats();
+        }
+    }
+
+}

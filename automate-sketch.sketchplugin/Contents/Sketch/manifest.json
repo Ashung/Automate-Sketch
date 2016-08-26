@@ -90,7 +90,36 @@
             "shortcut": "control option command s",
             "script": "Slice/New_Layer_Base_Slice.cocoascript"
         },
-
+        {
+            "name": "New Layer Base Slice for iOS (1x)",
+            "identifier": "new_layer_base_slice_for_ios_1x",
+            "handler": "new_slice_for_ios_1x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "New Layer Base Slice for iOS (2x)",
+            "identifier": "new_layer_base_slice_for_ios_2x",
+            "handler": "new_slice_for_ios_2x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "New Layer Base Slice for Android (1x)",
+            "identifier": "new_layer_base_slice_for_android_1x",
+            "handler": "new_slice_for_android_1x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "New Layer Base Slice for Android (2x)",
+            "identifier": "new_layer_base_slice_for_android_2x",
+            "handler": "new_slice_for_android_2x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "New Layer Base Slice for Web (1x + 2x)",
+            "identifier": "new_slice_base_slice_for_web",
+            "handler": "new_slice_for_web",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
 
 
         {
@@ -109,6 +138,11 @@
             "name": "Clear Slices",
             "identifier": "clear_slices",
             "script": "Clear/Clear_Slices.cocoascript"
+        },
+        {
+            "name": "Clear Exportables",
+            "identifier": "clear_exportables",
+            "script": "Clear/Clear_Exportables.cocoascript"
         },
         {
             "name": "Clear Guides",
@@ -182,7 +216,12 @@
             {
                 "title": "Slice",
                 "items": [
-                    "new_layer_base_slice"
+                    "new_layer_base_slice",
+                    "new_layer_base_slice_for_ios_1x",
+                    "new_layer_base_slice_for_ios_2x",
+                    "new_layer_base_slice_for_android_1x",
+                    "new_layer_base_slice_for_android_2x",
+                    "new_slice_base_slice_for_web"
                 ]
             },
             {
@@ -197,6 +236,7 @@
                 "items": [
                     "clean_layer_name",
                     "clear_slices",
+                    "clear_exportables",
                     "clear_guides",
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
