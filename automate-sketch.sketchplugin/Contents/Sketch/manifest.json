@@ -38,6 +38,11 @@
 
 
         {
+            "name": "Select All Artboards",
+            "identifier": "select_all_artboards",
+            "script": "Select/Select_All_Artboards.cocoascript"
+        },
+        {
             "name": "Select All Groups",
             "identifier": "select_all_groups",
             "script": "Select/Select_All_Groups.cocoascript"
@@ -103,6 +108,12 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
+            "name": "New Layer Base Slice for iOS (pdf)",
+            "identifier": "new_layer_base_slice_for_ios_pdf",
+            "handler": "new_slice_for_ios_pdf",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
             "name": "New Layer Base Slice for Android (1x)",
             "identifier": "new_layer_base_slice_for_android_1x",
             "handler": "new_slice_for_android_1x",
@@ -120,6 +131,14 @@
             "handler": "new_slice_for_web",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
+        {
+            "name": "New Layer Base Slice for Web (svg)",
+            "identifier": "new_layer_base_slice_for_svg",
+            "handler": "new_slice_for_svg",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+
+
 
 
         {
@@ -132,6 +151,7 @@
             "identifier": "artboard_form_layers",
             "script": "Artboard/Artboard_Form_Layers.cocoascript"
         },
+
 
 
         {
@@ -198,6 +218,7 @@
             {
                 "title": "Select",
                 "items": [
+                    "select_all_artboards",
                     "select_all_groups",
                     "select_all_groups_in_artboard",
                     "select_all_slices",
@@ -219,9 +240,11 @@
                     "new_layer_base_slice",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_ios_2x",
+                    "new_layer_base_slice_for_ios_pdf",
                     "new_layer_base_slice_for_android_1x",
                     "new_layer_base_slice_for_android_2x",
-                    "new_slice_base_slice_for_web"
+                    "new_slice_base_slice_for_web",
+                    "new_layer_base_slice_for_svg"
                 ]
             },
             {

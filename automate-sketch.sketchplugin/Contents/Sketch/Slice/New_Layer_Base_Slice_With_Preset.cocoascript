@@ -6,11 +6,13 @@ license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
-var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x); }
-var new_slice_for_ios_2x = function(context) { addSlice(context, ios2x); }
-var new_slice_for_android_1x = function(context) { addSlice(context, android1x); }
-var new_slice_for_android_2x = function(context) { addSlice(context, android2x); }
-var new_slice_for_web = function(context) { addSlice(context, web); }
+var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x) };
+var new_slice_for_ios_2x = function(context) { addSlice(context, ios2x) };
+var new_slice_for_android_1x = function(context) { addSlice(context, android1x) };
+var new_slice_for_android_2x = function(context) { addSlice(context, android2x) };
+var new_slice_for_web = function(context) { addSlice(context, web) };
+var new_slice_for_svg = function(context) { addSlice(context, svg) };
+var new_slice_for_ios_pdf = function(context) { addSlice(context, pdf) };
 
 function addSlice(context, preset) {
     var doc = context.document;
@@ -36,9 +38,13 @@ function addSlice(context, preset) {
             for (var i = 0; i < preset.length; i++) {
                 var size = slice.exportOptions().addExportFormat();
                 var format = preset[i];
+                size.setFileFormat(format.format);
                 size.setName(format.suffix);
                 size.setScale(format.scale);
             }
+
+            // Export Group Contents Only
+            slice.exportOptions().setLayerOptions(2);
 
             // Send slice to back
             slice.select_byExpandingSelection(true, false);
@@ -51,25 +57,46 @@ function addSlice(context, preset) {
 var web = [
     {
         scale: 1,
+        format: "png",
         suffix: ""
     },
     {
         scale: 2,
+        format: "png",
         suffix: "_2x"
+    }
+];
+
+var svg = [
+    {
+        scale: 1,
+        format: "svg",
+        suffix: ""
+    }
+];
+
+var pdf = [
+    {
+        scale: 1,
+        format: "pdf",
+        suffix: ""
     }
 ];
 
 var ios1x = [
     {
         scale: 1,
+        format: "png",
         suffix: ""
     },
     {
         scale: 2,
+        format: "png",
         suffix: "@2x"
     },
     {
         scale: 3,
+        format: "png",
         suffix: "@3x"
     }
 ];
@@ -77,14 +104,17 @@ var ios1x = [
 var ios2x = [
     {
         scale: 0.5,
+        format: "png",
         suffix: ""
     },
     {
         scale: 1,
+        format: "png",
         suffix: "@2x"
     },
     {
         scale: 1.5,
+        format: "png",
         suffix: "@3x"
     }
 ];
@@ -92,22 +122,27 @@ var ios2x = [
 var android1x = [
     {
         scale: 1,
+        format: "png",
         suffix: "_mdpi"
     },
     {
         scale: 1.5,
+        format: "png",
         suffix: "_hdpi"
     },
     {
         scale: 2,
+        format: "png",
         suffix: "_xhdpi"
     },
     {
         scale: 3,
+        format: "png",
         suffix: "_xxhdpi"
     },
     {
         scale: 4,
+        format: "png",
         suffix: "_xxxhdpi"
     }
 ];
@@ -115,22 +150,27 @@ var android1x = [
 var android2x = [
     {
         scale: 0.5,
+        format: "png",
         suffix: "_mdpi"
     },
     {
         scale: 0.75,
+        format: "png",
         suffix: "_hdpi"
     },
     {
         scale: 1,
+        format: "png",
         suffix: "_xhdpi"
     },
     {
         scale: 1.5,
+        format: "png",
         suffix: "_xxhdpi"
     },
     {
         scale: 2,
+        format: "png",
         suffix: "_xxxhdpi"
     }
 ];
