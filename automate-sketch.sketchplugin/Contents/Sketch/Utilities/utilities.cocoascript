@@ -1,0 +1,50 @@
+// TODO: showFileInFinder, openTerminalAtFileFolder
+
+var showFileInFinder = function(context) {
+    var doc = context.document;
+    if (!doc.fileURL()) return;
+    var filePath = doc.fileURL().path();
+    NSWorkspace.sharedWorkspace().openFile_withApplication(filePath, "Finder");
+};
+
+var openTerminalAtFileFolder = function(context) {
+    var doc = context.document;
+    if (!doc.fileURL()) return;
+    var fileFolder = doc.fileURL().path().stringByDeletingPathExtension();
+    NSWorkspace.sharedWorkspace().openFile_withApplication(fileFolder, "Terminal");
+}
+
+// TODO: run shell file
+// mkdir drawable-mdpi drawable-hdpi drawable-xhdpi drawable-xxhdpi drawable-xxxhdpi
+// for img in $(ls | grep *_hdpi.png); do mv $img ./drawable-hdpi/$img; done
+function runCommand(command, args, callback) {
+    var task = NSTask.alloc().init();
+    var pipe = NSPipe.pipe();
+    var errPipe = NSPipe.pipe();
+        task.launchPath = command;
+        task.arguments = args;
+        task.standardOutput = pipe;
+        task.standardError = errPipe;
+        task.launch();
+        task.waitUntilExit();
+    var errorData = errPipe.fileHandleForReading().readDataToEndOfFile();
+    if (errorData != nil && errorData.length()) {
+        var message = NSString.alloc().initWithData_encoding_(errorData, NSUTF8StringEncoding);
+        if (callback && typeof(callback) == "function") {
+            callback(
+                task.terminationStatus() == 0,
+                message
+            );
+            return;
+        } else {
+            return NSException.raise_format_("failed", message);
+        }
+    }
+    var data = pipe.fileHandleForReading().readDataToEndOfFile();
+    if (callback && typeof(callback) == "function") {
+        callback(
+            task.terminationStatus() == 0,
+            NSString.alloc().initWithData_encoding_(data, NSUTF8StringEncoding)
+        );
+    }
+}

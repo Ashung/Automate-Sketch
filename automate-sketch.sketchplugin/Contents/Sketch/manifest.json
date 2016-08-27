@@ -194,12 +194,44 @@
             "name": "Delete All Empty Groups in Artboard",
             "identifier": "delete_all_empty_groups_in_artboard",
             "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+        },
+        {
+            "name": "Remove All Unused Styles",
+            "identifier": "remove_all_unused_styles",
+            "script": "Clear/Remove_All_Unused_Styles.cocoascript"
+        },
+
+
+        {
+            "name": "Web Site",
+            "identifier": "web_site",
+            "handler": "website",
+            "script": "Help/help.cocoascript"
+        },
+        {
+            "name": "Report Issue",
+            "identifier": "report_issue",
+            "handler": "reportIssue",
+            "script": "Help/help.cocoascript"
+        },
+        {
+            "name": "Donate via PayPal",
+            "identifier": "donate_via_paypal",
+            "handler": "donateViaPaypal",
+            "script": "Help/help.cocoascript"
+        },
+        {
+            "name": "Donate via WeChat (QRcode)",
+            "identifier": "donate_via_wechat",
+            "handler": "donateViaWechat",
+            "script": "Help/help.cocoascript"
+        },
+        {
+            "name": "Donate via Alipay (QRcode)",
+            "identifier": "donate_via_alipay",
+            "handler": "donateViaAlipay",
+            "script": "Help/help.cocoascript"
         }
-
-
-
-
-
     ],
     "menu": {
         "isRoot": false,
@@ -264,10 +296,26 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
+                    "delete_all_empty_groups_in_artboard",
+                    "remove_all_unused_styles"
+                ]
+            },
+            {
+                "title": "Utilities",
+                "items": [
+                    ""
+                ]
+            },
+            {
+                "title": "Help",
+                "items": [
+                    "web_site",
+                    "report_issue",
+                    "donate_via_paypal",
+                    "donate_via_wechat",
+                    "donate_via_alipay"
                 ]
             }
-
         ]
     }
 }

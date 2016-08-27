@@ -1,0 +1,29 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+
+    var loop = page.children().objectEnumerator()
+    while (layer = loop.nextObject()) {
+        if (
+            layer.className() == "MSShapeGroup" ||
+            layer.className() == "MSBitmapLayer" ||
+            layer.className() == "MSLayerGroup" ||
+            layer.className() == "MSTextLayer" ||
+            layer.className() == "MSSymbolInstance"
+        ) {
+            layer.select_byExpandingSelection(true, false);
+            NSApp.sendAction_to_from("removeUnusedStyles:", nil, doc);
+        }
+    }
+
+    page.deselectAllLayers();
+}
