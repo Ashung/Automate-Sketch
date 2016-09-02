@@ -151,6 +151,11 @@
             "identifier": "artboard_form_layers",
             "script": "Artboard/Artboard_Form_Layers.cocoascript"
         },
+        {
+            "name": "Switch Between Portrait and Landscape",
+            "identifier": "switch_between_portrait_and_landscape",
+            "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
+        },
 
 
 
@@ -283,7 +288,8 @@
                 "title": "Artboard",
                 "items": [
                     "artboard_form_group",
-                    "artboard_form_layers"
+                    "artboard_form_layers",
+                    "switch_between_portrait_and_landscape"
                 ]
             },
             {

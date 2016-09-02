@@ -1,0 +1,47 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    var hasSelectedArtboard = false;
+
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (artboard = loop.nextObject()) {
+            if (artboard.className() == "MSArtboardGroup") {
+
+                hasSelectedArtboard = true;
+
+                // switch between portrait and landscape
+                var width = artboard.frame().width();
+                var height = artboard.frame().height();
+                artboard.frame().setWidth(height);
+                artboard.frame().setHeight(width);
+
+                // resize child layers which named "flex"
+                for (var i = 0; i < artboard.layers().length; i++) {
+                    var layer = artboard.layers()[i];
+                    if (layer.name() == "flex") {
+                        layer.frame().setWidth(height);
+                        layer.frame().setHeight(width);
+                    }
+                }
+
+            }
+        }
+
+    }
+
+    if (!hasSelectedArtboard) {
+        doc.showMessage("Please select at least 1 artboard.");
+    }
+
+}
