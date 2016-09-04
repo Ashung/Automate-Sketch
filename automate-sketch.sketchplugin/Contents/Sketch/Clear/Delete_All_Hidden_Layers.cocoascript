@@ -17,14 +17,8 @@ var onRun = function(context) {
 
     for(var i = 0; i < layers.count(); i++) {
         var layer = layers[i];
-        if ((
-            layer.className() == "MSShapeGroup" ||
-            layer.className() == "MSBitmapLayer" ||
-            layer.className() == "MSLayerGroup" ||
-            layer.className() == "MSTextLayer" ||
-            layer.className() == "MSSymbolInstance"
-        ) && !layer.isVisible()) {
-            layer.parentGroup().removeLayer(layer);
+        if (!layer.isVisible()) {
+            layer.removeFromParent();
         }
     }
 }

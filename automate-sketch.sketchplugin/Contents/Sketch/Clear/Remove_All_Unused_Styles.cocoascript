@@ -21,7 +21,7 @@ var onRun = function(context) {
             layer.className() == "MSSymbolInstance"
         ) {
             layer.select_byExpandingSelection(true, false);
-            NSApp.sendAction_to_from("removeUnusedStyles:", nil, doc);
+            NSApp.sendAction_to_from_("removeUnusedStyles:", nil, doc);
         }
     }
 

@@ -44,14 +44,8 @@ var onRun = function(context) {
         var layers = selectedArtboard[i].children();
         for(var j = 0; j < layers.count(); j++) {
             var layer = layers[j];
-            if ((
-                layer.className() == "MSShapeGroup" ||
-                layer.className() == "MSBitmapLayer" ||
-                layer.className() == "MSLayerGroup" ||
-                layer.className() == "MSTextLayer" ||
-                layer.className() == "MSSymbolInstance"
-            ) && !layer.isVisible()) {
-                layer.parentGroup().removeLayer(layer);
+            if (!layer.isVisible()) {
+                layer.removeFromParent();
             }
         }
     }
