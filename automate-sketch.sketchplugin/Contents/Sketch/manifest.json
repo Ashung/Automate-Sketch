@@ -208,6 +208,19 @@
 
 
         {
+            "name": "Show File in Finder",
+            "identifier": "show_file_in_finder",
+            "handler": "showFileInFinder",
+            "script": "Utilities/Utilities.cocoascript"
+        },
+        {
+            "name": "Open Termianl at File Folder",
+            "identifier": "open_terminal_at_file_folder",
+            "handler": "openTerminalAtFileFolder",
+            "script": "Utilities/Utilities.cocoascript"
+        },
+
+        {
             "name": "Web Site",
             "identifier": "web_site",
             "handler": "website",
@@ -309,7 +322,8 @@
             {
                 "title": "Utilities",
                 "items": [
-                    ""
+                    "show_file_in_finder",
+                    "open_terminal_at_file_folder"
                 ]
             },
             {

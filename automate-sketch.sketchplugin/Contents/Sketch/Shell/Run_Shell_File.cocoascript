@@ -1,0 +1,17 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+// https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSTask_Class/
+function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
+    var pipe = NSPipe.pipe();
+    var task = NSTask.alloc().init();
+    task.currentDirectoryPath = currentDirectoryPath;
+    task.launchPath = "/bin/sh";
+    task.arguments = ['\"' + filepath + '\" ' + argsArray.toString().replace(/\,/g, " ")];
+    task.launch();
+}

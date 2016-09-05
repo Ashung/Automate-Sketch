@@ -1,0 +1,31 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var reportIssue = function(context) {
+    openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/issues/");
+};
+
+var website = function(context) {
+    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/");
+};
+
+var donateViaPaypal = function() {
+    openUrlInBrowser("https://www.paypal.me/ashung/5/");
+};
+
+var donateViaWechat = function() {
+    openUrlInBrowser("http://ashung.github.io/assets/img/wechat_rmb_2.png");
+};
+
+var donateViaAlipay = function() {
+    openUrlInBrowser("http://ashung.github.io/assets/img/alipay_rmb_2.png");
+};
+
+function openUrlInBrowser(url) {
+    NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
+}
