@@ -15,7 +15,7 @@ var website = function(context) {
 };
 
 var donateViaPaypal = function() {
-    openUrlInBrowser("https://www.paypal.me/ashung/5/");
+    openUrlInBrowser("https://www.paypal.me/ashung/2/");
 };
 
 var donateViaWechat = function() {

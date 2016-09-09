@@ -7,6 +7,7 @@ license: CC-BY 4.0
 ----------------------------------------------------------*/
 
 // https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSTask_Class/
+
 function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
     var pipe = NSPipe.pipe();
     var task = NSTask.alloc().init();
@@ -14,4 +15,31 @@ function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
     task.launchPath = "/bin/sh";
     task.arguments = ['\"' + filepath + '\" ' + argsArray.toString().replace(/\,/g, " ")];
     task.launch();
+}
+
+function chooseDirectory(defaultLocation) {
+
+
+
+    var panel = [NSOpenPanel openPanel];
+    [panel setMessage:"Where do you want to export the assets?"];
+    [panel setCanChooseDirectories: true];
+    [panel setCanChooseFiles: false];
+    [panel setCanCreateDirectories: false];
+    [panel setDirectoryURL: defaultLocation];
+    if ([panel runModal] == NSOKButton) {
+        return [panel filename];
+    }
+
+}
+
+var Android = function(context) {
+    var doc = context.document;
+
+    var defaultLocation = "";
+    if (doc.fileURL()) {
+        var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
+    }
+
+
 }

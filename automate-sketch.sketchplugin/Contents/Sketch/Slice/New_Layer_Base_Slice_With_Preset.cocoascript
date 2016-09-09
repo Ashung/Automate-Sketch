@@ -10,6 +10,7 @@ var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x) };
 var new_slice_for_ios_2x = function(context) { addSlice(context, ios2x) };
 var new_slice_for_android_1x = function(context) { addSlice(context, android1x) };
 var new_slice_for_android_2x = function(context) { addSlice(context, android2x) };
+var new_slice_for_android_3x = function(context) { addSlice(context, android3x) };
 var new_slice_for_web = function(context) { addSlice(context, web) };
 var new_slice_for_svg = function(context) { addSlice(context, svg) };
 var new_slice_for_ios_pdf = function(context) { addSlice(context, pdf) };
@@ -170,6 +171,34 @@ var android2x = [
     },
     {
         scale: 2,
+        format: "png",
+        suffix: "_xxxhdpi"
+    }
+];
+
+var android3x = [
+    {
+        scale: 0.3333,
+        format: "png",
+        suffix: "_mdpi"
+    },
+    {
+        scale: 0.5,
+        format: "png",
+        suffix: "_hdpi"
+    },
+    {
+        scale: 0.6667,
+        format: "png",
+        suffix: "_xhdpi"
+    },
+    {
+        scale: 1,
+        format: "png",
+        suffix: "_xxhdpi"
+    },
+    {
+        scale: 1.3333,
         format: "png",
         suffix: "_xxxhdpi"
     }

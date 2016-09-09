@@ -96,13 +96,13 @@
             "script": "Slice/New_Layer_Base_Slice.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for iOS (1x)",
+            "name": "New Layer Base Slice for iOS (1x to all)",
             "identifier": "new_layer_base_slice_for_ios_1x",
             "handler": "new_slice_for_ios_1x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for iOS (2x)",
+            "name": "New Layer Base Slice for iOS (2x to all)",
             "identifier": "new_layer_base_slice_for_ios_2x",
             "handler": "new_slice_for_ios_2x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
@@ -114,19 +114,25 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Android (1x)",
+            "name": "New Layer Base Slice for Android (1x to all)",
             "identifier": "new_layer_base_slice_for_android_1x",
             "handler": "new_slice_for_android_1x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Android (2x)",
+            "name": "New Layer Base Slice for Android (2x to all)",
             "identifier": "new_layer_base_slice_for_android_2x",
             "handler": "new_slice_for_android_2x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Web (1x + 2x)",
+            "name": "New Layer Base Slice for Android (3x to all)",
+            "identifier": "new_layer_base_slice_for_android_3x",
+            "handler": "new_slice_for_android_3x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "New Layer Base Slice for Web (1x to noraml and retina)",
             "identifier": "new_slice_base_slice_for_web",
             "handler": "new_slice_for_web",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
@@ -293,6 +299,7 @@
                     "new_layer_base_slice_for_ios_pdf",
                     "new_layer_base_slice_for_android_1x",
                     "new_layer_base_slice_for_android_2x",
+                    "new_layer_base_slice_for_android_3x",
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg"
                 ]
