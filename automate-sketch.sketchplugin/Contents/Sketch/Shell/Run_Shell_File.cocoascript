@@ -6,10 +6,7 @@ license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
-// https://developer.apple.com/library/mac/documentation/Cocoa/Reference/Foundation/Classes/NSTask_Class/
-
 function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
-    var pipe = NSPipe.pipe();
     var task = NSTask.alloc().init();
     task.currentDirectoryPath = currentDirectoryPath;
     task.launchPath = "/bin/sh";
@@ -17,29 +14,28 @@ function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
     task.launch();
 }
 
-function chooseDirectory(defaultLocation) {
-
-
-
-    var panel = [NSOpenPanel openPanel];
-    [panel setMessage:"Where do you want to export the assets?"];
-    [panel setCanChooseDirectories: true];
-    [panel setCanChooseFiles: false];
-    [panel setCanCreateDirectories: false];
-    [panel setDirectoryURL: defaultLocation];
-    if ([panel runModal] == NSOKButton) {
+function chooseDirectory(defaultLocation, message) {
+    var panel = NSOpenPanel.openPanel();
+    panel.setMessage(message);
+    panel.setCanChooseDirectories(true);
+    panel.setCanChooseFiles(false);
+    panel.setCanCreateDirectories(false);
+    panel.setDirectoryURL(defaultLocation);
+    if (panel.runModal() == NSOKButton) {
+        log(panel.filename());
         return [panel filename];
     }
-
 }
 
 var Android = function(context) {
     var doc = context.document;
-
-    var defaultLocation = "";
+    // Desktop
+    var desktop = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultLocation = NSURL.fileURLWithPath(desktop);
     if (doc.fileURL()) {
         var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
     }
 
+    chooseDirectory(defaultLocation, 'Move all "*_*dpi.png" to "drawable-*dpi" folder.');
 
 }
