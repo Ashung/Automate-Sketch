@@ -34,7 +34,11 @@
             "identifier": "tile_layers_vertically",
             "script": "Layer/Tile_Layers_Vertically.cocoascript"
         },
-
+        {
+            "name": "Unlock All Layers",
+            "identifier": "unlock_all_layers",
+            "script": "Layer/Unlock_All_Layers.cocoascript"
+        },
 
 
         {
@@ -66,6 +70,11 @@
             "name": "Select Slices In Group",
             "identifier": "select_slices_in_group",
             "script": "Select/Select_Slices_In_Group.cocoascript"
+        },
+        {
+            "name": "Select All TextLayer in Selected Artboard or Current Page",
+            "identifier": "select_all_textlayer_in_artboard_or_page",
+            "script": "Select/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
         },
 
 
@@ -225,6 +234,13 @@
             "handler": "openTerminalAtFileFolder",
             "script": "Utilities/Utilities.cocoascript"
         },
+        {
+            "name": "Android Fairy",
+            "identifier": "android_fairy",
+            "handler": "AndroidFairy",
+            "script": "Shell/Run_Shell_File.cocoascript"
+        },
+
 
         {
             "name": "Web Site",
@@ -268,12 +284,14 @@
                     "change_layer_places_center",
                     "tile_layers_horizontally",
                     "tile_layers_vertically",
-                    "layer_bounds"
+                    "layer_bounds",
+                    "unlock_all_layers"
                 ]
             },
             {
                 "title": "Select",
                 "items": [
+                    "select_all_textlayer_in_artboard_or_page",
                     "select_all_artboards",
                     "select_all_groups",
                     "select_all_groups_in_artboard",
@@ -329,6 +347,7 @@
             {
                 "title": "Utilities",
                 "items": [
+                    "android_fairy",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"
                 ]

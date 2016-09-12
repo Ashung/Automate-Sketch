@@ -9,8 +9,11 @@ license: CC-BY 4.0
 function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
     var task = NSTask.alloc().init();
     task.currentDirectoryPath = currentDirectoryPath;
-    task.launchPath = "/bin/sh";
-    task.arguments = ['\"' + filepath + '\" ' + argsArray.toString().replace(/\,/g, " ")];
+    task.launchPath = "/bin/bash";
+    task.arguments = ['-c', 'sh \"' + shellFilePath + '\"'];
+    if (argsArray) {
+        task.arguments[0] += " " + argsArray.toString().replace(/\,/g, " ");
+    }
     task.launch();
 }
 
@@ -22,20 +25,18 @@ function chooseDirectory(defaultLocation, message) {
     panel.setCanCreateDirectories(false);
     panel.setDirectoryURL(defaultLocation);
     if (panel.runModal() == NSOKButton) {
-        log(panel.filename());
-        return [panel filename];
+        return panel.filename();
     }
 }
 
-var Android = function(context) {
+var AndroidFairy = function(context) {
     var doc = context.document;
-    // Desktop
     var desktop = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
     var defaultLocation = NSURL.fileURLWithPath(desktop);
     if (doc.fileURL()) {
         var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
     }
-
-    chooseDirectory(defaultLocation, 'Move all "*_*dpi.png" to "drawable-*dpi" folder.');
-
+    var shellFilePath = context.plugin.urlForResourceNamed("Android_Asset_Folder.sh").path();
+    var currentDirectoryPath = chooseDirectory(defaultLocation, 'Move all "*_*dpi.png" to "drawable-*dpi" folder.');
+    runShellFile(currentDirectoryPath, shellFilePath);
 }

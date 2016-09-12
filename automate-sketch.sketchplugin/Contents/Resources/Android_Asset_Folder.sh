@@ -1,4 +1,3 @@
-#!/usr/bin/env bash
 
 # Replace space to "_"
 for img in *.png; do

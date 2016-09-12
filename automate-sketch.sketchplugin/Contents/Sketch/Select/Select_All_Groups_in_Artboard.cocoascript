@@ -18,7 +18,7 @@ var onRun = function(context) {
     var selectedArtboard = [];
 
     if (selection.count() > 0) {
-        var loop = selection.objectEnumerator()
+        var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
             if (layer.className() == "MSArtboardGroup") {
                 selectedArtboard.push(layer);
@@ -27,7 +27,7 @@ var onRun = function(context) {
     }
 
     if (selectedArtboard.length == 0) {
-        var loop = page.layers().objectEnumerator()
+        var loop = page.layers().objectEnumerator();
         while (layer = loop.nextObject()) {
             if (layer.className() == "MSArtboardGroup") {
                 selectedArtboard.push(layer);

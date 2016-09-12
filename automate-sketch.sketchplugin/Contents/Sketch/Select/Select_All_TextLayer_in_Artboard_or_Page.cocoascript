@@ -1,0 +1,61 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+    var children = page.children();
+
+    if (selection.count() > 0) {
+        var selectedArtboard = [];
+        var selectedTextLayer = [];
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            if (layer.class() == "MSArtboardGroup") {
+                selectedArtboard.push(layer);
+            }
+            if (layer.class() == "MSTextLayer") {
+                selectedTextLayer.push(layer);
+            }
+        }
+
+        if (selectedArtboard.length > 0 || selectedTextLayer.length > 0) {
+            page.deselectAllLayers();
+
+            for (var i = 0; i < selectedArtboard.length; i++) {
+                var artboard = selectedArtboard[i];
+                var loopLayerInArtboard = artboard.children().objectEnumerator();
+                while (layer = loopLayerInArtboard.nextObject()) {
+                    if (layer.class() == "MSTextLayer") {
+                        layer.select_byExpandingSelection(true, true);
+                    }
+                }
+            }
+
+            for (var i = 0; i < selectedTextLayer.length; i++) {
+                var layer = selectedTextLayer[i];
+                if (layer.class() == "MSTextLayer") {
+                    layer.select_byExpandingSelection(true, true);
+                }
+            }
+
+        }
+
+    } else {
+        // Select all textlayer in current page
+        var loop = children.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            if (layer.class() == "MSTextLayer") {
+                layer.select_byExpandingSelection(true, true);
+            }
+        }
+    }
+
+}
