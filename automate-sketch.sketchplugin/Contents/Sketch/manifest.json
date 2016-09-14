@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
-    "version": 1.0,
+    "version": 1.160913,
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -242,6 +242,12 @@
         },
 
 
+        {
+            "name": "About",
+            "identifier": "about",
+            "handler": "aboutWindow",
+            "script": "Help/help.cocoascript"
+        },
         {
             "name": "Web Site",
             "identifier": "web_site",

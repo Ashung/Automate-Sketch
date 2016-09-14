@@ -29,3 +29,17 @@ var donateViaAlipay = function() {
 function openUrlInBrowser(url) {
     NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
 }
+
+var aboutWindow = function(context) {
+    var htmlFile =  context.plugin.urlForResourceNamed("About.html").path();
+
+
+    var window = NSWindow.alloc().init();
+    window.setTitle("XXXX");
+    window.setFrame_display_(NSMakeRect(0, 0, 400, 300), true);
+    window.center();
+    [window addButtonWithTitle:"Save"]
+  [window addButtonWithTitle:"Cancel"]
+    // window.display();
+    NSApp.runModalForWindow(window);
+}
