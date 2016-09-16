@@ -39,13 +39,20 @@
             "identifier": "unlock_all_layers",
             "script": "Layer/Unlock_All_Layers.cocoascript"
         },
-
-
         {
-            "name": "Select All Artboards",
-            "identifier": "select_all_artboards",
-            "script": "Select/Select_All_Artboards.cocoascript"
+            "name": "Click Through Off",
+            "identifier": "click_through_off",
+            "handler": "clickThroughOff",
+            "script": "Layer/Click_Through.cocoascript"
         },
+        {
+            "name": "Click Through On",
+            "identifier": "click_through_on",
+            "handler": "clickThroughOn",
+            "script": "Layer/Click_Through.cocoascript"
+        },
+
+
         {
             "name": "Select All Groups",
             "identifier": "select_all_groups",
@@ -291,14 +298,15 @@
                     "tile_layers_horizontally",
                     "tile_layers_vertically",
                     "layer_bounds",
-                    "unlock_all_layers"
+                    "unlock_all_layers",
+                    "click_through_off",
+                    "click_through_on"
                 ]
             },
             {
                 "title": "Select",
                 "items": [
                     "select_all_textlayer_in_artboard_or_page",
-                    "select_all_artboards",
                     "select_all_groups",
                     "select_all_groups_in_artboard",
                     "select_all_slices",
