@@ -77,26 +77,27 @@ var onRun = function(context) {
             artboard.setName(name);
 
         page.addLayers([artboard]);
+        page.moveLayersToArtboards();
 
         // Copy all layers to artboard
-        sendAction("cut");
-        sendAction("paste");
+        // sendAction("cut");
+        // sendAction("paste");
 
         // Move artboard to front
-        artboard.select_byExpandingSelection(true, false);
-        sendAction("moveToFront");
+        // artboard.select_byExpandingSelection(true, false);
+        // sendAction("moveToFront");
 
     } else {
         doc.showMessage("Please select at least 1 layer or group.");
     }
 
-    function sendAction(action) {
-        action = action + ":";
-        try {
-            [NSApp sendAction:action to:nil from:doc];
-        } catch(e) {
-            log(e);
-        }
-    }
+    // function sendAction(action) {
+    //     action = action + ":";
+    //     try {
+    //         [NSApp sendAction:action to:nil from:doc];
+    //     } catch(e) {
+    //         log(e);
+    //     }
+    // }
 
 }

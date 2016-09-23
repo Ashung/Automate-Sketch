@@ -38,27 +38,14 @@ var onRun = function(context) {
 
                 page.addLayers([artboard]);
 
-                // Copy all layers to artboard
-                sendAction("ungroup");
-                sendAction("cut");
-                sendAction("paste");
+                page.moveLayersToArtboards();
 
-                // Move artboard to front
-                artboard.select_byExpandingSelection(true, false);
-                sendAction("moveToFront");
+                group.ungroup();
+
             }
         }
     } else {
         doc.showMessage("Please select at least 1 group.");
-    }
-
-    function sendAction(action) {
-        action = action + ":";
-        try {
-            [NSApp sendAction:action to:nil from:doc];
-        } catch(e) {
-            log(e);
-        }
     }
 
 }

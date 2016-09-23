@@ -1,0 +1,23 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var allSymbolMasters = context.document.documentData().allSymbols();
+    var loop = allSymbolMasters.objectEnumerator();
+    while (symbolMaster = loop.nextObject()) {
+
+        if(!symbolMaster.hasInstances()) {
+            symbolMaster.removeFromParent();
+        }
+
+        // Or use isSafeToDelete
+        // if (symbolMaster.isSafeToDelete()) {
+        //     symbolMaster.removeFromParent();
+        // }
+    }
+}

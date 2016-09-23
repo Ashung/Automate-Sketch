@@ -1,0 +1,20 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var page = doc.currentPage();
+        page.deselectAllLayers();
+    var allSymbolInstances = page.allSymbolInstancesInChildren().allObjects();
+    for (var i = 0; i < allSymbolInstances.count(); i ++) {
+        var symbolInstance = allSymbolInstances.objectAtIndex(i);
+        if (!symbolInstance.symbolMaster()) {
+            symbolInstance.select_byExpandingSelection(true, true);
+        }
+    }
+}

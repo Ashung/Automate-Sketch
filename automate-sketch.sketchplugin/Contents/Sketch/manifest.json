@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
-    "version": 1.160913,
+    "version": 1.160923,
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -51,38 +51,19 @@
             "handler": "clickThroughOn",
             "script": "Layer/Click_Through.cocoascript"
         },
-
-
         {
             "name": "Select All Groups",
             "identifier": "select_all_groups",
-            "script": "Select/Select_All_Groups.cocoascript"
+            "script": "Layer/Select_All_Groups.cocoascript"
         },
         {
             "name": "Select All Groups in Artboard",
             "identifier": "select_all_groups_in_artboard",
-            "script": "Select/Select_All_Groups_in_Artboard.cocoascript"
+            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
         },
-        {
-            "name": "Select All Slices",
-            "identifier": "select_all_slices",
-            "script": "Select/Select_All_Slices.cocoascript"
-        },
-        {
-            "name": "Select Slices In Selected Group/Artboard",
-            "identifier": "select_slices_in_selected_group_or_artboard",
-            "script": "Select/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
-        },
-        {
-            "name": "Select Slices In Group",
-            "identifier": "select_slices_in_group",
-            "script": "Select/Select_Slices_In_Group.cocoascript"
-        },
-        {
-            "name": "Select All TextLayer in Selected Artboard or Current Page",
-            "identifier": "select_all_textlayer_in_artboard_or_page",
-            "script": "Select/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
-        },
+
+
+
 
 
 
@@ -102,7 +83,11 @@
             "identifier": "add_space_between_cjk_and_western_character",
             "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
         },
-
+        {
+            "name": "Select All TextLayer in Selected Artboard or Current Page",
+            "identifier": "select_all_textlayer_in_artboard_or_page",
+            "script": "Type/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
+        },
 
 
         {
@@ -158,6 +143,21 @@
             "identifier": "new_layer_base_slice_for_svg",
             "handler": "new_slice_for_svg",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "Select All Slices",
+            "identifier": "select_all_slices",
+            "script": "Slice/Select_All_Slices.cocoascript"
+        },
+        {
+            "name": "Select Slices In Selected Group/Artboard",
+            "identifier": "select_slices_in_selected_group_or_artboard",
+            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
+        },
+        {
+            "name": "Select Slices In Group",
+            "identifier": "select_slices_in_group",
+            "script": "Slice/Select_Slices_In_Group.cocoascript"
         },
 
 
@@ -227,6 +227,26 @@
             "identifier": "remove_all_unused_styles",
             "script": "Clear/Remove_All_Unused_Styles.cocoascript"
         },
+        {
+            "name": "Remove Unused Symbols",
+            "identifier": "remove_unused_symbols",
+            "script": "Clear/Remove_Unused_Symbols.cocoascript"
+        },
+
+
+
+        {
+            "name": "Ungroup Unused Symbol Master",
+            "identifier": "ungroup_unused_symbol_master",
+            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+        },
+        {
+            "name": "Select All Missing Symbol Instances in Current Page",
+            "identifier": "Select_All_Missing_Symbol_Instances_in_Current_Page",
+            "script": "Symbol/Select_All_Missing_Symbol_Instances_in_Current_Page.cocoascript"
+        },
+
+
 
 
         {
@@ -295,45 +315,51 @@
                 "items": [
                     "change_layer_places",
                     "change_layer_places_center",
+                    "-",
                     "tile_layers_horizontally",
                     "tile_layers_vertically",
+                    "-",
                     "layer_bounds",
+                    "-",
                     "unlock_all_layers",
+                    "-",
                     "click_through_off",
-                    "click_through_on"
-                ]
-            },
-            {
-                "title": "Select",
-                "items": [
-                    "select_all_textlayer_in_artboard_or_page",
+                    "click_through_on",
+                    "-",
                     "select_all_groups",
-                    "select_all_groups_in_artboard",
-                    "select_all_slices",
-                    "select_slices_in_selected_group_or_artboard",
-                    "select_slices_in_group"
+                    "select_all_groups_in_artboard"
                 ]
             },
             {
                 "title": "Type",
                 "items": [
                     "capitalize",
+                    "-",
                     "change_typeface_for_the_latin_character_set",
-                    "add_space_between_cjk_and_western_character"
+                    "add_space_between_cjk_and_western_character",
+                    "-",
+                    "select_all_textlayer_in_artboard_or_page"
                 ]
             },
             {
                 "title": "Slice",
                 "items": [
                     "new_layer_base_slice",
+                    "-",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_ios_2x",
                     "new_layer_base_slice_for_ios_pdf",
+                    "-",
                     "new_layer_base_slice_for_android_1x",
                     "new_layer_base_slice_for_android_2x",
                     "new_layer_base_slice_for_android_3x",
+                    "-",
                     "new_slice_base_slice_for_web",
-                    "new_layer_base_slice_for_svg"
+                    "new_layer_base_slice_for_svg",
+                    "-",
+                    "select_all_slices",
+                    "select_slices_in_selected_group_or_artboard",
+                    "select_slices_in_group"
                 ]
             },
             {
@@ -341,27 +367,40 @@
                 "items": [
                     "artboard_form_group",
                     "artboard_form_layers",
+                    "-",
                     "switch_between_portrait_and_landscape"
+                ]
+            },
+            {
+                "title": "Symbol",
+                "items": [
+                    "ungroup_unused_symbol_master",
+                    "Select_All_Missing_Symbol_Instances_in_Current_Page"
                 ]
             },
             {
                 "title": "Clear",
                 "items": [
                     "clean_layer_name",
+                    "-",
                     "clear_slices",
                     "clear_exportables",
                     "clear_guides",
+                    "-",
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
                     "delete_all_empty_groups_in_artboard",
-                    "remove_all_unused_styles"
+                    "-",
+                    "remove_all_unused_styles",
+                    "remove_unused_symbols"
                 ]
             },
             {
                 "title": "Utilities",
                 "items": [
                     "android_fairy",
+                    "-",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"
                 ]
@@ -371,6 +410,7 @@
                 "items": [
                     "web_site",
                     "report_issue",
+                    "-",
                     "donate_via_paypal",
                     "donate_via_wechat",
                     "donate_via_alipay"

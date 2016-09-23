@@ -1,0 +1,24 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() > 0 && selection.firstObject().class() == "MSSymbolMaster") {
+        var symbol = selection.firstObject();
+        if (!symbol.hasInstances()) {
+            symbol.ungroup();
+        } else {
+            doc.showMessage("This symbol master is uesed.");
+        }
+    } else {
+        doc.showMessage("Select a symbol master.");
+    }
+
+}

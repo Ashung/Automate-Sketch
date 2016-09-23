@@ -44,7 +44,7 @@ var onRun = function(context) {
         var layers = selectedArtboard[i].children();
         for(var j = 0; j < layers.count(); j++) {
             var layer = layers[j];
-            if (layer.className() == "MSLayerGroup" && layer.children().count() == 1) {
+            if (layer.className() == "MSLayerGroup" && !layer.containsLayers) {
                 layer.parentGroup().removeLayer(layer);
             }
         }
