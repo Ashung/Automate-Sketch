@@ -1,0 +1,65 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var orderLayersByX = function(context) {
+    orderLayers(context, "x");
+}
+var orderLayersByY = function(context) {
+    orderLayers(context, "y");
+}
+
+function orderLayers(context, position) {
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    if (selection.count() > 1) {
+        var layers = [];
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            layers.push(layer);
+        }
+
+        if (position == "y") {
+            layers.sort(function(a, b) {
+                return b.frame().y() - a.frame().y();
+            });
+        }
+
+        if (position == "x") {
+            layers.sort(function(a, b) {
+                return b.frame().x() - a.frame().x();
+            });
+        }
+
+        // Make layers in a group
+        NSApp.sendAction_to_from_("group:", nil, doc);
+
+        page.deselectAllLayers();
+        for (var i = 0; i < layers.length; i++) {
+            var order = selection.indexOf(layers[i]);
+            var step = layers.length - 1 - order + i;
+            selection.objectAtIndex(order).select_byExpandingSelection(true, false);
+            for (var j = 0; j < step; j++) {
+                NSApp.sendAction_to_from_("moveForward:", nil, doc);
+            }
+        }
+
+        // Ungroup
+        layers[0].parentGroup().ungroup();
+
+        // Select all layers
+        var loop2 = selection.objectEnumerator();
+        while (layer = loop2.nextObject()) {
+            layer.select_byExpandingSelection(true, true);
+        }
+
+    } else {
+        doc.showMessage("You need to select at least 2 layers.");
+    }
+}

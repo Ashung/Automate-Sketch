@@ -1,0 +1,78 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var selection = context.selection;
+    var view = doc.currentView();
+
+    if (selection.count() == 1 && selection.firstObject().class() == "MSSymbolMaster") {
+        var symbolMaster = selection.firstObject();
+        if (symbolMaster.hasInstances()) {
+            var pagesHasInstances = [];
+            var pagesName = [];
+            for(var i = 0; i < doc.pages().count(); i++) {
+                var page = doc.pages().objectAtIndex(i);
+                var allSymbolInstances = page.allSymbolInstancesInChildren().allObjects();
+                for (var j = 0; j < allSymbolInstances.count(); j ++) {
+                    if (
+                        allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()
+                        &&
+                        pagesHasInstances.indexOf(page) == -1
+                    ) {
+                        pagesHasInstances.push(page);
+                        pagesName.push(page.name());
+                    }
+                }
+            }
+
+            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
+                accessory.addItemsWithObjectValues(pagesName);
+                accessory.selectItemAtIndex(0);
+
+            var alert = NSAlert.alloc().init();
+                alert.setMessageText("Pages that contain symbol \"" + symbolMaster.name() + "\".\nClick OK to select all instances.");
+                alert.addButtonWithTitle("OK");
+                alert.addButtonWithTitle("Cancel");
+                alert.setAccessoryView(accessory);
+
+            var responseCode = alert.runModal();
+            var selectPage = accessory.indexOfSelectedItem();
+            if (responseCode == 1000) {
+                // go to page
+                var currentPage = pagesHasInstances[selectPage];
+                doc.setCurrentPage(currentPage);
+
+                // Select all instances
+                currentPage.deselectAllLayers();
+                var allSymbolInstancesInCurrentPage = currentPage.allSymbolInstancesInChildren().allObjects();
+                var viewRect = allSymbolInstancesInCurrentPage.firstObject().rect();
+                for (var i = 0; i < allSymbolInstancesInCurrentPage.count(); i ++) {
+                    var instance = allSymbolInstancesInCurrentPage.objectAtIndex(i);
+                    if (instance.symbolMaster().symbolID() == symbolMaster.symbolID()) {
+                        instance.select_byExpandingSelection(true, true);
+                        viewRect = NSUnionRect(viewRect, instance.rect());
+                    }
+                }
+
+                viewRect.origin.x = viewRect.origin.x - 100;
+                viewRect.origin.y = viewRect.origin.y - 100;
+                viewRect.size.width = viewRect.size.width + 200;
+                viewRect.size.height = viewRect.size.height + 200;
+
+                view.zoomToFitRect(viewRect);
+
+            }
+        } else {
+            doc.showMessage("The symbol master has no instance.");
+        }
+    } else {
+        doc.showMessage("Please select 1 symbol master.");
+    }
+
+}
