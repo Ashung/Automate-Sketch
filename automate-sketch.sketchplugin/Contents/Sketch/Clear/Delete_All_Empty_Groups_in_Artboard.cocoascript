@@ -3,8 +3,6 @@
 author: Ashung Hung
 email: Ashung.hung@gmail.com
 Homepage: https://github.com/Ashung/Automate-Sketch
-description: Delete all Empty Groups in artboard.
-version: 2016.1.0805
 license: CC-BY 4.0
 
 ----------------------------------------------------------*/
@@ -44,8 +42,8 @@ var onRun = function(context) {
         var layers = selectedArtboard[i].children();
         for(var j = 0; j < layers.count(); j++) {
             var layer = layers[j];
-            if (layer.className() == "MSLayerGroup" && !layer.containsLayers) {
-                layer.parentGroup().removeLayer(layer);
+            if (layer.className() == "MSLayerGroup" && !layer.containsLayers()) {
+                layer.removeFromParent();
             }
         }
     }

@@ -4,8 +4,8 @@ Some scripts for Bohemian Coding’s Sketch.
 
 ## Installation
 
-1. Download the [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip) file.
-2. Copy the contents of the master.zip to your plugins folder.
+1. Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it.
+2. Double-click the "automate-sketch.sketchplugin".
 
 ## License
 

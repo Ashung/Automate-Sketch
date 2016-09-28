@@ -3,8 +3,8 @@
     "description": "Plugins for Bohemian Coding’s Sketch",
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
-    "homepage": "https://github.com/Ashung/Automate-Sketch",
-    "version": 1.160927,
+    "homepage": "https://ashung.github.io/Automate-Sketch",
+    "version": 1.160928,
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -73,9 +73,11 @@
             "handler": "orderLayersByX",
             "script": "Layer/Order_Layers_by_XY.cocoascript"
         },
-
-
-
+        {
+            "name": "Reverse Layer Order",
+            "identifier": "reverse_layer_order",
+            "script": "Layer/Reverse_Layer_Order.cocoascript"
+        },
 
 
 
@@ -337,6 +339,7 @@
                     "-",
                     "order_layers_by_x",
                     "order_layers_by_y",
+                    "reverse_layer_order",
                     "-",
                     "layer_bounds",
                     "-",

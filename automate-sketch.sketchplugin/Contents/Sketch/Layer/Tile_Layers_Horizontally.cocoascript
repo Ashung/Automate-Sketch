@@ -3,17 +3,13 @@
 author: Ashung Hung
 email: Ashung.hung@gmail.com
 Homepage: https://github.com/Ashung/Automate-Sketch
-description:
-version: 2016.1.0719
 license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
-
     var doc = context.document;
     var selection = context.selection;
-
     var layers = [];
     for (var i = 0; i < selection.count(); i ++) {
 

@@ -1,0 +1,38 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    if (selection.count() > 1) {
+        // Make layers in a group
+        NSApp.sendAction_to_from_("group:", nil, doc);
+
+        page.deselectAllLayers();
+
+        for (var i = selection.count() - 1; i >= 0; i--) {
+            selection.objectAtIndex(i).select_byExpandingSelection(true, false);
+            NSApp.sendAction_to_from_("moveToFront:", nil, doc);
+        }
+
+        // Ungroup
+        selection.firstObject().parentGroup().ungroup();
+
+        // Select layers
+        var loop2 = selection.objectEnumerator();
+        while (layer = loop2.nextObject()) {
+            layer.select_byExpandingSelection(true, true);
+        }
+
+    } else {
+        doc.showMessage("You need to select at least 2 layers.");
+    }
+}

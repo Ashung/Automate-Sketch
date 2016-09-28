@@ -3,21 +3,15 @@
 author: Ashung Hung
 email: Ashung.hung@gmail.com
 Homepage: https://github.com/Ashung/Automate-Sketch
-description: Select all grous.
-version: 2016.1.0803
 license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
-
     var doc = context.document;
     var page = doc.currentPage();
-
     page.deselectAllLayers();
-
     selectGroups(page);
-
 }
 
 function selectGroups(parent) {
