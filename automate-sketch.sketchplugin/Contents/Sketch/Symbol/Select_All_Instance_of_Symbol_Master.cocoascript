@@ -31,7 +31,7 @@ var onRun = function(context) {
                 }
             }
 
-            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
+            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
                 accessory.addItemsWithObjectValues(pagesName);
                 accessory.selectItemAtIndex(0);
 

@@ -262,8 +262,9 @@
         {
             "name": "Select All Instance of Symbol Master",
             "identifier": "select_all_instance_of_symbol_master",
-            "script": "Symbol/Show_All_Instance_of_Symbol_Master.cocoascript"
+            "script": "Symbol/Select_All_Instance_of_Symbol_Master.cocoascript"
         },
+
 
 
 
