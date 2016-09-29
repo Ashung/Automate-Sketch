@@ -19,11 +19,11 @@ var donateViaPaypal = function() {
 };
 
 var donateViaWechat = function() {
-    openUrlInBrowser("http://ashung.github.io/assets/img/wechat_rmb_2.png");
+    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png");
 };
 
 var donateViaAlipay = function() {
-    openUrlInBrowser("http://ashung.github.io/assets/img/alipay_rmb_2.png");
+    openUrlInBrowser("http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png");
 };
 
 function openUrlInBrowser(url) {

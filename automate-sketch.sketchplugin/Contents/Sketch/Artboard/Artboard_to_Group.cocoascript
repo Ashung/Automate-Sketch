@@ -1,0 +1,38 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+    var selectionHasArtboards = false;
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (artboard = loop.nextObject()) {
+            if (artboard.class() == "MSArtboardGroup") {
+                selectionHasArtboards = true;
+
+                page.deselectAllLayers();
+                // Group all child layers
+                for (var i = 0; i < artboard.layers().length; i++) {
+                    artboard.layers()[i].select_byExpandingSelection(true, true);
+                }
+                NSApp.sendAction_to_from_("group:", nil, doc);
+                artboard.layers()[0].setName(artboard.name());
+
+                artboard.ungroup();
+            }
+        }
+        if (!selectionHasArtboards) {
+            doc.showMessage("Select a artboard.");
+        }
+    } else {
+        doc.showMessage("Select a artboard.");
+    }
+}
