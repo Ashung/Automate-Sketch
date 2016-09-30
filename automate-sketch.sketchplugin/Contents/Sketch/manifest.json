@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": 1.160928,
+    "version": 1.160930,
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -102,6 +102,12 @@
             "identifier": "select_all_textlayer_in_artboard_or_page",
             "script": "Type/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
         },
+        {
+            "name": "Unfixed Layer Name",
+            "identifier": "unfixed_layer_name",
+            "script": "Type/Unfixed_Layer_Name.cocoascript"
+        },
+
 
 
         {
@@ -366,7 +372,9 @@
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
                     "-",
-                    "select_all_textlayer_in_artboard_or_page"
+                    "select_all_textlayer_in_artboard_or_page",
+                    "-",
+                    "unfixed_layer_name"
                 ]
             },
             {

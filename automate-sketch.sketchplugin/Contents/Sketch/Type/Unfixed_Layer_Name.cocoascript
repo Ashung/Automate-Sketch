@@ -1,0 +1,32 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var selection = context.selection;
+    var selectionHasTextLayer = false;
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            if (layer.class() == "MSTextLayer") {
+                selectionHasTextLayer = true;
+                // change layer name
+                var layerName = layer.stringValue().substr(0, 20)
+                layer.setName(layerName);
+                layer.setNameIsFixed(0);
+            }
+        }
+
+        if (!selectionHasTextLayer) {
+            doc.showMessage("Your selection have no contains any text layer.");
+        }
+    } else {
+        doc.showMessage("Please select at least one text layer.");
+    }
+}
