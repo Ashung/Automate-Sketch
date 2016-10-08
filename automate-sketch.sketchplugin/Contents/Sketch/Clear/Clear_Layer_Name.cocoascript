@@ -3,37 +3,32 @@
 author: Ashung Hung
 email: Ashung.hung@gmail.com
 Homepage: https://github.com/Ashung/Automate-Sketch
-description:
-version: 2016.2.0629
 license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
-
     var doc = context.document;
     var selection = context.selection;
-
     if(selection.count() > 0) {
-        // Clean Selected Layers
+        // Clear Selected Layers
         for(var i = 0; i < selection.count(); i ++) {
-            cleanLayerName(selection[i]);
+            clearLayerName(selection[i]);
         }
     } else {
-        // Clean All Layers
+        // Clear All Layers
         var allLayers = doc.currentPage().children();
         for(var i = 0; i < allLayers.count(); i++) {
-            cleanLayerName(allLayers[i]);
+            clearLayerName(allLayers[i]);
         }
     }
 }
 
-function cleanLayerName(arg_layer) {
+function clearLayerName(arg_layer) {
     if(/copy( \d+)?$/gi.test(arg_layer.name())) {
         var newLayerName = arg_layer.name().replace(/ copy( \d+)?/gi, '');
         arg_layer.setName(newLayerName);
     }
-
     if(/^(Rectangle|Oval|Star|Polygon|Triangle)( \d+)/i.test(arg_layer.name())) {
         var newLayerName = arg_layer.name().replace(/( \d+)$/i, '');
         arg_layer.setName(newLayerName);

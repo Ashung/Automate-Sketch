@@ -25,14 +25,28 @@
             "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
         },
         {
-            "name": "Tile Layers Horizontally",
-            "identifier": "tile_layers_horizontally",
-            "script": "Layer/Tile_Layers_Horizontally.cocoascript"
+            "name": "Tile Layers by Position X",
+            "identifier": "tile_layers_by_position_x",
+            "handler": "tileLayersByPositionX",
+            "script": "Layer/Tile_Layers.cocoascript"
         },
         {
-            "name": "Tile Layers Vertically",
-            "identifier": "tile_layers_vertically",
-            "script": "Layer/Tile_Layers_Vertically.cocoascript"
+            "name": "Tile Layers by Position Y",
+            "identifier": "tile_layers_by_position_y",
+            "handler": "tileLayersByPositionY",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "Tile Layers Horizontally by Index",
+            "identifier": "tile_layers_horizontally_by_index",
+            "handler": "tileLayersHorizontallyByIndex",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "Tile Layers Vertically by Index",
+            "identifier": "tile_layers_vertically_by_index",
+            "handler": "tileLayersVerticallyByIndex",
+            "script": "Layer/Tile_Layers.cocoascript"
         },
         {
             "name": "Unlock All Layers",
@@ -78,6 +92,12 @@
             "identifier": "reverse_layer_order",
             "script": "Layer/Reverse_Layer_Order.cocoascript"
         },
+        {
+            "name": "Add Solid Fill from CSS Color",
+            "identifier": "add_solid_fill_from_css_color",
+            "script": "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
+        },
+
 
 
 
@@ -222,10 +242,9 @@
             "script": "Clear/Clear_Guides.cocoascript"
         },
         {
-            "name": "Clean Layer Name",
-            "identifier": "clean_layer_name",
-            "shortcut": "option command l",
-            "script": "Clear/Clean_Layer_Name.cocoascript"
+            "name": "Clear Layer Name",
+            "identifier": "clear_layer_name",
+            "script": "Clear/Clear_Layer_Name.cocoascript"
         },
         {
             "name": "Delete All Hidden Layers",
@@ -295,45 +314,43 @@
             "name": "Android Fairy",
             "identifier": "android_fairy",
             "handler": "AndroidFairy",
-            "script": "Shell/Run_Shell_File.cocoascript"
+            "script": "Utilities/Run_Shell_File.cocoascript"
         },
-
-
         {
             "name": "About",
             "identifier": "about",
             "handler": "aboutWindow",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Web Site",
             "identifier": "web_site",
             "handler": "website",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Report Issue",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Donate via PayPal",
             "identifier": "donate_via_paypal",
             "handler": "donateViaPaypal",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Donate via WeChat (QRcode)",
             "identifier": "donate_via_wechat",
             "handler": "donateViaWechat",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Donate via Alipay (QRcode)",
             "identifier": "donate_via_alipay",
             "handler": "donateViaAlipay",
-            "script": "Help/help.cocoascript"
+            "script": "Utilities/help.cocoascript"
         }
     ],
     "menu": {
@@ -346,8 +363,10 @@
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",
-                    "tile_layers_horizontally",
-                    "tile_layers_vertically",
+                    "tile_layers_by_position_x",
+                    "tile_layers_by_position_y",
+                    "tile_layers_horizontally_by_index",
+                    "tile_layers_vertically_by_index",
                     "-",
                     "order_layers_by_x",
                     "order_layers_by_y",
@@ -419,7 +438,7 @@
             {
                 "title": "Clear",
                 "items": [
-                    "clean_layer_name",
+                    "clear_layer_name",
                     "-",
                     "clear_slices",
                     "clear_exportables",

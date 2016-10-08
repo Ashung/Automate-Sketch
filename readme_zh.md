@@ -12,8 +12,10 @@ Sketch 功能扩展插件合集。
 *  **Layer**
     * Change Places Between Two Layers 两个图层交换位置
     * Change Places Between Two Layers (center) 基于两个图层的中心交换位置
-    * Tile Layers Horizontally 垂直平铺图层
-    * Tile Layers Vertically 水平平铺图层
+    * Tile Layers by Position X 水平平铺图层
+    * Tile Layers by Position Y 垂直平铺图层
+    * Tile Layers Horizontally by Index 根据图层列表位置水平平铺图层
+    * Tile Layers Vertically by Index 根据图层列表位置垂直平铺图层
     * Order Layers by X 根据图层 X 值，更改图层列表中的位置
     * Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
     * Reverse Layer Order 反转图层列表中的位置
@@ -52,7 +54,7 @@ Sketch 功能扩展插件合集。
     * Select All Missing Symbol Instances in Current Page 选择当前页中失效的 Symbol 实例
     * Select All Instance of Symbol Master 选择 Symbol Master 的实例
 *  **Clear**
-    * Clean Layer Name 清理图层名，删除 copy
+    * Clear Layer Name 清理图层名，删除 copy
     * Clear Slices 清除切片
     * Clear Exportables 清除 Exportables 设置
     * Clear Guides 清除辅助线

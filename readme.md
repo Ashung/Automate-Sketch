@@ -12,8 +12,10 @@ Some scripts for Bohemian Coding’s Sketch.
 *  **Layer**
     * Change Places Between Two Layers
     * Change Places Between Two Layers (center)
-    * Tile Layers Horizontally
-    * Tile Layers Vertically
+    * Tile Layers by Position X
+    * Tile Layers by Position Y
+    * Tile Layers Horizontally by Index
+    * Tile Layers Vertically by Index
     * Order Layers by X
     * Order Layers by Y
     * Reverse Layer Order
@@ -52,7 +54,7 @@ Some scripts for Bohemian Coding’s Sketch.
     * Select All Missing Symbol Instances in Current Page
     * Select All Instance of Symbol Master
 *  **Clear**
-    * Clean Layer Name
+    * Clear Layer Name
     * Clear Slices
     * Clear Exportables
     * Clear Guides

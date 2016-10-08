@@ -29,12 +29,10 @@ var onRun = function(context) {
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
 
-            // var color = MSColor.blackColor();
-            //     color.setAlpha(0.2);
             var color = MSColor.alloc().init();
-                color.setRed(red);
-                color.setGreen(green);
-                color.setBlue(blue);
+                color.setRed(red/255);
+                color.setGreen(green/255);
+                color.setBlue(blue/255);
                 color.setAlpha(alpha);
 
             var x = Math.round(layer.frame().x()),
@@ -77,7 +75,7 @@ var onRun = function(context) {
             boundlayer.select_byExpandingSelection(true, true);
 
             // Move To Back
-            [NSApp sendAction:"moveToBack:" to:nil from:doc];
+            NSApp.sendAction_to_from_("moveToBack:", nil, doc);
 
         }
     }

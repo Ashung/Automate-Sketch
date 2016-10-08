@@ -1,0 +1,98 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var tileLayersByPositionY = function(context) {
+    tileLayer(context, "posy");
+}
+
+var tileLayersByPositionX = function(context) {
+    tileLayer(context, "posx");
+}
+
+var tileLayersHorizontallyByIndex = function(context) {
+    tileLayer(context, "horizontallyByIndex");
+}
+
+var tileLayersVerticallyByIndex = function(context) {
+    tileLayer(context, "verticallyByIndex");
+}
+
+var tileLayer = function(context, orientation) {
+    var doc = context.document;
+    var selection = context.selection;
+    if (selection.count() < 2) {
+        doc.showMessage("Please select more than 2 layers.");
+    } else {
+
+        var gap = doc.askForUserInput_initialValue("The gap between two layers. (px)", 0);
+            gap = parseInt(gap);
+
+        // Tile by position x/y
+        if (orientation == "posx" || orientation == "posy") {
+            var layers = [];
+            for (var i = 0; i < selection.count(); i ++) {
+                var selectionIndex = i,
+                    x = selection[i].frame().x(),
+                    y = selection[i].frame().y(),
+                    w = selection[i].frame().width(),
+                    h = selection[i].frame().height();
+                layers.push({
+                    "index": selectionIndex,
+                    "x": x,
+                    "y": y,
+                    "w": w,
+                    "h": h
+                });
+            }
+
+            if (orientation == "posx") {
+                layers.sort(function(a, b) {
+                    return a.x - b.x;
+                });
+                for (var i = 1; i < layers.length; i ++) {
+                    layers[i].x = layers[i-1].x + layers[i-1].w + gap;
+                    selection[layers[i].index].frame().setX(
+                        layers[i].x
+                    );
+                }
+            }
+
+            if (orientation == "posy") {
+                layers.sort(function(a, b) {
+                    return a.y - b.y;
+                });
+                for (var i = 1; i < layers.length; i ++) {
+                    layers[i].y = layers[i-1].y + layers[i-1].h + gap;
+                    selection[layers[i].index].frame().setY(
+                        layers[i].y
+                    );
+                }
+            }
+        }
+
+        // Tile horizontally by index
+        if (orientation == "horizontallyByIndex") {
+            for (var i = 1; i < selection.count(); i ++) {
+                selection.objectAtIndex(i).frame().setX(
+                    selection.objectAtIndex(i-1).frame().x() + selection.objectAtIndex(i-1).frame().width() + gap
+                );
+            }
+        }
+
+        // Tile vertically by index
+        if (orientation == "verticallyByIndex") {
+            for (var i = 1; i < selection.count(); i ++) {
+                selection.objectAtIndex(i).frame().setY(
+                    selection.objectAtIndex(i-1).frame().y() + selection.objectAtIndex(i-1).frame().height() + gap
+                );
+            }
+        }
+
+    }
+}
