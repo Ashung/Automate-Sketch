@@ -19,12 +19,14 @@ Some scripts for Bohemian Coding’s Sketch.
     * Order Layers by X
     * Order Layers by Y
     * Reverse Layer Order
+    * Add Solid Fill from CSS Color
     * Bounds Layer from Selection
     * Unlock All Layers
     * Click Through Off
     * Click Through On
     * Select All Groups
     * Select All Groups in Artboard
+    * Select All Child Layers
 *  **Type**
     * Capitalize
     * Change Typeface for Latin Character
@@ -50,9 +52,11 @@ Some scripts for Bohemian Coding’s Sketch.
     * Artboard to Group
     * Switch Between Portrait and Landscape
 *  **Symbol**
-    * Ungroup Unused Symbol Master
-    * Select All Missing Symbol Instances in Current Page
+    * Select All Missing Instances in Current Page
     * Select All Instance of Symbol Master
+    * Rename All Instances
+    * Ungroup Unused Symbol Master
+    * Remove Unused Symbols
 *  **Clear**
     * Clear Layer Name
     * Clear Slices
@@ -63,7 +67,6 @@ Some scripts for Bohemian Coding’s Sketch.
     * Delete All Empty Groups
     * Delete All Empty Groups in Artboard
     * Remove All Unused Styles
-    * Remove Unused Symbols
 *  **Utilities**
     * Android Fairy
     * Show File in Finder

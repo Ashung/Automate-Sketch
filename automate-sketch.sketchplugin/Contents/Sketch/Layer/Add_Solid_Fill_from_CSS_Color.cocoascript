@@ -7,11 +7,6 @@ license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
-// #rgb/#rrggbb
-// rgb/rgba
-// hsl/hsla
-// Keyword
-// transparent
 var colorKeywords = {
     "black": "#000000",
     "silver": "#c0c0c0",
@@ -168,7 +163,7 @@ var onRun = function(context) {
     if (selection.count() > 0 && selection.firstObject().class() == "MSShapeGroup") {
         var rgba = [0, 0, 0, 1];
 
-
+        // Create a random color
         var randomColors = [];
 
         var colorKeywordsKeys = Object.keys(colorKeywords);
@@ -185,19 +180,17 @@ var onRun = function(context) {
         var randomRgb = "rgb(" + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + "," + Math.round(Math.random()*255) + ")";
         randomColors.push(randomRgb);
 
-        // log(randomColors[Math.floor(Math.random() * (randomColors.length - 1))])
-        log(randomColors)
+        var randomHsl = "hsl(" + Math.round(Math.random()*360) + "," + Math.round(Math.random()*100) + "%," + Math.round(Math.random()*100) + "%)";
+        randomColors.push(randomHsl);
 
-        return;
-
-        // "-",
-        // "add_solid_fill_from_css_color",
+        var defaultRandomColor = randomColors[Math.round(Math.random() * (randomColors.length - 1))];
 
 
         var cssCode = doc.askForUserInput_initialValue("hex, rgb, rgba, hsl, hsla, keywords", defaultRandomColor);
             cssCode = cssCode.replace(/\s+/g, "").toLowerCase();
 
         switch (true) {
+            // #rrggbb
             case (/^#?[0-9a-f]{6}$/.test(cssCode)):
                 rgba = [
                     parseInt(cssCode.substr(cssCode.length-6, 2), 16),
@@ -207,6 +200,7 @@ var onRun = function(context) {
                 ];
                 // log("#RRGGBB: " + cssCode + " > " + rgba.toString());
                 break;
+            // #rgb
             case (/^#?[0-9a-f]{3}$/.test(cssCode)):
                 rgba = [
                     parseInt(repeatTwice(cssCode.substr(cssCode.length-3, 1)), 16),
@@ -216,6 +210,7 @@ var onRun = function(context) {
                 ];
                 // log("#RGB: " + cssCode + " > " + rgba.toString());
                 break;
+            // rgb/rgba
             case (/^rgba?\(\d+,\d+,\d+(,0?\.?[0-9]+)?\)$/.test(cssCode)):
                 var match = cssCode.match(/^rgba?\((\d+),(\d+),(\d+)(,(0?\.?[0-9]+))?\)$/);
                 rgba = [
@@ -224,8 +219,9 @@ var onRun = function(context) {
                     match[3],
                     match[5] ? parseFloat(match[5]) : 1
                 ];
-                log("RGBA: " + cssCode + " > " + rgba.toString());
+                // log("RGBA: " + cssCode + " > " + rgba.toString());
                 break;
+            // hsl/hsla
             case (/^hsla?\(\d+,\d+%,\d+%(,0?\.?[0-9]+)?\)$/.test(cssCode)):
                 var match = cssCode.match(/^hsla?\((\d+),(\d+%),(\d+%)(,(0?\.?[0-9]+))?\)$/);
                 var rgb = HSLtoRGB(match[1], parseInt(match[2]), parseInt(match[3]));
@@ -237,6 +233,7 @@ var onRun = function(context) {
                 ];
                 // log("HSLA: " + cssCode + " > " + rgba.toString());
                 break;
+            // Keyword
             case (/^#[0-9a-f]{6}$/i.test(colorKeywords[cssCode])):
                 rgba = [
                     parseInt(colorKeywords[cssCode].substr(1, 2), 16),
@@ -246,9 +243,9 @@ var onRun = function(context) {
                 ];
                 // log("keywords: " + cssCode + " > " + rgba.toString());
                 break;
+            // transparent
             case (cssCode == "transparent"):
                 rgba = [0, 0, 0, 0];
-                log("4:"+cssCode+">"+rgba.toString());
                 break;
             default:
                 rgba = [0, 0, 0, 1];

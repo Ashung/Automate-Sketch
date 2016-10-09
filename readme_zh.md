@@ -19,12 +19,14 @@ Sketch 功能扩展插件合集。
     * Order Layers by X 根据图层 X 值，更改图层列表中的位置
     * Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
     * Reverse Layer Order 反转图层列表中的位置
+    * Add Solid Fill from CSS Color 从 CSS 色彩代码添加填充
     * Bounds Layer from Selection 为从选中图层创建边界图层
     * Unlock All Layers 解锁所有图层
     * Click Through Off 点击穿透 关
     * Click Through On 点击穿透 开
     * Select All Groups 选择所有组
     * Select All Groups in Artboard 选择画板内所有组
+    * Select All Child Layers 选择所有子图层
 *  **Type**
     * Capitalize 首字大写
     * Change Typeface for Latin Character 更改文本图层中西文的字体
@@ -50,9 +52,11 @@ Sketch 功能扩展插件合集。
     * Artboard to Group 画板转为组
     * Switch Between Portrait and Landscape 翻转画板
 *  **Symbol**
-    * Ungroup Unused Symbol Master 未使用的 Symbol Master 转为组
-    * Select All Missing Symbol Instances in Current Page 选择当前页中失效的 Symbol 实例
+    * Select All Missing Instances in Current Page 选择当前页中失效的 Symbol 实例
     * Select All Instance of Symbol Master 选择 Symbol Master 的实例
+    * Rename All Instances 重命名所有实例
+    * Ungroup Unused Symbol Master 将未使用的 Symbol Master 转为组
+    * Remove Unused Symbols 删除未使用 Symbol
 *  **Clear**
     * Clear Layer Name 清理图层名，删除 copy
     * Clear Slices 清除切片
@@ -63,7 +67,6 @@ Sketch 功能扩展插件合集。
     * Delete All Empty Groups 删除空组
     * Delete All Empty Groups in Artboard 删除画板内空组
     * Remove All Unused Styles 删除当前页所有图层中未使用样式
-    * Remove Unused Symbols 删除未使用 Symbol
 *  **Utilities**
     * Android Fairy 将使用 Android 切片预设导出的文件移动到 drawable 文件夹
     * Show File in Finder 在 Finder 中打开当前文档

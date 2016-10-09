@@ -76,6 +76,11 @@
             "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
         },
         {
+            "name": "Select All Child Layers",
+            "identifier": "select_all_child_layers",
+            "script": "Layer/Select_All_Child_Layers.cocoascript"
+        },
+        {
             "name": "Order Layers by Y",
             "identifier": "order_layers_by_y",
             "handler": "orderLayersByY",
@@ -271,11 +276,7 @@
             "identifier": "remove_all_unused_styles",
             "script": "Clear/Remove_All_Unused_Styles.cocoascript"
         },
-        {
-            "name": "Remove Unused Symbols",
-            "identifier": "remove_unused_symbols",
-            "script": "Clear/Remove_Unused_Symbols.cocoascript"
-        },
+
 
 
 
@@ -285,14 +286,24 @@
             "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
         },
         {
-            "name": "Select All Missing Symbol Instances in Current Page",
-            "identifier": "select_all_missing_symbol_instances_in_current_page",
-            "script": "Symbol/Select_All_Missing_Symbol_Instances_in_Current_Page.cocoascript"
+            "name": "Select All Missing Instances in Current Page",
+            "identifier": "select_all_missing_instances_in_current_page",
+            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
         },
         {
-            "name": "Select All Instance of Symbol Master",
-            "identifier": "select_all_instance_of_symbol_master",
-            "script": "Symbol/Select_All_Instance_of_Symbol_Master.cocoascript"
+            "name": "Select All Instances of Symbol Master",
+            "identifier": "select_all_instances_of_symbol_master",
+            "script": "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
+        },
+        {
+            "name": "Remove Unused Symbols",
+            "identifier": "remove_unused_symbols",
+            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
+        },
+        {
+            "name": "Rename All Instances",
+            "identifier": "rename_all_instance",
+            "script": "Symbol/Rename_All_Instances.cocoascript"
         },
 
 
@@ -372,6 +383,8 @@
                     "order_layers_by_y",
                     "reverse_layer_order",
                     "-",
+                    "add_solid_fill_from_css_color",
+                    "-",
                     "layer_bounds",
                     "-",
                     "unlock_all_layers",
@@ -380,7 +393,8 @@
                     "click_through_on",
                     "-",
                     "select_all_groups",
-                    "select_all_groups_in_artboard"
+                    "select_all_groups_in_artboard",
+                    "select_all_child_layers"
                 ]
             },
             {
@@ -430,9 +444,13 @@
             {
                 "title": "Symbol",
                 "items": [
+                    "select_all_missing_instances_in_current_page",
+                    "select_all_instances_of_symbol_master",
+                    "rename_all_instance",
+                    "-",
                     "ungroup_unused_symbol_master",
-                    "select_all_missing_symbol_instances_in_current_page",
-                    "select_all_instance_of_symbol_master"
+                    "-",
+                    "remove_unused_symbols"
                 ]
             },
             {
@@ -449,8 +467,7 @@
                     "delete_all_empty_groups",
                     "delete_all_empty_groups_in_artboard",
                     "-",
-                    "remove_all_unused_styles",
-                    "remove_unused_symbols"
+                    "remove_all_unused_styles"
                 ]
             },
             {
