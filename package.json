@@ -1,0 +1,12 @@
+{
+  "name": "automate-sketch",
+  "description": "Sketch plugin",
+  "main": "make_manifest.js",
+  "author": "Ashung Hung",
+  "scripts": {
+    "make": "node make_manifest.js"
+  },
+  "devDependencies": {
+    "js-yaml": "^3.6.1"
+  }
+}

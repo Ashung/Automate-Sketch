@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": 1.160930,
+    "version": "1.0.20161011",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -18,11 +18,6 @@
             "name": "Change Places Between Two Layers (center)",
             "identifier": "change_layer_places_center",
             "script": "Layer/Change_Places_Center.cocoascript"
-        },
-        {
-            "name": "Bounds Layer from Selection",
-            "identifier": "layer_bounds",
-            "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
         },
         {
             "name": "Tile Layers by Position X",
@@ -47,6 +42,33 @@
             "identifier": "tile_layers_vertically_by_index",
             "handler": "tileLayersVerticallyByIndex",
             "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "Order Layers by X",
+            "identifier": "order_layers_by_x",
+            "handler": "orderLayersByX",
+            "script": "Layer/Order_Layers_by_XY.cocoascript"
+        },
+        {
+            "name": "Order Layers by Y",
+            "identifier": "order_layers_by_y",
+            "handler": "orderLayersByY",
+            "script": "Layer/Order_Layers_by_XY.cocoascript"
+        },
+        {
+            "name": "Reverse Layer Order",
+            "identifier": "reverse_layer_order",
+            "script": "Layer/Reverse_Layer_Order.cocoascript"
+        },
+        {
+            "name": "Add Solid Fill from CSS Color",
+            "identifier": "add_solid_fill_from_css_color",
+            "script": "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
+        },
+        {
+            "name": "Bounds Layer from Selection",
+            "identifier": "layer_bounds",
+            "script": "Layer/Bounds_Layer_from_Selection.cocoascript"
         },
         {
             "name": "Unlock All Layers",
@@ -81,32 +103,6 @@
             "script": "Layer/Select_All_Child_Layers.cocoascript"
         },
         {
-            "name": "Order Layers by Y",
-            "identifier": "order_layers_by_y",
-            "handler": "orderLayersByY",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "Order Layers by X",
-            "identifier": "order_layers_by_x",
-            "handler": "orderLayersByX",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "Reverse Layer Order",
-            "identifier": "reverse_layer_order",
-            "script": "Layer/Reverse_Layer_Order.cocoascript"
-        },
-        {
-            "name": "Add Solid Fill from CSS Color",
-            "identifier": "add_solid_fill_from_css_color",
-            "script": "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
-        },
-
-
-
-
-        {
             "name": "Capitalize",
             "identifier": "capitalize",
             "script": "Type/Capitalize.cocoascript"
@@ -114,7 +110,6 @@
         {
             "name": "Change Typeface for Latin Character",
             "identifier": "change_typeface_for_the_latin_character_set",
-            "shortcut": "control option command t",
             "script": "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
         },
         {
@@ -132,13 +127,9 @@
             "identifier": "unfixed_layer_name",
             "script": "Type/Unfixed_Layer_Name.cocoascript"
         },
-
-
-
         {
             "name": "New Layer Base Slice",
             "identifier": "new_layer_base_slice",
-            "shortcut": "control option command s",
             "script": "Slice/New_Layer_Base_Slice.cocoascript"
         },
         {
@@ -154,25 +145,25 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for iOS (pdf)",
+            "name": "New Layer Base Slice for iOS (PDF)",
             "identifier": "new_layer_base_slice_for_ios_pdf",
             "handler": "new_slice_for_ios_pdf",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Android (1x to all)",
+            "name": "New Layer Base Slice for Android (MDPI to all)",
             "identifier": "new_layer_base_slice_for_android_1x",
             "handler": "new_slice_for_android_1x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Android (2x to all)",
+            "name": "New Layer Base Slice for Android (XHDPI to all)",
             "identifier": "new_layer_base_slice_for_android_2x",
             "handler": "new_slice_for_android_2x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Android (3x to all)",
+            "name": "New Layer Base Slice for Android (XXHDPI to all)",
             "identifier": "new_layer_base_slice_for_android_3x",
             "handler": "new_slice_for_android_3x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
@@ -184,7 +175,7 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "New Layer Base Slice for Web (svg)",
+            "name": "New Layer Base Slice for Web (SVG)",
             "identifier": "new_layer_base_slice_for_svg",
             "handler": "new_slice_for_svg",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
@@ -204,10 +195,6 @@
             "identifier": "select_slices_in_group",
             "script": "Slice/Select_Slices_In_Group.cocoascript"
         },
-
-
-
-
         {
             "name": "Artboard Form Group",
             "identifier": "artboard_form_group",
@@ -219,18 +206,45 @@
             "script": "Artboard/Artboard_Form_Layers.cocoascript"
         },
         {
+            "name": "Artboard to Group",
+            "identifier": "artboard_to_group",
+            "script": "Artboard/Artboard_to_Group.cocoascript"
+        },
+        {
             "name": "Switch Between Portrait and Landscape",
             "identifier": "switch_between_portrait_and_landscape",
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
         },
         {
-            "name": "Artboard to Group",
-            "identifier": "artboard_to_group",
-            "script": "Artboard/Artboard_to_Group.cocoascript"
+            "name": "Select All Missing Instances in Current Page",
+            "identifier": "select_all_missing_instances_in_current_page",
+            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
         },
-
-
-
+        {
+            "name": "Select All Instances of Symbol Master",
+            "identifier": "select_all_instances_of_symbol_master",
+            "script": "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
+        },
+        {
+            "name": "Rename All Instances",
+            "identifier": "rename_all_instance",
+            "script": "Symbol/Rename_All_Instances.cocoascript"
+        },
+        {
+            "name": "Remove Unused Symbols",
+            "identifier": "ungroup_unused_symbol_master",
+            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
+        },
+        {
+            "name": "Ungroup Unused Symbol Master",
+            "identifier": "remove_unused_symbols",
+            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+        },
+        {
+            "name": "Clear Layer Name",
+            "identifier": "clear_layer_name",
+            "script": "Clear/Clear_Layer_Name.cocoascript"
+        },
         {
             "name": "Clear Slices",
             "identifier": "clear_slices",
@@ -245,11 +259,6 @@
             "name": "Clear Guides",
             "identifier": "clear_guides",
             "script": "Clear/Clear_Guides.cocoascript"
-        },
-        {
-            "name": "Clear Layer Name",
-            "identifier": "clear_layer_name",
-            "script": "Clear/Clear_Layer_Name.cocoascript"
         },
         {
             "name": "Delete All Hidden Layers",
@@ -272,43 +281,16 @@
             "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
         },
         {
-            "name": "Remove All Unused Styles",
+            "name": "Delete All Hidden Layers in Artboard",
             "identifier": "remove_all_unused_styles",
             "script": "Clear/Remove_All_Unused_Styles.cocoascript"
         },
-
-
-
-
         {
-            "name": "Ungroup Unused Symbol Master",
-            "identifier": "ungroup_unused_symbol_master",
-            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+            "name": "Android Fairy",
+            "identifier": "android_fairy",
+            "handler": "AndroidFairy",
+            "script": "Utilities/Run_Shell_File.cocoascript"
         },
-        {
-            "name": "Select All Missing Instances in Current Page",
-            "identifier": "select_all_missing_instances_in_current_page",
-            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
-        },
-        {
-            "name": "Select All Instances of Symbol Master",
-            "identifier": "select_all_instances_of_symbol_master",
-            "script": "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
-        },
-        {
-            "name": "Remove Unused Symbols",
-            "identifier": "remove_unused_symbols",
-            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
-        },
-        {
-            "name": "Rename All Instances",
-            "identifier": "rename_all_instance",
-            "script": "Symbol/Rename_All_Instances.cocoascript"
-        },
-
-
-
-
         {
             "name": "Show File in Finder",
             "identifier": "show_file_in_finder",
@@ -320,18 +302,6 @@
             "identifier": "open_terminal_at_file_folder",
             "handler": "openTerminalAtFileFolder",
             "script": "Utilities/Utilities.cocoascript"
-        },
-        {
-            "name": "Android Fairy",
-            "identifier": "android_fairy",
-            "handler": "AndroidFairy",
-            "script": "Utilities/Run_Shell_File.cocoascript"
-        },
-        {
-            "name": "About",
-            "identifier": "about",
-            "handler": "aboutWindow",
-            "script": "Utilities/help.cocoascript"
         },
         {
             "name": "Web Site",
@@ -352,16 +322,21 @@
             "script": "Utilities/help.cocoascript"
         },
         {
-            "name": "Donate via WeChat (QRcode)",
+            "name": "Donate via WeChat",
             "identifier": "donate_via_wechat",
             "handler": "donateViaWechat",
             "script": "Utilities/help.cocoascript"
         },
         {
-            "name": "Donate via Alipay (QRcode)",
+            "name": "Donate via Alipay",
             "identifier": "donate_via_alipay",
             "handler": "donateViaAlipay",
             "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "Change Language",
+            "identifier": "change_language",
+            "script": "Utilities/Change_Languages.cocoascript"
         }
     ],
     "menu": {
@@ -487,7 +462,9 @@
                     "-",
                     "donate_via_paypal",
                     "donate_via_wechat",
-                    "donate_via_alipay"
+                    "donate_via_alipay",
+                    "-",
+                    "change_language"
                 ]
             }
         ]
