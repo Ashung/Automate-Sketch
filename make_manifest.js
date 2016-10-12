@@ -4,7 +4,7 @@
 var fs = require("fs");
 var yaml = require("js-yaml");
 var manifestFile = "manifest.yaml";
-var supportLanguages = ["en", "zh_Hans"];
+var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
 
 fs.watch(manifestFile, function (event, filename) {
     if (event == "change" && filename) {
@@ -23,16 +23,18 @@ fs.watch(manifestFile, function (event, filename) {
             finalManifest.version += "." + buildDateString;
 
             for (var i = 0; i < supportLanguages.length; i++) {
+
+                var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
                 // Add commands
                 finalManifest.commands = [];
-                getCommands(manifest.menuConfigs.items, supportLanguages[i], finalManifest.commands);
+                getCommands(manifest.menuConfigs.items, language, finalManifest.commands);
 
                 // Add menu
                 finalManifest.menu = {};
                 finalManifest.menu.isRoot = false;
-                finalManifest.menu.title = manifest.menuConfigs.title["" + supportLanguages[i] + ""];
+                finalManifest.menu.title = language["" + manifest.menuConfigs.title + ""];
                 finalManifest.menu.items = [];
-                getMenus(manifest.menuConfigs.items, supportLanguages[i], finalManifest.menu.items);
+                getMenus(manifest.menuConfigs.items, language, finalManifest.menu.items);
 
                 // Write manifest.json
                 fs.writeFileSync(
@@ -45,17 +47,18 @@ fs.watch(manifestFile, function (event, filename) {
                         JSON.stringify(finalManifest, null, 4)
                     );
                 }
+                // console.log(JSON.stringify(finalManifest, null, 4));
 
             }
 
             var endTime = new Date().getTime();
             var runTime = endTime - startTime;
-            // console.log("File \"" + manifestFile + "\" " + event + ". Remake manifest file finished. Use " + runTime + "ms.");
 
         } catch (e) {
             console.log(e);
         }
 
+        console.log("File \"" + manifestFile + "\" " + event + ". Remake manifest file finished. Use " + runTime + "ms.");
     }
 });
 
@@ -66,13 +69,13 @@ function getDateString() {
     return "" + y + m + d;
 }
 
-function getCommands(commandsArray, language, resultArray) {
+function getCommands(commandsArray, languageObj, resultArray) {
     for (var i = 0; i < commandsArray.length; i++) {
         for (var j = 0; j < commandsArray[i].items.length; j++) {
             var command = commandsArray[i].items[j];
             if (command.identifier != "-") {
                 var commandObj = {};
-                commandObj["name"] = command["name"]["" + language + ""];
+                commandObj["name"] = languageObj["" + command["identifier"] + ""];
                 for (var key in command) {
                     if (key != "name") {
                         commandObj["" + key + ""] = command["" + key + ""];
@@ -84,10 +87,10 @@ function getCommands(commandsArray, language, resultArray) {
     }
 }
 
-function getMenus(menuArray, language, resultArray) {
+function getMenus(menuArray, languageObj, resultArray) {
     for (var i = 0; i < menuArray.length; i++) {
         var menuObj = {};
-            menuObj.title = menuArray[i].title["" + language + ""];
+            menuObj.title = languageObj["" + menuArray[i].title + ""];
             menuObj.items = [];
         for (var j = 0; j < menuArray[i].items.length; j++) {
             var menu = menuArray[i].items[j];

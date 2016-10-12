@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161011",
+    "version": "1.0.20161012",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -231,12 +231,12 @@
             "script": "Symbol/Rename_All_Instances.cocoascript"
         },
         {
-            "name": "Remove Unused Symbols",
+            "name": "Ungroup Unused Symbol Master",
             "identifier": "ungroup_unused_symbol_master",
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
-            "name": "Ungroup Unused Symbol Master",
+            "name": "Remove Unused Symbols",
             "identifier": "remove_unused_symbols",
             "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
         },

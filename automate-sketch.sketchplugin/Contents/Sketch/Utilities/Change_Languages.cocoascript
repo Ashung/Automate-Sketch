@@ -27,7 +27,7 @@ var onRun = function(context) {
     accessory.addItemsWithObjectValues(supportLanguagesValues);
     accessory.selectItemAtIndex(0);
     var alert = NSAlert.alloc().init();
-    alert.setMessageText(".");
+    alert.setMessageText("Change Menu Language");
     alert.addButtonWithTitle("OK");
     alert.addButtonWithTitle("Cancel");
     alert.setAccessoryView(accessory);

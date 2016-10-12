@@ -8,483 +8,282 @@ identifier: "com.ashung.hung.automate_sketch"
 compatibleVersion: 3
 bundleVersion: 1
 menuConfigs:
-    title:
-        en: "Automate"
-        zh_Hans: "自动化"
+    title: automate
     items:
         -
-            title:
-                en: "Layer"
-                zh_Hans: "图层"
+            title: layer
             items:
                 -
                     identifier: change_layer_places
                     script: "Layer/Change_Places.cocoascript"
-                    name:
-                        en: "Change Places Between Two Layers"
-                        zh_Hans: "两对象互换位置"
                 -
                     identifier: change_layer_places_center
                     script: "Layer/Change_Places_Center.cocoascript"
-                    name:
-                        en: "Change Places Between Two Layers (center)"
-                        zh_Hans: "两对象基于中心互换位置"
                 -
                     identifier: "-"
                 -
                     identifier: tile_layers_by_position_x
                     handler: tileLayersByPositionX
                     script: "Layer/Tile_Layers.cocoascript"
-                    name:
-                        en: "Tile Layers by Position X"
-                        zh_Hans: "水平排列对象"
                 -
                     identifier: tile_layers_by_position_y
                     handler: tileLayersByPositionY
                     script: "Layer/Tile_Layers.cocoascript"
-                    name:
-                        en: "Tile Layers by Position Y"
-                        zh_Hans: "垂直排列对象"
                 -
                     identifier: tile_layers_horizontally_by_index
                     handler: tileLayersHorizontallyByIndex
                     script: "Layer/Tile_Layers.cocoascript"
-                    name:
-                        en: "Tile Layers Horizontally by Index"
-                        zh_Hans: "据图层列表顺序水平排列对象"
                 -
                     identifier: tile_layers_vertically_by_index
                     handler: tileLayersVerticallyByIndex
                     script: "Layer/Tile_Layers.cocoascript"
-                    name:
-                        en: "Tile Layers Vertically by Index"
-                        zh_Hans: "据图层列表顺序垂直排列对象"
                 -
                     identifier: "-"
                 -
                     identifier: order_layers_by_x
                     handler: orderLayersByX
                     script: "Layer/Order_Layers_by_XY.cocoascript"
-                    name:
-                        en: "Order Layers by X"
-                        zh_Hans: "据对象 X 值调整列表顺序"
                 -
                     identifier: order_layers_by_y
                     handler: orderLayersByY
                     script: "Layer/Order_Layers_by_XY.cocoascript"
-                    name:
-                        en: "Order Layers by Y"
-                        zh_Hans: "据对象 Y 值调整列表顺序"
                 -
                     identifier: reverse_layer_order
                     script: "Layer/Reverse_Layer_Order.cocoascript"
-                    name:
-                        en: "Reverse Layer Order"
-                        zh_Hans: "反转列表顺序"
                 -
                     identifier: "-"
                 -
                     identifier: add_solid_fill_from_css_color
                     script: "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
-                    name:
-                        en: "Add Solid Fill from CSS Color"
-                        zh_Hans: "从 CSS 色值添加单色填充"
                 -
                     identifier: "-"
                 -
                     identifier: layer_bounds
                     script: "Layer/Bounds_Layer_from_Selection.cocoascript"
-                    name:
-                        en: "Bounds Layer from Selection"
-                        zh_Hans: "为选中对象增加边界层"
                 -
                     identifier: "-"
                 -
                     identifier: unlock_all_layers
                     script: "Layer/Unlock_All_Layers.cocoascript"
-                    name:
-                        en: "Unlock All Layers"
-                        zh_Hans: "解锁当页所有图层"
                 -
                     identifier: "-"
                 -
                     identifier: click_through_off
                     handler: clickThroughOff
                     script: "Layer/Click_Through.cocoascript"
-                    name:
-                        en: "Click Through Off"
-                        zh_Hans: "穿透点击关闭"
                 -
                     identifier: click_through_on
                     handler: clickThroughOn
                     script: "Layer/Click_Through.cocoascript"
-                    name:
-                        en: "Click Through On"
-                        zh_Hans: "穿透点击开启"
                 -
                     identifier: "-"
                 -
                     identifier: select_all_groups
                     script: "Layer/Select_All_Groups.cocoascript"
-                    name:
-                        en: "Select All Groups"
-                        zh_Hans: "选择当页所有组"
                 -
                     identifier: select_all_groups_in_artboard
                     script: "Layer/Select_All_Groups_in_Artboard.cocoascript"
-                    name:
-                        en: "Select All Groups in Artboard"
-                        zh_Hans: "选择当页画板内所有组"
                 -
                     identifier: select_all_child_layers
                     script: "Layer/Select_All_Child_Layers.cocoascript"
-                    name:
-                        en: "Select All Child Layers"
-                        zh_Hans: "选择对象内所有图层"
         -
-            title:
-                en: "Type"
-                zh_Hans: "文本"
+            title: type
             items:
                 -
                     identifier: capitalize
                     script: "Type/Capitalize.cocoascript"
-                    name:
-                        en: "Capitalize"
-                        zh_Hans: "首字大写"
                 -
                     identifier: "-"
                 -
                     identifier: change_typeface_for_the_latin_character_set
                     script: "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
-                    name:
-                        en: "Change Typeface for Latin Character"
-                        zh_Hans: "更改西文字体"
                 -
                     identifier: add_space_between_cjk_and_western_character
                     script: "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
-                    name:
-                        en: "Add Space Between CJK and Latin Character"
-                        zh_Hans: "中西文字体间增加空格"
                 -
                     identifier: "-"
                 -
                     identifier: select_all_textlayer_in_artboard_or_page
                     script: "Type/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
-                    name:
-                        en: "Select All TextLayer in Selected Artboard or Current Page"
-                        zh_Hans: "选择当前页或画板内所有文本图层"
                 -
                     identifier: "-"
                 -
                     identifier: unfixed_layer_name
                     script: "Type/Unfixed_Layer_Name.cocoascript"
-                    name:
-                        en: "Unfixed Layer Name"
-                        zh_Hans: "取消当页固定图层名"
         -
-            title:
-                en: "Slice"
-                zh_Hans: "切片"
+            title: slice
             items:
                 -
                     identifier: new_layer_base_slice
                     script: "Slice/New_Layer_Base_Slice.cocoascript"
-                    name:
-                        en: "New Layer Base Slice"
-                        zh_Hans: "基于对象切片"
                 -
                     identifier: "-"
                 -
                     identifier: new_layer_base_slice_for_ios_1x
                     handler: new_slice_for_ios_1x
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for iOS (1x to all)"
-                        zh_Hans: "基于对象切片 iOS (由 1x 到所有)"
                 -
                     identifier: new_layer_base_slice_for_ios_2x
                     handler: new_slice_for_ios_2x
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for iOS (2x to all)"
-                        zh_Hans: "基于对象切片 iOS (由 1x 到所有)"
                 -
                     identifier: new_layer_base_slice_for_ios_pdf
                     handler: new_slice_for_ios_pdf
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for iOS (PDF)"
-                        zh_Hans: "基于对象切片 iOS (PDF)"
                 -
                     identifier: "-"
                 -
                     identifier: new_layer_base_slice_for_android_1x
                     handler: new_slice_for_android_1x
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for Android (MDPI to all)"
-                        zh_Hans: "基于对象切片 Android (由 MDPI 到所有)"
                 -
                     identifier: new_layer_base_slice_for_android_2x
                     handler: new_slice_for_android_2x
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for Android (XHDPI to all)"
-                        zh_Hans: "基于对象切片 Android (由 XHDPI 到所有)"
                 -
                     identifier: new_layer_base_slice_for_android_3x
                     handler: new_slice_for_android_3x
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for Android (XXHDPI to all)"
-                        zh_Hans: "基于对象切片 Android (由 XXHDPI 到所有)"
                 -
                     identifier: "-"
                 -
                     identifier: new_slice_base_slice_for_web
                     handler: new_slice_for_web
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for Web (1x to noraml and retina)"
-                        zh_Hans: "基于对象切片网页 (由 1x 到 1x 和 2x)"
                 -
                     identifier: new_layer_base_slice_for_svg
                     handler: new_slice_for_svg
                     script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-                    name:
-                        en: "New Layer Base Slice for Web (SVG)"
-                        zh_Hans: "基于对象切片网页 (SVG)"
                 -
                     identifier: "-"
                 -
                     identifier: select_all_slices
                     script: "Slice/Select_All_Slices.cocoascript"
-                    name:
-                        en: "Select All Slices"
-                        zh_Hans: "选择当页所有切片"
                 -
                     identifier: select_slices_in_selected_group_or_artboard
                     script: "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
-                    name:
-                        en: "Select Slices In Selected Group/Artboard"
-                        zh_Hans: "选择选中组或画板内的所有切片"
                 -
                     identifier: select_slices_in_group
                     script: "Slice/Select_Slices_In_Group.cocoascript"
-                    name:
-                        en: "Select Slices In Group"
-                        zh_Hans: "选择组内切片"
         -
-            title:
-                en: "Artboard"
-                zh_Hans: "画板"
+            title: artboard
             items:
                 -
                     identifier: artboard_form_group
                     script: "Artboard/Artboard_Form_Group.cocoascript"
-                    name:
-                        en: "Artboard Form Group"
-                        zh_Hans: "从组新建画板"
                 -
                     identifier: artboard_form_layers
                     script: "Artboard/Artboard_Form_Layers.cocoascript"
-                    name:
-                        en: "Artboard Form Layers"
-                        zh_Hans: "从图层新建画板"
                 -
                     identifier: artboard_to_group
                     script: "Artboard/Artboard_to_Group.cocoascript"
-                    name:
-                        en: "Artboard to Group"
-                        zh_Hans: "画板转为组"
                 -
                     identifier: "-"
                 -
                     identifier: switch_between_portrait_and_landscape
                     script: "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
-                    name:
-                        en: "Switch Between Portrait and Landscape"
-                        zh_Hans: "切换画板为纵向或横向"
         -
-            title:
-                en: "Symbol"
-                zh_Hans: "组件"
+            title: symbol
             items:
                 -
                     identifier: select_all_missing_instances_in_current_page
                     script: "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
-                    name:
-                        en: "Select All Missing Instances in Current Page"
-                        zh_Hans: "选择当页所有损坏的组件实例"
                 -
                     identifier: select_all_instances_of_symbol_master
                     script: "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
-                    name:
-                        en: "Select All Instances of Symbol Master"
-                        zh_Hans: "选择元件的所有实例"
                 -
                     identifier: rename_all_instance
                     script: "Symbol/Rename_All_Instances.cocoascript"
-                    name:
-                        en: "Rename All Instances"
-                        zh_Hans: "从命名所有实例"
                 -
                     identifier: "-"
                 -
                     identifier: ungroup_unused_symbol_master
                     script: "Symbol/Remove_Unused_Symbols.cocoascript"
-                    name:
-                        en: "Remove Unused Symbols"
-                        zh_Hans: "删除未用组件"
                 -
                     identifier: "-"
                 -
                     identifier: remove_unused_symbols
                     script: "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
-                    name:
-                        en: "Ungroup Unused Symbol Master"
-                        zh_Hans: "将选中的未用组件转为组"
         -
-            title:
-                en: "Clear"
-                zh_Hans: "清理"
+            title: clear
             items:
                 -
                     identifier: clear_layer_name
                     script: "Clear/Clear_Layer_Name.cocoascript"
-                    name:
-                        en: "Clear Layer Name"
-                        zh_Hans: "清理图层名"
                 -
                     identifier: "-"
                 -
                     identifier: clear_slices
                     script: "Clear/Clear_Slices.cocoascript"
-                    name:
-                        en: "Clear Slices"
-                        zh_Hans: "清除当页切片"
                 -
                     identifier: clear_exportables
                     script: "Clear/Clear_Exportables.cocoascript"
-                    name:
-                        en: "Clear Exportables"
-                        zh_Hans: "清除可导出设置"
                 -
                     identifier: clear_guides
                     script: "Clear/Clear_Guides.cocoascript"
-                    name:
-                        en: "Clear Guides"
-                        zh_Hans: "清除辅助线"
                 -
                     identifier: "-"
                 -
                     identifier: delete_all_hidden_layers
                     script: "Clear/Delete_All_Hidden_Layers.cocoascript"
-                    name:
-                        en: "Delete All Hidden Layers"
-                        zh_Hans: "清除所有不可见图层"
                 -
                     identifier: delete_all_hidden_layers_in_artboard
                     script: "Clear/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-                    name:
-                        en: "Delete All Hidden Layers in Artboard"
-                        zh_Hans: "清除选中画板下的不可见图层"
                 -
                     identifier: delete_all_empty_groups
                     script: "Clear/Delete_All_Empty_Groups.cocoascript"
-                    name:
-                        en: "Delete All Empty Groups"
-                        zh_Hans: "清除所有空组"
                 -
                     identifier: delete_all_empty_groups_in_artboard
                     script: "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
-                    name:
-                        en: "Delete All Empty Groups in Artboard"
-                        zh_Hans: "清除选中画板下的空组"
                 -
                     identifier: "-"
                 -
                     identifier: remove_all_unused_styles
                     script: "Clear/Remove_All_Unused_Styles.cocoascript"
-                    name:
-                        en: "Delete All Hidden Layers in Artboard"
-                        zh_Hans: ""
         -
-            title:
-                en: "Utilities"
-                zh_Hans: "实用工具"
+            title: utilities
             items:
                 -
                     identifier: android_fairy
                     handler: AndroidFairy
                     script: "Utilities/Run_Shell_File.cocoascript"
-                    name:
-                        en: "Android Fairy"
-                        zh_Hans: "Android 文件夹工具"
                 -
                     identifier: "-"
                 -
                     identifier: show_file_in_finder
                     handler: showFileInFinder
                     script: "Utilities/Utilities.cocoascript"
-                    name:
-                        en: "Show File in Finder"
-                        zh_Hans: "在 Finder 中显示"
                 -
                     identifier: open_terminal_at_file_folder
                     handler: openTerminalAtFileFolder
                     script: "Utilities/Utilities.cocoascript"
-                    name:
-                        en: "Open Termianl at File Folder"
-                        zh_Hans: "在终端打开"
         -
-            title:
-                en: "Help"
-                zh_Hans: "帮助"
+            title: help
             items:
                 -
                     identifier: web_site
                     handler: website
                     script: "Utilities/help.cocoascript"
-                    name:
-                        en: "Web Site"
-                        zh_Hans: "网站"
                 -
                     identifier: report_issue
                     handler: reportIssue
                     script: "Utilities/help.cocoascript"
-                    name:
-                        en: "Report Issue"
-                        zh_Hans: "问题反馈"
                 -
                     identifier: "-"
                 -
                     identifier: donate_via_paypal
                     handler: donateViaPaypal
                     script: "Utilities/help.cocoascript"
-                    name:
-                        en: "Donate via PayPal"
-                        zh_Hans: "通过贝宝捐赠"
                 -
                     identifier: donate_via_wechat
                     handler: donateViaWechat
                     script: "Utilities/help.cocoascript"
-                    name:
-                        en: "Donate via WeChat"
-                        zh_Hans: "通过微信捐赠"
                 -
                     identifier: donate_via_alipay
                     handler: donateViaAlipay
                     script: "Utilities/help.cocoascript"
-                    name:
-                        en: "Donate via Alipay"
-                        zh_Hans: "通过支付宝捐赠"
                 -
                     identifier: "-"
                 -
                     identifier: change_language
                     script: "Utilities/Change_Languages.cocoascript"
-                    name:
-                        en: "Change Language"
-                        zh_Hans: "更改菜单语言"
