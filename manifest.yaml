@@ -269,6 +269,10 @@ menuConfigs:
                     handler: reportIssue
                     script: "Utilities/help.cocoascript"
                 -
+                    identifier: check_for_updates
+                    handler: checkForUpdates
+                    script: "Utilities/help.cocoascript"
+                -
                     identifier: "-"
                 -
                     identifier: donate_via_paypal

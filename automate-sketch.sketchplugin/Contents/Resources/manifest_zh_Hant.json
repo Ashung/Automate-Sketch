@@ -316,6 +316,12 @@
             "script": "Utilities/help.cocoascript"
         },
         {
+            "name": "检查插件更新",
+            "identifier": "check_for_updates",
+            "handler": "checkForUpdates",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
             "name": "通過 PayPal 捐贈",
             "identifier": "donate_via_paypal",
             "handler": "donateViaPaypal",
@@ -459,6 +465,7 @@
                 "items": [
                     "web_site",
                     "report_issue",
+                    "check_for_updates",
                     "-",
                     "donate_via_paypal",
                     "donate_via_wechat",
