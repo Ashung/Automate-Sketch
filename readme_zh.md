@@ -1,6 +1,8 @@
 # Automate Sketch
 
-Sketch 功能扩展插件合集。
+让使用 Sketch 更高效 -- 一个不断增加功能扩展小插件合集。
+
+[查看部分 GIF 演示](http://ashung.github.io/Automate-Sketch/)。
 
 ## 安装
 
@@ -35,6 +37,7 @@ Sketch 功能扩展插件合集。
     * Unfixed Layer Name 取消文本图层的固定图层名
 *  **Slice**
     * New Layer Base Slice 基于图层新建切片
+    * Reset Export Options 重置导出选项
     * New Layer Base Slice for iOS (1x to all) 基于图层新建切片 iOS 1x
     * New Layer Base Slice for iOS (2x to all) 基于图层新建切片 iOS 2x
     * New Layer Base Slice for iOS (pdf) 基于图层新建切片 iOS pdf
@@ -71,9 +74,24 @@ Sketch 功能扩展插件合集。
     * Android Fairy 将使用 Android 切片预设导出的文件移动到 drawable 文件夹
     * Show File in Finder 在 Finder 中打开当前文档
     * Open Termianl at File Folder 打开终端并切换到当前文档的目录
+*  **Help**
+    * Web Site 网站
+    * Report Issue 问题反馈
+    * Donate via PayPal 通过贝宝捐赠
+    * Donate via WeChat 通过微信捐赠
+    * Donate via Alipay 通过支付宝捐赠
+    * Change Language 更改菜单语言
 
 ## 声明
 
 CC-BY-SA 4.0
 
 [![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+
+### 捐赠
+
+![](http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png)
+
+![](http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png)
+
+捐赠之后可提需求

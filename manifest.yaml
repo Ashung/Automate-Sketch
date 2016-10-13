@@ -117,6 +117,9 @@ menuConfigs:
                     identifier: new_layer_base_slice
                     script: "Slice/New_Layer_Base_Slice.cocoascript"
                 -
+                    identifier: reset_export_options
+                    script: "Slice/Reset_Export_Options.cocoascript"
+                -
                     identifier: "-"
                 -
                     identifier: new_layer_base_slice_for_ios_1x
@@ -171,9 +174,6 @@ menuConfigs:
                 -
                     identifier: artboard_form_group
                     script: "Artboard/Artboard_Form_Group.cocoascript"
-                -
-                    identifier: artboard_form_layers
-                    script: "Artboard/Artboard_Form_Layers.cocoascript"
                 -
                     identifier: artboard_to_group
                     script: "Artboard/Artboard_to_Group.cocoascript"

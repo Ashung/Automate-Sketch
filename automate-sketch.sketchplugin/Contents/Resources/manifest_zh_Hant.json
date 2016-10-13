@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161012",
+    "version": "1.0.20161013",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -133,6 +133,11 @@
             "script": "Slice/New_Layer_Base_Slice.cocoascript"
         },
         {
+            "name": "重設導出選項",
+            "identifier": "reset_export_options",
+            "script": "Slice/Reset_Export_Options.cocoascript"
+        },
+        {
             "name": "基於對象切片 iOS (由 1x 到所有)",
             "identifier": "new_layer_base_slice_for_ios_1x",
             "handler": "new_slice_for_ios_1x",
@@ -199,11 +204,6 @@
             "name": "從組新建畫板",
             "identifier": "artboard_form_group",
             "script": "Artboard/Artboard_Form_Group.cocoascript"
-        },
-        {
-            "name": "從圖層新建畫板",
-            "identifier": "artboard_form_layers",
-            "script": "Artboard/Artboard_Form_Layers.cocoascript"
         },
         {
             "name": "畫板轉為組",
@@ -389,6 +389,7 @@
                 "title": "切片",
                 "items": [
                     "new_layer_base_slice",
+                    "reset_export_options",
                     "-",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_ios_2x",
@@ -410,7 +411,6 @@
                 "title": "畫板",
                 "items": [
                     "artboard_form_group",
-                    "artboard_form_layers",
                     "artboard_to_group",
                     "-",
                     "switch_between_portrait_and_landscape"

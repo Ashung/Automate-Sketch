@@ -1,6 +1,6 @@
 # Automate Sketch
 
-Some scripts for Bohemian Coding’s Sketch.
+Make Sketch more efficient -- a lot of usefull plugins in one.
 
 ## Installation
 
@@ -75,11 +75,16 @@ Some scripts for Bohemian Coding’s Sketch.
     * Web Site
     * Report Issue
     * Donate via PayPal
-    * Donate via WeChat (QRcode)
-    * Donate via Alipay (QRcode)
+    * Donate via WeChat
+    * Donate via Alipay
+    * Change Language
 
 ## License
 
 CC-BY-SA 4.0
 
 [![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
+
+### Donate
+
+Donate [$1.00](https://www.paypal.me/ashung/1)  [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) via PayPal. 

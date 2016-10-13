@@ -6,8 +6,8 @@ var yaml = require("js-yaml");
 var manifestFile = "manifest.yaml";
 var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
 
-fs.watch(manifestFile, function (event, filename) {
-    if (event == "change" && filename) {
+// fs.watch(manifestFile, function (event, filename) {
+//     if (event == "change" && filename) {
 
         try {
             var startTime = new Date().getTime();
@@ -58,9 +58,9 @@ fs.watch(manifestFile, function (event, filename) {
             console.log(e);
         }
 
-        console.log("File \"" + manifestFile + "\" " + event + ". Remake manifest file finished. Use " + runTime + "ms.");
-    }
-});
+//         console.log("File \"" + manifestFile + "\" " + event + ". Remake manifest file finished. Use " + runTime + "ms.");
+//     }
+// });
 
 function getDateString() {
     var y = new Date().getFullYear(),

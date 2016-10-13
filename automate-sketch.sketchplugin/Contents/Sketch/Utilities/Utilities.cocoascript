@@ -11,8 +11,9 @@ var showFileInFinder = function(context) {
     if (!doc.fileURL()) {
         doc.showMessage("You have to save this document.");
     } else {
-        var fileFolder = doc.fileURL().path().stringByDeletingLastPathComponent();
-        NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Finder");
+        var filePath = doc.fileURL().path();
+        // NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Finder");
+        NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
 };
 
