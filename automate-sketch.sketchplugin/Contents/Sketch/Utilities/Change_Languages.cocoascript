@@ -47,6 +47,8 @@ var onRun = function(context) {
             NSFileManager.defaultManager().copyItemAtPath_toPath_error_(
                 languageFilePath, manifestFilePath, nil
             );
+            // Reload Plugin
+            AppController.sharedInstance().pluginManager().reloadPlugins();
         } else {
             var app = NSApplication.sharedApplication();
             app.displayDialog_withTitle_(

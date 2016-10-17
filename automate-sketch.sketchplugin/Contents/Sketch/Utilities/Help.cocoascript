@@ -35,26 +35,33 @@ function checkForUpdates(context) {
     var localManifestPath = context.plugin.url().URLByAppendingPathComponent("Contents").URLByAppendingPathComponent("Sketch").URLByAppendingPathComponent("manifest.json").path();
     var remoteManifest = getRemoteJson(remoteManifestUrl);
     var localManifest = getLocalJson(localManifestPath);
-
-    if (localManifest.version == remoteManifest.version) {
-        var app = NSApplication.sharedApplication()
-        app.displayDialog_withTitle(
-            "Automate Sketch " + localManifest.version + " is currently the newest version available.",
-            "You are up-to-date."
-        );
-    } else {
-        var alert = NSAlert.alloc().init();
-        alert.setMessageText("New version available. (" + remoteManifest.version + ")");
-        alert.setInformativeText(
-            "You are use the old verion of Automate Sketch. (" +
-            localManifest.version + ")\n" +
-            "Click \"OK\" to download newest version.");
-        alert.addButtonWithTitle("OK");
-        alert.addButtonWithTitle("Cancel");
-        var responseCode = alert.runModal();
-        if(responseCode == 1000) {
-            openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/archive/master.zip");
+    if (remoteManifest.version) {
+        if (localManifest.version == remoteManifest.version) {
+            var app = NSApplication.sharedApplication();
+            app.displayDialog_withTitle(
+                "Automate Sketch " + localManifest.version + " is currently the newest version available.",
+                "You are up-to-date."
+            );
+        } else {
+            var alert = NSAlert.alloc().init();
+            alert.setMessageText("New version available. (" + remoteManifest.version + ")");
+            alert.setInformativeText(
+                "You are use the old verion of Automate Sketch. (" +
+                localManifest.version + ")\n" +
+                "Click \"OK\" to download newest version.");
+            alert.addButtonWithTitle("OK");
+            alert.addButtonWithTitle("Cancel");
+            var responseCode = alert.runModal();
+            if(responseCode == 1000) {
+                openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/archive/master.zip");
+            }
         }
+    } else {
+        var app = NSApplication.sharedApplication();
+        app.displayDialog_withTitle(
+            "Please visite the web site and download newest version.\n" + localManifest.homepage,
+            "Can not check for updates."
+        );
     }
 }
 
