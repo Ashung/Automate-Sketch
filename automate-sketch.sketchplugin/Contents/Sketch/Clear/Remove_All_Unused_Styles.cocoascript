@@ -7,23 +7,27 @@ license: CC-BY 4.0
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
-
     var doc = context.document;
     var page = doc.currentPage();
-
-    var loop = page.children().objectEnumerator()
+    var selection = context.selection;
+    var loop = page.children().objectEnumerator();
     while (layer = loop.nextObject()) {
         if (
-            layer.className() == "MSShapeGroup" ||
-            layer.className() == "MSBitmapLayer" ||
-            layer.className() == "MSLayerGroup" ||
-            layer.className() == "MSTextLayer" ||
-            layer.className() == "MSSymbolInstance"
+            layer.class() == "MSShapeGroup" ||
+            layer.class() == "MSBitmapLayer" ||
+            layer.class() == "MSLayerGroup" ||
+            layer.class() == "MSTextLayer" ||
+            layer.class() == "MSSymbolInstance"
         ) {
             layer.select_byExpandingSelection(true, false);
             NSApp.sendAction_to_from_("removeUnusedStyles:", nil, doc);
         }
     }
 
-    page.deselectAllLayers();
+    // Restore selection
+    var loopSelection = selection.objectEnumerator();
+    while (layer = loopSelection.nextObject()) {
+        layer.select_byExpandingSelection(true, true);
+    }
+
 }
