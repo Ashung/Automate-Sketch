@@ -1,0 +1,105 @@
+
+var boundsLayerName = "#";
+
+var doc = context.document;
+var selection = context.selection;
+
+if (selection.count() > 0) {
+
+    // \d+, \d+x\d+
+    var userInputString = "0";
+
+        userInputString = "0";
+
+
+    var loop = selection.objectEnumerator();
+    while (layer = loop.nextObject()) {
+
+        // log(layer.class());
+        // log(layer.name())
+        // log(layer.bounds())
+        // log(layer.rect())
+
+        // var originalBounds = layer.rect();
+        // Round to pixel
+        var originalBounds = CGRectMake(
+            Math.floor(layer.frame().x()),
+            Math.floor(layer.frame().y()),
+            Math.ceil(layer.frame().maxX()) - Math.floor(layer.frame().minX()),
+            Math.ceil(layer.frame().maxY()) - Math.floor(layer.frame().minY())
+        );
+
+        // log(originalBounds)
+
+        var parent = layer.parentGroup();
+        var beforeLayer = layer;
+
+        var userCustomExpandValue = 0;
+        if (/\d+/.test(userInputString)) {
+            userCustomExpandValue = parseInt(userInputString);
+        }
+        var boundsLayerX = originalBounds.origin.x - userCustomExpandValue,
+            boundsLayerY = originalBounds.origin.y - userCustomExpandValue,
+            boundsLayerWidth = originalBounds.size.width + userCustomExpandValue * 2,
+            boundsLayerHeight = originalBounds.size.height + userCustomExpandValue * 2;
+
+
+
+
+
+        // if (/\d+x\d+/.test(userInputString)) {
+        //     var userCustomWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
+        //     var userCustomHeight = parseInt(/x(\d+)/.exec(userInputString)[1]);
+        //     boundsLayerX = Math.floor(originalBounds.origin.x) - Math.floor((userCustomWidth - Math.ceil(originalBounds.size.width)) / 2);
+        //     boundsLayerY = Math.floor(originalBounds.origin.y) - Math.floor((userCustomHeight - Math.ceil(originalBounds.size.height)) / 2);
+        //     boundsLayerWidth = userCustomWidth;
+        //     boundsLayerHeight = boundsLayerHeight;
+        // }
+
+        var newBounds = CGRectMake(boundsLayerX, boundsLayerY, boundsLayerWidth, boundsLayerHeight);
+
+
+        if (layer.class() == "MSLayerGroup") {
+            parent = layer;
+            beforeLayer = layer.firstLayer();
+            newBounds.origin.x = 0 - layer.frame().x() + Math.floor(layer.frame().x());
+            newBounds.origin.y = 0 - layer.frame().y() + Math.floor(layer.frame().y());
+        }
+
+
+        // log(newBounds);
+
+        var rectangle = MSRectangleShape.alloc().init();
+            rectangle.setRect(newBounds);
+        var boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
+            boundsLayer.setName(boundsLayerName);
+
+        var boundsLayerFillColor = MSColor.colorWithSVGString("#ff0000");
+            boundsLayerFillColor.setAlpha(1);
+        boundsLayer.style().addStylePartOfType(0);
+        boundsLayer.style().fill().setColor(boundsLayerFillColor);
+
+
+        parent.insertLayers_beforeLayer([boundsLayer], beforeLayer);
+
+
+        // Fix layer group
+        if (
+            layer.class() == "MSLayerGroup" &&
+            (layer.frame().x() - parseInt(layer.frame().x()) != 0 || layer.frame().y() - parseInt(layer.frame().y()) != 0)
+        ) {
+            var childs = MSLayerArray.arrayWithLayers(layer.containedLayers());
+            var name = layer.name();
+            layer.ungroup();
+            var newGroup = MSLayerGroup.groupFromLayers(childs);
+            newGroup.setName(name);
+        }
+
+
+
+
+    }
+
+} else {
+    doc.showMessage("Please select at least 1 layer.");
+}
