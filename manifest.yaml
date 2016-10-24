@@ -58,8 +58,8 @@ menuConfigs:
                 -
                     identifier: "-"
                 -
-                    identifier: layer_bounds
-                    script: "Layer/Bounds_Layer_from_Selection.cocoascript"
+                    identifier: bounds_layer_for_every_selection
+                    script: "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
                 -
                     identifier: "-"
                 -
@@ -171,6 +171,9 @@ menuConfigs:
         -
             title: artboard
             items:
+                -
+                    identifier: artboard_from_selection
+                    script: "Artboard/Artboard_from_Selection.cocoascript"
                 -
                     identifier: artboard_form_group
                     script: "Artboard/Artboard_Form_Group.cocoascript"

@@ -1,105 +1,131 @@
+/*----------------------------------------------------------
 
-var boundsLayerName = "#";
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
 
-var doc = context.document;
-var selection = context.selection;
+----------------------------------------------------------*/
+var onRun = function(context) {
 
-if (selection.count() > 0) {
+    var boundsLayerName = "#";
 
-    // \d+, \d+x\d+
-    var userInputString = "0";
+    var doc = context.document;
+    var selection = context.selection;
+    if (selection.count() > 0) {
 
-        userInputString = "0";
+        // \d+, \d+x\d+
+        var userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", "0");
 
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
 
-    var loop = selection.objectEnumerator();
-    while (layer = loop.nextObject()) {
+            // if (layer.class() == "MSArtboardGroup") {
+            //     break;
+            // }
 
-        // log(layer.class());
-        // log(layer.name())
-        // log(layer.bounds())
-        // log(layer.rect())
+            // var originalBounds = layer.rect();
+            // Round to pixel
+            var originalBounds = CGRectMake(
+                Math.floor(layer.frame().x()),
+                Math.floor(layer.frame().y()),
+                Math.ceil(layer.frame().maxX()) - Math.floor(layer.frame().minX()),
+                Math.ceil(layer.frame().maxY()) - Math.floor(layer.frame().minY())
+            );
 
-        // var originalBounds = layer.rect();
-        // Round to pixel
-        var originalBounds = CGRectMake(
-            Math.floor(layer.frame().x()),
-            Math.floor(layer.frame().y()),
-            Math.ceil(layer.frame().maxX()) - Math.floor(layer.frame().minX()),
-            Math.ceil(layer.frame().maxY()) - Math.floor(layer.frame().minY())
-        );
+            log(originalBounds)
 
-        // log(originalBounds)
+            var parent = layer.parentGroup();
+            var beforeLayer = layer;
 
-        var parent = layer.parentGroup();
-        var beforeLayer = layer;
+            var userCustomExpandValue = 0;
+            var boundsOffsetLeft = 0;
+            var boundsOffsetTop = 0;
 
-        var userCustomExpandValue = 0;
-        if (/\d+/.test(userInputString)) {
-            userCustomExpandValue = parseInt(userInputString);
+            if (/^\d+$/.test(userInputString)) {
+                userCustomExpandValue = parseInt(userInputString);
+            }
+
+            var boundsLayerX = originalBounds.origin.x - userCustomExpandValue,
+                boundsLayerY = originalBounds.origin.y - userCustomExpandValue,
+                boundsLayerWidth = originalBounds.size.width + userCustomExpandValue * 2,
+                boundsLayerHeight = originalBounds.size.height + userCustomExpandValue * 2;
+
+            if (/^\d+x\d+$/.test(userInputString)) {
+                var userCustomWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
+                var userCustomHeight = parseInt(/x(\d+)/.exec(userInputString)[1]);
+                boundsOffsetLeft = Math.floor((userCustomWidth - Math.ceil(originalBounds.size.width)) / 2);
+                boundsOffsetTop = Math.floor((userCustomHeight - Math.ceil(originalBounds.size.height)) / 2);
+                boundsLayerX = originalBounds.origin.x - boundsOffsetLeft;
+                boundsLayerY = originalBounds.origin.y - boundsOffsetTop;
+                boundsLayerWidth = userCustomWidth;
+                boundsLayerHeight = userCustomHeight;
+            }
+
+            if (layer.class() == "MSLayerGroup" || layer.class() == "MSArtboardGroup") {
+                parent = layer;
+                beforeLayer = layer.firstLayer();
+                boundsLayerX = 0 - layer.frame().x() + Math.floor(layer.frame().x()) - boundsOffsetLeft - userCustomExpandValue;
+                boundsLayerY = 0 - layer.frame().y() + Math.floor(layer.frame().y()) - boundsOffsetTop - userCustomExpandValue;
+            }
+
+            // Add bounds layer
+            var newBounds = CGRectMake(boundsLayerX, boundsLayerY, boundsLayerWidth, boundsLayerHeight);
+            var rectangle = MSRectangleShape.alloc().init();
+                rectangle.setRect(newBounds);
+            var boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
+                boundsLayer.setName(boundsLayerName);
+            parent.insertLayers_beforeLayer([boundsLayer], beforeLayer);
+
+            // // Fill color for boundsLayer
+            // // @argument: #rrggbb
+            // var boundsLayerFillColor = MSColor.colorWithSVGString("#ff0000");
+            // // Fill color alpha
+            // // @argument: float 0 - 1
+            // boundsLayerFillColor.setAlpha(0.5);
+            // boundsLayer.style().addStylePartOfType(0);
+            // boundsLayer.style().fill().setColor(boundsLayerFillColor);
+
+            // Select boundsLayer
+            if (boundsLayer.parentGroup() != layer){
+                boundsLayer.select_byExpandingSelection(true, true);
+            }
+
+            // Artboard
+            if (layer.class() == "MSArtboardGroup") {
+                layer.frame().setX(layer.frame().x() - boundsOffsetLeft);
+                layer.frame().setY(layer.frame().y() - boundsOffsetTop);
+                layer.frame().setWidth(boundsLayerWidth);
+                layer.frame().setHeight(boundsLayerHeight);
+                for (var i = 0; i < layer.layers().count(); i++) {
+                    var childLayer = layer.layers().objectAtIndex(i);
+                    childLayer.frame().setX(childLayer.frame().x() + boundsOffsetLeft);
+                    childLayer.frame().setY(childLayer.frame().y() + boundsOffsetTop)
+                }
+            }
+
+            // Fix layer group bounds
+            if (layer.class() == "MSLayerGroup") {
+                // reset bounds
+                layer.resizeToFitChildrenWithOption(1);
+                // Round to pixel
+                if (
+                    layer.frame().x() - Math.floor(layer.frame().x()) != 0 ||
+                    layer.frame().y() - Math.floor(layer.frame().y()) != 0 ||
+                    layer.frame().maxX() - Math.floor(layer.frame().maxX()) != 0 ||
+                    layer.frame().maxY() - Math.floor(layer.frame().maxY()) != 0
+                ) {
+                    var childs = MSLayerArray.arrayWithLayers(layer.containedLayers());
+                    var name = layer.name();
+                    layer.ungroup();
+                    var newGroup = MSLayerGroup.groupFromLayers(childs);
+                    newGroup.setName(name);
+                }
+            }
+
         }
-        var boundsLayerX = originalBounds.origin.x - userCustomExpandValue,
-            boundsLayerY = originalBounds.origin.y - userCustomExpandValue,
-            boundsLayerWidth = originalBounds.size.width + userCustomExpandValue * 2,
-            boundsLayerHeight = originalBounds.size.height + userCustomExpandValue * 2;
-
-
-
-
-
-        // if (/\d+x\d+/.test(userInputString)) {
-        //     var userCustomWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
-        //     var userCustomHeight = parseInt(/x(\d+)/.exec(userInputString)[1]);
-        //     boundsLayerX = Math.floor(originalBounds.origin.x) - Math.floor((userCustomWidth - Math.ceil(originalBounds.size.width)) / 2);
-        //     boundsLayerY = Math.floor(originalBounds.origin.y) - Math.floor((userCustomHeight - Math.ceil(originalBounds.size.height)) / 2);
-        //     boundsLayerWidth = userCustomWidth;
-        //     boundsLayerHeight = boundsLayerHeight;
-        // }
-
-        var newBounds = CGRectMake(boundsLayerX, boundsLayerY, boundsLayerWidth, boundsLayerHeight);
-
-
-        if (layer.class() == "MSLayerGroup") {
-            parent = layer;
-            beforeLayer = layer.firstLayer();
-            newBounds.origin.x = 0 - layer.frame().x() + Math.floor(layer.frame().x());
-            newBounds.origin.y = 0 - layer.frame().y() + Math.floor(layer.frame().y());
-        }
-
-
-        // log(newBounds);
-
-        var rectangle = MSRectangleShape.alloc().init();
-            rectangle.setRect(newBounds);
-        var boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
-            boundsLayer.setName(boundsLayerName);
-
-        var boundsLayerFillColor = MSColor.colorWithSVGString("#ff0000");
-            boundsLayerFillColor.setAlpha(1);
-        boundsLayer.style().addStylePartOfType(0);
-        boundsLayer.style().fill().setColor(boundsLayerFillColor);
-
-
-        parent.insertLayers_beforeLayer([boundsLayer], beforeLayer);
-
-
-        // Fix layer group
-        if (
-            layer.class() == "MSLayerGroup" &&
-            (layer.frame().x() - parseInt(layer.frame().x()) != 0 || layer.frame().y() - parseInt(layer.frame().y()) != 0)
-        ) {
-            var childs = MSLayerArray.arrayWithLayers(layer.containedLayers());
-            var name = layer.name();
-            layer.ungroup();
-            var newGroup = MSLayerGroup.groupFromLayers(childs);
-            newGroup.setName(name);
-        }
-
-
-
-
+    } else {
+        doc.showMessage("Please select at least 1 layer.");
     }
 
-} else {
-    doc.showMessage("Please select at least 1 layer.");
 }

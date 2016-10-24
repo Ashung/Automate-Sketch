@@ -1,0 +1,26 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var expand = doc.askForUserInput_initialValue("Padding around selection.", "0");
+
+    var rect = doc.currentView().totalRectForLayers(selection);
+    rect.origin.x -= expand;
+    rect.origin.y -= expand;
+    rect.size.width += expand * 2;
+    rect.size.height += expand * 2;
+
+    var artboard = MSArtboardGroup.new();
+    artboard.setRect(rect);
+    doc.currentPage().addLayers([artboard]);
+    doc.currentPage().moveLayersToArtboards();
+
+}
