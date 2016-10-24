@@ -2,9 +2,11 @@
 
 Make Sketch more efficient -- a lot of usefull plugins in one.
 
+[中文说明](blob/master/readme_zh.md)
+
 ## Installation
 
-1. Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it.
+1. Download [master.zip](archive/master.zip), unzip it.
 2. Double-click the "automate-sketch.sketchplugin".
 
 ## Features
@@ -20,7 +22,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Order Layers by Y
     * Reverse Layer Order
     * Add Solid Fill from CSS Color
-    * Bounds Layer from Selection
+    * Bounds Layer for Every Selection
     * Unlock All Layers
     * Click Through Off
     * Click Through On
@@ -47,6 +49,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Select Slices In Selected Group/Artboard
     * Select Slices In Group
 *  **Artboard**
+    * Artboard Form Selection
     * Artboard Form Group
     * Artboard Form Layers
     * Artboard to Group
@@ -87,4 +90,4 @@ CC-BY-SA 4.0
 
 ### Donate
 
-Donate [$1.00](https://www.paypal.me/ashung/1)  [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) via PayPal. 
+Donate [$1.00](https://www.paypal.me/ashung/1)  [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) via PayPal.

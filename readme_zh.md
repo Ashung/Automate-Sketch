@@ -6,7 +6,7 @@
 
 ## 安装
 
-1. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)。
+1. 下载并解压 [master.zip](archive/master.zip)。
 2. 双击 "automate-sketch.sketchplugin"。
 
 ## 功能
@@ -22,7 +22,7 @@
     * Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
     * Reverse Layer Order 反转图层列表中的位置
     * Add Solid Fill from CSS Color 从 CSS 色彩代码添加填充
-    * Bounds Layer from Selection 为从选中图层创建边界图层
+    * Bounds Layer for Every Selection 为从选中图层创建边界图层
     * Unlock All Layers 解锁所有图层
     * Click Through Off 点击穿透 关
     * Click Through On 点击穿透 开
@@ -50,6 +50,7 @@
     * Select Slices In Selected Group/Artboard 选择组／画板内所有切片
     * Select Slices In Group 选择组内切片
 *  **Artboard**
+    * Artboard Form Selection 从选择对象新建画板
     * Artboard Form Group 从组新建画板
     * Artboard Form Layers 从图层新建画板
     * Artboard to Group 画板转为组
@@ -93,5 +94,3 @@ CC-BY-SA 4.0
 ![](http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png)
 
 ![](http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png)
-
-捐赠之后可提需求
