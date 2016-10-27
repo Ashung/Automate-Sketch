@@ -38,18 +38,16 @@ var onRun = function(context) {
             var parent = layer.parentGroup();
             var beforeLayer = layer;
 
-            var userCustomExpandValue = 0;
-            var boundsOffsetLeft = 0;
-            var boundsOffsetTop = 0;
+            var boundsOffsetLeft = boundsOffsetTop = 0;
 
             if (/^\d+$/.test(userInputString)) {
-                userCustomExpandValue = parseInt(userInputString);
+                boundsOffsetLeft = boundsOffsetTop = parseInt(userInputString);
             }
 
-            var boundsLayerX = originalBounds.origin.x - userCustomExpandValue,
-                boundsLayerY = originalBounds.origin.y - userCustomExpandValue,
-                boundsLayerWidth = originalBounds.size.width + userCustomExpandValue * 2,
-                boundsLayerHeight = originalBounds.size.height + userCustomExpandValue * 2;
+            var boundsLayerX = originalBounds.origin.x - boundsOffsetLeft,
+                boundsLayerY = originalBounds.origin.y - boundsOffsetTop,
+                boundsLayerWidth = originalBounds.size.width + boundsOffsetLeft * 2,
+                boundsLayerHeight = originalBounds.size.height + boundsOffsetTop * 2;
 
             if (/^\d+x\d+$/.test(userInputString)) {
                 var userCustomWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
@@ -65,8 +63,8 @@ var onRun = function(context) {
             if (layer.class() == "MSLayerGroup" || layer.class() == "MSArtboardGroup") {
                 parent = layer;
                 beforeLayer = layer.firstLayer();
-                boundsLayerX = 0 - layer.frame().x() + Math.floor(layer.frame().x()) - boundsOffsetLeft - userCustomExpandValue;
-                boundsLayerY = 0 - layer.frame().y() + Math.floor(layer.frame().y()) - boundsOffsetTop - userCustomExpandValue;
+                boundsLayerX = 0 - layer.frame().x() + Math.floor(layer.frame().x()) - boundsOffsetLeft;
+                boundsLayerY = 0 - layer.frame().y() + Math.floor(layer.frame().y()) - boundsOffsetTop;
             }
 
             // Add bounds layer

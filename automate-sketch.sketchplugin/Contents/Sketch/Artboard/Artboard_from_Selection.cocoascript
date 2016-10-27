@@ -20,6 +20,7 @@ var onRun = function(context) {
 
     var artboard = MSArtboardGroup.new();
     artboard.setRect(rect);
+    artboard.frame().setConstrainProportions(false);
     doc.currentPage().addLayers([artboard]);
     doc.currentPage().moveLayersToArtboards();
 
