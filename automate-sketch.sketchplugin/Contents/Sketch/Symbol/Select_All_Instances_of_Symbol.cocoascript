@@ -11,14 +11,26 @@ var onRun = function(context) {
     var selection = context.selection;
     var view = doc.currentView();
 
-    if (selection.count() == 1 && selection.firstObject().class() == "MSSymbolMaster") {
-        var symbolMaster = selection.firstObject();
+    if (selection.count() == 1 && (selection.firstObject().class() == "MSSymbolMaster" || selection.firstObject().class() == "MSSymbolInstance")) {
+        if (selection.firstObject().class() == "MSSymbolMaster") {
+            var symbolMaster = selection.firstObject();
+        }
+        if (selection.firstObject().class() == "MSSymbolInstance") {
+            var symbolMaster = selection.firstObject().symbolMaster();
+        }
+
         if (symbolMaster.hasInstances()) {
             var pagesHasInstances = [];
             var pagesName = [];
-            for(var i = 0; i < doc.pages().count(); i++) {
+            for (var i = 0; i < doc.pages().count(); i++) {
                 var page = doc.pages().objectAtIndex(i);
                 var allSymbolInstances = page.allSymbolInstancesInChildren().allObjects();
+                var instancesInCurretPage = 0;
+                for (var j = 0; j < allSymbolInstances.count(); j ++) {
+                    if (allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()) {
+                        instancesInCurretPage ++;
+                    }
+                }
                 for (var j = 0; j < allSymbolInstances.count(); j ++) {
                     if (
                         allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()
@@ -26,7 +38,7 @@ var onRun = function(context) {
                         pagesHasInstances.indexOf(page) == -1
                     ) {
                         pagesHasInstances.push(page);
-                        pagesName.push(page.name());
+                        pagesName.push(page.name() + " (" + instancesInCurretPage + ")");
                     }
                 }
             }
@@ -36,7 +48,7 @@ var onRun = function(context) {
                 accessory.selectItemAtIndex(0);
 
             var alert = NSAlert.alloc().init();
-                alert.setMessageText("Pages that contain symbol \"" + symbolMaster.name() + "\".\nClick OK to select all instances.");
+                alert.setMessageText("Pages that contain symbol \"" + symbolMaster.name() + "\".\nClick OK to select all instances in selected page.");
                 alert.addButtonWithTitle("OK");
                 alert.addButtonWithTitle("Cancel");
                 alert.setAccessoryView(accessory);
@@ -72,7 +84,7 @@ var onRun = function(context) {
             doc.showMessage("The symbol master has no instance.");
         }
     } else {
-        doc.showMessage("Please select 1 symbol master.");
+        doc.showMessage("Please select 1 symbol.");
     }
 
 }

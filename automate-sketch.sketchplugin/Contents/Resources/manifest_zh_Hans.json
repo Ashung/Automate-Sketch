@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161027",
+    "version": "1.0.20161031",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -227,8 +227,8 @@
         },
         {
             "name": "选择元件的所有实例",
-            "identifier": "select_all_instances_of_symbol_master",
-            "script": "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
+            "identifier": "select_all_instances_of_symbol",
+            "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript"
         },
         {
             "name": "重命名所有实例",
@@ -238,12 +238,12 @@
         {
             "name": "将选中的未用组件转为组",
             "identifier": "ungroup_unused_symbol_master",
-            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
+            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
         },
         {
             "name": "删除未用组件",
             "identifier": "remove_unused_symbols",
-            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
             "name": "清理图层名",
@@ -432,7 +432,7 @@
                 "title": "组件",
                 "items": [
                     "select_all_missing_instances_in_current_page",
-                    "select_all_instances_of_symbol_master",
+                    "select_all_instances_of_symbol",
                     "rename_all_instance",
                     "-",
                     "ungroup_unused_symbol_master",

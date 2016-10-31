@@ -192,8 +192,8 @@ menuConfigs:
                     identifier: select_all_missing_instances_in_current_page
                     script: "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
                 -
-                    identifier: select_all_instances_of_symbol_master
-                    script: "Symbol/Select_All_Instances_of_Symbol_Master.cocoascript"
+                    identifier: select_all_instances_of_symbol
+                    script: "Symbol/Select_All_Instances_of_Symbol.cocoascript"
                 -
                     identifier: rename_all_instance
                     script: "Symbol/Rename_All_Instances.cocoascript"
@@ -201,12 +201,12 @@ menuConfigs:
                     identifier: "-"
                 -
                     identifier: ungroup_unused_symbol_master
-                    script: "Symbol/Remove_Unused_Symbols.cocoascript"
+                    script: "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
                 -
                     identifier: "-"
                 -
                     identifier: remove_unused_symbols
-                    script: "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+                    script: "Symbol/Remove_Unused_Symbols.cocoascript"
         -
             title: clear
             items:

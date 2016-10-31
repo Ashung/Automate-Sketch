@@ -7,6 +7,7 @@ license: CC-BY 4.0
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
+    var doc = context.document;
     var allSymbolMasters = context.document.documentData().allSymbols();
     var loop = allSymbolMasters.objectEnumerator();
     while (symbolMaster = loop.nextObject()) {
@@ -19,5 +20,7 @@ var onRun = function(context) {
         // if (symbolMaster.isSafeToDelete()) {
         //     symbolMaster.removeFromParent();
         // }
+
     }
+    doc.showMessage("Remove finish.");
 }
