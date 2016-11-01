@@ -32,8 +32,8 @@ function addSlice(context, preset) {
             slice.frame().setWidth(layer.frame().width());
             slice.frame().setHeight(layer.frame().height());
             slice.setName(layer.name());
-            layer.addLayers([slice]);
-
+            // Export Group Contents Only
+            slice.exportOptions().setLayerOptions(2);
             slice.exportOptions().removeAllExportFormats();
 
             for (var i = 0; i < preset.length; i++) {
@@ -44,12 +44,7 @@ function addSlice(context, preset) {
                 size.setScale(format.scale);
             }
 
-            // Export Group Contents Only
-            slice.exportOptions().setLayerOptions(2);
-
-            // Send slice to back
-            slice.select_byExpandingSelection(true, false);
-            NSApp.sendAction_to_from_("moveToBack:", nil, doc);
+            layer.insertLayers_beforeLayer([slice], layer.layers().firstObject());
 
         }
     }

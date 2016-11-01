@@ -48,6 +48,9 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Select All Slices
     * Select Slices In Selected Group/Artboard
     * Select Slices In Group
+    * Reset Export Options
+    * Clear Slices
+    * Clear Exportables
 *  **Artboard**
     * Artboard Form Selection
     * Artboard Form Group
@@ -56,14 +59,12 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Switch Between Portrait and Landscape
 *  **Symbol**
     * Select All Missing Instances in Current Page
-    * Select All Instance of Symbol Master
+    * Select All Instance of Symbol
     * Rename All Instances
     * Ungroup Unused Symbol Master
     * Remove Unused Symbols
 *  **Clear**
     * Clear Layer Name
-    * Clear Slices
-    * Clear Exportables
     * Clear Guides
     * Delete All Hidden Layers
     * Delete All Hidden Layers in Artboard

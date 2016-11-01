@@ -37,7 +37,6 @@
     * Unfixed Layer Name 取消文本图层的固定图层名
 *  **Slice**
     * New Layer Base Slice 基于图层新建切片
-    * Reset Export Options 重置导出选项
     * New Layer Base Slice for iOS (1x to all) 基于图层新建切片 iOS 1x
     * New Layer Base Slice for iOS (2x to all) 基于图层新建切片 iOS 2x
     * New Layer Base Slice for iOS (pdf) 基于图层新建切片 iOS pdf
@@ -49,6 +48,9 @@
     * Select All Slices 选择所有切片
     * Select Slices In Selected Group/Artboard 选择组／画板内所有切片
     * Select Slices In Group 选择组内切片
+    * Reset Export Options 重置导出选项
+    * Clear Slices 清除切片
+    * Clear Exportables 清除 Exportables 设置
 *  **Artboard**
     * Artboard Form Selection 从选择对象新建画板
     * Artboard Form Group 从组新建画板
@@ -57,14 +59,12 @@
     * Switch Between Portrait and Landscape 翻转画板
 *  **Symbol**
     * Select All Missing Instances in Current Page 选择当前页中失效的 Symbol 实例
-    * Select All Instance of Symbol Master 选择 Symbol Master 的实例
+    * Select All Instance of Symbol 选择 Symbol 的实例
     * Rename All Instances 重命名所有实例
     * Ungroup Unused Symbol Master 将未使用的 Symbol Master 转为组
     * Remove Unused Symbols 删除未使用 Symbol
 *  **Clear**
     * Clear Layer Name 清理图层名，删除 copy
-    * Clear Slices 清除切片
-    * Clear Exportables 清除 Exportables 设置
     * Clear Guides 清除辅助线
     * Delete All Hidden Layers 删除所有隐藏图层
     * Delete All Hidden Layers in Artboard 删除画板内隐藏图层

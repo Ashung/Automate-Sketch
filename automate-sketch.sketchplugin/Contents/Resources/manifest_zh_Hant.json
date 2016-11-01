@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161031",
+    "version": "1.0.20161101",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": 3,
     "bundleVersion": 1,
@@ -133,11 +133,6 @@
             "script": "Slice/New_Layer_Base_Slice.cocoascript"
         },
         {
-            "name": "重置匯出選項",
-            "identifier": "reset_export_options",
-            "script": "Slice/Reset_Export_Options.cocoascript"
-        },
-        {
             "name": "基於物件切片 iOS (由 1x 到所有)",
             "identifier": "new_layer_base_slice_for_ios_1x",
             "handler": "new_slice_for_ios_1x",
@@ -201,6 +196,21 @@
             "script": "Slice/Select_Slices_In_Group.cocoascript"
         },
         {
+            "name": "重置匯出選項",
+            "identifier": "reset_export_options",
+            "script": "Slice/Reset_Export_Options.cocoascript"
+        },
+        {
+            "name": "清除當頁切片",
+            "identifier": "clear_slices",
+            "script": "Slice/Clear_Slices.cocoascript"
+        },
+        {
+            "name": "清除可匯出設定",
+            "identifier": "clear_exportables",
+            "script": "Slice/Clear_Exportables.cocoascript"
+        },
+        {
             "name": "從選擇物件新建畫板",
             "identifier": "artboard_from_selection",
             "script": "Artboard/Artboard_from_Selection.cocoascript"
@@ -249,16 +259,6 @@
             "name": "清理圖層名",
             "identifier": "clear_layer_name",
             "script": "Clear/Clear_Layer_Name.cocoascript"
-        },
-        {
-            "name": "清除當頁切片",
-            "identifier": "clear_slices",
-            "script": "Clear/Clear_Slices.cocoascript"
-        },
-        {
-            "name": "清除可匯出設定",
-            "identifier": "clear_exportables",
-            "script": "Clear/Clear_Exportables.cocoascript"
         },
         {
             "name": "清除輔助線",
@@ -400,7 +400,6 @@
                 "title": "切片",
                 "items": [
                     "new_layer_base_slice",
-                    "reset_export_options",
                     "-",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_ios_2x",
@@ -415,7 +414,11 @@
                     "-",
                     "select_all_slices",
                     "select_slices_in_selected_group_or_artboard",
-                    "select_slices_in_group"
+                    "select_slices_in_group",
+                    "-",
+                    "reset_export_options",
+                    "clear_slices",
+                    "clear_exportables"
                 ]
             },
             {
@@ -445,8 +448,6 @@
                 "items": [
                     "clear_layer_name",
                     "-",
-                    "clear_slices",
-                    "clear_exportables",
                     "clear_guides",
                     "-",
                     "delete_all_hidden_layers",

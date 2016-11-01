@@ -40,18 +40,15 @@ var onRun = function(context) {
                     // Export Group Contents Only
                     slice.exportOptions().setLayerOptions(2);
                 }
-                layer.addLayers([slice]);
+                layer.insertLayers_beforeLayer([slice], layer.layers().firstObject());
             }
 
             if(/^(MSShapeGroup|MSBitmapLayer|MSTextLayer|MSSliceLayer)$/.test(layer.className())) {
                 slice.frame().setX(posX);
                 slice.frame().setY(posY);
-                layer.parentGroup().addLayers([slice]);
+                layer.parentGroup().insertLayers_beforeLayer([slice], layer);
             }
 
-            // Move slice to bottom
-            slice.select_byExpandingSelection(true, false);
-            [NSApp sendAction:"moveToBack:" to:nil from:doc];
 
         }
     } else {

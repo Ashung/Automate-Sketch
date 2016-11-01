@@ -117,9 +117,6 @@ menuConfigs:
                     identifier: new_layer_base_slice
                     script: "Slice/New_Layer_Base_Slice.cocoascript"
                 -
-                    identifier: reset_export_options
-                    script: "Slice/Reset_Export_Options.cocoascript"
-                -
                     identifier: "-"
                 -
                     identifier: new_layer_base_slice_for_ios_1x
@@ -168,6 +165,17 @@ menuConfigs:
                 -
                     identifier: select_slices_in_group
                     script: "Slice/Select_Slices_In_Group.cocoascript"
+                -
+                    identifier: "-"
+                -
+                    identifier: reset_export_options
+                    script: "Slice/Reset_Export_Options.cocoascript"
+                -
+                    identifier: clear_slices
+                    script: "Slice/Clear_Slices.cocoascript"
+                -
+                    identifier: clear_exportables
+                    script: "Slice/Clear_Exportables.cocoascript"
         -
             title: artboard
             items:
@@ -215,12 +223,6 @@ menuConfigs:
                     script: "Clear/Clear_Layer_Name.cocoascript"
                 -
                     identifier: "-"
-                -
-                    identifier: clear_slices
-                    script: "Clear/Clear_Slices.cocoascript"
-                -
-                    identifier: clear_exportables
-                    script: "Clear/Clear_Exportables.cocoascript"
                 -
                     identifier: clear_guides
                     script: "Clear/Clear_Guides.cocoascript"
