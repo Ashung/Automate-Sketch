@@ -59,13 +59,12 @@
             {% assign title = plugin.title %}
             {% assign code = plugin.code %}
             {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
-            {% assign codeUrl = site.projectUrl | append: "tree/master/automate-sketch.sketchplugin/Contents/Sketch/" | append: code %}
+            {% assign codeUrl = site.projectUrl | append: "tree/master/automate-sketch.sketchplugin/Contents/Sketch/" | append: code | append: ".cocoascript" %}
             <li id="plugin-{{ index }}">
                 <div class="item-figure">
                     <img class="item-image" src="images/{{ imageFileName }}" alt="{{ title }}">
                     <div class="item-links">
                         <a class="link-code" href="{{ codeUrl }}">View Code<i>&nbsp;</i></a>
-                        <!--<a class="link-download" href="{{ fileUrl }}">Download Plugin<i>&nbsp;</i></a>-->
                     </div>
                 </div>
                 <div class="item-title">
