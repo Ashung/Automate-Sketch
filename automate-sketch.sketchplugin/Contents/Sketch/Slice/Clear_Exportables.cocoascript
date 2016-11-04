@@ -19,7 +19,7 @@ var onRun = function(context) {
             }
         }
     } else {
-        doc.showMessage("Please select at last 1 layer.");
+        doc.showMessage("Please select at least one layer.");
     }
 
 }

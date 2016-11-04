@@ -61,6 +61,9 @@ menuConfigs:
                     identifier: bounds_layer_for_every_selection
                     script: "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
                 -
+                    identifier: divide_layer
+                    script: "Layer/Divide_Layer.cocoascript"
+                -
                     identifier: "-"
                 -
                     identifier: unlock_all_layers

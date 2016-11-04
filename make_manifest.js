@@ -25,6 +25,7 @@ var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
             for (var i = 0; i < supportLanguages.length; i++) {
 
                 var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
+
                 // Add commands
                 finalManifest.commands = [];
                 getCommands(manifest.menuConfigs.items, language, finalManifest.commands);
@@ -58,7 +59,8 @@ var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
             console.log(e);
         }
 
-//         console.log("File \"" + manifestFile + "\" " + event + ". Remake manifest file finished. Use " + runTime + "ms.");
+        console.log("File \"" + manifestFile + ". Remake manifest file finished. Use " + runTime + "ms.");
+
 //     }
 // });
 

@@ -1,0 +1,48 @@
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() > 0 && selection.firstObject().class() == "MSShapeGroup") {
+        var layer = selection.firstObject();
+
+        // \d+x\d+
+        var userInputString = doc.askForUserInput_initialValue("Input 2x2, 2x1 or 1x2.", "2x2");
+
+        if (/^\d+x\d+$/.test(userInputString) && eval(userInputString.replace("x", "*")) > 1) {
+
+            var hCount = parseInt(/(\d+)/.exec(userInputString)[1]);
+            var vCount = parseInt(/x(\d+)/.exec(userInputString)[1]);
+
+            var originX = Math.floor(layer.frame().x()),
+                originY = Math.floor(layer.frame().y()),
+                width = layer.frame().width(),
+                height = layer.frame().height();
+
+            var cellWidth = Math.floor(width / hCount),
+                cellHeight = Math.floor(height / vCount);
+
+            for (var j = 0, y = originY; j < vCount; j++, y += cellHeight) {
+                for (var i = 0, x = originX; i < hCount; i++, x += cellWidth) {
+                    // log(i+","+j+" --> (x:" + x + ",y:" + y + ",w:" + cellWidth + ",h:" + cellHeight + ")");
+                    var cellLayer = layer.duplicate();
+                    cellLayer.frame().setX(x);
+                    cellLayer.frame().setY(y);
+                    cellLayer.frame().setConstrainProportions(false);
+                    cellLayer.frame().setWidth(cellWidth);
+                    cellLayer.frame().setHeight(cellHeight);
+                }
+            }
+
+            layer.removeFromParent();
+
+        } else {
+            doc.showMessage("Bad format.");
+        }
+
+    } else {
+        doc.showMessage("Please select one shape layer.");
+    }
+
+}

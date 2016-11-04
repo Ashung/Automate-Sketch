@@ -23,6 +23,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Reverse Layer Order
     * Add Solid Fill from CSS Color
     * Bounds Layer for Every Selection
+    * Divide Layer
     * Unlock All Layers
     * Click Through Off
     * Click Through On

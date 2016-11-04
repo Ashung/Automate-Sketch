@@ -23,6 +23,7 @@
     * Reverse Layer Order 反转图层列表中的位置
     * Add Solid Fill from CSS Color 从 CSS 色彩代码添加填充
     * Bounds Layer for Every Selection 为从选中图层创建边界图层
+    * Divide Layer 均分图层
     * Unlock All Layers 解锁所有图层
     * Click Through Off 点击穿透 关
     * Click Through On 点击穿透 开
