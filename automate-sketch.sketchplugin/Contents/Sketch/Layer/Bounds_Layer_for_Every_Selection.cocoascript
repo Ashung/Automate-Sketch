@@ -76,11 +76,7 @@ var onRun = function(context) {
             parent.insertLayers_beforeLayer([boundsLayer], beforeLayer);
 
             // // Fill color for boundsLayer
-            // // @argument: #rrggbb
-            // var boundsLayerFillColor = MSColor.colorWithSVGString("#ff0000");
-            // // Fill color alpha
-            // // @argument: float 0 - 1
-            // boundsLayerFillColor.setAlpha(0.5);
+            // var boundsLayerFillColor = MSColor.colorWithRed_green_blue_alpha(255/255, 0/255, 0/255, 1.0);
             // boundsLayer.style().addStylePartOfType(0);
             // boundsLayer.style().fill().setColor(boundsLayerFillColor);
 

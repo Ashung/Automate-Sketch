@@ -76,18 +76,3 @@ function getLocalJson(path) {
     var data = NSData.dataWithContentsOfFile(path);
     return NSJSONSerialization.JSONObjectWithData_options_error(data, NSJSONReadingMutableContainers, nil);
 }
-
-
-var aboutWindow = function(context) {
-    var htmlFile =  context.plugin.urlForResourceNamed("About.html").path();
-
-
-    var window = NSWindow.alloc().init();
-    window.setTitle("XXXX");
-    window.setFrame_display_(NSMakeRect(0, 0, 400, 300), true);
-    window.center();
-    [window addButtonWithTitle:"Save"]
-  [window addButtonWithTitle:"Cancel"]
-    // window.display();
-    NSApp.runModalForWindow(window);
-}
