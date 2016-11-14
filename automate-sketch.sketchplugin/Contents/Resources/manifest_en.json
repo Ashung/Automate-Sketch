@@ -4,10 +4,10 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161110",
+    "version": "1.0.20161114",
     "identifier": "com.ashung.hung.automate_sketch",
-    "compatibleVersion": 3,
-    "bundleVersion": 1,
+    "compatibleVersion": "3",
+    "bundleVersion": "1",
     "commands": [
         {
             "name": "Change Places Between Two Layers",
@@ -59,11 +59,6 @@
             "name": "Reverse Layer Order",
             "identifier": "reverse_layer_order",
             "script": "Layer/Reverse_Layer_Order.cocoascript"
-        },
-        {
-            "name": "Add Solid Fill from CSS Color",
-            "identifier": "add_solid_fill_from_css_color",
-            "script": "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
         },
         {
             "name": "Bounds Layer for Every Selection",
@@ -261,6 +256,28 @@
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
+            "name": "Add Solid Fill from CSS Color",
+            "identifier": "add_solid_fill_from_css_color",
+            "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
+        },
+        {
+            "name": "Fill Color from Global Colors",
+            "identifier": "fill_color_from_global_colors",
+            "handler": "fillColorFromGlobalColors",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "Fill Color from Document Colors",
+            "identifier": "fill_color_from_document_colors",
+            "handler": "fillColorFromDocumentColors",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "Remove All Unused Styles",
+            "identifier": "remove_all_unused_styles",
+            "script": "Styles/Remove_All_Unused_Styles.cocoascript"
+        },
+        {
             "name": "Clear Layer Name",
             "identifier": "clear_layer_name",
             "script": "Clear/Clear_Layer_Name.cocoascript"
@@ -289,11 +306,6 @@
             "name": "Delete All Empty Groups in Artboard",
             "identifier": "delete_all_empty_groups_in_artboard",
             "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
-        },
-        {
-            "name": "Remove All Unused Styles",
-            "identifier": "remove_all_unused_styles",
-            "script": "Clear/Remove_All_Unused_Styles.cocoascript"
         },
         {
             "name": "Android Fairy",
@@ -374,8 +386,6 @@
                     "order_layers_by_y",
                     "reverse_layer_order",
                     "-",
-                    "add_solid_fill_from_css_color",
-                    "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",
                     "-",
@@ -450,6 +460,16 @@
                 ]
             },
             {
+                "title": "Styles",
+                "items": [
+                    "add_solid_fill_from_css_color",
+                    "fill_color_from_global_colors",
+                    "fill_color_from_document_colors",
+                    "-",
+                    "remove_all_unused_styles"
+                ]
+            },
+            {
                 "title": "Clear",
                 "items": [
                     "clear_layer_name",
@@ -459,9 +479,7 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard",
-                    "-",
-                    "remove_all_unused_styles"
+                    "delete_all_empty_groups_in_artboard"
                 ]
             },
             {

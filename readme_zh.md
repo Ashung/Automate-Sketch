@@ -21,7 +21,6 @@
     * Order Layers by X 根据图层 X 值，更改图层列表中的位置
     * Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
     * Reverse Layer Order 反转图层列表中的位置
-    * Add Solid Fill from CSS Color 从 CSS 色彩代码添加填充
     * Bounds Layer for Every Selection 为从选中图层创建边界图层
     * Divide Layer 均分图层
     * Unlock All Layers 解锁所有图层
@@ -64,6 +63,11 @@
     * Rename All Instances 重命名所有实例
     * Ungroup Unused Symbol Master 将未使用的 Symbol Master 转为组
     * Remove Unused Symbols 删除未使用 Symbol
+*  **Styles**
+    *  Add Solid Fill from CSS Color  从 CSS 色彩代码添加填充
+    *  Fill Color from Global Colors 从全局色版快速填充
+    *  Fill Color from Document Colors 从文档色版快速填充
+    *  Remove All Unused Styles  删除当前页所有图层中未使用样式
 *  **Clear**
     * Clear Layer Name 清理图层名，删除 copy
     * Clear Guides 清除辅助线
@@ -71,7 +75,6 @@
     * Delete All Hidden Layers in Artboard 删除画板内隐藏图层
     * Delete All Empty Groups 删除空组
     * Delete All Empty Groups in Artboard 删除画板内空组
-    * Remove All Unused Styles 删除当前页所有图层中未使用样式
 *  **Utilities**
     * Android Fairy 将使用 Android 切片预设导出的文件移动到 drawable 文件夹
     * Show File in Finder 在 Finder 中打开当前文档

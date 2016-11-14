@@ -5,8 +5,8 @@ email: "Ashung.hung@gmail.com"
 homepage: "https://ashung.github.io/Automate-Sketch"
 version: "1.0"
 identifier: "com.ashung.hung.automate_sketch"
-compatibleVersion: 3
-bundleVersion: 1
+compatibleVersion: "3"
+bundleVersion: "1"
 menuConfigs:
     title: automate
     items:
@@ -50,11 +50,6 @@ menuConfigs:
                 -
                     identifier: reverse_layer_order
                     script: "Layer/Reverse_Layer_Order.cocoascript"
-                -
-                    identifier: "-"
-                -
-                    identifier: add_solid_fill_from_css_color
-                    script: "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
                 -
                     identifier: "-"
                 -
@@ -219,6 +214,25 @@ menuConfigs:
                     identifier: remove_unused_symbols
                     script: "Symbol/Remove_Unused_Symbols.cocoascript"
         -
+            title: styles
+            items:
+                -
+                    identifier: add_solid_fill_from_css_color
+                    script: "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
+                -
+                    identifier: "fill_color_from_global_colors"
+                    handler: "fillColorFromGlobalColors"
+                    script: "Styles/Fill_Color_from_Colors.cocoascript"
+                -
+                    identifier: "fill_color_from_document_colors"
+                    handler: "fillColorFromDocumentColors"
+                    script: "Styles/Fill_Color_from_Colors.cocoascript"
+                -
+                    identifier: "-"
+                -
+                    identifier: remove_all_unused_styles
+                    script: "Styles/Remove_All_Unused_Styles.cocoascript"
+        -
             title: clear
             items:
                 -
@@ -243,11 +257,6 @@ menuConfigs:
                 -
                     identifier: delete_all_empty_groups_in_artboard
                     script: "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
-                -
-                    identifier: "-"
-                -
-                    identifier: remove_all_unused_styles
-                    script: "Clear/Remove_All_Unused_Styles.cocoascript"
         -
             title: utilities
             items:

@@ -4,10 +4,10 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161110",
+    "version": "1.0.20161114",
     "identifier": "com.ashung.hung.automate_sketch",
-    "compatibleVersion": 3,
-    "bundleVersion": 1,
+    "compatibleVersion": "3",
+    "bundleVersion": "1",
     "commands": [
         {
             "name": "兩物件互換位置",
@@ -59,11 +59,6 @@
             "name": "反轉列表順序",
             "identifier": "reverse_layer_order",
             "script": "Layer/Reverse_Layer_Order.cocoascript"
-        },
-        {
-            "name": "從 CSS 色值新增單色填充",
-            "identifier": "add_solid_fill_from_css_color",
-            "script": "Layer/Add_Solid_Fill_from_CSS_Color.cocoascript"
         },
         {
             "name": "為選中物件增加邊界層",
@@ -261,6 +256,28 @@
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
+            "name": "從 CSS 色值新增單色填充",
+            "identifier": "add_solid_fill_from_css_color",
+            "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
+        },
+        {
+            "name": "從全局色版快速填充",
+            "identifier": "fill_color_from_global_colors",
+            "handler": "fillColorFromGlobalColors",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "從文件色版快速填充",
+            "identifier": "fill_color_from_document_colors",
+            "handler": "fillColorFromDocumentColors",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "清除未使用樣式",
+            "identifier": "remove_all_unused_styles",
+            "script": "Styles/Remove_All_Unused_Styles.cocoascript"
+        },
+        {
             "name": "清理圖層名",
             "identifier": "clear_layer_name",
             "script": "Clear/Clear_Layer_Name.cocoascript"
@@ -289,11 +306,6 @@
             "name": "清除選中畫板下的空組",
             "identifier": "delete_all_empty_groups_in_artboard",
             "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
-        },
-        {
-            "name": "清除未使用樣式",
-            "identifier": "remove_all_unused_styles",
-            "script": "Clear/Remove_All_Unused_Styles.cocoascript"
         },
         {
             "name": "Android 資料夾工具",
@@ -374,8 +386,6 @@
                     "order_layers_by_y",
                     "reverse_layer_order",
                     "-",
-                    "add_solid_fill_from_css_color",
-                    "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",
                     "-",
@@ -450,6 +460,16 @@
                 ]
             },
             {
+                "title": "样式",
+                "items": [
+                    "add_solid_fill_from_css_color",
+                    "fill_color_from_global_colors",
+                    "fill_color_from_document_colors",
+                    "-",
+                    "remove_all_unused_styles"
+                ]
+            },
+            {
                 "title": "清理",
                 "items": [
                     "clear_layer_name",
@@ -459,9 +479,7 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard",
-                    "-",
-                    "remove_all_unused_styles"
+                    "delete_all_empty_groups_in_artboard"
                 ]
             },
             {

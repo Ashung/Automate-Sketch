@@ -21,7 +21,6 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Order Layers by X
     * Order Layers by Y
     * Reverse Layer Order
-    * Add Solid Fill from CSS Color
     * Bounds Layer for Every Selection
     * Divide Layer
     * Unlock All Layers
@@ -64,6 +63,11 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Rename All Instances
     * Ungroup Unused Symbol Master
     * Remove Unused Symbols
+*  **Styles**
+    *  Add Solid Fill from CSS Color
+    *  Fill Color from Global Colors
+    *  Fill Color from Document Colors
+    *  Remove All Unused Styles
 *  **Clear**
     * Clear Layer Name
     * Clear Guides
@@ -71,7 +75,6 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Delete All Hidden Layers in Artboard
     * Delete All Empty Groups
     * Delete All Empty Groups in Artboard
-    * Remove All Unused Styles
 *  **Utilities**
     * Android Fairy
     * Show File in Finder
