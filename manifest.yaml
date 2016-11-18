@@ -222,10 +222,12 @@ menuConfigs:
                 -
                     identifier: "fill_color_from_global_colors"
                     handler: "fillColorFromGlobalColors"
+                    shortcut: "cmd \\"
                     script: "Styles/Fill_Color_from_Colors.cocoascript"
                 -
                     identifier: "fill_color_from_document_colors"
                     handler: "fillColorFromDocumentColors"
+                    shortcut: "cmd alt \\"
                     script: "Styles/Fill_Color_from_Colors.cocoascript"
                 -
                     identifier: "-"

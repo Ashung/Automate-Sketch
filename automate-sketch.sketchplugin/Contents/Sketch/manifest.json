@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161114",
+    "version": "1.0.20161118",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -264,12 +264,14 @@
             "name": "Fill Color from Global Colors",
             "identifier": "fill_color_from_global_colors",
             "handler": "fillColorFromGlobalColors",
+            "shortcut": "cmd \\",
             "script": "Styles/Fill_Color_from_Colors.cocoascript"
         },
         {
             "name": "Fill Color from Document Colors",
             "identifier": "fill_color_from_document_colors",
             "handler": "fillColorFromDocumentColors",
+            "shortcut": "cmd alt \\",
             "script": "Styles/Fill_Color_from_Colors.cocoascript"
         },
         {

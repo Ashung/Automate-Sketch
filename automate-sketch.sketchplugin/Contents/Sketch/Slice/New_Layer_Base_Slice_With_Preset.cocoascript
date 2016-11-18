@@ -46,6 +46,8 @@ function addSlice(context, preset) {
 
             layer.insertLayers_beforeLayer([slice], layer.layers().firstObject());
 
+        } else {
+            doc.showMessage("You need to selected at least 1 Group or Artboard.");
         }
     }
 }
