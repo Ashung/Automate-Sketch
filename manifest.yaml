@@ -113,9 +113,8 @@ menuConfigs:
             items:
                 -
                     identifier: new_layer_base_slice
-                    script: "Slice/New_Layer_Base_Slice.cocoascript"
-                -
-                    identifier: "-"
+                    handler: new_slice_for_normal
+                    script: "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
                 -
                     identifier: new_layer_base_slice_for_ios_1x
                     handler: new_slice_for_ios_1x

@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161118",
+    "version": "1.0.20161126",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -130,7 +130,8 @@
         {
             "name": "基于对象切片",
             "identifier": "new_layer_base_slice",
-            "script": "Slice/New_Layer_Base_Slice.cocoascript"
+            "handler": "new_slice_for_normal",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
             "name": "基于对象切片 iOS (由 1x 到所有)",
@@ -418,7 +419,6 @@
                 "title": "切片",
                 "items": [
                     "new_layer_base_slice",
-                    "-",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_ios_2x",
                     "new_layer_base_slice_for_ios_pdf",

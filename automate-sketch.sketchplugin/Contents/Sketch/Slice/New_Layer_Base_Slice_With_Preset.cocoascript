@@ -6,6 +6,7 @@ license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
+var new_slice_for_normal = function(context) { addSlice(context, normal) };
 var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x) };
 var new_slice_for_ios_2x = function(context) { addSlice(context, ios2x) };
 var new_slice_for_android_1x = function(context) { addSlice(context, android1x) };
@@ -19,38 +20,74 @@ function addSlice(context, preset) {
     var doc = context.document;
     var selection = context.selection;
 
-    if(selection.count() == 0) return;
+    if (selection.count() == 0) {
+        doc.showMessage("Plese select at least 1 layer.");
+        return;
+    }
 
-    var loop = selection.objectEnumerator();
-    while (layer = loop.nextObject()) {
+    doc.currentPage().deselectAllLayers();
 
-        if (layer.className() == "MSLayerGroup" || layer.className() == "MSArtboardGroup") {
+    for (var i = 0; i < selection.count(); i++) {
 
-            var slice = MSSliceLayer.new();
+        var layer = selection.objectAtIndex(i);
+
+        var slice = MSSliceLayer.new();
+        slice.frame().setWidth(layer.frame().width());
+        slice.frame().setHeight(layer.frame().height());
+        slice.setName(layer.name());
+
+        if (layer.class() == "MSSliceLayer") {
+            slice = layer;
+            slice.select_byExpandingSelection(true, true);
+        }
+
+        // Export options
+        slice.exportOptions().removeAllExportFormats();
+        for (var j = 0; j < preset.length; j++) {
+            var size = slice.exportOptions().addExportFormat();
+            var format = preset[j];
+            size.setFileFormat(format.format);
+            size.setName(format.suffix);
+            size.setScale(format.scale);
+        }
+
+        if (
+            layer.class() == "MSLayerGroup" ||
+            layer.class() == "MSArtboardGroup" ||
+            layer.class() == "MSSymbolMaster"
+        ) {
             slice.frame().setX(0);
             slice.frame().setY(0);
-            slice.frame().setWidth(layer.frame().width());
-            slice.frame().setHeight(layer.frame().height());
-            slice.setName(layer.name());
             // Export Group Contents Only
             slice.exportOptions().setLayerOptions(2);
-            slice.exportOptions().removeAllExportFormats();
-
-            for (var i = 0; i < preset.length; i++) {
-                var size = slice.exportOptions().addExportFormat();
-                var format = preset[i];
-                size.setFileFormat(format.format);
-                size.setName(format.suffix);
-                size.setScale(format.scale);
-            }
-
             layer.insertLayers_beforeLayer([slice], layer.layers().firstObject());
 
-        } else {
-            doc.showMessage("You need to selected at least 1 Group or Artboard.");
+            slice.select_byExpandingSelection(true, true);
         }
+
+        if (
+            layer.class() == "MSShapeGroup" ||
+            layer.class() == "MSBitmapLayer" ||
+            layer.class() == "MSTextLayer" ||
+            layer.class() == "MSSymbolInstance"
+        ) {
+            slice.frame().setX(layer.frame().x());
+            slice.frame().setY(layer.frame().y());
+            layer.parentGroup().insertLayers_beforeLayer([slice], layer);
+
+            slice.select_byExpandingSelection(true, true);
+        }
+
     }
 }
+
+var normal = [
+    {
+        scale: 1,
+        format: "png",
+        suffix: ""
+    }
+];
 
 var web = [
     {
