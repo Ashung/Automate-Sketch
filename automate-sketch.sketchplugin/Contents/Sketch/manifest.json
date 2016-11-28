@@ -4,11 +4,23 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161126",
+    "version": "1.0.20161128",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
     "commands": [
+        {
+            "name": "Fix to Parent Width with Margin",
+            "identifier": "fix_to_parent_width_with_margin",
+            "handler": "fixToParentWidthWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "Fix to Parent Height with Margin",
+            "identifier": "fix_to_parent_height_with_margin",
+            "handler": "fixToParentHeightWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
         {
             "name": "Change Places Between Two Layers",
             "identifier": "change_layer_places",
@@ -377,6 +389,9 @@
             {
                 "title": "Layer",
                 "items": [
+                    "fix_to_parent_width_with_margin",
+                    "fix_to_parent_height_with_margin",
+                    "-",
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",

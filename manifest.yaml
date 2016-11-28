@@ -14,6 +14,16 @@ menuConfigs:
             title: layer
             items:
                 -
+                    identifier: fix_to_parent_width_with_margin
+                    handler: "fixToParentWidthWithMargin"
+                    script: "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+                -
+                    identifier: fix_to_parent_height_with_margin
+                    handler: "fixToParentHeightWithMargin"
+                    script: "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+                -
+                    identifier: "-"
+                -
                     identifier: change_layer_places
                     script: "Layer/Change_Places.cocoascript"
                 -

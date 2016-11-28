@@ -32,14 +32,13 @@ function openUrlInBrowser(url) {
 
 function checkForUpdates(context) {
     var remoteManifestUrl = "https://github.com/Ashung/Automate-Sketch/raw/master/automate-sketch.sketchplugin/Contents/Sketch/manifest.json"
-    var localManifestPath = context.plugin.url().URLByAppendingPathComponent("Contents").URLByAppendingPathComponent("Sketch").URLByAppendingPathComponent("manifest.json").path();
     var remoteManifest = getRemoteJson(remoteManifestUrl);
-    var localManifest = getLocalJson(localManifestPath);
+    var localVersion = context.plugin.version();
     if (remoteManifest.version) {
-        if (localManifest.version == remoteManifest.version) {
+        if (localVersion == remoteManifest.version) {
             var app = NSApplication.sharedApplication();
             app.displayDialog_withTitle(
-                "Automate Sketch " + localManifest.version + " is currently the newest version available.",
+                "Automate Sketch " + localVersion + " is currently the newest version available.",
                 "You are up-to-date."
             );
         } else {
@@ -47,7 +46,7 @@ function checkForUpdates(context) {
             alert.setMessageText("New version available. (" + remoteManifest.version + ")");
             alert.setInformativeText(
                 "You are use the old verion of Automate Sketch. (" +
-                localManifest.version + ")\n" +
+                localVersion + ")\n" +
                 "Click \"OK\" to download newest version.");
             alert.addButtonWithTitle("OK");
             alert.addButtonWithTitle("Cancel");
@@ -59,7 +58,7 @@ function checkForUpdates(context) {
     } else {
         var app = NSApplication.sharedApplication();
         app.displayDialog_withTitle(
-            "Please visite the web site and download newest version.\n" + localManifest.homepage,
+            "Please visite the web site and download newest version.\n" + context.plugin.homepageURL(),
             "Can not check for updates."
         );
     }
@@ -70,9 +69,4 @@ function getRemoteJson(url) {
     var response = NSURLConnection.sendSynchronousRequest_returningResponse_error(request, null, null);
     var content = NSString.alloc().initWithData_encoding(response, NSUTF8StringEncoding);
     return JSON.parse(content);
-}
-
-function getLocalJson(path) {
-    var data = NSData.dataWithContentsOfFile(path);
-    return NSJSONSerialization.JSONObjectWithData_options_error(data, NSJSONReadingMutableContainers, nil);
 }

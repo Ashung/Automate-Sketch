@@ -1,0 +1,49 @@
+var fixToParentHeightWithMargin = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    var userInput = doc.askForUserInput_initialValue("Margins: \"<top & bottom>\" or \"<top> <bottom>\". ", "0");
+    var marginTop = marginBottom = 0;
+    if (/(\d+)\s(\d+)/.test(userInput)) {
+        marginTop = parseInt(/(\d+)\s(\d+)/.exec(userInput)[1]);
+        marginBottom = parseInt(/(\d+)\s(\d+)/.exec(userInput)[2]);
+    } else if (/\d+/.test(userInput)) {
+        marginTop = marginBottom = parseInt(userInput);
+    }
+
+    for (var i = 0; i < selection.count(); i++) {
+        var layer = selection.objectAtIndex(i);
+        if (layer.parentGroup().class() != "MSPage") {
+            var parentHeight = layer.parentGroup().frame().height();
+            layer.frame().setY(marginTop);
+            layer.frame().setHeight(parentHeight - marginTop - marginBottom);
+        }
+    }
+
+};
+
+var fixToParentWidthWithMargin = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    var userInput = doc.askForUserInput_initialValue("Margins: \"<left & right>\" or \"<left> <right>\". ", "0");
+    var marginLeft = marginRight = 0;
+    if (/(\d+)\s(\d+)/.test(userInput)) {
+        marginLeft = parseInt(/(\d+)\s(\d+)/.exec(userInput)[1]);
+        marginRight = parseInt(/(\d+)\s(\d+)/.exec(userInput)[2]);
+    } else if (/\d+/.test(userInput)) {
+        marginLeft = marginRight = parseInt(userInput);
+    }
+
+    for (var i = 0; i < selection.count(); i++) {
+        var layer = selection.objectAtIndex(i);
+        if (layer.parentGroup().class() != "MSPage") {
+            var parentWidth = layer.parentGroup().frame().width();
+            layer.frame().setX(marginLeft);
+            layer.frame().setWidth(parentWidth - marginLeft - marginRight);
+        }
+    }
+
+};

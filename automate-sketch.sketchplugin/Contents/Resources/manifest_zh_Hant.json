@@ -4,11 +4,23 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161126",
+    "version": "1.0.20161128",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
     "commands": [
+        {
+            "name": "適配父級寬 (可有邊距)",
+            "identifier": "fix_to_parent_width_with_margin",
+            "handler": "fixToParentWidthWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "適配父級高 (可有邊距)",
+            "identifier": "fix_to_parent_height_with_margin",
+            "handler": "fixToParentHeightWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
         {
             "name": "兩物件互換位置",
             "identifier": "change_layer_places",
@@ -377,6 +389,9 @@
             {
                 "title": "圖層",
                 "items": [
+                    "fix_to_parent_width_with_margin",
+                    "fix_to_parent_height_with_margin",
+                    "-",
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",
