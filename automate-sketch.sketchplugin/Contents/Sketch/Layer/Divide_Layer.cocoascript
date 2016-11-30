@@ -32,6 +32,8 @@ var onRun = function(context) {
                     cellLayer.frame().setConstrainProportions(false);
                     cellLayer.frame().setWidth(cellWidth);
                     cellLayer.frame().setHeight(cellHeight);
+
+                    cellLayer.select_byExpandingSelection(true, true);
                 }
             }
 
