@@ -12,14 +12,19 @@ var onRun = function(context) {
     var selection = context.selection;
     var expand = doc.askForUserInput_initialValue("Padding around selection.", "0");
 
-    var rect = doc.currentView().totalRectForLayers(selection);
-    rect.origin.x -= expand;
-    rect.origin.y -= expand;
-    rect.size.width += expand * 2;
-    rect.size.height += expand * 2;
+    var selectionRects = [];
+    for (var i = 0; i < selection.count(); i++) {
+        selectionRects.push(selection.objectAtIndex(i).frame());
+    }
+
+    var rect = MSRect.rectWithUnionOfRects(selectionRects);
+    rect.setX(rect.x() - expand);
+    rect.setY(rect.y() - expand);
+    rect.setWidth(rect.width() + expand * 2);
+    rect.setHeight(rect.height() + expand * 2);
 
     var artboard = MSArtboardGroup.new();
-    artboard.setRect(rect);
+    artboard.setFrame(rect);
     artboard.frame().setConstrainProportions(false);
     doc.currentPage().addLayers([artboard]);
     doc.currentPage().moveLayersToArtboards();

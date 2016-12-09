@@ -12,23 +12,25 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 ## Features
 
 *  **Layer**
-    * Change Places Between Two Layers
-    * Change Places Between Two Layers (center)
-    * Tile Layers by Position X
-    * Tile Layers by Position Y
-    * Tile Layers Horizontally by Index
-    * Tile Layers Vertically by Index
-    * Order Layers by X
-    * Order Layers by Y
-    * Reverse Layer Order
-    * Bounds Layer for Every Selection
-    * Divide Layer
-    * Unlock All Layers
-    * Click Through Off
-    * Click Through On
-    * Select All Groups
-    * Select All Groups in Artboard
-    * Select All Child Layers
+    *  Fix to Parent Width with Margin
+    *  Fix to Parent Height with Margin
+    *  Change Places Between Two Layers
+    *  Change Places Between Two Layers (center)
+    *  Tile Layers by Position X
+    *  Tile Layers by Position Y
+    *  Tile Layers Horizontally by Index
+    *  Tile Layers Vertically by Index
+    *  Order Layers by X
+    *  Order Layers by Y
+    *  Reverse Layer Order
+    *  Bounds Layer for Every Selection
+    *  Divide Layer
+    *  Unlock All Layers
+    *  Click Through Off
+    *  Click Through On
+    *  Select All Groups
+    *  Select All Groups in Artboard
+    *  Select All Child Layers
 *  **Type**
     * Capitalize
     * Change Typeface for Latin Character

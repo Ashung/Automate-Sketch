@@ -9,11 +9,13 @@ license: CC-BY 4.0
 var onRun = function(context) {
     var doc = context.document;
     var allSymbolMasters = context.document.documentData().allSymbols();
+    var count = 0;
     var loop = allSymbolMasters.objectEnumerator();
     while (symbolMaster = loop.nextObject()) {
 
         if(!symbolMaster.hasInstances()) {
             symbolMaster.removeFromParent();
+            count ++;
         }
 
         // Or use isSafeToDelete
@@ -22,5 +24,5 @@ var onRun = function(context) {
         // }
 
     }
-    doc.showMessage("Remove finish.");
+    doc.showMessage("Remove " + count + " unused SymbolMaster.");
 }

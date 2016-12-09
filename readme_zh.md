@@ -12,23 +12,25 @@
 ## 功能
 
 *  **Layer**
-    * Change Places Between Two Layers 两个图层交换位置
-    * Change Places Between Two Layers (center) 基于两个图层的中心交换位置
-    * Tile Layers by Position X 水平平铺图层
-    * Tile Layers by Position Y 垂直平铺图层
-    * Tile Layers Horizontally by Index 根据图层列表位置水平平铺图层
-    * Tile Layers Vertically by Index 根据图层列表位置垂直平铺图层
-    * Order Layers by X 根据图层 X 值，更改图层列表中的位置
-    * Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
-    * Reverse Layer Order 反转图层列表中的位置
-    * Bounds Layer for Every Selection 为从选中图层创建边界图层
-    * Divide Layer 均分图层
-    * Unlock All Layers 解锁所有图层
-    * Click Through Off 点击穿透 关
-    * Click Through On 点击穿透 开
-    * Select All Groups 选择所有组
-    * Select All Groups in Artboard 选择画板内所有组
-    * Select All Child Layers 选择所有子图层
+    *  Fix to Parent Width with Margin 适配父级的宽度，可设置边距
+    *  Fix to Parent Height with Margin 适配父级的高度，可设置边距
+    *  Change Places Between Two Layers 两个图层交换位置
+    *  Change Places Between Two Layers (center) 基于两个图层的中心交换位置
+    *  Tile Layers by Position X 水平平铺图层
+    *  Tile Layers by Position Y 垂直平铺图层
+    *  Tile Layers Horizontally by Index 根据图层列表位置水平平铺图层
+    *  Tile Layers Vertically by Index 根据图层列表位置垂直平铺图层
+    *  Order Layers by X 根据图层 X 值，更改图层列表中的位置
+    *  Order Layers by Y 根据图层 Y 值，更改图层列表中的位置
+    *  Reverse Layer Order 反转图层列表中的位置
+    *  Bounds Layer for Every Selection 为从选中图层创建边界图层
+    *  Divide Layer 均分图层
+    *  Unlock All Layers 解锁所有图层
+    *  Click Through Off 点击穿透 关
+    *  Click Through On 点击穿透 开
+    *  Select All Groups 选择所有组
+    *  Select All Groups in Artboard 选择画板内所有组
+    *  Select All Child Layers 选择所有子图层
 *  **Type**
     * Capitalize 首字大写
     * Change Typeface for Latin Character 更改文本图层中西文的字体
