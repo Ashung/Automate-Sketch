@@ -2,7 +2,7 @@
 
 Make Sketch more efficient -- a lot of usefull plugins in one.
 
-[中文说明](blob/master/readme_zh.md)
+[中文说明](readme_zh.md)
 
 ## Installation
 
