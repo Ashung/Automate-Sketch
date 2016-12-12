@@ -7,22 +7,62 @@ license: CC-BY 4.0
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
+
     var doc = context.document;
-    var allSymbolMasters = context.document.documentData().allSymbols();
-    var count = 0;
-    var loop = allSymbolMasters.objectEnumerator();
-    while (symbolMaster = loop.nextObject()) {
 
-        if(!symbolMaster.hasInstances()) {
-            symbolMaster.removeFromParent();
-            count ++;
+    // Get all symbols used in overrides
+    var idsOfSymbolInOverrides = [];
+    var pages = doc.pages();
+    var loopPages = pages.objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var children = page.children();
+        var loopChildren = children.objectEnumerator();
+        var layer;
+        while (layer = loopChildren.nextObject()) {
+            if (layer.class() == "MSSymbolInstance" && layer.overrides()) {
+                // log(layer.overrides());
+                var overrides = layer.overrides().objectForKey(0).allValues();
+                for (var i = 0; i < overrides.count(); i++) {
+                    pushOverrideSymbolIDtoArray(overrides.objectAtIndex(i), idsOfSymbolInOverrides);
+                }
+            }
         }
-
-        // Or use isSafeToDelete
-        // if (symbolMaster.isSafeToDelete()) {
-        //     symbolMaster.removeFromParent();
-        // }
-
     }
-    doc.showMessage("Remove " + count + " unused SymbolMaster.");
+
+    var countGlobal = 0;
+    removeUnusedSymbols();
+
+    doc.showMessage("Remove " + countGlobal + " unused SymbolMaster.");
+
+    function removeUnusedSymbols() {
+        var count = 0;
+        var allSymbolMasters = context.document.documentData().allSymbols();
+        var loopSymbols = allSymbolMasters.objectEnumerator();
+        while (symbolMaster = loopSymbols.nextObject()) {
+            if (
+                !symbolMaster.hasInstances() &&
+                idsOfSymbolInOverrides.indexOf(String(symbolMaster.symbolID())) == -1
+            ) {
+                symbolMaster.removeFromParent();
+                count ++;
+                countGlobal ++;
+            }
+        }
+        if (count != 0) {
+            removeUnusedSymbols();
+        }
+    }
+
+    function pushOverrideSymbolIDtoArray(overrideObject, array) {
+        if (overrideObject.class() == "__NSDictionaryI" || overrideObject.class() == "__NSDictionaryM") {
+            if (overrideObject.objectForKey("symbolID")) {
+                array.push(String(overrideObject.objectForKey("symbolID")));
+            }
+            for (var i = 0; i < overrideObject.allValues().count(); i ++) {
+                pushOverrideSymbolIDtoArray(overrideObject.allValues().objectAtIndex(i), array);
+            }
+        }
+    }
+
 }
