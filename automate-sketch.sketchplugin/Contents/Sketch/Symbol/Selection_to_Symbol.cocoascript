@@ -1,0 +1,18 @@
+
+var onRun = function(context) {
+    
+    var doc = context.document;
+    var selection = context.selection;
+
+
+    var layer = MSLayerArray.arrayWithLayers(selection);
+    //var layer = selection;
+    // log(MSSymbolCreator.canCreateSymbolFromLayers(layer));
+
+    // var layer = selection.firstObject();
+    var symbolMaster = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layer, "xxx", false);
+
+    log(symbolMaster)
+
+    symbolMaster.removeFromParent()
+}
