@@ -215,6 +215,9 @@ menuConfigs:
                 -
                     identifier: "-"
                 -
+                    identifier: selection_to_symbol_master
+                    script: "Symbol/Selection_to_Symbol.cocoascript"
+                -
                     identifier: ungroup_unused_symbol_master
                     script: "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
                 -

@@ -63,6 +63,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
     * Select All Missing Instances in Current Page
     * Select All Instance of Symbol
     * Rename All Instances
+    * Selection to Symbol Master
     * Ungroup Unused Symbol Master
     * Remove Unused Symbols
 *  **Styles**

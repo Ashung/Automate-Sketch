@@ -63,6 +63,7 @@
     * Select All Missing Instances in Current Page 选择当前页中失效的 Symbol 实例
     * Select All Instance of Symbol 选择 Symbol 的实例
     * Rename All Instances 重命名所有实例
+    * Selection to Symbol Master 将选中图层直接变为组件
     * Ungroup Unused Symbol Master 将未使用的 Symbol Master 转为组
     * Remove Unused Symbols 删除未使用 Symbol
 *  **Styles**
