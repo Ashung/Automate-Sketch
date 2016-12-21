@@ -4,9 +4,10 @@
   "main": "make_manifest.js",
   "author": "Ashung Hung",
   "scripts": {
-    "make": "node make_manifest.js"
+    "make": "node make.js"
   },
   "devDependencies": {
-    "js-yaml": "^3.6.1"
+    "js-yaml": "^3.6.1",
+    "mustache": "^2.3.0"
   }
 }

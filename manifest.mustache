@@ -1,0 +1,533 @@
+{
+    "name": "Automate Sketch",
+    "description": "{{description}}",
+    "author": "Ashung Hung",
+    "email": "Ashung.hung@gmail.com",
+    "homepage": "https://ashung.github.io/Automate-Sketch",
+    "version": "{{version}}",
+    "identifier": "com.ashung.hung.automate_sketch",
+    "compatibleVersion": "3",
+    "bundleVersion": "1",
+    "commands": [
+        {
+            "name": "{{fix_to_parent_width_with_margin}}",
+            "identifier": "fix_to_parent_width_with_margin",
+            "handler": "fixToParentWidthWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "{{fix_to_parent_height_with_margin}}",
+            "identifier": "fix_to_parent_height_with_margin",
+            "handler": "fixToParentHeightWithMargin",
+            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "{{change_layer_places}}",
+            "identifier": "change_layer_places",
+            "script": "Layer/Change_Places.cocoascript"
+        },
+        {
+            "name": "{{change_layer_places_center}}",
+            "identifier": "change_layer_places_center",
+            "script": "Layer/Change_Places_Center.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_by_position_x}}",
+            "identifier": "tile_layers_by_position_x",
+            "handler": "tileLayersByPositionX",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_by_position_y}}",
+            "identifier": "tile_layers_by_position_y",
+            "handler": "tileLayersByPositionY",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_horizontally_by_index}}",
+            "identifier": "tile_layers_horizontally_by_index",
+            "handler": "tileLayersHorizontallyByIndex",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_vertically_by_index}}",
+            "identifier": "tile_layers_vertically_by_index",
+            "handler": "tileLayersVerticallyByIndex",
+            "script": "Layer/Tile_Layers.cocoascript"
+        },
+        {
+            "name": "{{order_layers_by_x}}",
+            "identifier": "order_layers_by_x",
+            "handler": "orderLayersByX",
+            "script": "Layer/Order_Layers_by_XY.cocoascript"
+        },
+        {
+            "name": "{{order_layers_by_y}}",
+            "identifier": "order_layers_by_y",
+            "handler": "orderLayersByY",
+            "script": "Layer/Order_Layers_by_XY.cocoascript"
+        },
+        {
+            "name": "{{reverse_layer_order}}",
+            "identifier": "reverse_layer_order",
+            "script": "Layer/Reverse_Layer_Order.cocoascript"
+        },
+        {
+            "name": "{{bounds_layer_for_every_selection}}",
+            "identifier": "bounds_layer_for_every_selection",
+            "script": "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
+        },
+        {
+            "name": "{{divide_layer}}",
+            "identifier": "divide_layer",
+            "script": "Layer/Divide_Layer.cocoascript"
+        },
+        {
+            "name": "{{unlock_all_layers}}",
+            "identifier": "unlock_all_layers",
+            "script": "Layer/Unlock_All_Layers.cocoascript"
+        },
+        {
+            "name": "{{click_through_off}}",
+            "identifier": "click_through_off",
+            "handler": "clickThroughOff",
+            "script": "Layer/Click_Through.cocoascript"
+        },
+        {
+            "name": "{{click_through_on}}",
+            "identifier": "click_through_on",
+            "handler": "clickThroughOn",
+            "script": "Layer/Click_Through.cocoascript"
+        },
+        {
+            "name": "{{select_all_groups}}",
+            "identifier": "select_all_groups",
+            "script": "Layer/Select_All_Groups.cocoascript"
+        },
+        {
+            "name": "{{select_all_groups_in_artboard}}",
+            "identifier": "select_all_groups_in_artboard",
+            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
+        },
+        {
+            "name": "{{select_all_child_layers}}",
+            "identifier": "select_all_child_layers",
+            "script": "Layer/Select_All_Child_Layers.cocoascript"
+        },
+        {
+            "name": "{{capitalize}}",
+            "identifier": "capitalize",
+            "script": "Type/Capitalize.cocoascript"
+        },
+        {
+            "name": "{{change_typeface_for_the_latin_character_set}}",
+            "identifier": "change_typeface_for_the_latin_character_set",
+            "script": "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
+        },
+        {
+            "name": "{{add_space_between_cjk_and_western_character}}",
+            "identifier": "add_space_between_cjk_and_western_character",
+            "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
+        },
+        {
+            "name": "{{select_all_textlayer_in_artboard_or_page}}",
+            "identifier": "select_all_textlayer_in_artboard_or_page",
+            "script": "Type/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
+        },
+        {
+            "name": "{{unfixed_layer_name}}",
+            "identifier": "unfixed_layer_name",
+            "script": "Type/Unfixed_Layer_Name.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice}}",
+            "identifier": "new_layer_base_slice",
+            "handler": "new_slice_for_normal",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_ios_1x}}",
+            "identifier": "new_layer_base_slice_for_ios_1x",
+            "handler": "new_slice_for_ios_1x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_ios_2x}}",
+            "identifier": "new_layer_base_slice_for_ios_2x",
+            "handler": "new_slice_for_ios_2x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_ios_pdf}}",
+            "identifier": "new_layer_base_slice_for_ios_pdf",
+            "handler": "new_slice_for_ios_pdf",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_android_1x}}",
+            "identifier": "new_layer_base_slice_for_android_1x",
+            "handler": "new_slice_for_android_1x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_android_2x}}",
+            "identifier": "new_layer_base_slice_for_android_2x",
+            "handler": "new_slice_for_android_2x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_android_3x}}",
+            "identifier": "new_layer_base_slice_for_android_3x",
+            "handler": "new_slice_for_android_3x",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_slice_base_slice_for_web}}",
+            "identifier": "new_slice_base_slice_for_web",
+            "handler": "new_slice_for_web",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{new_layer_base_slice_for_svg}}",
+            "identifier": "new_layer_base_slice_for_svg",
+            "handler": "new_slice_for_svg",
+            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
+        },
+        {
+            "name": "{{select_all_slices}}",
+            "identifier": "select_all_slices",
+            "script": "Slice/Select_All_Slices.cocoascript"
+        },
+        {
+            "name": "{{select_slices_in_selected_group_or_artboard}}",
+            "identifier": "select_slices_in_selected_group_or_artboard",
+            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
+        },
+        {
+            "name": "{{select_slices_in_group}}",
+            "identifier": "select_slices_in_group",
+            "script": "Slice/Select_Slices_In_Group.cocoascript"
+        },
+        {
+            "name": "{{reset_export_options}}",
+            "identifier": "reset_export_options",
+            "script": "Slice/Reset_Export_Options.cocoascript"
+        },
+        {
+            "name": "{{clear_slices}}",
+            "identifier": "clear_slices",
+            "script": "Slice/Clear_Slices.cocoascript"
+        },
+        {
+            "name": "{{clear_exportables}}",
+            "identifier": "clear_exportables",
+            "script": "Slice/Clear_Exportables.cocoascript"
+        },
+        {
+            "name": "{{artboard_from_selection}}",
+            "identifier": "artboard_from_selection",
+            "script": "Artboard/Artboard_from_Selection.cocoascript"
+        },
+        {
+            "name": "{{artboard_form_group}}",
+            "identifier": "artboard_form_group",
+            "script": "Artboard/Artboard_Form_Group.cocoascript"
+        },
+        {
+            "name": "{{artboard_to_group}}",
+            "identifier": "artboard_to_group",
+            "script": "Artboard/Artboard_to_Group.cocoascript"
+        },
+        {
+            "name": "{{switch_between_portrait_and_landscape}}",
+            "identifier": "switch_between_portrait_and_landscape",
+            "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
+        },
+        {
+            "name": "{{select_all_missing_instances_in_current_page}}",
+            "identifier": "select_all_missing_instances_in_current_page",
+            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
+        },
+        {
+            "name": "{{select_all_instances_of_symbol}}",
+            "identifier": "select_all_instances_of_symbol",
+            "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript"
+        },
+        {
+            "name": "{{rename_all_instance}}",
+            "identifier": "rename_all_instance",
+            "script": "Symbol/Rename_All_Instances.cocoascript"
+        },
+        {
+            "name": "{{selection_to_symbol_master}}",
+            "identifier": "selection_to_symbol_master",
+            "script": "Symbol/Selection_to_Symbol.cocoascript"
+        },
+        {
+            "name": "{{ungroup_unused_symbol_master}}",
+            "identifier": "ungroup_unused_symbol_master",
+            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+        },
+        {
+            "name": "{{remove_unused_symbols}}",
+            "identifier": "remove_unused_symbols",
+            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
+        },
+        {
+            "name": "{{add_solid_fill_from_css_color}}",
+            "identifier": "add_solid_fill_from_css_color",
+            "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
+        },
+        {
+            "name": "{{fill_color_from_global_colors}}",
+            "identifier": "fill_color_from_global_colors",
+            "handler": "fillColorFromGlobalColors",
+            "shortcut": "cmd \\",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "{{fill_color_from_document_colors}}",
+            "identifier": "fill_color_from_document_colors",
+            "handler": "fillColorFromDocumentColors",
+            "shortcut": "cmd alt \\",
+            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+        },
+        {
+            "name": "{{remove_all_unused_styles}}",
+            "identifier": "remove_all_unused_styles",
+            "script": "Styles/Remove_All_Unused_Styles.cocoascript"
+        },
+        {
+            "name": "{{clear_layer_name}}",
+            "identifier": "clear_layer_name",
+            "script": "Clear/Clear_Layer_Name.cocoascript"
+        },
+        {
+            "name": "{{clear_guides}}",
+            "identifier": "clear_guides",
+            "script": "Clear/Clear_Guides.cocoascript"
+        },
+        {
+            "name": "{{delete_all_hidden_layers}}",
+            "identifier": "delete_all_hidden_layers",
+            "script": "Clear/Delete_All_Hidden_Layers.cocoascript"
+        },
+        {
+            "name": "{{delete_all_hidden_layers_in_artboard}}",
+            "identifier": "delete_all_hidden_layers_in_artboard",
+            "script": "Clear/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
+        },
+        {
+            "name": "{{delete_all_empty_groups}}",
+            "identifier": "delete_all_empty_groups",
+            "script": "Clear/Delete_All_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "{{delete_all_empty_groups_in_artboard}}",
+            "identifier": "delete_all_empty_groups_in_artboard",
+            "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+        },
+        {
+            "name": "{{android_fairy}}",
+            "identifier": "android_fairy",
+            "handler": "AndroidFairy",
+            "script": "Utilities/Run_Shell_File.cocoascript"
+        },
+        {
+            "name": "{{show_file_in_finder}}",
+            "identifier": "show_file_in_finder",
+            "handler": "showFileInFinder",
+            "script": "Utilities/Utilities.cocoascript"
+        },
+        {
+            "name": "{{open_terminal_at_file_folder}}",
+            "identifier": "open_terminal_at_file_folder",
+            "handler": "openTerminalAtFileFolder",
+            "script": "Utilities/Utilities.cocoascript"
+        },
+        {
+            "name": "{{web_site}}",
+            "identifier": "web_site",
+            "handler": "website",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{report_issue}}",
+            "identifier": "report_issue",
+            "handler": "reportIssue",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{check_for_updates}}",
+            "identifier": "check_for_updates",
+            "handler": "checkForUpdates",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{donate_via_paypal}}",
+            "identifier": "donate_via_paypal",
+            "handler": "donateViaPaypal",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{donate_via_wechat}}",
+            "identifier": "donate_via_wechat",
+            "handler": "donateViaWechat",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{donate_via_alipay}}",
+            "identifier": "donate_via_alipay",
+            "handler": "donateViaAlipay",
+            "script": "Utilities/help.cocoascript"
+        },
+        {
+            "name": "{{change_language}}",
+            "identifier": "change_language",
+            "script": "Utilities/Change_Languages.cocoascript"
+        }
+    ],
+    "menu": {
+        "isRoot": false,
+        "title": "{{automate}}",
+        "items": [
+            {
+                "title": "{{layer}}",
+                "items": [
+                    "fix_to_parent_width_with_margin",
+                    "fix_to_parent_height_with_margin",
+                    "-",
+                    "change_layer_places",
+                    "change_layer_places_center",
+                    "-",
+                    "tile_layers_by_position_x",
+                    "tile_layers_by_position_y",
+                    "tile_layers_horizontally_by_index",
+                    "tile_layers_vertically_by_index",
+                    "-",
+                    "order_layers_by_x",
+                    "order_layers_by_y",
+                    "reverse_layer_order",
+                    "-",
+                    "bounds_layer_for_every_selection",
+                    "divide_layer",
+                    "-",
+                    "unlock_all_layers",
+                    "-",
+                    "click_through_off",
+                    "click_through_on",
+                    "-",
+                    "select_all_groups",
+                    "select_all_groups_in_artboard",
+                    "select_all_child_layers"
+                ]
+            },
+            {
+                "title": "{{type}}",
+                "items": [
+                    "capitalize",
+                    "-",
+                    "change_typeface_for_the_latin_character_set",
+                    "add_space_between_cjk_and_western_character",
+                    "-",
+                    "select_all_textlayer_in_artboard_or_page",
+                    "-",
+                    "unfixed_layer_name"
+                ]
+            },
+            {
+                "title": "{{slice}}",
+                "items": [
+                    "new_layer_base_slice",
+                    "new_layer_base_slice_for_ios_1x",
+                    "new_layer_base_slice_for_ios_2x",
+                    "new_layer_base_slice_for_ios_pdf",
+                    "-",
+                    "new_layer_base_slice_for_android_1x",
+                    "new_layer_base_slice_for_android_2x",
+                    "new_layer_base_slice_for_android_3x",
+                    "-",
+                    "new_slice_base_slice_for_web",
+                    "new_layer_base_slice_for_svg",
+                    "-",
+                    "select_all_slices",
+                    "select_slices_in_selected_group_or_artboard",
+                    "select_slices_in_group",
+                    "-",
+                    "reset_export_options",
+                    "clear_slices",
+                    "clear_exportables"
+                ]
+            },
+            {
+                "title": "{{artboard}}",
+                "items": [
+                    "artboard_from_selection",
+                    "artboard_form_group",
+                    "artboard_to_group",
+                    "-",
+                    "switch_between_portrait_and_landscape"
+                ]
+            },
+            {
+                "title": "{{symbol}}",
+                "items": [
+                    "select_all_missing_instances_in_current_page",
+                    "select_all_instances_of_symbol",
+                    "rename_all_instance",
+                    "-",
+                    "selection_to_symbol_master",
+                    "ungroup_unused_symbol_master",
+                    "-",
+                    "remove_unused_symbols"
+                ]
+            },
+            {
+                "title": "{{styles}}",
+                "items": [
+                    "add_solid_fill_from_css_color",
+                    "fill_color_from_global_colors",
+                    "fill_color_from_document_colors",
+                    "-",
+                    "remove_all_unused_styles"
+                ]
+            },
+            {
+                "title": "{{clear}}",
+                "items": [
+                    "clear_layer_name",
+                    "-",
+                    "clear_guides",
+                    "-",
+                    "delete_all_hidden_layers",
+                    "delete_all_hidden_layers_in_artboard",
+                    "delete_all_empty_groups",
+                    "delete_all_empty_groups_in_artboard"
+                ]
+            },
+            {
+                "title": "{{utilities}}",
+                "items": [
+                    "android_fairy",
+                    "-",
+                    "show_file_in_finder",
+                    "open_terminal_at_file_folder"
+                ]
+            },
+            {
+                "title": "{{help}}",
+                "items": [
+                    "web_site",
+                    "report_issue",
+                    "check_for_updates",
+                    "-",
+                    "donate_via_paypal",
+                    "donate_via_wechat",
+                    "donate_via_alipay",
+                    "-",
+                    "change_language"
+                ]
+            }
+        ]
+    }
+}
