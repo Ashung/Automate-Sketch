@@ -22,57 +22,6 @@
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
-            "name": "{{change_layer_places}}",
-            "identifier": "change_layer_places",
-            "script": "Layer/Change_Places.cocoascript"
-        },
-        {
-            "name": "{{change_layer_places_center}}",
-            "identifier": "change_layer_places_center",
-            "script": "Layer/Change_Places_Center.cocoascript"
-        },
-        {
-            "name": "{{tile_layers_by_position_x}}",
-            "identifier": "tile_layers_by_position_x",
-            "handler": "tileLayersByPositionX",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "{{tile_layers_by_position_y}}",
-            "identifier": "tile_layers_by_position_y",
-            "handler": "tileLayersByPositionY",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "{{tile_layers_horizontally_by_index}}",
-            "identifier": "tile_layers_horizontally_by_index",
-            "handler": "tileLayersHorizontallyByIndex",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "{{tile_layers_vertically_by_index}}",
-            "identifier": "tile_layers_vertically_by_index",
-            "handler": "tileLayersVerticallyByIndex",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "{{order_layers_by_x}}",
-            "identifier": "order_layers_by_x",
-            "handler": "orderLayersByX",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "{{order_layers_by_y}}",
-            "identifier": "order_layers_by_y",
-            "handler": "orderLayersByY",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "{{reverse_layer_order}}",
-            "identifier": "reverse_layer_order",
-            "script": "Layer/Reverse_Layer_Order.cocoascript"
-        },
-        {
             "name": "{{bounds_layer_for_every_selection}}",
             "identifier": "bounds_layer_for_every_selection",
             "script": "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
@@ -114,6 +63,89 @@
             "identifier": "select_all_child_layers",
             "script": "Layer/Select_All_Child_Layers.cocoascript"
         },
+        {
+            "name": "{{clear_layer_name}}",
+            "identifier": "clear_layer_name",
+            "script": "Layer/Clear_Layer_Name.cocoascript"
+        },
+        {
+            "name": "{{delete_all_hidden_layers}}",
+            "identifier": "delete_all_hidden_layers",
+            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
+        },
+        {
+            "name": "{{delete_all_hidden_layers_in_artboard}}",
+            "identifier": "delete_all_hidden_layers_in_artboard",
+            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
+        },
+        {
+            "name": "{{delete_all_empty_groups}}",
+            "identifier": "delete_all_empty_groups",
+            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "{{delete_all_empty_groups_in_artboard}}",
+            "identifier": "delete_all_empty_groups_in_artboard",
+            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+        },
+        {
+            "name": "{{remove_redundant_groups}}",
+            "identifier": "remove_redundant_groups",
+            "script": "Layer/Remove_Redundant_Groups.cocoascript"
+        },
+        {
+            "name": "{{change_layer_places}}",
+            "identifier": "change_layer_places",
+            "script": "Arrange/Change_Places.cocoascript"
+        },
+        {
+            "name": "{{change_layer_places_center}}",
+            "identifier": "change_layer_places_center",
+            "script": "Arrange/Change_Places_Center.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_by_position_x}}",
+            "identifier": "tile_layers_by_position_x",
+            "handler": "tileLayersByPositionX",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_by_position_y}}",
+            "identifier": "tile_layers_by_position_y",
+            "handler": "tileLayersByPositionY",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_horizontally_by_index}}",
+            "identifier": "tile_layers_horizontally_by_index",
+            "handler": "tileLayersHorizontallyByIndex",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "{{tile_layers_vertically_by_index}}",
+            "identifier": "tile_layers_vertically_by_index",
+            "handler": "tileLayersVerticallyByIndex",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "{{order_layers_by_x}}",
+            "identifier": "order_layers_by_x",
+            "handler": "orderLayersByX",
+            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+        },
+        {
+            "name": "{{order_layers_by_y}}",
+            "identifier": "order_layers_by_y",
+            "handler": "orderLayersByY",
+            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+        },
+        {
+            "name": "{{reverse_layer_order}}",
+            "identifier": "reverse_layer_order",
+            "script": "Arrange/Reverse_Layer_Order.cocoascript"
+        },
+
+
         {
             "name": "{{capitalize}}",
             "identifier": "capitalize",
@@ -264,9 +296,9 @@
             "script": "Symbol/Selection_to_Symbol.cocoascript"
         },
         {
-            "name": "{{ungroup_unused_symbol_master}}",
-            "identifier": "ungroup_unused_symbol_master",
-            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+            "name": "{{detach_unused_symbol_master}}",
+            "identifier": "detach_unused_symbol_master",
+            "script": "Symbol/Detach_Unused_Symbol_Master.cocoascript"
         },
         {
             "name": "{{remove_unused_symbols}}",
@@ -298,34 +330,9 @@
             "script": "Styles/Remove_All_Unused_Styles.cocoascript"
         },
         {
-            "name": "{{clear_layer_name}}",
-            "identifier": "clear_layer_name",
-            "script": "Clear/Clear_Layer_Name.cocoascript"
-        },
-        {
             "name": "{{clear_guides}}",
             "identifier": "clear_guides",
-            "script": "Clear/Clear_Guides.cocoascript"
-        },
-        {
-            "name": "{{delete_all_hidden_layers}}",
-            "identifier": "delete_all_hidden_layers",
-            "script": "Clear/Delete_All_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "{{delete_all_hidden_layers_in_artboard}}",
-            "identifier": "delete_all_hidden_layers_in_artboard",
-            "script": "Clear/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-        },
-        {
-            "name": "{{delete_all_empty_groups}}",
-            "identifier": "delete_all_empty_groups",
-            "script": "Clear/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
-            "name": "{{delete_all_empty_groups_in_artboard}}",
-            "identifier": "delete_all_empty_groups_in_artboard",
-            "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+            "script": "Guides/Clear_Guides.cocoascript"
         },
         {
             "name": "{{android_fairy}}",
@@ -397,6 +404,30 @@
                     "fix_to_parent_width_with_margin",
                     "fix_to_parent_height_with_margin",
                     "-",
+                    "bounds_layer_for_every_selection",
+                    "divide_layer",
+                    "-",
+                    "unlock_all_layers",
+                    "-",
+                    "click_through_off",
+                    "click_through_on",
+                    "-",
+                    "select_all_groups",
+                    "select_all_groups_in_artboard",
+                    "select_all_child_layers",
+                    "-",
+                    "clear_layer_name",
+                    "-",
+                    "remove_redundant_groups",
+                    "delete_all_hidden_layers",
+                    "delete_all_hidden_layers_in_artboard",
+                    "delete_all_empty_groups",
+                    "delete_all_empty_groups_in_artboard"
+                ]
+            },
+            {
+                "title": "{{arrange}}",
+                "items": [
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",
@@ -409,17 +440,6 @@
                     "order_layers_by_y",
                     "reverse_layer_order",
                     "-",
-                    "bounds_layer_for_every_selection",
-                    "divide_layer",
-                    "-",
-                    "unlock_all_layers",
-                    "-",
-                    "click_through_off",
-                    "click_through_on",
-                    "-",
-                    "select_all_groups",
-                    "select_all_groups_in_artboard",
-                    "select_all_child_layers"
                 ]
             },
             {
@@ -477,7 +497,7 @@
                     "rename_all_instance",
                     "-",
                     "selection_to_symbol_master",
-                    "ungroup_unused_symbol_master",
+                    "detach_unused_symbol_master",
                     "-",
                     "remove_unused_symbols"
                 ]
@@ -493,16 +513,9 @@
                 ]
             },
             {
-                "title": "{{clear}}",
+                "title": "{{guides}}",
                 "items": [
-                    "clear_layer_name",
-                    "-",
                     "clear_guides",
-                    "-",
-                    "delete_all_hidden_layers",
-                    "delete_all_hidden_layers_in_artboard",
-                    "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
                 ]
             },
             {

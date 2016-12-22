@@ -3,18 +3,18 @@ var fs = require("fs");
 var yaml = require("js-yaml");
 var Mustache = require("mustache");
 var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
-
 var buildDateString = "1.0." + getDateString();
+var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
-
-var language = yaml.safeLoad(fs.readFileSync("languages/zh_Hans.yaml", "utf8"));
-    language.version = buildDateString;
-var template = fs.readFileSync("manifest.mustache", "utf8");
-
-
-var output = Mustache.render(template, language);
-
-console.log(output)
+for (var i = 0; i < supportLanguages.length; i++) {
+    var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
+        language.version = buildDateString;
+    var manifest = Mustache.render(template, language);
+    fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_" + supportLanguages[i] + ".json", manifest);
+    if (supportLanguages[i] == "en") {
+        fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+    }
+}
 
 function getDateString() {
     var y = new Date().getFullYear(),
