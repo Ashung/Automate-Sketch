@@ -11,84 +11,60 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 
 ## Features
 
-*  **Layer**
-    *  Fix to Parent Width with Margin
-    *  Fix to Parent Height with Margin
-    *  Change Places Between Two Layers
-    *  Change Places Between Two Layers (center)
-    *  Tile Layers by Position X
-    *  Tile Layers by Position Y
-    *  Tile Layers Horizontally by Index
-    *  Tile Layers Vertically by Index
-    *  Order Layers by X
-    *  Order Layers by Y
-    *  Reverse Layer Order
-    *  Bounds Layer for Every Selection
-    *  Divide Layer
-    *  Unlock All Layers
-    *  Click Through Off
-    *  Click Through On
-    *  Select All Groups
-    *  Select All Groups in Artboard
-    *  Select All Child Layers
-*  **Type**
-    * Capitalize
-    * Change Typeface for Latin Character
-    * Add Space Between CJK and Latin Character
-    * Select All TextLayer in Selected Artboard or Current Page
-    * Unfixed Layer Name
-*  **Slice**
-    * New Layer Base Slice
-    * New Layer Base Slice for iOS (1x to all)
-    * New Layer Base Slice for iOS (2x to all)
-    * New Layer Base Slice for iOS (pdf)
-    * New Layer Base Slice for Android (1x to all)
-    * New Layer Base Slice for Android (2x to all)
-    * New Layer Base Slice for Android (3x to all)
-    * New Layer Base Slice for Web (1x to noraml and retina)
-    * New Layer Base Slice for Web (svg)
-    * Select All Slices
-    * Select Slices In Selected Group/Artboard
-    * Select Slices In Group
-    * Reset Export Options
-    * Clear Slices
-    * Clear Exportables
-*  **Artboard**
-    * Artboard Form Selection
-    * Artboard Form Group
-    * Artboard Form Layers
-    * Artboard to Group
-    * Switch Between Portrait and Landscape
-*  **Symbol**
-    * Select All Missing Instances in Current Page
-    * Select All Instance of Symbol
-    * Rename All Instances
-    * Selection to Symbol Master
-    * Ungroup Unused Symbol Master
-    * Remove Unused Symbols
-*  **Styles**
-    *  Add Solid Fill from CSS Color
-    *  Fill Color from Global Colors
-    *  Fill Color from Document Colors
-    *  Remove All Unused Styles
-*  **Clear**
-    * Clear Layer Name
-    * Clear Guides
-    * Delete All Hidden Layers
-    * Delete All Hidden Layers in Artboard
-    * Delete All Empty Groups
-    * Delete All Empty Groups in Artboard
-*  **Utilities**
-    * Android Fairy
-    * Show File in Finder
-    * Open Termianl at File Folder
-*  **Help**
-    * Web Site
-    * Report Issue
-    * Donate via PayPal
-    * Donate via WeChat
-    * Donate via Alipay
-    * Change Language
+| Menu                                     | Note                                     |
+| ---------------------------------------- | ---------------------------------------- |
+| **Layer**                                |                                          |
+| Fix to Parent Width (Height) with Margin |                                          |
+| Bounds Layer for Every Selection         |                                          |
+| Divide Layer                             |                                          |
+| Unlock All Layers                        |                                          |
+| Click Through On (Off)                   |                                          |
+| Select All Groups                        |                                          |
+| Select All Child Layers                  |                                          |
+| Clear Layer Name                         |                                          |
+| Remove Redundant Groups                  |                                          |
+| Delete All Hidden Layers                 |                                          |
+| Delete All Empty Groups                  |                                          |
+| **Arrange**                              |                                          |
+| Change Places Between Two Layers         |                                          |
+| Tile Layers by Position X (Y)            |                                          |
+| Tile Layers Horizontally (Vertically) by Index |                                          |
+| Order Layers by X (Y)                    |                                          |
+| Reverse Layer Order                      |                                          |
+| **Type**                                 |                                          |
+| Capitalize                               |                                          |
+| Change Typeface for Latin Character      |                                          |
+| Add Space Between CJK and Latin Character |                                          |
+| Select All TextLayer in Selected Artboard or Page |                                          |
+| Unfixed Layer Name                       |                                          |
+| **Slice**                                |                                          |
+| New Layer Base Slice                     |                                          |
+| New Layer Base Slice for ...             | Support iOS, Android and Web.            |
+| Reset Export Options                     |                                          |
+| Remove All Slices                        |                                          |
+| Clear Exportables                        |                                          |
+| **Artboard**                             |                                          |
+| Artboard Form Selection                  |                                          |
+| Artboard Form Group                      |                                          |
+| Artboard to Group                        |                                          |
+| Switch Between Portrait and Landscape    |                                          |
+| **Symbol**                               |                                          |
+| Select All Missing Instances in Current Page |                                          |
+| Select All Instance of Symbol            |                                          |
+| Rename All Instances                     |                                          |
+| Selection to Symbol Master               |                                          |
+| Detach Unused Symbol Master              |                                          |
+| Remove Unused Symbols                    |                                          |
+| **Styles**                               |                                          |
+| Add Solid Fill from CSS Color            |                                          |
+| Fill Color from Global (Document) Colors |                                          |
+| Remove All Unused Styles                 |                                          |
+| **Guides**                               |                                          |
+| Clear Guides                             |                                          |
+| **Utilities**                            |                                          |
+| Android Fairy                            | Move _\*dpi file to drawable-\*dpi folder. |
+| Show File in Finder                      |                                          |
+| Open Termianl at File Folder             |                                          |
 
 ## License
 

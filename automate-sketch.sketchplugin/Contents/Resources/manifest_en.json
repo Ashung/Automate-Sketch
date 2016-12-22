@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161216",
+    "version": "1.0.20161222",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -20,57 +20,6 @@
             "identifier": "fix_to_parent_height_with_margin",
             "handler": "fixToParentHeightWithMargin",
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
-        },
-        {
-            "name": "Change Places Between Two Layers",
-            "identifier": "change_layer_places",
-            "script": "Layer/Change_Places.cocoascript"
-        },
-        {
-            "name": "Change Places Between Two Layers (center)",
-            "identifier": "change_layer_places_center",
-            "script": "Layer/Change_Places_Center.cocoascript"
-        },
-        {
-            "name": "Tile Layers by Position X",
-            "identifier": "tile_layers_by_position_x",
-            "handler": "tileLayersByPositionX",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "Tile Layers by Position Y",
-            "identifier": "tile_layers_by_position_y",
-            "handler": "tileLayersByPositionY",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "Tile Layers Horizontally by Index",
-            "identifier": "tile_layers_horizontally_by_index",
-            "handler": "tileLayersHorizontallyByIndex",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "Tile Layers Vertically by Index",
-            "identifier": "tile_layers_vertically_by_index",
-            "handler": "tileLayersVerticallyByIndex",
-            "script": "Layer/Tile_Layers.cocoascript"
-        },
-        {
-            "name": "Order Layers by X",
-            "identifier": "order_layers_by_x",
-            "handler": "orderLayersByX",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "Order Layers by Y",
-            "identifier": "order_layers_by_y",
-            "handler": "orderLayersByY",
-            "script": "Layer/Order_Layers_by_XY.cocoascript"
-        },
-        {
-            "name": "Reverse Layer Order",
-            "identifier": "reverse_layer_order",
-            "script": "Layer/Reverse_Layer_Order.cocoascript"
         },
         {
             "name": "Bounds Layer for Every Selection",
@@ -115,6 +64,89 @@
             "script": "Layer/Select_All_Child_Layers.cocoascript"
         },
         {
+            "name": "Clear Layer Name",
+            "identifier": "clear_layer_name",
+            "script": "Layer/Clear_Layer_Name.cocoascript"
+        },
+        {
+            "name": "Delete All Hidden Layers",
+            "identifier": "delete_all_hidden_layers",
+            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
+        },
+        {
+            "name": "Delete All Hidden Layers in Artboard",
+            "identifier": "delete_all_hidden_layers_in_artboard",
+            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
+        },
+        {
+            "name": "Delete All Empty Groups",
+            "identifier": "delete_all_empty_groups",
+            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "Delete All Empty Groups in Artboard",
+            "identifier": "delete_all_empty_groups_in_artboard",
+            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+        },
+        {
+            "name": "Remove Redundant Groups",
+            "identifier": "remove_redundant_groups",
+            "script": "Layer/Remove_Redundant_Groups.cocoascript"
+        },
+        {
+            "name": "Change Places Between Two Objects",
+            "identifier": "change_layer_places",
+            "script": "Arrange/Change_Places.cocoascript"
+        },
+        {
+            "name": "Change Places Between Two Objects (center)",
+            "identifier": "change_layer_places_center",
+            "script": "Arrange/Change_Places_Center.cocoascript"
+        },
+        {
+            "name": "Tile Objects by Position X",
+            "identifier": "tile_layers_by_position_x",
+            "handler": "tileLayersByPositionX",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "Tile Objects by Position Y",
+            "identifier": "tile_layers_by_position_y",
+            "handler": "tileLayersByPositionY",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "Tile Objects Horizontally by Index",
+            "identifier": "tile_layers_horizontally_by_index",
+            "handler": "tileLayersHorizontallyByIndex",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "Tile Objects Vertically by Index",
+            "identifier": "tile_layers_vertically_by_index",
+            "handler": "tileLayersVerticallyByIndex",
+            "script": "Arrange/Tile_Objects.cocoascript"
+        },
+        {
+            "name": "Order Objects by X",
+            "identifier": "order_layers_by_x",
+            "handler": "orderLayersByX",
+            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+        },
+        {
+            "name": "Order Objects by Y",
+            "identifier": "order_layers_by_y",
+            "handler": "orderLayersByY",
+            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+        },
+        {
+            "name": "Reverse Layer Order",
+            "identifier": "reverse_layer_order",
+            "script": "Arrange/Reverse_Layer_Order.cocoascript"
+        },
+
+
+        {
             "name": "Capitalize",
             "identifier": "capitalize",
             "script": "Type/Capitalize.cocoascript"
@@ -130,7 +162,7 @@
             "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
         },
         {
-            "name": "Select All TextLayer in Selected Artboard or Current Page",
+            "name": "Select TextLayers in Selected Artboard or Page",
             "identifier": "select_all_textlayer_in_artboard_or_page",
             "script": "Type/Select_All_TextLayer_in_Artboard_or_Page.cocoascript"
         },
@@ -194,12 +226,12 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "Select All Slices",
+            "name": "",
             "identifier": "select_all_slices",
             "script": "Slice/Select_All_Slices.cocoascript"
         },
         {
-            "name": "Select Slices In Selected Group/Artboard",
+            "name": "Select Slices In Selected Group or Artboard",
             "identifier": "select_slices_in_selected_group_or_artboard",
             "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
         },
@@ -214,7 +246,7 @@
             "script": "Slice/Reset_Export_Options.cocoascript"
         },
         {
-            "name": "Clear Slices",
+            "name": "Remove All Slices",
             "identifier": "clear_slices",
             "script": "Slice/Clear_Slices.cocoascript"
         },
@@ -264,9 +296,9 @@
             "script": "Symbol/Selection_to_Symbol.cocoascript"
         },
         {
-            "name": "Ungroup Unused Symbol Master",
-            "identifier": "ungroup_unused_symbol_master",
-            "script": "Symbol/Ungroup_Unused_Symbol_Master.cocoascript"
+            "name": "Detach Unused Symbol Master",
+            "identifier": "detach_unused_symbol_master",
+            "script": "Symbol/Detach_Unused_Symbol_Master.cocoascript"
         },
         {
             "name": "Remove Unused Symbols",
@@ -298,34 +330,9 @@
             "script": "Styles/Remove_All_Unused_Styles.cocoascript"
         },
         {
-            "name": "Clear Layer Name",
-            "identifier": "clear_layer_name",
-            "script": "Clear/Clear_Layer_Name.cocoascript"
-        },
-        {
             "name": "Clear Guides",
             "identifier": "clear_guides",
-            "script": "Clear/Clear_Guides.cocoascript"
-        },
-        {
-            "name": "Delete All Hidden Layers",
-            "identifier": "delete_all_hidden_layers",
-            "script": "Clear/Delete_All_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "Delete All Hidden Layers in Artboard",
-            "identifier": "delete_all_hidden_layers_in_artboard",
-            "script": "Clear/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-        },
-        {
-            "name": "Delete All Empty Groups",
-            "identifier": "delete_all_empty_groups",
-            "script": "Clear/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
-            "name": "Delete All Empty Groups in Artboard",
-            "identifier": "delete_all_empty_groups_in_artboard",
-            "script": "Clear/Delete_All_Empty_Groups_in_Artboard.cocoascript"
+            "script": "Guides/Clear_Guides.cocoascript"
         },
         {
             "name": "Android Fairy",
@@ -397,6 +404,30 @@
                     "fix_to_parent_width_with_margin",
                     "fix_to_parent_height_with_margin",
                     "-",
+                    "bounds_layer_for_every_selection",
+                    "divide_layer",
+                    "-",
+                    "unlock_all_layers",
+                    "-",
+                    "click_through_off",
+                    "click_through_on",
+                    "-",
+                    "select_all_groups",
+                    "select_all_groups_in_artboard",
+                    "select_all_child_layers",
+                    "-",
+                    "clear_layer_name",
+                    "-",
+                    "remove_redundant_groups",
+                    "delete_all_hidden_layers",
+                    "delete_all_hidden_layers_in_artboard",
+                    "delete_all_empty_groups",
+                    "delete_all_empty_groups_in_artboard"
+                ]
+            },
+            {
+                "title": "Arrange",
+                "items": [
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",
@@ -409,17 +440,6 @@
                     "order_layers_by_y",
                     "reverse_layer_order",
                     "-",
-                    "bounds_layer_for_every_selection",
-                    "divide_layer",
-                    "-",
-                    "unlock_all_layers",
-                    "-",
-                    "click_through_off",
-                    "click_through_on",
-                    "-",
-                    "select_all_groups",
-                    "select_all_groups_in_artboard",
-                    "select_all_child_layers"
                 ]
             },
             {
@@ -477,7 +497,7 @@
                     "rename_all_instance",
                     "-",
                     "selection_to_symbol_master",
-                    "ungroup_unused_symbol_master",
+                    "detach_unused_symbol_master",
                     "-",
                     "remove_unused_symbols"
                 ]
@@ -493,16 +513,9 @@
                 ]
             },
             {
-                "title": "Clear",
+                "title": "Guides",
                 "items": [
-                    "clear_layer_name",
-                    "-",
                     "clear_guides",
-                    "-",
-                    "delete_all_hidden_layers",
-                    "delete_all_hidden_layers_in_artboard",
-                    "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
                 ]
             },
             {

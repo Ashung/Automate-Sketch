@@ -1,0 +1,46 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+email: Ashung.hung@gmail.com
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    if (selection.count() == 0) {
+        // Remove Redundant Groups in Current Page
+        removeRedundantGroups(page);
+    } else {
+        // Remove Redundant Groups in Selected Object
+        var loop = selection.objectEnumerator();
+        var layer;
+        while (layer = loop.nextObject()) {
+            removeRedundantGroups(layer);
+        }
+    }
+}
+
+function removeRedundantGroups(parent) {
+    for (var i = parent.children().count(); i > 0; i --) {
+        var layer = parent.children().objectAtIndex(i - 1);
+        // Ungroup Redundant Groups
+        if (layer.class() == "MSLayerGroup" && layer.layers().count() == 1) {
+            if (layer.layers().firstObject().class() == "MSLayerGroup") {
+                var child = layer.layers().firstObject();
+                layer.ungroup();
+                removeRedundantGroups(child);
+                break;
+            }
+        }
+        // Remove Empty Groups
+        if (layer.class() == "MSLayerGroup" && layer.layers().count() == 0) {
+            layer.removeFromParent();
+        }
+    }
+}
