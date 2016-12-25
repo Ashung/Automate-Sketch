@@ -1,0 +1,24 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() > 0) {
+        var loop  = selection.objectEnumerator();
+        var layer;
+        while (layer = loop.nextObject()) {
+            if (layer.class() == "MSSymbolInstance" && layer.symbolMaster()) {
+                layer.setName(layer.symbolMaster().name());
+            }
+        }
+    } else {
+        doc.showMessage("Please select at least one symbol instance.");
+    }
+}

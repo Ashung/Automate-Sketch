@@ -1,0 +1,70 @@
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var page = doc.currentPage();
+
+    if (selection.count() > 0 && selection.firstObject().class() == "MSSymbolMaster") {
+
+        var symbol = selection.firstObject();
+
+        // Get All Symbol Masters
+        var symbolMasters = [];
+        var symbolMastersNames = [];
+        var loopChildren = page.children().objectEnumerator();
+        var layer;
+        while (layer = loopChildren.nextObject()) {
+            if (layer.class() == "MSSymbolMaster") {
+                symbolMasters.push(layer);
+                symbolMastersNames.push(layer.name());
+            }
+        }
+
+        // Dialog
+        var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
+        accessory.addItemsWithObjectValues(symbolMastersNames);
+        accessory.selectItemAtIndex(0);
+        // TODO: Input for space
+        // TODO: When NSComboBox changed, show the symbol master
+        var alert = NSAlert.alloc().init();
+        alert.setMessageText("Move seleted symbol masters to the bottom of ...");
+        alert.addButtonWithTitle("OK");
+        alert.addButtonWithTitle("Cancel");
+        alert.setAccessoryView(accessory);
+
+        // Click OK button
+        var responseCode = alert.runModal();
+        if (responseCode == 1000) {
+            var target = symbolMasters[accessory.indexOfSelectedItem()];
+            var space = 100;
+            var positionX = target.frame().x();
+            var positionY = target.frame().maxY() + space;
+
+            // TODO: filter symbol master from all selection
+            // for (var i = 0; i < selection.count(); i++) {
+            //     var layer = selection.objectAtIndex(i);
+            //     if (layer.class() == "MSSymbolMaster") {
+            //         layer.frame().setX(positionX);
+            //         layer.frame().setY(positionY);
+            //     }
+            //
+            // }
+
+            // loop selected symbol master
+
+            symbol.frame().setX(positionX);
+            symbol.frame().setY(positionY);
+        }
+    } else {
+        doc.showMessage("Please select at least one symbol master.");
+    }
+
+
+
+
+
+
+
+
+
+};
