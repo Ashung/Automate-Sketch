@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161222",
+    "version": "1.0.20161226",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -226,11 +226,6 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "",
-            "identifier": "select_all_slices",
-            "script": "Slice/Select_All_Slices.cocoascript"
-        },
-        {
             "name": "选择选中组或画板内的所有切片",
             "identifier": "select_slices_in_selected_group_or_artboard",
             "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
@@ -276,6 +271,11 @@
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
         },
         {
+            "name": "移动至另一元件模版下方",
+            "identifier": "move_symbol_masters_to_bottom_of_anther",
+            "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Anther.cocoascript"
+        },
+        {
             "name": "选择当页所有损坏的组件实例",
             "identifier": "select_all_missing_instances_in_current_page",
             "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
@@ -286,8 +286,13 @@
             "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript"
         },
         {
+            "name": "重命名实例",
+            "identifier": "rename_instances",
+            "script": "Symbol/Rename_Instances.cocoascript"
+        },
+        {
             "name": "重命名所有实例",
-            "identifier": "rename_all_instance",
+            "identifier": "rename_all_instances",
             "script": "Symbol/Rename_All_Instances.cocoascript"
         },
         {
@@ -470,7 +475,6 @@
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
-                    "select_all_slices",
                     "select_slices_in_selected_group_or_artboard",
                     "select_slices_in_group",
                     "-",
@@ -492,9 +496,12 @@
             {
                 "title": "组件",
                 "items": [
+                    "move_symbol_masters_to_bottom_of_anther",
+                    "-",
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
-                    "rename_all_instance",
+                    "rename_instances",
+                    "rename_all_instances",
                     "-",
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
