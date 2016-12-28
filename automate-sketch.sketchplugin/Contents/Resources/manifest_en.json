@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161226",
+    "version": "1.0.20161228",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -101,7 +101,7 @@
         {
             "name": "Change Places Between Two Objects (center)",
             "identifier": "change_layer_places_center",
-            "script": "Arrange/Change_Places_Center.cocoascript"
+            "script": "Arrange/Change_Places.cocoascript"
         },
         {
             "name": "Tile Objects by Position X",
@@ -311,6 +311,16 @@
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
+            "name": "Set to Original Width",
+            "identifier": "set_to_original_width",
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+        },
+        {
+            "name": "Set to Original Height",
+            "identifier": "set_to_original_height",
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+        },
+        {
             "name": "Add Solid Fill from CSS Color",
             "identifier": "add_solid_fill_from_css_color",
             "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
@@ -496,16 +506,16 @@
             {
                 "title": "Symbol",
                 "items": [
-                    "move_symbol_masters_to_bottom_of_anther",
-                    "-",
+                    "set_to_original_width",
+                    "set_to_original_height",
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
                     "rename_all_instances",
                     "-",
+                    "move_symbol_masters_to_bottom_of_anther",
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
-                    "-",
                     "remove_unused_symbols"
                 ]
             },

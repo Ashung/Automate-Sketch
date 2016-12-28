@@ -1,0 +1,43 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var pluginIdentifier = context.command.identifier();
+
+
+    if (selection.count() == 0) {
+        doc.showMessage("Please select at least one symbol instance.");
+        return;
+    }
+
+    var loop = selection.objectEnumerator();
+    var layer;
+    while (layer = loop.nextObject()) {
+        if (layer.class() == "MSSymbolInstance") {
+
+            var symbolMaster = layer.symbolMaster();
+
+            layer.frame().setConstrainProportions(false);
+
+            if (pluginIdentifier == "set_to_original_width") {
+                var originalWidth = symbolMaster.frame().width();
+                layer.frame().setWidth(originalWidth);
+            }
+
+            if (pluginIdentifier == "set_to_original_height") {
+                var originalHeight = symbolMaster.frame().height();
+                layer.frame().setHeight(originalHeight);
+            }
+
+        }
+    }
+
+}
