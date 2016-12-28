@@ -1,3 +1,11 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
 var onRun = function(context) {
 
     var doc = context.document;
@@ -17,7 +25,7 @@ var onRun = function(context) {
 
     if (selectedSymbolMastersIDs.length > 0) {
 
-        // Get all symbol masters for select
+        // Get all symbol masters, that show in select box.
         var symbolMasters = [];
         var symbolMastersNames = [];
         for (var i = page.children().count(); i > 0; i --) {
@@ -34,11 +42,11 @@ var onRun = function(context) {
         var dialog = COSAlertWindow.new();
         dialog.setMessageText("Move seleted symbol masters to the bottom of ...");
 
-        // TODO: When NSComboBox changed, show the symbol master
         var select = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
         select.addItemsWithObjectValues(symbolMastersNames);
         select.selectItemAtIndex(0);
         dialog.addAccessoryView(select);
+        // TODO: When NSComboBox changed, show the symbol master
 
         dialog.addTextLabelWithValue("Space between 2 symbol masters:");
 
@@ -64,7 +72,16 @@ var onRun = function(context) {
                 symbol.frame().setY(positionY);
             }
         }
-        
+
+        page.deselectAllLayers();
+        for (var i = 0; i < selectedSymbolMasters.length; i++) {
+            var symbol = selectedSymbolMasters[i];
+            symbol.select_byExpandingSelection(true, true);
+        }
+
+        // View - Center Selection
+        doc.currentView().centerSelectionInVisibleArea();
+
     } else {
         doc.showMessage("Please select at least one symbol master.");
     }
