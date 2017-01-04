@@ -63,21 +63,19 @@ var onRun = function(context) {
                 // Select all instances
                 currentPage.deselectAllLayers();
                 var allSymbolInstancesInCurrentPage = currentPage.allSymbolInstancesInChildren().allObjects();
-                var viewRect = allSymbolInstancesInCurrentPage.firstObject().rect();
                 for (var i = 0; i < allSymbolInstancesInCurrentPage.count(); i ++) {
                     var instance = allSymbolInstancesInCurrentPage.objectAtIndex(i);
                     if (instance.symbolMaster().symbolID() == symbolMaster.symbolID()) {
                         instance.select_byExpandingSelection(true, true);
-                        viewRect = NSUnionRect(viewRect, instance.rect());
+                        // if instance is invisible make it visible.
+                        if (instance.isVisible() == false) {
+                            instance.setIsVisible(true)
+                        }
                     }
                 }
 
-                viewRect.origin.x = viewRect.origin.x - 100;
-                viewRect.origin.y = viewRect.origin.y - 100;
-                viewRect.size.width = viewRect.size.width + 200;
-                viewRect.size.height = viewRect.size.height + 200;
-
-                view.zoomToFitRect(viewRect);
+                // Same as CMD + 2
+                view.zoomToSelection();
 
             }
         } else {
