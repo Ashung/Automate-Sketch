@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161228",
+    "version": "1.0.20170104",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -251,14 +251,14 @@
             "script": "Slice/Clear_Exportables.cocoascript"
         },
         {
-            "name": "Artboard Form Selection",
+            "name": "Artboard From Selection",
             "identifier": "artboard_from_selection",
             "script": "Artboard/Artboard_from_Selection.cocoascript"
         },
         {
-            "name": "Artboard Form Group",
-            "identifier": "artboard_form_group",
-            "script": "Artboard/Artboard_Form_Group.cocoascript"
+            "name": "Artboard From Group",
+            "identifier": "artboard_from_group",
+            "script": "Artboard/Artboard_From_Group.cocoascript"
         },
         {
             "name": "Artboard To Group",
@@ -497,7 +497,7 @@
                 "title": "Artboard",
                 "items": [
                     "artboard_from_selection",
-                    "artboard_form_group",
+                    "artboard_from_group",
                     "artboard_to_group",
                     "-",
                     "switch_between_portrait_and_landscape"

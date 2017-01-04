@@ -2,15 +2,15 @@
 
 var fillColorFromGlobalColors = function(context) {
     var globalColors = NSApp.delegate().globalAssets().colors();
-    fillColorFormColors(context, globalColors, "You have no any color in Global Colors.");
+    fillColorFromColors(context, globalColors, "You have no any color in Global Colors.");
 }
 
 var fillColorFromDocumentColors = function(context) {
     var documentColors = context.document.documentData().assets().colors();
-    fillColorFormColors(context, documentColors, "You have no any color in Document Colors.");
+    fillColorFromColors(context, documentColors, "You have no any color in Document Colors.");
 }
 
-function fillColorFormColors(context, colors, alertMessage) {
+function fillColorFromColors(context, colors, alertMessage) {
     var doc = context.document;
 
     if (colors.count() == 0) {
