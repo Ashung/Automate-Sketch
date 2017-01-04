@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20161228",
+    "version": "1.0.20170104",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -257,8 +257,8 @@
         },
         {
             "name": "從組新建畫板",
-            "identifier": "artboard_form_group",
-            "script": "Artboard/Artboard_Form_Group.cocoascript"
+            "identifier": "artboard_from_group",
+            "script": "Artboard/Artboard_From_Group.cocoascript"
         },
         {
             "name": "畫板轉為組",
@@ -497,7 +497,7 @@
                 "title": "畫板",
                 "items": [
                     "artboard_from_selection",
-                    "artboard_form_group",
+                    "artboard_from_group",
                     "artboard_to_group",
                     "-",
                     "switch_between_portrait_and_landscape"
