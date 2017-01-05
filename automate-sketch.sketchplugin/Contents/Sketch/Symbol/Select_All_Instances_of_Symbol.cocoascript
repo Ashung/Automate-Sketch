@@ -25,12 +25,15 @@ var onRun = function(context) {
             for (var i = 0; i < doc.pages().count(); i++) {
                 var page = doc.pages().objectAtIndex(i);
                 var allSymbolInstances = page.allSymbolInstancesInChildren().allObjects();
+
+                // Count
                 var instancesInCurretPage = 0;
                 for (var j = 0; j < allSymbolInstances.count(); j ++) {
                     if (allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()) {
                         instancesInCurretPage ++;
                     }
                 }
+
                 for (var j = 0; j < allSymbolInstances.count(); j ++) {
                     if (
                         allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()
@@ -58,21 +61,58 @@ var onRun = function(context) {
             if (responseCode == 1000) {
                 // go to page
                 var currentPage = pagesHasInstances[selectPage];
-                doc.setCurrentPage(currentPage);
+                // doc.setCurrentPage(currentPage);
+
+                currentPage.deselectAllLayers();
 
                 // Select all instances
-                currentPage.deselectAllLayers();
-                var allSymbolInstancesInCurrentPage = currentPage.allSymbolInstancesInChildren().allObjects();
-                for (var i = 0; i < allSymbolInstancesInCurrentPage.count(); i ++) {
-                    var instance = allSymbolInstancesInCurrentPage.objectAtIndex(i);
-                    if (instance.symbolMaster().symbolID() == symbolMaster.symbolID()) {
-                        instance.select_byExpandingSelection(true, true);
-                        // if instance is invisible make it visible.
-                        if (instance.isVisible() == false) {
-                            instance.setIsVisible(true)
-                        }
+                // var allSymbolInstancesInCurrentPage = currentPage.allSymbolInstancesInChildren().allObjects();
+                // for (var i = 0; i < allSymbolInstancesInCurrentPage.count(); i ++) {
+                //     var instance = allSymbolInstancesInCurrentPage.objectAtIndex(i);
+                //
+                //     if (instance.symbolMaster().symbolID() == symbolMaster.symbolID()) {
+                //         instance.select_byExpandingSelection(true, true);
+                //         // if instance is invisible make it visible.
+                //         if (instance.isVisible() == false) {
+                //             instance.setIsVisible(true);
+                //         }
+                //     }
+                //
+                // }
+
+                for (var i = 0; i < currentPage.children().count(); i++) {
+                    var layer = currentPage.children().objectAtIndex(i);
+                    if (layer.class() == "MSSymbolInstance") {
+                        // log(">>>>>>" + layer.name());
+
+                        // if (layer.symbolID() == symbolMaster.symbolID()) {
+                        //     layer.select_byExpandingSelection(true, true);
+                        //     if (layer.isVisible() == false) {
+                        //         layer.setIsVisible(true);
+                        //     }
+                        // } else {
+
+                        // log(isInstanceInsideSymbolMaster(symbolMaster, layer.symbolMaster()));
+
+                            var count = 0;
+                            if (isInstanceInsideSymbolMaster(symbolMaster, layer.symbolMaster(), count)) {
+
+                                layer.select_byExpandingSelection(true, true);
+                                if (layer.isVisible() == false) {
+                                    layer.setIsVisible(true);
+                                }
+
+                                log(layer)
+                            }
+
+
+                        // }
                     }
                 }
+
+                // Select all instances in other instance
+
+
 
                 // Same as CMD + 2
                 view.zoomToSelection();
@@ -85,4 +125,22 @@ var onRun = function(context) {
         doc.showMessage("Please select 1 symbol.");
     }
 
+}
+
+function isInstanceInsideSymbolMaster(instance, symbolMaster, count) {
+    var result = false;
+    for (var i = 0; i < symbolMaster.children().count(); i++) {
+        var layer = symbolMaster.children().objectAtIndex(i);
+        if (layer.class() == "MSSymbolInstance") {
+            // log(layer);
+            if (String(layer.symbolID()) == String(instance.symbolID())) {
+                log("<<<<<" + layer.name());
+                count ++;
+                result = true;
+            } else {
+                isInstanceInsideSymbolMaster(instance, layer.symbolMaster(), count);
+            }
+        }
+    }
+    return result;
 }
