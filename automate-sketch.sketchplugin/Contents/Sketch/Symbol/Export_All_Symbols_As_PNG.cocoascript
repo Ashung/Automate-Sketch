@@ -1,0 +1,29 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+    var doc = context.document;
+    if (doc.fileURL()) {
+        var allSymbols = doc.documentData().allSymbols();
+        if (allSymbols.count() > 0) {
+            var exportPath = doc.fileURL().path().stringByDeletingPathExtension() + "_symbols_export";
+            var loop = allSymbols.objectEnumerator();
+            var symbol;
+            while (symbol = loop.nextObject()) {
+                var pageName = symbol.parentGroup().name();
+                doc.saveArtboardOrSlice_toFile(symbol, exportPath + "/" + pageName + "/" + symbol.name() + ".png");
+            }
+            // Show in Finder
+            NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(exportPath, nil);
+        } else {
+            doc.showMessage("This document have no symbol.");
+        }
+    } else {
+        doc.showMessage("You have to save this document.");
+    }
+}
