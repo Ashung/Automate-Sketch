@@ -4,7 +4,7 @@
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20170104",
+    "version": "1.0.20170106",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -321,6 +321,11 @@
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
         {
+            "name": "將所有元件匯出為 PNG",
+            "identifier": "export_all_symbols_as_png",
+            "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
+        },
+        {
             "name": "從 CSS 色值新增單色填充",
             "identifier": "add_solid_fill_from_css_color",
             "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
@@ -516,7 +521,9 @@
                     "move_symbol_masters_to_bottom_of_anther",
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
-                    "remove_unused_symbols"
+                    "remove_unused_symbols",
+                    "-",
+                    "export_all_symbols_as_png"
                 ]
             },
             {

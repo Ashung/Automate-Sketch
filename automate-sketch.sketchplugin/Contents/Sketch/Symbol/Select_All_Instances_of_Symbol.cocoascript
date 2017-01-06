@@ -7,82 +7,117 @@ license: CC-BY 4.0
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
+
     var doc = context.document;
     var selection = context.selection;
-    var view = doc.currentView();
 
-    if (selection.count() == 1 && (selection.firstObject().class() == "MSSymbolMaster" || selection.firstObject().class() == "MSSymbolInstance")) {
-        if (selection.firstObject().class() == "MSSymbolMaster") {
-            var symbolMaster = selection.firstObject();
-        }
-        if (selection.firstObject().class() == "MSSymbolInstance") {
-            var symbolMaster = selection.firstObject().symbolMaster();
-        }
-
-        if (symbolMaster.hasInstances()) {
-            var pagesHasInstances = [];
-            var pagesName = [];
-            for (var i = 0; i < doc.pages().count(); i++) {
-                var page = doc.pages().objectAtIndex(i);
-                var allSymbolInstances = page.allSymbolInstancesInChildren().allObjects();
-                var instancesInCurretPage = 0;
-                for (var j = 0; j < allSymbolInstances.count(); j ++) {
-                    if (allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()) {
-                        instancesInCurretPage ++;
-                    }
-                }
-                for (var j = 0; j < allSymbolInstances.count(); j ++) {
-                    if (
-                        allSymbolInstances.objectAtIndex(j).symbolMaster().symbolID() == symbolMaster.symbolID()
-                        &&
-                        pagesHasInstances.indexOf(page) == -1
-                    ) {
-                        pagesHasInstances.push(page);
-                        pagesName.push(page.name() + " (" + instancesInCurretPage + ")");
-                    }
-                }
-            }
-
-            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
-                accessory.addItemsWithObjectValues(pagesName);
-                accessory.selectItemAtIndex(0);
-
-            var alert = NSAlert.alloc().init();
-                alert.setMessageText("Pages that contain symbol \"" + symbolMaster.name() + "\".\nClick OK to select all instances in selected page.");
-                alert.addButtonWithTitle("OK");
-                alert.addButtonWithTitle("Cancel");
-                alert.setAccessoryView(accessory);
-
-            var responseCode = alert.runModal();
-            var selectPage = accessory.indexOfSelectedItem();
-            if (responseCode == 1000) {
-                // go to page
-                var currentPage = pagesHasInstances[selectPage];
-                doc.setCurrentPage(currentPage);
-
-                // Select all instances
-                currentPage.deselectAllLayers();
-                var allSymbolInstancesInCurrentPage = currentPage.allSymbolInstancesInChildren().allObjects();
-                for (var i = 0; i < allSymbolInstancesInCurrentPage.count(); i ++) {
-                    var instance = allSymbolInstancesInCurrentPage.objectAtIndex(i);
-                    if (instance.symbolMaster().symbolID() == symbolMaster.symbolID()) {
-                        instance.select_byExpandingSelection(true, true);
-                        // if instance is invisible make it visible.
-                        if (instance.isVisible() == false) {
-                            instance.setIsVisible(true)
-                        }
-                    }
-                }
-
-                // Same as CMD + 2
-                view.zoomToSelection();
-
-            }
-        } else {
-            doc.showMessage("The symbol master has no instance.");
-        }
+    // Get current symbolMaster
+    var currentSymbolMaster;
+    if (selection.count() > 0) {
+        var layer = selection.firstObject();
+        getCurrentSymbolMasterFromLayer(layer, function(_symbolMaster) {
+            currentSymbolMaster = _symbolMaster
+        });
     } else {
         doc.showMessage("Please select 1 symbol.");
     }
 
+    if (!currentSymbolMaster) {
+        doc.showMessage("Please select 1 symbol.");
+    } else {
+
+        var allInstancesOfCurrentSymbolMaster = 0;
+        var pagesHasInstances = [];
+        var pagesName = [];
+
+        for (var i = 0; i < doc.pages().count(); i++) {
+            var page = doc.pages().objectAtIndex(i);
+
+            // Count
+            var instancesOfCurrentSymbolMasterInCurretPage = 0;
+            for (var j = 0; j < page.children().count(); j ++) {
+                var layer = page.children().objectAtIndex(j);
+                if (layer.class() == "MSSymbolInstance") {
+                    if (String(layer.symbolID()) == String(currentSymbolMaster.symbolID())) {
+                        instancesOfCurrentSymbolMasterInCurretPage ++;
+                        allInstancesOfCurrentSymbolMaster ++;
+                    }
+                }
+            }
+
+            // Data for select box
+            if (instancesOfCurrentSymbolMasterInCurretPage > 0 && pagesHasInstances.indexOf(page) == -1) {
+                pagesHasInstances.push(page);
+                pagesName.push(page.name() + " (" + instancesOfCurrentSymbolMasterInCurretPage + ")");
+            }
+
+        }
+
+        if (allInstancesOfCurrentSymbolMaster == 0) {
+            doc.showMessage("The symbol master has no instance.");
+            return;
+        }
+
+        // Dialog
+        var alert = NSAlert.alloc().init();
+        alert.setMessageText("Pages that contain instance of \"" + currentSymbolMaster.name() + "\".\nClick OK to select all instances in page.");
+        alert.addButtonWithTitle("OK");
+        alert.addButtonWithTitle("Cancel");
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
+        selectBox.addItemsWithObjectValues(pagesName);
+        selectBox.selectItemAtIndex(0);
+        alert.setAccessoryView(selectBox);
+        var responseCode = alert.runModal();
+        var selectPage = selectBox.indexOfSelectedItem();
+
+        if (responseCode == "1000") {
+
+            // go to selected page
+            var currentPage = pagesHasInstances[selectPage];
+            doc.setCurrentPage(currentPage);
+
+            // Select all instances
+            currentPage.deselectAllLayers();
+            for (var j = 0; j < currentPage.children().count(); j ++) {
+                var layer = currentPage.children().objectAtIndex(j);
+                if (layer.class() == "MSSymbolInstance") {
+                    if (String(layer.symbolID()) == String(currentSymbolMaster.symbolID())) {
+                        layer.select_byExpandingSelection(true, true);
+                        // if instance is invisible make it visible.
+                        if (layer.isVisible() == false) {
+                            layer.setIsVisible(true);
+                        }
+                    }
+                }
+            }
+
+            // Same as CMD + 2
+            var view = doc.currentView();
+            view.zoomToSelection();
+
+        }
+    }
+}
+
+function getCurrentSymbolMasterFromLayer(layer, callback) {
+    if (layer.class() == "MSSymbolMaster") {
+        callback(layer);
+    }
+    if (layer.class() == "MSSymbolInstance") {
+        callback(layer.symbolMaster());
+    }
+    if (
+        layer.class() == "MSLayerGroup" ||
+        layer.class() == "MSShapeGroup" ||
+        layer.class() == "MSTextLayer" ||
+        layer.class() == "MSBitmapLayer"
+    ) {
+        getCurrentSymbolMasterFromLayer(layer.parentGroup(), callback);
+    }
+    if (
+        layer.class() == "MSArtboardGroup" ||
+        layer.class() == "MSPage"
+    ) {
+        return;
+    }
 }
