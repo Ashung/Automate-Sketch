@@ -6,10 +6,10 @@
 
 ## 安装
 
-1. 下载并解压 [master.zip](archive/master.zip)。
+1. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)。
 2. 双击 "automate-sketch.sketchplugin"。
 
-## 功能
+## 部分功能
 
 | Menu                                     | Note                                  |
 | ---------------------------------------- | ------------------------------------- |
@@ -49,12 +49,16 @@
 | Artboard to Group                        | 画板转为组                                 |
 | Switch Between Portrait and Landscape    | 画板切换横向或纵向                             |
 | **Symbol**                               |                                       |
+| Set to Original Width / Height           | 设为原始宽度 / 高度                           |
 | Select All Missing Instances in Current Page | 选择当前页中失效的 Symbol 实例                   |
 | Select All Instance of Symbol            | 选择 Symbol 的实例                         |
+| Rename Instances                         | 重命名选中的实例                              |
 | Rename All Instances                     | 重命名所有实例                               |
+| Move Symbol Masters to Bottom of Anther  | 移动至另一组件模版下方                           |
 | Selection to Symbol Master               | 将选中图层直接变为 Symbol                      |
 | Detach Unused Symbol Master              | 将未使用的 Symbol Master 转为组               |
 | Remove Unused Symbols                    | 删除未使用 Symbol                          |
+| Export All Symbols As PNG                | 将所有组件导出为 PNG                          |
 | **Styles**                               |                                       |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充                        |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充                       |

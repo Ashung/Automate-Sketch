@@ -6,7 +6,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 
 ## Installation
 
-1. Download [master.zip](archive/master.zip), unzip it.
+1. Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it.
 2. Double-click the "automate-sketch.sketchplugin".
 
 ## Features
@@ -49,12 +49,15 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Artboard to Group                        |                                          |
 | Switch Between Portrait and Landscape    |                                          |
 | **Symbol**                               |                                          |
+| Set to Original Width / Height           |                                          |
 | Select All Missing Instances in Current Page |                                          |
 | Select All Instance of Symbol            |                                          |
 | Rename All Instances                     |                                          |
+| Move Symbol Masters to Bottom of Anther  |                                          |
 | Selection to Symbol Master               |                                          |
 | Detach Unused Symbol Master              |                                          |
 | Remove Unused Symbols                    |                                          |
+| Export All Symbols As PNG                |                                          |
 | **Styles**                               |                                          |
 | Add Solid Fill from CSS Color            |                                          |
 | Fill Color from Global (Document) Colors |                                          |
