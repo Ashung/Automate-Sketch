@@ -85,3 +85,4 @@ move_symbol_masters_to_bottom_of_anther: "Move Symbol Masters to Bottom of Anthe
 set_to_original_width: "Set to Original Width"
 set_to_original_height: "Set to Original Height"
 export_all_symbols_as_png: "Export All Symbols As PNG"
+reverse_order_and_close_path: "Reverse Order and Close Path"

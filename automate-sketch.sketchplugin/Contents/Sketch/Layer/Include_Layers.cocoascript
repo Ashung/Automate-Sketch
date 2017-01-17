@@ -1,0 +1,18 @@
+
+
+var doc = context.document;
+var selection = context.selection;
+var page = doc.currentPage();
+
+// for (var i = 0; i < selection.count(); i++) {
+//     log(selection.objectAtIndex(i).class())
+// }
+
+var target = selection.objectAtIndex(1)
+var source = selection.objectAtIndex(0)
+
+var group = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers([target]))
+group.setName('@include("' + source.objectID() + '")');
+group.insertLayers_afterLayer(source.containedLayers(), target);
+group.resizeToFitChildrenWithOption(1);
+target.removeFromParent();

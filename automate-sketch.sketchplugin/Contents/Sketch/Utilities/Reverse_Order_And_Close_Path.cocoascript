@@ -1,0 +1,15 @@
+
+
+var onRun = function(context) {
+    var doc = context.document;
+    var selection = context.selection;
+
+    var loop = selection.objectEnumerator();
+    var path;
+    while (path = loop.nextObject()) {
+        if (path.class() == "MSShapeGroup" || path.parentGroup().class() == "MSShapeGroup") {
+            doc.reversePath(path);
+            doc.closePath(path);
+        }
+    }
+}
