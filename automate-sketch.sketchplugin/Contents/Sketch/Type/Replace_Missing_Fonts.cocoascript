@@ -1,0 +1,11 @@
+
+
+
+
+
+
+
+var currentFileURL = context.document.fileURL();
+var sketchFile = MSDocumentFile.alloc().initWithFileURL(currentFileURL);
+    sketchFile.open(nil);
+log(sketchFile.missingFonts().componentsJoinedByString(","));
