@@ -9,25 +9,21 @@ license: CC-BY 4.0
 var onRun = function(context) {
 
     var doc = context.document;
-    var commonFonts = doc.fontList().commonFonts();
+
     var fontUsedInDocument = NSMutableArray.alloc().init();
-    if (commonFonts.count() > 0) {
-        iterateDocument(doc, function(layer) {
-            if (layer.class() == "MSTextLayer") {
-                var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
-                var loopFonts = fontsUsedInTextLayer.objectEnumerator();
-                var font;
-                while (font = loopFonts.nextObject()) {
-                    if (!fontUsedInDocument.containsObject(font)) {
-                        fontUsedInDocument.addObject(font);
-                    }
+
+    iterateDocument(doc, function(layer) {
+        if (layer.class() == "MSTextLayer") {
+            var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
+            var loopFonts = fontsUsedInTextLayer.objectEnumerator();
+            var font;
+            while (font = loopFonts.nextObject()) {
+                if (!fontUsedInDocument.containsObject(font)) {
+                    fontUsedInDocument.addObject(font);
                 }
             }
-        });
-    } else {
-        doc.showMessage("This document don't have any text layer.");
-        return;
-    }
+        }
+    });
 
     if (fontUsedInDocument.count() > 0) {
 
@@ -84,6 +80,9 @@ var onRun = function(context) {
             doc.showMessage('Complete replace "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
         }
+    } else {
+        doc.showMessage("This document don't have any text layer.");
+        return;
     }
 }
 
