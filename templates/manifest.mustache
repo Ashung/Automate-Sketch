@@ -96,6 +96,18 @@
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
         },
         {
+            "name": "{{create_include_layer}}",
+            "identifier": "create_include_layer",
+            "handler": "createIncludeLayer",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
+            "name": "{{sync_include_layers}}",
+            "identifier": "sync_include_layers",
+            "handler": "syncIncludeLayers",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
             "name": "{{change_layer_places}}",
             "identifier": "change_layer_places",
             "script": "Arrange/Change_Places.cocoascript"
@@ -170,6 +182,16 @@
             "name": "{{unfixed_layer_name}}",
             "identifier": "unfixed_layer_name",
             "script": "Type/Unfixed_Layer_Name.cocoascript"
+        },
+        {
+            "name": "{{replace_missing_fonts}}",
+            "identifier": "replace_missing_fonts",
+            "script": "Type/Replace_Missing_Fonts.cocoascript"
+        },
+        {
+            "name": "{{replace_fonts}}",
+            "identifier": "replace_fonts",
+            "script": "Type/Replace_Fonts.cocoascript"
         },
         {
             "name": "{{new_layer_base_slice}}",
@@ -452,7 +474,10 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
+                    "delete_all_empty_groups_in_artboard",
+                    "-",
+                    "create_include_layer",
+                    "sync_include_layers"
                 ]
             },
             {
@@ -479,6 +504,9 @@
                     "-",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
+                    "-",
+                    "replace_fonts",
+                    "replace_missing_fonts",
                     "-",
                     "select_all_textlayer_in_artboard_or_page",
                     "-",
@@ -523,6 +551,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "-",
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",

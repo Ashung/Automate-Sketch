@@ -60,7 +60,8 @@ var onRun = function(context) {
 
         // Dialog
         var alert = NSAlert.alloc().init();
-        alert.setMessageText("Pages that contain instance of \"" + currentSymbolMaster.name() + "\".\nClick OK to select all instances in page.");
+        alert.setMessageText("Select All Instances of Symbol");
+        alert.setInformativeText("Pages that contain instance of \"" + currentSymbolMaster.name() + "\".\nClick OK to select all instances in page.")
         alert.addButtonWithTitle("OK");
         alert.addButtonWithTitle("Cancel");
         var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));

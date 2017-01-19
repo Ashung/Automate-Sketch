@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "1.0.20170117",
+    "version": "1.0.20170119",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -96,6 +96,18 @@
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
         },
         {
+            "name": "创建引用图层",
+            "identifier": "create_include_layer",
+            "handler": "createIncludeLayer",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
+            "name": "同步引用图层",
+            "identifier": "sync_include_layers",
+            "handler": "syncIncludeLayers",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
             "name": "两对象互换位置",
             "identifier": "change_layer_places",
             "script": "Arrange/Change_Places.cocoascript"
@@ -170,6 +182,16 @@
             "name": "取消当页固定图层名",
             "identifier": "unfixed_layer_name",
             "script": "Type/Unfixed_Layer_Name.cocoascript"
+        },
+        {
+            "name": "替换缺失字体",
+            "identifier": "replace_missing_fonts",
+            "script": "Type/Replace_Missing_Fonts.cocoascript"
+        },
+        {
+            "name": "替换字体",
+            "identifier": "replace_fonts",
+            "script": "Type/Replace_Fonts.cocoascript"
         },
         {
             "name": "基于对象切片",
@@ -452,7 +474,10 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
+                    "delete_all_empty_groups_in_artboard",
+                    "-",
+                    "create_include_layer",
+                    "sync_include_layers"
                 ]
             },
             {
@@ -479,6 +504,9 @@
                     "-",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
+                    "-",
+                    "replace_fonts",
+                    "replace_missing_fonts",
                     "-",
                     "select_all_textlayer_in_artboard_or_page",
                     "-",
@@ -523,6 +551,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "-",
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
