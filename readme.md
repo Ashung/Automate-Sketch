@@ -25,6 +25,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Remove Redundant Groups                  |                                          |
 | Delete All Hidden Layers                 |                                          |
 | Delete All Empty Groups                  |                                          |
+| Create / Sync Include Layer              |                                          |
 | **Arrange**                              |                                          |
 | Change Places Between Two Layers         |                                          |
 | Tile Layers by Position X (Y)            |                                          |
@@ -35,6 +36,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Capitalize                               |                                          |
 | Change Typeface for Latin Character      |                                          |
 | Add Space Between CJK and Latin Character |                                          |
+| Replace Fonts,  Replace Missing Fonts    |                                          |
 | Select All TextLayer in Selected Artboard or Page |                                          |
 | Unfixed Layer Name                       |                                          |
 | **Slice**                                |                                          |
@@ -65,6 +67,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
 | **Utilities**                            |                                          |
+| Reverse Order And Close Path             |                                          |
 | Android Fairy                            | Move _\*dpi file to drawable-\*dpi folder. |
 | Show File in Finder                      |                                          |
 | Open Termianl at File Folder             |                                          |

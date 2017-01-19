@@ -25,6 +25,7 @@
 | Remove Redundant Groups                  | 删除多余的嵌套组                              |
 | Delete All Hidden Layers                 | 删除所有隐藏图层                              |
 | Delete All Empty Groups                  | 删除空组                                  |
+| Create / Sync Include Layer              | 创建/同步引用图层                             |
 | **Arrange**                              |                                       |
 | Change Places Between Two Layers         | 两个图层交换位置                              |
 | Tile Layers by Position X (Y)            | 水平或垂直平铺图层                             |
@@ -35,6 +36,8 @@
 | Capitalize                               | 首字大写                                  |
 | Change Typeface for Latin Character      | 更改文本图层中西文的字体                          |
 | Add Space Between CJK and Latin Character | 中西文间增加空格                              |
+| Replace Fonts                            | 替换字体                                  |
+| Replace Missing Fonts                    | 替换缺失字体                                |
 | Select All TextLayer in Selected Artboard or Page | 选择画板或当前页的所有文本图层                       |
 | Unfixed Layer Name                       | 取消文本图层的固定图层名                          |
 | **Slice**                                |                                       |
@@ -66,6 +69,7 @@
 | **Guides**                               |                                       |
 | Clear Guides                             | 清除辅助线                                 |
 | **Utilities**                            |                                       |
+| Reverse Order And Close Path             |                                       |
 | Android Fairy                            | 将使用 Android 切片预设导出的文件移动到 drawable 文件夹 |
 | Show File in Finder                      | 在 Finder 中打开当前文档                      |
 | Open Termianl at File Folder             | 打开终端并切换到当前文档的目录                       |

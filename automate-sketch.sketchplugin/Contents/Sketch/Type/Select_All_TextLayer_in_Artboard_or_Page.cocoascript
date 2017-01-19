@@ -18,7 +18,7 @@ var onRun = function(context) {
         var selectedTextLayer = [];
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            if (layer.class() == "MSArtboardGroup") {
+            if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
                 selectedArtboard.push(layer);
             }
             if (layer.class() == "MSTextLayer") {

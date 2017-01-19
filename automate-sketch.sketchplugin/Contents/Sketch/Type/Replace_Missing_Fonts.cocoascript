@@ -1,0 +1,98 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+
+    if (!doc.fileURL()) {
+        doc.showMessage("This document don't have any missing fonts.");
+        return;
+    }
+
+    var currentFileURL = doc.fileURL();
+    var currentFile = MSDocumentFile.alloc().initWithFileURL(currentFileURL);
+        currentFile.open(nil);
+    var missingFonts = currentFile.missingFonts();
+
+    if (missingFonts.count() > 0) {
+
+        // Dialog
+        var alert = COSAlertWindow.new();
+        alert.setMessageText("Replace Missing Fonts.");
+        alert.setInformativeText("Tips: You can find the postscript name of font from \"Font Book\" app.")
+
+        alert.addTextLabelWithValue("Choose a missing font:");
+
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+        selectBox.addItemsWithObjectValues(missingFonts);
+        selectBox.selectItemAtIndex(0);
+        alert.addAccessoryView(selectBox);
+
+        alert.addTextLabelWithValue("Replace with:");
+
+        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+        textField.setStringValue("");
+        textField.setPlaceholderString("Type the postscript name of the font.");
+        alert.addAccessoryView(textField);
+
+        alert.addButtonWithTitle("OK");
+        alert.addButtonWithTitle("Cancel");
+
+        var responseCode = alert.runModal();
+        if (responseCode == "1000") {
+            var selectedMissingFont = missingFonts.objectAtIndex(selectBox.indexOfSelectedItem());
+            var replaceFont = textField.stringValue();
+
+            // Font no specified.
+            if (replaceFont == "") {
+                showAlert("Font Not Specified.", "Pleace input the postscript of font you want to replace with.");
+                return;
+            }
+
+            // Font not found.
+            var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
+            if (!allSystemFonts.containsObject(replaceFont)) {
+                showAlert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
+                return;
+            }
+
+            var pages = doc.pages();
+            var loopPages = pages.objectEnumerator();
+            var page;
+            while (page = loopPages.nextObject()) {
+                var children = page.children();
+                var loopChildren = children.objectEnumerator();
+                var layer;
+                while (layer = loopChildren.nextObject()) {
+                    if (layer.class() == "MSTextLayer") {
+                        var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
+                        if (fontsUsedInTextLayer.containsObject(selectedMissingFont)) {
+                            layer.setFontPostscriptName(replaceFont);
+                        }
+                    }
+                }
+            }
+
+            // Save
+            doc.saveDocument(nil);
+
+            doc.showMessage('Complete replace "' + selectedMissingFont + '" with ' + '"' + replaceFont + '".');
+
+        }
+
+    } else {
+        doc.showMessage("This document don't have any missing fonts.");
+    }
+
+}
+
+function showAlert(title, message) {
+    var app = NSApplication.sharedApplication();
+    app.displayDialog_withTitle(message, title);
+}

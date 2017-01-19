@@ -3,8 +3,10 @@
     "description": "Make Sketch more efficient, a lot of useful features in one.",
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
-    "homepage": "https://ashung.github.io/Automate-Sketch",
-    "version": "1.0.20170106",
+    "homepage": "https://github.com/Ashung/Automate-Sketch",
+    "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
+    "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
+    "version": "1.0.20170119",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -94,6 +96,18 @@
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
         },
         {
+            "name": "Create Include Layer",
+            "identifier": "create_include_layer",
+            "handler": "createIncludeLayer",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
+            "name": "Sync Include Layers",
+            "identifier": "sync_include_layers",
+            "handler": "syncIncludeLayers",
+            "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
             "name": "Change Places Between Two Objects",
             "identifier": "change_layer_places",
             "script": "Arrange/Change_Places.cocoascript"
@@ -144,8 +158,6 @@
             "identifier": "reverse_layer_order",
             "script": "Arrange/Reverse_Layer_Order.cocoascript"
         },
-
-
         {
             "name": "Capitalize",
             "identifier": "capitalize",
@@ -170,6 +182,16 @@
             "name": "Unfixed Layer Name",
             "identifier": "unfixed_layer_name",
             "script": "Type/Unfixed_Layer_Name.cocoascript"
+        },
+        {
+            "name": "Replace Missing Fonts",
+            "identifier": "replace_missing_fonts",
+            "script": "Type/Replace_Missing_Fonts.cocoascript"
+        },
+        {
+            "name": "Replace Fonts",
+            "identifier": "replace_fonts",
+            "script": "Type/Replace_Fonts.cocoascript"
         },
         {
             "name": "New Layer Base Slice",
@@ -355,6 +377,16 @@
             "script": "Guides/Clear_Guides.cocoascript"
         },
         {
+            "name": "Clear Guides",
+            "identifier": "clear_guides",
+            "script": "Guides/Clear_Guides.cocoascript"
+        },
+        {
+            "name": "Reverse Order and Close Path",
+            "identifier": "reverse_order_and_close_path",
+            "script": "Utilities/Reverse_Order_And_Close_Path.cocoascript"
+        },
+        {
             "name": "Android Fairy",
             "identifier": "android_fairy",
             "handler": "AndroidFairy",
@@ -442,7 +474,10 @@
                     "delete_all_hidden_layers",
                     "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard"
+                    "delete_all_empty_groups_in_artboard",
+                    "-",
+                    "create_include_layer",
+                    "sync_include_layers"
                 ]
             },
             {
@@ -469,6 +504,9 @@
                     "-",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
+                    "-",
+                    "replace_fonts",
+                    "replace_missing_fonts",
                     "-",
                     "select_all_textlayer_in_artboard_or_page",
                     "-",
@@ -513,6 +551,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "-",
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
@@ -545,6 +584,8 @@
             {
                 "title": "Utilities",
                 "items": [
+                    "reverse_order_and_close_path",
+                    "-",
                     "android_fairy",
                     "-",
                     "show_file_in_finder",
