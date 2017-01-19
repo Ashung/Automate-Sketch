@@ -493,8 +493,7 @@
                     "-",
                     "order_layers_by_x",
                     "order_layers_by_y",
-                    "reverse_layer_order",
-                    "-",
+                    "reverse_layer_order"
                 ]
             },
             {
