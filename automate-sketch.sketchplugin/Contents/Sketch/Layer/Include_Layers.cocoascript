@@ -34,6 +34,7 @@ var createIncludeLayer = function(context) {
         // Copy layer in source to target
         var targetGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers([target]))
         targetGroup.setName("@include(" + source.objectID() + ")");
+        targetGroup.setIsLocked(true);
         copyLayersFromSourceGroup_toTargetGroup(source, targetGroup);
         target.removeFromParent();
 

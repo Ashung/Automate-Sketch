@@ -1,0 +1,39 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+            var rectOfChildLayers = getRectFromLayers(layer);
+            var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
+            layer.frame().setHeight(height);
+        }
+    }
+}
+
+function getRectFromLayers(parentGroup) {
+
+    var rectArray = NSMutableArray.alloc().init();
+
+    var loopLayers = parentGroup.layers().objectEnumerator();
+    var layer;
+    while (layer = loopLayers.nextObject()) {
+        rectArray.addObject(layer.frame());
+    }
+
+    var rect = MSRect.rectWithUnionOfRects(rectArray);
+
+    // Return {x, y, width, height}
+    return rect;
+
+}
