@@ -1,0 +1,62 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var userDefaults = NSUserDefaults.standardUserDefaults();
+
+    var defaultNudgeDistanceSmall = 1,
+        defaultNudgeDistanceBig = 10;
+
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Nudge Distance Setting");
+    dialog.setInformativeText("The increments when using the arrow keys. \nIf the text field empty will reset to default value.");
+
+    // Nudge Distance
+    dialog.addTextLabelWithValue("Nudge Distance Small:");
+    var nudgeDistanceSmall = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 100, 24));
+    nudgeDistanceSmall.setStringValue(userDefaults.floatForKey("nudgeDistanceSmall") ? userDefaults.floatForKey("nudgeDistanceSmall") : 1);
+    nudgeDistanceSmall.setPlaceholderString("Default " + defaultNudgeDistanceSmall);
+    dialog.addAccessoryView(nudgeDistanceSmall);
+
+    dialog.addTextLabelWithValue("Nudge Distance Big:");
+    var nudgeDistanceBig = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 100, 24));
+    nudgeDistanceBig.setStringValue(userDefaults.floatForKey("nudgeDistanceBig") ? userDefaults.floatForKey("nudgeDistanceBig") : 10);
+    nudgeDistanceBig.setPlaceholderString("Default " + defaultNudgeDistanceBig);
+    dialog.addAccessoryView(nudgeDistanceBig);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == "1000") {
+
+        var _nudgeDistanceSmall = nudgeDistanceSmall.stringValue(),
+            _nudgeDistanceBig = nudgeDistanceBig.stringValue();
+
+        if (_nudgeDistanceSmall != userDefaults.floatForKey("nudgeDistanceSmall")) {
+            if (parseFloat(_nudgeDistanceSmall)) {
+                userDefaults.setFloat_forKey(parseFloat(_nudgeDistanceSmall), "nudgeDistanceSmall");
+            }
+            if (_nudgeDistanceSmall == "") {
+                userDefaults.setFloat_forKey(defaultNudgeDistanceSmall, "nudgeDistanceSmall");
+            }
+        }
+
+        if (_nudgeDistanceBig != userDefaults.floatForKey("nudgeDistanceBig")) {
+            if (parseFloat(_nudgeDistanceBig)) {
+                userDefaults.setFloat_forKey(parseFloat(_nudgeDistanceBig), "nudgeDistanceBig");
+            }
+            if (_nudgeDistanceBig == "") {
+                userDefaults.setFloat_forKey(defaultNudgeDistanceBig, "nudgeDistanceBig");
+            }
+        }
+
+    }
+
+}

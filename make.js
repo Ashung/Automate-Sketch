@@ -10,10 +10,18 @@ for (var i = 0; i < supportLanguages.length; i++) {
     var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
         language.version = buildDateString;
     var manifest = Mustache.render(template, language);
-    fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_" + supportLanguages[i] + ".json", manifest);
-    if (supportLanguages[i] == "en") {
-        fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+
+    try {
+        if (JSON.parse(manifest)) {
+            fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_" + supportLanguages[i] + ".json", manifest);
+            if (supportLanguages[i] == "en") {
+                fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+            }
+        }
+    } catch (e) {
+        console.error(e);
     }
+
 }
 
 function getDateString() {

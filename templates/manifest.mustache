@@ -108,6 +108,11 @@
             "script": "Layer/Include_Layers.cocoascript"
         },
         {
+            "name": "{{reverse_order_and_close_path}}",
+            "identifier": "reverse_order_and_close_path",
+            "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
+        },
+        {
             "name": "{{change_layer_places}}",
             "identifier": "change_layer_places",
             "script": "Arrange/Change_Places.cocoascript"
@@ -288,6 +293,11 @@
             "script": "Artboard/Artboard_to_Group.cocoascript"
         },
         {
+            "name": "{{export_all_artboars_to_png}}",
+            "identifier": "export_all_artboars_to_png",
+            "script": "Artboard/Export_All_Artboars_to_PNG.cocoascript"
+        },
+        {
             "name": "{{switch_between_portrait_and_landscape}}",
             "identifier": "switch_between_portrait_and_landscape",
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
@@ -382,15 +392,20 @@
             "script": "Guides/Clear_Guides.cocoascript"
         },
         {
-            "name": "{{reverse_order_and_close_path}}",
-            "identifier": "reverse_order_and_close_path",
-            "script": "Utilities/Reverse_Order_And_Close_Path.cocoascript"
-        },
-        {
             "name": "{{android_fairy}}",
             "identifier": "android_fairy",
             "handler": "AndroidFairy",
             "script": "Utilities/Run_Shell_File.cocoascript"
+        },
+        {
+            "name": "{{svg_export_setting}}",
+            "identifier": "svg_export_setting",
+            "script": "Utilities/SVG_Export_Setting.cocoascript"
+        },
+        {
+            "name": "{{nudge_distance_setting}}",
+            "identifier": "nudge_distance_setting",
+            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
         },
         {
             "name": "{{show_file_in_finder}}",
@@ -476,6 +491,8 @@
                     "delete_all_empty_groups",
                     "delete_all_empty_groups_in_artboard",
                     "-",
+                    "reverse_order_and_close_path",
+                    "-",
                     "create_include_layer",
                     "sync_include_layers"
                 ]
@@ -542,7 +559,9 @@
                     "artboard_from_group",
                     "artboard_to_group",
                     "-",
-                    "switch_between_portrait_and_landscape"
+                    "switch_between_portrait_and_landscape",
+                    "-",
+                    "export_all_artboars_to_png"
                 ]
             },
             {
@@ -577,15 +596,16 @@
             {
                 "title": "{{guides}}",
                 "items": [
-                    "clear_guides",
+                    "clear_guides"
                 ]
             },
             {
                 "title": "{{utilities}}",
                 "items": [
-                    "reverse_order_and_close_path",
-                    "-",
                     "android_fairy",
+                    "-",
+                    "svg_export_setting",
+                    "nudge_distance_setting",
                     "-",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"

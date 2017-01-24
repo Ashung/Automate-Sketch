@@ -90,3 +90,6 @@ replace_missing_fonts: "Replace Missing Fonts"
 replace_fonts: "Replace Fonts"
 create_include_layer: "Create Include Layer"
 sync_include_layers: "Sync Include Layers"
+export_all_artboars_to_png: "Export All Artboards to PNG"
+svg_export_setting: SVG Export Setting
+nudge_distance_setting: Nudge Distance Setting
