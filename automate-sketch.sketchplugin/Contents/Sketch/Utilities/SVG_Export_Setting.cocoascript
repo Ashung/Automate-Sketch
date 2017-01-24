@@ -1,0 +1,58 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var userDefaults = NSUserDefaults.standardUserDefaults();
+
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("SVG Export Setting");
+    dialog.setInformativeText("The setting for Sketch to export SVG files.")
+
+    var svgExportCompact = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    svgExportCompact.setButtonType(NSSwitchButton);
+    svgExportCompact.setTitle("Disable add metadata to SVG.");
+    if (userDefaults.boolForKey("svgExportCompact")) {
+        svgExportCompact.setState(NSOnState);
+    } else {
+        svgExportCompact.setState(NSOffState);
+    }
+    dialog.addAccessoryView(svgExportCompact);
+
+    var svgExportSkipAssignIdToLayerName = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
+    svgExportSkipAssignIdToLayerName.setButtonType(NSSwitchButton);
+    svgExportSkipAssignIdToLayerName.setTitle("Disable use the name of the layer for the id field \nof the layer in SVG.");
+    if (userDefaults.boolForKey("svgExportSkipAssignIdToLayerName")) {
+        svgExportSkipAssignIdToLayerName.setState(NSOnState);
+    } else {
+        svgExportSkipAssignIdToLayerName.setState(NSOffState);
+    }
+    dialog.addAccessoryView(svgExportSkipAssignIdToLayerName);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == "1000") {
+
+        var _svgExportCompact = svgExportCompact.state(),
+            _svgExportSkipAssignIdToLayerName = svgExportSkipAssignIdToLayerName.state();
+
+        if (_svgExportCompact != userDefaults.boolForKey("svgExportCompact")) {
+            userDefaults.setBool_forKey(Boolean(_svgExportCompact), "svgExportCompact");
+            userDefaults.synchronize();
+        }
+
+        if (_svgExportSkipAssignIdToLayerName != userDefaults.boolForKey("svgExportSkipAssignIdToLayerName")) {
+            userDefaults.setBool_forKey(Boolean(_svgExportSkipAssignIdToLayerName), "svgExportSkipAssignIdToLayerName");
+            userDefaults.synchronize();
+        }
+
+    }
+
+}

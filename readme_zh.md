@@ -26,6 +26,7 @@
 | Delete All Hidden Layers                 | 删除所有隐藏图层                              |
 | Delete All Empty Groups                  | 删除空组                                  |
 | Create / Sync Include Layer              | 创建/同步引用图层                             |
+| Reverse Order And Close Path             | 反转顺序并关闭路径                             |
 | **Arrange**                              |                                       |
 | Change Places Between Two Layers         | 两个图层交换位置                              |
 | Tile Layers by Position X (Y)            | 水平或垂直平铺图层                             |
@@ -50,7 +51,9 @@
 | Artboard Form Selection                  | 从选择对象新建画板                             |
 | Artboard Form Group                      | 从组新建画板                                |
 | Artboard to Group                        | 画板转为组                                 |
+| Resize to Fix Height                     | 调整画板以适配高度                             |
 | Switch Between Portrait and Landscape    | 画板切换横向或纵向                             |
+| Export All Symbols As PNG                | 将所有画板导出为 PNG                          |
 | **Symbol**                               |                                       |
 | Set to Original Width / Height           | 设为原始宽度 / 高度                           |
 | Select All Missing Instances in Current Page | 选择当前页中失效的 Symbol 实例                   |
@@ -69,7 +72,8 @@
 | **Guides**                               |                                       |
 | Clear Guides                             | 清除辅助线                                 |
 | **Utilities**                            |                                       |
-| Reverse Order And Close Path             |                                       |
+| SVG Export Setting                       | SVG 导出设置                              |
+| Nudge Distance Setting                   | 微调距离设置                                |
 | Android Fairy                            | 将使用 Android 切片预设导出的文件移动到 drawable 文件夹 |
 | Show File in Finder                      | 在 Finder 中打开当前文档                      |
 | Open Termianl at File Folder             | 打开终端并切换到当前文档的目录                       |

@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "1.0.20170119",
+    "version": "1.0.20170124",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -106,6 +106,11 @@
             "identifier": "sync_include_layers",
             "handler": "syncIncludeLayers",
             "script": "Layer/Include_Layers.cocoascript"
+        },
+        {
+            "name": "反转顺序并关闭路径",
+            "identifier": "reverse_order_and_close_path",
+            "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
         },
         {
             "name": "两对象互换位置",
@@ -288,9 +293,19 @@
             "script": "Artboard/Artboard_to_Group.cocoascript"
         },
         {
+            "name": "将所有画板导出为 PNG",
+            "identifier": "export_all_artboars_to_png",
+            "script": "Artboard/Export_All_Artboars_to_PNG.cocoascript"
+        },
+        {
             "name": "切换画板为纵向或横向",
             "identifier": "switch_between_portrait_and_landscape",
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
+        },
+        {
+            "name": "调整画板以适配高度",
+            "identifier": "resize_to_fit_height",
+            "script": "Artboard/Resize_to_Fit_Height.cocoascript"
         },
         {
             "name": "移动至另一组件模版下方",
@@ -382,15 +397,20 @@
             "script": "Guides/Clear_Guides.cocoascript"
         },
         {
-            "name": "反转顺序并关闭路径",
-            "identifier": "reverse_order_and_close_path",
-            "script": "Utilities/Reverse_Order_And_Close_Path.cocoascript"
-        },
-        {
             "name": "Android 文件夹工具",
             "identifier": "android_fairy",
             "handler": "AndroidFairy",
             "script": "Utilities/Run_Shell_File.cocoascript"
+        },
+        {
+            "name": "SVG 导出设置",
+            "identifier": "svg_export_setting",
+            "script": "Utilities/SVG_Export_Setting.cocoascript"
+        },
+        {
+            "name": "微调距离设置",
+            "identifier": "nudge_distance_setting",
+            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
         },
         {
             "name": "在 Finder 中显示",
@@ -476,6 +496,8 @@
                     "delete_all_empty_groups",
                     "delete_all_empty_groups_in_artboard",
                     "-",
+                    "reverse_order_and_close_path",
+                    "-",
                     "create_include_layer",
                     "sync_include_layers"
                 ]
@@ -542,7 +564,10 @@
                     "artboard_from_group",
                     "artboard_to_group",
                     "-",
-                    "switch_between_portrait_and_landscape"
+                    "resize_to_fit_height",
+                    "switch_between_portrait_and_landscape",
+                    "-",
+                    "export_all_artboars_to_png"
                 ]
             },
             {
@@ -577,15 +602,16 @@
             {
                 "title": "辅助线",
                 "items": [
-                    "clear_guides",
+                    "clear_guides"
                 ]
             },
             {
                 "title": "实用工具",
                 "items": [
-                    "reverse_order_and_close_path",
-                    "-",
                     "android_fairy",
+                    "-",
+                    "svg_export_setting",
+                    "nudge_distance_setting",
                     "-",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"

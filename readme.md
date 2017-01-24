@@ -26,6 +26,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Delete All Hidden Layers                 |                                          |
 | Delete All Empty Groups                  |                                          |
 | Create / Sync Include Layer              |                                          |
+| Reverse Order And Close Path             |                                          |
 | **Arrange**                              |                                          |
 | Change Places Between Two Layers         |                                          |
 | Tile Layers by Position X (Y)            |                                          |
@@ -49,7 +50,9 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Artboard Form Selection                  |                                          |
 | Artboard Form Group                      |                                          |
 | Artboard to Group                        |                                          |
+| Resize to Fix Height                     |                                          |
 | Switch Between Portrait and Landscape    |                                          |
+| Export All Artboards to PNG              |                                          |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           |                                          |
 | Select All Missing Instances in Current Page |                                          |
@@ -67,7 +70,8 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
 | **Utilities**                            |                                          |
-| Reverse Order And Close Path             |                                          |
+| SVG Export Setting                       |                                          |
+| Nudge Distance Setting                   |                                          |
 | Android Fairy                            | Move _\*dpi file to drawable-\*dpi folder. |
 | Show File in Finder                      |                                          |
 | Open Termianl at File Folder             |                                          |
