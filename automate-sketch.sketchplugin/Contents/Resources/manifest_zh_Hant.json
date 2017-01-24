@@ -303,6 +303,11 @@
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
         },
         {
+            "name": "調整畫板以適配高度",
+            "identifier": "resize_to_fit_height",
+            "script": "Artboard/Resize_to_Fit_Height.cocoascript"
+        },
+        {
             "name": "移動至另一元件模版下方",
             "identifier": "move_symbol_masters_to_bottom_of_anther",
             "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Anther.cocoascript"
@@ -559,6 +564,7 @@
                     "artboard_from_group",
                     "artboard_to_group",
                     "-",
+                    "resize_to_fit_height",
                     "switch_between_portrait_and_landscape",
                     "-",
                     "export_all_artboars_to_png"

@@ -90,6 +90,7 @@ replace_missing_fonts: "替换缺失字体"
 replace_fonts: "替换字体"
 create_include_layer: "创建引用图层"
 sync_include_layers: "同步引用图层"
+resize_to_fit_height: "调整画板以适配高度"
 export_all_artboars_to_png: "将所有画板导出为 PNG"
 svg_export_setting: SVG 导出设置
 nudge_distance_setting: 微调距离设置
