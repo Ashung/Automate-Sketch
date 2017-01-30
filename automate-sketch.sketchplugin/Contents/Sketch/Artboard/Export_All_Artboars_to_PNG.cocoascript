@@ -10,41 +10,62 @@ var onRun = function(context) {
 
     var doc = context.document;
 
-    var scales = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+    if (doc.artboards().count() > 0) {
 
-    // Dialog
-    var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25));
-    accessory.addItemsWithObjectValues(scales);
-    accessory.selectItemAtIndex(0)
-    var alert = NSAlert.alloc().init();
-    alert.setMessageText("Export All Artboards to PNG");
-    alert.setInformativeText("Choose the scale for export.");
-    alert.addButtonWithTitle("OK");
-    alert.addButtonWithTitle("Cancel");
-    alert.setAccessoryView(accessory);
-
-    var responseCode = alert.runModal();
-    if (responseCode == "1000") {
-
-        var scale = accessory.objectValueOfSelectedItem();
-
-        var loopArtboards = doc.artboards().objectEnumerator();
-        var artboard;
-        while (artboard = loopArtboards.nextObject()) {
-            // Add Slice
-            var slice = MSSliceLayer.alloc().init();
-            slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
-            // Export options
-            slice.exportOptions().removeAllExportFormats();
-            var size = slice.exportOptions().addExportFormat();
-            size.setFileFormat("png");
-            size.setName("");
-            size.setScale(scale);
-            artboard.addLayers([slice]);
-            doc.saveArtboardOrSlice_toFile(slice, "~/Desktop/" + artboard.name() + ".png");
-            slice.removeFromParent();
+        if (doc.fileURL()) {
+            var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
+        } else {
+            var defaultLocation = NSURL.fileURLWithPath(NSHomeDirectory().stringByAppendingPathComponent("Desktop"));
         }
 
+        var savePanel = NSOpenPanel.openPanel();
+        savePanel.setMessage("Export All Artboards to ...");
+        savePanel.setCanChooseDirectories(true);
+        savePanel.setCanChooseFiles(false);
+        savePanel.setDirectoryURL(defaultLocation);
+
+        if (savePanel.runModal() == NSOKButton) {
+
+            var scales = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+
+            // Dialog
+            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25));
+            accessory.addItemsWithObjectValues(scales);
+            accessory.selectItemAtIndex(0)
+            var alert = NSAlert.alloc().init();
+            alert.setMessageText("Export All Artboards to PNG");
+            alert.setInformativeText("Choose the scale for export.");
+            alert.addButtonWithTitle("OK");
+            alert.addButtonWithTitle("Cancel");
+            alert.setAccessoryView(accessory);
+
+            var responseCode = alert.runModal();
+            if (responseCode == "1000") {
+
+                var scale = accessory.objectValueOfSelectedItem();
+
+                var loopArtboards = doc.artboards().objectEnumerator();
+                var artboard;
+                while (artboard = loopArtboards.nextObject()) {
+                    // Add Slice
+                    var slice = MSSliceLayer.alloc().init();
+                    slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+                    // Export options
+                    slice.exportOptions().removeAllExportFormats();
+                    var size = slice.exportOptions().addExportFormat();
+                    size.setFileFormat("png");
+                    size.setName("");
+                    size.setScale(scale);
+                    artboard.addLayers([slice]);
+                    doc.saveArtboardOrSlice_toFile(slice, savePanel.URL().path() + "/" + artboard.name() + ".png");
+                    slice.removeFromParent();
+                }
+
+            }
+        }
+
+    } else {
+        doc.showMessage("Document have no any artboard.");
     }
 
 }

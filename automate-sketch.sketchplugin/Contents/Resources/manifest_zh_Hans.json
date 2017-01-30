@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "1.0.20170124",
+    "version": "1.0.20170130",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -211,33 +211,9 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "基于对象切片 iOS (由 1x 到所有)",
-            "identifier": "new_layer_base_slice_for_ios_2x",
-            "handler": "new_slice_for_ios_2x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基于对象切片 iOS (PDF)",
-            "identifier": "new_layer_base_slice_for_ios_pdf",
-            "handler": "new_slice_for_ios_pdf",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
             "name": "基于对象切片 Android (由 MDPI 到所有)",
             "identifier": "new_layer_base_slice_for_android_1x",
             "handler": "new_slice_for_android_1x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基于对象切片 Android (由 XHDPI 到所有)",
-            "identifier": "new_layer_base_slice_for_android_2x",
-            "handler": "new_slice_for_android_2x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基于对象切片 Android (由 XXHDPI 到所有)",
-            "identifier": "new_layer_base_slice_for_android_3x",
-            "handler": "new_slice_for_android_3x",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
@@ -256,11 +232,6 @@
             "name": "选择选中组或画板内的所有切片",
             "identifier": "select_slices_in_selected_group_or_artboard",
             "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
-        },
-        {
-            "name": "选择组内切片",
-            "identifier": "select_slices_in_group",
-            "script": "Slice/Select_Slices_In_Group.cocoascript"
         },
         {
             "name": "重置导出选项",
@@ -395,12 +366,6 @@
             "name": "清除辅助线",
             "identifier": "clear_guides",
             "script": "Guides/Clear_Guides.cocoascript"
-        },
-        {
-            "name": "Android 文件夹工具",
-            "identifier": "android_fairy",
-            "handler": "AndroidFairy",
-            "script": "Utilities/Run_Shell_File.cocoascript"
         },
         {
             "name": "SVG 导出设置",
@@ -539,19 +504,11 @@
                 "items": [
                     "new_layer_base_slice",
                     "new_layer_base_slice_for_ios_1x",
-                    "new_layer_base_slice_for_ios_2x",
-                    "new_layer_base_slice_for_ios_pdf",
-                    "-",
                     "new_layer_base_slice_for_android_1x",
-                    "new_layer_base_slice_for_android_2x",
-                    "new_layer_base_slice_for_android_3x",
-                    "-",
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
                     "select_slices_in_selected_group_or_artboard",
-                    "select_slices_in_group",
-                    "-",
                     "reset_export_options",
                     "clear_slices",
                     "clear_exportables"
@@ -608,8 +565,6 @@
             {
                 "title": "实用工具",
                 "items": [
-                    "android_fairy",
-                    "-",
                     "svg_export_setting",
                     "nudge_distance_setting",
                     "-",
