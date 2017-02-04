@@ -1,0 +1,110 @@
+/*----------------------------------------------------------
+
+author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+license: CC-BY 4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+
+    // Choose the new sketch file.
+    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
+    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultLocation = lastNavPath || desktopPath;
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultLocation));
+
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        // Read data from the new sketch file.
+        var newDocument = MSDocument.alloc().init();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+        var newDocumentData = newDocument.documentData();
+
+
+        var symbolsAdded = NSMutableArray.alloc().init();
+
+        // Iteration symbolMasters in current document
+        var loopSymbolMasters = documentData.allSymbols().objectEnumerator();
+        var symbolMaster;
+        while (symbolMaster = loopSymbolMasters.nextObject()) {
+
+            // log(symbolMaster);
+
+
+            // Replace symbolMaster
+            var newSymbolMaster = newDocumentData.layerWithID(symbolMaster.objectID());
+            if (newSymbolMaster) {
+
+                // log(newSymbolMaster);
+
+                // if (!symbolsAdded.containsObject(newSymbolMaster)) {
+
+                    // log("-")
+
+                    // Nested Symbol
+                    // iterateNestedSymbols(newSymbolMaster);
+
+                    var page = symbolMaster.parentPage();
+                    symbolMaster.removeFromParent();
+                    page.addLayers([newSymbolMaster]);
+
+                    // symbolsAdded.addObject(newSymbolMaster);
+                    //
+                    // function iterateNestedSymbols(symbol) {
+                    //     var loopChildren = symbol.children().objectEnumerator();
+                    //     var layer;
+                    //     while (layer = loopChildren.nextObject()) {
+                    //         if (layer.class() == "MSSymbolInstance") {
+                    //
+                    //             var nestedSymbolMaster = layer.symbolMaster();
+                    //             if (!symbolsAdded.containsObject(nestedSymbolMaster)) {
+                    //             //
+                    //                 // log(nestedSymbolMaster);
+                    //             //
+                    //                 i++;
+                    //                 // log(nestedSymbolMaster);
+                    //             //
+                    //                 // var oldSymbolMaster = documentData.layerWithID(nestedSymbolMaster.objectID());
+                    //                 // if (oldSymbolMaster) {
+                    //                 //     page = oldSymbolMaster.parentPage();
+                    //                 //     oldSymbolMaster.removeFromParent();
+                    //                 // }
+                    //                 //
+                    //                 // page.addLayers([nestedSymbolMaster]);
+                    //
+                    //                 symbolsAdded.addObject(nestedSymbolMaster);
+                    //             //
+                    //             //
+                    //             //
+                    //             }
+                    //
+                    //             iterateNestedSymbols(nestedSymbolMaster);
+                    //         }
+                    //     }
+                    // }
+
+                // }
+
+
+            }
+
+
+            // log("------------")
+
+        }
+
+        log(symbolsAdded.count());
+
+    }
+};
+
+onRun(context);
