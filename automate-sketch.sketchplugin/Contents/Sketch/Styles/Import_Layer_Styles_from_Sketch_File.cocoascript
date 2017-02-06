@@ -1,8 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -31,35 +31,47 @@ var onRun = function(context) {
         var newDocumentData = newDocument.documentData();
         var newTextStyles = newDocumentData.layerTextStylesGeneric().objects();
 
-        // log(newTextStyles.objects().class());
-
         for (var i = 0; i < newTextStyles.count(); i++) {
 
             var newTextStyle = newTextStyles.objectAtIndex(i);
 
-            // var containsObject = false;
             for (var j = 0; j < textStyles.count(); j++) {
                 if (textStyles.objectAtIndex(j).objectID().isEqualToString(newTextStyle.objectID())) {
-                    // containsObject = true;
-                    textStyles.removeObject(newTextStyle);
+                    textStyles.removeObjectAtIndex(j);
                 }
             }
 
-            // gradients.addObject(newGradient);
-
-
-            // if (textStyles.containsObject(newTextStyle)) {
-            //     textStyles.removeObject(newTextStyle);
-            // }
-
-
             textStyles.addObject(newTextStyle);
+
         }
+
+        document.showMessage("Imported " + newTextStyles.count() + " text styles.");
+
     }
 
 }
 
-// MSSharedStyle
-// @property(readonly, nonatomic) MSStyle *style;
+
+
+// - (id)sharedStyles;
+// - (void)registerInstance:(id)arg1 withSharedStyle:(id)arg2;
+// - (unsigned long long)numberOfSharedStyles;
+// - (long long)indexOfSharedStyle:(id)arg1;
+// - (id)sharedStyleAtIndex:(unsigned long long)arg1;
+// - (id)sharedStyleWithID:(id)arg1;
+// - (id)sharedStyleForInstance:(id)arg1;
+// - (BOOL)isSharedStyleForInstance:(id)arg1;
+// - (void)removeSharedStyle:(id)arg1;
+// - (id)mergeSharedStyleWithName:(id)arg1 sharedStyleID:(id)arg2 instance:(id)arg3;
+// - (id)addSharedStyleWithName:(id)arg1 firstInstance:(id)arg2;
+// - (void)enumeratePotentialInstancesInContainer:(id)arg1 block:(CDUnknownBlockType)arg2;
+// - (unsigned long long)validStyleType;
+// - (Class)sharedObjectClass;
+//
+// // Remaining properties
+// @property(readonly, copy) NSString *debugDescription;
+// @property(readonly, copy) NSString *description;
+// @property(readonly) unsigned long long hash;
 // @property(readonly, copy, nonatomic) NSObject<NSCopying><NSCoding> *objectID;
-// @property(readonly, copy, nonatomic) NSString *name;
+// @property(readonly, nonatomic) NSArray *objects;
+// @property(readonly) Class superclass;

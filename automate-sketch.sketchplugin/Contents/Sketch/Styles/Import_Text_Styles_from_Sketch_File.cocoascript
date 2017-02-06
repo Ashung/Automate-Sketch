@@ -1,0 +1,52 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+
+    var documentData = document.documentData();
+    var textStyles = documentData.layerTextStylesGeneric().objects();
+
+    // Choose the sketch file.
+    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
+    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultPath = lastNavPath || desktopPath;
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        // Read data from the new sketch file.
+        var newDocument = MSDocument.alloc().init();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+        var newDocumentData = newDocument.documentData();
+        var newTextStyles = newDocumentData.layerTextStylesGeneric().objects();
+
+        for (var i = 0; i < newTextStyles.count(); i++) {
+
+            var newTextStyle = newTextStyles.objectAtIndex(i);
+
+            for (var j = 0; j < textStyles.count(); j++) {
+                if (textStyles.objectAtIndex(j).objectID().isEqualToString(newTextStyle.objectID())) {
+                    textStyles.removeObjectAtIndex(j);
+                }
+            }
+
+            textStyles.addObject(newTextStyle);
+
+        }
+
+        document.showMessage("Imported " + newTextStyles.count() + " text styles.");
+
+    }
+
+}
