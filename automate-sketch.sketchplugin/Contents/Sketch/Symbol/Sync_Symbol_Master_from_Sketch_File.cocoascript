@@ -28,9 +28,7 @@ var onRun = function(context) {
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
         var newDocumentData = newDocument.documentData();
 
-
-        log(documentData.allSymbols().count() + "/" + newDocumentData.allSymbols().count())
-
+        // log(documentData.allSymbols().count() + "/" + newDocumentData.allSymbols().count())
 
         var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
 
@@ -40,8 +38,7 @@ var onRun = function(context) {
         while (symbolMaster = loopSymbolMasters.nextObject()) {
 
             // Replace symbolMaster
-            // symbolWithID
-            var newSymbolMaster = newDocumentData.layerWithID(symbolMaster.objectID());
+            var newSymbolMaster = newDocumentData.symbolWithID(symbolMaster.symbolID());
             if (newSymbolMaster && !newSymbolMastersWillAddToDocument.containsObject(newSymbolMaster)) {
 
                 newSymbolMastersWillAddToDocument.addObject(newSymbolMaster);
@@ -49,80 +46,48 @@ var onRun = function(context) {
                 // Nested Symbol in new sketch file
                 iterateNestedSymbols(newSymbolMaster);
 
-                    // var page = symbolMaster.parentPage();
-                    // symbolMaster.removeFromParent();
-                    // page.addLayers([newSymbolMaster]);
+                function iterateNestedSymbols(_symbolmaster) {
+                    var loopSymbolInstance = _symbolmaster.allSymbolInstancesInChildren().objectEnumerator();
+                    var symbolInstance;
+                    while (symbolInstance = loopSymbolInstance.nextObject()) {
 
-
-                    //
-                    function iterateNestedSymbols(_symbolmaster) {
-                        var loopSymbolInstance = _symbolmaster.allSymbolInstancesInChildren().objectEnumerator();
-                        var symbolInstance;
-                        while (symbolInstance = loopSymbolInstance.nextObject()) {
-
-                            var nestedSymbolMaster = symbolInstance.symbolMaster();
-                            if (!newSymbolMastersWillAddToDocument.containsObject(nestedSymbolMaster)) {
-                                //
-                                    // log(nestedSymbolMaster);
-                                //
-
-                                    // log(nestedSymbolMaster);
-                                //
-                                    // var oldSymbolMaster = documentData.layerWithID(nestedSymbolMaster.objectID());
-                                    // if (oldSymbolMaster) {
-                                    //     page = oldSymbolMaster.parentPage();
-                                    //     oldSymbolMaster.removeFromParent();
-                                    // }
-                                    //
-                                    // page.addLayers([nestedSymbolMaster]);
-
-                                newSymbolMastersWillAddToDocument.addObject(nestedSymbolMaster);
-                                //
-                                //
-                                //
-                            }
-
-                            iterateNestedSymbols(nestedSymbolMaster);
-
+                        var nestedSymbolMaster = symbolInstance.symbolMaster();
+                        if (!newSymbolMastersWillAddToDocument.containsObject(nestedSymbolMaster)) {
+                            newSymbolMastersWillAddToDocument.addObject(nestedSymbolMaster);
                         }
+
+                        iterateNestedSymbols(nestedSymbolMaster);
                     }
-
-
-
+                }
 
             }
-
-
         }
-
-        log(newSymbolMastersWillAddToDocument.count());
-        // log(newSymbolMastersWillAddToDocument);
 
         var loopSymbolMastersWillAddToDocument = newSymbolMastersWillAddToDocument.objectEnumerator();
         var symbolMasterWillAddToDocument;
         while (symbolMasterWillAddToDocument = loopSymbolMastersWillAddToDocument.nextObject()) {
-            // log(symbolMasterWillAddToDocument)
 
-            // var page = symbolMaster.parentPage();
-            // symbolMaster.removeFromParent();
-            // page.addLayers([newSymbolMaster]);
+            symbolMasterWillAddToDocument.setLayerListExpandedType(1);
 
-            var oldSymbolMaster = documentData.layerWithID(symbolMasterWillAddToDocument.objectID());
+            var oldSymbolMaster = documentData.symbolWithID(symbolMasterWillAddToDocument.symbolID());
             if (oldSymbolMaster) {
                 var page = oldSymbolMaster.parentPage();
                 oldSymbolMaster.removeFromParent();
                 page.addLayers([symbolMasterWillAddToDocument]);
-
-
-                // doc.documentData().symbolsPageOrCreateIfNecessary()
+            } else {
+                var page = documentData.layerWithID(symbolMasterWillAddToDocument.parentPage().objectID());
+                if (page && page.class() == "MSPage") {
+                    page.addLayers([symbolMasterWillAddToDocument]);
+                } else {
+                    documentData.symbolsPageOrCreateIfNecessary().addLayers([symbolMasterWillAddToDocument]);
+                }
             }
-            //
-            //
+
         }
 
+        document.loadLayerListPanel();
 
-// log(layer.parentPage().indexOfLayer(layer))
+        document.showMessage("Sync " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
+
     }
 };
-
-onRun(context);
