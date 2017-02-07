@@ -1,0 +1,77 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+
+    var assets = document.documentData().assets();
+    var colors = assets.colors();  //arrayForType(0);
+    var gradients = assets.gradients(); //arrayForType(1);
+    var patterns = assets.images(); //arrayForType(2);
+
+    // Choose the sketch file.
+    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
+    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultPath = lastNavPath || desktopPath;
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        // Read data from the new sketch file.
+        var newDocument = MSDocument.alloc().init();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+        var newAssets = newDocument.documentData().assets();
+        var newColors = newAssets.colors(); //arrayForType(0);
+        var newGradients = newAssets.gradients(); //arrayForType(1);
+        var newPatterns = newAssets.images(); //arrayForType(2);
+
+        // colors.addObjectsFromArray(newColors);
+        // gradients.addObjectsFromArray(newGradients);
+
+        for (var i = 0; i < newColors.count(); i++) {
+            var newColor = newColors.objectAtIndex(i);
+            if (!colors.containsObject(newColor)) {
+                colors.addObject(newColor);
+            }
+        }
+
+        for (var i = 0; i < newGradients.count(); i++) {
+            var newGradient = newGradients.objectAtIndex(i);
+            var containsObject = false;
+            for (var j = 0; j < gradients.count(); j++) {
+                if (newGradient.isAssetEqual(gradients.objectAtIndex(j))) {
+                    containsObject = true;
+                    break;
+                }
+            }
+            if (!containsObject) {
+                gradients.addObject(newGradient);
+            }
+        }
+
+        for (var i = 0; i < newPatterns.count(); i++) {
+            var newPattern = newPatterns.objectAtIndex(i);
+            if (!patterns.containsObject(newPattern)) {
+                assets.addAsset(newPattern);
+            }
+        }
+
+        document.showMessage(
+            "Imported " + newColors.count() + " colors, " +
+            newGradients + " gradients, " +
+            newPatterns + " patterns."
+        );
+
+    }
+
+}

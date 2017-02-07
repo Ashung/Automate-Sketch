@@ -1,0 +1,95 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+
+    // Choose the new sketch file.
+    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
+    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultPath = lastNavPath || desktopPath;
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        // Read data from the new sketch file.
+        var newDocument = MSDocument.alloc().init();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+        var newDocumentData = newDocument.documentData();
+
+        // log(documentData.allSymbols().count() + "/" + newDocumentData.allSymbols().count())
+
+        var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
+
+        // Iteration symbolMasters in current document
+        var loopSymbolMasters = documentData.allSymbols().objectEnumerator();
+        var symbolMaster;
+        while (symbolMaster = loopSymbolMasters.nextObject()) {
+
+            // Replace symbolMaster
+            var newSymbolMaster = newDocumentData.symbolWithID(symbolMaster.symbolID());
+            if (newSymbolMaster && !newSymbolMastersWillAddToDocument.containsObject(newSymbolMaster)) {
+
+                newSymbolMastersWillAddToDocument.addObject(newSymbolMaster);
+
+                // Nested Symbol in new sketch file
+                iterateNestedSymbols(newSymbolMaster);
+
+                function iterateNestedSymbols(_symbolmaster) {
+                    var loopSymbolInstance = _symbolmaster.allSymbolInstancesInChildren().objectEnumerator();
+                    var symbolInstance;
+                    while (symbolInstance = loopSymbolInstance.nextObject()) {
+
+                        var nestedSymbolMaster = symbolInstance.symbolMaster();
+                        if (!newSymbolMastersWillAddToDocument.containsObject(nestedSymbolMaster)) {
+                            newSymbolMastersWillAddToDocument.addObject(nestedSymbolMaster);
+                        }
+
+                        iterateNestedSymbols(nestedSymbolMaster);
+                    }
+                }
+
+            }
+        }
+
+        var loopSymbolMastersWillAddToDocument = newSymbolMastersWillAddToDocument.objectEnumerator();
+        var symbolMasterWillAddToDocument;
+        while (symbolMasterWillAddToDocument = loopSymbolMastersWillAddToDocument.nextObject()) {
+
+            symbolMasterWillAddToDocument.setLayerListExpandedType(1);
+
+            var oldSymbolMaster = documentData.symbolWithID(symbolMasterWillAddToDocument.symbolID());
+            if (oldSymbolMaster) {
+                var page = oldSymbolMaster.parentPage();
+                symbolMasterWillAddToDocument.frame().setX(oldSymbolMaster.frame().x());
+                symbolMasterWillAddToDocument.frame().setY(oldSymbolMaster.frame().y());
+                oldSymbolMaster.removeFromParent();
+                page.addLayers([symbolMasterWillAddToDocument]);
+            } else {
+                var page = documentData.layerWithID(symbolMasterWillAddToDocument.parentPage().objectID());
+                if (page && page.class() == "MSPage") {
+                    page.addLayers([symbolMasterWillAddToDocument]);
+                } else {
+                    documentData.symbolsPageOrCreateIfNecessary().addLayers([symbolMasterWillAddToDocument]);
+                }
+            }
+
+        }
+
+        document.loadLayerListPanel();
+
+        document.showMessage("Sync " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
+
+    }
+};

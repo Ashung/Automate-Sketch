@@ -63,22 +63,25 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Detach Unused Symbol Master              |                                          |
 | Remove Unused Symbols                    |                                          |
 | Export All Symbols As PNG                |                                          |
+| Sync Symbol Master from Sketch File      |                                          |
 | **Styles**                               |                                          |
 | Add Solid Fill from CSS Color            |                                          |
 | Fill Color from Global (Document) Colors |                                          |
 | Remove All Unused Styles                 |                                          |
+| Import Document Assets from Sketch File  | Import document colors, gradient and images. |
+| Import Text Styles from Sketch File      |                                          |
+| Import Layer Styles from Sketch File     |                                          |
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       |                                          |
 | Nudge Distance Setting                   |                                          |
-| Android Fairy                            | Move _\*dpi file to drawable-\*dpi folder. |
 | Show File in Finder                      |                                          |
 | Open Termianl at File Folder             |                                          |
 
 ## License
 
-CC-BY-SA 4.0
+CC BY-SA 4.0
 
 [![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
