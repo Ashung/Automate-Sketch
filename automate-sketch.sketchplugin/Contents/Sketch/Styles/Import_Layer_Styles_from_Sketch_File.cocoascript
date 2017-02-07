@@ -11,7 +11,7 @@ var onRun = function(context) {
     var document = context.document;
 
     var documentData = document.documentData();
-    var textStyles = documentData.layerTextStylesGeneric().objects();
+    var layerStyles = documentData.layerStylesGeneric().objects();
 
     // Choose the sketch file.
     var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
@@ -29,49 +29,24 @@ var onRun = function(context) {
         var newDocument = MSDocument.alloc().init();
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
         var newDocumentData = newDocument.documentData();
-        var newTextStyles = newDocumentData.layerTextStylesGeneric().objects();
+        var newLayerStyles = newDocumentData.layerTextStylesGeneric().objects();
 
-        for (var i = 0; i < newTextStyles.count(); i++) {
+        for (var i = 0; i < newLayerStyles.count(); i++) {
 
-            var newTextStyle = newTextStyles.objectAtIndex(i);
+            var newLayerStyle = newLayerStyles.objectAtIndex(i);
 
-            for (var j = 0; j < textStyles.count(); j++) {
-                if (textStyles.objectAtIndex(j).objectID().isEqualToString(newTextStyle.objectID())) {
-                    textStyles.removeObjectAtIndex(j);
+            for (var j = 0; j < layerStyles.count(); j++) {
+                if (layerStyles.objectAtIndex(j).objectID().isEqualToString(newLayerStyles.objectID())) {
+                    layerStyles.removeObjectAtIndex(j);
                 }
             }
 
-            textStyles.addObject(newTextStyle);
+            layerStyles.addObject(newLayerStyles);
 
         }
 
-        document.showMessage("Imported " + newTextStyles.count() + " text styles.");
+        document.showMessage("Imported " + newLayerStyles.count() + " layer styles.");
 
     }
 
 }
-
-
-
-// - (id)sharedStyles;
-// - (void)registerInstance:(id)arg1 withSharedStyle:(id)arg2;
-// - (unsigned long long)numberOfSharedStyles;
-// - (long long)indexOfSharedStyle:(id)arg1;
-// - (id)sharedStyleAtIndex:(unsigned long long)arg1;
-// - (id)sharedStyleWithID:(id)arg1;
-// - (id)sharedStyleForInstance:(id)arg1;
-// - (BOOL)isSharedStyleForInstance:(id)arg1;
-// - (void)removeSharedStyle:(id)arg1;
-// - (id)mergeSharedStyleWithName:(id)arg1 sharedStyleID:(id)arg2 instance:(id)arg3;
-// - (id)addSharedStyleWithName:(id)arg1 firstInstance:(id)arg2;
-// - (void)enumeratePotentialInstancesInContainer:(id)arg1 block:(CDUnknownBlockType)arg2;
-// - (unsigned long long)validStyleType;
-// - (Class)sharedObjectClass;
-//
-// // Remaining properties
-// @property(readonly, copy) NSString *debugDescription;
-// @property(readonly, copy) NSString *description;
-// @property(readonly) unsigned long long hash;
-// @property(readonly, copy, nonatomic) NSObject<NSCopying><NSCoding> *objectID;
-// @property(readonly, nonatomic) NSArray *objects;
-// @property(readonly) Class superclass;

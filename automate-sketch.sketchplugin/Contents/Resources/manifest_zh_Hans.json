@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "1.0.20170204",
+    "version": "1.0.20170207",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -363,6 +363,21 @@
             "script": "Styles/Remove_All_Unused_Styles.cocoascript"
         },
         {
+            "name": "从 Sketh 文档导入资源",
+            "identifier": "import_document_assets_from_sketch_file",
+            "script": "Styles/Import_Document_Assets_From_Sketch_File.cocoascript"
+        },
+        {
+            "name": "从 Sketh 文档导入文本样式",
+            "identifier": "import_text_styles_from_sketch_file",
+            "script": "Styles/Import_Text_Styles_from_Sketch_File.cocoascript"
+        },
+        {
+            "name": "从 Sketh 文档导入图层样式",
+            "identifier": "import_layer_styles_from_sketch_file",
+            "script": "Styles/Import_Layer_Styles_from_Sketch_File.cocoascript"
+        },
+        {
             "name": "清除辅助线",
             "identifier": "clear_guides",
             "script": "Guides/Clear_Guides.cocoascript"
@@ -560,7 +575,11 @@
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
                     "-",
-                    "remove_all_unused_styles"
+                    "remove_all_unused_styles",
+                    "-",
+                    "import_document_assets_from_sketch_file",
+                    "import_text_styles_from_sketch_file",
+                    "import_layer_styles_from_sketch_file"
                 ]
             },
             {

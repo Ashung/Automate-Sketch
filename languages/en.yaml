@@ -88,8 +88,9 @@ create_include_layer: "Create Include Layer"
 sync_include_layers: "Sync Include Layers"
 resize_to_fit_height: "Resize to Fit Height"
 export_all_artboars_to_png: "Export All Artboards to PNG"
-svg_export_setting: SVG Export Setting
-nudge_distance_setting: Nudge Distance Setting
-sync_symbol_master_from_sketch_file: Sync Symbol Master from Sketch File
-import_document_assets_from_sketch_file: Import Document Assets from Sketch File
-import_text_styles_from_sketch_file: Import Text Styles from Sketch File
+svg_export_setting: "SVG Export Setting"
+nudge_distance_setting: "Nudge Distance Setting"
+sync_symbol_master_from_sketch_file: "Sync Symbol Master from Sketch File"
+import_document_assets_from_sketch_file: "Import Document Assets from Sketch File"
+import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
+import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"

@@ -1,8 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -72,6 +72,8 @@ var onRun = function(context) {
             var oldSymbolMaster = documentData.symbolWithID(symbolMasterWillAddToDocument.symbolID());
             if (oldSymbolMaster) {
                 var page = oldSymbolMaster.parentPage();
+                symbolMasterWillAddToDocument.frame().setX(oldSymbolMaster.frame().x());
+                symbolMasterWillAddToDocument.frame().setY(oldSymbolMaster.frame().y());
                 oldSymbolMaster.removeFromParent();
                 page.addLayers([symbolMasterWillAddToDocument]);
             } else {
