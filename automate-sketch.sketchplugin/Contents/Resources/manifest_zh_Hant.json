@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "1.0.20170207",
+    "version": "2.0.20170207",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -341,51 +341,46 @@
         {
             "name": "從 CSS 色值新增單色填充",
             "identifier": "add_solid_fill_from_css_color",
-            "script": "Styles/Add_Solid_Fill_from_CSS_Color.cocoascript"
+            "script": "Style/Add_Solid_Fill_from_CSS_Color.cocoascript"
         },
         {
             "name": "從全局色版快速填充",
             "identifier": "fill_color_from_global_colors",
             "handler": "fillColorFromGlobalColors",
             "shortcut": "cmd \\",
-            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+            "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
             "name": "從文件色版快速填充",
             "identifier": "fill_color_from_document_colors",
             "handler": "fillColorFromDocumentColors",
             "shortcut": "cmd alt \\",
-            "script": "Styles/Fill_Color_from_Colors.cocoascript"
+            "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
             "name": "清除未使用樣式",
             "identifier": "remove_all_unused_styles",
-            "script": "Styles/Remove_All_Unused_Styles.cocoascript"
+            "script": "Style/Remove_All_Unused_Styles.cocoascript"
         },
         {
             "name": "從 Sketh 檔案匯入資源",
             "identifier": "import_document_assets_from_sketch_file",
-            "script": "Styles/Import_Document_Assets_From_Sketch_File.cocoascript"
+            "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript"
         },
         {
             "name": "從 Sketh 檔案匯入文字樣式",
             "identifier": "import_text_styles_from_sketch_file",
-            "script": "Styles/Import_Text_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Text_Styles_from_Sketch_File.cocoascript"
         },
         {
             "name": "從 Sketh 檔案匯入圖層樣式",
             "identifier": "import_layer_styles_from_sketch_file",
-            "script": "Styles/Import_Layer_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Layer_Styles_from_Sketch_File.cocoascript"
         },
         {
             "name": "清除輔助線",
             "identifier": "clear_guides",
-            "script": "Guides/Clear_Guides.cocoascript"
-        },
-        {
-            "name": "清除輔助線",
-            "identifier": "clear_guides",
-            "script": "Guides/Clear_Guides.cocoascript"
+            "script": "Guide/Clear_Guides.cocoascript"
         },
         {
             "name": "SVG 匯出設定",
