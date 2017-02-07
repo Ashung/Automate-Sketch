@@ -72,10 +72,12 @@ var onRun = function(context) {
             var oldSymbolMaster = documentData.symbolWithID(symbolMasterWillAddToDocument.symbolID());
             if (oldSymbolMaster) {
                 var page = oldSymbolMaster.parentPage();
+                var index = page.indexOfLayer(oldSymbolMaster);
                 symbolMasterWillAddToDocument.frame().setX(oldSymbolMaster.frame().x());
                 symbolMasterWillAddToDocument.frame().setY(oldSymbolMaster.frame().y());
                 oldSymbolMaster.removeFromParent();
-                page.addLayers([symbolMasterWillAddToDocument]);
+                page.insertLayers_atIndex([symbolMasterWillAddToDocument], index);
+                // page.addLayers([symbolMasterWillAddToDocument]);
             } else {
                 var page = documentData.layerWithID(symbolMasterWillAddToDocument.parentPage().objectID());
                 if (page && page.class() == "MSPage") {
