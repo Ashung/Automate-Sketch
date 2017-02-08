@@ -150,18 +150,23 @@
             "name": "{{order_layers_by_x}}",
             "identifier": "order_layers_by_x",
             "handler": "orderLayersByX",
-            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
         },
         {
             "name": "{{order_layers_by_y}}",
             "identifier": "order_layers_by_y",
             "handler": "orderLayersByY",
-            "script": "Arrange/Order_Objects_by_XY.cocoascript"
+            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
         },
         {
             "name": "{{reverse_layer_order}}",
             "identifier": "reverse_layer_order",
             "script": "Arrange/Reverse_Layer_Order.cocoascript"
+        },
+        {
+            "name": "{{order_layers_by_name}}",
+            "identifier": "order_layers_by_name",
+            "script": "Arrange/Order_Layers_by_Name.cocoascript"
         },
         {
             "name": "{{capitalize}}",
@@ -495,6 +500,7 @@
                     "-",
                     "order_layers_by_x",
                     "order_layers_by_y",
+                    "order_layers_by_name",
                     "reverse_layer_order"
                 ]
             },

@@ -1,9 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -18,13 +17,20 @@ var onRun = function(context) {
             if (artboard.class() == "MSArtboardGroup") {
                 selectionHasArtboards = true;
 
-                page.deselectAllLayers();
-                // Group all child layers
-                for (var i = 0; i < artboard.layers().length; i++) {
-                    artboard.layers()[i].select_byExpandingSelection(true, true);
+                // Add background layer
+                if (artboard.hasBackgroundColor()) {
+                    var rectangle = MSRectangleShape.alloc().init();
+                    rectangle.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+                    var backgroundLayer = MSShapeGroup.shapeWithPath(rectangle);
+                    backgroundLayer.setName("background");
+                    backgroundLayer.style().addStylePartOfType(0);
+                    backgroundLayer.style().fill().setColor(artboard.backgroundColor());
+                    artboard.insertLayers_beforeLayer([backgroundLayer], artboard.firstLayer());
                 }
-                NSApp.sendAction_to_from_("group:", nil, doc);
-                artboard.layers()[0].setName(artboard.name());
+
+                // Create new group for all layers in artboard
+                var newGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers(artboard.containedLayers()));
+                    newGroup.setName(artboard.name());
 
                 artboard.ungroup();
             }

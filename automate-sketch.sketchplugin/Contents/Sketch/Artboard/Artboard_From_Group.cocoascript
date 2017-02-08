@@ -1,11 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-description:
-version: 2016.2.0707
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -23,23 +20,14 @@ var onRun = function(context) {
 
             if(group.className() == "MSLayerGroup") {
 
-                var x = group.frame().x(),
-                    y = group.frame().y(),
-                    w = group.frame().width(),
-                    h = group.frame().height();
-
-                var artboard = MSArtboardGroup.new();
-                    artboard.frame().setX(x);
-                    artboard.frame().setY(y);
-                    artboard.frame().setWidth(w);
-                    artboard.frame().setHeight(h);
+                var artboard = MSArtboardGroup.alloc().init();
+                    artboard.setRect(group.absoluteRect().rect());
                     artboard.frame().setConstrainProportions(false);
                     artboard.setName(name);
 
                 page.addLayers([artboard]);
 
-                page.moveLayersToArtboards();
-
+                group.moveToLayer_beforeLayer(artboard, nil);
                 group.ungroup();
 
             }
