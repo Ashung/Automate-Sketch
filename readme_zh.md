@@ -32,6 +32,7 @@
 | Tile Layers by Position X (Y)            | 水平或垂直平铺图层                   |
 | Tile Layers Horizontally (Vertically) by Index | 根据图层列表位置水平或垂直平铺图层           |
 | Order Layers by X (Y)                    | 根据图层 X / Y 值，更改图层列表中的位置     |
+| Order Layer by Name                      | 根据图层名称，更改图层列表中的位置           |
 | Reverse Layer Order                      | 反转图层列表中的位置                  |
 | **Type**                                 |                             |
 | Capitalize                               | 首字大写                        |

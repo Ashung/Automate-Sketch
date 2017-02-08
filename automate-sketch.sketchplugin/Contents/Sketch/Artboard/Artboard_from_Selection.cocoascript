@@ -1,11 +1,11 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
 var onRun = function(context) {
 
     var doc = context.document;
@@ -14,7 +14,7 @@ var onRun = function(context) {
 
     var selectionRects = [];
     for (var i = 0; i < selection.count(); i++) {
-        selectionRects.push(selection.objectAtIndex(i).frame());
+        selectionRects.push(MSRect.alloc().initWithRect(selection.objectAtIndex(i).absoluteRect().rect()));
     }
 
     var rect = MSRect.rectWithUnionOfRects(selectionRects);
@@ -27,6 +27,13 @@ var onRun = function(context) {
     artboard.setFrame(rect);
     artboard.frame().setConstrainProportions(false);
     doc.currentPage().addLayers([artboard]);
-    doc.currentPage().moveLayersToArtboards();
+
+    // Can't work while selection in a group
+    // doc.currentPage().moveLayersToArtboards();
+
+    for (var i = 0; i < selection.count(); i++) {
+        var layer = selection.objectAtIndex(i);
+        layer.moveToLayer_beforeLayer(artboard, nil);
+    }
 
 }

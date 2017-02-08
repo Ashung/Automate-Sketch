@@ -32,6 +32,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Tile Layers by Position X (Y)            |                                          |
 | Tile Layers Horizontally (Vertically) by Index |                                          |
 | Order Layers by X (Y)                    |                                          |
+| Order Layer by Name                      |                                          |
 | Reverse Layer Order                      |                                          |
 | **Type**                                 |                                          |
 | Capitalize                               |                                          |
