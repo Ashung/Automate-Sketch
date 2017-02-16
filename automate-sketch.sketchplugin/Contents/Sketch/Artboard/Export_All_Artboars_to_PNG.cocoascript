@@ -61,6 +61,8 @@ var onRun = function(context) {
                     slice.removeFromParent();
                 }
 
+                NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
+
             }
         }
 

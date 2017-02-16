@@ -131,21 +131,21 @@ var android1x = [
     {
         scale: 1.5,
         format: "png",
-        suffix: "res/drawable-hdpi/"
+        prefix: "res/drawable-hdpi/"
     },
     {
         scale: 2,
         format: "png",
-        suffix: "res/drawable-xhdpi/"
+        prefix: "res/drawable-xhdpi/"
     },
     {
         scale: 3,
         format: "png",
-        suffix: "res/drawable-xxhdpi/"
+        prefix: "res/drawable-xxhdpi/"
     },
     {
         scale: 4,
         format: "png",
-        suffix: "res/drawable-xxxhdpi/"
+        prefix: "res/drawable-xxxhdpi/"
     }
 ];

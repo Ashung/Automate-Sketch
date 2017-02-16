@@ -1,40 +1,31 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
 
-    var doc = context.document;
+    var document = context.document;
     var selection = context.selection;
 
-    var layers = MSLayerArray.arrayWithLayers(selection);
-    if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
 
-        var symbolName = selection.firstObject().name();
-        var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
+        var layers = MSLayerArray.arrayWithLayers([layer]);
+        if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
 
-        var positionX = symbolInstance.frame().x(),
-            positionY = symbolInstance.frame().y(),
-            symbolID = String(symbolInstance.symbolID());
+            var symbolName = layer.name();
+            var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
+            var symbolMaster = symbolInstance.symbolMaster();
 
-        var loop = doc.currentPage().children().objectEnumerator();
-        var layer;
-        while (layer = loop.nextObject()) {
-            if (layer.class() == "MSSymbolMaster") {
-                if (String(layer.symbolID()) == symbolID) {
-                    layer.frame().setX(positionX);
-                    layer.frame().setY(positionY);
-                }
-            }
+            symbolMaster.setRect(symbolInstance.absoluteRect().rect());
+            symbolMaster.setLayerListExpandedType(1);
+            symbolInstance.removeFromParent();
         }
-
-        symbolInstance.removeFromParent();
-    } else {
-        doc.showMessage("Can't create symbol from selection, maybe selection contain a Artboard.");
     }
 
 }
