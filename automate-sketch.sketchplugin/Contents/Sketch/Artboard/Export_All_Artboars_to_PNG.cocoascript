@@ -1,8 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -26,7 +26,7 @@ var onRun = function(context) {
 
         if (savePanel.runModal() == NSOKButton) {
 
-            var scales = [0.5, 1, 1.5, 2, 2.5, 3, 4];
+            var scales = [1, 0.5, 1.5, 2, 2.5, 3, 4];
 
             // Dialog
             var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25));
@@ -50,6 +50,13 @@ var onRun = function(context) {
                     // Add Slice
                     var slice = MSSliceLayer.alloc().init();
                     slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+
+                    // Slice backgroud color
+                    if (!slice.hasBackgroundColor()) {
+                        slice.setHasBackgroundColor(1);
+                        slice.setBackgroundColor(MSColor.whiteColor());
+                    }
+
                     // Export options
                     slice.exportOptions().removeAllExportFormats();
                     var size = slice.exportOptions().addExportFormat();

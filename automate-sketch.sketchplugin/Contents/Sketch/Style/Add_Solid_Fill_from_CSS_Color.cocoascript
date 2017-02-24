@@ -1,9 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -257,13 +256,16 @@ var onRun = function(context) {
             color.setBlue(rgba[2]/255);
             color.setAlpha(rgba[3]);
 
-        var layer = selection.firstObject();
-        var fill = layer.style().addStylePartOfType(0); // fill
-        fill.setFillType(0); // solid color
-        layer.style().enabledFills().lastObject().setColor(color);
-
-        layer.select_byExpandingSelection(false, false);
-        layer.select_byExpandingSelection(true, false);
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+            if (layer.style().enabledFills().count() == 0) {
+                var fill = layer.style().addStylePartOfType(0); // fill
+                fill.setFillType(0); // solid color
+            }
+            layer.style().enabledFills().lastObject().setColor(color);
+            layer.select_byExpandingSelection(true, true);
+        }
 
     } else {
         doc.showMessage("Please select one shape layer.");
