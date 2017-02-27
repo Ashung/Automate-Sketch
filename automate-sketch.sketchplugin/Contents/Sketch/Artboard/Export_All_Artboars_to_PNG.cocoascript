@@ -22,6 +22,7 @@ var onRun = function(context) {
         savePanel.setMessage("Export All Artboards to ...");
         savePanel.setCanChooseDirectories(true);
         savePanel.setCanChooseFiles(false);
+        savePanel.setCanCreateDirectories(true);
         savePanel.setDirectoryURL(defaultLocation);
 
         if (savePanel.runModal() == NSOKButton) {

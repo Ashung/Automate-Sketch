@@ -1,29 +1,47 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
 var onRun = function(context) {
+
     var doc = context.document;
+
     if (doc.fileURL()) {
+        var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
+    } else {
+        var defaultLocation = NSURL.fileURLWithPath(NSHomeDirectory().stringByAppendingPathComponent("Desktop"));
+    }
+
+    var savePanel = NSOpenPanel.openPanel();
+    savePanel.setCanChooseDirectories(true);
+    savePanel.setCanChooseFiles(false);
+    savePanel.setCanCreateDirectories(true);
+    savePanel.setDirectoryURL(defaultLocation);
+
+    if (savePanel.runModal() == NSOKButton) {
+
         var allSymbols = doc.documentData().allSymbols();
-        if (allSymbols.count() > 0) {
-            var exportPath = doc.fileURL().path().stringByDeletingPathExtension() + "_symbols_export";
+
+        if (allSymbols.count() == 0) {
+            doc.showMessage("This document have no symbol.");
+        } else {
+
             var loop = allSymbols.objectEnumerator();
             var symbol;
             while (symbol = loop.nextObject()) {
-                var pageName = symbol.parentGroup().name();
-                doc.saveArtboardOrSlice_toFile(symbol, exportPath + "/" + pageName + "/" + symbol.name() + ".png");
+                var pageName = symbol.parentPage().name();
+                doc.saveArtboardOrSlice_toFile(symbol, savePanel.URL().path() + "/" + pageName + "/" + symbol.name() + ".png");
             }
+
             // Show in Finder
             NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(exportPath, nil);
-        } else {
-            doc.showMessage("This document have no symbol.");
+
         }
-    } else {
-        doc.showMessage("You have to save this document.");
+
     }
+
 }
