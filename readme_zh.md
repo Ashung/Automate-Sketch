@@ -2,8 +2,6 @@
 
 让使用 Sketch 更高效 -- 一个不断增加功能扩展小插件合集。
 
-[查看部分 GIF 演示](http://ashung.github.io/Automate-Sketch/)。
-
 ## 安装
 
 1. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)。
@@ -54,7 +52,7 @@
 | Artboard to Group                        | 画板转为组                       |
 | Resize to Fix Height                     | 调整画板以适配高度                   |
 | Switch Between Portrait and Landscape    | 画板切换横向或纵向                   |
-| Export All Symbols As PNG                | 将所有画板导出为 PNG                |
+| Export All Artboards to PNG              | 将所有画板导出为 PNG，可设置缩放比例        |
 | **Symbol**                               |                             |
 | Set to Original Width / Height           | 设为原始宽度 / 高度                 |
 | Select All Missing Instances in Current Page | 选择当前页中失效的 Symbol 实例         |
@@ -67,6 +65,7 @@
 | Remove Unused Symbols                    | 删除未使用 Symbol                |
 | Export All Symbols As PNG                | 将所有组件导出为 PNG                |
 | Sync Symbol Master from Sketch File      | 从 Sketch 文件同步 Symbol 模版     |
+| Replace Pages from Sketch File           | 从 Sketch 文件替换同名页面           |
 | **Styles**                               |                             |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充              |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充             |

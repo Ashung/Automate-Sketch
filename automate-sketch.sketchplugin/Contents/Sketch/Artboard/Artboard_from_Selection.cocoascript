@@ -10,29 +10,15 @@ var onRun = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
-    var expand = doc.askForUserInput_initialValue("Padding around selection.", "0");
 
-    var selectionRects = [];
-    for (var i = 0; i < selection.count(); i++) {
-        selectionRects.push(MSRect.alloc().initWithRect(selection.objectAtIndex(i).absoluteRect().rect()));
-    }
-
-    var rect = MSRect.rectWithUnionOfRects(selectionRects);
-    rect.setX(rect.x() - expand);
-    rect.setY(rect.y() - expand);
-    rect.setWidth(rect.width() + expand * 2);
-    rect.setHeight(rect.height() + expand * 2);
-
-    var artboard = MSArtboardGroup.new();
-    artboard.setFrame(rect);
-    artboard.frame().setConstrainProportions(false);
-    doc.currentPage().addLayers([artboard]);
-
-    // Can't work while selection in a group
-    // doc.currentPage().moveLayersToArtboards();
-
-    for (var i = 0; i < selection.count(); i++) {
-        var layer = selection.objectAtIndex(i);
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        var artboard = MSArtboardGroup.alloc().init();
+        artboard.setName(layer.name());
+        artboard.setFrame(MSRect.alloc().initWithRect(layer.absoluteRect().rect()));
+        doc.currentPage().addLayers([artboard]);
+        artboard.frame().setConstrainProportions(false);
         layer.moveToLayer_beforeLayer(artboard, nil);
     }
 

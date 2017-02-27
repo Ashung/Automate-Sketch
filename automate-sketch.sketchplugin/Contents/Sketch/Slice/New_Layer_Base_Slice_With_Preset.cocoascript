@@ -1,8 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -29,31 +29,19 @@ function addSlice(context, preset) {
 
         if (layer.class() == "MSSliceLayer") {
             var slice = layer;
-            slice.select_byExpandingSelection(true, true);
         } else {
-            var slice = MSSliceLayer.new();
-            slice.frame().setWidth(layer.frame().width());
-            slice.frame().setHeight(layer.frame().height());
-            slice.setName(layer.name());
-
+            var slice = MSSliceLayer.sliceLayerFromLayer(layer);
             if (
                 layer.class() == "MSLayerGroup" ||
                 layer.class() == "MSArtboardGroup" ||
                 layer.class() == "MSSymbolMaster"
             ) {
-                slice.frame().setX(0);
-                slice.frame().setY(0);
+                slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
                 // Export Group Contents Only
-                slice.exportOptions().setLayerOptions(2);
-                layer.insertLayers_beforeLayer([slice], layer.layers().firstObject());
-                slice.select_byExpandingSelection(true, true);
-            } else {
-                slice.frame().setX(layer.frame().x());
-                slice.frame().setY(layer.frame().y());
-                layer.parentGroup().insertLayers_beforeLayer([slice], layer);
-                slice.select_byExpandingSelection(true, true);
+                if (layer.class() == "MSLayerGroup") {
+                    slice.exportOptions().setLayerOptions(2);
+                }
             }
-
         }
 
         // Export options
@@ -71,6 +59,8 @@ function addSlice(context, preset) {
                 size.setName(format.prefix);
             }
         }
+
+        slice.select_byExpandingSelection(true, true);
 
     }
 }

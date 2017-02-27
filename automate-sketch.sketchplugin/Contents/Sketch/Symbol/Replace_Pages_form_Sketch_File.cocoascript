@@ -1,0 +1,54 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+
+    // Choose the new sketch file.
+    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
+    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
+    var defaultPath = lastNavPath || desktopPath;
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        var count = 0;
+
+        // Read data from the new sketch file.
+        var newDocument = MSDocument.alloc().init();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+
+        var loopPages = document.pages().objectEnumerator();
+        var page;
+        while (page = loopPages.nextObject()) {
+
+            var loopPagesFromNewDocument = newDocument.pages().objectEnumerator();
+            var pageFromNewDocument;
+            while (pageFromNewDocument = loopPagesFromNewDocument.nextObject()) {
+
+                if (page.name().isEqualToString(pageFromNewDocument.name())) {
+                    page.removeAllLayers();
+                    page.addLayers(pageFromNewDocument.layers());
+
+                    count++;
+                }
+
+            }
+        }
+
+        document.loadLayerListPanel();
+        document.showMessage("Replace " + ((count > 1) ? (count + " pages.") : (count + " page.")));
+
+    }
+};

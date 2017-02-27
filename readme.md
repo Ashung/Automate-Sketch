@@ -65,6 +65,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Remove Unused Symbols                    |                                          |
 | Export All Symbols As PNG                |                                          |
 | Sync Symbol Master from Sketch File      |                                          |
+| Replace Pages from Sketch File           |                                          |
 | **Styles**                               |                                          |
 | Add Solid Fill from CSS Color            |                                          |
 | Fill Color from Global (Document) Colors |                                          |
