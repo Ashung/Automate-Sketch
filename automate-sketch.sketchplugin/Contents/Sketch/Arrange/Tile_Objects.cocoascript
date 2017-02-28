@@ -1,11 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
 
 var tileLayersByPositionY = function(context) {
     tileLayer(context, "posy");
@@ -30,8 +31,13 @@ var tileLayer = function(context, orientation) {
         doc.showMessage("Please select more than 2 layers.");
     } else {
 
-        var gap = doc.askForUserInput_initialValue("The gap between two layers. (px)", 0);
+        var defaultGap = getPreferences("gap") || "0";
+        var gap = doc.askForUserInput_initialValue("The gap between two layers. (px)", defaultGap);
             gap = parseInt(gap);
+
+        if (gap) {
+            setPreferences("gap", gap);
+        }
 
         // Tile by position x/y
         if (orientation == "posx" || orientation == "posy") {

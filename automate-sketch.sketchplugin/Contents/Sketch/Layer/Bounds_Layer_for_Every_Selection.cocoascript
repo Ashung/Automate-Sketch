@@ -1,11 +1,13 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
+
 var onRun = function(context) {
 
     var boundsLayerName = "#";
@@ -14,15 +16,17 @@ var onRun = function(context) {
     var selection = context.selection;
     if (selection.count() > 0) {
 
+        var defaultUserInputString = getPreferences("boundsSize") || "0";
+
         // \d+, \d+x\d+
-        var userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", "0");
+        var userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", defaultUserInputString);
+
+        if (userInputString) {
+            setPreferences("boundsSize", userInputString.toString());
+        }
 
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-
-            // if (layer.class() == "MSArtboardGroup") {
-            //     break;
-            // }
 
             // var originalBounds = layer.rect();
             // Round to pixel

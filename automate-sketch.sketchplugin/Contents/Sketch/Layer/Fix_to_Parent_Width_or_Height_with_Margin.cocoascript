@@ -1,10 +1,28 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
+
 var fixToParentHeightWithMargin = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
 
-    var userInput = doc.askForUserInput_initialValue("Margins: \"<top & bottom>\" or \"<top> <bottom>\". ", "0");
+    var defaultUserInput = getPreferences("margin") || "0";
+
+    var userInput = doc.askForUserInput_initialValue("Margins: \"<top & bottom>\" or \"<top> <bottom>\". ", defaultUserInput);
+
+    if (userInput) {
+        setPreferences("margin", userInput.toString());
+    }
+
     var marginTop = marginBottom = 0;
+
     if (/(\d+)\s(\d+)/.test(userInput)) {
         marginTop = parseInt(/(\d+)\s(\d+)/.exec(userInput)[1]);
         marginBottom = parseInt(/(\d+)\s(\d+)/.exec(userInput)[2]);
@@ -28,8 +46,16 @@ var fixToParentWidthWithMargin = function(context) {
     var doc = context.document;
     var selection = context.selection;
 
-    var userInput = doc.askForUserInput_initialValue("Margins: \"<left & right>\" or \"<left> <right>\". ", "0");
+    var defaultUserInput = getPreferences("margin") || "0";
+
+    var userInput = doc.askForUserInput_initialValue("Margins: \"<left & right>\" or \"<left> <right>\". ", defaultUserInput);
+
+    if (userInput) {
+        setPreferences("margin", userInput.toString());
+    }
+    
     var marginLeft = marginRight = 0;
+
     if (/(\d+)\s(\d+)/.test(userInput)) {
         marginLeft = parseInt(/(\d+)\s(\d+)/.exec(userInput)[1]);
         marginRight = parseInt(/(\d+)\s(\d+)/.exec(userInput)[2]);
