@@ -1,13 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-description:
-version: 2016.2.0629
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
 
 var onRun = function(context) {
 
@@ -40,6 +39,7 @@ var onRun = function(context) {
 
         if(hasTextLayer == true) {
             var accessory = NSTextField.alloc().initWithFrame(NSMakeRect(0,0,250,24));
+            accessory.setStringValue(getPreferences("defaultLatinFont") || "");
             var alert = NSAlert.alloc().init();
                 alert.setMessageText(dialog.title);
                 alert.setInformativeText(dialog.message);
@@ -67,6 +67,9 @@ var onRun = function(context) {
                             }
                         }
                     }
+
+                    setPreferences("defaultLatinFont", postScriptName);
+
                 } else {
                     doc.showMessage("Please enter the PostScript name.");
                 }

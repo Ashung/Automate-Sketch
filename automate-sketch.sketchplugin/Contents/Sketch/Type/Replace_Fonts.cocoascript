@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
 
 var onRun = function(context) {
 
@@ -42,7 +44,7 @@ var onRun = function(context) {
         alert.addTextLabelWithValue("Replace with:");
 
         var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue("");
+        textField.setStringValue(getPreferences("replaceFont") || "");
         textField.setPlaceholderString("Type the postscript name of the font.");
         alert.addAccessoryView(textField);
 
@@ -76,6 +78,8 @@ var onRun = function(context) {
                     }
                 }
             });
+
+            setPreferences("replaceFont", replaceFont);
 
             doc.showMessage('Complete replace "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
