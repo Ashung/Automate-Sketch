@@ -1,0 +1,52 @@
+
+
+
+
+var document = context.document;
+var page = document.currentPage();
+
+var documentColors = document.documentData().assets().colors();
+
+// log(documentColors);
+var palettePositionX = page.originForNewArtboard().x,
+    palettePositionY = page.originForNewArtboard().y;
+
+var paletteWidth = 200;
+var paletteHeight = 50;
+var spaceBetweenPaletteAndText = 8;
+var textHeight = 16;
+
+var loopDocumentColors = documentColors.objectEnumerator();
+var color;
+while (color = loopDocumentColors.nextObject()) {
+
+    // log(color.toString())
+
+
+    // Add layer group
+    var paletteGroup = MSLayerGroup.alloc().init();
+    paletteGroup.setName("color");
+    paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
+    page.addLayers([paletteGroup]);
+
+    palettePositionX = palettePositionX + paletteWidth + 20;
+
+    // Add palette layer
+    var rectangle = MSRectangleShape.alloc().init();
+    rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
+    var palette = MSShapeGroup.shapeWithPath(rectangle);
+    palette.style().addStylePartOfType(0);
+    palette.style().fill().setColor(color);
+    palette.setName("color");
+    paletteGroup.addLayers([palette]);
+
+    // Add text layer
+    var text = MSTextLayer.alloc().init();
+    text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+    text.setStringValue(color.treeAsDictionary().value);
+    text.setLineHeight(textHeight);
+    text.setFontSize(16);
+
+    paletteGroup.insertLayers_beforeLayer([text], palette);
+
+}
