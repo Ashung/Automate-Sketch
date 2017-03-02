@@ -1,5 +1,7 @@
 # Automate Sketch
 
+![Automate Sketch](automate-sketch.png)
+
 Make Sketch more efficient -- a lot of usefull plugins in one.
 
 [中文说明](readme_zh.md)
@@ -70,6 +72,8 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Add Solid Fill from CSS Color            |                                          |
 | Fill Color from Global (Document) Colors |                                          |
 | Remove All Unused Styles                 |                                          |
+| Create Color Guide                       | Create color guide from document colors. |
+| Create Typography Guide                  | Create typography guide from text styles. |
 | Import Document Assets from Sketch File  | Import document colors, gradient and images. |
 | Import Text Styles from Sketch File      |                                          |
 | Import Layer Styles from Sketch File     |                                          |

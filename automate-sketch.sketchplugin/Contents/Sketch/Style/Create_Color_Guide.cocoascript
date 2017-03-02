@@ -1,0 +1,219 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/preferences.js";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var page = document.currentPage();
+
+    var documentColors = document.documentData().assets().colors();
+
+    if (documentColors.count() > 0) {
+
+        var colorFormats = [
+            "HEX, #FFFFFF (alpha:100%)",
+            "RGB, r:255 g:255 b:255 (a:100%)",
+            "CSS RGB, rgb(255, 255, 255)",
+            "CSS RGBA, rgba(255, 255, 255, 1)",
+            "CSS HSL, hsl(360, 100%, 100%)",
+            "CSS HSLA, hsla(360, 100%, 100%, 1)",
+            "Android, #FFFFFFFF",
+            "iOS/macOS, red:1 green:1 blue:1 alpha:1"
+        ];
+
+        // Dialog
+        var dialog = COSAlertWindow.new();
+        dialog.setMessageText("Create Color Guide");
+        dialog.setInformativeText("Create color guide from document colors.")
+
+        dialog.addTextLabelWithValue("Palette Size:");
+        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+        textField.setStringValue(getPreferences("paletteSize") || "");
+        textField.setPlaceholderString("Input the format like \"100\" or \"100x50\"");
+        dialog.addAccessoryView(textField);
+
+        dialog.addTextLabelWithValue("Color Format:");
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+        selectBox.addItemsWithObjectValues(colorFormats);
+        selectBox.selectItemAtIndex(parseInt(getPreferences("colorFormat")) || 0);
+        dialog.addAccessoryView(selectBox);
+
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var responseCode = dialog.runModal();
+        if (responseCode == "1000") {
+
+            var palettePositionX = page.originForNewArtboard().x,
+                palettePositionY = page.originForNewArtboard().y,
+                paletteWidth = 200,
+                paletteHeight = 100,
+                spaceBetweenPalettes = 24,
+                spaceBetweenPaletteAndText = 8,
+                textHeight = 16,
+                textFontSize = 14,
+                textColor = MSColor.colorWithRed_green_blue_alpha(51/255, 51/255, 51/255, 1),
+                textFontName = "Monaco";
+
+            var userInputString = textField.stringValue();
+            if (/^\d+$/.test(userInputString)) {
+                paletteWidth = paletteHeight = parseInt(userInputString);
+            }
+            if (/^\d+x\d+$/i.test(userInputString)) {
+                var paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
+                var paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
+            }
+            setPreferences("paletteSize", userInputString.toString());
+
+            var colorFormatIndex = selectBox.indexOfSelectedItem();
+            setPreferences("colorFormat", colorFormatIndex.toString());
+
+            var loopDocumentColors = documentColors.objectEnumerator();
+            var color;
+            while (color = loopDocumentColors.nextObject()) {
+
+                // Add layer group
+                var paletteGroup = MSLayerGroup.alloc().init();
+                paletteGroup.setName("color");
+                paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
+                page.addLayers([paletteGroup]);
+
+                palettePositionX = palettePositionX + paletteWidth + spaceBetweenPalettes;
+
+                // Add palette layer
+                var rectangle = MSRectangleShape.alloc().init();
+                rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
+                var palette = MSShapeGroup.shapeWithPath(rectangle);
+                palette.style().addStylePartOfType(0);
+                palette.style().fill().setColor(color);
+                palette.setName("color");
+                paletteGroup.addLayers([palette]);
+
+                // Add text layer
+                var text = MSTextLayer.alloc().init();
+                text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+                var stringValue;
+                switch (colorFormatIndex) {
+                    case 0:
+                        stringValue = MSColorToHEX(color);
+                        break;
+                    case 1:
+                        stringValue = MSColorToRGB(color);
+                        break;
+                    case 2:
+                        stringValue = MSColorToCSSRGB(color);
+                        break;
+                    case 3:
+                        stringValue = MSColorToCSSRGBA(color);
+                        break;
+                    case 4:
+                        stringValue = MSColorToCSSHSL(color);
+                        break;
+                    case 5:
+                        stringValue = MSColorToCSSHSLA(color);
+                        break;
+                    case 6:
+                        stringValue = MSColorToAndroid(color);
+                        break;
+                    case 7:
+                        stringValue = MSColorToNSColor(color);
+                        break;
+                    default:
+                        stringValue = MSColorToHEX(color);
+                }
+                text.setStringValue(stringValue);
+                text.setLineHeight(textHeight);
+                text.setFontPostscriptName(textFontName);
+                text.setTextColor(textColor);
+                text.setFontSize(textFontSize);
+                text.setName("label");
+                paletteGroup.insertLayers_beforeLayer([text], palette);
+
+            }
+
+        }
+
+    } else {
+        document.showMessage("No any document color in current document.");
+    }
+
+}
+
+function MSColorToHEX(mscolor) {
+    var alpha = mscolor.alpha() < 1 ? " (alpha:" + Math.round(mscolor.alpha() * 100) + "%)" : "";
+    return "#" + mscolor.NSColorWithColorSpace(nil).hexValue() + alpha;
+}
+
+function MSColorToRGB(mscolor) {
+    var alpha = mscolor.alpha() < 1 ? " a:" + Math.round(mscolor.alpha() * 100) + "%" : "";
+    return "r:" + Math.round(mscolor.red() * 255) + " " +
+        "g:" + Math.round(mscolor.green() * 255) + " " +
+        "b:" + Math.round(mscolor.blue() * 255) +
+        alpha;
+}
+
+function MSColorToCSSRGB(mscolor) {
+    return "rgb(" + Math.round(mscolor.red() * 255) + ", " +
+        Math.round(mscolor.green() * 255) + ", " +
+        Math.round(mscolor.blue() * 255) + ")";
+}
+
+function MSColorToCSSRGBA(mscolor) {
+    var alpha = Math.floor(mscolor.alpha()) < mscolor.alpha() ? mscolor.alpha().toFixed(2) : Math.round(mscolor.alpha());
+    return "rgba(" + Math.round(mscolor.red() * 255) + ", " +
+        Math.round(mscolor.green() * 255) + ", " +
+        Math.round(mscolor.blue() * 255) + ", " +
+        alpha + ")";
+}
+
+function MSColorToCSSHSL(mscolor) {
+    var hsl = RGBToHSL(mscolor.red(), mscolor.green(), mscolor.blue());
+    return "hsl(" + hsl["0"] + ", " +
+        hsl["1"] + "%, " +
+        hsl["2"] + "%)";
+}
+
+function MSColorToCSSHSLA(mscolor) {
+    var hsl = RGBToHSL(mscolor.red(), mscolor.green(), mscolor.blue());
+    var alpha = Math.floor(mscolor.alpha()) < mscolor.alpha() ? mscolor.alpha().toFixed(2) : Math.round(mscolor.alpha());
+    return "hsla(" + hsl["0"] + ", " +
+        hsl["1"] + "%, " +
+        hsl["2"] + "%, " +
+        alpha + ")";
+}
+
+function MSColorToAndroid(mscolor) {
+    return "#" + Math.round(mscolor.alpha() * 255).toString(16).toUpperCase() + mscolor.NSColorWithColorSpace(nil).hexValue();
+}
+
+function MSColorToNSColor(mscolor) {
+    return "red:" + mscolor.red().toFixed(2) + " " +
+        "green:" + mscolor.green().toFixed(2) + " " +
+        "blue:" + mscolor.blue().toFixed(2) + " " +
+        "alpha:" + mscolor.alpha().toFixed(2);
+}
+
+function RGBToHSL(r, g, b) {
+    var max = Math.max(r, g, b), min = Math.min(r, g, b);
+    var h, s, l = (max + min) / 2;
+    if (max == min) {
+        h = s = 0;
+    } else {
+        var d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch(max){
+            case r : h = (g - b) / d + (g < b ? 6 : 0); break;
+            case g : h = (b - r) / d + 2; break;
+            case b : h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+    }
+    return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
+}

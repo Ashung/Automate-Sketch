@@ -1,5 +1,7 @@
 # Automate Sketch
 
+![Automate Sketch](automate-sketch.png)
+
 让使用 Sketch 更高效 -- 一个不断增加功能扩展小插件合集。
 
 ## 安装
@@ -70,6 +72,8 @@
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充              |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充             |
 | Remove All Unused Styles                 | 删除当前页所有图层中未使用样式             |
+| Create Color Guide                       | 从文档颜色创建色彩指南                 |
+| Create Typography Guide                  | 从文本样式创建字体样式指南               |
 | Import Document Assets from Sketch File  | 从 Sketch 文件导入资源 (色彩、渐变及图案)  |
 | Import Text Styles from Sketch File      | 从 Sketch 文件导入文本样式           |
 | Import Layer Styles from Sketch File     | 从 Sketch 文件导入图层样式           |

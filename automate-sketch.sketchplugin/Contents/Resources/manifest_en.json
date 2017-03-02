@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170228",
+    "version": "2.0.20170302",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -186,7 +186,7 @@
         {
             "name": "Select TextLayers in Selected Group",
             "identifier": "select_all_textLayer_in_selected_group",
-            "script": "Type/Select_All_TextLayer_in_Selected_Group.cocoascript"
+            "script": "Type/Select_All_TextLayers_in_Selected_Group.cocoascript"
         },
         {
             "name": "Unfixed Layer Name",
@@ -388,6 +388,16 @@
             "script": "Style/Import_Layer_Styles_from_Sketch_File.cocoascript"
         },
         {
+            "name": "Create Color Guide",
+            "identifier": "create_color_guide",
+            "script": "Style/Create_Color_Guide.cocoascript"
+        },
+        {
+            "name": "Create Typography Guide",
+            "identifier": "create_typography_guide",
+            "script": "Style/Create_Typography_Guide.cocoascript"
+        },
+        {
             "name": "Clear Guides",
             "identifier": "clear_guides",
             "script": "Guide/Clear_Guides.cocoascript"
@@ -583,6 +593,9 @@
                     "fill_color_from_document_colors",
                     "-",
                     "remove_all_unused_styles",
+                    "-",
+                    "create_color_guide",
+                    "create_typography_guide",
                     "-",
                     "import_document_assets_from_sketch_file",
                     "import_text_styles_from_sketch_file",
