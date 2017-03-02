@@ -16,6 +16,8 @@ function getPreferences(key) {
         defaultPreferences.setObject_forKey("Roboto-Regular", "defaultLatinFont");
         defaultPreferences.setObject_forKey("NotoSansCJKsc-Regular", "defaultCJKFont");
         defaultPreferences.setObject_forKey("NotoSansCJKsc-Regular", "replaceFont");
+        defaultPreferences.setObject_forKey("200x50", "paletteSize");
+        defaultPreferences.setObject_forKey("0", "colorFormat");
         userDefaults.setObject_forKey(defaultPreferences, "com.ashung.hung.automate_sketch");
         userDefaults.synchronize();
     }

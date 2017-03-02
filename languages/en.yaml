@@ -96,3 +96,5 @@ import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
 import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"
 order_layers_by_name: "Order Layers by Name"
 replace_pages_form_sketch_file: "Replace Pages form Sketch File"
+create_color_guide: Create Color Guide
+create_typography_guide: Create Typography Guide

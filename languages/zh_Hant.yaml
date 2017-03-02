@@ -96,3 +96,5 @@ import_text_styles_from_sketch_file: "從 Sketh 檔案匯入文字樣式"
 import_layer_styles_from_sketch_file: "從 Sketh 檔案匯入圖層樣式"
 order_layers_by_name: "據物件名調整列表順序"
 replace_pages_form_sketch_file: "從 Sketh 檔案替换頁面"
+create_color_guide: 建立色彩指南
+create_typography_guide: 建立字型指南
