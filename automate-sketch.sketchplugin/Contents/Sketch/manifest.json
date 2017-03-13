@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170302",
+    "version": "2.0.20170313",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -274,6 +274,11 @@
             "script": "Artboard/Export_All_Artboars_to_PNG.cocoascript"
         },
         {
+            "name": "Export All Artboards to HTML",
+            "identifier": "export_all_artboars_to_html",
+            "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
+        },
+        {
             "name": "Switch Between Portrait and Landscape",
             "identifier": "switch_between_portrait_and_landscape",
             "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
@@ -419,7 +424,7 @@
             "script": "Utilities/Utilities.cocoascript"
         },
         {
-            "name": "Open Termianl at File Folder",
+            "name": "Open Terminal at File Folder",
             "identifier": "open_terminal_at_file_folder",
             "handler": "openTerminalAtFileFolder",
             "script": "Utilities/Utilities.cocoascript"
@@ -560,7 +565,8 @@
                     "resize_to_fit_height",
                     "switch_between_portrait_and_landscape",
                     "-",
-                    "export_all_artboars_to_png"
+                    "export_all_artboars_to_png",
+                    "export_all_artboars_to_html"
                 ]
             },
             {

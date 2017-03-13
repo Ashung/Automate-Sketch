@@ -1,0 +1,89 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+
+    if (doc.artboards().count() > 0) {
+
+        // Dialog
+        var alert = NSAlert.alloc().init();
+        alert.setMessageText("Export All Artboards to HTML");
+        alert.setInformativeText("Choose the image format.");
+        alert.addButtonWithTitle("OK");
+        alert.addButtonWithTitle("Cancel");
+
+        var formatButton = NSButtonCell.alloc().initTextCell("Separate image files"); //NSButtonCell.alloc().init();
+            formatButton.setButtonType(NSRadioButton);
+        var formatMatrix = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
+            NSMakeRect(0, 0, 300, 40),
+            NSRadioModeMatrix,
+            formatButton,
+            2,
+            1
+        );
+        var cellArray = formatMatrix.cells();
+            cellArray.objectAtIndex(0).setTitle("PNG");
+            cellArray.objectAtIndex(1).setTitle("SVG");
+        alert.setAccessoryView(formatMatrix);
+
+        var responseCode = alert.runModal();
+        if (responseCode == "1000") {
+
+            if (doc.fileURL()) {
+                var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
+            } else {
+                var defaultLocation = NSURL.fileURLWithPath(NSHomeDirectory().stringByAppendingPathComponent("Desktop"));
+            }
+
+            var savePanel = NSOpenPanel.openPanel();
+            savePanel.setMessage("Export All Artboards to ...");
+            savePanel.setCanChooseDirectories(true);
+            savePanel.setCanChooseFiles(false);
+            savePanel.setCanCreateDirectories(true);
+            savePanel.setDirectoryURL(defaultLocation);
+
+            if (savePanel.runModal() == NSOKButton) {
+
+                var imageFormat = formatMatrix.selectedCells()[0].title();
+
+                var loopArtboards = doc.artboards().objectEnumerator();
+                var artboard;
+                while (artboard = loopArtboards.nextObject()) {
+
+                    // Add Slice
+                    var slice = MSSliceLayer.alloc().init();
+                    slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+
+                    // Export options
+                    slice.exportOptions().removeAllExportFormats();
+                    var size = slice.exportOptions().addExportFormat();
+                    size.setFileFormat(imageFormat);
+                    size.setName("");
+                    size.setScale([2]);
+                    artboard.addLayers([slice]);
+
+                    doc.saveArtboardOrSlice_toFile(slice, savePanel.URL().path() + "/assets/" + artboard.name() + "." + imageFormat.toLowerCase());
+
+                    slice.removeFromParent();
+
+                    // TODO: HTML
+
+                }
+
+                NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
+            }
+        }
+
+
+    } else {
+        doc.showMessage("Document have no any artboard.");
+    }
+
+}

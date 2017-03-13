@@ -98,3 +98,4 @@ order_layers_by_name: "据对象名调整列表顺序"
 replace_pages_form_sketch_file: "从 Sketh 文档替换页面"
 create_color_guide: 创建色彩指南
 create_typography_guide: 创建字体指南
+export_all_artboars_to_html: 将所有画板导出为 HTML
