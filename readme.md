@@ -1,6 +1,7 @@
-# Automate Sketch
 
 ![Automate Sketch](automate-sketch.png)
+
+# Automate Sketch
 
 Make Sketch more efficient -- a lot of usefull plugins in one.
 
@@ -56,6 +57,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Resize to Fix Height                     |                                          |
 | Switch Between Portrait and Landscape    |                                          |
 | Export All Artboards to PNG              |                                          |
+| Export All Artboards to HTML             |                                          |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           |                                          |
 | Select All Missing Instances in Current Page |                                          |

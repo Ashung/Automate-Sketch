@@ -12,48 +12,51 @@ var onRun = function(context) {
 
     if (doc.artboards().count() > 0) {
 
-        if (doc.fileURL()) {
-            var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
-        } else {
-            var defaultLocation = NSURL.fileURLWithPath(NSHomeDirectory().stringByAppendingPathComponent("Desktop"));
-        }
+        var scales = [1, 0.5, 1.5, 2, 2.5, 3, 4];
 
-        var savePanel = NSOpenPanel.openPanel();
-        savePanel.setMessage("Export All Artboards to ...");
-        savePanel.setCanChooseDirectories(true);
-        savePanel.setCanChooseFiles(false);
-        savePanel.setCanCreateDirectories(true);
-        savePanel.setDirectoryURL(defaultLocation);
+        // Dialog
+        var dialog = COSAlertWindow.alloc().init();
+        dialog.setMessageText("Export All Artboards to PNG");
+        // dialog.setInformativeText("Choose the scale for export.");
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
 
-        if (savePanel.runModal() == NSOKButton) {
+        dialog.addTextLabelWithValue("Scale for export:");
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
+        selectBox.addItemsWithObjectValues(scales);
+        selectBox.selectItemAtIndex(0);
+        dialog.addAccessoryView(selectBox);
 
-            var scales = [1, 0.5, 1.5, 2, 2.5, 3, 4];
+        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
+        checkbox.setButtonType(NSSwitchButton);
+        checkbox.setTitle("Include white background color.");
+        checkbox.setState(NSOffState);
+        dialog.addAccessoryView(checkbox);
 
-            // Dialog
-            var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0,0,200,25));
-            accessory.addItemsWithObjectValues(scales);
-            accessory.selectItemAtIndex(0)
-            var alert = NSAlert.alloc().init();
-            alert.setMessageText("Export All Artboards to PNG");
-            alert.setInformativeText("Choose the scale for export.");
-            alert.addButtonWithTitle("OK");
-            alert.addButtonWithTitle("Cancel");
-            alert.setAccessoryView(accessory);
 
-            var responseCode = alert.runModal();
-            if (responseCode == "1000") {
+        var responseCode = dialog.runModal();
+        if (responseCode == "1000") {
 
-                var scale = accessory.objectValueOfSelectedItem();
+            var savePanel = NSOpenPanel.openPanel();
+            savePanel.setMessage("Export All Artboards to ...");
+            savePanel.setCanChooseDirectories(true);
+            savePanel.setCanChooseFiles(false);
+            savePanel.setCanCreateDirectories(true);
+
+            if (savePanel.runModal() == NSOKButton) {
+
+                var scale = selectBox.objectValueOfSelectedItem();
 
                 var loopArtboards = doc.artboards().objectEnumerator();
                 var artboard;
                 while (artboard = loopArtboards.nextObject()) {
+
                     // Add Slice
                     var slice = MSSliceLayer.alloc().init();
                     slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
 
                     // Slice backgroud color
-                    if (!slice.hasBackgroundColor()) {
+                    if (checkbox.state() == 1) {
                         slice.setHasBackgroundColor(1);
                         slice.setBackgroundColor(MSColor.whiteColor());
                     }

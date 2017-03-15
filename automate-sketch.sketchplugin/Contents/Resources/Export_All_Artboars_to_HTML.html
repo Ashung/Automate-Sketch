@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>{{title}}</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"></script>
+<script src="https://unpkg.com/masonry-layout@4/dist/masonry.pkgd.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/list.js/1.5.0/list.min.js"></script>
+<style>
+body {
+    margin: 0;
+    padding: 0;
+    color: #333;
+    font: 14px "Source Sans Pro", Arial, sans-serif;
+}
+a:link, a:visited {
+    color: inherit;
+}
+header {
+    position: fixed;
+    height: 64px;
+    width: 100%;
+    background: #fff;
+    z-index: 1000;
+}
+header h1 {
+    float: left;
+    margin: 0;
+    padding: 0 0 0 16px;
+    font-size: 20px;
+    height: 64px;
+    line-height: 64px;
+}
+.search {
+    float: right;
+    display: block;
+    width: 24px;
+    height: 64px;
+    box-sizing: border-box;
+    margin: 0 16px 0 0;
+    padding: 8px 0 8px 32px;
+    border: 0;
+    outline: none;
+    font-size: 16px;
+    font-family: inherit;
+    background: url(data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPHN2ZyB3aWR0aD0iMjRweCIgaGVpZ2h0PSIyNHB4IiB2aWV3Qm94PSIwIDAgMjQgMjQiIHZlcnNpb249IjEuMSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayI+CiAgICA8cmVjdCBpZD0iIyIgZmlsbD0ibm9uZSIgeD0iMCIgeT0iMCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjI0Ij48L3JlY3Q+CiAgICA8cGF0aCBkPSJNMTUuNjQyOTI5OCwxNC4xNDI5Mjk4IEwyMSwxOS41IEwxOS41LDIxIEwxNC4xNDI5Mjk4LDE1LjY0MjkyOTggQzEyLjk4MjkzNTYsMTYuNDk2MDA4NyAxMS41NTAzMjQ2LDE3IDEwLDE3IEM2LjEzNDAwNjc1LDE3IDMsMTMuODY1OTkzMiAzLDEwIEMzLDYuMTM0MDA2NzUgNi4xMzQwMDY3NSwzIDEwLDMgQzEzLjg2NTk5MzIsMyAxNyw2LjEzNDAwNjc1IDE3LDEwIEMxNywxMS41NTAzMjQ2IDE2LjQ5NjAwODcsMTIuOTgyOTM1NiAxNS42NDI5Mjk4LDE0LjE0MjkyOTggWiBNMTAsMTUgQzEyLjc2MTQyMzcsMTUgMTUsMTIuNzYxNDIzNyAxNSwxMCBDMTUsNy4yMzg1NzYyNSAxMi43NjE0MjM3LDUgMTAsNSBDNy4yMzg1NzYyNSw1IDUsNy4yMzg1NzYyNSA1LDEwIEM1LDEyLjc2MTQyMzcgNy4yMzg1NzYyNSwxNSAxMCwxNSBaIiBpZD0iQ29tYmluZWQtU2hhcGUiIGZpbGw9IiM5ZTllOWUiPjwvcGF0aD4KPC9zdmc+) no-repeat 0 50%;
+}
+.search:focus {
+    width: 240px;
+    border-bottom-color: #0288D1;
+}
+.list {
+    margin: 0;
+    padding: 80px 16px 16px;
+    list-style: none;
+}
+.list li {
+    float: left;
+    margin: 0 16px 16px 0;
+    text-align: center;
+}
+.list .image {
+    display: inline-block;
+    background: #fff;
+    margin-bottom: 8px;
+    padding: 8px;
+    box-shadow: 0 0 3px 0 rgba(0,0,0,.25);
+}
+.list .title {
+    margin: 0 8px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 24px;
+    color: rgba(0, 0, 0, .54);
+}
+.list img {
+    display: block;
+}
+footer {
+    clear: both;
+    text-align: center;
+}
+</style>
+</head>
+<body id="items">
+    <header>
+        <h1>{{title}}</h1>
+        <input id="search" class="search" placeholder="Search" />
+    </header>
+    <ul class="list">
+        {{content}}
+    </ul>
+    <footer>
+        <p>
+            Made with <a href="https://github.com/Ashung/Automate-Sketch">Automate Sketch</a> plugin.
+            Powered by <a href="http://jquery.com/">jQuery</a>, <a href="https://github.com/desandro/masonry">Masonry</a> and <a href="http://listjs.com/">List.js</a>.
+        </p>
+    </footer>
+    <script>
+
+        var $grid = $(".list").masonry({
+            itemSelector : '.item',
+            columnWidth : 1
+        });
+
+        var options = {
+            valueNames: [ "title" ]
+        };
+        var list = new List("items", options);
+
+        list.on("updated", function() {
+            $grid.masonry();
+        });
+
+    </script>
+</body>
+</html>
