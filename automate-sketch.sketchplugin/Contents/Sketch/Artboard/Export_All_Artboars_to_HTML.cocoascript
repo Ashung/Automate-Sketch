@@ -13,9 +13,9 @@ var onRun = function(context) {
     if (doc.artboards().count() > 0) {
 
         // Dialog
-        var dialog = NSAlert.alloc().init();
+        var dialog = COSAlertWindow.alloc().init();
         dialog.setMessageText("Export All Artboards to HTML");
-        dialog.setInformativeText("Choose the image format.");
+        dialog.setInformativeText("Choose the image format.\nThe artboard whitch is named begin with \".\" will be ignored.");
         dialog.addButtonWithTitle("OK");
         dialog.addButtonWithTitle("Cancel");
 
@@ -38,23 +38,20 @@ var onRun = function(context) {
         var responseCode = dialog.runModal();
         if (responseCode == "1000") {
 
-            if (doc.fileURL()) {
-                var defaultLocation = doc.fileURL().URLByDeletingLastPathComponent();
-            } else {
-                var defaultLocation = NSURL.fileURLWithPath(NSHomeDirectory().stringByAppendingPathComponent("Desktop"));
-            }
-
             var savePanel = NSOpenPanel.openPanel();
             savePanel.setMessage("Export All Artboards to ...");
             savePanel.setCanChooseDirectories(true);
             savePanel.setCanChooseFiles(false);
             savePanel.setCanCreateDirectories(true);
-            savePanel.setDirectoryURL(defaultLocation);
 
             if (savePanel.runModal() == NSOKButton) {
 
-                var htmlTemplate = getContentFromFile(context.plugin.urlForResourceNamed("Export_All_Artboars_to_HTML.html").path());
+                var htmlTemplatePath = context.plugin.urlForResourceNamed("Export_All_Artboars_to_HTML.html").path();
+                var htmlTemplate = NSString.stringWithContentsOfFile_encoding_error_(
+                    htmlTemplatePath, NSUTF8StringEncoding, nil
+                );
                 var htmlContent = "";
+                var htmlTitle = doc.displayName().replace(/\.sketch$/, "");
 
                 var selectedRadioIndex = matrixFormat.cells().indexOfObject(matrixFormat.selectedCell());
 
@@ -69,43 +66,51 @@ var onRun = function(context) {
                         var imageFormat = "png";
                 }
 
+                var assetsPath = savePanel.URL().path() + "/assets";
+                var htmlPath = savePanel.URL().path() + "/index.html";
+                // Remove "assets" folder
+                if (NSFileManager.defaultManager().fileExistsAtPath_(assetsPath)) {
+                    NSFileManager.defaultManager().removeItemAtPath_error_(assetsPath, nil);
+                }
+
                 var loopArtboards = doc.artboards().objectEnumerator();
                 var artboard;
                 while (artboard = loopArtboards.nextObject()) {
 
-                    var name = rename(artboard.name());
+                    if (!/^\./.test(artboard.name())) {
 
-                    // Add Slice
-                    var slice = MSSliceLayer.alloc().init();
-                    slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+                        var name = artboard.name().replace(/[<>\\\|:""*\?]/g, "_").substring(0, 255);
 
-                    // Export options
-                    slice.exportOptions().removeAllExportFormats();
-                    var size = slice.exportOptions().addExportFormat();
-                    size.setFileFormat(imageFormat);
-                    size.setName("");
-                    size.setScale([2]);
-                    artboard.addLayers([slice]);
+                        // Add Slice
+                        var slice = MSSliceLayer.alloc().init();
+                        slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
 
-                    doc.saveArtboardOrSlice_toFile(slice, savePanel.URL().path() + "/assets/" + name + "." + imageFormat);
+                        // Export options
+                        slice.exportOptions().removeAllExportFormats();
+                        var size = slice.exportOptions().addExportFormat();
+                        size.setFileFormat(imageFormat);
+                        size.setName("");
+                        size.setScale([2]);
+                        artboard.addLayers([slice]);
 
-                    slice.removeFromParent();
+                        doc.saveArtboardOrSlice_toFile(slice, savePanel.URL().path() + "/assets/" + name + "." + imageFormat);
 
-                    // TODO: HTML
-                    var imgWidth = artboard.frame().width();
-                    var imgHeight = artboard.frame().height();
-                    if (imageFormat == "png") {
-                        imgWidth = Math.round(artboard.frame().width() / 2);
-                        imgHeight = Math.round(artboard.frame().height() / 2);
+                        slice.removeFromParent();
+
+                        // HTML
+                        var imgWidth = artboard.frame().width();
+                        var imgHeight = artboard.frame().height();
+                        htmlContent += '<li class="item"><div class="image"><img alt="" src="assets/' + name + '.' + imageFormat + '" width="' + imgWidth + '" height="' + imgHeight + '"></div><div class="title">' + name + '</div></li>\n';
+
                     }
-
-                    htmlContent += '<li class="grid-item"><div class="image"><img alt="" src="assets/' + name + '.' + imageFormat + '" width="' + imgWidth + '" height="' + imgHeight + '"></div><div class="title">' + name + '</div></li>\n';
-
                 }
 
-                htmlTemplate = htmlTemplate.replace("{{content}}", htmlContent);
+                htmlTemplate = htmlTemplate.replace(/{{content}}/, htmlContent);
+                htmlTemplate = htmlTemplate.replace(/{{title}}/g, htmlTitle);
 
-                writeContentToFile(savePanel.URL().path() + "/index.html", htmlTemplate);
+                NSString.stringWithString(htmlTemplate).writeToFile_atomically_encoding_error_(
+                    htmlPath, true, NSUTF8StringEncoding, null
+                );
 
                 NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
             }
@@ -115,23 +120,4 @@ var onRun = function(context) {
         doc.showMessage("Document have no any artboard.");
     }
 
-}
-
-function rename(name) {
-    var newName = name.replace(/^\./, "_").replace(/[<>\\\|:""*\?]/g, "_").substring(0, 255);
-    return newName;
-}
-
-function getContentFromFile(filePath) {
-    var content = NSString.stringWithContentsOfFile_encoding_error_(
-        filePath, NSUTF8StringEncoding, nil
-    );
-    return content;
-}
-
-function writeContentToFile(filePath, content) {
-    content = NSString.stringWithFormat('%@', content);
-    content.writeToFile_atomically_encoding_error_(
-        filePath, true, NSUTF8StringEncoding, null
-    );
 }
