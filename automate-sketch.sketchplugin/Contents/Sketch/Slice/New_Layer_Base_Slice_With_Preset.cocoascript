@@ -22,6 +22,7 @@ function addSlice(context, preset) {
     }
 
     doc.currentPage().deselectAllLayers();
+    var selectedLayers = [];
 
     for (var i = 0; i < selection.count(); i++) {
 
@@ -68,9 +69,13 @@ function addSlice(context, preset) {
             }
         }
 
-        slice.select_byExpandingSelection(true, true);
+        // slice.select_byExpandingSelection(true, true);
+        selectedLayers.push(slice);
 
     }
+
+    doc.setSelectedLayers(MSLayerArray.arrayWithLayers(selectedLayers));
+
 }
 
 var normal = [

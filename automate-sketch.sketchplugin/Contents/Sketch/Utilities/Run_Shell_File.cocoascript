@@ -1,8 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -15,18 +15,6 @@ function runShellFile(currentDirectoryPath, shellFilePath, argsArray) {
         task.arguments[0] += " " + argsArray.toString().replace(/\,/g, " ");
     }
     task.launch();
-}
-
-function chooseDirectory(defaultLocation, message) {
-    var panel = NSOpenPanel.openPanel();
-    panel.setMessage(message);
-    panel.setCanChooseDirectories(true);
-    panel.setCanChooseFiles(false);
-    panel.setCanCreateDirectories(false);
-    panel.setDirectoryURL(defaultLocation);
-    if (panel.runModal() == NSOKButton) {
-        return panel.filename();
-    }
 }
 
 var AndroidFairy = function(context) {
