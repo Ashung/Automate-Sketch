@@ -9,8 +9,8 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 
 ## Installation
 
-1. Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it.
-2. Double-click the "automate-sketch.sketchplugin".
+{0}. Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
+{0}. Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) or [Sketch Toolbox](http://sketchtoolbox.com/).
 
 ## Features
 
@@ -22,11 +22,10 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Divide Layer                             |                                          |
 | Unlock All Layers                        |                                          |
 | Click Through On (Off)                   |                                          |
-| Select All Groups                        |                                          |
+| Select All Layers In Selection By ...    | Group, Text, Shape, Image, Symbol Instance, Slice, Invisibile Layer |
 | Select All Child Layers                  |                                          |
 | Clear Layer Name                         |                                          |
 | Remove Redundant Groups                  |                                          |
-| Delete All Hidden Layers                 |                                          |
 | Delete All Empty Groups                  |                                          |
 | Create / Sync Include Layer              |                                          |
 | Reverse Order And Close Path             |                                          |
@@ -34,15 +33,13 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Change Places Between Two Layers         |                                          |
 | Tile Layers by Position X (Y)            |                                          |
 | Tile Layers Horizontally (Vertically) by Index |                                          |
-| Order Layers by X (Y)                    |                                          |
-| Order Layer by Name                      |                                          |
+| Order Layers By ...                      | X, Y, Name, Type                         |
 | Reverse Layer Order                      |                                          |
 | **Type**                                 |                                          |
 | Capitalize                               |                                          |
 | Change Typeface for Latin Character      |                                          |
 | Add Space Between CJK and Latin Character |                                          |
 | Replace Fonts,  Replace Missing Fonts    |                                          |
-| Select All TextLayer in Selected Artboard or Page |                                          |
 | Unfixed Layer Name                       |                                          |
 | **Slice**                                |                                          |
 | New Layer Base Slice                     |                                          |

@@ -1,0 +1,97 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var selectAllGroupsInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSLayerGroup");
+}
+
+var selectAllTextsInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSTextLayer");
+}
+
+var selectAllShapesInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSShapeGroup");
+}
+
+var selectAllImagesInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSBitmapLayer");
+}
+
+var selectAllSymbolInstancesInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSSymbolInstance");
+}
+
+var selectAllSlicesInSelection = function(context) {
+    selectLayersInSelectionByType(context, "MSSliceLayer");
+}
+
+function selectLayersInSelectionByType(context, type) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    page.deselectAllLayers();
+
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            selectLayersInParent_byType(layer, type);
+        }
+    } else {
+        selectLayersInParent_byType(page, type);
+    }
+
+}
+
+function selectLayersInParent_byType(parent, type) {
+
+    if (
+        parent.containsLayers() && parent.class() != "MSShapeGroup"
+    ) {
+
+        if (type == "MSLayerGroup") {
+            var loopLayes = parent.layers().objectEnumerator();
+            var layer;
+            while (layer = loopLayes.nextObject()) {
+                if (layer.class() == type) {
+                    layer.select_byExpandingSelection(true, true);
+                }
+                if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+                    selectLayersInParent_byType(layer, type);
+                }
+            }
+        } else {
+            var loopChildrens = parent.children().objectEnumerator();
+            var layer;
+            while (layer = loopChildrens.nextObject()) {
+                if (layer.class() == type) {
+                    layer.select_byExpandingSelection(true, true);
+                }
+            }
+        }
+
+    }
+
+}
+
+// function selectAllLayerByType(context, type) {
+//
+//     var doc = context.document;
+//     var page = doc.currentPage();
+//
+//     page.deselectAllLayers();
+//
+//     var loop = page.children().objectEnumerator();
+//     while (layer = loop.nextObject()) {
+//         if (layer.class() == type) {
+//             layer.select_byExpandingSelection(true, true);
+//         }
+//     }
+//
+// }

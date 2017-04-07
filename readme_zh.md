@@ -3,12 +3,12 @@
 
 # Automate Sketch
 
-让使用 Sketch 更高效 -- 一个不断增加功能扩展小插件合集。
+让使用 Sketch 更高效 -- 一个不断增加功能的插件合集。
 
-## 安装
+## 安装方法
 
-1. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)。
-2. 双击 "automate-sketch.sketchplugin"。
+{0}. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
+{0}. 从各种插件管理应用中搜索 "Automate Sketch", 现支持  [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/).
 
 ## 部分功能
 
@@ -20,11 +20,10 @@
 | Divide Layer                             | 均分图层                                     |
 | Unlock All Layers                        | 解锁所有图层                                   |
 | Click Through On (Off)                   | 点击穿透开关                                   |
-| Select All Groups                        | 选择所有组                                    |
+| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、隐藏图层。               |
 | Select All Child Layers                  | 选择所有子图层                                  |
 | Clear Layer Name                         | 清理图层名，删除 copy                            |
 | Remove Redundant Groups                  | 删除多余的嵌套组                                 |
-| Delete All Hidden Layers                 | 删除所有隐藏图层                                 |
 | Delete All Empty Groups                  | 删除空组                                     |
 | Create / Sync Include Layer              | 创建/同步引用图层                                |
 | Reverse Order And Close Path             | 反转顺序并关闭路径                                |
@@ -32,8 +31,7 @@
 | Change Places Between Two Layers         | 两个图层交换位置                                 |
 | Tile Layers by Position X (Y)            | 水平或垂直平铺图层                                |
 | Tile Layers Horizontally (Vertically) by Index | 根据图层列表位置水平或垂直平铺图层                        |
-| Order Layers by X (Y)                    | 根据图层 X / Y 值，更改图层列表中的位置                  |
-| Order Layer by Name                      | 根据图层名称，更改图层列表中的位置                        |
+| Order Layers By ...                      | 根据图层 X / Y 值、名称、类型，更改图层列表中的位置            |
 | Reverse Layer Order                      | 反转图层列表中的位置                               |
 | **Type**                                 |                                          |
 | Capitalize                               | 首字大写                                     |
@@ -41,7 +39,6 @@
 | Add Space Between CJK and Latin Character | 中西文间增加空格                                 |
 | Replace Fonts                            | 替换字体                                     |
 | Replace Missing Fonts                    | 替换缺失字体                                   |
-| Select All TextLayer in Selected Artboard or Page | 选择画板或当前页的所有文本图层                          |
 | Unfixed Layer Name                       | 取消文本图层的固定图层名                             |
 | **Slice**                                |                                          |
 | New Layer Base Slice                     | 基于图层新建切片                                 |
@@ -93,8 +90,6 @@ CC BY-SA 4.0
 
 [![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
 
-### 捐赠
+### 捐款
 
-![](http://ashung.github.io/Automate-Sketch/css/donate_wechat_rmb_10.png)
-
-![](http://ashung.github.io/Automate-Sketch/css/donate_alipay_rmb_10.png)
+[使用支付宝与微信捐款](https://ashung.github.io/donate.html)

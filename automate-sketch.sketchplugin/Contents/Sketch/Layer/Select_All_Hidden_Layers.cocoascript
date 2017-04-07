@@ -15,24 +15,22 @@ var onRun = function(context) {
     if (selection.count() > 0) {
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            delecteEmptyGroups(layer);
+            selectHiddenLayer(layer);
         }
     } else {
-        delecteEmptyGroups(page);
+        selectHiddenLayer(page);
     }
 
 }
 
-function delecteEmptyGroups(layer) {
-    if (layer.class() == "MSLayerGroup" && !layer.containsLayers()) {
-        layer.removeFromParent();
+function selectHiddenLayer(layer) {
+    if (!layer.isVisible()) {
+        layer.select_byExpandingSelection(true, true);
     } else {
-        if (layer.containsLayers() && layer.class() != "MSShapeGroup") {
-            var loopChildren = layer.children().objectEnumerator();
-            while (childLayer = loopChildren.nextObject()) {
-                if (childLayer.class() == "MSLayerGroup" && !childLayer.containsLayers()) {
-                    childLayer.removeFromParent();
-                }
+        var loopChildren = layer.children().objectEnumerator();
+        while (childLayer = loopChildren.nextObject()) {
+            if (!childLayer.isVisible()) {
+                childLayer.select_byExpandingSelection(true, true);
             }
         }
     }
