@@ -1,0 +1,61 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    // top to bottom
+    var typeIndexSettings = [
+        "MSSliceLayer",
+        "MSBitmapLayer",
+        "MSTextLayer",
+        "MSShapeGroup",
+        "MSSymbolInstance",
+        "MSLayerGroup",
+        "MSArtboardGroup",
+        "MSSymbolMaster"
+    ];
+
+    if (selection.count() > 1) {
+        var layers = [];
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            layers.push(layer);
+        }
+
+        layers.sort(function(a, b) {
+            var typeIndexA = typeIndexSettings.indexOf(a.class() + "");
+            var typeIndexB = typeIndexSettings.indexOf(b.class() + "");
+            if (typeIndexA + a.name() > typeIndexB + b.name()) {
+                return -1;
+            }
+            if (typeIndexA + a.name() < typeIndexB + b.name()) {
+                return 1;
+            }
+            return 0;
+        });
+
+        // log(layers);
+
+        var tempLayer = MSLayer.alloc().init();
+        selection.firstObject().parentGroup().insertLayers_beforeLayer([tempLayer], selection.firstObject());
+
+        for (var i = 0; i < layers.length; i++) {
+            var layer = selection.objectAtIndex(selection.indexOf(layers[i]));
+            layer.moveToLayer_beforeLayer(layer.parentGroup(), tempLayer);
+        }
+
+        tempLayer.removeFromParent();
+
+    } else {
+        doc.showMessage("You need to select at least 2 layers.");
+    }
+}

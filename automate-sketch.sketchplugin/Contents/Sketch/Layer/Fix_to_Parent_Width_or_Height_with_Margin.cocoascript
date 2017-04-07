@@ -6,7 +6,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/preferences.js";
+@import "../Utilities/Preferences.js";
 
 var fixToParentHeightWithMargin = function(context) {
 

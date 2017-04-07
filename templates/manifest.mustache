@@ -51,14 +51,45 @@
             "script": "Layer/Click_Through.cocoascript"
         },
         {
-            "name": "{{select_all_groups}}",
-            "identifier": "select_all_groups",
-            "script": "Layer/Select_All_Groups.cocoascript"
+            "name": "{{select_layers_by_type_group}}",
+            "identifier": "select_layers_by_type_group",
+            "handler": "selectAllGroupsInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "{{select_all_groups_in_artboard}}",
-            "identifier": "select_all_groups_in_artboard",
-            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
+            "name": "{{select_layers_by_type_text}}",
+            "identifier": "select_layers_by_type_text",
+            "handler": "selectAllTextsInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_type_shape}}",
+            "identifier": "select_layers_by_type_shape",
+            "handler": "selectAllShapesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_type_image}}",
+            "identifier": "select_layers_by_type_image",
+            "handler": "selectAllImagesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_type_symbol_instance}}",
+            "identifier": "select_layers_by_type_symbol_instance",
+            "handler": "selectAllSymbolInstancesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_type_slice}}",
+            "identifier": "select_layers_by_type_slice",
+            "handler": "selectAllSlicesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "{{select_all_hidden_layers}}",
+            "identifier": "select_all_hidden_layers",
+            "script": "Layer/Select_All_Hidden_Layers.cocoascript"
         },
         {
             "name": "{{select_all_child_layers}}",
@@ -71,24 +102,9 @@
             "script": "Layer/Clear_Layer_Name.cocoascript"
         },
         {
-            "name": "{{delete_all_hidden_layers}}",
-            "identifier": "delete_all_hidden_layers",
-            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "{{delete_all_hidden_layers_in_artboard}}",
-            "identifier": "delete_all_hidden_layers_in_artboard",
-            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-        },
-        {
             "name": "{{delete_all_empty_groups}}",
             "identifier": "delete_all_empty_groups",
             "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
-            "name": "{{delete_all_empty_groups_in_artboard}}",
-            "identifier": "delete_all_empty_groups_in_artboard",
-            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
         },
         {
             "name": "{{remove_redundant_groups}}",
@@ -169,6 +185,11 @@
             "script": "Arrange/Order_Layers_by_Name.cocoascript"
         },
         {
+            "name": "{{order_layers_by_kind}}",
+            "identifier": "order_layers_by_kind",
+            "script": "Arrange/Order_Layers_by_Kind.cocoascript"
+        },
+        {
             "name": "{{capitalize}}",
             "identifier": "capitalize",
             "script": "Type/Capitalize.cocoascript"
@@ -182,11 +203,6 @@
             "name": "{{add_space_between_cjk_and_western_character}}",
             "identifier": "add_space_between_cjk_and_western_character",
             "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
-        },
-        {
-            "name": "{{select_all_textLayer_in_selected_group}}",
-            "identifier": "select_all_textLayer_in_selected_group",
-            "script": "Type/Select_All_TextLayers_in_Selected_Group.cocoascript"
         },
         {
             "name": "{{unfixed_layer_name}}",
@@ -232,11 +248,6 @@
             "identifier": "new_layer_base_slice_for_svg",
             "handler": "new_slice_for_svg",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "{{select_slices_in_selected_group_or_artboard}}",
-            "identifier": "select_slices_in_selected_group_or_artboard",
-            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
         },
         {
             "name": "{{reset_export_options}}",
@@ -448,21 +459,9 @@
             "script": "Utilities/help.cocoascript"
         },
         {
-            "name": "{{donate_via_paypal}}",
-            "identifier": "donate_via_paypal",
-            "handler": "donateViaPaypal",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "{{donate_via_wechat}}",
-            "identifier": "donate_via_wechat",
-            "handler": "donateViaWechat",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "{{donate_via_alipay}}",
-            "identifier": "donate_via_alipay",
-            "handler": "donateViaAlipay",
+            "name": "{{donate}}",
+            "identifier": "donate",
+            "handler": "donate",
             "script": "Utilities/help.cocoascript"
         },
         {
@@ -489,17 +488,25 @@
                     "click_through_off",
                     "click_through_on",
                     "-",
-                    "select_all_groups",
-                    "select_all_groups_in_artboard",
+                    {
+                        "title": "{{select_layers_by_type}}",
+                        "items": [
+                            "select_layers_by_type_group",
+                            "select_layers_by_type_text",
+                            "select_layers_by_type_shape",
+                            "select_layers_by_type_image",
+                            "select_layers_by_type_symbol_instance",
+                            "select_layers_by_type_slice",
+                            "-",
+                            "select_all_hidden_layers"
+                        ]
+                    },
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "delete_all_hidden_layers",
-                    "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard",
                     "-",
                     "reverse_order_and_close_path",
                     "-",
@@ -518,9 +525,15 @@
                     "tile_layers_horizontally_by_index",
                     "tile_layers_vertically_by_index",
                     "-",
-                    "order_layers_by_x",
-                    "order_layers_by_y",
-                    "order_layers_by_name",
+                    {
+                        "title": "{{order_layers_by}}",
+                        "items": [
+                            "order_layers_by_x",
+                            "order_layers_by_y",
+                            "order_layers_by_name",
+                            "order_layers_by_kind"
+                        ]
+                    },
                     "reverse_layer_order"
                 ]
             },
@@ -549,7 +562,6 @@
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
-                    "select_slices_in_selected_group_or_artboard",
                     "reset_export_options",
                     "clear_slices",
                     "clear_exportables"
@@ -631,11 +643,9 @@
                     "report_issue",
                     "check_for_updates",
                     "-",
-                    "donate_via_paypal",
-                    "donate_via_wechat",
-                    "donate_via_alipay",
+                    "change_language",
                     "-",
-                    "change_language"
+                    "donate"
                 ]
             }
         ]

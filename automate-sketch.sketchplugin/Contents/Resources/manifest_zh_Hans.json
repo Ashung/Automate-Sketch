@@ -6,19 +6,19 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170331",
+    "version": "2.0.20170407",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
     "commands": [
         {
-            "name": "适配父级宽 (可有边距)",
+            "name": "带边距适配父级宽",
             "identifier": "fix_to_parent_width_with_margin",
             "handler": "fixToParentWidthWithMargin",
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
-            "name": "适配父级高 (可有边距)",
+            "name": "带边距适配父级高",
             "identifier": "fix_to_parent_height_with_margin",
             "handler": "fixToParentHeightWithMargin",
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
@@ -51,17 +51,48 @@
             "script": "Layer/Click_Through.cocoascript"
         },
         {
-            "name": "选择当页所有组",
-            "identifier": "select_all_groups",
-            "script": "Layer/Select_All_Groups.cocoascript"
+            "name": "组",
+            "identifier": "select_layers_by_type_group",
+            "handler": "selectAllGroupsInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "选择当页画板内所有组",
-            "identifier": "select_all_groups_in_artboard",
-            "script": "Layer/Select_All_Groups_in_Artboard.cocoascript"
+            "name": "文本图层",
+            "identifier": "select_layers_by_type_text",
+            "handler": "selectAllTextsInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "选择对象内所有图层",
+            "name": "形状图层",
+            "identifier": "select_layers_by_type_shape",
+            "handler": "selectAllShapesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "图形",
+            "identifier": "select_layers_by_type_image",
+            "handler": "selectAllImagesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "组件实例",
+            "identifier": "select_layers_by_type_symbol_instance",
+            "handler": "selectAllSymbolInstancesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "切片",
+            "identifier": "select_layers_by_type_slice",
+            "handler": "selectAllSlicesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "不可见图层",
+            "identifier": "select_all_hidden_layers",
+            "script": "Layer/Select_All_Hidden_Layers.cocoascript"
+        },
+        {
+            "name": "选择选中对象内所有子图层",
             "identifier": "select_all_child_layers",
             "script": "Layer/Select_All_Child_Layers.cocoascript"
         },
@@ -71,24 +102,9 @@
             "script": "Layer/Clear_Layer_Name.cocoascript"
         },
         {
-            "name": "清除所有不可见图层",
-            "identifier": "delete_all_hidden_layers",
-            "script": "Layer/Delete_All_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "清除选中画板下的不可见图层",
-            "identifier": "delete_all_hidden_layers_in_artboard",
-            "script": "Layer/Delete_All_Hidden_Layers_in_Artboard.cocoascript"
-        },
-        {
             "name": "清除所有空组",
             "identifier": "delete_all_empty_groups",
             "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
-            "name": "清除选中画板下的空组",
-            "identifier": "delete_all_empty_groups_in_artboard",
-            "script": "Layer/Delete_All_Empty_Groups_in_Artboard.cocoascript"
         },
         {
             "name": "删除不必要的嵌套组",
@@ -147,13 +163,13 @@
             "script": "Arrange/Tile_Objects.cocoascript"
         },
         {
-            "name": "据对象 X 值调整列表顺序",
+            "name": "X 坐标值",
             "identifier": "order_layers_by_x",
             "handler": "orderLayersByX",
             "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
         },
         {
-            "name": "据对象 Y 值调整列表顺序",
+            "name": "Y 坐标值",
             "identifier": "order_layers_by_y",
             "handler": "orderLayersByY",
             "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
@@ -164,9 +180,14 @@
             "script": "Arrange/Reverse_Layer_Order.cocoascript"
         },
         {
-            "name": "据对象名调整列表顺序",
+            "name": "名称",
             "identifier": "order_layers_by_name",
             "script": "Arrange/Order_Layers_by_Name.cocoascript"
+        },
+        {
+            "name": "类型",
+            "identifier": "order_layers_by_kind",
+            "script": "Arrange/Order_Layers_by_Kind.cocoascript"
         },
         {
             "name": "首字大写",
@@ -182,11 +203,6 @@
             "name": "中西文字体间增加空格",
             "identifier": "add_space_between_cjk_and_western_character",
             "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
-        },
-        {
-            "name": "选择选中组内所有文本图层",
-            "identifier": "select_all_textLayer_in_selected_group",
-            "script": "Type/Select_All_TextLayers_in_Selected_Group.cocoascript"
         },
         {
             "name": "取消当页固定图层名",
@@ -232,11 +248,6 @@
             "identifier": "new_layer_base_slice_for_svg",
             "handler": "new_slice_for_svg",
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "选择选中组或画板内的所有切片",
-            "identifier": "select_slices_in_selected_group_or_artboard",
-            "script": "Slice/Select_Slices_In_Selected_Group_or_Artboard.cocoascript"
         },
         {
             "name": "重置导出选项",
@@ -448,21 +459,9 @@
             "script": "Utilities/help.cocoascript"
         },
         {
-            "name": "通过 PayPal 捐赠 💵",
-            "identifier": "donate_via_paypal",
-            "handler": "donateViaPaypal",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "通过微信捐赠 💵",
-            "identifier": "donate_via_wechat",
-            "handler": "donateViaWechat",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "通过支付宝捐赠 💵",
-            "identifier": "donate_via_alipay",
-            "handler": "donateViaAlipay",
+            "name": "捐赠",
+            "identifier": "donate",
+            "handler": "donate",
             "script": "Utilities/help.cocoascript"
         },
         {
@@ -489,17 +488,25 @@
                     "click_through_off",
                     "click_through_on",
                     "-",
-                    "select_all_groups",
-                    "select_all_groups_in_artboard",
+                    {
+                        "title": "选择选中对象内所有...",
+                        "items": [
+                            "select_layers_by_type_group",
+                            "select_layers_by_type_text",
+                            "select_layers_by_type_shape",
+                            "select_layers_by_type_image",
+                            "select_layers_by_type_symbol_instance",
+                            "select_layers_by_type_slice",
+                            "-",
+                            "select_all_hidden_layers"
+                        ]
+                    },
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "delete_all_hidden_layers",
-                    "delete_all_hidden_layers_in_artboard",
                     "delete_all_empty_groups",
-                    "delete_all_empty_groups_in_artboard",
                     "-",
                     "reverse_order_and_close_path",
                     "-",
@@ -518,9 +525,15 @@
                     "tile_layers_horizontally_by_index",
                     "tile_layers_vertically_by_index",
                     "-",
-                    "order_layers_by_x",
-                    "order_layers_by_y",
-                    "order_layers_by_name",
+                    {
+                        "title": "调整列表顺序据对象的...",
+                        "items": [
+                            "order_layers_by_x",
+                            "order_layers_by_y",
+                            "order_layers_by_name",
+                            "order_layers_by_kind"
+                        ]
+                    },
                     "reverse_layer_order"
                 ]
             },
@@ -549,7 +562,6 @@
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
-                    "select_slices_in_selected_group_or_artboard",
                     "reset_export_options",
                     "clear_slices",
                     "clear_exportables"
@@ -631,11 +643,9 @@
                     "report_issue",
                     "check_for_updates",
                     "-",
-                    "donate_via_paypal",
-                    "donate_via_wechat",
-                    "donate_via_alipay",
+                    "change_language",
                     "-",
-                    "change_language"
+                    "donate"
                 ]
             }
         ]
