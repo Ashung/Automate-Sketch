@@ -7,8 +7,8 @@
 
 ## 安装方法
 
-{0}. 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
-{0}. 从各种插件管理应用中搜索 "Automate Sketch", 现支持  [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/).
+- 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
+- 从各种插件管理应用中搜索 "Automate Sketch", 现支持  [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/).
 
 ## 部分功能
 
