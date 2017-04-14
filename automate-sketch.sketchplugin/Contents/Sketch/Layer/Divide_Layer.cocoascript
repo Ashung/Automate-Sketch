@@ -1,3 +1,12 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Preferences.js";
 
 var onRun = function(context) {
 
@@ -5,42 +14,52 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if (selection.count() > 0 && selection.firstObject().class() == "MSShapeGroup") {
+
         var layer = selection.firstObject();
 
         // \d+x\d+
-        var userInputString = doc.askForUserInput_initialValue("Input 2x2, 2x1 or 1x2.", "2x2");
+        var userInputString = doc.askForUserInput_initialValue(
+            "Input 2x2, 2x1 or 1x2.",
+            getPreferences("divide") || "2x2"
+        );
 
-        if (/^\d+x\d+$/.test(userInputString) && eval(userInputString.replace("x", "*")) > 1) {
+        if (userInputString) {
 
-            var hCount = parseInt(/(\d+)/.exec(userInputString)[1]);
-            var vCount = parseInt(/x(\d+)/.exec(userInputString)[1]);
+            setPreferences("divide", userInputString.toString());
 
-            var originX = Math.floor(layer.frame().x()),
-                originY = Math.floor(layer.frame().y()),
-                width = layer.frame().width(),
-                height = layer.frame().height();
+            if (/^\d+x\d+$/.test(userInputString) && eval(userInputString.replace("x", "*")) > 1) {
 
-            var cellWidth = Math.floor(width / hCount),
-                cellHeight = Math.floor(height / vCount);
+                var hCount = parseInt(/(\d+)/.exec(userInputString)[1]);
+                var vCount = parseInt(/x(\d+)/.exec(userInputString)[1]);
 
-            for (var j = 0, y = originY; j < vCount; j++, y += cellHeight) {
-                for (var i = 0, x = originX; i < hCount; i++, x += cellWidth) {
-                    // log(i+","+j+" --> (x:" + x + ",y:" + y + ",w:" + cellWidth + ",h:" + cellHeight + ")");
-                    var cellLayer = layer.duplicate();
-                    cellLayer.frame().setX(x);
-                    cellLayer.frame().setY(y);
-                    cellLayer.frame().setConstrainProportions(false);
-                    cellLayer.frame().setWidth(cellWidth);
-                    cellLayer.frame().setHeight(cellHeight);
+                var originX = Math.floor(layer.frame().x()),
+                    originY = Math.floor(layer.frame().y()),
+                    width = layer.frame().width(),
+                    height = layer.frame().height();
 
-                    cellLayer.select_byExpandingSelection(true, true);
+                var cellWidth = Math.floor(width / hCount),
+                    cellHeight = Math.floor(height / vCount);
+
+                for (var j = 0, y = originY; j < vCount; j++, y += cellHeight) {
+                    for (var i = 0, x = originX; i < hCount; i++, x += cellWidth) {
+                        // log(i+","+j+" --> (x:" + x + ",y:" + y + ",w:" + cellWidth + ",h:" + cellHeight + ")");
+                        var cellLayer = layer.duplicate();
+                        cellLayer.frame().setX(x);
+                        cellLayer.frame().setY(y);
+                        cellLayer.frame().setConstrainProportions(false);
+                        cellLayer.frame().setWidth(cellWidth);
+                        cellLayer.frame().setHeight(cellHeight);
+
+                        cellLayer.select_byExpandingSelection(true, true);
+                    }
                 }
+
+                layer.removeFromParent();
+
+            } else {
+                doc.showMessage("Bad format.");
             }
 
-            layer.removeFromParent();
-
-        } else {
-            doc.showMessage("Bad format.");
         }
 
     } else {

@@ -79,19 +79,3 @@ function selectLayersInParent_byType(parent, type) {
     }
 
 }
-
-// function selectAllLayerByType(context, type) {
-//
-//     var doc = context.document;
-//     var page = doc.currentPage();
-//
-//     page.deselectAllLayers();
-//
-//     var loop = page.children().objectEnumerator();
-//     while (layer = loop.nextObject()) {
-//         if (layer.class() == type) {
-//             layer.select_byExpandingSelection(true, true);
-//         }
-//     }
-//
-// }
