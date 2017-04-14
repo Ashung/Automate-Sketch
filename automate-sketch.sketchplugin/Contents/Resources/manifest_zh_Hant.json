@@ -102,14 +102,19 @@
             "script": "Layer/Clear_Layer_Name.cocoascript"
         },
         {
-            "name": "清除所有空組",
-            "identifier": "delete_all_empty_groups",
-            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
             "name": "刪除不必要的嵌套組",
             "identifier": "remove_redundant_groups",
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
+        },
+        {
+            "name": "清除空圖層組",
+            "identifier": "remove_empty_groups",
+            "script": "Layer/Remove_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "清除隱藏圖層",
+            "identifier": "remove_invisible_layers",
+            "script": "Layer/Remove_Invisible_Layers.cocoascript"
         },
         {
             "name": "建立引用圖層",
@@ -506,7 +511,8 @@
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "delete_all_empty_groups",
+                    "remove_invisible_layers",
+                    "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",
                     "-",

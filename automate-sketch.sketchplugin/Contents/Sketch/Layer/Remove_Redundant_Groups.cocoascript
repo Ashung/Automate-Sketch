@@ -26,28 +26,28 @@ var onRun = function(context) {
 }
 
 function removeRedundantGroups(layer) {
-    if (layer.containedLayers() && layer.class() != "MSShapeGroup") {
-        if (layer.class() == "MSLayerGroup") {
-            // Ungroup Redundant Groups
-            if (layer.layers().count() == 1 && layer.layers().firstObject().class() == "MSLayerGroup") {
-                var child = layer.layers().firstObject();
-                if(groupIsSafeToUngroup(layer)) {
-                    layer.ungroup();
-                }
-                removeRedundantGroups(child);
-            } else {
-                for (var i = 0; i < layer.layers().count(); i++) {
-                    var childLayer = layer.layers().objectAtIndex(i);
-                    removeRedundantGroups(childLayer);
-                }
+    if (layer.class() == "MSLayerGroup") {
+        // Ungroup Redundant Groups
+        if (layer.layers().count() == 1 && layer.layers().firstObject().class() == "MSLayerGroup") {
+            var child = layer.layers().firstObject();
+            if(groupIsSafeToUngroup(layer)) {
+                layer.ungroup();
             }
-            // Remove Empty Groups
-            if (layer.layers().count() == 0) {
-                if(groupIsSafeToUngroup(layer)) {
-                    layer.removeFromParent();
-                }
-            }
+            removeRedundantGroups(child);
         } else {
+            for (var i = 0; i < layer.layers().count(); i++) {
+                var childLayer = layer.layers().objectAtIndex(i);
+                removeRedundantGroups(childLayer);
+            }
+        }
+        // Remove Empty Groups
+        if (layer.layers().count() == 0) {
+            if(groupIsSafeToUngroup(layer)) {
+                layer.removeFromParent();
+            }
+        }
+    } else {
+        if (layer.containedLayers() && layer.class() != "MSShapeGroup") {
             for (var i = 0; i < layer.layers().count(); i++) {
                 var childLayer = layer.layers().objectAtIndex(i);
                 removeRedundantGroups(childLayer);

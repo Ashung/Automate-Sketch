@@ -102,14 +102,19 @@
             "script": "Layer/Clear_Layer_Name.cocoascript"
         },
         {
-            "name": "Delete Empty Groups",
-            "identifier": "delete_all_empty_groups",
-            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
             "name": "Remove Redundant Groups",
             "identifier": "remove_redundant_groups",
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
+        },
+        {
+            "name": "Remove Empty Groups",
+            "identifier": "remove_empty_groups",
+            "script": "Layer/Remove_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "Remove Invisible Layers",
+            "identifier": "remove_invisible_layers",
+            "script": "Layer/Remove_Invisible_Layers.cocoascript"
         },
         {
             "name": "Create Include Layer",
@@ -506,7 +511,8 @@
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "delete_all_empty_groups",
+                    "remove_invisible_layers",
+                    "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",
                     "-",

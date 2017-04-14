@@ -102,14 +102,19 @@
             "script": "Layer/Clear_Layer_Name.cocoascript"
         },
         {
-            "name": "{{delete_all_empty_groups}}",
-            "identifier": "delete_all_empty_groups",
-            "script": "Layer/Delete_All_Empty_Groups.cocoascript"
-        },
-        {
             "name": "{{remove_redundant_groups}}",
             "identifier": "remove_redundant_groups",
             "script": "Layer/Remove_Redundant_Groups.cocoascript"
+        },
+        {
+            "name": "{{remove_empty_groups}}",
+            "identifier": "remove_empty_groups",
+            "script": "Layer/Remove_Empty_Groups.cocoascript"
+        },
+        {
+            "name": "{{remove_invisible_layers}}",
+            "identifier": "remove_invisible_layers",
+            "script": "Layer/Remove_Invisible_Layers.cocoascript"
         },
         {
             "name": "{{create_include_layer}}",
@@ -506,7 +511,8 @@
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "delete_all_empty_groups",
+                    "remove_invisible_layers",
+                    "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",
                     "-",
