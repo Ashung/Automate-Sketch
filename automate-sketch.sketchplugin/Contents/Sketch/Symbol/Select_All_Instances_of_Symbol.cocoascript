@@ -93,8 +93,7 @@ var onRun = function(context) {
             }
 
             // Same as CMD + 2
-            var view = doc.currentView();
-            view.zoomToSelection();
+            NSApp.sendAction_to_from("zoomToSelection:", nil, doc);
 
         }
     }

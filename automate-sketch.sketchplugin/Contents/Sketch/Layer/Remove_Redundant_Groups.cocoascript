@@ -1,9 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -29,18 +28,33 @@ var onRun = function(context) {
 function removeRedundantGroups(parent) {
     for (var i = parent.children().count(); i > 0; i --) {
         var layer = parent.children().objectAtIndex(i - 1);
+
         // Ungroup Redundant Groups
         if (layer.class() == "MSLayerGroup" && layer.layers().count() == 1) {
             if (layer.layers().firstObject().class() == "MSLayerGroup") {
                 var child = layer.layers().firstObject();
-                layer.ungroup();
+                if(groupIsSafeToUngroup(layer)) {
+                    layer.ungroup();
+                }
                 removeRedundantGroups(child);
                 break;
             }
         }
         // Remove Empty Groups
         if (layer.class() == "MSLayerGroup" && layer.layers().count() == 0) {
-            layer.removeFromParent();
+            if(groupIsSafeToUngroup(layer)) {
+                layer.removeFromParent();
+            }
         }
+
     }
+}
+
+function groupIsSafeToUngroup(group) {
+    var noOpacity = (group.style().contextSettingsGeneric().opacity() == 1),
+        noBlending = (group.style().hasBlending() == 0),
+        noShadows = (group.style().hasEnabledShadow() == 0),
+        noResizing = (group.resizingType() == 0),
+        noExportOptions = (group.exportOptions().exportFormats().count() == 0);
+    return noOpacity && noBlending && noShadows && noResizing && noExportOptions;
 }
