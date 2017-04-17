@@ -58,7 +58,6 @@ switch_between_portrait_and_landscape: "切換畫板為縱向或橫向"
 select_all_missing_instances_in_current_page: "選擇當頁所有損壞的元件例項"
 select_all_instances_of_symbol: "選擇元件的所有例項"
 rename_instances: "重新命名例項"
-rename_all_instances: "重新命名所有例項"
 selection_to_symbol_master: "將選中圖層直接變為元件"
 detach_unused_symbol_master: "將選中的未用元件轉為組"
 remove_unused_symbols: "刪除未用元件"
@@ -94,7 +93,7 @@ sync_symbol_master_from_sketch_file: "從 Sketh 檔案同步元件模版"
 import_document_assets_from_sketch_file: "從 Sketh 檔案匯入資源"
 import_text_styles_from_sketch_file: "從 Sketh 檔案匯入文字樣式"
 import_layer_styles_from_sketch_file: "從 Sketh 檔案匯入圖層樣式"
-replace_pages_form_sketch_file: "從 Sketh 檔案替换頁面"
+replace_pages_form_sketch_file: "從 Sketh 檔案替换同名頁面"
 create_color_guide: 建立色彩指南
 create_typography_guide: 建立字型指南
 export_all_artboars_to_html: 將所有畫板匯出為 HTML

@@ -58,7 +58,6 @@ switch_between_portrait_and_landscape: "Switch Between Portrait and Landscape"
 select_all_missing_instances_in_current_page: "Select All Missing Instances in Current Page"
 select_all_instances_of_symbol: "Select All Instances of Symbol"
 rename_instances: "Rename Instances"
-rename_all_instances: "Rename All Instances"
 selection_to_symbol_master: "Selection to Symbol Master"
 detach_unused_symbol_master: "Detach Unused Symbol Master"
 remove_unused_symbols: "Remove Unused Symbols"
@@ -94,7 +93,7 @@ sync_symbol_master_from_sketch_file: "Sync Symbol Master from Sketch File"
 import_document_assets_from_sketch_file: "Import Document Assets from Sketch File"
 import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
 import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"
-replace_pages_form_sketch_file: "Replace Pages form Sketch File"
+replace_pages_form_sketch_file: "Replace Pages with Same Name form Sketch File"
 create_color_guide: Create Color Guide
 create_typography_guide: Create Typography Guide
 export_all_artboars_to_html: Export All Artboards to HTML

@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170414",
+    "version": "2.0.20170417",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -325,11 +325,6 @@
             "script": "Symbol/Rename_Instances.cocoascript"
         },
         {
-            "name": "重命名所有实例",
-            "identifier": "rename_all_instances",
-            "script": "Symbol/Rename_All_Instances.cocoascript"
-        },
-        {
             "name": "将选中图层直接变为组件",
             "identifier": "selection_to_symbol_master",
             "script": "Symbol/Selection_to_Symbol.cocoascript"
@@ -365,7 +360,7 @@
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
         {
-            "name": "从 Sketh 文档替换页面",
+            "name": "从 Sketh 文档替换同名页面",
             "identifier": "replace_pages_form_sketch_file",
             "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
         },
@@ -596,7 +591,6 @@
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
-                    "rename_all_instances",
                     "-",
                     "move_symbol_masters_to_bottom_of_another",
                     "selection_to_symbol_master",
