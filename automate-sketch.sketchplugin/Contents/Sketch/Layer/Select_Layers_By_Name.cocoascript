@@ -1,0 +1,107 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Preferences.js";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    var defaultUserInputString = getPreferences("selectLayersByName") || "";
+
+    // Dialog
+    var dialog = COSAlertWindow.new();
+    dialog.setMessageText("Select Layer by Name.");
+    dialog.setInformativeText("Tips: You can find the postscript name of font from \"Font Book\" app.")
+
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(defaultUserInputString);
+    dialog.addAccessoryView(textField);
+
+    var checkboxIgnoreCase = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkboxIgnoreCase.setButtonType(NSSwitchButton);
+    checkboxIgnoreCase.setTitle("Ignore Case");
+    checkboxIgnoreCase.setState(NSOffState);
+    dialog.addAccessoryView(checkboxIgnoreCase);
+
+    var checkboxRegExp = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkboxRegExp.setButtonType(NSSwitchButton);
+    checkboxRegExp.setTitle("RegExp");
+    checkboxRegExp.setState(NSOffState);
+    dialog.addAccessoryView(checkboxRegExp);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+
+    var responseCode = dialog.runModal();
+
+
+    // if (responseCode == 1000) {
+
+
+    // \d+, \d+x\d+
+    // var userInputString = doc.askForUserInput_initialValue(
+    //     'String like "123" or RegExp like "/\d+/gi".',
+    //     defaultUserInputString
+    // );
+
+    // if (userInputString) {
+    //
+    //     setPreferences("selectLayersByName", userInputString.toString());
+    //
+    //     var t = new RegExp(userInputString, "gi").toString()
+    //     doc.showMessage(t);
+
+
+        // if (/\/(.*)\/([gi]?)/.test(userInputString)) {
+        //
+        // }
+
+
+        // page.deselectAllLayers();
+        //
+        // if (selection.count() > 0) {
+        //     var loop = selection.objectEnumerator();
+        //     while (layer = loop.nextObject()) {
+        //         selectLayersInParent_byName(layer, name);
+        //     }
+        // } else {
+        //     selectLayersInParent_byName(page, name);
+        // }
+    // }
+
+
+
+}
+
+function selectLayersInParent_byName(parent, name) {
+    if (
+        parent.containsLayers() && parent.class() != "MSShapeGroup"
+    ) {
+        var loopChildrens = parent.children().objectEnumerator();
+        var layer;
+        while (layer = loopChildrens.nextObject()) {
+
+            if (/\/.*\/[gi]?/.test(name)) {
+                if (layer.name() == name) {
+                    layer.select_byExpandingSelection(true, true);
+                }
+            } else {
+                if (layer.name() == name) {
+                    layer.select_byExpandingSelection(true, true);
+                }
+            }
+
+
+
+        }
+    }
+}
