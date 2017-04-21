@@ -18,22 +18,22 @@ var onRun = function(context) {
 
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            removeInvisibleLayers(layer, function(_count) {
+            removeHiddenLayers(layer, function(_count) {
                 count += _count;
             });
         }
 
     } else {
-        removeInvisibleLayers(page, function(_count) {
+        removeHiddenLayers(page, function(_count) {
             count = _count;
         });
     }
 
-    doc.showMessage(count + " invisible layers removed.");
+    doc.showMessage(count + " hidden layers removed.");
 
 }
 
-function removeInvisibleLayers(parent, callback) {
+function removeHiddenLayers(parent, callback) {
 
     var count = 0;
 
