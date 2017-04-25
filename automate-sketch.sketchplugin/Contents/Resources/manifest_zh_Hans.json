@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170419",
+    "version": "2.0.20170425",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -92,7 +92,7 @@
             "script": "Layer/Select_Layers_By_Name.cocoascript"
         },
         {
-            "name": "不可见图层",
+            "name": "隐藏图层",
             "identifier": "select_all_hidden_layers",
             "script": "Layer/Select_All_Hidden_Layers.cocoascript"
         },
@@ -118,8 +118,8 @@
         },
         {
             "name": "清除隐藏图层",
-            "identifier": "remove_invisible_layers",
-            "script": "Layer/Remove_Invisible_Layers.cocoascript"
+            "identifier": "remove_hidden_layers",
+            "script": "Layer/Remove_Hidden_Layers.cocoascript"
         },
         {
             "name": "创建引用图层",
@@ -137,6 +137,11 @@
             "name": "反转顺序并关闭路径",
             "identifier": "reverse_order_and_close_path",
             "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
+        },
+        {
+            "name": "复制选中图层的名称",
+            "identifier": "copy_selected_layer_name",
+            "script": "Layer/Copy_Selected_Layer_Name.cocoascript"
         },
         {
             "name": "两对象互换位置",
@@ -511,9 +516,10 @@
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
+                    "copy_selected_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "remove_invisible_layers",
+                    "remove_hidden_layers",
                     "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",

@@ -98,3 +98,4 @@ replace_pages_form_sketch_file: "Replace Pages with Same Name form Sketch File"
 create_color_guide: Create Color Guide
 create_typography_guide: Create Typography Guide
 export_all_artboars_to_html: Export All Artboards to HTML
+copy_selected_layer_name: Copy Selected Layer Name

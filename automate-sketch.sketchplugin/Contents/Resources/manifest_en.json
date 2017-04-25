@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170419",
+    "version": "2.0.20170425",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -92,7 +92,7 @@
             "script": "Layer/Select_Layers_By_Name.cocoascript"
         },
         {
-            "name": "Invisiable Layers",
+            "name": "Hidden Layers",
             "identifier": "select_all_hidden_layers",
             "script": "Layer/Select_All_Hidden_Layers.cocoascript"
         },
@@ -117,9 +117,9 @@
             "script": "Layer/Remove_Empty_Groups.cocoascript"
         },
         {
-            "name": "Remove Invisible Layers",
-            "identifier": "remove_invisible_layers",
-            "script": "Layer/Remove_Invisible_Layers.cocoascript"
+            "name": "Remove Hidden Layers",
+            "identifier": "remove_hidden_layers",
+            "script": "Layer/Remove_Hidden_Layers.cocoascript"
         },
         {
             "name": "Create Include Layer",
@@ -137,6 +137,11 @@
             "name": "Reverse Order and Close Path",
             "identifier": "reverse_order_and_close_path",
             "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
+        },
+        {
+            "name": "Copy Selected Layer Name",
+            "identifier": "copy_selected_layer_name",
+            "script": "Layer/Copy_Selected_Layer_Name.cocoascript"
         },
         {
             "name": "Change Places Between Two Objects",
@@ -511,9 +516,10 @@
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
+                    "copy_selected_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "remove_invisible_layers",
+                    "remove_hidden_layers",
                     "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",

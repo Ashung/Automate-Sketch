@@ -98,3 +98,4 @@ replace_pages_form_sketch_file: "从 Sketh 文档替换同名页面"
 create_color_guide: 创建色彩指南
 create_typography_guide: 创建字体指南
 export_all_artboars_to_html: 将所有画板导出为 HTML
+copy_selected_layer_name: 复制选中图层的名称

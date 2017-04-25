@@ -12,7 +12,8 @@ function getPreferences(key) {
         var defaultPreferences = NSMutableDictionary.alloc().init();
         defaultPreferences.setObject_forKey("16", "margin");
         defaultPreferences.setObject_forKey("24", "boundsSize");
-        defaultPreferences.setObject_forKey(8, "gap");
+        defaultPreferences.setObject_forKey("8", "gap");
+        defaultPreferences.setObject_forKey("2x1", "divide");
         defaultPreferences.setObject_forKey("Roboto-Regular", "defaultLatinFont");
         defaultPreferences.setObject_forKey("NotoSansCJKsc-Regular", "defaultCJKFont");
         defaultPreferences.setObject_forKey("NotoSansCJKsc-Regular", "replaceFont");
