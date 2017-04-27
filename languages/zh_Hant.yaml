@@ -7,6 +7,7 @@ slice: "切片"
 artboard: "畫板"
 symbol: "元件"
 style: "样式"
+development: "開發"
 guide: "辅助线"
 utilities: "實用工具"
 help: "幫助"
@@ -99,3 +100,4 @@ create_color_guide: 建立色彩指南
 create_typography_guide: 建立字型指南
 export_all_artboars_to_html: 將所有畫板匯出為 HTML
 copy_selected_layer_name: 複製選中圖層的名稱
+copy_slice_as_base64: 複製切片的 Base64

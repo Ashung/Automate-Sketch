@@ -8,6 +8,7 @@ artboard: "画板"
 symbol: "组件"
 style: "样式"
 guide: "辅助线"
+development: "开发"
 utilities: "实用工具"
 help: "帮助"
 fix_to_parent_width_with_margin: "带边距适配父级宽"
@@ -99,3 +100,4 @@ create_color_guide: 创建色彩指南
 create_typography_guide: 创建字体指南
 export_all_artboars_to_html: 将所有画板导出为 HTML
 copy_selected_layer_name: 复制选中图层的名称
+copy_slice_as_base64: 复制切片的 Base64

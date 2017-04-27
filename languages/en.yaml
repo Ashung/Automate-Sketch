@@ -8,6 +8,7 @@ artboard: "Artboard"
 symbol: "Symbol"
 style: "Style"
 guide: "Guide"
+development: "Development"
 utilities: "Utilities"
 help: "Help"
 fix_to_parent_width_with_margin: "Fix to Parent Width with Margin"
@@ -99,3 +100,4 @@ create_color_guide: Create Color Guide
 create_typography_guide: Create Typography Guide
 export_all_artboars_to_html: Export All Artboards to HTML
 copy_selected_layer_name: Copy Selected Layer Name
+copy_slice_as_base64: Copy Slice As Base64
