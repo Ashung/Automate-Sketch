@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170427",
+    "version": "2.0.20170502",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -137,11 +137,6 @@
             "name": "Reverse Order and Close Path",
             "identifier": "reverse_order_and_close_path",
             "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
-        },
-        {
-            "name": "Copy Selected Layer Name",
-            "identifier": "copy_selected_layer_name",
-            "script": "Layer/Copy_Selected_Layer_Name.cocoascript"
         },
         {
             "name": "Change Places Between Two Objects",
@@ -480,6 +475,11 @@
             "script": "Utilities/Change_Languages.cocoascript"
         },
         {
+            "name": "Copy Selected Layer Name",
+            "identifier": "copy_selected_layer_name",
+            "script": "Development/Copy_Selected_Layer_Name.cocoascript"
+        },
+        {
             "name": "Copy Slice As Base64",
             "identifier": "copy_slice_as_base64",
             "script": "Development/Copy_Slice_As_Base64.cocoascript"
@@ -521,7 +521,6 @@
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
-                    "copy_selected_layer_name",
                     "-",
                     "remove_redundant_groups",
                     "remove_hidden_layers",
@@ -647,7 +646,8 @@
             {
                 "title": "Development",
                 "items": [
-                    "copy_slice_as_base64"
+                    "copy_slice_as_base64",
+                    "copy_selected_layer_name"
                 ]
             },
             {

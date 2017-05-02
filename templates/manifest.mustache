@@ -139,11 +139,6 @@
             "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
         },
         {
-            "name": "{{copy_selected_layer_name}}",
-            "identifier": "copy_selected_layer_name",
-            "script": "Layer/Copy_Selected_Layer_Name.cocoascript"
-        },
-        {
             "name": "{{change_layer_places}}",
             "identifier": "change_layer_places",
             "script": "Arrange/Change_Places.cocoascript"
@@ -480,6 +475,11 @@
             "script": "Utilities/Change_Languages.cocoascript"
         },
         {
+            "name": "{{copy_selected_layer_name}}",
+            "identifier": "copy_selected_layer_name",
+            "script": "Development/Copy_Selected_Layer_Name.cocoascript"
+        },
+        {
             "name": "{{copy_slice_as_base64}}",
             "identifier": "copy_slice_as_base64",
             "script": "Development/Copy_Slice_As_Base64.cocoascript"
@@ -521,7 +521,6 @@
                     "select_all_child_layers",
                     "-",
                     "clear_layer_name",
-                    "copy_selected_layer_name",
                     "-",
                     "remove_redundant_groups",
                     "remove_hidden_layers",
@@ -647,7 +646,8 @@
             {
                 "title": "{{development}}",
                 "items": [
-                    "copy_slice_as_base64"
+                    "copy_slice_as_base64",
+                    "copy_selected_layer_name"
                 ]
             },
             {

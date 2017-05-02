@@ -21,12 +21,12 @@ var onRun = function(context) {
         doc.saveArtboardOrSlice_toFile(slice, tempFile);
 
         // Covert file to base64
-        var base64Code = NSData.dataWithContentsOfFile(tempFile).base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed));
+        var base64Code = NSData.dataWithContentsOfFile(tempFile).base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
 
         // Remove temp file
         NSFileManager.defaultManager().removeItemAtPath_error_(tempFile, nil);
 
-        switch (format) {
+        switch (format + "") {
             case "png":
                 base64Code = "data:image/png;base64," + base64Code;
                 break;
