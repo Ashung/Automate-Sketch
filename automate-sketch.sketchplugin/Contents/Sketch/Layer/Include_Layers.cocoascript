@@ -39,7 +39,7 @@ var createIncludeLayer = function(context) {
         target.removeFromParent();
 
     } else {
-        doc.showMessage("Please selected 1 rectangle layer and 1 gourp/artboard.");
+        doc.showMessage("Please select 1 rectangle layer and 1 group/artboard.");
     }
 
 }
