@@ -434,18 +434,6 @@
             "script": "Utilities/Nudge_Distance_Setting.cocoascript"
         },
         {
-            "name": "{{show_file_in_finder}}",
-            "identifier": "show_file_in_finder",
-            "handler": "showFileInFinder",
-            "script": "Utilities/Utilities.cocoascript"
-        },
-        {
-            "name": "{{open_terminal_at_file_folder}}",
-            "identifier": "open_terminal_at_file_folder",
-            "handler": "openTerminalAtFileFolder",
-            "script": "Utilities/Utilities.cocoascript"
-        },
-        {
             "name": "{{web_site}}",
             "identifier": "web_site",
             "handler": "website",
@@ -483,6 +471,18 @@
             "name": "{{copy_slice_as_base64}}",
             "identifier": "copy_slice_as_base64",
             "script": "Development/Copy_Slice_As_Base64.cocoascript"
+        },
+        {
+            "name": "{{show_file_in_finder}}",
+            "identifier": "show_file_in_finder",
+            "handler": "showFileInFinder",
+            "script": "Development/Open_Finder_or_Terminal.cocoascript"
+        },
+        {
+            "name": "{{open_terminal_at_file_folder}}",
+            "identifier": "open_terminal_at_file_folder",
+            "handler": "openTerminalAtFileFolder",
+            "script": "Development/Open_Finder_or_Terminal.cocoascript"
         }
     ],
     "menu": {
@@ -647,17 +647,17 @@
                 "title": "{{development}}",
                 "items": [
                     "copy_slice_as_base64",
-                    "copy_selected_layer_name"
+                    "copy_selected_layer_name",
+                    "-",
+                    "show_file_in_finder",
+                    "open_terminal_at_file_folder"
                 ]
             },
             {
                 "title": "{{utilities}}",
                 "items": [
                     "svg_export_setting",
-                    "nudge_distance_setting",
-                    "-",
-                    "show_file_in_finder",
-                    "open_terminal_at_file_folder"
+                    "nudge_distance_setting"
                 ]
             },
             {

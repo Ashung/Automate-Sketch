@@ -20,7 +20,8 @@ var showFileInFinder = function(context) {
 var openTerminalAtFileFolder = function(context) {
     var doc = context.document;
     if (!doc.fileURL()) {
-        doc.showMessage("You have to save this document.");
+        // doc.showMessage("You have to save this document.");
+        NSWorkspace.sharedWorkspace().openFile_withApplication_(nil, "Terminal");
     } else {
         var fileFolder = doc.fileURL().path().stringByDeletingLastPathComponent();
         NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Terminal");
