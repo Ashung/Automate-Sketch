@@ -1,0 +1,52 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    var count = 0;
+
+    if (selection.count() > 0) {
+
+        var loop = selection.objectEnumerator();
+        while (layer = loop.nextObject()) {
+            removeHiddenLayers(layer, function(_count) {
+                count += _count;
+            });
+        }
+
+    } else {
+        removeHiddenLayers(page, function(_count) {
+            count = _count;
+        });
+    }
+
+    doc.showMessage(count + " hidden layers removed.");
+
+}
+
+function removeHiddenLayers(parent, callback) {
+
+    var count = 0;
+
+    if (parent.containsLayers()) {
+        var loop = parent.children().objectEnumerator();
+        var layer;
+        while (layer = loop.nextObject()) {
+            if (!layer.isVisible()) {
+                layer.removeFromParent();
+                count ++;
+            }
+        }
+    }
+
+    callback(count);
+}

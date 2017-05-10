@@ -7,12 +7,12 @@
 
 ## 安装方法
 
+- 从各种插件管理应用中搜索 "Automate Sketch"，现支持  [Sketch Runner](http://sketchrunner.com/)、[Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/)。
 - 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
-- 从各种插件管理应用中搜索 "Automate Sketch", 现支持  [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/).
 
 ## 部分功能
 
-| Menu                                     | Note                                     |
+| 菜单                                       | 备注                                       |
 | ---------------------------------------- | ---------------------------------------- |
 | **Layer**                                |                                          |
 | Fix to Parent Width (Height) with Margin | 适配父级的宽度或高度，可设置边距                         |
@@ -20,11 +20,12 @@
 | Divide Layer                             | 均分图层                                     |
 | Unlock All Layers                        | 解锁所有图层                                   |
 | Click Through On (Off)                   | 点击穿透开关                                   |
-| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、隐藏图层。               |
+| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、隐藏图层、图层名。           |
 | Select All Child Layers                  | 选择所有子图层                                  |
 | Clear Layer Name                         | 清理图层名，删除 copy                            |
-| Remove Redundant Groups                  | 删除多余的嵌套组                                 |
-| Delete All Empty Groups                  | 删除空组                                     |
+| Remove Redundant Groups                  | 删除多余的嵌套组 [^1]                            |
+| Remove Hidden Layers                     | 删除隐藏图层[^1]                               |
+| Delete Empty Groups                      | 删除空组[^1]                                 |
 | Create / Sync Include Layer              | 创建/同步引用图层                                |
 | Reverse Order And Close Path             | 反转顺序并关闭路径                                |
 | **Arrange**                              |                                          |
@@ -78,11 +79,18 @@
 | Import Layer Styles from Sketch File     | 从 Sketch 文件导入图层样式                        |
 | **Guides**                               |                                          |
 | Clear Guides                             | 清除辅助线                                    |
+| **Development**                          |                                          |
+| Copy Slice as Base64                     | 切片复制为 Base64                             |
+| Copy Selected Layer Name                 | 复制选中图层名                                  |
+| Show File in Finder                      | 在 Finder 中打开当前文档                         |
+| Open Termianl at File Folder             | 打开终端并切换到当前文档的目录                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       | SVG 导出设置                                 |
 | Nudge Distance Setting                   | 微调距离设置                                   |
-| Show File in Finder                      | 在 Finder 中打开当前文档                         |
-| Open Termianl at File Folder             | 打开终端并切换到当前文档的目录                          |
+
+[^1]: 当有选中元素时，将只操作元素内的图层。
+
+dd
 
 ## 声明
 

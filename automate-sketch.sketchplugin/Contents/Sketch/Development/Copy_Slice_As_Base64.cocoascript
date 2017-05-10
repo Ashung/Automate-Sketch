@@ -1,0 +1,58 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 1 && selection.firstObject().class() == "MSSliceLayer") {
+
+        var slice = selection.firstObject();
+        var format = slice.exportOptions().exportFormats().firstObject().fileFormat();
+        var tempFile = NSTemporaryDirectory().stringByAppendingPathComponent(slice.objectID() + "." + format);
+
+        // Export slice
+        doc.saveArtboardOrSlice_toFile(slice, tempFile);
+
+        // Covert file to base64
+        var base64Code = NSData.dataWithContentsOfFile(tempFile).base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
+
+        // Remove temp file
+        NSFileManager.defaultManager().removeItemAtPath_error_(tempFile, nil);
+
+        switch (format + "") {
+            case "png":
+                base64Code = "data:image/png;base64," + base64Code;
+                break;
+            case "jpg":
+                base64Code = "data:image/jpeg;base64," + base64Code;
+                break;
+            case "tif":
+                base64Code = "data:image/tiff;base64," + base64Code;
+                break;
+            case "webp":
+                base64Code = "data:image/webp;base64," + base64Code;
+                break;
+            case "svg":
+                base64Code = "data:image/svg+xml;base64," + base64Code;
+                break;
+        }
+
+        // Paste board
+        var pboard = NSPasteboard.generalPasteboard();
+        pboard.clearContents();
+        pboard.setString_forType_(base64Code, NSStringPboardType);
+
+        doc.showMessage("The base64 code of slice has copyed.");
+
+    } else {
+        doc.showMessage("Please select 1 slice layer.");
+    }
+
+}

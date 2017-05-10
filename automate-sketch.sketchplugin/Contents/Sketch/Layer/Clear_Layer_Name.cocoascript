@@ -1,9 +1,8 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
@@ -31,7 +30,7 @@ var onRun = function(context) {
     }
 
     doc.showMessage(count + " layer name cleaned.");
-    
+
 }
 
 function clearLayerName(arg_layer, callback) {

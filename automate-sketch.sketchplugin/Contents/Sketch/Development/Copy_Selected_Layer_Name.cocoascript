@@ -1,0 +1,35 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (selection.count() > 0) {
+
+        var pasteBoardString = NSMutableString.alloc().init();
+        var loopSelection = selection.reverseObjectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+            pasteBoardString.appendString(layer.name() + "\n");
+        }
+
+        var pboard = NSPasteboard.generalPasteboard();
+        pboard.clearContents();
+        pboard.setString_forType_(pasteBoardString, NSStringPboardType);
+
+        document.showMessage("Layer names has copyed.");
+
+    } else {
+
+        document.showMessage("Please select at least one layer.");
+
+    }
+
+}

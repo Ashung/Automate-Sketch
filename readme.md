@@ -9,8 +9,8 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 
 ## Installation
 
-- Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
 - Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) or [Sketch Toolbox](http://sketchtoolbox.com/).
+- Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
 
 ## Features
 
@@ -22,18 +22,19 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Divide Layer                             |                                          |
 | Unlock All Layers                        |                                          |
 | Click Through On (Off)                   |                                          |
-| Select All Layers In Selection By ...    | Group, Text, Shape, Image, Symbol Instance, Slice, Invisibile Layer |
-| Select All Child Layers                  |                                          |
+| Select Layers In Selection By ...        | Group, Text, Shape, Image, Symbol Instance, Slice, Invisibile Layer, Name |
+| Select Child Layers                      |                                          |
 | Clear Layer Name                         |                                          |
 | Remove Redundant Groups                  |                                          |
-| Delete All Empty Groups                  |                                          |
-| Create / Sync Include Layer              |                                          |
+| Remove Hidden Layers                     |                                          |
+| Remove Empty Groups                      |                                          |
 | Reverse Order And Close Path             |                                          |
+| Create / Sync Include Layer              |                                          |
 | **Arrange**                              |                                          |
 | Change Places Between Two Layers         |                                          |
 | Tile Layers by Position X (Y)            |                                          |
 | Tile Layers Horizontally (Vertically) by Index |                                          |
-| Order Layers By ...                      | X, Y, Name, Type                         |
+| Order Layers By ...                      | X, Y, Name, Kind                         |
 | Reverse Layer Order                      |                                          |
 | **Type**                                 |                                          |
 | Capitalize                               |                                          |
@@ -53,8 +54,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Artboard to Group                        |                                          |
 | Resize to Fix Height                     |                                          |
 | Switch Between Portrait and Landscape    |                                          |
-| Export All Artboards to PNG              |                                          |
-| Export All Artboards to HTML             |                                          |
+| Export All Artboards to PNG / HTML       |                                          |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           |                                          |
 | Select All Missing Instances in Current Page |                                          |
@@ -78,11 +78,14 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | Import Layer Styles from Sketch File     |                                          |
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
+| **Development**                          |                                          |
+| Copy Slice as Base64                     |                                          |
+| Copy Selected Layer Name                 |                                          |
+| Show File in Finder                      |                                          |
+| Open Termianl at File Folder             |                                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       |                                          |
 | Nudge Distance Setting                   |                                          |
-| Show File in Finder                      |                                          |
-| Open Termianl at File Folder             |                                          |
 
 ## License
 

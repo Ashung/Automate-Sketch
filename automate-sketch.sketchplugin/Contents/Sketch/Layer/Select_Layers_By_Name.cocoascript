@@ -1,0 +1,95 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Preferences.cocoascript";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    var defaultUserInputString = getPreferences("selectLayersByName") || "";
+
+    // Dialog
+    var dialog = COSAlertWindow.new();
+    dialog.setMessageText("Select Layer by Name.");
+    dialog.setInformativeText("Tips: String like \"123\" or RegExp like \"\\d+\".")
+
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(defaultUserInputString);
+    dialog.addAccessoryView(textField);
+
+    var checkboxRegExp = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkboxRegExp.setButtonType(NSSwitchButton);
+    checkboxRegExp.setTitle("RegExp");
+    checkboxRegExp.setState(getPreferences("selectLayersByNameRegExp") == 1 ? NSOnState : NSOffState);
+    dialog.addAccessoryView(checkboxRegExp);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+
+    if (responseCode == 1000) {
+
+        if (checkboxRegExp.state() == 1) {
+            setPreferences("selectLayersByNameRegExp", true);
+        } else {
+            setPreferences("selectLayersByNameRegExp", false);
+        }
+
+        var userInputString = textField.stringValue();
+        if (userInputString) {
+
+            setPreferences("selectLayersByName", userInputString);
+
+            if (checkboxRegExp.state() == 1) {
+                selectLayerByNameWithSelection(page, selection, userInputString, true);
+            } else {
+                selectLayerByNameWithSelection(page, selection, userInputString, false);
+            }
+
+        }
+
+    }
+
+}
+
+function selectLayerByNameWithSelection(page, selection, userInputString, regexp) {
+    if (selection.count() == 0) {
+        selectLayerByName(page, userInputString, regexp);
+    } else {
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+            var loopChildren = layer.children().objectEnumerator();
+            var child;
+            while (child = loopChildren.nextObject()) {
+                selectLayerByName(child, userInputString, regexp);
+            }
+        }
+    }
+}
+
+function selectLayerByName(parent, name, regexp) {
+    parent.parentPage().deselectAllLayers();
+    var loop = parent.children().objectEnumerator();
+    var child;
+    while (child = loop.nextObject()) {
+        if (regexp) {
+            if (RegExp(name).test(child.name())) {
+                child.select_byExpandingSelection(true, true);
+            }
+        } else {
+            if (child.name() == name) {
+                child.select_byExpandingSelection(true, true);
+            }
+        }
+    }
+}

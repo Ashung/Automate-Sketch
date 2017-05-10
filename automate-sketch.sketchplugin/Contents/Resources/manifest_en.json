@@ -6,7 +6,7 @@
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170418",
+    "version": "2.0.20170510",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -87,7 +87,12 @@
             "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "Invisiable Layers",
+            "name": "Layer Name",
+            "identifier": "select_layers_by_name",
+            "script": "Layer/Select_Layers_By_Name.cocoascript"
+        },
+        {
+            "name": "Hidden Layers",
             "identifier": "select_all_hidden_layers",
             "script": "Layer/Select_All_Hidden_Layers.cocoascript"
         },
@@ -112,9 +117,9 @@
             "script": "Layer/Remove_Empty_Groups.cocoascript"
         },
         {
-            "name": "Remove Invisible Layers",
-            "identifier": "remove_invisible_layers",
-            "script": "Layer/Remove_Invisible_Layers.cocoascript"
+            "name": "Remove Hidden Layers",
+            "identifier": "remove_hidden_layers",
+            "script": "Layer/Remove_Hidden_Layers.cocoascript"
         },
         {
             "name": "Create Include Layer",
@@ -429,18 +434,6 @@
             "script": "Utilities/Nudge_Distance_Setting.cocoascript"
         },
         {
-            "name": "Show File in Finder",
-            "identifier": "show_file_in_finder",
-            "handler": "showFileInFinder",
-            "script": "Utilities/Utilities.cocoascript"
-        },
-        {
-            "name": "Open Terminal at File Folder",
-            "identifier": "open_terminal_at_file_folder",
-            "handler": "openTerminalAtFileFolder",
-            "script": "Utilities/Utilities.cocoascript"
-        },
-        {
             "name": "Web Site",
             "identifier": "web_site",
             "handler": "website",
@@ -468,6 +461,28 @@
             "name": "Change Language",
             "identifier": "change_language",
             "script": "Utilities/Change_Languages.cocoascript"
+        },
+        {
+            "name": "Copy Selected Layer Name",
+            "identifier": "copy_selected_layer_name",
+            "script": "Development/Copy_Selected_Layer_Name.cocoascript"
+        },
+        {
+            "name": "Copy Slice As Base64",
+            "identifier": "copy_slice_as_base64",
+            "script": "Development/Copy_Slice_As_Base64.cocoascript"
+        },
+        {
+            "name": "Show File in Finder",
+            "identifier": "show_file_in_finder",
+            "handler": "showFileInFinder",
+            "script": "Development/Open_Finder_or_Terminal.cocoascript"
+        },
+        {
+            "name": "Open Terminal at File Folder",
+            "identifier": "open_terminal_at_file_folder",
+            "handler": "openTerminalAtFileFolder",
+            "script": "Development/Open_Finder_or_Terminal.cocoascript"
         }
     ],
     "menu": {
@@ -498,7 +513,9 @@
                             "select_layers_by_type_symbol_instance",
                             "select_layers_by_type_slice",
                             "-",
-                            "select_all_hidden_layers"
+                            "select_all_hidden_layers",
+                            "-",
+                            "select_layers_by_name"
                         ]
                     },
                     "select_all_child_layers",
@@ -506,7 +523,7 @@
                     "clear_layer_name",
                     "-",
                     "remove_redundant_groups",
-                    "remove_invisible_layers",
+                    "remove_hidden_layers",
                     "remove_empty_groups",
                     "-",
                     "reverse_order_and_close_path",
@@ -627,13 +644,20 @@
                 ]
             },
             {
-                "title": "Utilities",
+                "title": "Development",
                 "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting",
+                    "copy_slice_as_base64",
+                    "copy_selected_layer_name",
                     "-",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"
+                ]
+            },
+            {
+                "title": "Utilities",
+                "items": [
+                    "svg_export_setting",
+                    "nudge_distance_setting"
                 ]
             },
             {
