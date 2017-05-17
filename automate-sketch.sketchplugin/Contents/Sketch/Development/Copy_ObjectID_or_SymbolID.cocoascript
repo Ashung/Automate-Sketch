@@ -13,23 +13,20 @@ var onRun = function(context) {
 
     if (selection.count() > 0) {
 
-        var pasteBoardString = NSMutableString.alloc().init();
-        var loopSelection = selection.reverseObjectEnumerator();
-        var layer;
-        while (layer = loopSelection.nextObject()) {
-            pasteBoardString.appendString(layer.name() + "\n");
+        var layer = selection.firstObject();
+        if (layer.class() == "MSSymbolMaster") {
+            var pasteBoardString = NSMutableString.stringWithString(layer.symbolID());
+        } else {
+            var pasteBoardString = NSMutableString.stringWithString(layer.objectID());
         }
 
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();
         pboard.setString_forType_(pasteBoardString, NSStringPboardType);
 
-        document.showMessage("Layer names has copied.");
+        document.showMessage("Layer objectID/symbolID has copied.");
 
     } else {
-
-        document.showMessage("Please select at least one layer.");
-
+        document.showMessage("Please select one layer.");
     }
-
 }
