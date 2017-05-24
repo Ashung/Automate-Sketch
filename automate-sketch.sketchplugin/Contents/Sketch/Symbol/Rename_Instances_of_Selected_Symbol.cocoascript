@@ -1,0 +1,45 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() > 0) {
+
+        var count = 0;
+
+        var loopSelection  = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+
+            if (layer.class() == "MSSymbolMaster") {
+                var loopPages = doc.pages().objectEnumerator();
+                var page;
+                while (page = loopPages.nextObject()) {
+                    var instances = page.allSymbolInstancesInChildren().allObjects();
+                    var loopInstances = instances.objectEnumerator();
+                    var instance;
+                    while (instance = loopInstances.nextObject()) {
+                        if (instance.symbolMaster() == layer) {
+                            instance.setName(layer.name());
+                            count++;
+                        }
+                    }
+                }
+            }
+        }
+
+        doc.showMessage("Rename " + count + " instances.");
+
+    } else {
+        doc.showMessage("Please select at least one layer.");
+    }
+
+}

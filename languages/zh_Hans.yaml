@@ -101,3 +101,5 @@ create_typography_guide: 创建字体指南
 export_all_artboars_to_html: 将所有画板导出为 HTML
 copy_selected_layer_name: 复制选中图层的名称
 copy_slice_as_base64: 复制切片的 Base64
+copy_objectid_or_symbolid: 复制对象 ID 或组件 ID
+rename_instances_of_selected_symbol: 重命名选中组件的所有实例

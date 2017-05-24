@@ -101,3 +101,5 @@ create_typography_guide: Create Typography Guide
 export_all_artboars_to_html: Export All Artboards to HTML
 copy_selected_layer_name: Copy Selected Layer Name
 copy_slice_as_base64: Copy Slice As Base64
+copy_objectid_or_symbolid: Copy Object ID or Symbol ID
+rename_instances_of_selected_symbol: Rename Instances of Selected Symbol
