@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -32,6 +34,8 @@ var onRun = function(context) {
             selection[0].frame().y = y2;
             selection[1].frame().x = x1;
             selection[1].frame().y = y1;
+
+            ga(context, "UA-99098773-3", "Arrange", "change_layer_places");
         }
 
         // Change places base middle-center
@@ -40,6 +44,8 @@ var onRun = function(context) {
             selection[0].frame().midY = midY2;
             selection[1].frame().midX = midX1;
             selection[1].frame().midY = midY1;
+
+            ga(context, "UA-99098773-3", "Arrange", "change_layer_places_center");
         }
 
     } else {

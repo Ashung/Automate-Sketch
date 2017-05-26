@@ -6,6 +6,8 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var orderLayersByX = function(context) {
     orderLayers(context, "x");
 }
@@ -52,4 +54,6 @@ function orderLayers(context, position) {
     } else {
         doc.showMessage("You need to select at least 2 layers.");
     }
+
+    ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
 }

@@ -1,3 +1,11 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
 function ga(context, trackingID, eventCategory, eventAction, eventLabel, eventValue) {
 
     var uuidKey = "google.analytics.uuid";
