@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+ Author: Ashung Hung
+ Homepage: https://github.com/Ashung/Automate-Sketch
+ License: https://creativecommons.org/licenses/by-sa/4.0
 
-----------------------------------------------------------*/
+ ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var createIncludeLayer = function(context) {
 
@@ -38,11 +40,13 @@ var createIncludeLayer = function(context) {
         copyLayersFromSourceGroup_toTargetGroup(source, targetGroup);
         target.removeFromParent();
 
+        ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+
     } else {
         doc.showMessage("Please selected 1 rectangle layer and 1 gourp/artboard.");
     }
 
-}
+};
 
 var syncIncludeLayers = function(context) {
 
@@ -59,7 +63,9 @@ var syncIncludeLayers = function(context) {
         }
     }
 
-}
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+
+};
 
 function copyLayersFromSourceGroup_toTargetGroup(sourceGroup, targetGroup) {
     var loopSourceLayer = sourceGroup.layers().objectEnumerator();

@@ -11,21 +11,21 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var tileLayersByPositionY = function(context) {
     tileLayer(context, "posy");
-}
+};
 
 var tileLayersByPositionX = function(context) {
     tileLayer(context, "posx");
-}
+};
 
 var tileLayersHorizontallyByIndex = function(context) {
     tileLayer(context, "horizontallyByIndex");
-}
+};
 
 var tileLayersVerticallyByIndex = function(context) {
     tileLayer(context, "verticallyByIndex");
-}
+};
 
-var tileLayer = function(context, orientation) {
+function tileLayer (context, orientation) {
     var doc = context.document;
     var selection = context.selection;
     if (selection.count() < 2) {
@@ -101,7 +101,7 @@ var tileLayer = function(context, orientation) {
             }
         }
 
-        ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
+        ga(context, "UA-99098773-3", "Arrange", context.command.identifier(), "user_input_gap", gap);
 
     }
 }

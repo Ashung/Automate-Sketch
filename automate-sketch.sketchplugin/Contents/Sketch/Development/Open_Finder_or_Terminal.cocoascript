@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+ Author: Ashung Hung
+ Homepage: https://github.com/Ashung/Automate-Sketch
+ License: https://creativecommons.org/licenses/by-sa/4.0
 
-----------------------------------------------------------*/
+ ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var showFileInFinder = function(context) {
     var doc = context.document;
@@ -12,18 +14,19 @@ var showFileInFinder = function(context) {
         doc.showMessage("You have to save this document.");
     } else {
         var filePath = doc.fileURL().path();
-        // NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Finder");
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
+
+        ga(context, "UA-99098773-3", "Development", context.command.identifier());
     }
 };
 
 var openTerminalAtFileFolder = function(context) {
     var doc = context.document;
     if (!doc.fileURL()) {
-        // doc.showMessage("You have to save this document.");
         NSWorkspace.sharedWorkspace().openFile_withApplication_(nil, "Terminal");
     } else {
         var fileFolder = doc.fileURL().path().stringByDeletingLastPathComponent();
         NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Terminal");
     }
-}
+    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+};

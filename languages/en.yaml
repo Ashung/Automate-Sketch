@@ -56,7 +56,6 @@ clear_exportables: "Clear Exportables"
 artboard_from_selection: "Artboard From Selection"
 artboard_from_group: "Artboard From Group"
 artboard_to_group: "Artboard To Group"
-switch_between_portrait_and_landscape: "Switch Between Portrait and Landscape"
 select_all_missing_instances_in_current_page: "Select All Missing Instances in Current Page"
 select_all_instances_of_symbol: "Select All Instances of Symbol"
 rename_instances: "Rename Instances"
@@ -82,7 +81,6 @@ move_symbol_masters_to_bottom_of_another: "Move Symbol Masters to Bottom of Anot
 set_to_original_width: "Set to Original Width"
 set_to_original_height: "Set to Original Height"
 export_all_symbols_as_png: "Export All Symbols As PNG"
-reverse_order_and_close_path: "Reverse Order and Close Path"
 replace_missing_fonts: "Replace Missing Fonts"
 replace_fonts: "Replace Fonts"
 create_include_layer: "Create Include Layer"
@@ -96,10 +94,11 @@ import_document_assets_from_sketch_file: "Import Document Assets from Sketch Fil
 import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
 import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"
 replace_pages_form_sketch_file: "Replace Pages with Same Name form Sketch File"
-create_color_guide: Create Color Guide
-create_typography_guide: Create Typography Guide
-export_all_artboars_to_html: Export All Artboards to HTML
-copy_selected_layer_name: Copy Selected Layer Name
-copy_slice_as_base64: Copy Slice As Base64
-copy_objectid_or_symbolid: Copy Object ID or Symbol ID
-rename_instances_of_selected_symbol: Rename Instances of Selected Symbol
+create_color_guide: "Create Color Guide"
+create_typography_guide: "Create Typography Guide"
+export_all_artboars_to_html: "Export All Artboards to HTML"
+copy_selected_layer_name: "Copy Selected Layer Name"
+copy_slice_as_base64: "Copy Slice As Base64"
+copy_objectid_or_symbolid: "Copy Object ID or Symbol ID"
+rename_instances_of_selected_symbol: "Rename Instances of Selected Symbol"
+grid_setting: "Grid Presets"

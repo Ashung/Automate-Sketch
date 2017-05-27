@@ -10,14 +10,15 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var orderLayersByX = function(context) {
     orderLayers(context, "x");
-}
+};
+
 var orderLayersByY = function(context) {
     orderLayers(context, "y");
-}
+};
 
 function orderLayers(context, position) {
+
     var doc = context.document;
-    var page = doc.currentPage();
     var selection = context.selection;
 
     if (selection.count() > 1) {

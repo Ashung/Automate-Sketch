@@ -62,4 +62,4 @@ var onRun = function(context) {
     }
 
     ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
-}
+};

@@ -1,18 +1,20 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+ Author: Ashung Hung
+ Homepage: https://github.com/Ashung/Automate-Sketch
+ License: https://creativecommons.org/licenses/by-sa/4.0
 
-----------------------------------------------------------*/
+ ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var clickThroughOn = function(context) {
     clickThrough(context, true)
-}
+};
 
 var clickThroughOff = function(context) {
     clickThrough(context, false);
-}
+};
 
 function clickThrough(context, clicked) {
     var doc = context.document;
@@ -24,4 +26,5 @@ function clickThrough(context, clicked) {
             layer.setHasClickThrough(clicked);
         }
     }
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 }

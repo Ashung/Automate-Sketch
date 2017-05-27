@@ -20,22 +20,17 @@ var onRun = function(context) {
             y1 = selection[0].frame().y(),
             midX1 = selection[0].frame().midX(),
             midY1 = selection[0].frame().midY(),
-            maxX1 = selection[0].frame().maxX(),
             x2 = selection[1].frame().x(),
             y2 = selection[1].frame().y(),
             midX2 = selection[1].frame().midX(),
-            midY2 = selection[1].frame().midY(),
-            maxX2 = selection[1].frame().maxX();
-
-
+            midY2 = selection[1].frame().midY();
+            
         // Change places base top-left
         if (pluginIdentifier == "change_layer_places") {
             selection[0].frame().x = x2;
             selection[0].frame().y = y2;
             selection[1].frame().x = x1;
             selection[1].frame().y = y1;
-
-            ga(context, "UA-99098773-3", "Arrange", "change_layer_places");
         }
 
         // Change places base middle-center
@@ -44,12 +39,12 @@ var onRun = function(context) {
             selection[0].frame().midY = midY2;
             selection[1].frame().midX = midX1;
             selection[1].frame().midY = midY1;
-
-            ga(context, "UA-99098773-3", "Arrange", "change_layer_places_center");
         }
+
+        ga(context, "UA-99098773-3", "Arrange", pluginIdentifier);
 
     } else {
         doc.showMessage("Please select 2 objects.");
     }
 
-}
+};

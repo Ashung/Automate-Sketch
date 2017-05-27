@@ -6,11 +6,14 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
+
     var doc = context.document;
-    var page = doc.currentPage();
     var selection = context.selection;
     var selectionHasArtboards = false;
+
     if (selection.count() > 0) {
         var loop = selection.objectEnumerator();
         while (artboard = loop.nextObject()) {
@@ -35,10 +38,14 @@ var onRun = function(context) {
                 artboard.ungroup();
             }
         }
+        
         if (!selectionHasArtboards) {
             doc.showMessage("Select a artboard.");
         }
+
+        ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+        
     } else {
         doc.showMessage("Select a artboard.");
     }
-}
+};

@@ -1,12 +1,12 @@
 {
     "name": "Automate Sketch",
-    "description": "Make Sketch more efficient, a lot of useful features in one.",
+    "description": "讓您的 Sketch 更高效。",
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170524",
+    "version": "2.0.20170527",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "3",
     "bundleVersion": "1",
@@ -300,11 +300,6 @@
             "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
         },
         {
-            "name": "切換畫板為縱向或橫向",
-            "identifier": "switch_between_portrait_and_landscape",
-            "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
-        },
-        {
             "name": "調整畫板以適配高度",
             "identifier": "resize_to_fit_height",
             "script": "Artboard/Resize_to_Fit_Height.cocoascript"
@@ -365,12 +360,12 @@
             "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
         },
         {
-            "name": "從 Sketh 檔案同步元件模版",
+            "name": "從 Sketch 檔案同步元件模版",
             "identifier": "sync_symbol_master_from_sketch_file",
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
         {
-            "name": "從 Sketh 檔案替换同名頁面",
+            "name": "從 Sketch 檔案替换同名頁面",
             "identifier": "replace_pages_form_sketch_file",
             "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
         },
@@ -399,17 +394,17 @@
             "script": "Style/Remove_All_Unused_Styles.cocoascript"
         },
         {
-            "name": "從 Sketh 檔案匯入資源",
+            "name": "從 Sketch 檔案匯入資源",
             "identifier": "import_document_assets_from_sketch_file",
             "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript"
         },
         {
-            "name": "從 Sketh 檔案匯入文字樣式",
+            "name": "從 Sketch 檔案匯入文字樣式",
             "identifier": "import_text_styles_from_sketch_file",
             "script": "Style/Import_Text_Styles_from_Sketch_File.cocoascript"
         },
         {
-            "name": "從 Sketh 檔案匯入圖層樣式",
+            "name": "從 Sketch 檔案匯入圖層樣式",
             "identifier": "import_layer_styles_from_sketch_file",
             "script": "Style/Import_Layer_Styles_from_Sketch_File.cocoascript"
         },
@@ -427,6 +422,11 @@
             "name": "清除輔助線",
             "identifier": "clear_guides",
             "script": "Guide/Clear_Guides.cocoascript"
+        },
+        {
+            "name": "網格預設",
+            "identifier": "grid_setting",
+            "script": "Guide/Grid_Setting.cocoascript"
         },
         {
             "name": "SVG 匯出設定",
@@ -603,7 +603,6 @@
                     "artboard_to_group",
                     "-",
                     "resize_to_fit_height",
-                    "switch_between_portrait_and_landscape",
                     "-",
                     "export_all_artboars_to_png",
                     "export_all_artboars_to_html"
@@ -651,7 +650,8 @@
             {
                 "title": "辅助线",
                 "items": [
-                    "clear_guides"
+                    "clear_guides",
+                    "grid_setting"
                 ]
             },
             {
