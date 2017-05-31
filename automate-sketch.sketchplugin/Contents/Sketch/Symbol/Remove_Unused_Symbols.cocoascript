@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -52,6 +54,8 @@ var onRun = function(context) {
         removeUnusedSymbols();
 
         doc.showMessage("Remove " + countGlobal + " unused SymbolMaster.");
+
+        ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
 
         function removeUnusedSymbols() {
             var count = 0;
