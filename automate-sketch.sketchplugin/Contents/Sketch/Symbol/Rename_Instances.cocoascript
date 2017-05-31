@@ -6,53 +6,125 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
 
-    if (selection.count() > 0) {
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Rename Instances");
+    dialog.setInformativeText("Choose what instances you want to rename.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
 
-        var loopSelection  = selection.objectEnumerator();
-        var layer;
-        while (layer = loopSelection.nextObject()) {
+    // Radio buttons
+    var buttonType = NSButtonCell.alloc().init();
+        buttonType.setButtonType(NSRadioButton);
+    var matrixType = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
+        NSMakeRect(0, 0, 300, 80),
+        NSRadioModeMatrix,
+        buttonType,
+        3,
+        1
+    );
+    matrixType.setCellSize(CGSizeMake(300, 25));
+    var cells = matrixType.cells();
+        cells.objectAtIndex(0).setTitle("All instances.");
+        cells.objectAtIndex(1).setTitle("Instances in selected Artboard/Group.");
+        cells.objectAtIndex(2).setTitle("Instances in current Page.");
 
-            if (layer.class() == "MSSymbolInstance" && layer.symbolMaster()) {
-                layer.setName(layer.symbolMaster().name());
-            }
+    dialog.setAccessoryView(matrixType);
 
-            if (layer.allSymbolInstancesInChildren().allObjects().count() > 0) {
-                var instances = layer.allSymbolInstancesInChildren().allObjects();
+    var responseCode = dialog.runModal();
+    if (responseCode == "1000") {
+
+        var selectedRadioIndex = matrixType.cells().indexOfObject(matrixType.selectedCell());
+
+        if (selectedRadioIndex == 0) {
+
+            var count = 0;
+
+            var loopPages = doc.pages().objectEnumerator();
+            var page;
+            while (page = loopPages.nextObject()) {
+                var instances = page.allSymbolInstancesInChildren().allObjects();
                 var loopInstances = instances.objectEnumerator();
                 var instance;
                 while (instance = loopInstances.nextObject()) {
                     if (instance.symbolMaster()) {
                         instance.setName(instance.symbolMaster().name());
+                        count++;
                     }
                 }
             }
 
+            doc.showMessage("Rename " + count + " instances in current document.");
+
+            ga(context, "UA-99098773-3", "Symbol", context.command.identifier(), "rename_instances", "all");
+
         }
 
-        doc.showMessage("Rename all instances in selection.");
+        if (selectedRadioIndex == 1) {
 
-    } else {
+            if (selection.count() > 0) {
 
-        var loopPages = doc.pages().objectEnumerator();
-        var page;
-        while (page = loopPages.nextObject()) {
+                var count = 0;
+
+                var loopSelection  = selection.objectEnumerator();
+                var layer;
+                while (layer = loopSelection.nextObject()) {
+
+                    if (layer.class() == "MSSymbolInstance" && layer.symbolMaster()) {
+                        layer.setName(layer.symbolMaster().name());
+                        count++;
+                    }
+
+                    if (layer.allSymbolInstancesInChildren().allObjects().count() > 0) {
+                        var instances = layer.allSymbolInstancesInChildren().allObjects();
+                        var loopInstances = instances.objectEnumerator();
+                        var instance;
+                        while (instance = loopInstances.nextObject()) {
+                            if (instance.symbolMaster()) {
+                                instance.setName(instance.symbolMaster().name());
+                                count++;
+                            }
+                        }
+                    }
+
+                }
+
+                doc.showMessage("Rename " + count + " instances in selection.");
+
+                ga(context, "UA-99098773-3", "Symbol", context.command.identifier(), "rename_instances", "selection");
+
+            }
+
+        }
+
+        if (selectedRadioIndex == 2) {
+
+            var count = 0;
+
+            var page = doc.currentPage();
             var instances = page.allSymbolInstancesInChildren().allObjects();
             var loopInstances = instances.objectEnumerator();
             var instance;
             while (instance = loopInstances.nextObject()) {
                 if (instance.symbolMaster()) {
                     instance.setName(instance.symbolMaster().name());
+                    count++;
                 }
             }
-        }
 
-        doc.showMessage("Rename all instances in current document.");
+            doc.showMessage("Rename " + count + " instances in current page.");
+
+            ga(context, "UA-99098773-3", "Symbol", context.command.identifier(), "rename_instances", "page");
+
+        }
 
     }
 
-}
+};

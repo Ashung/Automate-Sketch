@@ -1,10 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-Homepage: https://github.com/Ashung/Automate-Sketch
-license: CC-BY 4.0
+ Author: Ashung Hung
+ Homepage: https://github.com/Ashung/Automate-Sketch
+ License: https://creativecommons.org/licenses/by-sa/4.0
 
-----------------------------------------------------------*/
+ ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -13,32 +15,25 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if(page.currentArtboard()) {
-        clear_guides(
-            page.currentArtboard()
-        );
+        clear_guides(page.currentArtboard());
     } else {
-        clear_guides(
-            page
-        );
+        clear_guides(page);
     }
 
     var loop = selection.objectEnumerator();
     while (select = loop.nextObject()) {
-        if(select.className() == "MSArtboardGroup") {
+        if (select.class() == "MSArtboardGroup") {
             page.setCurrentArtboard(select);
-            clear_guides(
-                page.currentArtboard()
-            );
-            // log(page.currentArtboard());
-        } else if(select.parentGroup().className() == "MSPage")) {
-            clear_guides(
-                page
-            );
-            // log(select.parentGroup());
+            clear_guides(page.currentArtboard());
+        }
+        if (select.parentGroup().class() == "MSPage") {
+            clear_guides(page);
         }
     }
 
-}
+    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    
+};
 
 function clear_guides(target) {
     var horRulerData = target.horizontalRulerData();

@@ -1,13 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-description:
-version: 2016.2.0629
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -33,6 +32,8 @@ var onRun = function(context) {
             }
         }
     }
+
+    ga(context, "UA-99098773-3", "Type", context.command.identifier());
 
     if(!hasTextLayer) {
         doc.showMessage("Do not have any text layer.");

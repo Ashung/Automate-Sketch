@@ -6,11 +6,32 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-var new_slice_for_normal = function(context) { addSlice(context, normal) };
-var new_slice_for_ios_1x = function(context) { addSlice(context, ios1x) };
-var new_slice_for_android_1x = function(context) { addSlice(context, android1x) };
-var new_slice_for_web = function(context) { addSlice(context, web) };
-var new_slice_for_svg = function(context) { addSlice(context, svg) };
+@import "../Utilities/Google_Analytics.cocoascript";
+
+var new_slice_for_normal = function(context) {
+    addSlice(context, normal);
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier(), "layer_base_slice", "normal");
+};
+
+var new_slice_for_ios_1x = function(context) {
+    addSlice(context, ios1x);
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier(), "layer_base_slice", "ios_1x");
+};
+
+var new_slice_for_android_1x = function(context) {
+    addSlice(context, android1x);
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier(), "layer_base_slice", "android_1x");
+};
+
+var new_slice_for_web = function(context) {
+    addSlice(context, web);
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier(), "layer_base_slice", "web");
+};
+
+var new_slice_for_svg = function(context) {
+    addSlice(context, svg);
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier(), "layer_base_slice", "svg");
+};
 
 function addSlice(context, preset) {
     var doc = context.document;

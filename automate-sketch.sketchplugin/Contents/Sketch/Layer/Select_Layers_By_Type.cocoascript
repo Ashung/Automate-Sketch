@@ -6,29 +6,31 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var selectAllGroupsInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSLayerGroup");
-}
+};
 
 var selectAllTextsInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSTextLayer");
-}
+};
 
 var selectAllShapesInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSShapeGroup");
-}
+};
 
 var selectAllImagesInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSBitmapLayer");
-}
+};
 
 var selectAllSymbolInstancesInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSSymbolInstance");
-}
+};
 
 var selectAllSlicesInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSSliceLayer");
-}
+};
 
 function selectLayersInSelectionByType(context, type) {
 
@@ -46,6 +48,8 @@ function selectLayersInSelectionByType(context, type) {
     } else {
         selectLayersInParent_byType(page, type);
     }
+
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier(), "select_layer_type", type);
 
 }
 

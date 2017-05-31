@@ -80,6 +80,7 @@
 | **Guides**                               |                                          |
 | Clear Guides                             | 清除辅助线                                    |
 | **Development**                          |                                          |
+| Copy ObjectID or SymbolID                | 复制 ObjectID 或 SymbolID                   |
 | Copy Slice as Base64                     | 切片复制为 Base64                             |
 | Copy Selected Layer Name                 | 复制选中图层名                                  |
 | Show File in Finder                      | 在 Finder 中打开当前文档                         |

@@ -6,20 +6,26 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
-
-    var loopSelection = selection.objectEnumerator();
-    var layer;
-    while (layer = loopSelection.nextObject()) {
-        var artboard = MSArtboardGroup.alloc().init();
-        artboard.setName(layer.name());
-        artboard.setFrame(MSRect.alloc().initWithRect(layer.absoluteRect().rect()));
-        doc.currentPage().addLayers([artboard]);
-        artboard.frame().setConstrainProportions(false);
-        layer.moveToLayer_beforeLayer(artboard, nil);
+    
+    if (selection.count() > 0) {
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+            var artboard = MSArtboardGroup.alloc().init();
+            artboard.setName(layer.name());
+            artboard.setFrame(MSRect.alloc().initWithRect(layer.absoluteRect().rect()));
+            doc.currentPage().addLayers([artboard]);
+            artboard.frame().setConstrainProportions(false);
+            layer.moveToLayer_beforeLayer(artboard, nil);
+        }
     }
 
-}
+    ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+
+};

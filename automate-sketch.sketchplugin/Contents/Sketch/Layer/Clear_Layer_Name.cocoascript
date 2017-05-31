@@ -6,6 +6,8 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
     var doc = context.document;
     var selection = context.selection;
@@ -31,7 +33,8 @@ var onRun = function(context) {
 
     doc.showMessage(count + " layer name cleaned.");
 
-}
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+};
 
 function clearLayerName(arg_layer, callback) {
 

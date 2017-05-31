@@ -6,9 +6,10 @@ license: CC-BY 4.0
 
 ----------------------------------------------------------*/
 
-var onRun = function(context) {
+@import "../Utilities/Google_Analytics.cocoascript";
 
-    var doc = context.document;
+var onRun = function(context) {
+    
     var selection = context.selection;
     var loopSelection = selection.objectEnumerator();
     var layer;
@@ -19,7 +20,10 @@ var onRun = function(context) {
             layer.frame().setHeight(height);
         }
     }
-}
+
+    ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+    
+};
 
 function getRectFromLayers(parentGroup) {
 

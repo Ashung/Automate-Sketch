@@ -6,10 +6,11 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
 
     var doc = context.document;
-    var page = doc.currentPage();
     var selection = context.selection;
 
     if (selection.count() > 1) {
@@ -44,4 +45,7 @@ var onRun = function(context) {
     } else {
         doc.showMessage("You need to select at least 2 layers.");
     }
-}
+
+    ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
+
+};

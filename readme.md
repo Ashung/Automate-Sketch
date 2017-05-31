@@ -79,6 +79,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
 | **Development**                          |                                          |
+| Copy ObjectID or SymbolID                |                                          |
 | Copy Slice as Base64                     |                                          |
 | Copy Selected Layer Name                 |                                          |
 | Show File in Finder                      |                                          |

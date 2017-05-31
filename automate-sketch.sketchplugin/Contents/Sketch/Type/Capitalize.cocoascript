@@ -1,13 +1,12 @@
 /*----------------------------------------------------------
 
-author: Ashung Hung
-email: Ashung.hung@gmail.com
+Author: Ashung Hung
 Homepage: https://github.com/Ashung/Automate-Sketch
-description: Capitalize
-version: 2016.1.0808
-license: CC-BY 4.0
+License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -31,11 +30,13 @@ var onRun = function(context) {
         }
     }
 
+    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+
     if(!hasTextLayer) {
         doc.showMessage("Do not seleted any text layer.");
     }
 
-}
+};
 
 function capitalize(initStr) {
     return initStr.replace(/[\w\u249c-\u24b5\u24d0-\u24e9]\S*/g, function(tempStr) {

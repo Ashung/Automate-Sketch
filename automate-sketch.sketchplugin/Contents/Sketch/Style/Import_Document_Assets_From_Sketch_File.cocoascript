@@ -6,6 +6,8 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var onRun = function(context) {
 
     var document = context.document;
@@ -72,6 +74,8 @@ var onRun = function(context) {
             newPatterns + " patterns."
         );
 
+        ga(context, "UA-99098773-3", "Style", context.command.identifier());
+
     }
 
-}
+};

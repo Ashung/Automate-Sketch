@@ -1,14 +1,14 @@
 {
     "name": "Automate Sketch",
-    "description": "Make Sketch more efficient, a lot of useful features in one.",
+    "description": "让您的 Sketch 更高效。",
     "author": "Ashung Hung",
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "updateURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
     "downloadURL": "https://github.com/Ashung/Automate-Sketch/archive/master.zip",
-    "version": "2.0.20170510",
+    "version": "2.0.20170531",
     "identifier": "com.ashung.hung.automate_sketch",
-    "compatibleVersion": "3",
+    "compatibleVersion": "40",
     "bundleVersion": "1",
     "commands": [
         {
@@ -132,11 +132,6 @@
             "identifier": "sync_include_layers",
             "handler": "syncIncludeLayers",
             "script": "Layer/Include_Layers.cocoascript"
-        },
-        {
-            "name": "反转顺序并关闭路径",
-            "identifier": "reverse_order_and_close_path",
-            "script": "Layer/Reverse_Order_And_Close_Path.cocoascript"
         },
         {
             "name": "两对象互换位置",
@@ -300,11 +295,6 @@
             "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
         },
         {
-            "name": "切换画板为纵向或横向",
-            "identifier": "switch_between_portrait_and_landscape",
-            "script": "Artboard/Switch_Between_Portrait_and_Landscape.cocoascript"
-        },
-        {
             "name": "调整画板以适配高度",
             "identifier": "resize_to_fit_height",
             "script": "Artboard/Resize_to_Fit_Height.cocoascript"
@@ -328,6 +318,11 @@
             "name": "重命名实例",
             "identifier": "rename_instances",
             "script": "Symbol/Rename_Instances.cocoascript"
+        },
+        {
+            "name": "重命名选中组件的所有实例",
+            "identifier": "rename_instances_of_selected_symbol",
+            "script": "Symbol/Rename_Instances_of_Selected_Symbol.cocoascript"
         },
         {
             "name": "将选中图层直接变为组件",
@@ -360,12 +355,12 @@
             "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
         },
         {
-            "name": "从 Sketh 文档同步组件模版",
+            "name": "从 Sketch 文档同步组件模版",
             "identifier": "sync_symbol_master_from_sketch_file",
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
         {
-            "name": "从 Sketh 文档替换同名页面",
+            "name": "从 Sketch 文档替换同名页面",
             "identifier": "replace_pages_form_sketch_file",
             "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
         },
@@ -394,17 +389,17 @@
             "script": "Style/Remove_All_Unused_Styles.cocoascript"
         },
         {
-            "name": "从 Sketh 文档导入资源",
+            "name": "从 Sketch 文档导入资源",
             "identifier": "import_document_assets_from_sketch_file",
             "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript"
         },
         {
-            "name": "从 Sketh 文档导入文本样式",
+            "name": "从 Sketch 文档导入文本样式",
             "identifier": "import_text_styles_from_sketch_file",
             "script": "Style/Import_Text_Styles_from_Sketch_File.cocoascript"
         },
         {
-            "name": "从 Sketh 文档导入图层样式",
+            "name": "从 Sketch 文档导入图层样式",
             "identifier": "import_layer_styles_from_sketch_file",
             "script": "Style/Import_Layer_Styles_from_Sketch_File.cocoascript"
         },
@@ -422,6 +417,11 @@
             "name": "清除辅助线",
             "identifier": "clear_guides",
             "script": "Guide/Clear_Guides.cocoascript"
+        },
+        {
+            "name": "网格预设",
+            "identifier": "grid_setting",
+            "script": "Guide/Grid_Setting.cocoascript"
         },
         {
             "name": "SVG 导出设置",
@@ -483,6 +483,11 @@
             "identifier": "open_terminal_at_file_folder",
             "handler": "openTerminalAtFileFolder",
             "script": "Development/Open_Finder_or_Terminal.cocoascript"
+        },
+        {
+            "name": "复制对象 ID 或组件 ID",
+            "identifier": "copy_objectid_or_symbolid",
+            "script": "Development/Copy_ObjectID_or_SymbolID.cocoascript"
         }
     ],
     "menu": {
@@ -525,8 +530,6 @@
                     "remove_redundant_groups",
                     "remove_hidden_layers",
                     "remove_empty_groups",
-                    "-",
-                    "reverse_order_and_close_path",
                     "-",
                     "create_include_layer",
                     "sync_include_layers"
@@ -593,7 +596,6 @@
                     "artboard_to_group",
                     "-",
                     "resize_to_fit_height",
-                    "switch_between_portrait_and_landscape",
                     "-",
                     "export_all_artboars_to_png",
                     "export_all_artboars_to_html"
@@ -608,6 +610,7 @@
                     "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
+                    "rename_instances_of_selected_symbol",
                     "-",
                     "move_symbol_masters_to_bottom_of_another",
                     "selection_to_symbol_master",
@@ -640,14 +643,17 @@
             {
                 "title": "辅助线",
                 "items": [
-                    "clear_guides"
+                    "clear_guides",
+                    "grid_setting"
                 ]
             },
             {
                 "title": "开发",
                 "items": [
                     "copy_slice_as_base64",
+                    "-",
                     "copy_selected_layer_name",
+                    "copy_objectid_or_symbolid",
                     "-",
                     "show_file_in_finder",
                     "open_terminal_at_file_folder"

@@ -6,6 +6,8 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
+@import "../Utilities/Google_Analytics.cocoascript";
+
 var colorKeywords = {
     "black": "#000000",
     "silver": "#c0c0c0",
@@ -270,8 +272,10 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select one shape layer.");
     }
-}
 
+    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    
+};
 
 function repeatTwice(repeatable) {
     return repeatable.toString() + repeatable.toString();
