@@ -7,6 +7,7 @@
 <meta name="keywords" content="{{ site.keywords | join: ', ' }}">
 <meta name="author" content="{{ site.author }}, {{ site.email }}">
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0">
+<link href="https://fonts.googleapis.com/css?family=Fira+Sans" rel="stylesheet">
 <link rel="stylesheet" href="{{ "css/style.css" }}">
 <script>
     function foo(response) {
@@ -38,9 +39,18 @@
 <body>
     <header>
         <hgroup class="logo">
-            <a href="{{ homeUrl }}" rel="home">
-                <h1>{{ site.title }}</h1>
-            </a>
+            <h1>
+                <a href="{{ homeUrl }}" rel="home">
+                    <svg width="710px" height="70px" viewBox="0 0 710 70">
+                        <g id="Group" transform="translate(-10, -10)" fill="none" fill-rule="evenodd">
+                            <path d="M32.4031242,15 L16.699988,34.6289202 L55,72.9289322 L93.300012,34.6289202 L77.5968758,15 L32.4031242,15 Z" stroke="#FDB300" stroke-width="10" fill-rule="nonzero"></path>
+                            <path d="M130,10 L160,10 L160,80 L150,80 L150,50 L140,50 L140,80 L130,80 L130,10 Z M150,20 L140,20 L140,40.3457031 L150,40.3457031 L150,20 Z M190,10 L200,10 L200,80 L170,80 L170,10 L180,10 L180,70 L190,70 L190,10 Z M210,10 L240,10 L240,20 L230,20 L230,80 L220,80 L220,20 L210,20 L210,10 Z M280,80 L250,80 L250,10 L280,10 L280,80 Z M270,70 L270,20 L260,20 L260,70 L270,70 Z M310,30.1728516 C310,30.1728516 300,19.953125 300,20 L300,80 L290,80 L290,10 L305,10 L315,20 L325,10.1757812 L340,10.1757813 L340,80 L330,80 L330,20 L320,30.1728516 L320,80 L310,80 L310,30.1728516 Z M350,10 L380,10 L380,80 L370,80 L370,50 L360,50 L360,80 L350,80 L350,10 Z M370,20 L360,20 L360,40.3457031 L370,40 L370,20 Z M390,10 L420,10 L420,20 L410,20 L410,80 L400,80 L400,20 L390,20 L390,10 Z M430,10 L460,10 L460,20 L440,20 L440,40.3457031 L460,40 L460,50 L440,50 L440,70 L460,70 L460,80 L430,80 L430,10 Z" fill="#000000"></path>
+                            <path d="M690,10 L700,10 L700,40 L710,40 L710,10 L720,10 L720,80 L710,80 L710,50 L700,50 L700,80 L690,80 L690,10 Z M679.941406,80 L650,80 L650,10 L680,10 L679.941406,30.1728516 L670,30.1728516 L670,20 L660,20 L660,70 L670,70 L670,60 L680,60 L679.941406,80 Z M610,10 L640,10 L640,20 L630,20 L630,80 L620,80 L620,20 L610,20 L610,10 Z M570,10.1757812 L600,10 L600,20 L580,20 L580,40 L600,40 L600,50 L580,50 L580,70 L600,70 L600,80 L570,80 L570,10.1757812 Z M530,10 L540,10 L540,40 L550,30.1728516 L550,10 L560,10 L560,35 L550,45 L560,55 L560,80 L550,80 L550,60 L540,50 L540,80 L530,80 L530,10 Z M490,60 L500,60 L500,70 L510,70 L510,55 L490,40.3457031 L490,10 L520,10 L520,30.1728516 L510,30.1728516 L510,20 L500,20 L500,35 L520,50 L520,80 L490,80 L490,60 Z" fill="#000000"></path>
+                        </g>
+                    </svg>
+                </a>
+            </h1>
+            <h2>Make Sketch more efficient.</h2>
             <p class="porject-badge">
                 <span class="star">
                     <i>&nbsp;</i>Star <span id="project-star">0</span>
@@ -52,37 +62,12 @@
         </hgroup>
     </header>
     <section>
-        <ul class="plugins">
-            {% for plugin in page.menus reversed %}
-            {% assign count = forloop.length %}
-            {% assign index = forloop.index %}
-            {% assign title = plugin.title %}
-            {% assign code = plugin.code %}
-            {% assign imageFileName =  plugin.title | replace: " ", "_" | downcase | append: ".gif" %}
-            {% assign codeUrl = site.projectUrl | append: "tree/master/automate-sketch.sketchplugin/Contents/Sketch/" | append: code | append: ".cocoascript" %}
-            <li id="plugin-{{ index }}">
-                <div class="item-figure">
-                    <img class="item-image" src="images/{{ imageFileName }}" alt="{{ title }}">
-                    <div class="item-links">
-                        <a class="link-code" href="{{ codeUrl }}">View Code<i>&nbsp;</i></a>
-                    </div>
-                </div>
-                <div class="item-title">
-                    {{ title }}
-                </div>
-            </li>
-            {% endfor %}
-        </ul>
+        
     </section>
     <footer>
-        <div class="diver">&nbsp;</div>
+        
         <div class="author">
-            <p>
-                I'm Ashung Hung, a UI designer, web front-end developer and a Buddhist, who live in Shenzhen China with my lover and 3 cats.
-            </p>
-            <p>
-                Automate Sketch plugin released under <a href="https://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution 4.0 International License (CC-BY-SA 4.0)</a>.
-            </p>
+            <div class="diver">&nbsp;</div>
             <p>
                 Follow me on
                 <a href="https://github.com/Ashung">Github</a>,
@@ -90,19 +75,20 @@
                 <a href="https://behance.net/ashung">Behance</a>,
                 <a href="http://weibo.com/ashung">Weibo</a>.
             </p>
-            <p class="donate-paypal">
-                PayPal:
+            <p class="donate">
+                Donate via ...<br>
+                PayPal
                 <a href="https://www.paypal.me/ashung/2">$ 2.<small>00</small></a>
                 <a href="https://www.paypal.me/ashung/5">$ 5.<small>00</small></a>
-            </p>
-            <p>
-                打开 "微信" 或 "支付宝", 扫一扫打赏 10 元。<br>
-                <img src="css/donate_wechat_rmb_10.png" alt="Wechat"/>
-                <img src="css/donate_alipay_rmb_10.png" alt="Alipay"/>
                 <br>
-                打赏后可 <a href="{{ site.issuesUrl }}">提需求</a>。
+                微信 (WeChat Pay) <a href="https://www.paypal.me/ashung/2">&yen; 10.<small>00</small></a>
+                <br>
+                支付宝 (Alipay) <a href="https://www.paypal.me/ashung/2">&yen; 10.<small>00</small></a>
             </p>
         </div>
+        
+        
+        
         <a class="ribbon" href="{{ site.projectUrl }}">Fork me on GitHub</a>
     </footer>
 </body>

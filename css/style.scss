@@ -1,10 +1,6 @@
 ---
 ---
 
-@font-face{
-    font-family: 'Fira Sans';
-    src: url("FiraSans-Regular-Subset.ttf") format("truetype");
-}
 $fontsize: 100%; // 16px
 $lineheight: 1.5; // 24px
 $basefont: "Fira Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
@@ -62,18 +58,19 @@ a:link, a:visited {
 
 header {
     height: 300px;
+    margin-top: 128px;
     overflow: hidden;
-    a[rel="home"], h1 {
-        display: block;
-        width: 224px;
-        height: 120px;
-        overflow: hidden;
-        margin: 64px auto 0;
+    h1 {
+        //display: block;
+        //width: 224px;
+        //height: 120px;
+        //overflow: hidden;
+        //margin: 64px auto 0;
     }
     h1 {
         margin: 0;
-        text-indent: -9999px;
-        background: url("logo.svg") no-repeat 50% 0;
+        //text-indent: -9999px;
+        //background: url("logo.svg") no-repeat 50% 0;
     }
     .porject-badge {
         .star, .download {
@@ -141,85 +138,6 @@ header {
     }
 }
 
-.plugins {
-    margin: 0 auto 2.5rem;
-    li {
-        margin: 0 auto 1rem;
-        width: $image_width;
-    }
-    .item-figure {
-        position: relative;
-        margin-bottom: .5rem;
-        width: $image_width;
-        height: $image_height;
-        overflow: hidden;
-        border-radius: 5px;
-        box-shadow: 0 0 1px 1px rgba(0, 0, 0, .2);
-        &:hover .item-links a {
-            opacity: 1;
-            margin-right: 0;
-        }
-    }
-    .item-image {
-        display: block;
-        width: $image_width;
-        height: $image_height;
-        border-radius: 5px;
-    }
-    .item-links {
-        position: absolute;
-        right: .5rem;
-        bottom: 0;
-        a {
-            display: block;
-            float: right;
-            clear: right;
-            height: 2.25rem;
-            line-height: 2.25rem;
-            font-size: 87.5%;
-            padding: 0 .5rem 0 .6rem;
-            margin-bottom: .5rem;
-            background-color: $highlight_color;
-            border-radius: 4px;
-            opacity: 0;
-            margin-right: -100px;
-            transition: all 200ms cubic-bezier(0, 0, 0.4, 1.0);
-            &:link, &:visited {
-                color: #fff;
-                text-decoration: none;
-            }
-            &:hover, &:active {
-                background-color: $highlight_color_hover;
-            }
-            i {
-                display: block;
-                float: right;
-                width: 24px;
-                height: 24px;
-                margin: .375rem 0 .375rem .5rem;
-                background: url("icon_sprite.svg") no-repeat 0 0;
-            }
-            &.link-code {
-                i {
-                    background-position: 0 0;
-                }
-            }
-            &.link-download {
-                transition-delay: 100ms;
-                i {
-                    background-position: 0 -24px;
-                }
-            }
-        }
-    }
-    .item-title {
-        width: 100%;
-        white-space: nowrap;
-        overflow: hidden;
-        text-overflow: ellipsis;
-    }
-}
-
 footer {
     width: $image_width;
     margin: 0 auto 2.5rem;
@@ -232,12 +150,13 @@ footer {
     .author {
         color: $text_color_gray;
     }
-    .donate-paypal {
+    .donate {
+        line-height: 2em;
         a:link, a:visited {
             text-decoration: none;
         }
         small {
-            vertical-align: text-top;
+            vertical-align: 0.2em;
         }
     }
 }
