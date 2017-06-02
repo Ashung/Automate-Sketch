@@ -10,6 +10,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
+    var sketch = context.api();
     var doc = context.document;
 
     // Dialog
@@ -41,10 +42,17 @@ var onRun = function(context) {
                 if (layer.class() == "MSSymbolInstance") {
                     idsOfAllInstances.push(String(layer.symbolID()));
                     if (layer.overrides()) {
-                        var overrides = layer.overrides().objectForKey(0).allValues();
+
+                        var overrides = layer.overrides().allValues()
+
+                        if (sketch.version < 44) {
+                            overrides = layer.overrides().objectForKey(0).allValues();
+                        }
+
                         for (var i = 0; i < overrides.count(); i++) {
                             pushOverrideSymbolIDtoArray(overrides.objectAtIndex(i), idsOfSymbolInOverrides);
                         }
+
                     }
                 }
             }
