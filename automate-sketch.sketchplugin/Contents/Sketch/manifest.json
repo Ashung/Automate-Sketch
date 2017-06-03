@@ -7,6 +7,7 @@
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
     "version": "2.0.20170603",
     "identifier": "com.ashung.hung.automate_sketch",
+    "appcast": "https://api.sketchpacks.com/v1/plugins/com.ashung.hung.automate_sketch/appcast",
     "compatibleVersion": "40",
     "bundleVersion": "1",
     "commands": [
