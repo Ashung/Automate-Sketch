@@ -3,7 +3,7 @@
 
 # Automate Sketch
 
-Make Sketch more efficient -- a lot of usefull plugins in one.
+Make your workflow more efficient.
 
 [中文说明](readme_zh.md)
 
@@ -11,6 +11,7 @@ Make Sketch more efficient -- a lot of usefull plugins in one.
 
 - Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) or [Sketch Toolbox](http://sketchtoolbox.com/).
 - Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
+- [Download](https://github.com/Ashung/Automate-Sketch/releases) for older version of Sketch.
 
 ## Features
 

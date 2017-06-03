@@ -3,12 +3,13 @@
 
 # Automate Sketch
 
-让使用 Sketch 更高效 -- 一个不断增加功能的插件合集。
+让使用工作更高效。
 
 ## 安装方法
 
 - 从各种插件管理应用中搜索 "Automate Sketch"，现支持  [Sketch Runner](http://sketchrunner.com/)、[Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/)。
 - 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
+- 旧版 Sketch 从此[下载](https://github.com/Ashung/Automate-Sketch/releases)。
 
 ## 部分功能
 
