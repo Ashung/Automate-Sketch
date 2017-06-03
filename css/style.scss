@@ -13,7 +13,6 @@ $highlight_color_hover: #ff5500;
 $highlight_color: #ffaa00;
 $highlight_color_transparent: rgba(255, 85, 0, .8);
 
-
 $breakpoint_small: 300px + 8px * 2;
 $breakpoint_medium: 600px + 8px * 2;
 $breakpoint_large: 600px * 2 + 16px * 3;
@@ -61,16 +60,7 @@ header {
     margin-top: 128px;
     overflow: hidden;
     h1 {
-        //display: block;
-        //width: 224px;
-        //height: 120px;
-        //overflow: hidden;
-        //margin: 64px auto 0;
-    }
-    h1 {
         margin: 0;
-        //text-indent: -9999px;
-        //background: url("logo.svg") no-repeat 50% 0;
     }
     .porject-badge {
         .star, .download {
@@ -165,15 +155,6 @@ footer {
     .ribbon {
         display: none;
     }
-    .plugins {
-        li {
-            width: $image_width_small;
-        }
-        .item-figure, .item-image {
-            width: $image_width_small;
-            height: $image_height_small;
-        }
-    }
     footer {
         width: $image_width_small;
         .diver {
@@ -183,23 +164,6 @@ footer {
 }
 
 @include media-min-width($breakpoint_large) {
-    .plugins {
-        width: $image_width * 2 + 16px;
-        li {
-            float: left;
-            margin-right: 1rem;
-            &:nth-child(2n) {
-                margin-right: 0;
-            }
-        }
-        &:after {
-            content: ".";
-            display: block;
-            clear: both;
-            height: 0;
-            overflow: hidden;
-        }
-    }
     footer {
         width: $image_width * 2 + 16px;
         .diver {

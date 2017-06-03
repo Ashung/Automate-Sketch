@@ -1,21 +1,13 @@
 ---
-items:
-  - title: V2.0.20170531
-    description: <p>test</p>
-    pubDate: Fri, 02 Jun 06:02:00 +0000
-    version: 2.0.20170531
-    url: v2.0.20170531.zip
-    length: 109394
 ---
 <?xml version="1.0" encoding="utf-8"?>
 <rss version="2.0" xmlns:sparkle="http://www.andymatuschak.org/xml-namespaces/sparkle" xmlns:dc="http://purl.org/dc/elements/1.1/">
     <channel>
-        <title>{{ site.title }}</title>
-        <link>{{ site.ghpageUrl }}appcast.xml</link>
-        <description>{{ site.description }}</description>
+        <title>Automate Sketch</title>
+        <link>http://ashung.github.io/Automate-Sketch/appcast.xml</link>
+        <description>Make your workflow more efficient.</description>
         <language>en</language>
-        
-        {% for item in page.items %}
+        {% for item in site.data.release %}
         <item>
             <title>{{ item.title }}</title>
             <description>
@@ -25,10 +17,9 @@ items:
             </description>
             <pubDate>{{ item.pubDate }}</pubDate>
             <enclosure
-                url="https://github.com/Ashung/Automate-Sketch/archive/{{ item.url }}"
+                url="{{ item.url }}"
                 sparkle:version="{{ item.version }}"
-                length="{{ item.length }}"
-                type="application/octet-stream" />
+                type="application/octet-stream"/>
         </item>
         {% endfor %}
     </channel>
