@@ -1,5 +1,12 @@
 [
     {
+        "title": "v2.0.20170603",
+        "description": "- Support Sketch 45 plugin update system.\r\n- Remove unused symbols now support Sketch 44.1.",
+        "pubDate": "Sat, 03 Jun 2017 14:56:48 GMT",
+        "version": "2.0.20170603",
+        "url": "https://github.com/Ashung/Automate-Sketch/archive/v2.0.20170603.zip"
+    },
+    {
         "title": "v2.0.20170531",
         "description": "- Add a dialog for rename instances.\r\n- Copy Slice As Base64.\r\n- Copy Object ID or Symbol ID.\r\n- Select layers by name.\r\n",
         "pubDate": "Fri, 02 Jun 2017 06:02:50 GMT",
