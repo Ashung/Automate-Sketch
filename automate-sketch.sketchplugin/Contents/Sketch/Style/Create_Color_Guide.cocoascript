@@ -74,7 +74,7 @@ var onRun = function(context) {
             setPreferences("paletteSize", userInputString.toString());
 
             var colorFormatIndex = selectBox.indexOfSelectedItem();
-            setPreferences("colorFormat", colorFormatIndex.toString());
+            setPreferences("colorFormat", colorFormatIndex);
 
             var loopDocumentColors = documentColors.objectEnumerator();
             var color;
@@ -141,7 +141,7 @@ var onRun = function(context) {
 
         }
 
-        ga(context, "UA-99098773-3", "Style", context.command.identifier(), "color_guide_format", colorFormatIndex.toString());
+        ga(context, "UA-99098773-3", "Style", context.command.identifier(), "color_guide_format", colorFormatIndex);
 
     } else {
         document.showMessage("No any document color in current document.");
