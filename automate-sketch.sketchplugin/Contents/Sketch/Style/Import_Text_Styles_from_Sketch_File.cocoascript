@@ -13,7 +13,7 @@ var onRun = function(context) {
     var document = context.document;
 
     var documentData = document.documentData();
-    var textStyles = documentData.layerTextStylesGeneric().objects();
+    var textStyles = documentData.layerTextStyles().objects();
 
     // Choose the sketch file.
     var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
@@ -31,7 +31,7 @@ var onRun = function(context) {
         var newDocument = MSDocument.alloc().init();
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
         var newDocumentData = newDocument.documentData();
-        var newTextStyles = newDocumentData.layerTextStylesGeneric().objects();
+        var newTextStyles = newDocumentData.layerTextStyles().objects();
 
         for (var i = 0; i < newTextStyles.count(); i++) {
 
