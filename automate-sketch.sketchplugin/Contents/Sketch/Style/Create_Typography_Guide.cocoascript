@@ -14,7 +14,7 @@ var onRun = function(context) {
     var document = context.document;
     var page = document.currentPage();
 
-    var textStyles = document.documentData().layerTextStylesGeneric().objects();
+    var textStyles = document.documentData().layerTextStyles().objects();
 
     if (textStyles.count() > 0) {
 
