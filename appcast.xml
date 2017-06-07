@@ -17,7 +17,7 @@
             </description>
             <pubDate>{{ item.pubDate }}</pubDate>
             <enclosure
-                url="{{ item.url }}"
+                url="https://github.com/Ashung/Automate-Sketch/archive/{{ item.commitID }}.zip"
                 sparkle:version="{{ item.version }}"
                 type="application/octet-stream"/>
         </item>
