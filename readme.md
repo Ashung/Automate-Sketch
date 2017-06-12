@@ -60,7 +60,8 @@ Make your workflow more efficient.
 | Set to Original Width / Height           |                                          |
 | Select All Missing Instances in Current Page |                                          |
 | Select All Instance of Symbol            |                                          |
-| Rename All Instances                     |                                          |
+| Rename Instances                         | Reset to original name of symbol master. |
+| Custom Instances Name                    | Rename instances to custom name.         |
 | Move Symbol Masters to Bottom of Anther  |                                          |
 | Selection to Symbol Master               |                                          |
 | Detach Unused Symbol Master              |                                          |

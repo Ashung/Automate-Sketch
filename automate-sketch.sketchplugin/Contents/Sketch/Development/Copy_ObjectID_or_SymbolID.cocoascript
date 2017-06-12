@@ -16,22 +16,28 @@ var onRun = function(context) {
     if (selection.count() > 0) {
 
         var layer = selection.firstObject();
-        if (layer.class() == "MSSymbolMaster") {
-            var pasteBoardString = NSMutableString.stringWithString(layer.symbolID());
-        } else {
-            var pasteBoardString = NSMutableString.stringWithString(layer.objectID());
-        }
 
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();
-        pboard.setString_forType_(pasteBoardString, NSStringPboardType);
 
-        document.showMessage("Layer objectID/symbolID has copied.");
+        if (layer.class() == "MSSymbolMaster") {
+            pboard.setString_forType_(
+                NSMutableString.stringWithString(layer.symbolID()),
+                NSStringPboardType
+            );
+            document.showMessage('SymbolID "' + layer.symbolID() + '" has copied.');
+        } else {
+            pboard.setString_forType_(
+                NSMutableString.stringWithString(layer.objectID()),
+                NSStringPboardType
+            );
+            document.showMessage('Layer objectID "' + layer.objectID() + '" has copied.');
+        }
 
         ga(context, "UA-99098773-3", "Development", context.command.identifier());
 
     } else {
         document.showMessage("Please select one layer.");
     }
-    
+
 };

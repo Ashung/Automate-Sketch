@@ -60,8 +60,8 @@
 | Set to Original Width / Height           | 设为原始宽度 / 高度                              |
 | Select All Missing Instances in Current Page | 选择当前页中失效的 Symbol 实例                      |
 | Select All Instance of Symbol            | 选择 Symbol 的实例                            |
-| Rename Instances                         | 重命名选中的实例                                 |
-| Rename All Instances                     | 重命名所有实例                                  |
+| Rename Instances                         | 重置实例名称                                   |
+| Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例的命名，改为自定义命名。         |
 | Move Symbol Masters to Bottom of Anther  | 移动至另一组件模版下方                              |
 | Selection to Symbol Master               | 将选中图层直接变为 Symbol                         |
 | Detach Unused Symbol Master              | 将未使用的 Symbol Master 转为组                  |
