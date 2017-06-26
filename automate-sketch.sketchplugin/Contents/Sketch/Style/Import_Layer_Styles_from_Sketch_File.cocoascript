@@ -16,14 +16,10 @@ var onRun = function(context) {
     var layerStyles = documentData.layerStyles().objects();
 
     // Choose the sketch file.
-    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
-    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
-    var defaultPath = lastNavPath || desktopPath;
     var chooseFile = NSOpenPanel.openPanel();
         chooseFile.setCanChooseDirectories(false);
         chooseFile.setCanChooseFiles(true);
         chooseFile.setAllowedFileTypes(["sketch"]);
-        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
 
     if (chooseFile.runModal() == NSOKButton) {
 
