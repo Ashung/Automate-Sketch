@@ -34,15 +34,23 @@ var new_slice_for_svg = function(context) {
 };
 
 function addSlice(context, preset) {
+
     var doc = context.document;
     var selection = context.selection;
+    var page = doc.currentPage();
 
     if (selection.count() == 0) {
         doc.showMessage("Plese select at least 1 layer.");
         return;
     }
 
-    doc.currentPage().deselectAllLayers();
+    // Fix Sketch 45
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+
     var selectedLayers = [];
 
     for (var i = 0; i < selection.count(); i++) {
@@ -90,7 +98,6 @@ function addSlice(context, preset) {
             }
         }
 
-        // slice.select_byExpandingSelection(true, true);
         selectedLayers.push(slice);
 
     }

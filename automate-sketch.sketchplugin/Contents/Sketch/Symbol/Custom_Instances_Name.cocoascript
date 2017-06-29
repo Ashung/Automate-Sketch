@@ -11,6 +11,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
+    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
     var page = doc.currentPage();
@@ -84,7 +85,12 @@ var onRun = function(context) {
             setPreferences("custom_instance_name", textCustomName.stringValue());
 
             if (checkbox.state() == 1) {
-                page.deselectAllLayers();
+                // Fix Sketch 45
+                if (page.deselectAllLayers) {
+                    page.deselectAllLayers();
+                } else {
+                    page.changeSelectionBySelectingLayers(nil);
+                }
             }
 
             // Current artboard.
@@ -110,7 +116,12 @@ var onRun = function(context) {
                         }
 
                         if (checkbox.state() == 1) {
-                            instance.select_byExpandingSelection(true, true);
+                            // Fix Sketch 45
+                            if (sketch.build < 43475) {
+                                instance.select_byExpandingSelection(true, true);
+                            } else {
+                                instance.select_byExtendingSelection(true, true);
+                            }
                         }
 
                         count++;
@@ -142,7 +153,13 @@ var onRun = function(context) {
                         }
 
                         if (checkbox.state() == 1) {
-                            instance.select_byExpandingSelection(true, true);
+                            // Fix Sketch 45
+                            if (sketch.build < 43475) {
+                                instance.select_byExpandingSelection(true, true);
+                            } else {
+                                instance.select_byExtendingSelection(true, true);
+                            }
+
                         }
 
                         count++;
@@ -178,9 +195,14 @@ var onRun = function(context) {
                             }
 
                             if (checkbox.state() == 1) {
-                                instance.select_byExpandingSelection(true, true);
+                                // Fix Sketch 45
+                                if (sketch.build < 43475) {
+                                    instance.select_byExpandingSelection(true, true);
+                                } else {
+                                    instance.select_byExtendingSelection(true, true);
+                                }
                             }
-                            
+
                             count++;
                         }
                     }

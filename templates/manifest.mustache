@@ -86,6 +86,12 @@
             "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
+            "name": "{{select_layers_by_type_exportable}}",
+            "identifier": "select_layers_by_type_exportable",
+            "handler": "selectAllExportableInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
             "name": "{{select_layers_by_name}}",
             "identifier": "select_layers_by_name",
             "script": "Layer/Select_Layers_By_Name.cocoascript"
@@ -254,11 +260,6 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "{{reset_export_options}}",
-            "identifier": "reset_export_options",
-            "script": "Slice/Reset_Export_Options.cocoascript"
-        },
-        {
             "name": "{{clear_slices}}",
             "identifier": "clear_slices",
             "script": "Slice/Clear_Slices.cocoascript"
@@ -302,11 +303,6 @@
             "name": "{{move_symbol_masters_to_bottom_of_another}}",
             "identifier": "move_symbol_masters_to_bottom_of_another",
             "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Another.cocoascript"
-        },
-        {
-            "name": "{{select_all_missing_instances_in_current_page}}",
-            "identifier": "select_all_missing_instances_in_current_page",
-            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
         },
         {
             "name": "{{select_all_instances_of_symbol}}",
@@ -428,11 +424,6 @@
             "script": "Utilities/SVG_Export_Setting.cocoascript"
         },
         {
-            "name": "{{nudge_distance_setting}}",
-            "identifier": "nudge_distance_setting",
-            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
-        },
-        {
             "name": "{{web_site}}",
             "identifier": "web_site",
             "handler": "website",
@@ -442,12 +433,6 @@
             "name": "{{report_issue}}",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "{{check_for_updates}}",
-            "identifier": "check_for_updates",
-            "handler": "checkForUpdates",
             "script": "Utilities/help.cocoascript"
         },
         {
@@ -516,6 +501,7 @@
                             "select_layers_by_type_image",
                             "select_layers_by_type_symbol_instance",
                             "select_layers_by_type_slice",
+                            "select_layers_by_type_exportable",
                             "-",
                             "select_all_hidden_layers",
                             "-",
@@ -582,7 +568,6 @@
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
-                    "reset_export_options",
                     "clear_slices",
                     "clear_exportables"
                 ]
@@ -606,7 +591,6 @@
                     "set_to_original_width",
                     "set_to_original_height",
                     "-",
-                    "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
                     "custom_instances_name",
@@ -661,8 +645,7 @@
             {
                 "title": "{{utilities}}",
                 "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting"
+                    "svg_export_setting"
                 ]
             },
             {
@@ -670,7 +653,6 @@
                 "items": [
                     "web_site",
                     "report_issue",
-                    "check_for_updates",
                     "-",
                     "change_language",
                     "-",

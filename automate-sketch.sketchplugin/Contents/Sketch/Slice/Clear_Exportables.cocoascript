@@ -10,21 +10,32 @@
 
 var onRun = function(context) {
 
+    var sketch = context.api();
     var doc = context.document;
+    var page = doc.currentPage();
     var selection = context.selection;
 
     if (selection.count() > 0) {
-        var loop = selection.objectEnumerator();
-        while (layer = loop.nextObject()) {
-            if (layer.isLayerExportable() && layer.class() != "MSSliceLayer") {
-                layer.exportOptions().removeAllExportFormats();
+        var loopSelection = selection.objectEnumerator();
+        while (layer = loopSelection.nextObject()) {
+            var loopChildren = layer.children().objectEnumerator();
+            var child;
+            while (child = loopChildren.nextObject()) {
+                if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
+                    child.exportOptions().removeAllExportFormats();
+                }
             }
         }
-
-        ga(context, "UA-99098773-3", "Slice", context.command.identifier());
-
     } else {
-        doc.showMessage("Please select at least one layer.");
+        var loopChildren = page.children().objectEnumerator();
+        var child;
+        while (child = loopChildren.nextObject()) {
+            if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
+                child.exportOptions().removeAllExportFormats();
+            }
+        }
     }
+
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
 
 };
