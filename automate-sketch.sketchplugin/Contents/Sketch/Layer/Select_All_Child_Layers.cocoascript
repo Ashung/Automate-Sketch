@@ -9,16 +9,24 @@
 @import "../Utilities/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
+
+    var sketch = context.api();
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
     if (selection.count() > 0) {
-        page.deselectAllLayers;
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
             if (layer.class() == "MSLayerGroup" || layer.class() == "MSArtboardGroup") {
                 for (var i = 0; i < layer.layers().count(); i++) {
-                    layer.layers().objectAtIndex(i).select_byExpandingSelection(true, true);
+
+                    // Fix Sketch 45
+                    if (sketch.build < 43475) {
+                        layer.layers().objectAtIndex(i).select_byExpendingSelection(true, i == 0 ? false : true);
+                    } else {
+                        layer.layers().objectAtIndex(i).select_byExtendingSelection(true, i == 0 ? false : true);
+                    }
+                    
                 }
             }
         }

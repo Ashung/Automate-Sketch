@@ -3,7 +3,7 @@
 
 # Automate Sketch
 
-让使用工作更高效。
+让工作更高效。
 
 ## 安装方法
 
@@ -21,7 +21,7 @@
 | Divide Layer                             | 均分图层                                     |
 | Unlock All Layers                        | 解锁所有图层                                   |
 | Click Through On (Off)                   | 点击穿透开关                                   |
-| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、隐藏图层、图层名。           |
+| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
 | Select All Child Layers                  | 选择所有子图层                                  |
 | Clear Layer Name                         | 清理图层名，删除 copy                            |
 | Remove Redundant Groups                  | 删除多余的嵌套组 [^1]                            |
@@ -45,20 +45,17 @@
 | **Slice**                                |                                          |
 | New Layer Base Slice                     | 基于图层新建切片                                 |
 | New Layer Base Slice for ...             | 同上, 带 iOS, Android 和 Web 预设              |
-| Reset Export Options                     | 重置导出选项                                   |
 | Remove All Slices                        | 清除切片                                     |
-| Clear Exportables                        | 清除 Exportables 设置                        |
+| Clear All Exportables                    | 清除全部 Exportables 设置                      |
 | **Artboard**                             |                                          |
 | Artboard Form Selection                  | 从选择对象新建画板                                |
 | Artboard Form Group                      | 从组新建画板                                   |
 | Artboard to Group                        | 画板转为组                                    |
 | Resize to Fix Height                     | 调整画板以适配高度                                |
-| Switch Between Portrait and Landscape    | 画板切换横向或纵向                                |
 | Export All Artboards to PNG              | 将所有画板导出为 PNG，可设置缩放比例                     |
 | Export All Artboards to HTML             | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           | 设为原始宽度 / 高度                              |
-| Select All Missing Instances in Current Page | 选择当前页中失效的 Symbol 实例                      |
 | Select All Instance of Symbol            | 选择 Symbol 的实例                            |
 | Rename Instances                         | 重置实例名称                                   |
 | Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例的命名，改为自定义命名。         |
@@ -80,6 +77,7 @@
 | Import Layer Styles from Sketch File     | 从 Sketch 文件导入图层样式                        |
 | **Guides**                               |                                          |
 | Clear Guides                             | 清除辅助线                                    |
+| Grid Presets                             | 网格预设                                     |
 | **Development**                          |                                          |
 | Copy ObjectID or SymbolID                | 复制 ObjectID 或 SymbolID                   |
 | Copy Slice as Base64                     | 切片复制为 Base64                             |
@@ -88,7 +86,6 @@
 | Open Termianl at File Folder             | 打开终端并切换到当前文档的目录                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       | SVG 导出设置                                 |
-| Nudge Distance Setting                   | 微调距离设置                                   |
 
 [^1]: 当有选中元素时，将只操作元素内的图层。
 

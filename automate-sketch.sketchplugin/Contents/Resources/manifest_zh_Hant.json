@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170622",
+    "version": "2.0.20170629",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -83,6 +83,12 @@
             "name": "切片",
             "identifier": "select_layers_by_type_slice",
             "handler": "selectAllSlicesInSelection",
+            "script": "Layer/Select_Layers_By_Type.cocoascript"
+        },
+        {
+            "name": "可匯出圖層",
+            "identifier": "select_layers_by_type_exportable",
+            "handler": "selectAllExportableInSelection",
             "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
@@ -254,17 +260,12 @@
             "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
-            "name": "重置匯出選項",
-            "identifier": "reset_export_options",
-            "script": "Slice/Reset_Export_Options.cocoascript"
-        },
-        {
             "name": "清除當頁切片",
             "identifier": "clear_slices",
             "script": "Slice/Clear_Slices.cocoascript"
         },
         {
-            "name": "清除可匯出設定",
+            "name": "清除全部可匯出設定",
             "identifier": "clear_exportables",
             "script": "Slice/Clear_Exportables.cocoascript"
         },
@@ -302,11 +303,6 @@
             "name": "移動至另一元件模版下方",
             "identifier": "move_symbol_masters_to_bottom_of_another",
             "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Another.cocoascript"
-        },
-        {
-            "name": "選擇當頁所有損壞的元件例項",
-            "identifier": "select_all_missing_instances_in_current_page",
-            "script": "Symbol/Select_All_Missing_Instances_in_Current_Page.cocoascript"
         },
         {
             "name": "選擇元件的所有例項",
@@ -428,11 +424,6 @@
             "script": "Utilities/SVG_Export_Setting.cocoascript"
         },
         {
-            "name": "微調距離設定",
-            "identifier": "nudge_distance_setting",
-            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
-        },
-        {
             "name": "網站",
             "identifier": "web_site",
             "handler": "website",
@@ -442,12 +433,6 @@
             "name": "問題反饋",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Utilities/help.cocoascript"
-        },
-        {
-            "name": "檢查插件更新",
-            "identifier": "check_for_updates",
-            "handler": "checkForUpdates",
             "script": "Utilities/help.cocoascript"
         },
         {
@@ -516,6 +501,7 @@
                             "select_layers_by_type_image",
                             "select_layers_by_type_symbol_instance",
                             "select_layers_by_type_slice",
+                            "select_layers_by_type_exportable",
                             "-",
                             "select_all_hidden_layers",
                             "-",
@@ -582,7 +568,6 @@
                     "new_slice_base_slice_for_web",
                     "new_layer_base_slice_for_svg",
                     "-",
-                    "reset_export_options",
                     "clear_slices",
                     "clear_exportables"
                 ]
@@ -606,7 +591,6 @@
                     "set_to_original_width",
                     "set_to_original_height",
                     "-",
-                    "select_all_missing_instances_in_current_page",
                     "select_all_instances_of_symbol",
                     "rename_instances",
                     "custom_instances_name",
@@ -661,8 +645,7 @@
             {
                 "title": "實用工具",
                 "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting"
+                    "svg_export_setting"
                 ]
             },
             {
@@ -670,7 +653,6 @@
                 "items": [
                     "web_site",
                     "report_issue",
-                    "check_for_updates",
                     "-",
                     "change_language",
                     "-",

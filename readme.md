@@ -23,7 +23,7 @@ Make your workflow more efficient.
 | Divide Layer                             |                                          |
 | Unlock All Layers                        |                                          |
 | Click Through On (Off)                   |                                          |
-| Select Layers In Selection By ...        | Group, Text, Shape, Image, Symbol Instance, Slice, Invisibile Layer, Name |
+| Select Layers In Selection By ...        | Group, Text, Shape, Image, Symbol Instance, Slice, Exportable Layer, Hidden Layer, Name |
 | Select Child Layers                      |                                          |
 | Clear Layer Name                         |                                          |
 | Remove Redundant Groups                  |                                          |
@@ -46,19 +46,16 @@ Make your workflow more efficient.
 | **Slice**                                |                                          |
 | New Layer Base Slice                     |                                          |
 | New Layer Base Slice for ...             | Support iOS, Android and Web.            |
-| Reset Export Options                     |                                          |
 | Remove All Slices                        |                                          |
-| Clear Exportables                        |                                          |
+| Clear All Exportables                    |                                          |
 | **Artboard**                             |                                          |
 | Artboard Form Selection                  |                                          |
 | Artboard Form Group                      |                                          |
 | Artboard to Group                        |                                          |
 | Resize to Fix Height                     |                                          |
-| Switch Between Portrait and Landscape    |                                          |
 | Export All Artboards to PNG / HTML       |                                          |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           |                                          |
-| Select All Missing Instances in Current Page |                                          |
 | Select All Instance of Symbol            |                                          |
 | Rename Instances                         | Reset to original name of symbol master. |
 | Custom Instances Name                    | Rename instances to custom name.         |
@@ -80,6 +77,7 @@ Make your workflow more efficient.
 | Import Layer Styles from Sketch File     |                                          |
 | **Guides**                               |                                          |
 | Clear Guides                             |                                          |
+| Grid Presets                             |                                          |
 | **Development**                          |                                          |
 | Copy ObjectID or SymbolID                |                                          |
 | Copy Slice as Base64                     |                                          |
@@ -88,7 +86,6 @@ Make your workflow more efficient.
 | Open Termianl at File Folder             |                                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       |                                          |
-| Nudge Distance Setting                   |                                          |
 
 ## License
 

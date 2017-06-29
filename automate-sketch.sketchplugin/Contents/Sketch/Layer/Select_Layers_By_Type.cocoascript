@@ -32,28 +32,84 @@ var selectAllSlicesInSelection = function(context) {
     selectLayersInSelectionByType(context, "MSSliceLayer");
 };
 
+var selectAllExportableInSelection = function(context) {
+
+    var sketch = context.api();
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    // Fix Sketch 45
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+
+    if (selection.count() > 0) {
+        var loopSelection = selection.objectEnumerator();
+        while (layer = loopSelection.nextObject()) {
+            var loopChildren = layer.children().objectEnumerator();
+            var child;
+            while (child = loopChildren.nextObject()) {
+                if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
+                    // Fix Sketch 45
+                    if (sketch.build < 43475) {
+                        child.select_byExpandingSelection(true, true);
+                    } else {
+                        child.select_byExtendingSelection(true, true);
+                    }
+                }
+            }
+        }
+    } else {
+        var loopChildren = page.children().objectEnumerator();
+        var child;
+        while (child = loopChildren.nextObject()) {
+            if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
+                // Fix Sketch 45
+                if (sketch.build < 43475) {
+                    child.select_byExpandingSelection(true, true);
+                } else {
+                    child.select_byExtendingSelection(true, true);
+                }
+            }
+        }
+    }
+
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+
+};
+
 function selectLayersInSelectionByType(context, type) {
 
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
 
-    page.deselectAllLayers();
+    // Fix Sketch 45
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
 
     if (selection.count() > 0) {
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            selectLayersInParent_byType(layer, type);
+            selectLayersInParent_byType(context, layer, type);
         }
     } else {
-        selectLayersInParent_byType(page, type);
+        selectLayersInParent_byType(context, page, type);
     }
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier(), "select_layer_type", type);
 
 }
 
-function selectLayersInParent_byType(parent, type) {
+function selectLayersInParent_byType(context, parent, type) {
+
+    var sketch = context.api();
 
     if (
         parent.containsLayers() && parent.class() != "MSShapeGroup"
@@ -64,10 +120,17 @@ function selectLayersInParent_byType(parent, type) {
             var layer;
             while (layer = loopLayes.nextObject()) {
                 if (layer.class() == type) {
-                    layer.select_byExpandingSelection(true, true);
+
+                    // Fix Sketch 45
+                    if (sketch.build < 43475) {
+                        layer.select_byExpandingSelection(true, true);
+                    } else {
+                        layer.select_byExtendingSelection(true, true);
+                    }
+
                 }
                 if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                    selectLayersInParent_byType(layer, type);
+                    selectLayersInParent_byType(context, layer, type);
                 }
             }
         } else {
@@ -75,7 +138,14 @@ function selectLayersInParent_byType(parent, type) {
             var layer;
             while (layer = loopChildrens.nextObject()) {
                 if (layer.class() == type) {
-                    layer.select_byExpandingSelection(true, true);
+
+                    // Fix Sketch 45
+                    if (sketch.build < 43475) {
+                        layer.select_byExpandingSelection(true, true);
+                    } else {
+                        layer.select_byExtendingSelection(true, true);
+                    }
+
                 }
             }
         }

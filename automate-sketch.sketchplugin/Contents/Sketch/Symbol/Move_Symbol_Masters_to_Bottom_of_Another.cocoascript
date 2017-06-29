@@ -10,6 +10,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
+    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
     var page = doc.currentPage();
@@ -75,10 +76,21 @@ var onRun = function(context) {
             }
         }
 
-        page.deselectAllLayers();
+        // Fix Sketch 45
+        if (page.deselectAllLayers) {
+            page.deselectAllLayers();
+        } else {
+            page.changeSelectionBySelectingLayers(nil);
+        }
+
         for (var i = 0; i < selectedSymbolMasters.length; i++) {
             var symbol = selectedSymbolMasters[i];
-            symbol.select_byExpandingSelection(true, true);
+            // Fix Sketch 45
+            if (sketch.build < 43475) {
+                symbol.select_byExpandingSelection(true, true);
+            } else {
+                symbol.select_byExtendingSelection(true, true);
+            }
         }
 
         // View - Center Selection

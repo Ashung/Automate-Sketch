@@ -10,6 +10,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
+    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
 
@@ -80,12 +81,26 @@ var onRun = function(context) {
             doc.setCurrentPage(currentPage);
 
             // Select all instances
-            currentPage.deselectAllLayers();
+
+            // Fix Sketch 45
+            if (currentPage.deselectAllLayers) {
+                currentPage.deselectAllLayers();
+            } else {
+                currentPage.changeSelectionBySelectingLayers(nil);
+            }
+
             for (var j = 0; j < currentPage.children().count(); j ++) {
                 var layer = currentPage.children().objectAtIndex(j);
                 if (layer.class() == "MSSymbolInstance") {
                     if (String(layer.symbolID()) == String(currentSymbolMaster.symbolID())) {
-                        layer.select_byExpandingSelection(true, true);
+
+                        // Fix Sketch 45
+                        if (sketch.build < 43475) {
+                            layer.select_byExpandingSelection(true, true);
+                        } else {
+                            layer.select_byExtendingSelection(true, true);
+                        }
+
                         // if instance is invisible make it visible.
                         if (layer.isVisible() == false) {
                             layer.setIsVisible(true);

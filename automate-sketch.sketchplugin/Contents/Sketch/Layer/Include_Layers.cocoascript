@@ -37,7 +37,7 @@ var createIncludeLayer = function(context) {
         var targetGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers([target]))
         targetGroup.setName("@include(" + source.objectID() + ")");
         targetGroup.setIsLocked(true);
-        copyLayersFromSourceGroup_toTargetGroup(source, targetGroup);
+        copyLayersFromSourceGroup_toTargetGroup(context, source, targetGroup);
         target.removeFromParent();
 
         ga(context, "UA-99098773-3", "Layer", context.command.identifier());
@@ -59,7 +59,7 @@ var syncIncludeLayers = function(context) {
             layer.removeAllLayers();
             var sourceGroupID = /@include\(([A-F0-9\-]{36})\)/.exec(layer.name())[1];
             var sourceGroup = doc.documentData().layerWithID(sourceGroupID);
-            copyLayersFromSourceGroup_toTargetGroup(sourceGroup, layer);
+            copyLayersFromSourceGroup_toTargetGroup(context, sourceGroup, layer);
         }
     }
 
@@ -67,12 +67,21 @@ var syncIncludeLayers = function(context) {
 
 };
 
-function copyLayersFromSourceGroup_toTargetGroup(sourceGroup, targetGroup) {
+function copyLayersFromSourceGroup_toTargetGroup(context, sourceGroup, targetGroup) {
+
+    var sketch = context.api();
     var loopSourceLayer = sourceGroup.layers().objectEnumerator();
     var layer;
     while (layer = loopSourceLayer.nextObject()) {
         layer.copyToLayer_beforeLayer(targetGroup, nil);
     }
     targetGroup.resizeToFitChildrenWithOption(1);
-    targetGroup.select_byExpandingSelection(true, false);
+
+    // Fix Sketch 45
+    if (sketch.build < 43475) {
+        targetGroup.select_byExpandingSelection(true, true);
+    } else {
+        targetGroup.select_byExtendingSelection(true, true);
+    }
+
 }

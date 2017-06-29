@@ -158,6 +158,8 @@ var colorKeywords = {
 };
 
 var onRun = function(context) {
+
+    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
 
@@ -266,7 +268,14 @@ var onRun = function(context) {
                 fill.setFillType(0); // solid color
             }
             layer.style().enabledFills().lastObject().setColor(color);
-            layer.select_byExpandingSelection(true, true);
+
+            // Fix Sketch 45
+            if (sketch.build < 43475) {
+                layer.select_byExpandingSelection(true, true);
+            } else {
+                layer.select_byExtendingSelection(true, true);
+            }
+
         }
 
     } else {
@@ -274,7 +283,7 @@ var onRun = function(context) {
     }
 
     ga(context, "UA-99098773-3", "Style", context.command.identifier());
-    
+
 };
 
 function repeatTwice(repeatable) {

@@ -68,14 +68,14 @@ function selectLayerByNameWithSelection(context, page, selection, userInputStrin
     var totalCount = 0;
 
     if (selection.count() == 0) {
-        selectLayerByName(page, userInputString, regexp, function(count){
+        selectLayerByName(context, page, userInputString, regexp, function(count){
             totalCount = count;
         });
     } else {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
-            selectLayerByName(layer, userInputString, regexp, function(count){
+            selectLayerByName(context, layer, userInputString, regexp, function(count){
                 totalCount += count;
             });
         }
@@ -90,20 +90,45 @@ function selectLayerByNameWithSelection(context, page, selection, userInputStrin
     }
 }
 
-function selectLayerByName(parent, name, regexp, callback) {
+function selectLayerByName(context, parent, name, regexp, callback) {
+
     var count = 0;
-    parent.parentPage().deselectAllLayers();
+
+    var sketch = context.api();
+
+    // Fix Sketch 45
+    var page = parent.parentPage();
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+
     var loop = parent.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {
         if (regexp) {
             if (RegExp(name).test(child.name())) {
-                child.select_byExpandingSelection(true, true);
+
+                // Fix Sketch 45
+                if (sketch.build < 43475) {
+                    child.select_byExpandingSelection(true, true);
+                } else {
+                    child.select_byExtendingSelection(true, true);
+                }
+
                 count ++;
             }
         } else {
             if (child.name().isEqualToString(name)) {
-                child.select_byExpandingSelection(true, true);
+
+                // Fix Sketch 45
+                if (sketch.build < 43475) {
+                    child.select_byExpandingSelection(true, true);
+                } else {
+                    child.select_byExtendingSelection(true, true);
+                }
+
                 count ++;
             }
         }
