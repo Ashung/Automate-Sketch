@@ -1,17 +1,7 @@
 -
-  title: v2.0.20170607
+  title: v2.0.20170629
   description: |-
-    <ul><li>Support Sketch 45 plugin update system.</li>
-    <li>Remove unused symbols now support Sketch 44.1.</li>
-    <li>Remove Redundant Groups now support Sketch 44.1.</li>
-    <li>Create Typegraphy/Color Guide now support Sketch 44.1.</li>
-    <li>Import Layer/Text Styles from Sketch File now support Sketch 44.1.</li></ul>
-  pubDate: Wed, 07 Jun 2017 02:56:09 GMT
-  version: 2.0.20170607
-  commitID: a61759acbe0e0f347a6e3592dd93a180c56cead7
--
-  title: v2.0.20170531
-  description: For Sketch 43.x
-  pubDate: Wed, 10 May 2017 12:28:28 GMT
-  varsion: 2.0.20170531
-  commitID: 93eb7a863a3805f18d542a7e1f809c8ec42ba3b2
+    <ul><li>Support Sketch 45.</li></ul>
+  pubDate: Thu, 29 Jun 2017 04:08:26 GMT
+  version: 2.0.20170629
+  commitID: 8e89102ff1cdbe79d9b182f83f8870b20fec16ac
