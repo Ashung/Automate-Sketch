@@ -10,7 +10,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
-    var sketch = context.api();
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
     var doc = context.document;
     var selection = context.selection;
 
@@ -95,7 +95,7 @@ var onRun = function(context) {
                     if (String(layer.symbolID()) == String(currentSymbolMaster.symbolID())) {
 
                         // Fix Sketch 45
-                        if (sketch.build < 43475) {
+                        if (appVersion < 45) {
                             layer.select_byExpandingSelection(true, true);
                         } else {
                             layer.select_byExtendingSelection(true, true);

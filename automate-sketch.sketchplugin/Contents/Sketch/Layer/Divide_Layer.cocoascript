@@ -11,7 +11,6 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
-    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
 
@@ -53,7 +52,7 @@ var onRun = function(context) {
                         cellLayer.frame().setHeight(cellHeight);
 
                         // Fix Sketch 45
-                        if (sketch.build < 43475) {
+                        if (MSApplicationMetadata.metadata().appVersion > 45) {
                             cellLayer.select_byExpandingSelection(true, true);
                         } else {
                             cellLayer.select_byExtendingSelection(true, true);

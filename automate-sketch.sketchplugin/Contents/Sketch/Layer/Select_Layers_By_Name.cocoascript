@@ -64,18 +64,19 @@ var onRun = function(context) {
 };
 
 function selectLayerByNameWithSelection(context, page, selection, userInputString, regexp) {
+
     var doc = context.document;
     var totalCount = 0;
 
     if (selection.count() == 0) {
-        selectLayerByName(context, page, userInputString, regexp, function(count){
+        selectLayerByName(page, userInputString, regexp, function(count){
             totalCount = count;
         });
     } else {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
-            selectLayerByName(context, layer, userInputString, regexp, function(count){
+            selectLayerByName(layer, userInputString, regexp, function(count) {
                 totalCount += count;
             });
         }
@@ -90,11 +91,9 @@ function selectLayerByNameWithSelection(context, page, selection, userInputStrin
     }
 }
 
-function selectLayerByName(context, parent, name, regexp, callback) {
+function selectLayerByName(parent, name, regexp, callback) {
 
     var count = 0;
-
-    var sketch = context.api();
 
     // Fix Sketch 45
     var page = parent.parentPage();
@@ -111,7 +110,7 @@ function selectLayerByName(context, parent, name, regexp, callback) {
             if (RegExp(name).test(child.name())) {
 
                 // Fix Sketch 45
-                if (sketch.build < 43475) {
+                if (MSApplicationMetadata.metadata().appVersion > 45) {
                     child.select_byExpandingSelection(true, true);
                 } else {
                     child.select_byExtendingSelection(true, true);
@@ -123,7 +122,7 @@ function selectLayerByName(context, parent, name, regexp, callback) {
             if (child.name().isEqualToString(name)) {
 
                 // Fix Sketch 45
-                if (sketch.build < 43475) {
+                if (MSApplicationMetadata.metadata().appVersion > 45) {
                     child.select_byExpandingSelection(true, true);
                 } else {
                     child.select_byExtendingSelection(true, true);
@@ -133,6 +132,7 @@ function selectLayerByName(context, parent, name, regexp, callback) {
             }
         }
     }
+
     if (callback && typeof(callback) == "function") {
         callback(count);
     }

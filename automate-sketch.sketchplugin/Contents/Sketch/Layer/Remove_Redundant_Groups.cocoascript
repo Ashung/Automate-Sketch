@@ -64,7 +64,14 @@ function groupIsSafeToUngroup(group) {
     var noOpacity = (group.style().contextSettings().opacity() == 1),
         noBlending = (group.style().hasBlending() == 0),
         noShadows = (group.style().hasEnabledShadow() == 0),
-        noResizing = (group.resizingType() == 0),
         noExportOptions = (group.exportOptions().exportFormats().count() == 0);
-    return noOpacity && noBlending && noShadows && noResizing && noExportOptions;
+
+    // Sketch 44+ resizing constraint
+    if (MSApplicationMetadata.metadata().appVersion > 44) {
+        var noResizingConstraint = (group.resizingConstraint() == 63);
+        return noOpacity && noBlending && noShadows && noResizingConstraint && noExportOptions;
+    } else {
+        var noResizing = (group.resizingType() == 0);
+        return noOpacity && noBlending && noShadows && noResizing && noExportOptions;
+    }
 }
