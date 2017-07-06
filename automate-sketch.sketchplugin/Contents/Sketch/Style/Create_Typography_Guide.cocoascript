@@ -32,7 +32,7 @@ var onRun = function(context) {
         dialog.addButtonWithTitle("Cancel");
 
         var responseCode = dialog.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
 
             var typographyPositionX = page.originForNewArtboard().x,
                 typographyPositionY = page.originForNewArtboard().y,

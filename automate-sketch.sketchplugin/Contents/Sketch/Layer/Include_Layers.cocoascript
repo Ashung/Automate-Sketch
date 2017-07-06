@@ -59,7 +59,7 @@ var syncIncludeLayers = function(context) {
             layer.removeAllLayers();
             var sourceGroupID = /@include\(([A-F0-9\-]{36})\)/.exec(layer.name())[1];
             var sourceGroup = doc.documentData().layerWithID(sourceGroupID);
-            copyLayersFromSourceGroup_toTargetGroup(context, sourceGroup, layer);
+            copyLayersFromSourceGroup_toTargetGroup(sourceGroup, layer);
         }
     }
 
@@ -67,9 +67,8 @@ var syncIncludeLayers = function(context) {
 
 };
 
-function copyLayersFromSourceGroup_toTargetGroup(context, sourceGroup, targetGroup) {
+function copyLayersFromSourceGroup_toTargetGroup(sourceGroup, targetGroup) {
 
-    var sketch = context.api();
     var loopSourceLayer = sourceGroup.layers().objectEnumerator();
     var layer;
     while (layer = loopSourceLayer.nextObject()) {
@@ -78,7 +77,7 @@ function copyLayersFromSourceGroup_toTargetGroup(context, sourceGroup, targetGro
     targetGroup.resizeToFitChildrenWithOption(1);
 
     // Fix Sketch 45
-    if (sketch.build < 43475) {
+    if (MSApplicationMetadata.metadata().appVersion > 45) {
         targetGroup.select_byExpandingSelection(true, true);
     } else {
         targetGroup.select_byExtendingSelection(true, true);

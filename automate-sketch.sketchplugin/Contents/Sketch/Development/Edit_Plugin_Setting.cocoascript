@@ -1,0 +1,86 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var editors = [
+        {
+            "title": "None",
+            "path": ""
+        },
+        {
+            "title": "Atom",
+            "path": "/usr/local/bin/atom"
+        },
+        {
+            "title": "Sublime Text",
+            "path": "/Applications/Sublime Text.app/Contents/SharedSupport/bin/subl"
+        },
+        {
+            "title": "Visual Studio Code",
+            "path": "/Applications/Visual Studio Code.app/Contents/MacOS/Electron"
+        },
+        {
+            "title": "WebStorm",
+            "path": "/Applications/WebStorm.app/Contents/MacOS/webstorm"
+        }
+    ];
+
+    var editorsSelectBox = [];
+    for (var i = 0; i < editors.length; i ++) {
+        var path = editors[i]["path"];
+        if (!NSFileManager.defaultManager().fileExistsAtPath_(path) && path != "") {
+            editorsSelectBox.push(editors[i]["title"] + " (App not installed)");
+        } else {
+            editorsSelectBox.push(editors[i]["title"]);
+        }
+    }
+
+    var userDefaults = NSUserDefaults.standardUserDefaults();
+
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Define a code editor for Plugins");
+    dialog.setInformativeText("You can tell Sketch to use it to edit Plugins.")
+
+    dialog.addTextLabelWithValue("Choose a favorite code editor.");
+    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
+    selectBox.addItemsWithObjectValues(editorsSelectBox);
+    selectBox.selectItemAtIndex(0);
+    dialog.addAccessoryView(selectBox);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var selectedIndex = selectBox.indexOfSelectedItem();
+        var editorTitle = editors[selectedIndex]["title"];
+        var editorPath = editors[selectedIndex]["path"];
+
+        if (editorPath == "") {
+            userDefaults.removeObjectForKey("Plugin Editor");
+            userDefaults.synchronize();
+            AppController.sharedInstance().pluginManager().reloadPlugins();
+        } else {
+            if (NSFileManager.defaultManager().fileExistsAtPath_(editorPath)) {
+                userDefaults.setObject_forKey(editorPath, "Plugin Editor");
+                userDefaults.synchronize();
+                AppController.sharedInstance().pluginManager().reloadPlugins();
+            } else {
+                context.document.showMessage("App not installed");
+            }
+        }
+
+        ga(context, "UA-99098773-3", "Development", context.command.identifier(), "plugin_editor", editorTitle);
+
+    }
+
+};

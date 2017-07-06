@@ -17,22 +17,21 @@ var onRun = function(context) {
     if (selection.count() > 0) {
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            selectHiddenLayer(context, layer);
+            selectHiddenLayer(layer);
         }
     } else {
-        selectHiddenLayer(context, page);
+        selectHiddenLayer(page);
     }
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
 };
 
-function selectHiddenLayer(context, layer) {
+function selectHiddenLayer(layer) {
 
-    var sketch = context.api();
     if (!layer.isVisible()) {
         // Fix Sketch 45
-        if (sketch.build < 43475) {
+        if (MSApplicationMetadata.metadata().appVersion > 45) {
             layer.select_byExpandingSelection(true, true);
         } else {
             layer.select_byExtendingSelection(true, true);
@@ -42,7 +41,7 @@ function selectHiddenLayer(context, layer) {
         while (childLayer = loopChildren.nextObject()) {
             if (!childLayer.isVisible()) {
                 // Fix Sketch 45
-                if (sketch.build < 43475) {
+                if (MSApplicationMetadata.metadata().appVersion > 45) {
                     childLayer.select_byExpandingSelection(true, true);
                 } else {
                     childLayer.select_byExtendingSelection(true, true);

@@ -38,7 +38,7 @@ var onRun = function(context) {
         dialog.setAccessoryView(matrixFormat);
 
         var responseCode = dialog.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
 
             var savePanel = NSOpenPanel.openPanel();
             savePanel.setMessage("Export All Artboards to ...");

@@ -13,7 +13,6 @@ var onRun = function(context) {
 
     var boundsLayerName = "#";
 
-    var sketch = context.api();
     var doc = context.document;
     var selection = context.selection;
     if (selection.count() > 0) {
@@ -81,12 +80,12 @@ var onRun = function(context) {
                 // // Fill color for boundsLayer
                 // var boundsLayerFillColor = MSColor.colorWithRed_green_blue_alpha(255/255, 0/255, 0/255, 1.0);
                 // boundsLayer.style().addStylePartOfType(0);
-                // boundsLayer.style().fill().setColor(boundsLayerFillColor);
+                // boundsLayer.style().fills().firstObject().setColor(boundsLayerFillColor);
 
                 // Select boundsLayer
                 if (boundsLayer.parentGroup() != layer){
                     // Fix Sketch 45
-                    if (sketch.build < 43475) {
+                    if (MSApplicationMetadata.metadata().appVersion > 45) {
                         boundsLayer.select_byExpandingSelection(true, true);
                     } else {
                         boundsLayer.select_byExtendingSelection(true, true);

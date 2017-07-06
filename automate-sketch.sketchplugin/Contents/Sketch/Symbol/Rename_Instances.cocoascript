@@ -39,7 +39,7 @@ var onRun = function(context) {
     dialog.setAccessoryView(matrixType);
 
     var responseCode = dialog.runModal();
-    if (responseCode == "1000") {
+    if (responseCode == 1000) {
 
         var selectedRadioIndex = matrixType.cells().indexOfObject(matrixType.selectedCell());
 

@@ -14,14 +14,10 @@ var onRun = function(context) {
     var documentData = document.documentData();
 
     // Choose the new sketch file.
-    var lastNavPath = NSUserDefaults.standardUserDefaults().stringForKey("NSNavLastRootDirectory");
-    var desktopPath = NSHomeDirectory().stringByAppendingPathComponent("Desktop");
-    var defaultPath = lastNavPath || desktopPath;
     var chooseFile = NSOpenPanel.openPanel();
         chooseFile.setCanChooseDirectories(false);
         chooseFile.setCanChooseFiles(true);
         chooseFile.setAllowedFileTypes(["sketch"]);
-        chooseFile.setDirectoryURL(NSURL.fileURLWithPath(defaultPath));
 
     if (chooseFile.runModal() == NSOKButton) {
 
@@ -29,8 +25,6 @@ var onRun = function(context) {
         var newDocument = MSDocument.alloc().init();
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
         var newDocumentData = newDocument.documentData();
-
-        // log(documentData.allSymbols().count() + "/" + newDocumentData.allSymbols().count())
 
         var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
 
@@ -79,7 +73,6 @@ var onRun = function(context) {
                 symbolMasterWillAddToDocument.frame().setY(oldSymbolMaster.frame().y());
                 oldSymbolMaster.removeFromParent();
                 page.insertLayers_atIndex([symbolMasterWillAddToDocument], index);
-                // page.addLayers([symbolMasterWillAddToDocument]);
             } else {
                 var page = documentData.layerWithID(symbolMasterWillAddToDocument.parentPage().objectID());
                 if (page && page.class() == "MSPage") {

@@ -1,0 +1,58 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var fontFamilies = [
+        "Andale Mono",
+        "Courier",
+        "Fira Mono",
+        "Menlo",
+        "Monaco",
+        "PT Mono",
+        "SF Mono",
+        "Source Code Pro"
+    ];
+
+    var userDefaults = NSUserDefaults.standardUserDefaults();
+    var fontFamily = userDefaults.objectForKey("scriptEditorFont") + "" || fontFamilies[0];
+    var fontFamilyIndex = fontFamilies.indexOf(fontFamily);
+    var fontSize = userDefaults.objectForKey("scriptEditorFontSize") || "12";
+
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Script editor setting");
+    dialog.setInformativeText("You change the font used in the \"Run Script...\" panel.")
+
+    dialog.addTextLabelWithValue("Choose a font.");
+    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
+    selectBox.addItemsWithObjectValues(fontFamilies);
+    selectBox.selectItemAtIndex(fontFamilyIndex);
+    dialog.addAccessoryView(selectBox);
+
+    dialog.addTextLabelWithValue("Font size.");
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 260, 24));
+    textField.setStringValue(fontSize);
+    dialog.addAccessoryView(textField);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        userDefaults.setObject_forKey(fontFamilies[selectBox.indexOfSelectedItem()], "scriptEditorFont");
+        userDefaults.setObject_forKey(textField.stringValue(), "scriptEditorFontSize");
+        userDefaults.synchronize();
+
+        ga(context, "UA-99098773-3", "Development", context.command.identifier());
+
+    }
+
+};

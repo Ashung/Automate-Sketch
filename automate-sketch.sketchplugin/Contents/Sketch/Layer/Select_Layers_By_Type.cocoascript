@@ -34,10 +34,12 @@ var selectAllSlicesInSelection = function(context) {
 
 var selectAllExportableInSelection = function(context) {
 
-    var sketch = context.api();
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+
+    var totalCount = 0;
 
     // Fix Sketch 45
     if (page.deselectAllLayers) {
@@ -54,11 +56,13 @@ var selectAllExportableInSelection = function(context) {
             while (child = loopChildren.nextObject()) {
                 if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                     // Fix Sketch 45
-                    if (sketch.build < 43475) {
+                    if (appVersion < 45) {
                         child.select_byExpandingSelection(true, true);
                     } else {
                         child.select_byExtendingSelection(true, true);
                     }
+
+                    totalCount ++;
                 }
             }
         }
@@ -68,13 +72,23 @@ var selectAllExportableInSelection = function(context) {
         while (child = loopChildren.nextObject()) {
             if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                 // Fix Sketch 45
-                if (sketch.build < 43475) {
+                if (appVersion < 45) {
                     child.select_byExpandingSelection(true, true);
                 } else {
                     child.select_byExtendingSelection(true, true);
                 }
+
+                totalCount ++;
             }
         }
+    }
+
+    if (totalCount == 0) {
+        doc.showMessage("No exportable layer found.");
+    } else if (totalCount == 1) {
+        doc.showMessage("Select 1 exportable layer.");
+    } else {
+        doc.showMessage("Select " + totalCount + " exportable layers.");
     }
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
@@ -87,6 +101,32 @@ function selectLayersInSelectionByType(context, type) {
     var page = doc.currentPage();
     var selection = context.selection;
 
+    var totalCount = 0;
+
+    var friendlyTypeName = "";
+    switch (type) {
+        case "MSLayerGroup":
+            friendlyTypeName = "group";
+            break;
+        case "MSTextLayer":
+            friendlyTypeName = "text";
+            break;
+        case "MSShapeGroup":
+            friendlyTypeName = "shape";
+            break;
+        case "MSBitmapLayer":
+            friendlyTypeName = "image";
+            break;
+        case "MSSymbolInstance":
+            friendlyTypeName = "symbol";
+            break;
+        case "MSSliceLayer":
+            friendlyTypeName = "slice";
+            break;
+        default:
+            friendlyTypeName = "";
+    }
+
     // Fix Sketch 45
     if (page.deselectAllLayers) {
         page.deselectAllLayers();
@@ -94,22 +134,37 @@ function selectLayersInSelectionByType(context, type) {
         page.changeSelectionBySelectingLayers(nil);
     }
 
-    if (selection.count() > 0) {
+    if (selection.count() == 0) {
+        selectLayersInParent_byType(page, type, function(count) {
+            totalCount = count;
+        });
+    } else {
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            selectLayersInParent_byType(context, layer, type);
+            selectLayersInParent_byType(layer, type, function(count) {
+                totalCount += count;
+            });
         }
+    }
+
+    friendlyTypeName = friendlyTypeName ? " " + friendlyTypeName : "";
+    if (totalCount == 0) {
+        doc.showMessage("No layer" + friendlyTypeName + " found.");
+    } else if (totalCount == 1) {
+        doc.showMessage("Select 1" + friendlyTypeName + " layer.");
     } else {
-        selectLayersInParent_byType(context, page, type);
+        doc.showMessage("Select " + totalCount + friendlyTypeName + " layers.");
     }
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier(), "select_layer_type", type);
 
 }
 
-function selectLayersInParent_byType(context, parent, type) {
+function selectLayersInParent_byType(parent, type, callback) {
 
-    var sketch = context.api();
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+
+    var count = 0;
 
     if (
         parent.containsLayers() && parent.class() != "MSShapeGroup"
@@ -122,11 +177,13 @@ function selectLayersInParent_byType(context, parent, type) {
                 if (layer.class() == type) {
 
                     // Fix Sketch 45
-                    if (sketch.build < 43475) {
+                    if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);
                     } else {
                         layer.select_byExtendingSelection(true, true);
                     }
+
+                    count ++;
 
                 }
                 if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
@@ -140,16 +197,22 @@ function selectLayersInParent_byType(context, parent, type) {
                 if (layer.class() == type) {
 
                     // Fix Sketch 45
-                    if (sketch.build < 43475) {
+                    if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);
                     } else {
                         layer.select_byExtendingSelection(true, true);
                     }
 
+                    count ++;
+
                 }
             }
         }
 
+    }
+
+    if (callback && typeof(callback) == "function") {
+        callback(count);
     }
 
 }

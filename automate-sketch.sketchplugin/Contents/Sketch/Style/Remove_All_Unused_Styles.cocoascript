@@ -23,7 +23,7 @@ var onRun = function(context) {
             layer.class() == "MSSymbolInstance"
         ) {
             // Fix Sketch 45
-            if (sketch.build < 43475) {
+            if (MSApplicationMetadata.metadata().appVersion > 45) {
                 layer.select_byExpandingSelection(true, false);
             } else {
                 layer.select_byExtendingSelection(true, false);
@@ -35,7 +35,7 @@ var onRun = function(context) {
     // Restore selection
     var loopSelection = selection.objectEnumerator();
     while (layer = loopSelection.nextObject()) {
-        if (sketch.build < 43475) {
+        if (MSApplicationMetadata.metadata().appVersion > 45) {
             layer.select_byExpandingSelection(true, true);
         } else {
             layer.select_byExtendingSelection(true, true);

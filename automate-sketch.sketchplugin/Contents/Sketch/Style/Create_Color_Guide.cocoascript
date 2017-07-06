@@ -50,7 +50,7 @@ var onRun = function(context) {
         dialog.addButtonWithTitle("Cancel");
 
         var responseCode = dialog.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
 
             var palettePositionX = page.originForNewArtboard().x,
                 palettePositionY = page.originForNewArtboard().y,
@@ -93,7 +93,7 @@ var onRun = function(context) {
                 rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
                 var palette = MSShapeGroup.shapeWithPath(rectangle);
                 palette.style().addStylePartOfType(0);
-                palette.style().fill().setColor(color);
+                palette.style().fills().firstObject().setColor(color);
                 palette.setName("color");
                 paletteGroup.addLayers([palette]);
 

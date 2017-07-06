@@ -27,7 +27,7 @@ var onRun = function(context) {
                     var backgroundLayer = MSShapeGroup.shapeWithPath(rectangle);
                     backgroundLayer.setName("background");
                     backgroundLayer.style().addStylePartOfType(0);
-                    backgroundLayer.style().fill().setColor(artboard.backgroundColor());
+                    backgroundLayer.style().fills().firstObject().setColor(artboard.backgroundColor());
                     artboard.insertLayers_beforeLayer([backgroundLayer], artboard.firstLayer());
                 }
 
@@ -38,13 +38,13 @@ var onRun = function(context) {
                 artboard.ungroup();
             }
         }
-        
+
         if (!selectionHasArtboards) {
             doc.showMessage("Select a artboard.");
         }
 
         ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
-        
+
     } else {
         doc.showMessage("Select a artboard.");
     }

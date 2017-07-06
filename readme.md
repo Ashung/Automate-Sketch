@@ -29,7 +29,6 @@ Make your workflow more efficient.
 | Remove Redundant Groups                  |                                          |
 | Remove Hidden Layers                     |                                          |
 | Remove Empty Groups                      |                                          |
-| Reverse Order And Close Path             |                                          |
 | Create / Sync Include Layer              |                                          |
 | **Arrange**                              |                                          |
 | Change Places Between Two Layers         |                                          |
@@ -84,8 +83,12 @@ Make your workflow more efficient.
 | Copy Selected Layer Name                 |                                          |
 | Show File in Finder                      |                                          |
 | Open Termianl at File Folder             |                                          |
+| Script Editor Setting                    |                                          |
+| Edit Plugin Setting                      |                                          |
+| Reload Plugins                           |                                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       |                                          |
+| Nudge Distance Setting                   |                                          |
 
 ## License
 

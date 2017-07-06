@@ -48,7 +48,7 @@ var onRun = function(context) {
         alert.addButtonWithTitle("Cancel");
 
         var responseCode = alert.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
             var selectedMissingFont = missingFonts.objectAtIndex(selectBox.indexOfSelectedItem());
             var replaceFont = textField.stringValue();
 
