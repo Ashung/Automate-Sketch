@@ -40,7 +40,7 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("Cancel");
 
     var responseCode = dialog.runModal();
-    if (responseCode == "1000") {
+    if (responseCode == 1000) {
 
         var _svgExportCompact = svgExportCompact.state(),
             _svgExportSkipAssignIdToLayerName = svgExportSkipAssignIdToLayerName.state();

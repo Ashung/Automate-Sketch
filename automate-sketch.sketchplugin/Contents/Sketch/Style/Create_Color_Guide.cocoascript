@@ -50,7 +50,7 @@ var onRun = function(context) {
         dialog.addButtonWithTitle("Cancel");
 
         var responseCode = dialog.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
 
             var palettePositionX = page.originForNewArtboard().x,
                 palettePositionY = page.originForNewArtboard().y,

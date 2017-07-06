@@ -33,8 +33,12 @@ var onRun = function(context) {
 
             var newTextStyle = newTextStyles.objectAtIndex(i);
 
+            // Remove same text styles
             for (var j = 0; j < textStyles.count(); j++) {
-                if (textStyles.objectAtIndex(j).objectID().isEqualToString(newTextStyle.objectID())) {
+                if (
+                    textStyles.objectAtIndex(j).objectID().isEqualToString(newTextStyle.objectID()) ||
+                    textStyles.objectAtIndex(j).propertiesAreEqual(newTextStyle)
+                ) {
                     textStyles.removeObjectAtIndex(j);
                 }
             }

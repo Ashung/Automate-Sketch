@@ -1,0 +1,16 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Utilities/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    AppController.sharedInstance().pluginManager().reloadPlugins();
+
+    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+};

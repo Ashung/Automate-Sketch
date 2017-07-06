@@ -424,6 +424,11 @@
             "script": "Utilities/SVG_Export_Setting.cocoascript"
         },
         {
+            "name": "{{nudge_distance_setting}}",
+            "identifier": "nudge_distance_setting",
+            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
+        },
+        {
             "name": "{{web_site}}",
             "identifier": "web_site",
             "handler": "website",
@@ -472,6 +477,21 @@
             "name": "{{copy_objectid_or_symbolid}}",
             "identifier": "copy_objectid_or_symbolid",
             "script": "Development/Copy_ObjectID_or_SymbolID.cocoascript"
+        },
+        {
+            "name": "{{reload_plugins}}",
+            "identifier": "reload_plugins",
+            "script": "Development/Reload_Plugins.cocoascript"
+        },
+        {
+            "name": "{{edit_plugin_setting}}",
+            "identifier": "edit_plugin_setting",
+            "script": "Development/Edit_Plugin_Setting.cocoascript"
+        },
+        {
+            "name": "{{script_editor_setting}}",
+            "identifier": "script_editor_setting",
+            "script": "Development/Script_Editor_Setting.cocoascript"
         }
     ],
     "menu": {
@@ -639,13 +659,18 @@
                     "copy_objectid_or_symbolid",
                     "-",
                     "show_file_in_finder",
-                    "open_terminal_at_file_folder"
+                    "open_terminal_at_file_folder",
+                    "-",
+                    "script_editor_setting",
+                    "edit_plugin_setting",
+                    "reload_plugins"
                 ]
             },
             {
                 "title": "{{utilities}}",
                 "items": [
-                    "svg_export_setting"
+                    "svg_export_setting",
+                    "nudge_distance_setting"
                 ]
             },
             {

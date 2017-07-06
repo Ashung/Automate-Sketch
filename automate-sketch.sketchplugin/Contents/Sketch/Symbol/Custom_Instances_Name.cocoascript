@@ -74,7 +74,7 @@ var onRun = function(context) {
         dialog.addAccessoryView(checkbox);
 
         var responseCode = dialog.runModal();
-        if (responseCode == "1000") {
+        if (responseCode == 1000) {
 
             if (selectBox2.indexOfSelectedItem() == 0 && textCustomName.stringValue() == "") {
                 var app = NSApplication.sharedApplication();
