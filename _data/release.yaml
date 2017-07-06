@@ -1,7 +1,15 @@
 -
+  title: v2.0.20170706
+  description: |-
+    <ul><li>Fix Sketch 45 support.</li><li>Add some plugin development features.</li></ul>
+  pubDate: "Thu, 06 Jul 2017 11:22:02 GMT"
+  version: 2.0.20170706
+  commitID: 5aea2a1d7197462fe9444d0e19dcf90e361f7183
+
+-
   title: v2.0.20170629
   description: |-
     <ul><li>Support Sketch 45.</li></ul>
-  pubDate: Thu, 29 Jun 2017 04:08:26 GMT
+  pubDate: "Thu, 29 Jun 2017 04:08:26 GMT"
   version: 2.0.20170629
   commitID: 8e89102ff1cdbe79d9b182f83f8870b20fec16ac

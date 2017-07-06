@@ -62,12 +62,15 @@ header {
     h1 {
         margin: 0;
     }
+    h2 {
+        font-weight: normal;
+    }
     .porject-badge {
         .star, .download {
             display: inline-block;
             text-align: left;
             height: 36px;
-            line-height: 36px;
+            line-height: 40px;
             margin: 0 2px;
             padding-right: 6px;
             color: #FFFFFF;
@@ -128,15 +131,26 @@ header {
     }
 }
 
+.diver {
+    width: 200px;
+    height: 2px;
+    margin: 0 auto 2.5rem;
+    background: rgba(0, 0, 0, .2);
+}
+
+section {
+    width: $image_width;
+    margin: 0 auto 2.5rem;
+    
+    table, td, th {
+        text-align: left;
+        border: 1px solid;
+    }
+}
+
 footer {
     width: $image_width;
     margin: 0 auto 2.5rem;
-    .diver {
-        width: 200px;
-        height: 2px;
-        margin: 0 auto 2.5rem;
-        background: rgba(0, 0, 0, .2);
-    }
     .author {
         color: $text_color_gray;
     }
