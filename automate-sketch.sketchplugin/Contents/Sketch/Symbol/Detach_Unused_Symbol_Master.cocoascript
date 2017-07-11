@@ -6,7 +6,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
     var doc = context.document;

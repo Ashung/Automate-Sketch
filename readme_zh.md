@@ -21,12 +21,13 @@
 | Divide Layer                             | 均分图层。                                    |
 | Unlock All Layers                        | 解锁所有图层。                                  |
 | Click Through On (Off)                   | 点击穿透开关。                                  |
-| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。[^1] |
+| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
 | Select All Child Layers                  | 选择所有子图层。                                 |
+| Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。           |
 | Clear Layer Name                         | 清理图层名，删除图层名后的 copy。                      |
-| Remove Redundant Groups                  | 删除多余的嵌套组。[^1]                            |
-| Remove Hidden Layers                     | 删除隐藏图层。[^1]                              |
-| Delete Empty Groups                      | 删除空组。[^1]                                |
+| Remove Redundant Groups                  | 删除多余的嵌套组。                                |
+| Remove Hidden Layers                     | 删除隐藏图层。                                  |
+| Delete Empty Groups                      | 删除空组。                                    |
 | Create / Sync Include Layer              | 创建和同步引用图层，自动同步复制图层到某个组内。                 |
 | **Arrange**                              |                                          |
 | Change Places Between Two Layers         | 根据中点或坐标原点，两个对象交换位置。                      |
@@ -89,8 +90,9 @@
 | **Utilities**                            |                                          |
 | SVG Export Setting                       | SVG 导出设置。                                |
 | Nudge Distance Setting                   | 方向键移动距离设置。                               |
+| Convert Sketch File to Other Version     | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
 
-[^1]: 当有选中元素时，将只操作元素内的图层。
+部分功能，当有选中元素时，将只操作元素内的图层。
 
 ## 声明
 

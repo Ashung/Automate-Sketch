@@ -6,7 +6,7 @@
 
  ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var createIncludeLayer = function(context) {
 
@@ -77,7 +77,7 @@ function copyLayersFromSourceGroup_toTargetGroup(sourceGroup, targetGroup) {
     targetGroup.resizeToFitChildrenWithOption(1);
 
     // Fix Sketch 45
-    if (MSApplicationMetadata.metadata().appVersion > 45) {
+    if (MSApplicationMetadata.metadata().appVersion < 45) {
         targetGroup.select_byExpandingSelection(true, true);
     } else {
         targetGroup.select_byExtendingSelection(true, true);

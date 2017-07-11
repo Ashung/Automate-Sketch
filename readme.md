@@ -25,6 +25,7 @@ Make your workflow more efficient.
 | Click Through On (Off)                   |                                          |
 | Select Layers In Selection By ...        | Group, Text, Shape, Image, Symbol Instance, Slice, Exportable Layer, Hidden Layer, Name |
 | Select Child Layers                      |                                          |
+| Paste and Replace                        |                                          |
 | Clear Layer Name                         |                                          |
 | Remove Redundant Groups                  |                                          |
 | Remove Hidden Layers                     |                                          |
@@ -84,11 +85,12 @@ Make your workflow more efficient.
 | Show File in Finder                      |                                          |
 | Open Termianl at File Folder             |                                          |
 | Script Editor Setting                    |                                          |
-| Edit Plugin Setting                      |                                          |
+| Edit Plugin Setting                      | Edit plugins with Atom, Sublime Text...  |
 | Reload Plugins                           |                                          |
 | **Utilities**                            |                                          |
 | SVG Export Setting                       |                                          |
 | Nudge Distance Setting                   |                                          |
+| Convert Sketch File to Other Version     | Convert Sketch File to a version greater than 43, now you can open a high version file, or convert to lower version. |
 
 ## License
 

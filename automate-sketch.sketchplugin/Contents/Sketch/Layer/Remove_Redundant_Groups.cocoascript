@@ -6,7 +6,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -67,7 +67,7 @@ function groupIsSafeToUngroup(group) {
         noExportOptions = (group.exportOptions().exportFormats().count() == 0);
 
     // Sketch 44+ resizing constraint
-    if (MSApplicationMetadata.metadata().appVersion > 44) {
+    if (MSApplicationMetadata.metadata().appVersion < 44) {
         var noResizingConstraint = (group.resizingConstraint() == 63);
         return noOpacity && noBlending && noShadows && noResizingConstraint && noExportOptions;
     } else {

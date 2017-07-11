@@ -6,7 +6,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var new_slice_for_normal = function(context) {
     addSlice(context, normal);

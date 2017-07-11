@@ -6,7 +6,7 @@
 
  ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var clickThroughOn = function(context) {
     clickThrough(context, true)

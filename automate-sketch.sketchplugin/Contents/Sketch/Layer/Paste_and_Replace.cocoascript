@@ -1,0 +1,60 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+    var actionsController = document.actionsController();
+    var pasteOverSelectionAction = actionsController.actionForID("MSPasteOverSelectionAction");
+
+    var pasteboard = NSPasteboard.generalPasteboard();
+    if (pasteboard.pasteboardItems().count() > 0) {
+
+        var pasteboardType = pasteboard.pasteboardItems().firstObject().types().firstObject();
+        if (pasteboardType == "com.bohemiancoding.sketch.v3") {
+
+            if (pasteOverSelectionAction.validate()) {
+
+                if (selection.count() > 0) {
+
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+
+                        if (MSApplicationMetadata.metadata().appVersion < 45) {
+                            layer.select_byExpandingSelection(true, false);
+                        } else {
+                            layer.select_byExtendingSelection(true, false);
+                        }
+
+                        pasteOverSelectionAction.performAction(nil);
+
+                        layer.removeFromParent();
+
+                    }
+
+                } else {
+                    document.showMessage("Please select at least 1 layer.");
+                }
+
+            }
+
+        } else {
+            document.showMessage("Please copy a Sketch layer first.");
+        }
+
+    } else {
+        document.showMessage("Clipboard is empty.");
+    }
+
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+
+}

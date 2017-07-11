@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170706",
+    "version": "2.0.20170711",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -492,6 +492,16 @@
             "name": "Script Editor Setting",
             "identifier": "script_editor_setting",
             "script": "Development/Script_Editor_Setting.cocoascript"
+        },
+        {
+            "name": "Convert Sketch File to Other Version",
+            "identifier": "convert_to_other_version",
+            "script": "Utilities/Convert_to_Other_Version.cocoascript"
+        },
+        {
+            "name": "Paste and Replace",
+            "identifier": "paste_and_replace",
+            "script": "Layer/Paste_and_Replace.cocoascript"
         }
     ],
     "menu": {
@@ -529,6 +539,7 @@
                         ]
                     },
                     "select_all_child_layers",
+                    "paste_and_replace",
                     "-",
                     "clear_layer_name",
                     "-",
@@ -670,7 +681,9 @@
                 "title": "Utilities",
                 "items": [
                     "svg_export_setting",
-                    "nudge_distance_setting"
+                    "nudge_distance_setting",
+                    "-",
+                    "convert_to_other_version"
                 ]
             },
             {
