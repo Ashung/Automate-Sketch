@@ -6,7 +6,7 @@
 
  ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -20,7 +20,7 @@ var onRun = function(context) {
                 for (var i = 0; i < layer.layers().count(); i++) {
 
                     // Fix Sketch 45
-                    if (MSApplicationMetadata.metadata().appVersion > 45) {
+                    if (MSApplicationMetadata.metadata().appVersion < 45) {
                         layer.layers().objectAtIndex(i).select_byExpendingSelection(true, i == 0 ? false : true);
                     } else {
                         layer.layers().objectAtIndex(i).select_byExtendingSelection(true, i == 0 ? false : true);

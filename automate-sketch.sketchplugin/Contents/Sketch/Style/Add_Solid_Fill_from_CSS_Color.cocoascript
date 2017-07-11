@@ -6,7 +6,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var colorKeywords = {
     "black": "#000000",
@@ -269,7 +269,7 @@ var onRun = function(context) {
             layer.style().enabledFills().lastObject().setColor(color);
 
             // Fix Sketch 45
-            if (MSApplicationMetadata.metadata().appVersion > 45) {
+            if (MSApplicationMetadata.metadata().appVersion < 45) {
                 layer.select_byExpandingSelection(true, true);
             } else {
                 layer.select_byExtendingSelection(true, true);

@@ -1,0 +1,122 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Run_Command.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var sketchMetaDatas = [
+        {
+            "appVersion": "43",
+            "build": "38999",
+            "version": "88",
+            "commit": "8533cf0311420996142d259236c1d7bd484f48c8"
+        },
+        {
+            "appVersion": "43.1",
+            "build": "39012",
+            "version": "88",
+            "commit": "335a30073fcb2dc64a0abd6148ae147d694c887d"
+        },
+        {
+            "appVersion": "43.2",
+            "build": "39069",
+            "version": "88",
+            "commit": "2ac3f43dc64a2b7982dc85b584be457e7bbba129"
+        },
+        {
+            "appVersion": "44",
+            "build": "41411",
+            "version": "91",
+            "commit": "149712aeb51bf07cefb5bb6d603b26c4dccfff9d"
+        },
+        {
+            "appVersion": "44.1",
+            "build": "41455",
+            "version": "91",
+            "commit": "10b2b021ddaac63eb3f52ce0b42edfb625ca194b"
+        },
+        {
+            "appVersion": "45",
+            "build": "43475",
+            "version": "92",
+            "commit": "62a429066b6505d0a6a211f8b74e8c5a38b40e00"
+        },
+        {
+            "appVersion": "45.1",
+            "build": "43504",
+            "version": "92",
+            "commit": "50f81cddca44938a07151f71e393545983779bf1"
+        }
+    ];
+
+    var versions = sketchMetaDatas.map(function(item) {
+        return item.appVersion;
+    });
+
+    var document = context.document;
+
+    // Choose a sketch file
+    var chooseFile = NSOpenPanel.openPanel();
+        chooseFile.setMessage("Choose a Sketch file to convert.");
+        chooseFile.setCanChooseDirectories(false);
+        chooseFile.setCanChooseFiles(true);
+        chooseFile.setAllowedFileTypes(["sketch"]);
+
+    if (chooseFile.runModal() == NSOKButton) {
+
+        // Dialog
+        var dialog = COSAlertWindow.alloc().init();
+        dialog.setMessageText("Convert Sketch File to Other Version");
+        dialog.setInformativeText(
+            "You can convert this Sketch file to any version between 43 to " +
+            sketchMetaDatas[sketchMetaDatas.length - 1]["appVersion"] + ".");
+
+        dialog.addTextLabelWithValue("Choose a version.");
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
+        selectBox.addItemsWithObjectValues(versions);
+        selectBox.selectItemAtIndex(0);
+        dialog.addAccessoryView(selectBox);
+
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+
+            var path = context.plugin.urlForResourceNamed("Convert_Sketch_File_to_Other_Version.py").path();
+            runCommand(
+                "/usr/bin/python",
+                [
+                    path,
+                    chooseFile.URL().path(),
+                    sketchMetaDatas[selectBox.indexOfSelectedItem()]["appVersion"],
+                    sketchMetaDatas[selectBox.indexOfSelectedItem()]["build"],
+                    sketchMetaDatas[selectBox.indexOfSelectedItem()]["version"],
+                    sketchMetaDatas[selectBox.indexOfSelectedItem()]["commit"]
+                ],
+                function(status, msg) {
+                    if (status) {
+                        if (msg != "") {
+                            document.showMessage(msg);
+                        }
+                    } else {
+                        document.showMessage("Error!");
+                    }
+
+                }
+            );
+
+        }
+
+    }
+
+    ga(context, "UA-99098773-3", "Utilities", context.command.identifier());
+
+}

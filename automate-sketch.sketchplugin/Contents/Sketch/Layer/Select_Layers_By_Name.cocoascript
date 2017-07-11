@@ -6,8 +6,8 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 ----------------------------------------------------------*/
 
-@import "../Utilities/Preferences.cocoascript";
-@import "../Utilities/Google_Analytics.cocoascript";
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -15,7 +15,7 @@ var onRun = function(context) {
     var page = doc.currentPage();
     var selection = context.selection;
 
-    var defaultUserInputString = getPreferences("selectLayersByName") || "";
+    var defaultUserInputString = getPreferences(context, "selectLayersByName") || "";
 
     // Dialog
     var dialog = COSAlertWindow.new();
@@ -29,7 +29,7 @@ var onRun = function(context) {
     var checkboxRegExp = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
     checkboxRegExp.setButtonType(NSSwitchButton);
     checkboxRegExp.setTitle("RegExp");
-    checkboxRegExp.setState(getPreferences("selectLayersByNameRegExp") == 1 ? NSOnState : NSOffState);
+    checkboxRegExp.setState(getPreferences(context, "selectLayersByNameRegExp") == 1 ? NSOnState : NSOffState);
     dialog.addAccessoryView(checkboxRegExp);
 
     dialog.addButtonWithTitle("OK");
@@ -40,15 +40,15 @@ var onRun = function(context) {
     if (responseCode == 1000) {
 
         if (checkboxRegExp.state() == 1) {
-            setPreferences("selectLayersByNameRegExp", true);
+            setPreferences(context, "selectLayersByNameRegExp", true);
         } else {
-            setPreferences("selectLayersByNameRegExp", false);
+            setPreferences(context, "selectLayersByNameRegExp", false);
         }
 
         var userInputString = textField.stringValue();
         if (userInputString) {
 
-            setPreferences("selectLayersByName", userInputString);
+            setPreferences(context, "selectLayersByName", userInputString);
 
             if (checkboxRegExp.state() == 1) {
                 selectLayerByNameWithSelection(context, page, selection, userInputString, true);
@@ -110,7 +110,7 @@ function selectLayerByName(parent, name, regexp, callback) {
             if (RegExp(name).test(child.name())) {
 
                 // Fix Sketch 45
-                if (MSApplicationMetadata.metadata().appVersion > 45) {
+                if (MSApplicationMetadata.metadata().appVersion < 45) {
                     child.select_byExpandingSelection(true, true);
                 } else {
                     child.select_byExtendingSelection(true, true);
@@ -122,7 +122,7 @@ function selectLayerByName(parent, name, regexp, callback) {
             if (child.name().isEqualToString(name)) {
 
                 // Fix Sketch 45
-                if (MSApplicationMetadata.metadata().appVersion > 45) {
+                if (MSApplicationMetadata.metadata().appVersion < 45) {
                     child.select_byExpandingSelection(true, true);
                 } else {
                     child.select_byExtendingSelection(true, true);

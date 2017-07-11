@@ -492,6 +492,16 @@
             "name": "{{script_editor_setting}}",
             "identifier": "script_editor_setting",
             "script": "Development/Script_Editor_Setting.cocoascript"
+        },
+        {
+            "name": "{{convert_to_other_version}}",
+            "identifier": "convert_to_other_version",
+            "script": "Utilities/Convert_to_Other_Version.cocoascript"
+        },
+        {
+            "name": "{{paste_and_replace}}",
+            "identifier": "paste_and_replace",
+            "script": "Layer/Paste_and_Replace.cocoascript"
         }
     ],
     "menu": {
@@ -529,6 +539,7 @@
                         ]
                     },
                     "select_all_child_layers",
+                    "paste_and_replace",
                     "-",
                     "clear_layer_name",
                     "-",
@@ -670,7 +681,9 @@
                 "title": "{{utilities}}",
                 "items": [
                     "svg_export_setting",
-                    "nudge_distance_setting"
+                    "nudge_distance_setting",
+                    "-",
+                    "convert_to_other_version"
                 ]
             },
             {
