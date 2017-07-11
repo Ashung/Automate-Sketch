@@ -1,4 +1,12 @@
 -
+  title: v2.0.20170711
+  description: |-
+    <ul><li>Add "Paste and Replace".</li><li>Add "Convert Sketch File to Other Version".</li></ul>
+  pubDate: "Tue, 11 Jul 2017 10:56:55 GMT"
+  version: 2.0.20170711
+  commitID: 9262998cf80bc1d6b3f442aa9684ea662605c681
+
+-
   title: v2.0.20170706
   description: |-
     <ul><li>Fix Sketch 45 support.</li><li>Add some plugin development features.</li></ul>
