@@ -15,7 +15,7 @@
 
 | 菜单                                       | 备注                                       |
 | ---------------------------------------- | ---------------------------------------- |
-| **Layer**                                |                                          |
+| **Layer**                                | **图层**                                   |
 | Fix to Parent Width (Height) with Margin | 适配父级的宽度或高度，可设置边距。                        |
 | Bounds Layer for Every Selection         | 为从选中图层创建边界图层。                            |
 | Divide Layer                             | 均分图层。                                    |
@@ -29,32 +29,32 @@
 | Remove Hidden Layers                     | 删除隐藏图层。                                  |
 | Delete Empty Groups                      | 删除空组。                                    |
 | Create / Sync Include Layer              | 创建和同步引用图层，自动同步复制图层到某个组内。                 |
-| **Arrange**                              |                                          |
+| **Arrange**                              | **排列**                                   |
 | Change Places Between Two Layers         | 根据中点或坐标原点，两个对象交换位置。                      |
 | Tile Layers by Position X (Y)            | 水平或垂直平铺对象。                               |
 | Tile Layers Horizontally (Vertically) by Index | 根据图层列表位置水平或垂直平铺图层。                       |
 | Order Layers By ...                      | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。           |
 | Reverse Layer Order                      | 反转图层列表中的位置。                              |
-| **Type**                                 |                                          |
+| **Type**                                 | **文本**                                   |
 | Capitalize                               | 首字大写。                                    |
 | Change Typeface for Latin Character      | 更改文本图层中西文的字体。                            |
 | Add Space Between CJK and Latin Character | 文本图层中西文间增加空格。                            |
 | Replace Fonts                            | 替换字体。                                    |
 | Replace Missing Fonts                    | 替换缺失字体。                                  |
 | Unfixed Layer Name                       | 取消文本图层的固定图层名，让文本的图层名跟随内容。                |
-| **Slice**                                |                                          |
+| **Slice**                                | **切片**                                   |
 | New Layer Base Slice                     | 基于图层新建切片。                                |
 | New Layer Base Slice for ...             | 同上, 带 iOS、Android 和 Web 预设。              |
 | Remove All Slices                        | 清除所有切片。                                  |
 | Clear All Exportables                    | 清除全部 Exportables 设置。                     |
-| **Artboard**                             |                                          |
+| **Artboard**                             | **画板**                                   |
 | Artboard Form Selection                  | 从选择对象新建画板。                               |
 | Artboard Form Group                      | 从组新建画板。                                  |
 | Artboard to Group                        | 画板转为组。                                   |
 | Resize to Fix Height                     | 调整画板以适配高度。                               |
 | Export All Artboards to PNG              | 将所有画板导出为 PNG，可设置缩放比例。                    |
 | Export All Artboards to HTML             | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
-| **Symbol**                               |                                          |
+| **Symbol**                               | **组件**                                   |
 | Set to Original Width / Height           | 设为原始宽度 / 高度。                             |
 | Select All Instance of Symbol            | 选择组件的实例。                                 |
 | Rename Instances                         | 重置实例名称为组件完整名。                            |
@@ -66,7 +66,7 @@
 | Export All Symbols As PNG                | 按照 "页面/组件" 规则，将所有组件导出为 PNG。              |
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
-| **Styles**                               |                                          |
+| **Styles**                               | **样式**                                   |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充。                         |
 | Remove All Unused Styles                 | 删除当前页所有图层中未使用样式。                         |
@@ -75,10 +75,10 @@
 | Import Document Assets from Sketch File  | 从 Sketch 文件导入资源 (色彩、渐变及图案)。              |
 | Import Text Styles from Sketch File      | 从 Sketch 文件导入文本样式。                       |
 | Import Layer Styles from Sketch File     | 从 Sketch 文件导入图层样式。                       |
-| **Guides**                               |                                          |
+| **Guides**                               | **辅助线**                                  |
 | Clear Guides                             | 清除所有辅助线。                                 |
 | Grid Presets                             | 常用网格预设。                                  |
-| **Development**                          |                                          |
+| **Development**                          | **开发**                                   |
 | Copy ObjectID or SymbolID                | 当选择图层时复制图层的 ObjectID 或 SymbolID到剪贴板。     |
 | Copy Slice as Base64                     | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Copy Selected Layer Name                 | 复制选中的图层名到剪贴板。                            |
@@ -87,7 +87,7 @@
 | Script Editor Setting                    | 脚本编辑器的字体与字号设置。                           |
 | Edit Plugin Setting                      | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
 | Reload Plugins                           | 重载所有插件。                                  |
-| **Utilities**                            |                                          |
+| **Utilities**                            | **实用工具**                                 |
 | SVG Export Setting                       | SVG 导出设置。                                |
 | Nudge Distance Setting                   | 方向键移动距离设置。                               |
 | Convert Sketch File to Other Version     | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |

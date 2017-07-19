@@ -175,19 +175,28 @@ function selectLayersInParent_byType(parent, type, callback) {
             var layer;
             while (layer = loopLayes.nextObject()) {
                 if (layer.class() == type) {
-
                     // Fix Sketch 45
                     if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);
                     } else {
                         layer.select_byExtendingSelection(true, true);
                     }
-
                     count ++;
-
                 }
                 if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                    selectLayersInParent_byType(context, layer, type);
+                    var loopLayesInArtboard = layer.layers().objectEnumerator();
+                    var layerInArtboard;
+                    while (layerInArtboard = loopLayesInArtboard.nextObject()) {
+                        if (layerInArtboard.class() == type) {
+                            // Fix Sketch 45
+                            if (appVersion < 45) {
+                                layerInArtboard.select_byExpandingSelection(true, true);
+                            } else {
+                                layerInArtboard.select_byExtendingSelection(true, true);
+                            }
+                            count ++;
+                        }
+                    }
                 }
             }
         } else {
