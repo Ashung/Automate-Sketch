@@ -1,4 +1,12 @@
 -
+  title: v2.0.20170720
+  description: |-
+    <ul><li>Fix select layers by group</li></ul>
+  pubDate: "Thu, 20 Jul 2017 08:08:45 GMT"
+  version: 2.0.20170720
+  commitID: 6320f2548a315299eef9b53993da5481fbf1d1f1
+
+-
   title: v2.0.20170711
   description: |-
     <ul><li>Add "Paste and Replace".</li><li>Add "Convert Sketch File to Other Version".</li></ul>
