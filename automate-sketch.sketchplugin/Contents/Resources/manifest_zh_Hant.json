@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170711",
+    "version": "2.0.20170720",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -502,6 +502,11 @@
             "name": "貼上並替換",
             "identifier": "paste_and_replace",
             "script": "Layer/Paste_and_Replace.cocoascript"
+        },
+        {
+            "name": "互換填充和描邊",
+            "identifier": "swap_fill_and_border",
+            "script": "Style/Swap_Fill_and_Border.cocoascript"
         }
     ],
     "menu": {
@@ -643,6 +648,7 @@
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
+                    "swap_fill_and_border",
                     "-",
                     "remove_all_unused_styles",
                     "-",
