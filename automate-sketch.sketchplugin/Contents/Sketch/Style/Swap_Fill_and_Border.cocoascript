@@ -40,6 +40,7 @@ var onRun = function(context) {
                             styleBorder.setGradient(fill.gradient());
                         }
                         styleBorder.setContextSettings(fill.contextSettings());
+                        styleBorder.setIsEnabled(fill.isEnabled());
                         newBorders.addObject(styleBorder);
                     } else {
                         newFills.addObject(fill);
@@ -58,6 +59,7 @@ var onRun = function(context) {
                         styleFill.setGradient(border.gradient());
                     }
                     styleFill.setContextSettings(border.contextSettings());
+                    styleFill.setIsEnabled(border.isEnabled());
                     newFills.addObject(styleFill);
                 }
 

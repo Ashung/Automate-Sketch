@@ -1,0 +1,52 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var copyGrid = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+    var page = document.currentPage();
+
+    if (selection.count() > 0) {
+
+        var layer = selection.firstObject();
+
+        if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+
+            if (layer.grid()) {
+                log(layer.name())
+                log(layer.grid().gridSize())
+                log(layer.grid().thickGridTimes())
+                log(layer.grid().isEnabled())
+            } else {
+                log(layer.name() + " no grid")
+            }
+
+        } else {
+            log(layer.name() + "xx no grid")
+        }
+
+    } else {
+        // Get page grid setting
+        if (page.grid()) {
+            log(page.name())
+            log(page.grid().gridSize())
+            log(page.grid().thickGridTimes())
+            log(page.grid().isEnabled())
+        } else {
+            log(page.name() + " no grid")
+        }
+
+    }
+
+
+
+}

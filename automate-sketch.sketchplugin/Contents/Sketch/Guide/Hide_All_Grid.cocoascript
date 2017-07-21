@@ -1,0 +1,32 @@
+/*----------------------------------------------------------
+
+Author: Ashung Hung
+Homepage: https://github.com/Ashung/Automate-Sketch
+License: https://creativecommons.org/licenses/by-sa/4.0
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var currentPage = document.currentPage();
+    var artboards = currentPage.artboards();
+
+    if (artboards.count() > 0) {
+        var loopArtboards = artboards.objectEnumerator();
+        while(artboard = loopArtboards.nextObject()) {
+            if (artboard.grid()) {
+                artboard.grid().setIsEnabled(false);
+            }
+        }
+    } else {
+        if (currentPage.grid()) {
+            currentPage.grid().setIsEnabled(false);
+        }
+    }
+
+    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+
+}

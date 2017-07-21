@@ -20,7 +20,7 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("Cancel");
     var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
     checkbox.setButtonType(NSSwitchButton);
-    checkbox.setTitle(" Keep symbols with nested symbols which it is\n uesed.");
+    checkbox.setTitle(" Keep symbols with nested symbols which it is\n used.");
     checkbox.setState(NSOffState);
     dialog.setAccessoryView(checkbox);
     var responseCode = dialog.runModal();
