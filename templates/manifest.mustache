@@ -507,6 +507,28 @@
             "name": "{{swap_fill_and_border}}",
             "identifier": "swap_fill_and_border",
             "script": "Style/Swap_Fill_and_Border.cocoascript"
+        },
+        {
+            "name": "{{hide_all_grid}}",
+            "identifier": "hide_all_grid",
+            "script": "Guide/Hide_All_Grid.cocoascript"
+        },
+        {
+            "name": "{{hide_all_layout}}",
+            "identifier": "hide_all_layout",
+            "script": "Guide/Hide_All_Layout.cocoascript"
+        },
+        {
+            "name": "{{copy_grid_setting}}",
+            "identifier": "copy_grid_setting",
+            "handler": "copyGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+        },
+        {
+            "name": "{{paste_grid_setting}}",
+            "identifier": "paste_grid_setting",
+            "handler": "pasteGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
         }
     ],
     "menu": {
@@ -663,7 +685,13 @@
             {
                 "title": "{{guide}}",
                 "items": [
+                    "hide_all_grid",
+                    "hide_all_layout",
                     "clear_guides",
+                    "-",
+                    "copy_grid_setting",
+                    "paste_grid_setting",
+                    "-",
                     "grid_setting"
                 ]
             },

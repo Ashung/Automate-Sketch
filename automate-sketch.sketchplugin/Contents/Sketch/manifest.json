@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170720",
+    "version": "2.0.20170722",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -507,6 +507,28 @@
             "name": "Swap Fill and Border",
             "identifier": "swap_fill_and_border",
             "script": "Style/Swap_Fill_and_Border.cocoascript"
+        },
+        {
+            "name": "Hide All Grid",
+            "identifier": "hide_all_grid",
+            "script": "Guide/Hide_All_Grid.cocoascript"
+        },
+        {
+            "name": "Hide All Layout",
+            "identifier": "hide_all_layout",
+            "script": "Guide/Hide_All_Layout.cocoascript"
+        },
+        {
+            "name": "Copy Grid Setting",
+            "identifier": "copy_grid_setting",
+            "handler": "copyGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+        },
+        {
+            "name": "Paste Grid Setting",
+            "identifier": "paste_grid_setting",
+            "handler": "pasteGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
         }
     ],
     "menu": {
@@ -663,7 +685,13 @@
             {
                 "title": "Guide",
                 "items": [
+                    "hide_all_grid",
+                    "hide_all_layout",
                     "clear_guides",
+                    "-",
+                    "copy_grid_setting",
+                    "paste_grid_setting",
+                    "-",
                     "grid_setting"
                 ]
             },

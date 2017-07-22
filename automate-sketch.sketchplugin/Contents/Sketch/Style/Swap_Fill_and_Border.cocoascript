@@ -26,6 +26,9 @@ var onRun = function(context) {
                 var newFills = NSMutableArray.alloc().init();
                 var newBorders = NSMutableArray.alloc().init();
 
+                var borderWidth = borders.count() > 0 ? borders.lastObject().thickness() : 1;
+                var borderPosition = borders.count() > 0 ? borders.lastObject().position() : 0;
+
                 // Get borders from fills
                 var loopFills = fills.objectEnumerator();
                 while (fill = loopFills.nextObject()) {
@@ -39,6 +42,8 @@ var onRun = function(context) {
                             styleBorder.setFillType(1);
                             styleBorder.setGradient(fill.gradient());
                         }
+                        styleBorder.setThickness(borderWidth);
+                        styleBorder.setPosition(borderPosition);
                         styleBorder.setContextSettings(fill.contextSettings());
                         styleBorder.setIsEnabled(fill.isEnabled());
                         newBorders.addObject(styleBorder);

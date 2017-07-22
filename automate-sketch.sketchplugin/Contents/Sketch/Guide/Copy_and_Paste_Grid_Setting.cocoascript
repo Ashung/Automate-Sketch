@@ -15,38 +15,68 @@ var copyGrid = function(context) {
     var selection = context.selection;
     var page = document.currentPage();
 
+    var gridSetting = {};
+
     if (selection.count() > 0) {
 
+        // Get grid setting of first layer
         var layer = selection.firstObject();
-
         if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
 
             if (layer.grid()) {
-                log(layer.name())
-                log(layer.grid().gridSize())
-                log(layer.grid().thickGridTimes())
-                log(layer.grid().isEnabled())
+                gridSetting.girdSize = layer.grid().gridSize();
+                gridSetting.thickGridTimes = layer.grid().thickGridTimes();
+                gridSetting.isEnabled = layer.grid().isEnabled();
             } else {
-                log(layer.name() + " no grid")
+                document.showMessage("There is not grid setting in \"" + layer.name() + "\".");
+                return;
             }
 
         } else {
-            log(layer.name() + "xx no grid")
+            document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
+            return;
         }
 
     } else {
-        // Get page grid setting
+
+        // Get grid setting of page
         if (page.grid()) {
-            log(page.name())
-            log(page.grid().gridSize())
-            log(page.grid().thickGridTimes())
-            log(page.grid().isEnabled())
+            gridSetting.girdSize = page.grid().gridSize();
+            gridSetting.thickGridTimes = page.grid().thickGridTimes();
+            gridSetting.isEnabled = page.grid().isEnabled();
         } else {
-            log(page.name() + " no grid")
+            document.showMessage("There is not grid setting in \"" + page.name() + "\".");
+            return;
         }
 
     }
 
+    if (Object.keys(gridSetting).length > 0) {
+        log(JSON.stringify(gridSetting));
+        copyStringToPasteboard(context, JSON.stringify(gridSetting));
+    }
+
+}
 
 
+
+
+function copyStringToPasteboard(context, string) {
+    var pasteboard = NSPasteboard.generalPasteboard();
+    pasteboard.clearContents();
+    pasteboard.setString_forType_(NSMutableString.stringWithString(string), NSPasteboardTypeString);
+    context.document.showMessage("The grid setting has copied.");
+}
+
+function getStringFromPasteboard(context) {
+    var pasteboard = NSPasteboard.generalPasteboard();
+    var pasteboardItems = pasteboard.pasteboardItems();
+    if (pasteboardItems.count() > 0) {
+        var string = pasteboardItems.firstObject().stringForType(NSPasteboardTypeString);
+        if (string) {
+            return string;
+        } else {
+            context.document.showMessage("Pasteboard have not any strings.");
+        }
+    }
 }
