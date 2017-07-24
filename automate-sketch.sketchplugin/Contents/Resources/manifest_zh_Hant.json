@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170722",
+    "version": "2.0.20170724",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -529,6 +529,30 @@
             "identifier": "paste_grid_setting",
             "handler": "pasteGrid",
             "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "copy_layout_setting",
+            "handler": "copyLayout",
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "paste_layout_setting",
+            "handler": "pasteLayout",
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "copy_guide_setting",
+            "handler": "copyGuide",
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "paste_guide_setting",
+            "handler": "pasteGuide",
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
         }
     ],
     "menu": {
@@ -691,6 +715,12 @@
                     "-",
                     "copy_grid_setting",
                     "paste_grid_setting",
+                    "-",
+                    "copy_layout_setting",
+                    "paste_layout_setting",
+                    "-",
+                    "copy_guide_setting",
+                    "paste_guide_setting",
                     "-",
                     "grid_setting"
                 ]

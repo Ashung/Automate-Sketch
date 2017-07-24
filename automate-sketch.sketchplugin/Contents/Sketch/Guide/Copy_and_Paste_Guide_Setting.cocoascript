@@ -8,7 +8,7 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 @import "../Libraries/Google_Analytics.cocoascript";
 
-var copyGrid = function(context) {
+var copyGuide = function(context) {
 
     var document = context.document;
     var selection = context.selection;
@@ -16,21 +16,11 @@ var copyGrid = function(context) {
 
     if (selection.count() > 0) {
 
-        // Get grid setting of first layer
+        // Get guide setting of first layer
         var layer = selection.firstObject();
         if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
 
-            if (layer.grid()) {
-                var gridSetting = {
-                    "girdSize": layer.grid().gridSize(),
-                    "thickGridTimes": layer.grid().thickGridTimes(),
-                    "isEnabled": layer.grid().isEnabled()
-                };
-                copyStringToPasteboard(context, JSON.stringify(gridSetting));
-            } else {
-                document.showMessage("There is not grid setting in \"" + layer.name() + "\".");
-                return;
-            }
+            getGuideSettingFromLayer(context, layer);
 
         } else {
             document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
@@ -39,16 +29,13 @@ var copyGrid = function(context) {
 
     } else {
 
-        // Get grid setting of page
-        if (page.grid() && page.artboards().count() == 0) {
-            var gridSetting = {
-                "girdSize": page.grid().gridSize(),
-                "thickGridTimes": page.grid().thickGridTimes(),
-                "isEnabled": page.grid().isEnabled()
-            };
-            copyStringToPasteboard(context, JSON.stringify(gridSetting));
+        // Get guide setting of page
+        if (page.artboards().count() == 0) {
+
+            getGuideSettingFromLayer(context, page);
+
         } else {
-            document.showMessage("There is not grid setting in \"" + page.name() + "\".");
+            document.showMessage("There is not guide setting in \"" + page.name() + "\".");
             return;
         }
 
@@ -58,7 +45,7 @@ var copyGrid = function(context) {
 
 }
 
-var pasteGrid = function(context) {
+var pasteGuide = function(context) {
 
     var document = context.document;
     var selection = context.selection;
@@ -69,28 +56,28 @@ var pasteGrid = function(context) {
 
         try {
 
-            var gridSetting = JSON.parse(pasteboardString);
+            var guideSetting = JSON.parse(pasteboardString);
             if (selection.count() > 0) {
 
-                // Set grid for artboards
+                // Set guide for artboards
                 var loopSelection = selection.objectEnumerator();
                 while (layer = loopSelection.nextObject()) {
                     if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                        applyGridToLayer(gridSetting, layer);
+                        applyGuideToLayer(guideSetting, layer);
                     }
                 }
 
             } else {
 
-                // Set grid for page
+                // Set guide for page
                 if (page.artboards().count() == 0) {
-                    applyGridToLayer(gridSetting, page);
+                    applyGuideToLayer(guideSetting, page);
                 }
 
             }
 
         } catch (err) {
-            document.showMessage("Please copy a grid setting first.");
+            document.showMessage("Please copy a guide setting first.");
         }
     }
 
@@ -98,19 +85,39 @@ var pasteGrid = function(context) {
 
 }
 
-function applyGridToLayer(gridSetting, layer) {
-    var grid = MSSimpleGrid.alloc().init();
-    grid.setGridSize(gridSetting.girdSize);
-    grid.setThickGridTimes(gridSetting.thickGridTimes);
-    grid.setIsEnabled(gridSetting.isEnabled);
-    layer.setGrid(grid);
+
+function getGuideSettingFromLayer(context, layer) {
+
+    var document = context.document;
+
+    if (
+        layer.horizontalRulerData().guides().count() == 0 &&
+        layer.verticalRulerData().guides().count() == 0
+    ) {
+        document.showMessage("There is not guide setting in \"" + layer.name() + "\".");
+        return;
+    } else {
+
+        var horizontalRulerData = layer.horizontalRulerData().guides().componentsJoinedByString(",");
+        var verticalRulerData = layer.verticalRulerData().guides().componentsJoinedByString(",");
+        var guideSetting = '{' +
+            '"horizontalRulerData":[' + horizontalRulerData + '],' +
+            '"verticalRulerData":[' + verticalRulerData + ']}';
+
+        copyStringToPasteboard(context, guideSetting);
+        // log(guideSetting);
+    }
+}
+
+function applyGuideToLayer(guideSetting, layer) {
+
 }
 
 function copyStringToPasteboard(context, string) {
     var pasteboard = NSPasteboard.generalPasteboard();
     pasteboard.clearContents();
     pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-    context.document.showMessage("The grid setting has copied.");
+    context.document.showMessage("The guide setting has copied.");
 }
 
 function getStringFromPasteboard(context) {
@@ -121,7 +128,7 @@ function getStringFromPasteboard(context) {
         if (string) {
             return string;
         } else {
-            context.document.showMessage("Clipboard have not any grid setting.");
+            context.document.showMessage("Clipboard have not any guide setting.");
             return nil;
         }
     }

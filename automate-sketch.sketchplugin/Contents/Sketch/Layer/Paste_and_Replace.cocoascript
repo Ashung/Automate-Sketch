@@ -10,42 +10,82 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 
 var onRun = function(context) {
 
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
+    var documentData = document.documentData();
     var selection = context.selection;
-    var actionsController = document.actionsController();
-    var pasteOverSelectionAction = actionsController.actionForID("MSPasteOverSelectionAction");
+    var page = document.currentPage();
 
     var pasteboard = NSPasteboard.generalPasteboard();
     if (pasteboard.pasteboardItems().count() > 0) {
 
+        // Check if pasteboard is Sketch layers.
         var pasteboardType = pasteboard.pasteboardItems().firstObject().types().firstObject();
         if (pasteboardType == "com.bohemiancoding.sketch.v3") {
 
-            if (pasteOverSelectionAction.validate()) {
+            var pasteboardManager = NSApp.delegate().pasteboardManager();
+            var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
 
-                if (selection.count() > 0) {
+            var layers = pasteboardLayers.layers().layers();
 
-                    var loopSelection = selection.objectEnumerator();
-                    var layer;
-                    while (layer = loopSelection.nextObject()) {
+            // Filter artboard and symbol master.
+            var loopPasteboardLayers = layers.objectEnumerator();
+            while (layer = loopPasteboardLayers.nextObject()) {
+                if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+                    document.showMessage("Can't replace with a artboard or symbol master.");
+                    return;
+                }
+            }
 
-                        if (MSApplicationMetadata.metadata().appVersion < 45) {
-                            layer.select_byExpandingSelection(true, false);
-                        } else {
-                            layer.select_byExtendingSelection(true, false);
-                        }
-
-                        pasteOverSelectionAction.performAction(nil);
-
-                        layer.removeFromParent();
-
+            // Filter symbol instances
+            var symbolMasters = pasteboardLayers.symbols();
+            var symbolMasterIDs = symbolMasters.allKeys();
+            if (symbolMasterIDs.count() > 0) {
+                var loopSymbolMasterIDsOfInstance = symbolMasterIDs.objectEnumerator();
+                while (symbolMasterID = loopSymbolMasterIDsOfInstance.nextObject()) {
+                    if (!documentData.symbolWithID(symbolMasterID)) {
+                        var symbolName = symbolMasters.valueForKey(symbolMasterID).name();
+                        document.showMessage("Symbol master \"" + symbolName + "\" can't found in current document.");
+                        return;
                     }
+                }
+            }
 
-                } else {
-                    document.showMessage("Please select at least 1 layer.");
+            // Put pasteboard layers into a group.
+            var group = MSLayerGroup.alloc().init();
+            group.addLayers(layers);
+
+            // Layer will be selected.
+            var layersAfterReplace = NSMutableArray.alloc().init();
+
+            if (selection.count() > 0) {
+
+                var loopSelection = selection.objectEnumerator();
+                while (layer = loopSelection.nextObject()) {
+
+                    var newGroup = group.duplicate();
+                    layersAfterReplace.addObjectsFromArray(newGroup.layers());
+                    layer.parentGroup().insertLayer_afterLayer(newGroup, layer);
+                    newGroup.frame().setX(layer.frame().x());
+                    newGroup.frame().setY(layer.frame().y());
+                    newGroup.ungroup();
+                    layer.removeFromParent();
+
                 }
 
+                if (appVersion >= 45) {
+                    page.changeSelectionBySelectingLayers(layersAfterReplace);
+                } else {
+                    var loopLayersAfterReplace = selection.objectEnumerator();
+                    while (layer = layersAfterReplace.nextObject()) {
+                        layer.select_byExpandingSelection(true, true);
+                    }
+                }
+
+            } else {
+                document.showMessage("Please select at least 1 layer.");
             }
+
 
         } else {
             document.showMessage("Please copy a Sketch layer first.");
@@ -57,4 +97,15 @@ var onRun = function(context) {
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
+}
+
+function getPasteboardLayers() {
+    var pasteboard = NSPasteboard.generalPasteboard();
+    var pasteboardManager = NSApp.delegate().pasteboardManager();
+    var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
+    if (pasteboardLayers) {
+        return pasteboardLayers.layers().layers();
+    } else {
+        return MSLayerArray.emptyArray().layers();
+    }
 }

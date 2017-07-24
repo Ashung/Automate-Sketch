@@ -11,22 +11,38 @@ License: https://creativecommons.org/licenses/by-sa/4.0
 var onRun = function(context) {
 
     var document = context.document;
+    var selection = context.selection;
     var currentPage = document.currentPage();
     var artboards = currentPage.artboards();
 
-    if (artboards.count() > 0) {
-        var loopArtboards = artboards.objectEnumerator();
-        while(artboard = loopArtboards.nextObject()) {
-            if (artboard.grid()) {
-                artboard.grid().setIsEnabled(false);
+    if (selection.count() > 0) {
+
+        var loopSelection = selection.objectEnumerator();
+        while (layer = loopSelection.nextObject()) {
+            if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+                if (layer.grid()) {
+                    layer.grid().setIsEnabled(false);
+                }
             }
         }
+
     } else {
-        if (currentPage.grid()) {
-            currentPage.grid().setIsEnabled(false);
+
+        if (artboards.count() > 0) {
+            var loopArtboards = artboards.objectEnumerator();
+            while(artboard = loopArtboards.nextObject()) {
+                if (artboard.grid()) {
+                    artboard.grid().setIsEnabled(false);
+                }
+            }
+        } else {
+            if (currentPage.grid()) {
+                currentPage.grid().setIsEnabled(false);
+            }
         }
+
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
 
-}
+};
