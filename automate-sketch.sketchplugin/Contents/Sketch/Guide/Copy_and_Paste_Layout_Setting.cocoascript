@@ -15,66 +15,31 @@ var copyLayout = function(context) {
     var page = document.currentPage();
 
     if (selection.count() > 0) {
-
         // Get layout setting of first layer
         var layer = selection.firstObject();
         if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-
             if (layer.layout()) {
-                var layoutSetting = {
-                    "columnWidth": layer.layout().columnWidth(),
-                    "drawHorizontal": layer.layout().drawHorizontal(),
-                    "drawHorizontalLines": layer.layout().drawHorizontalLines(),
-                    "drawVertical": layer.layout().drawVertical(),
-                    "gutterHeight": layer.layout().gutterHeight(),
-                    "gutterWidth": layer.layout().gutterWidth(),
-                    "guttersOutside": layer.layout().guttersOutside(),
-                    "horizontalOffset": layer.layout().horizontalOffset(),
-                    "isEnabled": layer.layout().isEnabled(),
-                    "numberOfColumns": layer.layout().numberOfColumns(),
-                    "rowHeightMultiplication": layer.layout().rowHeightMultiplication(),
-                    "totalWidth": layer.layout().totalWidth()
-                };
-                copyStringToPasteboard(context, JSON.stringify(layoutSetting));
+                copyLayoutToPasteboard(context, layer);
             } else {
                 document.showMessage("There is not layout setting in \"" + layer.name() + "\".");
                 return;
             }
-
         } else {
             document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
             return;
         }
-
     } else {
-
         // Get layout setting of page
         if (page.layout() && page.artboards().count() == 0) {
-            var layoutSetting = {
-                "columnWidth": layer.layout().columnWidth(),
-                "drawHorizontal": layer.layout().drawHorizontal(),
-                "drawHorizontalLines": layer.layout().drawHorizontalLines(),
-                "drawVertical": layer.layout().drawVertical(),
-                "gutterHeight": layer.layout().gutterHeight(),
-                "gutterWidth": layer.layout().gutterWidth(),
-                "guttersOutside": layer.layout().guttersOutside(),
-                "horizontalOffset": layer.layout().horizontalOffset(),
-                "isEnabled": layer.layout().isEnabled(),
-                "numberOfColumns": layer.layout().numberOfColumns(),
-                "rowHeightMultiplication": layer.layout().rowHeightMultiplication(),
-                "totalWidth": layer.layout().totalWidth()
-            };
-            copyStringToPasteboard(context, JSON.stringify(layoutSetting));
+            copyLayoutToPasteboard(context, page);
         } else {
             document.showMessage("There is not layout setting in \"" + page.name() + "\".");
             return;
         }
-
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
-
-}
+};
 
 var pasteLayout = function(context) {
 
@@ -84,12 +49,9 @@ var pasteLayout = function(context) {
 
     var pasteboardString = getStringFromPasteboard(context);
     if (pasteboardString) {
-
         try {
-
             var layoutSetting = JSON.parse(pasteboardString);
             if (selection.count() > 0) {
-
                 // Set layout for artboards
                 var loopSelection = selection.objectEnumerator();
                 while (layer = loopSelection.nextObject()) {
@@ -97,23 +59,36 @@ var pasteLayout = function(context) {
                         applyLayoutToLayer(layoutSetting, layer);
                     }
                 }
-
             } else {
-
                 // Set layout for page
                 if (page.artboards().count() == 0) {
                     applyLayoutToLayer(layoutSetting, page);
                 }
-
             }
-
         } catch (err) {
             document.showMessage("Please copy a grid setting first.");
         }
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+};
 
+function copyLayoutToPasteboard(context, layer) {
+    var layoutSetting = {
+        "columnWidth": layer.layout().columnWidth(),
+        "drawHorizontal": layer.layout().drawHorizontal(),
+        "drawHorizontalLines": layer.layout().drawHorizontalLines(),
+        "drawVertical": layer.layout().drawVertical(),
+        "gutterHeight": layer.layout().gutterHeight(),
+        "gutterWidth": layer.layout().gutterWidth(),
+        "guttersOutside": layer.layout().guttersOutside(),
+        "horizontalOffset": layer.layout().horizontalOffset(),
+        "isEnabled": layer.layout().isEnabled(),
+        "numberOfColumns": layer.layout().numberOfColumns(),
+        "rowHeightMultiplication": layer.layout().rowHeightMultiplication(),
+        "totalWidth": layer.layout().totalWidth()
+    };
+    copyStringToPasteboard(context, JSON.stringify(layoutSetting));
 }
 
 function applyLayoutToLayer(layoutSetting, layer) {

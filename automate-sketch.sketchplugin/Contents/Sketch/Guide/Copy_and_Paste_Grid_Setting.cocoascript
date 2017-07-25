@@ -15,48 +15,31 @@ var copyGrid = function(context) {
     var page = document.currentPage();
 
     if (selection.count() > 0) {
-
         // Get grid setting of first layer
         var layer = selection.firstObject();
         if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-
             if (layer.grid()) {
-                var gridSetting = {
-                    "girdSize": layer.grid().gridSize(),
-                    "thickGridTimes": layer.grid().thickGridTimes(),
-                    "isEnabled": layer.grid().isEnabled()
-                };
-                copyStringToPasteboard(context, JSON.stringify(gridSetting));
+                copyGridToPasteboard(context, layer);
             } else {
                 document.showMessage("There is not grid setting in \"" + layer.name() + "\".");
                 return;
             }
-
         } else {
             document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
             return;
         }
-
     } else {
-
         // Get grid setting of page
         if (page.grid() && page.artboards().count() == 0) {
-            var gridSetting = {
-                "girdSize": page.grid().gridSize(),
-                "thickGridTimes": page.grid().thickGridTimes(),
-                "isEnabled": page.grid().isEnabled()
-            };
-            copyStringToPasteboard(context, JSON.stringify(gridSetting));
+            copyGridToPasteboard(context, page);
         } else {
             document.showMessage("There is not grid setting in \"" + page.name() + "\".");
             return;
         }
-
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
-
-}
+};
 
 var pasteGrid = function(context) {
 
@@ -66,12 +49,9 @@ var pasteGrid = function(context) {
 
     var pasteboardString = getStringFromPasteboard(context);
     if (pasteboardString) {
-
         try {
-
             var gridSetting = JSON.parse(pasteboardString);
             if (selection.count() > 0) {
-
                 // Set grid for artboards
                 var loopSelection = selection.objectEnumerator();
                 while (layer = loopSelection.nextObject()) {
@@ -79,23 +59,27 @@ var pasteGrid = function(context) {
                         applyGridToLayer(gridSetting, layer);
                     }
                 }
-
             } else {
-
                 // Set grid for page
                 if (page.artboards().count() == 0) {
                     applyGridToLayer(gridSetting, page);
                 }
-
             }
-
         } catch (err) {
             document.showMessage("Please copy a grid setting first.");
         }
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+};
 
+function copyGridToPasteboard(context, layer) {
+    var gridSetting = {
+        "girdSize": layer.grid().gridSize(),
+        "thickGridTimes": layer.grid().thickGridTimes(),
+        "isEnabled": layer.grid().isEnabled()
+    };
+    copyStringToPasteboard(context, JSON.stringify(gridSetting));
 }
 
 function applyGridToLayer(gridSetting, layer) {

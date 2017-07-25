@@ -15,35 +15,26 @@ var copyGuide = function(context) {
     var page = document.currentPage();
 
     if (selection.count() > 0) {
-
         // Get guide setting of first layer
         var layer = selection.firstObject();
         if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-
-            getGuideSettingFromLayer(context, layer);
-
+            copyGuideToPasteboard(context, layer);
         } else {
             document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
             return;
         }
-
     } else {
-
         // Get guide setting of page
         if (page.artboards().count() == 0) {
-
-            getGuideSettingFromLayer(context, page);
-
+            copyGuideToPasteboard(context, page);
         } else {
             document.showMessage("There is not guide setting in \"" + page.name() + "\".");
             return;
         }
-
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
-
-}
+};
 
 var pasteGuide = function(context) {
 
@@ -53,12 +44,9 @@ var pasteGuide = function(context) {
 
     var pasteboardString = getStringFromPasteboard(context);
     if (pasteboardString) {
-
         try {
-
             var guideSetting = JSON.parse(pasteboardString);
             if (selection.count() > 0) {
-
                 // Set guide for artboards
                 var loopSelection = selection.objectEnumerator();
                 while (layer = loopSelection.nextObject()) {
@@ -66,27 +54,21 @@ var pasteGuide = function(context) {
                         applyGuideToLayer(guideSetting, layer);
                     }
                 }
-
             } else {
-
                 // Set guide for page
                 if (page.artboards().count() == 0) {
                     applyGuideToLayer(guideSetting, page);
                 }
-
             }
-
         } catch (err) {
             document.showMessage("Please copy a guide setting first.");
         }
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+};
 
-}
-
-
-function getGuideSettingFromLayer(context, layer) {
+function copyGuideToPasteboard(context, layer) {
 
     var document = context.document;
 
@@ -97,20 +79,17 @@ function getGuideSettingFromLayer(context, layer) {
         document.showMessage("There is not guide setting in \"" + layer.name() + "\".");
         return;
     } else {
-
         var horizontalRulerData = layer.horizontalRulerData().guides().componentsJoinedByString(",");
         var verticalRulerData = layer.verticalRulerData().guides().componentsJoinedByString(",");
         var guideSetting = '{' +
             '"horizontalRulerData":[' + horizontalRulerData + '],' +
             '"verticalRulerData":[' + verticalRulerData + ']}';
-
         copyStringToPasteboard(context, guideSetting);
-        // log(guideSetting);
     }
 }
 
 function applyGuideToLayer(guideSetting, layer) {
-
+    log(guideSetting);
 }
 
 function copyStringToPasteboard(context, string) {
