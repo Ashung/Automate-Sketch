@@ -60,6 +60,15 @@ var pasteGuide = function(context) {
                     applyGuideToLayer(guideSetting, page);
                 }
             }
+
+            // Show guide
+            if (!document.isRulersVisible()) {
+                var toggleRulersAction = document.actionsController().actionForID("MSToggleRulersAction");
+                if(toggleRulersAction.validate()) {
+                    toggleRulersAction.performAction(nil);
+                }
+            }
+
         } catch (err) {
             document.showMessage("Please copy a guide setting first.");
         }
@@ -89,7 +98,12 @@ function copyGuideToPasteboard(context, layer) {
 }
 
 function applyGuideToLayer(guideSetting, layer) {
-    log(guideSetting);
+    if (guideSetting.horizontalRulerData) {
+        layer.horizontalRulerData().setGuides(guideSetting.horizontalRulerData);
+    }
+    if (guideSetting.verticalRulerData) {
+        layer.verticalRulerData().setGuides(guideSetting.verticalRulerData);
+    }
 }
 
 function copyStringToPasteboard(context, string) {
