@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170726",
+    "version": "2.0.20170727",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -509,47 +509,47 @@
             "script": "Style/Swap_Fill_and_Border.cocoascript"
         },
         {
-            "name": "",
+            "name": "隱藏所有網格",
             "identifier": "hide_all_grid",
             "script": "Guide/Hide_All_Grid.cocoascript"
         },
         {
-            "name": "",
+            "name": "隱藏所有佈局",
             "identifier": "hide_all_layout",
             "script": "Guide/Hide_All_Layout.cocoascript"
         },
         {
-            "name": "",
+            "name": "複製網格",
             "identifier": "copy_grid_setting",
             "handler": "copyGrid",
             "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
         },
         {
-            "name": "",
+            "name": "貼上網格",
             "identifier": "paste_grid_setting",
             "handler": "pasteGrid",
             "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
         },
         {
-            "name": "",
+            "name": "複製佈局",
             "identifier": "copy_layout_setting",
             "handler": "copyLayout",
             "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
         },
         {
-            "name": "",
+            "name": "貼上佈局",
             "identifier": "paste_layout_setting",
             "handler": "pasteLayout",
             "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
         },
         {
-            "name": "",
+            "name": "複製輔助線",
             "identifier": "copy_guide_setting",
             "handler": "copyGuide",
             "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
         },
         {
-            "name": "",
+            "name": "貼上輔助線",
             "identifier": "paste_guide_setting",
             "handler": "pasteGuide",
             "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"

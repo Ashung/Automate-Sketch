@@ -31,10 +31,10 @@ var onRun = function(context) {
 
         var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
         checkbox.setButtonType(NSSwitchButton);
-        checkbox.setTitle("Include white background color.");
+        checkbox.setTitle("Include background color of artboard.");
         checkbox.setState(NSOffState);
         dialog.addAccessoryView(checkbox);
-        
+
         var responseCode = dialog.runModal();
         if (responseCode == 1000) {
 
@@ -52,31 +52,28 @@ var onRun = function(context) {
                 var artboard;
                 while (artboard = loopArtboards.nextObject()) {
 
-                    // Add Slice
-                    var slice = MSSliceLayer.alloc().init();
-                    slice.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+                    var exportFormat = MSExportFormat.alloc().init();
+                    var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
+                        exportFormat, artboard, artboard.frame().rect(), false
+                    );
 
-                    // Slice backgroud color
+                    exportRequest.setShouldTrim(false);
+                    exportRequest.setFormat("png");
+                    exportRequest.setScale(scale);
+
+                    // Artboard background color
                     if (checkbox.state() == 1) {
-                        slice.setHasBackgroundColor(1);
-                        slice.setBackgroundColor(MSColor.whiteColor());
+                        exportRequest.setIncludeArtboardBackground(true);
                     }
 
-                    // Export options
-                    slice.exportOptions().removeAllExportFormats();
-                    var size = slice.exportOptions().addExportFormat();
-                    size.setFileFormat("png");
-                    size.setName("");
-                    size.setScale(scale);
-                    artboard.addLayers([slice]);
-                    doc.saveArtboardOrSlice_toFile(slice, savePanel.URL().path() + "/" + artboard.name() + ".png");
-                    slice.removeFromParent();
+                    doc.saveExportRequest_toFile(exportRequest, savePanel.URL().path() + "/" + artboard.name() + ".png");
+
                 }
 
                 NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
 
                 ga(context, "UA-99098773-3", "Artboard", context.command.identifier(), "export_scale", scale);
-                
+
             }
         }
 
