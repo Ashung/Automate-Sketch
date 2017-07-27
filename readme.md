@@ -71,6 +71,7 @@ Make your workflow more efficient.
 | **Styles**                               |                                          |
 | Add Solid Fill from CSS Color            | Fill from CSS color code.                |
 | Fill Color from Global (Document) Colors | Fill from the global (document) color fast. |
+| Swap Fill and Border                     | Swap fills and borders.                  |
 | Remove All Unused Styles                 | Delete unused styles in all layers of the current page. |
 | Create Color Guide                       | Create a color guide from document color. |
 | Create Typography Guide                  | Create a font style guide from a text style. |
@@ -79,7 +80,10 @@ Make your workflow more efficient.
 | Import Layer Styles from Sketch File     | Import a layer style from Sketch file.   |
 | **Guides**                               |                                          |
 | Clear Guides                             | Clear all guides.                        |
-| Grid Presets                             | Common Grid Presets.                     |
+| Grid Presets                             | Common Grid Presets, like 8x8, 10x10 etc. |
+| Hide All Grid/Layout                     | Hide all grid or layout.                 |
+| Copy Grid/Layout/Guide                   | Copy the grid/layout/guide from seleted artboard. |
+| Paste Grid/Layout/Guide                  | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
 | **Development**                          |                                          |
 | Copy ObjectID or SymbolID                | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
 | Copy Slice as Base64                     | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |

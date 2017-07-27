@@ -69,6 +69,7 @@
 | **Styles**                               | **样式**                                   |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充。                         |
+| Swap Fill and Border                     | 互换填充和描边。                                 |
 | Remove All Unused Styles                 | 删除当前页所有图层中未使用样式。                         |
 | Create Color Guide                       | 从文档颜色创建色彩指南。                             |
 | Create Typography Guide                  | 从文本样式创建字体样式指南。                           |
@@ -77,7 +78,10 @@
 | Import Layer Styles from Sketch File     | 从 Sketch 文件导入图层样式。                       |
 | **Guides**                               | **辅助线**                                  |
 | Clear Guides                             | 清除所有辅助线。                                 |
-| Grid Presets                             | 常用网格预设。                                  |
+| Grid Presets                             | 常用网格预设，例如 8x8、10x10等等。                   |
+| Hide All Grid/Layout                     | 隐藏所有网格或布局。                               |
+| Copy Grid/Layout/Guide                   | 复制选中画板的网格、布局或辅助线信息。                      |
+| Paste Grid/Layout/Guide                  | 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
 | **Development**                          | **开发**                                   |
 | Copy ObjectID or SymbolID                | 当选择图层时复制图层的 ObjectID 或 SymbolID到剪贴板。     |
 | Copy Slice as Base64                     | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
