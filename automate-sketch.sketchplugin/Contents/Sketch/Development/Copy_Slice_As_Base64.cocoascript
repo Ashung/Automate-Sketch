@@ -51,7 +51,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(base64Code, NSStringPboardType);
 
-        doc.showMessage("The base64 code of slice has copyed.");
+        doc.showMessage("The base64 code of slice has copied.");
 
         ga(context, "UA-99098773-3", "Development", context.command.identifier(), "base64_type", format + "");
 

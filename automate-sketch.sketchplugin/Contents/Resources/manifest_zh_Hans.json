@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "2.0.20170720",
+    "version": "2.0.20170727",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -502,6 +502,57 @@
             "name": "粘贴并替换",
             "identifier": "paste_and_replace",
             "script": "Layer/Paste_and_Replace.cocoascript"
+        },
+        {
+            "name": "互换填充和描边",
+            "identifier": "swap_fill_and_border",
+            "script": "Style/Swap_Fill_and_Border.cocoascript"
+        },
+        {
+            "name": "隐藏所有网格",
+            "identifier": "hide_all_grid",
+            "script": "Guide/Hide_All_Grid.cocoascript"
+        },
+        {
+            "name": "隐藏所有布局",
+            "identifier": "hide_all_layout",
+            "script": "Guide/Hide_All_Layout.cocoascript"
+        },
+        {
+            "name": "复制网格",
+            "identifier": "copy_grid_setting",
+            "handler": "copyGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+        },
+        {
+            "name": "粘贴网格",
+            "identifier": "paste_grid_setting",
+            "handler": "pasteGrid",
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+        },
+        {
+            "name": "复制布局",
+            "identifier": "copy_layout_setting",
+            "handler": "copyLayout",
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+        },
+        {
+            "name": "粘贴布局",
+            "identifier": "paste_layout_setting",
+            "handler": "pasteLayout",
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+        },
+        {
+            "name": "复制辅助线",
+            "identifier": "copy_guide_setting",
+            "handler": "copyGuide",
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
+        },
+        {
+            "name": "粘贴辅助线",
+            "identifier": "paste_guide_setting",
+            "handler": "pasteGuide",
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
         }
     ],
     "menu": {
@@ -643,6 +694,7 @@
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
+                    "swap_fill_and_border",
                     "-",
                     "remove_all_unused_styles",
                     "-",
@@ -657,8 +709,18 @@
             {
                 "title": "辅助线",
                 "items": [
-                    "clear_guides",
-                    "grid_setting"
+                    "copy_grid_setting",
+                    "paste_grid_setting",
+                    "hide_all_grid",
+                    "grid_setting",
+                    "-",
+                    "copy_layout_setting",
+                    "paste_layout_setting",
+                    "hide_all_layout",
+                    "-",
+                    "copy_guide_setting",
+                    "paste_guide_setting",
+                    "clear_guides"
                 ]
             },
             {

@@ -27,7 +27,7 @@ var onRun = function(context) {
         var newDocument = MSDocument.alloc().init();
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
         var newDocumentData = newDocument.documentData();
-        var newLayerStyles = newDocumentData.layerTextStyles().objects();
+        var newLayerStyles = newDocumentData.layerStyles().objects();
 
         for (var i = 0; i < newLayerStyles.count(); i++) {
 
@@ -36,14 +36,14 @@ var onRun = function(context) {
             // Remove same layer styles
             for (var j = 0; j < layerStyles.count(); j++) {
                 if (
-                    layerStyles.objectAtIndex(j).objectID().isEqualToString(newLayerStyles.objectID()) ||
-                    layerStyles.objectAtIndex(j).propertiesAreEqual(newLayerStyles)
+                    layerStyles.objectAtIndex(j).objectID().isEqualToString(newLayerStyle.objectID()) ||
+                    layerStyles.objectAtIndex(j).propertiesAreEqual(newLayerStyle)
                 ) {
                     layerStyles.removeObjectAtIndex(j);
                 }
             }
 
-            layerStyles.addObject(newLayerStyles);
+            layerStyles.addObject(newLayerStyle);
 
         }
 

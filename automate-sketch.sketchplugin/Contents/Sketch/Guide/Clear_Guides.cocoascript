@@ -14,25 +14,27 @@ var onRun = function(context) {
     var page = doc.currentPage();
     var selection = context.selection;
 
-    if(page.currentArtboard()) {
-        clear_guides(page.currentArtboard());
-    } else {
-        clear_guides(page);
-    }
-
-    var loop = selection.objectEnumerator();
-    while (select = loop.nextObject()) {
-        if (select.class() == "MSArtboardGroup") {
-            page.setCurrentArtboard(select);
-            clear_guides(page.currentArtboard());
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (select = loop.nextObject()) {
+            if (select.class() == "MSArtboardGroup" || select.class() == "MSSymbolMaster") {
+                page.setCurrentArtboard(select);
+                clear_guides(select);
+            }
         }
-        if (select.parentGroup().class() == "MSPage") {
+    } else {
+        if (page.artboards().count() == 0) {
             clear_guides(page);
+        } else {
+            var loopArtboards = page.artboards().objectEnumerator();
+            while (artboard = loopArtboards.nextObject()) {
+                clear_guides(artboard);
+            }
         }
     }
 
     ga(context, "UA-99098773-3", "Guide", context.command.identifier());
-    
+
 };
 
 function clear_guides(target) {
