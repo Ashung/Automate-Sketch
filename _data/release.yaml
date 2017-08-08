@@ -1,4 +1,11 @@
 -
+  title: v2.0.20170808
+  description: |-
+    <ul><li>Support Sketch 46.</li></ul>
+  version: 2.0.20170808
+  commitID: 23338d927eb75c29ca608781f0a28caa971db8d6
+
+-
   title: v2.0.20170727
   description: |-
     <ul><li>Add Swap Fill and Border.</li><li>Add Hide All Grid/Layout.</li><li>Add copy/paste grid/layout/guide.</li><li>Improvement Paste and Replace.</li></ul>
