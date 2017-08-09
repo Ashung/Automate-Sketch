@@ -29,47 +29,63 @@ var onRun = function(context) {
             var layers = pasteboardLayers.layers().layers();
 
             // Filter artboard and symbol master.
-            var loopPasteboardLayers = layers.objectEnumerator();
-            while (layer = loopPasteboardLayers.nextObject()) {
-                if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                    document.showMessage("Can't replace with a artboard or symbol master.");
-                    return;
-                }
-            }
+            // var loopPasteboardLayers = layers.objectEnumerator();
+            // while (layer = loopPasteboardLayers.nextObject()) {
+            //     if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
+            //         document.showMessage("Can't replace with a artboard or symbol master.");
+            //         return;
+            //     }
+            // }
+
+
+
+            // log(pasteboardLayers.layers())
+            // log(pasteboardLayers.sharedObjects())
+            // log(pasteboardLayers.symbols())
+
+            //page.addLayers([pasteboardLayers.symbols().allObjects().firstObject()])
+            // return;
+
 
             // Filter symbol instances
-            var symbolMasters = pasteboardLayers.symbols();
-            var symbolMasterIDs = symbolMasters.allKeys();
-            if (symbolMasterIDs.count() > 0) {
-                var loopSymbolMasterIDsOfInstance = symbolMasterIDs.objectEnumerator();
-                while (symbolMasterID = loopSymbolMasterIDsOfInstance.nextObject()) {
-                    if (!documentData.symbolWithID(symbolMasterID)) {
-                        var symbolName = symbolMasters.valueForKey(symbolMasterID).name();
-                        document.showMessage("Symbol master \"" + symbolName + "\" can't found in current document.");
-                        return;
-                    }
-                }
-            }
+            // var symbolMasters = pasteboardLayers.symbols();
+            // var symbolMasterIDs = symbolMasters.allKeys();
+            // if (symbolMasterIDs.count() > 0) {
+            //     var loopSymbolMasterIDsOfInstance = symbolMasterIDs.objectEnumerator();
+            //     while (symbolMasterID = loopSymbolMasterIDsOfInstance.nextObject()) {
+            //         if (!documentData.symbolWithID(symbolMasterID)) {
+            //             var symbolName = symbolMasters.valueForKey(symbolMasterID).name();
+            //             document.showMessage("Symbol master \"" + symbolName + "\" can't found in current document.");
+            //             return;
+            //         }
+            //     }
+            // }
 
-            // Put pasteboard layers into a group.
-            var group = MSLayerGroup.alloc().init();
-            group.addLayers(layers);
 
-            // Layer will be selected.
-            var layersAfterReplace = NSMutableArray.alloc().init();
 
             if (selection.count() > 0) {
 
+                // TODO: sharedObjects
+
+                // TODO: add symbol master
+
+                // Put pasteboard layers into a temp group.
+                var group = MSLayerGroup.alloc().init();
+                group.addLayers(pasteboardLayers.layers());
+
+                // Layer will be selected.
+                var newLayers = NSMutableArray.alloc().init();
+
                 var loopSelection = selection.objectEnumerator();
-                while (layer = loopSelection.nextObject()) {
+                while (oldLayer = loopSelection.nextObject()) {
 
                     var newGroup = group.duplicate();
-                    layersAfterReplace.addObjectsFromArray(newGroup.layers());
-                    layer.parentGroup().insertLayer_afterLayer(newGroup, layer);
-                    newGroup.frame().setX(layer.frame().x());
-                    newGroup.frame().setY(layer.frame().y());
+                    newLayers.addObjectsFromArray(newGroup.layers());
+                    oldLayer.parentGroup().insertLayer_afterLayer(newGroup, oldLayer);
+                    newGroup.frame().setX(oldLayer.frame().x());
+                    newGroup.frame().setY(oldLayer.frame().y());
                     newGroup.ungroup();
-                    layer.removeFromParent();
+                    oldLayer.removeFromParent();
 
                 }
 
@@ -97,15 +113,4 @@ var onRun = function(context) {
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
-}
-
-function getPasteboardLayers() {
-    var pasteboard = NSPasteboard.generalPasteboard();
-    var pasteboardManager = NSApp.delegate().pasteboardManager();
-    var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
-    if (pasteboardLayers) {
-        return pasteboardLayers.layers().layers();
-    } else {
-        return MSLayerArray.emptyArray().layers();
-    }
 }
