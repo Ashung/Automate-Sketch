@@ -1,4 +1,11 @@
 -
+  title: v46.1.20170810
+  description: |-
+    <ul><li>Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.</li></ul>
+  version: 46.1.20170810
+  commitID: 50fc6c16805eb4a717e7b37b26a617d98584cab3
+
+-
   title: v2.0.20170808
   description: |-
     <ul><li>Support Sketch 46.</li></ul>
