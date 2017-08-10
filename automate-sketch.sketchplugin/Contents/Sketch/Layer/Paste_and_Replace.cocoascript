@@ -33,9 +33,13 @@ var onRun = function(context) {
 
                     var pasteboardLayers = getPasteboardLayers();
 
-                    var group = MSLayerGroup.alloc().init();
-                    group.addLayers(pasteboardLayers.layers());
-                    oldLayer.parentGroup().insertLayer_afterLayer(group, oldLayer);
+                    pasteboardLayers.insertInGroup_atPosition_afterLayer(
+                        oldLayer.parentGroup(),
+                        oldLayer.frame().rect().origin,
+                        oldLayer
+                    );
+
+                    var group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
                     group.frame().setX(oldLayer.frame().x());
                     group.frame().setY(oldLayer.frame().y());
                     group.ungroup();
