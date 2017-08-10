@@ -65,6 +65,12 @@ var onRun = function(context) {
             "build": "44423",
             "version": "92",
             "commit":"bd5e5522d900b2e7f62d2c3fa9c704ee054215d2"
+        },
+        {
+            "appVersion": "46.1",
+            "build": "44463",
+            "version": "93",
+            "commit":"25a070e8ae289f31b53070a88ef08db060debc17"
         }
     ];
 

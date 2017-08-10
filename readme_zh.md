@@ -23,7 +23,7 @@
 | Click Through On (Off)                   | 点击穿透开关。                                  |
 | Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
 | Select All Child Layers                  | 选择所有子图层。                                 |
-| Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。           |
+| Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Clear Layer Name                         | 清理图层名，删除图层名后的 copy。                      |
 | Remove Redundant Groups                  | 删除多余的嵌套组。                                |
 | Remove Hidden Layers                     | 删除隐藏图层。                                  |
