@@ -23,55 +23,7 @@ var onRun = function(context) {
         var pasteboardType = pasteboard.pasteboardItems().firstObject().types().firstObject();
         if (pasteboardType == "com.bohemiancoding.sketch.v3") {
 
-            var pasteboardManager = NSApp.delegate().pasteboardManager();
-            var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
-
-            var layers = pasteboardLayers.layers().layers();
-
-            // Filter artboard and symbol master.
-            // var loopPasteboardLayers = layers.objectEnumerator();
-            // while (layer = loopPasteboardLayers.nextObject()) {
-            //     if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-            //         document.showMessage("Can't replace with a artboard or symbol master.");
-            //         return;
-            //     }
-            // }
-
-
-
-            // log(pasteboardLayers.layers())
-            // log(pasteboardLayers.sharedObjects())
-            // log(pasteboardLayers.symbols())
-
-            //page.addLayers([pasteboardLayers.symbols().allObjects().firstObject()])
-            // return;
-
-
-            // Filter symbol instances
-            // var symbolMasters = pasteboardLayers.symbols();
-            // var symbolMasterIDs = symbolMasters.allKeys();
-            // if (symbolMasterIDs.count() > 0) {
-            //     var loopSymbolMasterIDsOfInstance = symbolMasterIDs.objectEnumerator();
-            //     while (symbolMasterID = loopSymbolMasterIDsOfInstance.nextObject()) {
-            //         if (!documentData.symbolWithID(symbolMasterID)) {
-            //             var symbolName = symbolMasters.valueForKey(symbolMasterID).name();
-            //             document.showMessage("Symbol master \"" + symbolName + "\" can't found in current document.");
-            //             return;
-            //         }
-            //     }
-            // }
-
-
-
             if (selection.count() > 0) {
-
-                // TODO: sharedObjects
-
-                // TODO: add symbol master
-
-                // Put pasteboard layers into a temp group.
-                var group = MSLayerGroup.alloc().init();
-                group.addLayers(pasteboardLayers.layers());
 
                 // Layer will be selected.
                 var newLayers = NSMutableArray.alloc().init();
@@ -79,21 +31,43 @@ var onRun = function(context) {
                 var loopSelection = selection.objectEnumerator();
                 while (oldLayer = loopSelection.nextObject()) {
 
-                    var newGroup = group.duplicate();
-                    newLayers.addObjectsFromArray(newGroup.layers());
-                    oldLayer.parentGroup().insertLayer_afterLayer(newGroup, oldLayer);
-                    newGroup.frame().setX(oldLayer.frame().x());
-                    newGroup.frame().setY(oldLayer.frame().y());
-                    newGroup.ungroup();
+                    var pasteboardLayers = getPasteboardLayers();
+
+                    var group = MSLayerGroup.alloc().init();
+                    group.addLayers(pasteboardLayers.layers());
+                    oldLayer.parentGroup().insertLayer_afterLayer(group, oldLayer);
+                    group.frame().setX(oldLayer.frame().x());
+                    group.frame().setY(oldLayer.frame().y());
+                    group.ungroup();
+
+                    // Replace symbol master
+                    if (oldLayer.class() == "MSSymbolMaster") {
+                        var newSymbolMaster = pasteboardLayers.layers().firstLayer();
+                        var oldSymbolMaster = oldLayer;
+                        // Replace with another symbol master
+                        if (
+                            pasteboardLayers.layers().layers().count() == 1 &&
+                            pasteboardLayers.layers().firstLayer().class() == "MSSymbolMaster"
+                        ) {
+                            changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster);
+                        }
+                        // Change symbol's instances into group
+                        else {
+                            changeAllInstancesToGroup(context, oldSymbolMaster);
+                        }
+                    }
+
                     oldLayer.removeFromParent();
+
+                    newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
 
                 }
 
                 if (appVersion >= 45) {
-                    page.changeSelectionBySelectingLayers(layersAfterReplace);
+                    page.changeSelectionBySelectingLayers(newLayers);
                 } else {
-                    var loopLayersAfterReplace = selection.objectEnumerator();
-                    while (layer = layersAfterReplace.nextObject()) {
+                    var loopNewLayers = newLayers.objectEnumerator();
+                    while (layer = loopNewLayers.nextObject()) {
                         layer.select_byExpandingSelection(true, true);
                     }
                 }
@@ -113,4 +87,45 @@ var onRun = function(context) {
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
+}
+
+function getPasteboardLayers() {
+    var pasteboard = NSPasteboard.generalPasteboard();
+    var pasteboardManager = NSApp.delegate().pasteboardManager();
+    var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
+    return pasteboardLayers;
+}
+
+function changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster) {
+    var loopPages = context.document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var instances = page.allSymbolInstancesInChildren().allObjects();
+        var loopInstances = instances.objectEnumerator();
+        var instance;
+        while (instance = loopInstances.nextObject()) {
+            if (instance.symbolMaster()) {
+                if (instance.symbolMaster() == oldSymbolMaster) {
+                    instance.changeInstanceToSymbol(newSymbolMaster);
+                }
+            }
+        }
+    }
+}
+
+function changeAllInstancesToGroup(context, symbolMaster) {
+    var loopPages = context.document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var instances = page.allSymbolInstancesInChildren().allObjects();
+        var loopInstances = instances.objectEnumerator();
+        var instance;
+        while (instance = loopInstances.nextObject()) {
+            if (instance.symbolMaster()) {
+                if (instance.symbolMaster() == symbolMaster) {
+                    instance.detachByReplacingWithGroup();
+                }
+            }
+        }
+    }
 }
