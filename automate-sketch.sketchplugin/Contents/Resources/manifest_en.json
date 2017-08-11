@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.1.20170810",
+    "version": "46.1.20170811",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -553,6 +553,11 @@
             "identifier": "paste_guide_setting",
             "handler": "pasteGuide",
             "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
+        },
+        {
+            "name": "Arrange Objects",
+            "identifier": "arrange_objects",
+            "script": "Arrange/Arrange_Objects.cocoascript"
         }
     ],
     "menu": {
@@ -590,13 +595,14 @@
                         ]
                     },
                     "select_all_child_layers",
-                    "paste_and_replace",
                     "-",
-                    "clear_layer_name",
+                    "paste_and_replace",
                     "-",
                     "remove_redundant_groups",
                     "remove_hidden_layers",
                     "remove_empty_groups",
+                    "-",
+                    "clear_layer_name",
                     "-",
                     "create_include_layer",
                     "sync_include_layers"
@@ -612,6 +618,8 @@
                     "tile_layers_by_position_y",
                     "tile_layers_horizontally_by_index",
                     "tile_layers_vertically_by_index",
+                    "-",
+                    "arrange_objects",
                     "-",
                     {
                         "title": "Order Layers By ...",

@@ -19,9 +19,20 @@ var onRun = function(context) {
     var pasteboard = NSPasteboard.generalPasteboard();
     if (pasteboard.pasteboardItems().count() > 0) {
 
-        // Check if pasteboard is Sketch layers.
+        // Check Pasteboard type
         var pasteboardType = pasteboard.pasteboardItems().firstObject().types().firstObject();
-        if (pasteboardType == "com.bohemiancoding.sketch.v3") {
+        var supportedPasteboardTypes = [
+            "public.jpeg",
+            "public.gif",
+            "public.png",
+            "public.tiff", // Photoshop
+            "com.adobe.pdf",
+            "com.adobe.illustrator.aicb", // Illustrator
+            "com.bohemiancoding.sketch.v3", // Sketch
+            "com.seriflabs.persona.nodes" // Affinity Designer
+        ];
+
+        if (supportedPasteboardTypes.indexOf(String(pasteboardType))) {
 
             if (selection.count() > 0) {
 
@@ -40,6 +51,7 @@ var onRun = function(context) {
                     );
 
                     var group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
+                    group.moveToLayer_beforeLayer(oldLayer.parentGroup(), oldLayer);
                     group.frame().setX(oldLayer.frame().x());
                     group.frame().setY(oldLayer.frame().y());
                     group.ungroup();

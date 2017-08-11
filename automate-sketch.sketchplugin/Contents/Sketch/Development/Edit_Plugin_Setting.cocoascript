@@ -47,7 +47,7 @@ var onRun = function(context) {
 
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Define a code editor for Plugins");
-    dialog.setInformativeText("You can tell Sketch to use it to edit Plugins.")
+    dialog.setInformativeText("You can tell Sketch to use it to edit Plugins.");
 
     dialog.addTextLabelWithValue("Choose a favorite code editor.");
     var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
