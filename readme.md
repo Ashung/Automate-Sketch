@@ -35,6 +35,7 @@ Make your workflow more efficient.
 | Change Places Between Two Layers         | Change two objects positions based on midpoint or coordinate origin. |
 | Tile Layers by Position X (Y)            | Horizontal or vertical tiling objects.   |
 | Tile Layers Horizontally (Vertically) by Index | Horizontal or vertical tile based on layer list location. |
+| Arrange Objects                          | Arrange selected layers or artboard.     |
 | Order Layers By ...                      | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                      | Invert the position in the layer list.   |
 | **Type**                                 |                                          |

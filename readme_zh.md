@@ -33,6 +33,7 @@
 | Change Places Between Two Layers         | 根据中点或坐标原点，两个对象交换位置。                      |
 | Tile Layers by Position X (Y)            | 水平或垂直平铺对象。                               |
 | Tile Layers Horizontally (Vertically) by Index | 根据图层列表位置水平或垂直平铺图层。                       |
+| Arrange Objects                          | 智能排列图层或画板。                               |
 | Order Layers By ...                      | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。           |
 | Reverse Layer Order                      | 反转图层列表中的位置。                              |
 | **Type**                                 | **文本**                                   |
