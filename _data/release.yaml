@@ -1,4 +1,11 @@
 -
+  title: v46.1.20170811
+  description: |-
+    <ul><li>Fix "Paste and Replace" bug.</li><li>Add "Arrange Objects".</li></ul>
+  version: 46.1.20170811
+  commitID: 9580b981d2028851840f3cad7ef6a65804a1475d
+
+-
   title: v46.1.20170810
   description: |-
     <ul><li>Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.</li></ul>
