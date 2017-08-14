@@ -9,7 +9,7 @@
 
 - 从各种插件管理应用中搜索 "Automate Sketch"，现支持  [Sketch Runner](http://sketchrunner.com/)、[Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/)。
 - 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
-- 旧版 Sketch 从此[下载](https://github.com/Ashung/Automate-Sketch/releases)。
+- 旧版 Sketch 兼容插件从此[下载](https://github.com/Ashung/Automate-Sketch/releases)。
 
 ## 功能
 
@@ -23,6 +23,7 @@
 | Click Through On (Off)                   | 点击穿透开关。                                  |
 | Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
 | Select All Child Layers                  | 选择所有子图层。                                 |
+| Select Parent Groups                     | 选择所有父级图层。                                |
 | Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Clear Layer Name                         | 清理图层名，删除图层名后的 copy。                      |
 | Remove Redundant Groups                  | 删除多余的嵌套组。                                |
@@ -107,4 +108,4 @@ CC BY-SA 4.0
 
 ### 捐款
 
-[使用支付宝与微信捐款](https://ashung.github.io/donate.html)
+[使用支付宝与微信打赏](https://ashung.github.io/donate.html)

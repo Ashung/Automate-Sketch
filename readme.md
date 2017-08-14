@@ -24,7 +24,8 @@ Make your workflow more efficient.
 | Unlock All Layers                        | Unlock all layers.                       |
 | Click Through On (Off)                   | Trun on/off the click through.           |
 | Select All Layers In Selection By ...    | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers, or match by layer name. |
-| Select all Child Layers                  | Select all sub-layers.                   |
+| Select All Child Layers                  | Select all sub-layers.                   |
+| Select Parent Groups                     | Select parent groups.                    |
 | Paste and Replace                        | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Clear Layer Name                         | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                  | Remove redundant nested groups.          |
