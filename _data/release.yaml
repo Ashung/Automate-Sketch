@@ -1,4 +1,11 @@
 -
+  title: v46.1.20170814
+  description: |-
+    <ul><li>Fix "Select All Child Layers" bug.</li><li>Add "Select Parent Groups".</li></ul>
+  version: 46.1.20170814
+  commitID: 5d691a94f218e59ced90683c0ddfc81120189f59
+
+-
   title: v46.1.20170811
   description: |-
     <ul><li>Fix "Paste and Replace" bug.</li><li>Add "Arrange Objects".</li></ul>
