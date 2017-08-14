@@ -18,8 +18,9 @@ var onRun = function(context) {
 
         // Get last user input
         var defaultGapX = getPreferences(context, "arrangeObjectGapX") || 100,
-            defaultGapY = getPreferences(context, "arrangeObjectGapY") || 100,
-            defaultSnapDistance = getPreferences(context, "arrangeObjectSnapDistance") || 360;
+            defaultGapY = getPreferences(context, "arrangeObjectGapY") || 100;
+
+        var defaultSnapDistance = getMinHeightFromLayers(selection);
 
         // Dialog
         var dialog = COSAlertWindow.alloc().init();
@@ -45,7 +46,6 @@ var onRun = function(context) {
             // Save user input
             setPreferences(context, "arrangeObjectGapX", gapX);
             setPreferences(context, "arrangeObjectGapY", gapY);
-            setPreferences(context, "arrangeObjectSnapDistance", snapDistance);
 
             var origin = getRectFromLayers(selection);
             var globalLeft = Math.round(origin.x()),
@@ -92,6 +92,13 @@ function getRectFromLayers(layers) {
         rectArray.addObject(layer.frame());
     }
     return MSRect.rectWithUnionOfRects(rectArray);
+}
+
+function getMinHeightFromLayers(layers) {
+    var layers = layers.mutableCopy().sort(function(a, b) {
+        return a.frame().height() - b.frame().height();
+    });
+    return layers.firstObject().frame().height();
 }
 
 function arrangeLayers(layers, originX, originY, gapX, gapY, rowTop, snapDistance) {

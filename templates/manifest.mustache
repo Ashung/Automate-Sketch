@@ -107,6 +107,11 @@
             "script": "Layer/Select_All_Child_Layers.cocoascript"
         },
         {
+            "name": "{{select_parent_groups}}",
+            "identifier": "select_parent_groups",
+            "script": "Layer/Select_Parent_Groups.cocoascript"
+        },
+        {
             "name": "{{clear_layer_name}}",
             "identifier": "clear_layer_name",
             "script": "Layer/Clear_Layer_Name.cocoascript"
@@ -368,14 +373,12 @@
             "name": "{{fill_color_from_global_colors}}",
             "identifier": "fill_color_from_global_colors",
             "handler": "fillColorFromGlobalColors",
-            "shortcut": "cmd \\",
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
             "name": "{{fill_color_from_document_colors}}",
             "identifier": "fill_color_from_document_colors",
             "handler": "fillColorFromDocumentColors",
-            "shortcut": "cmd alt \\",
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
@@ -595,6 +598,7 @@
                         ]
                     },
                     "select_all_child_layers",
+                    "select_parent_groups",
                     "-",
                     "paste_and_replace",
                     "-",

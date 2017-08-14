@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.1.20170811",
+    "version": "46.1.20170814",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -105,6 +105,11 @@
             "name": "選擇選中物件內所有子圖層",
             "identifier": "select_all_child_layers",
             "script": "Layer/Select_All_Child_Layers.cocoascript"
+        },
+        {
+            "name": "選擇父級",
+            "identifier": "select_parent_groups",
+            "script": "Layer/Select_Parent_Groups.cocoascript"
         },
         {
             "name": "清理圖層名",
@@ -368,14 +373,12 @@
             "name": "從全局色版快速填充",
             "identifier": "fill_color_from_global_colors",
             "handler": "fillColorFromGlobalColors",
-            "shortcut": "cmd \\",
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
             "name": "從文件色版快速填充",
             "identifier": "fill_color_from_document_colors",
             "handler": "fillColorFromDocumentColors",
-            "shortcut": "cmd alt \\",
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
@@ -595,6 +598,7 @@
                         ]
                     },
                     "select_all_child_layers",
+                    "select_parent_groups",
                     "-",
                     "paste_and_replace",
                     "-",
