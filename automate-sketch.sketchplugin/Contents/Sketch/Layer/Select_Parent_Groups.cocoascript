@@ -16,24 +16,32 @@ var onRun = function(context) {
 
     if (selection.count() > 0) {
 
-        // Deselect all layers
-        if (page.deselectAllLayers) {
-            page.deselectAllLayers();
-        } else {
-            page.changeSelectionBySelectingLayers(nil);
-        }
+        // Resort the array
+        var layers = selection.mutableCopy();
+        layers.sort(function(a, b) {
+            return page.children().indexOfObject(a) - page.children().indexOfObject(b);
+        });
 
-        var loop = selection.objectEnumerator();
+        // Deselect all layers
+        deselectAllLayers(page);
+
+        // Reselect layers
+        var loop = layers.objectEnumerator();
         var layer;
         while (layer = loop.nextObject()) {
             if (layer.parentGroup().class() != "MSPage") {
-                // Fix Sketch 45
-                if (MSApplicationMetadata.metadata().appVersion < 45) {
-                    layer.parentGroup().select_byExpendingSelection(true, true);
-                } else {
-                    layer.parentGroup().select_byExtendingSelection(true, true);
-                }
+                selectLayer(layer.parentGroup());
+            } else {
+                selectLayer(layer);
             }
+        }
+
+        // Deselect child layers.
+        var newSelectedLayers = page.selectedLayers().layers();
+        var loopSelectedLayers = newSelectedLayers.objectEnumerator();
+        var selectedLayer;
+        while (selectedLayer = loopSelectedLayers.nextObject()) {
+            deselectAllChildAndSelf(selectedLayer, false);
         }
 
     } else {
@@ -41,3 +49,42 @@ var onRun = function(context) {
     }
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 };
+
+function selectLayer(layer) {
+    if (MSApplicationMetadata.metadata().appVersion < 45) {
+        layer.select_byExpendingSelection(true, true);
+        if (!layer.selectedInLayerList()) {
+            deselectAllChildAndSelf(layer, true);
+            layer.select_byExpendingSelection(true, true);
+        }
+    } else {
+        layer.select_byExtendingSelection(true, true);
+        if (!layer.selectedInLayerList()) {
+            deselectAllChildAndSelf(layer, true);
+            layer.select_byExtendingSelection(true, true);
+        }
+    }
+}
+
+function deselectAllChildAndSelf(layer, self) {
+    var loop = layer.children().objectEnumerator();
+    var child;
+    while (child = loop.nextObject()) {
+        if (self == false && child == layer.children().lastObject()) {
+            continue;
+        }
+        if (MSApplicationMetadata.metadata().appVersion < 45) {
+            child.select_byExpendingSelection(false, true);
+        } else {
+            child.select_byExtendingSelection(false, true);
+        }
+    }
+}
+
+function deselectAllLayers(page) {
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+}

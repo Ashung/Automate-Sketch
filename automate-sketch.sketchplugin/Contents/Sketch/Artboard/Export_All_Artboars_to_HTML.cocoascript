@@ -93,8 +93,8 @@ var onRun = function(context) {
                         exportRequest.setScale(2);
 
                         // Artboard background color
-                        if (checkbox.state() == 1) {
-                            exportRequest.setIncludeArtboardBackground(true);
+                        if (selectedRadioIndex == 0) {
+                            exportRequest.setBackgroundColor(artboard.backgroundColor());
                         }
 
                         doc.saveExportRequest_toFile(exportRequest, savePanel.URL().path() + "/assets/" + name + "." + imageFormat);
