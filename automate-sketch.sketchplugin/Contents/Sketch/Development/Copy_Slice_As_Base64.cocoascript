@@ -16,17 +16,14 @@ var onRun = function(context) {
     if (selection.count() == 1 && selection.firstObject().class() == "MSSliceLayer") {
 
         var slice = selection.firstObject();
-        var format = slice.exportOptions().exportFormats().firstObject().fileFormat();
-        var tempFile = NSTemporaryDirectory().stringByAppendingPathComponent(slice.objectID() + "." + format);
-
-        // Export slice
-        doc.saveArtboardOrSlice_toFile(slice, tempFile);
-
-        // Covert file to base64
-        var base64Code = NSData.dataWithContentsOfFile(tempFile).base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
-
-        // Remove temp file
-        NSFileManager.defaultManager().removeItemAtPath_error_(tempFile, nil);
+        var exportRequest = MSExportRequest.exportRequestsFromExportableLayer_inRect_useIDForName(
+            slice, slice.absoluteInfluenceRect(), false
+        ).firstObject();
+        var format = exportRequest.format();
+        var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
+        var imageData = exporter.data();
+        var base64Code = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
+        var base64Preview = base64Code.substr(0, 8) + "..." + base64Code.substr(-8, 8);
 
         switch (format + "") {
             case "png":
@@ -51,7 +48,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(base64Code, NSStringPboardType);
 
-        doc.showMessage("The base64 code of slice has copied.");
+        doc.showMessage("The base64 code \"" + base64Preview + "\" of slice has copied.");
 
         ga(context, "UA-99098773-3", "Development", context.command.identifier(), "base64_type", format + "");
 
