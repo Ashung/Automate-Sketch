@@ -1,0 +1,68 @@
+
+
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 1 && selection.firstObject().class() == "MSTextLayer") {
+
+        var textLayer = selection.firstObject();
+
+        // var range =
+        // var baseline =
+
+        if (textLayer.editingDelegate()) {
+            log("editing")
+
+            // var range = layer.editingDelegate().textView().selectedRange();
+            // layer.editingDelegate().textView().textStorage().addAttribute_value_range(NSBaselineOffsetAttributeName, 50.0, range);
+        } else {
+            log("no editing")
+
+            // var range = NSMakeRange(0, layer.stringValue().length());
+            // layer.setIsEditingText(true);
+            // layer.addAttribute_value_forRange(NSKernAttributeName, 20, range);
+            // layer.setIsEditingText(false);
+        }
+
+
+    } else {
+        doc.showMessage("Please select 1 text layer.");
+    }
+
+    return;
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Arrange Objects");
+    dialog.setInformativeText("Arrange selected layers or artboards.");
+
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
+
+    var input = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 50, 25));
+    var formatter = NSNumberFormatter.alloc().init().autorelease();
+    input.setStringValue("0");
+    input.setFormatter(formatter);
+
+    var stepper = NSStepper.alloc().initWithFrame(NSMakeRect(52, 0, 16, 25));
+    stepper.setMaxValue(1000);
+    stepper.setMinValue(-1000);
+    stepper.setValueWraps(false);
+    stepper.setAutorepeat(true);
+    stepper.setIntegerValue(0);
+    stepper.setCOSJSTargetFunction(function(sender) {
+        var text = sender.integerValue();
+        input.setStringValue(String(text));
+    });
+
+    view.addSubview(input);
+    view.addSubview(stepper);
+    dialog.addAccessoryView(view);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+        log(stepper.integerValue())
+    }
