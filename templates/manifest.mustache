@@ -561,7 +561,28 @@
             "name": "{{arrange_objects}}",
             "identifier": "arrange_objects",
             "script": "Arrange/Arrange_Objects.cocoascript"
+        },
+        {
+            "name": "{{baseline}}",
+            "identifier": "baseline",
+            "script": "Type/Baseline.cocoascript"
+        },
+        {
+            "name": "{{resize_fit_text_height}}",
+            "identifier": "resize_fit_text_height",
+            "script": "Type/Resize_Fit_Text_Height.cocoascript"
+        },
+        {
+            "name": "{{reflection}}",
+            "identifier": "reflection",
+            "script": "Style/Reflection.cocoascript"
+        },
+        {
+            "name": "{{change_text_orientation}}",
+            "identifier": "change_text_orientation",
+            "script": "Type/Change_Text_Orientation.cocoascript"
         }
+
     ],
     "menu": {
         "isRoot": false,
@@ -641,14 +662,16 @@
                 "title": "{{type}}",
                 "items": [
                     "capitalize",
+                    "baseline",
                     "-",
+                    "change_text_orientation",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
                     "-",
                     "replace_fonts",
                     "replace_missing_fonts",
                     "-",
-                    "select_all_textLayer_in_selected_group",
+                    "resize_fit_text_height",
                     "-",
                     "unfixed_layer_name"
                 ]
@@ -707,6 +730,8 @@
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
                     "swap_fill_and_border",
+                    "-",
+                    "reflection",
                     "-",
                     "remove_all_unused_styles",
                     "-",
