@@ -1,0 +1,120 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 1 && selection.firstObject().class() == "MSTextLayer") {
+
+        var textLayer = selection.firstObject();
+
+        var selectedRange;
+        var initBaselineOffset = textLayer.firstBaselineOffset();
+
+        // Text layer is editing.
+        if (textLayer.editingDelegate()) {
+
+            selectedRange = textLayer.editingDelegate().textView().selectedRange();
+
+            if (selectedRange.length == 0) {
+                doc.showMessage("Selected range have no any letter.");
+                return;
+            }
+
+            initBaselineOffset = textLayer.attributedString().attributedString()
+                .fontAttributesInRange(selectedRange)
+                .valueForKey(NSBaselineOffsetAttributeName) || 0;
+
+            // Exit editing mode.
+            textLayer.editingDelegate().handlerWillLoseFocus();
+
+        }
+
+        // Dialog
+        var dialog = COSAlertWindow.alloc().init();
+        dialog.setMessageText("Change Baseline Offset");
+        dialog.setInformativeText("Change Baseline Offset for selected range of text layer.");
+
+        var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 200, 25));
+
+        var input = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 50, 25));
+        var formatter = NSNumberFormatter.alloc().init().autorelease();
+        input.setStringValue(String(initBaselineOffset));
+        input.setFormatter(formatter);
+
+        var stepper = NSStepper.alloc().initWithFrame(NSMakeRect(52, 0, 16, 25));
+        stepper.setMaxValue(1000);
+        stepper.setMinValue(-1000);
+        stepper.setValueWraps(false);
+        stepper.setAutorepeat(true);
+        stepper.setIntegerValue(0);
+        stepper.setCOSJSTargetFunction(function(sender) {
+            var value = initBaselineOffset + sender.integerValue();
+            input.setStringValue(String(value));
+            changeTextLayerBaselineOffsetValue(textLayer, value, selectedRange);
+        });
+
+        view.addSubview(input);
+        view.addSubview(stepper);
+        dialog.addAccessoryView(view);
+
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+            var value = parseInt(input.stringValue());
+            changeTextLayerBaselineOffsetValue(textLayer, value, selectedRange);
+        }
+
+    } else {
+        doc.showMessage("Please select 1 text layer.");
+    }
+
+    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+
+};
+
+function changeTextLayerBaselineOffsetValue(textLayer, value, selectedRange) {
+
+    var originalFirstBaselineOffset = textLayer.firstBaselineOffset();
+
+    // Change text attribute.
+    textLayer.setIsEditingText(true);
+    if (selectedRange) {
+        textLayer.addAttribute_value_forRange(NSBaselineOffsetAttributeName, value, selectedRange);
+    } else {
+        textLayer.addAttribute_value(NSBaselineOffsetAttributeName, value);
+    }
+    textLayer.setIsEditingText(false);
+
+    // Fix layer position.
+    if (textLayer.firstBaselineOffset() > originalFirstBaselineOffset) {
+        textLayer.frame().setY(
+            textLayer.frame().y() - (textLayer.firstBaselineOffset() - originalFirstBaselineOffset)
+        );
+    } else {
+        textLayer.frame().setY(
+            textLayer.frame().y() + (originalFirstBaselineOffset - textLayer.firstBaselineOffset())
+        );
+    }
+}

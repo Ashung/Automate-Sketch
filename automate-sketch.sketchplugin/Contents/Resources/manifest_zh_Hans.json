@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.1.20170814",
+    "version": "46.2.20170830",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -561,7 +561,28 @@
             "name": "智能排列对象",
             "identifier": "arrange_objects",
             "script": "Arrange/Arrange_Objects.cocoascript"
+        },
+        {
+            "name": "修改基线偏移",
+            "identifier": "baseline",
+            "script": "Type/Baseline.cocoascript"
+        },
+        {
+            "name": "自适应文本高度",
+            "identifier": "resize_fit_text_height",
+            "script": "Type/Resize_Fit_Text_Height.cocoascript"
+        },
+        {
+            "name": "倒影",
+            "identifier": "reflection",
+            "script": "Style/Reflection.cocoascript"
+        },
+        {
+            "name": "更改文本书写方向",
+            "identifier": "change_text_orientation",
+            "script": "Type/Change_Text_Orientation.cocoascript"
         }
+
     ],
     "menu": {
         "isRoot": false,
@@ -641,14 +662,16 @@
                 "title": "文本",
                 "items": [
                     "capitalize",
+                    "baseline",
                     "-",
+                    "change_text_orientation",
                     "change_typeface_for_the_latin_character_set",
                     "add_space_between_cjk_and_western_character",
                     "-",
                     "replace_fonts",
                     "replace_missing_fonts",
                     "-",
-                    "select_all_textLayer_in_selected_group",
+                    "resize_fit_text_height",
                     "-",
                     "unfixed_layer_name"
                 ]
@@ -707,6 +730,8 @@
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
                     "swap_fill_and_border",
+                    "-",
+                    "reflection",
                     "-",
                     "remove_all_unused_styles",
                     "-",

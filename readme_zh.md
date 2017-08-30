@@ -39,10 +39,13 @@
 | Reverse Layer Order                      | 反转图层列表中的位置。                              |
 | **Type**                                 | **文本**                                   |
 | Capitalize                               | 首字大写。                                    |
+| Change Baseline offset                   | 调整选中文本的基线偏移。                             |
+| Change Text Orientation                  | 更改文本书写方向，竖排或横排。                          |
 | Change Typeface for Latin Character      | 更改文本图层中西文的字体。                            |
 | Add Space Between CJK and Latin Character | 文本图层中西文间增加空格。                            |
 | Replace Fonts                            | 替换字体。                                    |
 | Replace Missing Fonts                    | 替换缺失字体。                                  |
+| Resize to Fit Text Height                | 自适应文本高度。                                 |
 | Unfixed Layer Name                       | 取消文本图层的固定图层名，让文本的图层名跟随内容。                |
 | **Slice**                                | **切片**                                   |
 | New Layer Base Slice                     | 基于图层新建切片。                                |
@@ -72,6 +75,7 @@
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充。                         |
 | Swap Fill and Border                     | 互换填充和描边。                                 |
+| Reflection                               | 显示隐藏的倒影样式。                               |
 | Remove All Unused Styles                 | 删除当前页所有图层中未使用样式。                         |
 | Create Color Guide                       | 从文档颜色创建色彩指南。                             |
 | Create Typography Guide                  | 从文本样式创建字体样式指南。                           |

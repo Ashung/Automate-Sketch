@@ -1,8 +1,18 @@
 /*----------------------------------------------------------
 
-Author: Ashung Hung
-Homepage: https://github.com/Ashung/Automate-Sketch
-License: https://creativecommons.org/licenses/by-sa/4.0
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
 
 ----------------------------------------------------------*/
 
@@ -16,17 +26,14 @@ var onRun = function(context) {
     if (selection.count() == 1 && selection.firstObject().class() == "MSSliceLayer") {
 
         var slice = selection.firstObject();
-        var format = slice.exportOptions().exportFormats().firstObject().fileFormat();
-        var tempFile = NSTemporaryDirectory().stringByAppendingPathComponent(slice.objectID() + "." + format);
-
-        // Export slice
-        doc.saveArtboardOrSlice_toFile(slice, tempFile);
-
-        // Covert file to base64
-        var base64Code = NSData.dataWithContentsOfFile(tempFile).base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
-
-        // Remove temp file
-        NSFileManager.defaultManager().removeItemAtPath_error_(tempFile, nil);
+        var exportRequest = MSExportRequest.exportRequestsFromExportableLayer_inRect_useIDForName(
+            slice, slice.absoluteInfluenceRect(), false
+        ).firstObject();
+        var format = exportRequest.format();
+        var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
+        var imageData = exporter.data();
+        var base64Code = imageData.base64EncodedStringWithOptions(NSDataBase64EncodingEndLineWithLineFeed);
+        var base64Preview = base64Code.substr(0, 8) + "..." + base64Code.substr(-8, 8);
 
         switch (format + "") {
             case "png":
@@ -51,7 +58,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(base64Code, NSStringPboardType);
 
-        doc.showMessage("The base64 code of slice has copied.");
+        doc.showMessage("The base64 code \"" + base64Preview + "\" of slice has copied.");
 
         ga(context, "UA-99098773-3", "Development", context.command.identifier(), "base64_type", format + "");
 

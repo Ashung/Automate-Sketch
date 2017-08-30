@@ -41,10 +41,13 @@ Make your workflow more efficient.
 | Reverse Layer Order                      | Invert the position in the layer list.   |
 | **Type**                                 |                                          |
 | Capitalize                               | Capitalize.                              |
+| Change Baseline offset                   | Change Baseline Offset for selected range of text layer. |
+| Change Text Orientation                  | Change Text Orientation for CJK text layout. |
 | Change Typeface for Latin Character      | Change the typeface for latin-character in the text layer. |
 | Add Space Between CJK and Latin Character | Add space between Chinese and Western.   |
 | Replace Fonts                            | Replace Fonts.                           |
 | Replace Missing Fonts                    | Replace missing fonts.                   |
+| Resize to Fit Text Height                | Resize text layer to fit text field height. |
 | Unfixed Layer Name                       | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                |                                          |
 | New Layer Base Slice                     | Create a new slice based on a layer.     |
@@ -74,6 +77,7 @@ Make your workflow more efficient.
 | Add Solid Fill from CSS Color            | Fill from CSS color code.                |
 | Fill Color from Global (Document) Colors | Fill from the global (document) color fast. |
 | Swap Fill and Border                     | Swap fills and borders.                  |
+| Reflection                               | Show the hidden reflection style.        |
 | Remove All Unused Styles                 | Delete unused styles in all layers of the current page. |
 | Create Color Guide                       | Create a color guide from document color. |
 | Create Typography Guide                  | Create a font style guide from a text style. |

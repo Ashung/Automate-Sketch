@@ -1,10 +1,20 @@
 /*----------------------------------------------------------
 
- Author: Ashung Hung
- Homepage: https://github.com/Ashung/Automate-Sketch
- License: https://creativecommons.org/licenses/by-sa/4.0
+Copyright 2017 Ashung Hung
 
- ----------------------------------------------------------*/
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
 
 @import "../Libraries/Google_Analytics.cocoascript";
 
@@ -16,24 +26,32 @@ var onRun = function(context) {
 
     if (selection.count() > 0) {
 
-        // Deselect all layers
-        if (page.deselectAllLayers) {
-            page.deselectAllLayers();
-        } else {
-            page.changeSelectionBySelectingLayers(nil);
-        }
+        // Resort the array
+        var layers = selection.mutableCopy();
+        layers.sort(function(a, b) {
+            return page.children().indexOfObject(a) - page.children().indexOfObject(b);
+        });
 
-        var loop = selection.objectEnumerator();
+        // Deselect all layers
+        deselectAllLayers(page);
+
+        // Reselect layers
+        var loop = layers.objectEnumerator();
         var layer;
         while (layer = loop.nextObject()) {
             if (layer.parentGroup().class() != "MSPage") {
-                // Fix Sketch 45
-                if (MSApplicationMetadata.metadata().appVersion < 45) {
-                    layer.parentGroup().select_byExpendingSelection(true, true);
-                } else {
-                    layer.parentGroup().select_byExtendingSelection(true, true);
-                }
+                selectLayer(layer.parentGroup());
+            } else {
+                selectLayer(layer);
             }
+        }
+
+        // Deselect child layers.
+        var newSelectedLayers = page.selectedLayers().layers();
+        var loopSelectedLayers = newSelectedLayers.objectEnumerator();
+        var selectedLayer;
+        while (selectedLayer = loopSelectedLayers.nextObject()) {
+            deselectAllChildAndSelf(selectedLayer, false);
         }
 
     } else {
@@ -41,3 +59,42 @@ var onRun = function(context) {
     }
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 };
+
+function selectLayer(layer) {
+    if (MSApplicationMetadata.metadata().appVersion < 45) {
+        layer.select_byExpendingSelection(true, true);
+        if (!layer.selectedInLayerList()) {
+            deselectAllChildAndSelf(layer, true);
+            layer.select_byExpendingSelection(true, true);
+        }
+    } else {
+        layer.select_byExtendingSelection(true, true);
+        if (!layer.selectedInLayerList()) {
+            deselectAllChildAndSelf(layer, true);
+            layer.select_byExtendingSelection(true, true);
+        }
+    }
+}
+
+function deselectAllChildAndSelf(layer, self) {
+    var loop = layer.children().objectEnumerator();
+    var child;
+    while (child = loop.nextObject()) {
+        if (self == false && child == layer.children().lastObject()) {
+            continue;
+        }
+        if (MSApplicationMetadata.metadata().appVersion < 45) {
+            child.select_byExpendingSelection(false, true);
+        } else {
+            child.select_byExtendingSelection(false, true);
+        }
+    }
+}
+
+function deselectAllLayers(page) {
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+}
