@@ -1,4 +1,11 @@
 -
+  title: v46.2.20170830
+  description: |-
+    <ul><li>Add "Reflection".</li><li>Add "Change Baseline offset"</li><li>Add "Change Text Orientation".</li><li>Add "Resize to Fit Text Height".</li></ul>
+  version: 46.2.20170830
+  commitID: 3b11045dfb4b3f3b9a9884530accfc2df688213a
+
+-
   title: v46.1.20170814
   description: |-
     <ul><li>Fix "Select All Child Layers" bug.</li><li>Add "Select Parent Groups".</li></ul>
