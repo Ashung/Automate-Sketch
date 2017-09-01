@@ -58,6 +58,7 @@ var onRun = function(context) {
 
                 layer.frame().setWidth(originalWidth);
 
+                layer.setTextBehaviour(1);
             }
         }
 
