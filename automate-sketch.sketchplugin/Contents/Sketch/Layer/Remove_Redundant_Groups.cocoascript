@@ -56,9 +56,7 @@ function removeRedundantGroups(layer) {
         }
         // Remove Empty Groups
         if (layer.layers().count() == 0) {
-            if(groupIsSafeToUngroup(layer)) {
-                layer.removeFromParent();
-            }
+            layer.removeFromParent();
         }
     } else {
         if (layer.containedLayers() && layer.class() != "MSShapeGroup") {
@@ -77,7 +75,7 @@ function groupIsSafeToUngroup(group) {
         noExportOptions = (group.exportOptions().exportFormats().count() == 0);
 
     // Sketch 44+ resizing constraint
-    if (MSApplicationMetadata.metadata().appVersion < 44) {
+    if (MSApplicationMetadata.metadata().appVersion >= 44) {
         var noResizingConstraint = (group.resizingConstraint() == 63);
         return noOpacity && noBlending && noShadows && noResizingConstraint && noExportOptions;
     } else {
