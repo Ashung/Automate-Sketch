@@ -20,18 +20,22 @@ limitations under the License.
 
 var onRun = function(context) {
 
+    var doc = context.document;
     var selection = context.selection;
     var loopSelection = selection.objectEnumerator();
     var layer;
     while (layer = loopSelection.nextObject()) {
-        if (layer.class() != "MSArtboardGroup" && layer.class() != "MSSymbolMaster") {
-          layer = findParentArtboard(layer);
-        }
-        var rectOfChildLayers = getRectFromLayers(layer);
-        var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
-        layer.frame().setHeight(height);
 
-        layer.select_byExtendingSelection(true, false);
+        var artboard = layer.parentArtboard();
+
+        if (artboard) {
+            var rectOfChildLayers = getRectFromLayers(artboard);
+            var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
+            artboard.frame().setHeight(height);
+        } else {
+            doc.showMessage('"' + layer.name() + '" is not an Artboard or not inside an Artboard.');
+        }
+
     }
 
     ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
@@ -53,11 +57,4 @@ function getRectFromLayers(parentGroup) {
     // Return {x, y, width, height}
     return rect;
 
-}
-
-function findParentArtboard(layer) {
-    do {
-        layer = layer.parentGroup();
-    } while  (layer.class() != "MSArtboardGroup" && layer.class() != "MSSymbolMaster")
-    return layer;
 }

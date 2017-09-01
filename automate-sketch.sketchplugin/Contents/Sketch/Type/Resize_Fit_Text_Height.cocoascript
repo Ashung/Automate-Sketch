@@ -28,7 +28,12 @@ var onRun = function(context) {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
+
             if (layer.class() == "MSTextLayer") {
+
+                if (layer.textBehaviour() == 0) {
+                    continue;
+                }
 
                 var verticalAlignment = 0,
                     originalLeft = layer.frame().x(),
@@ -58,7 +63,9 @@ var onRun = function(context) {
 
                 layer.frame().setWidth(originalWidth);
 
+                // Fixed
                 layer.setTextBehaviour(1);
+
             }
         }
 
