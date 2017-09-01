@@ -1,9 +1,9 @@
 -
-  title: v46.2.20170830
+  title: v46.2.20170901
   description: |-
-    <ul><li>Add "Reflection".</li><li>Add "Change Baseline offset"</li><li>Add "Change Text Orientation".</li><li>Add "Resize to Fit Text Height".</li></ul>
-  version: 46.2.20170830
-  commitID: 3b11045dfb4b3f3b9a9884530accfc2df688213a
+    <ul><li>Fix bugs.</li></ul>
+  version: 46.2.20170901
+  commitID: ddc17804439ad8b2aa1f1fbe08de3d8eb9e05dbb
 
 -
   title: v46.1.20170814
