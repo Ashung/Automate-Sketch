@@ -31,8 +31,9 @@ var onRun = function(context) {
         "Source Code Pro"
     ];
 
+
     var userDefaults = NSUserDefaults.standardUserDefaults();
-    var fontFamily = userDefaults.objectForKey("scriptEditorFont") + "" || fontFamilies[0];
+    var fontFamily = userDefaults.objectForKey("scriptEditorFont") || fontFamilies[0];
     var fontFamilyIndex = fontFamilies.indexOf(fontFamily);
     var fontSize = userDefaults.objectForKey("scriptEditorFontSize") || "12";
 
