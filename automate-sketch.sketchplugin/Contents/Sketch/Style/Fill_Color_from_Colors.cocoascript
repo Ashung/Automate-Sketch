@@ -42,7 +42,7 @@ function fillColorFromColors(context, colors, alertMessage) {
 
     if (selection.count() == 0) {
         doc.showMessage("Please select one Shape or Text layer.");
-        return false;
+        return;
     }
 
     for (var i = 0; i < selection.count(); i++) {

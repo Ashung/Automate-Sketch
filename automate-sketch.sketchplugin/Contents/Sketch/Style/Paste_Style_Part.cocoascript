@@ -1,0 +1,183 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var pluginIdentifier = context.command.identifier();
+
+    if (selection.count() == 0) {
+        doc.showMessage("Please select at least 1 layer.");
+        return;
+    }
+
+    var pasteboard = NSPasteboard.generalPasteboard();
+    var pasteboardItems = pasteboard.pasteboardItems();
+    if (pasteboardItems.count() > 0) {
+        var pasteboardItem = pasteboardItems.firstObject();
+        var pasteboardTypes = pasteboardItem.types();
+
+        // Style: dyn.ah62d4rv4gu8y4y4xsv6023nukm10c6xenv61a3k
+        // TextStyle: dyn.ah62d4rv4gu8y4y4yqz6hky5ytf0gnyccr7u1e3cytf2gn
+        // Sketch Metadata: dyn.ah62d4rv4gu8y4y4ftb2g86xym72hk4ptr33zauxtqf3gkzd3sbwu
+        if (
+            pasteboardTypes.objectAtIndex(0) == "dyn.ah62d4rv4gu8y4y4xsv6023nukm10c6xenv61a3k" &&
+            pasteboardTypes.objectAtIndex(1) == "dyn.ah62d4rv4gu8y4y4yqz6hky5ytf0gnyccr7u1e3cytf2gn" &&
+            pasteboardTypes.objectAtIndex(2) == "dyn.ah62d4rv4gu8y4y4ftb2g86xym72hk4ptr33zauxtqf3gkzd3sbwu"
+        ) {
+            // Get the style JSON
+            var archiveJSONString = pasteboardItem.stringForType("dyn.ah62d4rv4gu8y4y4xsv6023nukm10c6xenv61a3k");
+            var archiveJSON = JSON.parse(archiveJSONString);
+            var styleJSON = archiveJSON.root.style;
+
+            // Convert JSON to MSStyle
+            var decoded = MSJSONDictionaryUnarchiver.alloc().initForReadingFromDictionary(styleJSON).decodeRoot();
+            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+
+            // Fills
+            if (pluginIdentifier == "paste_style_fills") {
+                var loopSelection = selection.objectEnumerator();
+                var layer;
+                while (layer = loopSelection.nextObject()) {
+                    if (
+                        (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
+                        layer.class() == "MSTextLayer" ||
+                        layer.class() == "MSBitmapLayer"
+                    ) {
+                        layer.style().setFills(style.fills());
+                    } else {
+                        doc.showMessage("Can not apply fill.");
+                    }
+                }
+            }
+
+            // Fills
+            if (pluginIdentifier == "paste_style_borders") {
+                var loopSelection = selection.objectEnumerator();
+                var layer;
+                while (layer = loopSelection.nextObject()) {
+                    if (
+                        layer.class() == "MSShapeGroup" ||
+                        layer.class() == "MSTextLayer" ||
+                        layer.class() == "MSBitmapLayer"
+                    ) {
+                        layer.style().setBorders(style.borders());
+                    } else {
+                        doc.showMessage("Can not apply border.");
+                    }
+                }
+            }
+
+            // Shadows
+            if (pluginIdentifier == "paste_style_shadows") {
+                var loopSelection = selection.objectEnumerator();
+                var layer;
+                while (layer = loopSelection.nextObject()) {
+                    if (
+                        layer.class() == "MSShapeGroup" ||
+                        layer.class() == "MSTextLayer" ||
+                        layer.class() == "MSBitmapLayer" ||
+                        layer.class() == "MSSymbolInstance" ||
+                        layer.class() == "MSLayerGroup"
+                    ) {
+                        layer.style().setShadows(style.shadows());
+                    } else {
+                        doc.showMessage("Can not apply shadow.");
+                    }
+                }
+            }
+
+            // Inner Shadows
+            if (pluginIdentifier == "paste_style_innershadows") {
+                if (style.innerShadows().count() > 0) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (
+                            (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
+                            layer.class() == "MSTextLayer" ||
+                            layer.class() == "MSBitmapLayer"
+                        ) {
+                            layer.style().setInnerShadows(style.innerShadows());
+                        } else {
+                            doc.showMessage("Can not apply inner shadow.");
+                        }
+                    }
+                } else {
+                    doc.showMessage("Style no include inner shadows.");
+                }
+            }
+
+            // Blur
+            if (pluginIdentifier == "paste_style_blur") {
+                if (style.blur().isEnabled()) {
+                    var blurType = style.blur().type();
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        // Shape layer except line, can apply all blur.
+                        if (
+                            layer.class() == "MSShapeGroup" &&
+                            layer.isLine() == false
+                        ) {
+                            layer.style().setBlur(style.blur());
+                        }
+                        // Text and bitmap layer can not apply background blur.
+                        else if (
+                            (layer.class() == "MSTextLayer" || layer.class() == "MSBitmapLayer") &&
+                            blurType != 3
+                        ) {
+                            layer.style().setBlur(style.blur());
+                        } else {
+                            switch (blurType) {
+                                case 3:
+                                    doc.showMessage("Can not apply background blur.");
+                                    break;
+                                case 2:
+                                    doc.showMessage("Can not apply zoom blur.");
+                                    break;
+                                case 1:
+                                    doc.showMessage("Can not apply motion blur.");
+                                    break;
+                                case 0:
+                                    doc.showMessage("Can not apply gaussian blur.");
+                                    break;
+                                default:
+                                    doc.showMessage("Can not apply blur.");
+                            }
+                        }
+                    }
+                } else {
+                    doc.showMessage("Style no include blur.");
+                }
+            }
+
+            doc.reloadInspector();
+
+        } else {
+            doc.showMessage('You need to copy style first, with "Edit" - "Copy" - "Copy Style ⌥⌘C".');
+        }
+    } else {
+        doc.showMessage('You need to copy style first, with "Edit" - "Copy" - "Copy Style ⌥⌘C".');
+    }
+
+    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+}

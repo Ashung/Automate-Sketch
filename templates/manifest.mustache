@@ -581,8 +581,32 @@
             "name": "{{change_text_orientation}}",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
+        },
+        {
+            "name": "{{paste_style_fills}}",
+            "identifier": "paste_style_fills",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "{{paste_style_borders}}",
+            "identifier": "paste_style_borders",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "{{paste_style_shadows}}",
+            "identifier": "paste_style_shadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "{{paste_style_innershadows}}",
+            "identifier": "paste_style_innershadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "{{paste_style_blur}}",
+            "identifier": "paste_style_blur",
+            "script": "Style/Paste_Style_Part.cocoascript"
         }
-
     ],
     "menu": {
         "isRoot": false,
@@ -726,6 +750,12 @@
             {
                 "title": "{{style}}",
                 "items": [
+                    "paste_style_fills",
+                    "paste_style_borders",
+                    "paste_style_shadows",
+                    "paste_style_innershadows",
+                    "paste_style_blur",
+                    "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",

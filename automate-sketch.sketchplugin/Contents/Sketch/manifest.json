@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.2.20170913",
+    "version": "46.2.20170927",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -581,8 +581,32 @@
             "name": "Change Text Orientation",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
+        },
+        {
+            "name": "Paste Fills",
+            "identifier": "paste_style_fills",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Borders",
+            "identifier": "paste_style_borders",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Shadows",
+            "identifier": "paste_style_shadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Inner Shadows",
+            "identifier": "paste_style_innershadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Blur",
+            "identifier": "paste_style_blur",
+            "script": "Style/Paste_Style_Part.cocoascript"
         }
-
     ],
     "menu": {
         "isRoot": false,
@@ -726,6 +750,12 @@
             {
                 "title": "Style",
                 "items": [
+                    "paste_style_fills",
+                    "paste_style_borders",
+                    "paste_style_shadows",
+                    "paste_style_innershadows",
+                    "paste_style_blur",
+                    "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
