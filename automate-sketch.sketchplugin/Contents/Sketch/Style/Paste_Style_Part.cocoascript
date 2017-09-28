@@ -43,71 +43,16 @@ var onRun = function(context) {
             pasteboardTypes.objectAtIndex(1) == "dyn.ah62d4rv4gu8y4y4yqz6hky5ytf0gnyccr7u1e3cytf2gn" &&
             pasteboardTypes.objectAtIndex(2) == "dyn.ah62d4rv4gu8y4y4ftb2g86xym72hk4ptr33zauxtqf3gkzd3sbwu"
         ) {
+
             // Get the style JSON
             var archiveJSONString = pasteboardItem.stringForType("dyn.ah62d4rv4gu8y4y4xsv6023nukm10c6xenv61a3k");
             var archiveJSON = JSON.parse(archiveJSONString);
             var styleJSON = archiveJSON.root.style;
-
-            // Convert JSON to MSStyle
             var decoded = MSJSONDictionaryUnarchiver.alloc().initForReadingFromDictionary(styleJSON).decodeRoot();
-            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
 
             // Fills
             if (pluginIdentifier == "paste_style_fills") {
-                var loopSelection = selection.objectEnumerator();
-                var layer;
-                while (layer = loopSelection.nextObject()) {
-                    if (
-                        (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
-                        layer.class() == "MSTextLayer" ||
-                        layer.class() == "MSBitmapLayer"
-                    ) {
-                        layer.style().setFills(style.fills());
-                    } else {
-                        doc.showMessage("Can not apply fill.");
-                    }
-                }
-            }
-
-            // Fills
-            if (pluginIdentifier == "paste_style_borders") {
-                var loopSelection = selection.objectEnumerator();
-                var layer;
-                while (layer = loopSelection.nextObject()) {
-                    if (
-                        layer.class() == "MSShapeGroup" ||
-                        layer.class() == "MSTextLayer" ||
-                        layer.class() == "MSBitmapLayer"
-                    ) {
-                        layer.style().setBorders(style.borders());
-                    } else {
-                        doc.showMessage("Can not apply border.");
-                    }
-                }
-            }
-
-            // Shadows
-            if (pluginIdentifier == "paste_style_shadows") {
-                var loopSelection = selection.objectEnumerator();
-                var layer;
-                while (layer = loopSelection.nextObject()) {
-                    if (
-                        layer.class() == "MSShapeGroup" ||
-                        layer.class() == "MSTextLayer" ||
-                        layer.class() == "MSBitmapLayer" ||
-                        layer.class() == "MSSymbolInstance" ||
-                        layer.class() == "MSLayerGroup"
-                    ) {
-                        layer.style().setShadows(style.shadows());
-                    } else {
-                        doc.showMessage("Can not apply shadow.");
-                    }
-                }
-            }
-
-            // Inner Shadows
-            if (pluginIdentifier == "paste_style_innershadows") {
-                if (style.innerShadows().count() > 0) {
+                if (styleJSON.fills) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
@@ -116,6 +61,75 @@ var onRun = function(context) {
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+                            layer.style().setFills(style.fills());
+                        } else {
+                            doc.showMessage("Can not apply fill.");
+                        }
+                    }
+                } else {
+                    doc.showMessage("Style no include fills.");
+                }
+            }
+
+            // Borders
+            if (pluginIdentifier == "paste_style_borders") {
+                if (styleJSON.borders) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (
+                            layer.class() == "MSShapeGroup" ||
+                            layer.class() == "MSTextLayer" ||
+                            layer.class() == "MSBitmapLayer"
+                        ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+                            layer.style().setBorders(style.borders());
+                        } else {
+                            doc.showMessage("Can not apply border.");
+                        }
+                    }
+                } else {
+                    doc.showMessage("Style no include borders.");
+                }
+            }
+
+            // Shadows
+            if (pluginIdentifier == "paste_style_shadows") {
+                if (styleJSON.shadows) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (
+                            layer.class() == "MSShapeGroup" ||
+                            layer.class() == "MSTextLayer" ||
+                            layer.class() == "MSBitmapLayer" ||
+                            layer.class() == "MSSymbolInstance" ||
+                            layer.class() == "MSLayerGroup"
+                        ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+                            layer.style().setShadows(style.shadows());
+                        } else {
+                            doc.showMessage("Can not apply shadow.");
+                        }
+                    }
+                } else {
+                    doc.showMessage("Style no include shadows.");
+                }
+            }
+
+            // Inner Shadows
+            if (pluginIdentifier == "paste_style_innershadows") {
+                if (styleJSON.innerShadows()) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (
+                            (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
+                            layer.class() == "MSTextLayer" ||
+                            layer.class() == "MSBitmapLayer"
+                        ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setInnerShadows(style.innerShadows());
                         } else {
                             doc.showMessage("Can not apply inner shadow.");
@@ -128,8 +142,8 @@ var onRun = function(context) {
 
             // Blur
             if (pluginIdentifier == "paste_style_blur") {
-                if (style.blur().isEnabled()) {
-                    var blurType = style.blur().type();
+                if (styleJSON.blur) {
+                    var blurType = styleJSON.blur.type;
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
@@ -138,6 +152,7 @@ var onRun = function(context) {
                             layer.class() == "MSShapeGroup" &&
                             layer.isLine() == false
                         ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setBlur(style.blur());
                         }
                         // Text and bitmap layer can not apply background blur.
@@ -145,6 +160,7 @@ var onRun = function(context) {
                             (layer.class() == "MSTextLayer" || layer.class() == "MSBitmapLayer") &&
                             blurType != 3
                         ) {
+                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setBlur(style.blur());
                         } else {
                             switch (blurType) {
