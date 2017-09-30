@@ -72,6 +72,7 @@
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
 | **Styles**                               | **样式**                                   |
+| Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充。                         |
 | Swap Fill and Border                     | 互换填充和描边。                                 |
@@ -106,10 +107,8 @@
 
 ## 声明
 
-CC BY-SA 4.0
+Apache 2.0
 
-[![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
-
-### 捐款
+## 捐款
 
 [使用支付宝与微信打赏](https://ashung.github.io/donate.html)

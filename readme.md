@@ -74,6 +74,7 @@ Make your workflow more efficient.
 | Sync Symbol Master from Sketch File      | Synchronize symbols from Sketch files based on Symbol ID. |
 | Replace Pages from Sketch File           | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
 | **Styles**                               |                                          |
+| Paste Fills / Borders / Shadows / Inner Shadows / Blur | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color            | Fill from CSS color code.                |
 | Fill Color from Global (Document) Colors | Fill from the global (document) color fast. |
 | Swap Fill and Border                     | Swap fills and borders.                  |
@@ -106,10 +107,8 @@ Make your workflow more efficient.
 
 ## License
 
-CC BY-SA 4.0
+Apache 2.0
 
-[![cc-by-sa-4.0](https://i.creativecommons.org/l/by-sa/4.0/80x15.png)](http://creativecommons.org/licenses/by-sa/4.0/)
-
-### Donate
+## Donate
 
 Donate [$1.00](https://www.paypal.me/ashung/1)  [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) via PayPal.
