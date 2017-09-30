@@ -1,4 +1,11 @@
 -
+  title: v46.2.20170930
+  description: |-
+    <ul><li>Add Paste Fills/Borders/Shadows/Iinner Shadows/Blur.</li></ul>
+  version: 46.2.20170930
+  commitID: f08db1747a36ead3e58cb975a59c05c03d0d707c
+
+-
   title: v46.2.20170901
   description: |-
     <ul><li>Fix bugs.</li></ul>
