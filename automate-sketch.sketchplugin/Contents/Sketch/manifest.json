@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.2.20170901",
+    "version": "46.2.20170930",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -435,24 +435,24 @@
             "name": "Web Site",
             "identifier": "web_site",
             "handler": "website",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "Report Issue",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "Donate",
             "identifier": "donate",
             "handler": "donate",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "Change Language",
             "identifier": "change_language",
-            "script": "Utilities/Change_Languages.cocoascript"
+            "script": "Help/Change_Languages.cocoascript"
         },
         {
             "name": "Copy Selected Layer Name",
@@ -581,13 +581,62 @@
             "name": "Change Text Orientation",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
+        },
+        {
+            "name": "Paste Fills",
+            "identifier": "paste_style_fills",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Borders",
+            "identifier": "paste_style_borders",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Shadows",
+            "identifier": "paste_style_shadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Inner Shadows",
+            "identifier": "paste_style_innershadows",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Paste Blur",
+            "identifier": "paste_style_blur",
+            "script": "Style/Paste_Style_Part.cocoascript"
         }
-
     ],
     "menu": {
         "isRoot": false,
         "title": "Automate",
         "items": [
+            {
+                "title": "Arrange",
+                "items": [
+                    "change_layer_places",
+                    "change_layer_places_center",
+                    "-",
+                    "tile_layers_by_position_x",
+                    "tile_layers_by_position_y",
+                    "tile_layers_horizontally_by_index",
+                    "tile_layers_vertically_by_index",
+                    "-",
+                    "arrange_objects",
+                    "-",
+                    {
+                        "title": "Order Layers By ...",
+                        "items": [
+                            "order_layers_by_x",
+                            "order_layers_by_y",
+                            "order_layers_by_name",
+                            "order_layers_by_kind"
+                        ]
+                    },
+                    "reverse_layer_order"
+                ]
+            },
             {
                 "title": "Layer",
                 "items": [
@@ -634,75 +683,6 @@
                 ]
             },
             {
-                "title": "Arrange",
-                "items": [
-                    "change_layer_places",
-                    "change_layer_places_center",
-                    "-",
-                    "tile_layers_by_position_x",
-                    "tile_layers_by_position_y",
-                    "tile_layers_horizontally_by_index",
-                    "tile_layers_vertically_by_index",
-                    "-",
-                    "arrange_objects",
-                    "-",
-                    {
-                        "title": "Order Layers By ...",
-                        "items": [
-                            "order_layers_by_x",
-                            "order_layers_by_y",
-                            "order_layers_by_name",
-                            "order_layers_by_kind"
-                        ]
-                    },
-                    "reverse_layer_order"
-                ]
-            },
-            {
-                "title": "Type",
-                "items": [
-                    "capitalize",
-                    "baseline",
-                    "-",
-                    "change_text_orientation",
-                    "change_typeface_for_the_latin_character_set",
-                    "add_space_between_cjk_and_western_character",
-                    "-",
-                    "replace_fonts",
-                    "replace_missing_fonts",
-                    "-",
-                    "resize_fit_text_height",
-                    "-",
-                    "unfixed_layer_name"
-                ]
-            },
-            {
-                "title": "Slice",
-                "items": [
-                    "new_layer_base_slice",
-                    "new_layer_base_slice_for_ios_1x",
-                    "new_layer_base_slice_for_android_1x",
-                    "new_slice_base_slice_for_web",
-                    "new_layer_base_slice_for_svg",
-                    "-",
-                    "clear_slices",
-                    "clear_exportables"
-                ]
-            },
-            {
-                "title": "Artboard",
-                "items": [
-                    "artboard_from_selection",
-                    "artboard_from_group",
-                    "artboard_to_group",
-                    "-",
-                    "resize_to_fit_height",
-                    "-",
-                    "export_all_artboars_to_png",
-                    "export_all_artboars_to_html"
-                ]
-            },
-            {
                 "title": "Symbol",
                 "items": [
                     "set_to_original_width",
@@ -724,8 +704,27 @@
                 ]
             },
             {
+                "title": "Artboard",
+                "items": [
+                    "artboard_from_selection",
+                    "artboard_from_group",
+                    "artboard_to_group",
+                    "-",
+                    "resize_to_fit_height",
+                    "-",
+                    "export_all_artboars_to_png",
+                    "export_all_artboars_to_html"
+                ]
+            },
+            {
                 "title": "Style",
                 "items": [
+                    "paste_style_fills",
+                    "paste_style_borders",
+                    "paste_style_shadows",
+                    "paste_style_innershadows",
+                    "paste_style_blur",
+                    "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
                     "fill_color_from_document_colors",
@@ -761,6 +760,46 @@
                 ]
             },
             {
+                "title": "Type",
+                "items": [
+                    "capitalize",
+                    "baseline",
+                    "-",
+                    "change_text_orientation",
+                    "change_typeface_for_the_latin_character_set",
+                    "add_space_between_cjk_and_western_character",
+                    "-",
+                    "replace_fonts",
+                    "replace_missing_fonts",
+                    "-",
+                    "resize_fit_text_height",
+                    "-",
+                    "unfixed_layer_name"
+                ]
+            },
+            {
+                "title": "Slice",
+                "items": [
+                    "new_layer_base_slice",
+                    "new_layer_base_slice_for_ios_1x",
+                    "new_layer_base_slice_for_android_1x",
+                    "new_slice_base_slice_for_web",
+                    "new_layer_base_slice_for_svg",
+                    "-",
+                    "clear_slices",
+                    "clear_exportables"
+                ]
+            },
+            {
+                "title": "Utilities",
+                "items": [
+                    "svg_export_setting",
+                    "nudge_distance_setting",
+                    "-",
+                    "convert_to_other_version"
+                ]
+            },
+            {
                 "title": "Development",
                 "items": [
                     "copy_slice_as_base64",
@@ -774,15 +813,6 @@
                     "script_editor_setting",
                     "edit_plugin_setting",
                     "reload_plugins"
-                ]
-            },
-            {
-                "title": "Utilities",
-                "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting",
-                    "-",
-                    "convert_to_other_version"
                 ]
             },
             {
