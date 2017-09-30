@@ -435,24 +435,24 @@
             "name": "{{web_site}}",
             "identifier": "web_site",
             "handler": "website",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "{{report_issue}}",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "{{donate}}",
             "identifier": "donate",
             "handler": "donate",
-            "script": "Utilities/help.cocoascript"
+            "script": "Help/help.cocoascript"
         },
         {
             "name": "{{change_language}}",
             "identifier": "change_language",
-            "script": "Utilities/Change_Languages.cocoascript"
+            "script": "Help/Change_Languages.cocoascript"
         },
         {
             "name": "{{copy_selected_layer_name}}",
@@ -613,6 +613,31 @@
         "title": "{{automate}}",
         "items": [
             {
+                "title": "{{arrange}}",
+                "items": [
+                    "change_layer_places",
+                    "change_layer_places_center",
+                    "-",
+                    "tile_layers_by_position_x",
+                    "tile_layers_by_position_y",
+                    "tile_layers_horizontally_by_index",
+                    "tile_layers_vertically_by_index",
+                    "-",
+                    "arrange_objects",
+                    "-",
+                    {
+                        "title": "{{order_layers_by}}",
+                        "items": [
+                            "order_layers_by_x",
+                            "order_layers_by_y",
+                            "order_layers_by_name",
+                            "order_layers_by_kind"
+                        ]
+                    },
+                    "reverse_layer_order"
+                ]
+            },
+            {
                 "title": "{{layer}}",
                 "items": [
                     "fix_to_parent_width_with_margin",
@@ -658,75 +683,6 @@
                 ]
             },
             {
-                "title": "{{arrange}}",
-                "items": [
-                    "change_layer_places",
-                    "change_layer_places_center",
-                    "-",
-                    "tile_layers_by_position_x",
-                    "tile_layers_by_position_y",
-                    "tile_layers_horizontally_by_index",
-                    "tile_layers_vertically_by_index",
-                    "-",
-                    "arrange_objects",
-                    "-",
-                    {
-                        "title": "{{order_layers_by}}",
-                        "items": [
-                            "order_layers_by_x",
-                            "order_layers_by_y",
-                            "order_layers_by_name",
-                            "order_layers_by_kind"
-                        ]
-                    },
-                    "reverse_layer_order"
-                ]
-            },
-            {
-                "title": "{{type}}",
-                "items": [
-                    "capitalize",
-                    "baseline",
-                    "-",
-                    "change_text_orientation",
-                    "change_typeface_for_the_latin_character_set",
-                    "add_space_between_cjk_and_western_character",
-                    "-",
-                    "replace_fonts",
-                    "replace_missing_fonts",
-                    "-",
-                    "resize_fit_text_height",
-                    "-",
-                    "unfixed_layer_name"
-                ]
-            },
-            {
-                "title": "{{slice}}",
-                "items": [
-                    "new_layer_base_slice",
-                    "new_layer_base_slice_for_ios_1x",
-                    "new_layer_base_slice_for_android_1x",
-                    "new_slice_base_slice_for_web",
-                    "new_layer_base_slice_for_svg",
-                    "-",
-                    "clear_slices",
-                    "clear_exportables"
-                ]
-            },
-            {
-                "title": "{{artboard}}",
-                "items": [
-                    "artboard_from_selection",
-                    "artboard_from_group",
-                    "artboard_to_group",
-                    "-",
-                    "resize_to_fit_height",
-                    "-",
-                    "export_all_artboars_to_png",
-                    "export_all_artboars_to_html"
-                ]
-            },
-            {
                 "title": "{{symbol}}",
                 "items": [
                     "set_to_original_width",
@@ -745,6 +701,19 @@
                     "-",
                     "sync_symbol_master_from_sketch_file",
                     "replace_pages_form_sketch_file"
+                ]
+            },
+            {
+                "title": "{{artboard}}",
+                "items": [
+                    "artboard_from_selection",
+                    "artboard_from_group",
+                    "artboard_to_group",
+                    "-",
+                    "resize_to_fit_height",
+                    "-",
+                    "export_all_artboars_to_png",
+                    "export_all_artboars_to_html"
                 ]
             },
             {
@@ -791,6 +760,46 @@
                 ]
             },
             {
+                "title": "{{type}}",
+                "items": [
+                    "capitalize",
+                    "baseline",
+                    "-",
+                    "change_text_orientation",
+                    "change_typeface_for_the_latin_character_set",
+                    "add_space_between_cjk_and_western_character",
+                    "-",
+                    "replace_fonts",
+                    "replace_missing_fonts",
+                    "-",
+                    "resize_fit_text_height",
+                    "-",
+                    "unfixed_layer_name"
+                ]
+            },
+            {
+                "title": "{{slice}}",
+                "items": [
+                    "new_layer_base_slice",
+                    "new_layer_base_slice_for_ios_1x",
+                    "new_layer_base_slice_for_android_1x",
+                    "new_slice_base_slice_for_web",
+                    "new_layer_base_slice_for_svg",
+                    "-",
+                    "clear_slices",
+                    "clear_exportables"
+                ]
+            },
+            {
+                "title": "{{utilities}}",
+                "items": [
+                    "svg_export_setting",
+                    "nudge_distance_setting",
+                    "-",
+                    "convert_to_other_version"
+                ]
+            },
+            {
                 "title": "{{development}}",
                 "items": [
                     "copy_slice_as_base64",
@@ -804,15 +813,6 @@
                     "script_editor_setting",
                     "edit_plugin_setting",
                     "reload_plugins"
-                ]
-            },
-            {
-                "title": "{{utilities}}",
-                "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting",
-                    "-",
-                    "convert_to_other_version"
                 ]
             },
             {
