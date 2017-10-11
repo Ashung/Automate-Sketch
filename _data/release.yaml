@@ -1,4 +1,11 @@
 -
+  title: v47.0.20171011
+  description: |-
+    <ul><li>Add Ungroup Shape Layer.</li><li>Remove Unused Symbols now support Sketch 47 foreign symbols.</li></ul>
+  version: 47.0.20171011
+  commitID: 4d5c5c6801f615d419dc798d575c4308774314f6
+
+-
   title: v46.2.20170930
   description: |-
     <ul><li>Add Paste Fills/Borders/Shadows/Iinner Shadows/Blur.</li></ul>
@@ -33,44 +40,44 @@
   version: 46.1.20170810
   commitID: 30eba8a875b0f2563ad86aa75d25faf3e194102c
 
--
-  title: v2.0.20170808
-  description: |-
-    <ul><li>Support Sketch 46.</li></ul>
-  version: 2.0.20170808
-  commitID: 23338d927eb75c29ca608781f0a28caa971db8d6
-
--
-  title: v2.0.20170727
-  description: |-
-    <ul><li>Add Swap Fill and Border.</li><li>Add Hide All Grid/Layout.</li><li>Add copy/paste grid/layout/guide.</li><li>Improvement Paste and Replace.</li></ul>
-  version: 2.0.20170727
-  commitID: 0663b6897d99c37e10ad0af9e566ba1ba215373d
-
--
-  title: v2.0.20170720
-  description: |-
-    <ul><li>Fix select layers by group</li></ul>
-  version: 2.0.20170720
-  commitID: 6320f2548a315299eef9b53993da5481fbf1d1f1
-
--
-  title: v2.0.20170711
-  description: |-
-    <ul><li>Add "Paste and Replace".</li><li>Add "Convert Sketch File to Other Version".</li></ul>
-  version: 2.0.20170711
-  commitID: 9262998cf80bc1d6b3f442aa9684ea662605c681
-
--
-  title: v2.0.20170706
-  description: |-
-    <ul><li>Fix Sketch 45 support.</li><li>Add some plugin development features.</li></ul>
-  version: 2.0.20170706
-  commitID: 5aea2a1d7197462fe9444d0e19dcf90e361f7183
-
--
-  title: v2.0.20170629
-  description: |-
-    <ul><li>Support Sketch 45.</li></ul>
-  version: 2.0.20170629
-  commitID: 8e89102ff1cdbe79d9b182f83f8870b20fec16ac
+# -
+#   title: v2.0.20170808
+#   description: |-
+#     <ul><li>Support Sketch 46.</li></ul>
+#   version: 2.0.20170808
+#   commitID: 23338d927eb75c29ca608781f0a28caa971db8d6
+#
+# -
+#   title: v2.0.20170727
+#   description: |-
+#     <ul><li>Add Swap Fill and Border.</li><li>Add Hide All Grid/Layout.</li><li>Add copy/paste grid/layout/guide.</li><li>Improvement Paste and Replace.</li></ul>
+#   version: 2.0.20170727
+#   commitID: 0663b6897d99c37e10ad0af9e566ba1ba215373d
+#
+# -
+#   title: v2.0.20170720
+#   description: |-
+#     <ul><li>Fix select layers by group</li></ul>
+#   version: 2.0.20170720
+#   commitID: 6320f2548a315299eef9b53993da5481fbf1d1f1
+#
+# -
+#   title: v2.0.20170711
+#   description: |-
+#     <ul><li>Add "Paste and Replace".</li><li>Add "Convert Sketch File to Other Version".</li></ul>
+#   version: 2.0.20170711
+#   commitID: 9262998cf80bc1d6b3f442aa9684ea662605c681
+#
+# -
+#   title: v2.0.20170706
+#   description: |-
+#     <ul><li>Fix Sketch 45 support.</li><li>Add some plugin development features.</li></ul>
+#   version: 2.0.20170706
+#   commitID: 5aea2a1d7197462fe9444d0e19dcf90e361f7183
+#
+# -
+#   title: v2.0.20170629
+#   description: |-
+#     <ul><li>Support Sketch 45.</li></ul>
+#   version: 2.0.20170629
+#   commitID: 8e89102ff1cdbe79d9b182f83f8870b20fec16ac
