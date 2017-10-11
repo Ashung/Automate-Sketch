@@ -69,6 +69,7 @@ var onRun = function(context) {
         }
 
         var countGlobal = 0;
+
         removeUnusedSymbols();
 
         doc.showMessage("Remove " + countGlobal + " unused SymbolMaster.");
@@ -78,6 +79,7 @@ var onRun = function(context) {
         function removeUnusedSymbols() {
             var count = 0;
             var allSymbolMasters = context.document.documentData().allSymbols();
+
             var loopSymbols = allSymbolMasters.objectEnumerator();
             var symbolMaster;
             while (symbolMaster = loopSymbols.nextObject()) {
@@ -99,12 +101,12 @@ var onRun = function(context) {
                             }
                         }
                         if (hasUsedInstances == 0) {
-                            symbolMaster.removeFromParent();
+                            removeSymbol(context, symbolMaster);
                             count ++;
                             countGlobal ++;
                         }
                     } else {
-                        symbolMaster.removeFromParent();
+                        removeSymbol(context, symbolMaster);
                         count ++;
                         countGlobal ++;
                     }
@@ -128,4 +130,17 @@ var onRun = function(context) {
 
     }
 
+}
+
+function removeSymbol(context, symbolMaster) {
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        symbolMaster.removeFromParent();
+    } else {
+        if (symbolMaster.isForeign()) {
+            var documentData = context.document.documentData();
+            documentData.removeForeignSymbol(symbolMaster.foreignSymbol());
+        } else {
+            symbolMaster.removeFromParent();
+        }
+    }
 }

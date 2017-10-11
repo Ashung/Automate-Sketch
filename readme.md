@@ -21,6 +21,7 @@ Make your workflow more efficient.
 | Fix to Parent Width (Height) with Margin | Fix the width or height of the parent, and set the margins. |
 | Bounds Layer for Every Selection         | Create a bounds layer from the selected layer. |
 | Divide Layer                             | Split Layer.                             |
+| Ungroup Shape Layer                      | Ungroup shape layer.                     |
 | Unlock All Layers                        | Unlock all layers.                       |
 | Click Through On (Off)                   | Trun on/off the click through.           |
 | Select All Layers In Selection By ...    | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers, or match by layer name. |

@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "46.2.20170930",
+    "version": "47.0.20171011",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -606,6 +606,11 @@
             "name": "Paste Blur",
             "identifier": "paste_style_blur",
             "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "Ungroup Shape Layer",
+            "identifier": "ungroup_shape_layer",
+            "script": "Layer/Ungroup_Shape_Layer.cocoascript"
         }
     ],
     "menu": {
@@ -645,6 +650,7 @@
                     "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",
+                    "ungroup_shape_layer",
                     "-",
                     "unlock_all_layers",
                     "-",

@@ -19,6 +19,7 @@
 | Fix to Parent Width (Height) with Margin | 适配父级的宽度或高度，可设置边距。                        |
 | Bounds Layer for Every Selection         | 为从选中图层创建边界图层。                            |
 | Divide Layer                             | 均分图层。                                    |
+| Ungroup Shape Layer                      | 取消形状图层组，解决手动取消组出现的图层位置偏移。                |
 | Unlock All Layers                        | 解锁所有图层。                                  |
 | Click Through On (Off)                   | 点击穿透开关。                                  |
 | Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
