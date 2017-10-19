@@ -87,6 +87,20 @@ var onRun = function(context) {
             "build": "44496",
             "version": "93",
             "commit":"752502a5f62450dd6555e39d77a464fb4c5043e7"
+        },
+        {
+            "appVersion": "47",
+            "build": "45396",
+            "version": "95",
+            "compatibilityVersion": "93",
+            "commit":"80ddf8a336f285dfa2b96d05e69dba5714b6f0c4"
+        },
+        {
+            "appVersion": "47.1",
+            "build": "45422",
+            "version": "95",
+            "compatibilityVersion": "93",
+            "commit":"d5cff89adfb6ffc45ca7b7d58d65cada3f63f39a"
         }
     ];
 
