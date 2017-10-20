@@ -3,7 +3,7 @@ var fs = require("fs");
 var yaml = require("js-yaml");
 var Mustache = require("mustache");
 var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
-var buildDateString = "47.0." + getDateString();
+var buildDateString = getDateString();
 var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
 for (var i = 0; i < supportLanguages.length; i++) {
