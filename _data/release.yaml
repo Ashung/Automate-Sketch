@@ -1,4 +1,8 @@
 -
+  version: 47.1.20171025
+  commitID: 44b45228a5930940c7adcd553189216610184b65
+
+-
   title: v47.0.20171011
   description: |-
     <ul><li>Add Ungroup Shape Layer.</li><li>Remove Unused Symbols now support Sketch 47 foreign symbols.</li></ul>
