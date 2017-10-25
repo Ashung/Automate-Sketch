@@ -1,0 +1,125 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+    var selection = context.selection;
+    var currentPage = document.currentPage();
+
+    // Get selected symbol
+    var currentForeignSymbol = currentForeignSymbolInSelection(context);
+
+    if (!currentForeignSymbol) {
+
+        // List all imported symbols
+        var foreignSymbols = documentData.foreignSymbols();
+
+        var foreignSymbolsList = NSMutableArray.alloc().init();
+        var loopForeignSymbols = foreignSymbols.objectEnumerator();
+        var foreignSymbol;
+        while (foreignSymbol = loopForeignSymbols.nextObject()) {
+            foreignSymbolsList.addObject(
+                foreignSymbol.symbolMaster().name() + " - " +
+                foreignSymbol.sourceLibraryName()
+            );
+        }
+
+        // Choose an imported symbol
+        var dialog = COSAlertWindow.alloc().init();
+        dialog.setMessageText("Select All Instances of Imported Symbol");
+        dialog.setInformativeText("Choose an imported symbol, and select all instances of the imported symbol.");
+
+        dialog.addTextLabelWithValue("All Imported Symbol.");
+        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+        selectBox.addItemsWithObjectValues(foreignSymbolsList);
+        selectBox.selectItemAtIndex(0);
+        dialog.addAccessoryView(selectBox);
+
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+
+            currentForeignSymbol = foreignSymbols.objectAtIndex(selectBox.indexOfSelectedItem());
+
+            // Filter instances in current page
+            var allInstances = currentForeignSymbol.symbolMaster().allInstances();
+            var instancesInCurrentPage = NSMutableArray.alloc().init();
+            var loopAllInstances = allInstances.objectEnumerator();
+            var instance;
+            while (instance = loopAllInstances.nextObject()) {
+                if (instance.parentPage() == currentPage) {
+                    instancesInCurrentPage.addObject(instance);
+                }
+            }
+
+            var count = instancesInCurrentPage.count();
+            if (count > 0) {
+
+                currentPage.changeSelectionBySelectingLayers(instancesInCurrentPage);
+
+                // Same as CMD + 2
+                NSApp.sendAction_to_from("zoomToSelection:", nil, document);
+
+                document.showMessage(
+                    "Select " + count + " instance " +
+                    (count == 1 ? "layer" : "layers") +
+                    " in current page."
+                );
+
+            } else {
+                document.showMessage(
+                    "No any instance layer in current page."
+                );
+            }
+
+        } else {
+            document.showMessage("Please choose an imported symbol.");
+            return;
+        }
+    }
+
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+
+};
+
+// Return MSForeignSymbol
+function currentForeignSymbolInSelection(context) {
+
+    var selection = context.selection;
+
+    if (selection.count() == 0) {
+        return;
+    }
+
+    var loopSelection = selection.reverseObjectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        if (layer.class() == "MSSymbolInstance") {
+            if (layer.symbolMaster().isForeign()) {
+                return layer.symbolMaster().foreignSymbol();
+            }
+        }
+    }
+
+}

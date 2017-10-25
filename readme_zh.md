@@ -63,6 +63,7 @@
 | **Symbol**                               | **组件**                                   |
 | Set to Original Width / Height           | 设为原始宽度 / 高度。                             |
 | Select All Instance of Symbol            | 选择组件的实例。                                 |
+| Select All Instances of Imported symbol  | 选择导入组件（库组件）的实例。                          |
 | Rename Instances                         | 重置实例名称为组件完整名。                            |
 | Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例改为自定义名、组件名或组件完整名。    |
 | Move Symbol Masters to Bottom of Anther  | 移动至另一组件模版下方。                             |
@@ -72,6 +73,7 @@
 | Export All Symbols As PNG                | 按照 "页面/组件" 规则，将所有组件导出为 PNG。              |
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
+| Change symbols to Library Symbol         | 根据组件 ID，将选中或全部组件转为库组件。                   |
 | **Styles**                               | **样式**                                   |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |
@@ -105,6 +107,8 @@
 | Convert Sketch File to Other Version     | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
 
 部分功能，当有选中元素时，将只操作元素内的图层。
+
+**[想要加个功能？](https://github.com/Ashung/Automate-Sketch/issues/new)**
 
 ## 声明
 

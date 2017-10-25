@@ -1,0 +1,176 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+    var selection = context.selection;
+
+    // All symbol master will changed
+    var symbolMastersWillChanged = NSMutableArray.alloc().init();
+    if (selection.count() > 0) {
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+
+            var loopChild = layer.children().objectEnumerator();
+            var child;
+            while (child = loopChild.nextObject()) {
+                if (child.class() == "MSSymbolInstance") {
+                    if (!child.symbolMaster().isForeign()) {
+                        if (!symbolMastersWillChanged.containsObject(child.symbolMaster())) {
+                            symbolMastersWillChanged.addObject(child.symbolMaster());
+                        }
+                    }
+                }
+                if (child.class() == "MSSymbolMaster") {
+                    if (!symbolMastersWillChanged.containsObject(child)) {
+                        symbolMastersWillChanged.addObject(child);
+                    }
+                }
+            }
+
+        }
+    } else {
+        symbolMastersWillChanged.addObjectsFromArray(documentData.localSymbols());
+    }
+
+    if (symbolMastersWillChanged.count() == 0) {
+        document.showMessage("Current document have not any symbols.");
+        return;
+    }
+
+    // Library list
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    var librariesList = NSMutableArray.alloc().init();
+    var loopAvailableLibraries = availableLibraries.objectEnumerator();
+    var availableLibrary;
+    while (availableLibrary = loopAvailableLibraries.nextObject()) {
+        var label = availableLibrary.name();
+        if (!availableLibrary.isUserLibrary()) {
+            label += " (Sketch Library)";
+        }
+        librariesList.addObject(label);
+    }
+
+    // Choose a library file
+    var selectedLibrary;
+    var dialog = COSAlertWindow.alloc().init();
+    if (symbolMastersWillChanged.count() < documentData.localSymbols().count()) {
+        dialog.setMessageText("Change Selected Symbols to Library Symbol");
+    } else {
+        dialog.setMessageText("Change All Symbols to Library Symbol");
+    }
+    dialog.setInformativeText("This will change local symbol to library symbol base symbol ID.");
+
+    dialog.addTextLabelWithValue("Choose a library.");
+    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    selectBox.addItemsWithObjectValues(librariesList);
+    selectBox.selectItemAtIndex(0);
+    dialog.addAccessoryView(selectBox);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+        selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
+    }
+
+    if (!selectedLibrary) {
+        return;
+    }
+
+    // Import symbol from library
+    var countSymbol = 0;
+    var countInstance = 0;
+    var symbolIDMap = NSMutableDictionary.alloc().init();
+    var loopSymbolMastersWillChanged = symbolMastersWillChanged.objectEnumerator();
+    var symbolMaster;
+    while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
+        var remoteSymbol = selectedLibrary.symbolWithID(symbolMaster.symbolID());
+        if (remoteSymbol) {
+
+            // Import symbol
+            var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                remoteSymbol, selectedLibrary, documentData
+            );
+
+            // Replace all instances of symbolMaster
+            var instancesWillReplaced = symbolMaster.allInstances();
+            var loopInstancesWillReplaced = instancesWillReplaced.objectEnumerator();
+            var instanceWillReplaced;
+            while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
+                instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
+                countInstance ++;
+            }
+
+            // Delete symbolMaster
+            symbolMaster.removeFromParent();
+            countSymbol ++;
+
+            // Symbol ID map
+            symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), symbolMaster.symbolID());
+
+        }
+    }
+
+    // Change overrides mapping
+    if (countInstance > 0 || countSymbol > 0) {
+        var instancesInCurrentDocument = instancesInDocument(document);
+        var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
+        var instance;
+        while (instance = loopInstancesInCurrentDocument.nextObject()) {
+            MSLayerPaster.updateOverridesOnInstance_withIDMap(instance, symbolIDMap);
+        }
+        document.reloadInspector();
+
+        document.showMessage(
+            "Change " + countSymbol + " symbol " +
+            (countSymbol < 2 ? "master" : "masters") + " and " +
+            countInstance + " symbol " +
+            (countInstance < 2 ? "instance" : "instances") + "."
+        );
+
+    }
+
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+
+};
+
+function instancesInDocument(document) {
+    var allInstances = NSMutableArray.alloc().init();
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
+    var loopPages = document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var instancesInPage = page.children().filteredArrayUsingPredicate(predicate);
+        allInstances.addObjectsFromArray(instancesInPage);
+    }
+    return allInstances;
+}

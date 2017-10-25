@@ -32,11 +32,11 @@ var onRun = function(context) {
             currentSymbolMaster = _symbolMaster
         });
     } else {
-        doc.showMessage("Please select 1 symbol.");
+        doc.showMessage("Please select 1 local symbol.");
     }
 
     if (!currentSymbolMaster) {
-        doc.showMessage("Please select 1 symbol.");
+        doc.showMessage("Please select 1 local symbol.");
     } else {
 
         var allInstancesOfCurrentSymbolMaster = 0;
@@ -133,7 +133,11 @@ function getCurrentSymbolMasterFromLayer(layer, callback) {
         callback(layer);
     }
     if (layer.class() == "MSSymbolInstance") {
-        callback(layer.symbolMaster());
+        if (layer.symbolMaster().isForeign()) {
+            return;
+        } else {
+            callback(layer.symbolMaster());
+        }
     }
     if (
         layer.class() == "MSLayerGroup" ||

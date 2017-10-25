@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.0.20171011",
+    "version": "47.1.20171025",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -310,7 +310,7 @@
             "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Another.cocoascript"
         },
         {
-            "name": "选择元件的所有实例",
+            "name": "选择组件的所有实例",
             "identifier": "select_all_instances_of_symbol",
             "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript"
         },
@@ -611,6 +611,16 @@
             "name": "取消形状图层组",
             "identifier": "ungroup_shape_layer",
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
+        },
+        {
+            "name": "选择外部组件的所有实例",
+            "identifier": "select_all_instances_of_imported_symbol",
+            "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
+        },
+        {
+            "name": "将内部组件转为库组件",
+            "identifier": "change_symbols_to_library_symbol",
+            "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
         }
     ],
     "menu": {
@@ -695,6 +705,7 @@
                     "set_to_original_height",
                     "-",
                     "select_all_instances_of_symbol",
+                    "select_all_instances_of_imported_symbol",
                     "rename_instances",
                     "custom_instances_name",
                     "-",
@@ -706,7 +717,9 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_form_sketch_file"
+                    "replace_pages_form_sketch_file",
+                    "-",
+                    "change_symbols_to_library_symbol"
                 ]
             },
             {
