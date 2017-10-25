@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171020",
+    "version": "47.1.20171025",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -613,7 +613,7 @@
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
         },
         {
-            "name": "Select All Instances of imported symbol",
+            "name": "Select All Instances of Imported symbol",
             "identifier": "select_all_instances_of_imported_symbol",
             "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
         },
