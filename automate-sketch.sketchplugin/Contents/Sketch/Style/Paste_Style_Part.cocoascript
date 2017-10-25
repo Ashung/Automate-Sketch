@@ -120,7 +120,7 @@ var onRun = function(context) {
 
             // Inner Shadows
             if (pluginIdentifier == "paste_style_innershadows") {
-                if (styleJSON.innerShadows()) {
+                if (styleJSON.innerShadows) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
