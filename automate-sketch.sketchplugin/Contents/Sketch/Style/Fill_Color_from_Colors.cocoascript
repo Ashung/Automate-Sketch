@@ -47,7 +47,11 @@ function fillColorFromColors(context, colors, alertMessage) {
 
     for (var i = 0; i < selection.count(); i++) {
         var layer = selection.objectAtIndex(i);
-        if (layer.class() == "MSShapeGroup" || layer.class() == "MSTextLayer") {
+        if (
+            layer.class() == "MSShapeGroup" ||
+            layer.class() == "MSTextLayer" ||
+            layer.class() == "MSBitmapLayer"
+        ) {
             var index = colors.indexOfObject(getFillColor(layer));
             if (index == 9.223372036854776e+18 || index == colors.count() - 1) {
                 index = 0;
@@ -58,10 +62,12 @@ function fillColorFromColors(context, colors, alertMessage) {
         }
     }
 
+    doc.reloadInspector();
+
 }
 
 function getFillColor(layer) {
-    if (layer.class() == "MSShapeGroup") {
+    if (layer.class() == "MSShapeGroup" || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0) {
             if (fills.lastObject().fillType() == 0) {
@@ -79,7 +85,7 @@ function getFillColor(layer) {
 }
 
 function setFillColor(layer, color) {
-    if (layer.class() == "MSShapeGroup") {
+    if (layer.class() == "MSShapeGroup" || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0 && fills.lastObject().fillType() == 0) {
             fills.lastObject().setColor(color);
@@ -90,6 +96,6 @@ function setFillColor(layer, color) {
         }
     }
     if (layer.class() == "MSTextLayer") {
-        layer.setTextColor(color);
+        layer.changeTextColorTo(color.NSColorWithColorSpace(nil));
     }
 }

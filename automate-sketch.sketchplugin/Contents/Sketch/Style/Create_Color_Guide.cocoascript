@@ -142,7 +142,7 @@ var onRun = function(context) {
                 text.setStringValue(stringValue);
                 text.setLineHeight(textHeight);
                 text.setFontPostscriptName(textFontName);
-                text.setTextColor(textColor);
+                text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
                 text.setFontSize(textFontSize);
                 text.setName("label");
                 paletteGroup.insertLayers_beforeLayer([text], palette);

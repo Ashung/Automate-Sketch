@@ -84,7 +84,7 @@ var onRun = function(context) {
                 text.setStringValue(textStyle.name());
                 text.setLineHeight(textHeight);
                 text.setFontPostscriptName(textFontName);
-                text.setTextColor(textColor);
+                text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
                 text.setFontSize(textFontSize);
                 text.setName("label");
                 text.frame().setX(0);

@@ -172,7 +172,8 @@ var onRun = function(context) {
     var doc = context.document;
     var selection = context.selection;
 
-    if (selection.count() > 0 && selection.firstObject().class() == "MSShapeGroup") {
+    if (selection.count() > 0) {
+
         var rgba = [0, 0, 0, 1];
 
         // Create a random color
@@ -272,11 +273,23 @@ var onRun = function(context) {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
-            if (layer.style().enabledFills().count() == 0) {
-                var fill = layer.style().addStylePartOfType(0); // fill
-                fill.setFillType(0); // solid color
+
+            if (
+                layer.class() == "MSShapeGroup" ||
+                layer.class() == "MSBitmapLayer"
+            ) {
+                if (layer.style().enabledFills().count() == 0) {
+                    var fill = layer.style().addStylePartOfType(0); // fill
+                    fill.setFillType(0); // solid color
+                }
+                layer.style().enabledFills().lastObject().setColor(color);
             }
-            layer.style().enabledFills().lastObject().setColor(color);
+
+            if (layer.class() == "MSTextLayer") {
+                layer.changeTextColorTo(color.NSColorWithColorSpace(nil));
+            }
+
+            doc.reloadInspector();
 
             // Fix Sketch 45
             if (MSApplicationMetadata.metadata().appVersion < 45) {
