@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171025",
+    "version": "47.1.20171106",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -21,6 +21,11 @@
             "identifier": "fix_to_parent_height_with_margin",
             "handler": "fixToParentHeightWithMargin",
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "带边距适配父级",
+            "identifier": "fix_to_parent_with_margin",
+            "script": "Layer/Fix_to_Parent_with_Margin.cocoascript"
         },
         {
             "name": "为选中对象增加边界层",
@@ -382,9 +387,9 @@
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
-            "name": "清除未使用样式",
-            "identifier": "remove_all_unused_styles",
-            "script": "Style/Remove_All_Unused_Styles.cocoascript"
+            "name": "",
+            "identifier": "remove_all_disabled_styles",
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
         },
         {
             "name": "从 Sketch 文档导入资源",
@@ -573,11 +578,6 @@
             "script": "Type/Resize_Fit_Text_Height.cocoascript"
         },
         {
-            "name": "倒影",
-            "identifier": "reflection",
-            "script": "Style/Reflection.cocoascript"
-        },
-        {
             "name": "更改文本书写方向",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
@@ -655,6 +655,7 @@
             {
                 "title": "图层",
                 "items": [
+                    "fix_to_parent_with_margin",
                     "fix_to_parent_width_with_margin",
                     "fix_to_parent_height_with_margin",
                     "-",
@@ -749,9 +750,7 @@
                     "fill_color_from_document_colors",
                     "swap_fill_and_border",
                     "-",
-                    "reflection",
-                    "-",
-                    "remove_all_unused_styles",
+                    "remove_all_disabled_styles",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",

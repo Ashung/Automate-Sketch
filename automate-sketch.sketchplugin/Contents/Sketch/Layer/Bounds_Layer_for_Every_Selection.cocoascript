@@ -33,6 +33,12 @@ var onRun = function(context) {
         var userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", defaultUserInputString);
 
         if (userInputString) {
+
+            if (!/^\d+$/.test(userInputString) || !/^\d+x\d+$/.test(userInputString)) {
+                doc.showMessage("Bad input format.");
+                return;
+            }
+
             setPreferences(context, "boundsSize", userInputString.toString());
 
             var loop = selection.objectEnumerator();
@@ -136,12 +142,12 @@ var onRun = function(context) {
 
             }
 
-            ga(context, "UA-99098773-3", "Layer", context.command.identifier(), "layer_bounds", userInputString.toString());
-
         }
 
     } else {
         doc.showMessage("Please select at least 1 layer.");
     }
+
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
 }

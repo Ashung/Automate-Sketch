@@ -23,6 +23,11 @@
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
+            "name": "{{fix_to_parent_with_margin}}",
+            "identifier": "fix_to_parent_with_margin",
+            "script": "Layer/Fix_to_Parent_with_Margin.cocoascript"
+        },
+        {
             "name": "{{bounds_layer_for_every_selection}}",
             "identifier": "bounds_layer_for_every_selection",
             "script": "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
@@ -382,9 +387,9 @@
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
-            "name": "{{remove_all_unused_styles}}",
-            "identifier": "remove_all_unused_styles",
-            "script": "Style/Remove_All_Unused_Styles.cocoascript"
+            "name": "{{remove_all_disabled_styles}}",
+            "identifier": "remove_all_disabled_styles",
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
         },
         {
             "name": "{{import_document_assets_from_sketch_file}}",
@@ -573,11 +578,6 @@
             "script": "Type/Resize_Fit_Text_Height.cocoascript"
         },
         {
-            "name": "{{reflection}}",
-            "identifier": "reflection",
-            "script": "Style/Reflection.cocoascript"
-        },
-        {
             "name": "{{change_text_orientation}}",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
@@ -655,6 +655,7 @@
             {
                 "title": "{{layer}}",
                 "items": [
+                    "fix_to_parent_with_margin",
                     "fix_to_parent_width_with_margin",
                     "fix_to_parent_height_with_margin",
                     "-",
@@ -749,9 +750,7 @@
                     "fill_color_from_document_colors",
                     "swap_fill_and_border",
                     "-",
-                    "reflection",
-                    "-",
-                    "remove_all_unused_styles",
+                    "remove_all_disabled_styles",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",

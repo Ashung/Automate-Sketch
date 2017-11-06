@@ -1,0 +1,89 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+
+    var defaultUserInput = getPreferences(context, "fix_to_parent_margins") || "0";
+    var userInput = doc.askForUserInput_initialValue(
+        'Margins: "all", "TB LR", "T LR B" or "T R B L"',
+        defaultUserInput
+    );
+
+    if (userInput) {
+
+        var marginTop = 0,
+            marginBottom = 0,
+            marginLeft = 0,
+            marginRight = 0;
+
+        if (/^\d+$/.test(userInput)) {
+            marginTop = marginBottom = marginLeft = marginRight = parseInt(userInput);
+        }
+
+        else if (/^\d+\s\d+$/.test(userInput)) {
+            marginTop = marginBottom = parseInt(/^(\d+)\s(\d+)$/.exec(userInput)[1]);
+            marginLeft = marginRight = parseInt(/^(\d+)\s(\d+)$/.exec(userInput)[2]);
+        }
+
+        else if (/^\d+(\s\d+){2}$/.test(userInput)) {
+            marginTop = parseInt(/^(\d+)(\s\d+){2}$/.exec(userInput)[1]);
+            marginLeft = marginRight = parseInt(/^\d+\s(\d+)\s\d+$/.exec(userInput)[1]);
+            marginBottom = parseInt(/^\d+\s\d+\s(\d+)$/.exec(userInput)[1]);
+        }
+
+        else if (/^\d+(\s\d+){3}$/.test(userInput)) {
+            marginTop = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[1]);
+            marginRight = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[2]);
+            marginBottom = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[3]);
+            marginLeft = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[4]);
+        }
+
+        else {
+            doc.showMessage("Bad input format.");
+            return;
+        }
+
+        setPreferences(context, "fix_to_parent_margins", userInput.toString());
+
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+            if (layer.parentGroup().class() != "MSPage") {
+
+                var parentHeight = layer.parentGroup().frame().height(),
+                    parentWidth = layer.parentGroup().frame().width();
+
+                layer.frame().setWidth(parentWidth - marginLeft - marginRight);
+                layer.frame().setHeight(parentHeight - marginTop - marginBottom);
+                layer.frame().setX(marginLeft);
+                layer.frame().setY(marginTop);
+
+            }
+        }
+
+    }
+
+    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+
+};
