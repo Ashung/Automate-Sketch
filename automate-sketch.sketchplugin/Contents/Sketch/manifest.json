@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171106",
+    "version": "47.1.20171107",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -360,7 +360,7 @@
             "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
         },
         {
-            "name": "Sync Symbol Master from Sketch File",
+            "name": "Sync Symbol Master from Sketch File base Symbol ID",
             "identifier": "sync_symbol_master_from_sketch_file",
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
@@ -618,9 +618,14 @@
             "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
         },
         {
-            "name": "Change symbols to Library Symbol",
+            "name": "Change symbols to Library Symbol base Symbol ID",
             "identifier": "change_symbols_to_library_symbol",
             "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "Replace Symbol With Library Symbol",
+            "identifier": "replace_symbol_with_library_symbol",
+            "script": "Symbol/Replace_Symbol_With_Library_Symbol.cocoascript"
         }
     ],
     "menu": {
@@ -720,6 +725,7 @@
                     "sync_symbol_master_from_sketch_file",
                     "replace_pages_form_sketch_file",
                     "-",
+                    "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
                 ]
             },

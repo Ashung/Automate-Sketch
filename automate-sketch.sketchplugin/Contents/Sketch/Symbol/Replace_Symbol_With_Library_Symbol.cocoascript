@@ -1,0 +1,188 @@
+/*----------------------------------------------------------
+
+Copyright 2017 Ashung Hung
+
+Licensed under the Apache License, Version 2.0 (the "License");
+you may not use this file except in compliance with the License.
+You may obtain a copy of the License at
+
+    http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an "AS IS" BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.
+
+----------------------------------------------------------*/
+
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+    var selection = context.selection;
+
+
+
+
+
+    // Library list
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    var librariesList = NSMutableArray.alloc().init();
+    var loopAvailableLibraries = availableLibraries.objectEnumerator();
+    var availableLibrary;
+    while (availableLibrary = loopAvailableLibraries.nextObject()) {
+        var label = availableLibrary.name();
+        librariesList.addObject(label);
+    }
+
+    // Choose a library file
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Replace Symbol With Library Symbol");
+
+    dialog.addTextLabelWithValue("Choose A Library:");
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    selectBox.addItemsWithTitles(librariesList);
+    dialog.addAccessoryView(selectBox);
+
+    dialog.addTextLabelWithValue("All Symbols:");
+    var scrollView1 = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
+    scrollView1.setHasVerticalScroller(true);
+    scrollView1.setBorderType(NSBezelBorder);
+    dialog.addAccessoryView(scrollView1);
+
+    var selectedLibrary = availableLibraries.firstObject();
+    reloadSymbolData(scrollView1, selectedLibrary);
+
+    selectBox.setCOSJSTargetFunction(function(sender) {
+        var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
+        reloadSymbolData(scrollView1, selectedLibrary);
+    });
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+
+
+        // selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
+    }
+
+
+    // var window = [[NSWindow alloc] init]
+// [window setTitle:"Generate Lorem Ipsum"]
+// [window setFrame:NSMakeRect(0, 0, 400, 300) display:false]
+//
+// window.setStyleMask(NSBorderlessWindowMask | NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskTexturedBackground)
+// window.setBackgroundColor(NSColor.clearColor());
+// window.setMovableByWindowBackground(true)
+// window.setOpaque(false)
+// window.setHasShadow(false)
+//
+//
+// //window.contentView().setBackgroundColor(NSColor.blackColor());
+//
+// var closeButton = window.standardWindowButton(NSWindowCloseButton);
+// var minButton = window.standardWindowButton(NSWindowMiniaturizeButton)
+// var maxButton = window.standardWindowButton(NSWindowZoomButton);
+//
+// maxButton.setHidden(true);
+// minButton.setHidden(true);
+//
+// [closeButton setCOSJSTargetFunction:function(sender) {
+//     //[window orderOut:nil]
+//     [NSApp stopModal]
+//     log(closeButton)
+// }]
+//
+// window.setTitle("Title");
+// window.setTitlebarAppearsTransparent(true);
+// window.autorelease();
+// window.center();
+// window.makeKeyAndOrderFront(window);
+//
+//
+// var scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, 380, 260)]
+// [scrollView setBorderType:NSNoBorder];
+// // [promptField setEditable:false]
+// // [promptField setBordered:false]
+// // [promptField setDrawsBackground:false]
+// // [promptField setStringValue:"How many paragraphs?"]
+// // [promptField sizeToFit]
+// // [promptField setFrame:NSMakeRect(20, 65, [promptField frame].size.width, [promptField frame].size.height)]
+// [[window contentView] addSubview:scrollView]
+//
+// var view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 380, 200)]
+//
+// for (var i = 0; i < 10; i++) {
+// var inputField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 20*i, 50, 20)]
+// [inputField setStringValue:i]
+// [view addSubview:inputField]
+// }
+//
+// [scrollView setDocumentView:view]
+//
+// [NSApp runModalForWindow:window]
+
+
+//NSApp.run()
+
+
+
+
+};
+
+function reloadSymbolData(view, library) {
+    var contentView = createSymbolListFromLibrary(library);
+    view.setDocumentView(contentView);
+}
+
+function createSymbolListFromLibrary(library) {
+    var allSymbols = library.document().allSymbols();
+    var itemHeight = 50;
+    var itemsCount = allSymbols.count();
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight));
+    contentView.setFlipped(true);
+
+    var loopSymbols = allSymbols.objectEnumerator();
+    var symbol;
+    while (symbol = loopSymbols.nextObject()) {
+        var index = allSymbols.indexOfObject(symbol);
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
+        itemView.setFlipped(true);
+
+        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(70, 10, 200, 20));
+        textLabelName.setStringValue(symbol.name());
+        textLabelName.setBezeled(false);
+        textLabelName.setEditable(false);
+        itemView.addSubview(textLabelName);
+
+        var textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(70, 30, 200, 20));
+        textLabelNote.setStringValue("Same ID");
+        textLabelNote.setFont(NSFont.systemFontOfSize(10));
+        textLabelNote.setTextColor(NSColor.whiteColor());
+        textLabelNote.setBackgroundColor(NSColor.blueColor());
+        textLabelNote.setWantsLayer(true);
+        textLabelNote.layer().setCornerRadius(3);
+        textLabelNote.setBezeled(false);
+        textLabelNote.setEditable(false);
+        textLabelNote.sizeToFit();
+        itemView.addSubview(textLabelNote);
+
+        contentView.addSubview(itemView);
+    }
+
+
+    return contentView;
+}
