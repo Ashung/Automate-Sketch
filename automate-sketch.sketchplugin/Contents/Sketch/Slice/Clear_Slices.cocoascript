@@ -21,8 +21,8 @@ limitations under the License.
 var onRun = function(context) {
 
     var doc = context.document;
-    var exportableLayers = doc.currentPage().exportableLayers();
 
+    var exportableLayers = doc.currentPage().exportableLayers();
     var count = 0;
 
     for(var i = 0; i < exportableLayers.count(); i++) {
@@ -33,7 +33,16 @@ var onRun = function(context) {
         }
     }
 
-    doc.showMessage(count + " slices removed.");
+    switch (count) {
+        case 0:
+            doc.showMessage("Not any slice found in current page.");
+            break;
+        case 1:
+            doc.showMessage("1 slice removed in current page.");
+            break;
+        default:
+            doc.showMessage(count + " slices removed in current page.");
+    }
 
     ga(context, "UA-99098773-3", "Slice", context.command.identifier());
 

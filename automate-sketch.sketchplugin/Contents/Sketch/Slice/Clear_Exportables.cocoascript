@@ -19,10 +19,11 @@ limitations under the License.
 
 var onRun = function(context) {
 
-    var sketch = context.api();
     var doc = context.document;
     var page = doc.currentPage();
+
     var selection = context.selection;
+    var count = 0;
 
     if (selection.count() > 0) {
         var loopSelection = selection.objectEnumerator();
@@ -32,6 +33,7 @@ var onRun = function(context) {
             while (child = loopChildren.nextObject()) {
                 if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                     child.exportOptions().removeAllExportFormats();
+                    count ++;
                 }
             }
         }
@@ -41,9 +43,23 @@ var onRun = function(context) {
         while (child = loopChildren.nextObject()) {
             if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                 child.exportOptions().removeAllExportFormats();
+                count ++;
             }
         }
     }
+
+    switch (count) {
+        case 0:
+            doc.showMessage("Not any exportable layer found in current page.");
+            break;
+        case 1:
+            doc.showMessage("1 exportable layer removed in current page.");
+            break;
+        default:
+            doc.showMessage(count + " exportable layers removed in current page.");
+    }
+
+    doc.layerTreeLayoutDidChange();
 
     ga(context, "UA-99098773-3", "Slice", context.command.identifier());
 

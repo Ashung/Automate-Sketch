@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171107",
+    "version": "47.1.20171110",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -366,8 +366,8 @@
         },
         {
             "name": "从 Sketch 文档替换同名页面",
-            "identifier": "replace_pages_form_sketch_file",
-            "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
+            "identifier": "replace_pages_from_sketch_file",
+            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript"
         },
         {
             "name": "从 CSS 色值添加单色填充",
@@ -723,7 +723,7 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_form_sketch_file",
+                    "replace_pages_from_sketch_file",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"

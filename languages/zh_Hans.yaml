@@ -92,7 +92,7 @@ sync_symbol_master_from_sketch_file: "基于 Symbol ID 从 Sketch 文档同步�
 import_document_assets_from_sketch_file: "从 Sketch 文档导入资源"
 import_text_styles_from_sketch_file: "从 Sketch 文档导入文本样式"
 import_layer_styles_from_sketch_file: "从 Sketch 文档导入图层样式"
-replace_pages_form_sketch_file: "从 Sketch 文档替换同名页面"
+replace_pages_from_sketch_file: "从 Sketch 文档替换同名页面"
 create_color_guide: "创建色彩指南"
 create_typography_guide: "创建字体指南"
 export_all_artboars_to_html: "将所有画板导出为 HTML"

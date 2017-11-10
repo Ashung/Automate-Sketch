@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171107",
+    "version": "47.1.20171110",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -365,9 +365,9 @@
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
         {
-            "name": "Replace Pages with Same Name form Sketch File",
-            "identifier": "replace_pages_form_sketch_file",
-            "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
+            "name": "Replace Pages with Same Name From Sketch File",
+            "identifier": "replace_pages_from_sketch_file",
+            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript"
         },
         {
             "name": "Add Solid Fill from CSS Color",
@@ -613,12 +613,12 @@
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
         },
         {
-            "name": "Select All Instances of Imported symbol",
+            "name": "Select All Instances of Imported Symbol",
             "identifier": "select_all_instances_of_imported_symbol",
             "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
         },
         {
-            "name": "Change symbols to Library Symbol base Symbol ID",
+            "name": "Change Symbols to Library Symbol Base Symbol ID",
             "identifier": "change_symbols_to_library_symbol",
             "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
         },
@@ -723,7 +723,7 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_form_sketch_file",
+                    "replace_pages_from_sketch_file",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"

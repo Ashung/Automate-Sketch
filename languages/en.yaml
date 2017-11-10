@@ -92,7 +92,7 @@ sync_symbol_master_from_sketch_file: "Sync Symbol Master from Sketch File base S
 import_document_assets_from_sketch_file: "Import Document Assets from Sketch File"
 import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
 import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"
-replace_pages_form_sketch_file: "Replace Pages with Same Name form Sketch File"
+replace_pages_from_sketch_file: "Replace Pages with Same Name From Sketch File"
 create_color_guide: "Create Color Guide"
 create_typography_guide: "Create Typography Guide"
 export_all_artboars_to_html: "Export All Artboards to HTML"

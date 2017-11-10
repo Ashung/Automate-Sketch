@@ -54,7 +54,11 @@ var onRun = function(context) {
     }
 
     if (symbolMastersWillChanged.count() == 0) {
-        document.showMessage("Current document have not any symbols.");
+        if (selection.count() > 0) {
+            document.showMessage("You have not select any symbol.");
+        } else {
+            document.showMessage("Current document have not any symbol.");
+        }
         return;
     }
 

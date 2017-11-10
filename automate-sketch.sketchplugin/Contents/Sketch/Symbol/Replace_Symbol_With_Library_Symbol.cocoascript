@@ -21,10 +21,38 @@ limitations under the License.
 var onRun = function(context) {
 
     var document = context.document;
+
     var documentData = document.documentData();
+    if (documentData.localSymbols().count() == 0) {
+        document.showMessage("Current document have not any local symbol.");
+        return;
+    }
+
     var selection = context.selection;
+    if (selection.count() == 0) {
+        document.showMessage("You have not select any symbol.");
+        return;
+    }
 
+    var selectedSymbol;
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        if (layer.class() == "MSSymbolInstance")) {
+            if (!layer.symbolMaster().isForeign()) {
+                selectedSymbol = layer.symbolMaster();
+                break;
+            }
+        }
+        if (layer.class() == "MSSymbolMaster") {
+            selectedSymbol = layer;
+            break;
+        }
+    }
 
+    if (!selectedSymbol) {
+        document.showMessage("You have not select any symbol.");
+    }
 
 
 
@@ -48,6 +76,9 @@ var onRun = function(context) {
     // Choose a library file
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
+    dialog.setInformativeText(
+        "You current select the symbol master named \"" + selectedSymbol.name() +"\", "
+    );
 
     dialog.addTextLabelWithValue("Choose A Library:");
     var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
@@ -68,7 +99,7 @@ var onRun = function(context) {
         reloadSymbolData(scrollView1, selectedLibrary);
     });
 
-    dialog.addButtonWithTitle("OK");
+    // dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
     var responseCode = dialog.runModal();
@@ -79,68 +110,6 @@ var onRun = function(context) {
         // selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
     }
 
-
-    // var window = [[NSWindow alloc] init]
-// [window setTitle:"Generate Lorem Ipsum"]
-// [window setFrame:NSMakeRect(0, 0, 400, 300) display:false]
-//
-// window.setStyleMask(NSBorderlessWindowMask | NSTitledWindowMask | NSClosableWindowMask | NSWindowStyleMaskTexturedBackground)
-// window.setBackgroundColor(NSColor.clearColor());
-// window.setMovableByWindowBackground(true)
-// window.setOpaque(false)
-// window.setHasShadow(false)
-//
-//
-// //window.contentView().setBackgroundColor(NSColor.blackColor());
-//
-// var closeButton = window.standardWindowButton(NSWindowCloseButton);
-// var minButton = window.standardWindowButton(NSWindowMiniaturizeButton)
-// var maxButton = window.standardWindowButton(NSWindowZoomButton);
-//
-// maxButton.setHidden(true);
-// minButton.setHidden(true);
-//
-// [closeButton setCOSJSTargetFunction:function(sender) {
-//     //[window orderOut:nil]
-//     [NSApp stopModal]
-//     log(closeButton)
-// }]
-//
-// window.setTitle("Title");
-// window.setTitlebarAppearsTransparent(true);
-// window.autorelease();
-// window.center();
-// window.makeKeyAndOrderFront(window);
-//
-//
-// var scrollView = [[NSScrollView alloc] initWithFrame:NSMakeRect(10, 10, 380, 260)]
-// [scrollView setBorderType:NSNoBorder];
-// // [promptField setEditable:false]
-// // [promptField setBordered:false]
-// // [promptField setDrawsBackground:false]
-// // [promptField setStringValue:"How many paragraphs?"]
-// // [promptField sizeToFit]
-// // [promptField setFrame:NSMakeRect(20, 65, [promptField frame].size.width, [promptField frame].size.height)]
-// [[window contentView] addSubview:scrollView]
-//
-// var view = [[NSView alloc] initWithFrame:NSMakeRect(0, 0, 380, 200)]
-//
-// for (var i = 0; i < 10; i++) {
-// var inputField = [[NSTextField alloc] initWithFrame:NSMakeRect(0, 20*i, 50, 20)]
-// [inputField setStringValue:i]
-// [view addSubview:inputField]
-// }
-//
-// [scrollView setDocumentView:view]
-//
-// [NSApp runModalForWindow:window]
-
-
-//NSApp.run()
-
-
-
-
 };
 
 function reloadSymbolData(view, library) {
@@ -149,11 +118,33 @@ function reloadSymbolData(view, library) {
 }
 
 function createSymbolListFromLibrary(library) {
-    var allSymbols = library.document().allSymbols();
+
+    var allSymbols = library.document().allSymbols().mutableCopy();
+    // Sort by name
+    allSymbols.sort(function(a, b) {
+        if (a.name() > b.name()) {
+            return 1;
+        }
+        if (a.name() < b.name()) {
+            return -1;
+        }
+        return 0;
+    });
+
+    // var suggestSymbols = ;
+    // var loopSymbols = allSymbols.objectEnumerator();
+    // var symbol;
+    // while (symbol = loopSymbols.nextObject()) {
+    //
+    // }
+
+
+
     var itemHeight = 50;
     var itemsCount = allSymbols.count();
     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight));
     contentView.setFlipped(true);
+
 
     var loopSymbols = allSymbols.objectEnumerator();
     var symbol;
