@@ -20,10 +20,10 @@ function runCommand(command, args, callback) {
     var task = NSTask.alloc().init();
     var pipe = NSPipe.pipe();
     var errPipe = NSPipe.pipe();
-        task.launchPath = command;
-        task.arguments = args;
-        task.standardOutput = pipe;
-        task.standardError = errPipe;
+        task.setLaunchPath(command);
+        task.setArguments(args);
+        task.setStandardOutput(pipe);
+        task.setStandardError(errPipe);
         task.launch();
     var errorData = errPipe.fileHandleForReading().readDataToEndOfFile();
     if (errorData != nil && errorData.length()) {
