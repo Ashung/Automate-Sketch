@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171110",
+    "version": "47.1.20171120",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -97,7 +97,7 @@
             "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "圖層名稱",
+            "name": "據名稱選擇選中物件內所有圖層",
             "identifier": "select_layers_by_name",
             "script": "Layer/Select_Layers_By_Name.cocoascript"
         },
@@ -674,7 +674,7 @@
                     "click_through_on",
                     "-",
                     {
-                        "title": "選擇選中物件內所有...",
+                        "title": "據類型選擇選中物件內所有圖層",
                         "items": [
                             "select_layers_by_type_group",
                             "select_layers_by_type_text",
@@ -684,11 +684,10 @@
                             "select_layers_by_type_slice",
                             "select_layers_by_type_exportable",
                             "-",
-                            "select_all_hidden_layers",
-                            "-",
-                            "select_layers_by_name"
+                            "select_all_hidden_layers"
                         ]
                     },
+                    "select_layers_by_name",
                     "select_all_child_layers",
                     "select_parent_groups",
                     "-",

@@ -54,8 +54,6 @@ var onRun = function(context) {
         document.showMessage("You have not select any symbol.");
     }
 
-
-
     // Library list
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
@@ -92,11 +90,11 @@ var onRun = function(context) {
     dialog.addAccessoryView(scrollView1);
 
     var selectedLibrary = availableLibraries.firstObject();
-    reloadSymbolData(scrollView1, selectedLibrary);
+    reloadSymbolData(scrollView1, selectedSymbol, selectedLibrary);
 
     selectBox.setCOSJSTargetFunction(function(sender) {
         var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
-        reloadSymbolData(scrollView1, selectedLibrary);
+        reloadSymbolData(scrollView1, selectedSymbol, selectedLibrary);
     });
 
     // dialog.addButtonWithTitle("OK");
@@ -112,24 +110,19 @@ var onRun = function(context) {
 
 };
 
-function reloadSymbolData(view, library) {
-    var contentView = createSymbolListFromLibrary(library);
+function reloadSymbolData(view, symbol, library) {
+    var contentView = createSymbolListFromLibrary(symbol, library);
     view.setDocumentView(contentView);
 }
 
-function createSymbolListFromLibrary(library) {
+function createSymbolListFromLibrary(symbol, library) {
+
+    
 
     var allSymbols = library.document().allSymbols().mutableCopy();
-    // Sort by name
-    allSymbols.sort(function(a, b) {
-        if (a.name() > b.name()) {
-            return 1;
-        }
-        if (a.name() < b.name()) {
-            return -1;
-        }
-        return 0;
-    });
+    var sortByName = NSSortDescriptor.sortDescriptorWithKey_ascending("name", true);
+    allSymbols.sortUsingDescriptors(NSArray.arrayWithObjects(sortByName, nil));
+
 
     // var suggestSymbols = ;
     // var loopSymbols = allSymbols.objectEnumerator();
