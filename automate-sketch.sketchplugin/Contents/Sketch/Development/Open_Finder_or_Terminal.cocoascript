@@ -25,9 +25,8 @@ var showFileInFinder = function(context) {
     } else {
         var filePath = doc.fileURL().path();
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
-
-        ga(context, "UA-99098773-3", "Development", context.command.identifier());
     }
+    ga(context, "UA-99098773-3", "Development", context.command.identifier());
 };
 
 var openTerminalAtFileFolder = function(context) {
