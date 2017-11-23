@@ -32,16 +32,23 @@ var onRun = function(context) {
             pasteBoardString.appendString(layer.name() + "\n");
         }
 
+        // remove last new lice
+        pasteBoardString = pasteBoardString.replace(/\n$/, "");
+
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();
         pboard.setString_forType_(pasteBoardString, NSStringPboardType);
 
-        document.showMessage("Layer names has copied.");
-
-        ga(context, "UA-99098773-3", "Development", context.command.identifier());
+        if (selection.count() > 1) {
+            document.showMessage(selection.count() + " layer names has copied.");
+        } else {
+            document.showMessage("Layer names has copied.");
+        }
 
     } else {
         document.showMessage("Please select at least one layer.");
     }
+
+    ga(context, "UA-99098773-3", "Development", context.command.identifier());
 
 };
