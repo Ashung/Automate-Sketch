@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171120",
+    "version": "47.1.20171124",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -623,9 +623,19 @@
             "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
         },
         {
-            "name": "Replace Symbol With Library Symbol",
+            "name": "使用库组件替换内部组件",
             "identifier": "replace_symbol_with_library_symbol",
             "script": "Symbol/Replace_Symbol_With_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "删除未使用图层样式",
+            "identifier": "remove_unused_layer_styles",
+            "script": "Style/Remove_Unused_Styles.cocoascript"
+        },
+        {
+            "name": "删除未使用文本样式",
+            "identifier": "remove_unused_text_styles",
+            "script": "Style/Remove_Unused_Styles.cocoascript"
         }
     ],
     "menu": {
@@ -756,6 +766,8 @@
                     "swap_fill_and_border",
                     "-",
                     "remove_all_disabled_styles",
+                    "remove_unused_layer_styles",
+                    "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",

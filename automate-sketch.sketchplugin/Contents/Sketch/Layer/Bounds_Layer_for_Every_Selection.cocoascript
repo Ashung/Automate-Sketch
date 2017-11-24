@@ -86,9 +86,9 @@ var onRun = function(context) {
                 if (boundsLayer.parentGroup() != layer){
                     // Fix Sketch 45
                     if (MSApplicationMetadata.metadata().appVersion < 45) {
-                        boundsLayer.select_byExpandingSelection(true, true);
+                        boundsLayer.select_byExpandingSelection(true, false);
                     } else {
-                        boundsLayer.select_byExtendingSelection(true, true);
+                        boundsLayer.select_byExtendingSelection(true, false);
                     }
                 }
 

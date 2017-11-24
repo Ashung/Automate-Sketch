@@ -1,0 +1,96 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+
+    if (context.command.identifier() == "remove_unused_layer_styles") {
+
+        var styles = documentData.layerStyles();
+
+        if (styles.numberOfSharedStyles() == 0) {
+            document.showMessage("Document have no any layer style.");
+            return;
+        }
+
+        createDialog(styles.sharedStyles(), "Remove Unused Layer Styles");
+
+    }
+
+    if (context.command.identifier() == "remove_unused_text_styles") {
+
+        var styles = documentData.layerTextStyles();
+
+        if (styles.numberOfSharedStyles() == 0) {
+            document.showMessage("Document have no any text style.");
+            return;
+        }
+
+        createDialog(styles.sharedStyles(), "Remove Unused Text Styles");
+
+    }
+
+
+
+
+
+    // ga(context, "UA-99098773-3", "Style", context.command.identifier());
+
+};
+
+function createDialog(items, title) {
+
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText(title);
+    dialog.setInformativeText("You can remove unused styles from list. Uncheck to keep it.");
+
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
+    scrollView.setHasVerticalScroller(true);
+    scrollView.setBorderType(NSBezelBorder);
+    dialog.addAccessoryView(scrollView);
+
+    var contentView = createDataView(items);
+    scrollView.setDocumentView(contentView);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {}
+
+    // removeSharedObjectsAtIndexes
+
+};
+
+function createDataView(items) {
+
+    var itemHeight = 40;
+    var itemsCount = items.count();
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, (itemsCount + 0.5) * itemHeight));
+    contentView.setFlipped(true);
+
+    var loopItems = items.objectEnumerator();
+    var item;
+    while (item = loopItems.nextObject()) {
+
+        var index = items.indexOfObject(item);
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
+        itemView.setFlipped(true);
+
+        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 300, 40));
+        checkbox.setButtonType(NSSwitchButton);
+        checkbox.setTitle(" " + item.name());
+        checkbox.setState(NSOnState);
+        itemView.addSubview(checkbox);
+
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 39, 300, 1));
+        divider.setWantsLayer(1);
+        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        itemView.addSubview(divider);
+
+        contentView.addSubview(itemView);
+    }
+
+    return contentView;
+}
