@@ -16,13 +16,15 @@
 | 菜单                                       | 备注                                       |
 | ---------------------------------------- | ---------------------------------------- |
 | **Layer**                                | **图层**                                   |
+| Fix to Parent with Margin                | 适配父级的宽度和高度，可设置边距。                        |
 | Fix to Parent Width (Height) with Margin | 适配父级的宽度或高度，可设置边距。                        |
 | Bounds Layer for Every Selection         | 为从选中图层创建边界图层。                            |
 | Divide Layer                             | 均分图层。                                    |
 | Ungroup Shape Layer                      | 取消形状图层组，解决手动取消组出现的图层位置偏移。                |
 | Unlock All Layers                        | 解锁所有图层。                                  |
 | Click Through On (Off)                   | 点击穿透开关。                                  |
-| Select All Layers In Selection By ...    | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层、图层名。     |
+| Select All Layers In Selection By Type   | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。         |
+| Select All Layers In Selection By Name   | 根据图层名选择。                                 |
 | Select All Child Layers                  | 选择所有子图层。                                 |
 | Select Parent Groups                     | 选择所有父级图层。                                |
 | Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
@@ -73,6 +75,7 @@
 | Export All Symbols As PNG                | 按照 "页面/组件" 规则，将所有组件导出为 PNG。              |
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
+| Replace Symbol With Library Symbol       | 将选中组件替换为任意的库组件。                          |
 | Change symbols to Library Symbol         | 根据组件 ID，将选中或全部组件转为库组件。                   |
 | **Styles**                               | **样式**                                   |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
@@ -80,7 +83,8 @@
 | Fill Color from Global (Document) Colors | 从全局 (文档) 色版快速填充。                         |
 | Swap Fill and Border                     | 互换填充和描边。                                 |
 | Reflection                               | 显示隐藏的倒影样式。                               |
-| Remove All Unused Styles                 | 删除当前页所有图层中未使用样式。                         |
+| Remove All Disabled Styles               | 删除当前页所有图层中禁用样式。                          |
+| Remove Unused Layer / Text Styles        | 删除文档中未使用的图层样式或文本样式。                      |
 | Create Color Guide                       | 从文档颜色创建色彩指南。                             |
 | Create Typography Guide                  | 从文本样式创建字体样式指南。                           |
 | Import Document Assets from Sketch File  | 从 Sketch 文件导入资源 (色彩、渐变及图案)。              |
@@ -112,7 +116,7 @@
 
 ## 声明
 
-Apache 2.0
+MIT
 
 ## 捐款
 

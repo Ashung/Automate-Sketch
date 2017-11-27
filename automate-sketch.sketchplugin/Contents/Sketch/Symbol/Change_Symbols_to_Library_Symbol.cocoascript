@@ -1,21 +1,3 @@
-/*----------------------------------------------------------
-
-Copyright 2017 Ashung Hung
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-
-----------------------------------------------------------*/
-
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
@@ -54,7 +36,11 @@ var onRun = function(context) {
     }
 
     if (symbolMastersWillChanged.count() == 0) {
-        document.showMessage("Current document have not any symbols.");
+        if (selection.count() > 0) {
+            document.showMessage("You have not select any symbol.");
+        } else {
+            document.showMessage("Current document have not any symbol.");
+        }
         return;
     }
 
@@ -100,9 +86,7 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
         selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
-    }
-
-    if (!selectedLibrary) {
+    } else {
         return;
     }
 
@@ -141,7 +125,7 @@ var onRun = function(context) {
     }
 
     // Change overrides mapping
-    if (countInstance > 0 || countSymbol > 0) {
+    if (countInstance > 0) {
         var instancesInCurrentDocument = instancesInDocument(document);
         var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
         var instance;
@@ -149,15 +133,17 @@ var onRun = function(context) {
             MSLayerPaster.updateOverridesOnInstance_withIDMap(instance, symbolIDMap);
         }
         document.reloadInspector();
-
-        document.showMessage(
-            "Change " + countSymbol + " symbol " +
-            (countSymbol < 2 ? "master" : "masters") + " and " +
-            countInstance + " symbol " +
-            (countInstance < 2 ? "instance" : "instances") + "."
-        );
-
     }
+
+    var message;
+    if (countSymbol > 1) {
+        message = countSymbol + " symbol masters have been changed to library symbol.";
+    } else if (countSymbol == 1) {
+        message = "1 symbol master have been changed to library symbol.";
+    } else {
+        message = "No any symbol master have been changed to library symbol.";
+    }
+    doc.showMessage(message);
 
     ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
 

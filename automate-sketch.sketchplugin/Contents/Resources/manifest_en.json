@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171025",
+    "version": "47.1.20171127",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -21,6 +21,11 @@
             "identifier": "fix_to_parent_height_with_margin",
             "handler": "fixToParentHeightWithMargin",
             "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+        },
+        {
+            "name": "Fix to Parent with Margins",
+            "identifier": "fix_to_parent_with_margin",
+            "script": "Layer/Fix_to_Parent_with_Margin.cocoascript"
         },
         {
             "name": "Bounds Layer for Every Selection",
@@ -92,7 +97,7 @@
             "script": "Layer/Select_Layers_By_Type.cocoascript"
         },
         {
-            "name": "Layer Name",
+            "name": "Select Layers in Selection By Name",
             "identifier": "select_layers_by_name",
             "script": "Layer/Select_Layers_By_Name.cocoascript"
         },
@@ -355,14 +360,14 @@
             "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
         },
         {
-            "name": "Sync Symbol Master from Sketch File",
+            "name": "Sync Symbol Master from Sketch File base Symbol ID",
             "identifier": "sync_symbol_master_from_sketch_file",
             "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
         },
         {
-            "name": "Replace Pages with Same Name form Sketch File",
-            "identifier": "replace_pages_form_sketch_file",
-            "script": "Symbol/Replace_Pages_form_Sketch_File.cocoascript"
+            "name": "Replace Pages with Same Name From Sketch File",
+            "identifier": "replace_pages_from_sketch_file",
+            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript"
         },
         {
             "name": "Add Solid Fill from CSS Color",
@@ -382,9 +387,9 @@
             "script": "Style/Fill_Color_from_Colors.cocoascript"
         },
         {
-            "name": "Remove All Unused Styles",
-            "identifier": "remove_all_unused_styles",
-            "script": "Style/Remove_All_Unused_Styles.cocoascript"
+            "name": "Remove All Disabled Styles",
+            "identifier": "remove_all_disabled_styles",
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
         },
         {
             "name": "Import Document Assets from Sketch File",
@@ -573,11 +578,6 @@
             "script": "Type/Resize_Fit_Text_Height.cocoascript"
         },
         {
-            "name": "Reflection",
-            "identifier": "reflection",
-            "script": "Style/Reflection.cocoascript"
-        },
-        {
             "name": "Change Text Orientation",
             "identifier": "change_text_orientation",
             "script": "Type/Change_Text_Orientation.cocoascript"
@@ -613,14 +613,29 @@
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
         },
         {
-            "name": "Select All Instances of Imported symbol",
+            "name": "Select All Instances of Imported Symbol",
             "identifier": "select_all_instances_of_imported_symbol",
             "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
         },
         {
-            "name": "Change symbols to Library Symbol",
+            "name": "Change Symbols to Library Symbol Base Symbol ID",
             "identifier": "change_symbols_to_library_symbol",
             "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "Replace Symbol With Library Symbol",
+            "identifier": "replace_symbol_with_library_symbol",
+            "script": "Symbol/Replace_Symbol_With_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "Remove Unused Layer Styles",
+            "identifier": "remove_unused_layer_styles",
+            "script": "Style/Remove_Unused_Styles.cocoascript"
+        },
+        {
+            "name": "Remove Unused Text Styles",
+            "identifier": "remove_unused_text_styles",
+            "script": "Style/Remove_Unused_Styles.cocoascript"
         }
     ],
     "menu": {
@@ -655,6 +670,7 @@
             {
                 "title": "Layer",
                 "items": [
+                    "fix_to_parent_with_margin",
                     "fix_to_parent_width_with_margin",
                     "fix_to_parent_height_with_margin",
                     "-",
@@ -668,7 +684,7 @@
                     "click_through_on",
                     "-",
                     {
-                        "title": "Select Layers in Selection By ...",
+                        "title": "Select Layers in Selection By Type",
                         "items": [
                             "select_layers_by_type_group",
                             "select_layers_by_type_text",
@@ -678,11 +694,10 @@
                             "select_layers_by_type_slice",
                             "select_layers_by_type_exportable",
                             "-",
-                            "select_all_hidden_layers",
-                            "-",
-                            "select_layers_by_name"
+                            "select_all_hidden_layers"
                         ]
                     },
+                    "select_layers_by_name",
                     "select_all_child_layers",
                     "select_parent_groups",
                     "-",
@@ -717,8 +732,9 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_form_sketch_file",
+                    "replace_pages_from_sketch_file",
                     "-",
+                    "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
                 ]
             },
@@ -749,9 +765,9 @@
                     "fill_color_from_document_colors",
                     "swap_fill_and_border",
                     "-",
-                    "reflection",
-                    "-",
-                    "remove_all_unused_styles",
+                    "remove_all_disabled_styles",
+                    "remove_unused_layer_styles",
+                    "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",

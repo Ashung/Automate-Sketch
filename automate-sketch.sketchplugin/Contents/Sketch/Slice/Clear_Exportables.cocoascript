@@ -1,28 +1,12 @@
-/*----------------------------------------------------------
-
-Copyright 2017 Ashung Hung
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-    http://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-----------------------------------------------------------*/
-
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
-    var sketch = context.api();
     var doc = context.document;
     var page = doc.currentPage();
+
     var selection = context.selection;
+    var count = 0;
 
     if (selection.count() > 0) {
         var loopSelection = selection.objectEnumerator();
@@ -32,6 +16,7 @@ var onRun = function(context) {
             while (child = loopChildren.nextObject()) {
                 if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                     child.exportOptions().removeAllExportFormats();
+                    count ++;
                 }
             }
         }
@@ -41,9 +26,33 @@ var onRun = function(context) {
         while (child = loopChildren.nextObject()) {
             if (child.exportOptions().exportFormats().count() > 0 && child.class() != "MSSliceLayer") {
                 child.exportOptions().removeAllExportFormats();
+                count ++;
             }
         }
     }
+
+    switch (count) {
+        case 0:
+            doc.showMessage();
+            break;
+        case 1:
+            doc.showMessage();
+            break;
+        default:
+            doc.showMessage();
+    }
+
+    var message;
+    if (count > 1) {
+        message = count + " exportable layers have been removed in current page.";
+    } else if (count == 1) {
+        message = "1 exportable layer have been removed in current page.";
+    } else {
+        message = "Not any exportable layer found in current page.";
+    }
+    doc.showMessage(message);
+
+    doc.layerTreeLayoutDidChange();
 
     ga(context, "UA-99098773-3", "Slice", context.command.identifier());
 

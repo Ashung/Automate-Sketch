@@ -18,13 +18,15 @@ Make your workflow more efficient.
 | Menu                                     | Notes                                    |
 | ---------------------------------------- | ---------------------------------------- |
 | **Layer**                                |                                          |
+| Fix to Parent with Margin                | Fix the width and height of the parent, and set the margins. |
 | Fix to Parent Width (Height) with Margin | Fix the width or height of the parent, and set the margins. |
 | Bounds Layer for Every Selection         | Create a bounds layer from the selected layer. |
 | Divide Layer                             | Split Layer.                             |
 | Ungroup Shape Layer                      | Ungroup shape layer.                     |
 | Unlock All Layers                        | Unlock all layers.                       |
 | Click Through On (Off)                   | Trun on/off the click through.           |
-| Select All Layers In Selection By ...    | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers, or match by layer name. |
+| Select All Layers In Selection By Type   | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
+| Select All Layers In Selection By Name   | Select all layers match by layer name.   |
 | Select All Child Layers                  | Select all sub-layers.                   |
 | Select Parent Groups                     | Select parent groups.                    |
 | Paste and Replace                        | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
@@ -75,6 +77,7 @@ Make your workflow more efficient.
 | Export all Symbols As PNG                | Export all symbols as PNG according to the "Page / symbol" rule. |
 | Sync Symbol Master from Sketch File      | Synchronize symbols from Sketch files base on symbol ID. |
 | Replace Pages from Sketch File           | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
+| Replace Symbol With Library Symbol       | Replace symbol with any library symbol.  |
 | Change symbols to Library Symbol         | Change the selected/all symbols to library symbol base on symbol ID. |
 | **Styles**                               |                                          |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
@@ -82,7 +85,8 @@ Make your workflow more efficient.
 | Fill Color from Global (Document) Colors | Fill from the global (document) color fast. |
 | Swap Fill and Border                     | Swap fills and borders.                  |
 | Reflection                               | Show the hidden reflection style.        |
-| Remove All Unused Styles                 | Delete unused styles in all layers of the current page. |
+| Remove All Disabled Styles               | Remove disabled styles in all layers of the current page. |
+| Remove Unused Layer / Text Styles        | Remove unused layer styles and text styles. |
 | Create Color Guide                       | Create a color guide from document color. |
 | Create Typography Guide                  | Create a font style guide from a text style. |
 | Import Document Assets from Sketch File  | Import resources (colors, gradients, and patterns) from Sketch files. |
@@ -112,7 +116,7 @@ Make your workflow more efficient.
 
 ## License
 
-Apache 2.0
+MIT
 
 ## Donate
 
