@@ -1,9 +1,8 @@
-import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
     var document = context.document;
-
     var documentData = document.documentData();
     if (documentData.localSymbols().count() == 0) {
         document.showMessage("Current document have not any local symbol.");
@@ -12,7 +11,7 @@ var onRun = function(context) {
 
     var selection = context.selection;
     if (selection.count() == 0) {
-        document.showMessage("You have not select any symbol.");
+        document.showMessage("Please select one symbol.");
         return;
     }
 
@@ -54,11 +53,11 @@ var onRun = function(context) {
         librariesList.addObject(label);
     }
 
-    // Choose a library file
+    // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
     dialog.setInformativeText(
-        "You current select the symbol master named \"" + selectedSymbol.name() +"\", "
+        "You current select the symbol master named \"" + selectedSymbol.name() +"\", Click the image of symbol to replace."
     );
 
     dialog.addTextLabelWithValue("Choose A Library:");
@@ -73,83 +72,165 @@ var onRun = function(context) {
     dialog.addAccessoryView(scrollView1);
 
     var selectedLibrary = availableLibraries.firstObject();
-    reloadSymbolData(scrollView1, selectedSymbol, selectedLibrary);
+    reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary);
 
     selectBox.setCOSJSTargetFunction(function(sender) {
         var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
-        reloadSymbolData(scrollView1, selectedSymbol, selectedLibrary);
+        reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary);
     });
 
-    // dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
+    dialog.runModal();
 
-    var responseCode = dialog.runModal();
-    if (responseCode == 1000) {
-
-
-
-        // selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
-    }
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
 
 };
 
-function reloadSymbolData(view, symbol, library) {
-    var contentView = createSymbolListFromLibrary(symbol, library);
-    view.setDocumentView(contentView);
-}
+function reloadSymbolData(context, view, symbol, library) {
 
-function createSymbolListFromLibrary(symbol, library) {
-
-
+    var document = context.document;
+    var documentData = document.documentData();
 
     var allSymbols = library.document().allSymbols().mutableCopy();
     var sortByName = NSSortDescriptor.sortDescriptorWithKey_ascending("name", true);
     allSymbols.sortUsingDescriptors(NSArray.arrayWithObject(sortByName));
 
+    var symbolWithSameID = library.document().symbolWithID(symbol.symbolID());
 
-    // var suggestSymbols = ;
-    // var loopSymbols = allSymbols.objectEnumerator();
-    // var symbol;
-    // while (symbol = loopSymbols.nextObject()) {
-    //
-    // }
+    var symbolsWithSameSize = NSMutableArray.alloc().init();
+    var loopAllSymbols_1 = allSymbols.objectEnumerator();
+    var symbol_1;
+    while (symbol_1 = loopAllSymbols_1.nextObject()) {
+        if (NSEqualSizes(symbol_1.rect().size, symbol.rect().size)) {
+            symbolsWithSameSize.addObject(symbol_1);
+        }
+    }
 
+    if (symbolWithSameID) {
+        allSymbols.removeObject(symbolWithSameID);
+        allSymbols.insertObject_atIndex(symbolWithSameID, 0);
+    }
 
+    if (symbolsWithSameSize.count() > 0) {
+        allSymbols.removeObjectsInArray(symbolsWithSameSize);
+        var indexes = NSIndexSet.alloc().initWithIndexesInRange(NSMakeRange(0, symbolsWithSameSize.count()));
+        allSymbols.insertObjects_atIndexes(symbolsWithSameSize, indexes);
+    }
 
-    var itemHeight = 50;
+    var itemHeight = 70;
     var itemsCount = allSymbols.count();
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight));
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, (itemsCount + 0.5) * itemHeight));
     contentView.setFlipped(true);
 
-
-    var loopSymbols = allSymbols.objectEnumerator();
-    var symbol;
-    while (symbol = loopSymbols.nextObject()) {
-        var index = allSymbols.indexOfObject(symbol);
+    var loopAllSymbols_2 = allSymbols.objectEnumerator();
+    var symbol_2;
+    while (symbol_2 = loopAllSymbols_2.nextObject()) {
+        var index = allSymbols.indexOfObject(symbol_2);
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
         itemView.setFlipped(true);
 
-        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(70, 10, 200, 20));
-        textLabelName.setStringValue(symbol.name());
+        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(75, 10, 220, 20));
+        textLabelName.setStringValue(symbol_2.name());
         textLabelName.setBezeled(false);
         textLabelName.setEditable(false);
         itemView.addSubview(textLabelName);
 
-        var textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(70, 30, 200, 20));
-        textLabelNote.setStringValue("Same ID");
-        textLabelNote.setFont(NSFont.systemFontOfSize(10));
-        textLabelNote.setTextColor(NSColor.whiteColor());
-        textLabelNote.setBackgroundColor(NSColor.blueColor());
-        textLabelNote.setWantsLayer(true);
-        textLabelNote.layer().setCornerRadius(3);
-        textLabelNote.setBezeled(false);
-        textLabelNote.setEditable(false);
-        textLabelNote.sizeToFit();
-        itemView.addSubview(textLabelNote);
+        if (symbol_2.symbolID().isEqualToString(symbol.symbolID)) {
+            var textLabelNote = createLabelNote("Same ID");
+            itemView.addSubview(textLabelNote);
+        }
+
+        if (symbolsWithSameSize.containsObject(symbol_2)) {
+            var textLabelNote = createLabelNote("Same Size");
+            itemView.addSubview(textLabelNote);
+        }
+
+        var imageButton = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, itemHeight, itemHeight));
+        imageButton.setTitle(symbol_2.symbolID());
+        imageButton.setBordered(0);
+
+        var scale = Math.round(itemHeight / symbol_2.frame().width() * 10) / 10;
+        if (symbol_2.frame().width() < symbol_2.frame().height()) {
+            scale = Math.round(itemHeight / symbol_2.frame().height() * 10) / 10;
+        }
+
+        var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
+        var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(layerAncestry).firstObject();
+        exportRequest.setFormat("png");
+        exportRequest.setScale(scale);
+        var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
+        imageButton.setImage(exporter.previewImage());
+        itemView.addSubview(imageButton);
+
+        imageButton.setCOSJSTargetFunction(function(sender) {
+
+            // Import symbol
+            var assetLibraryController = AppController.sharedInstance().librariesController();
+            var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                library.symbolWithID(sender.title()), library, documentData
+            );
+
+            // Replace all instances of symbol master
+            var instancesWillReplaced = symbol.allInstances();
+            var loopInstancesWillReplaced = instancesWillReplaced.objectEnumerator();
+            var instanceWillReplaced;
+            while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
+                instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
+            }
+
+            // Symbol ID map
+            var symbolIDMap = NSMutableDictionary.alloc().init();
+            symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), symbol.symbolID());
+
+            // Delete symbolMaster
+            symbol.removeFromParent();
+
+            // Change overrides mapping
+            var instancesInCurrentDocument = instancesInDocument(document);
+            var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
+            var instance;
+            while (instance = loopInstancesInCurrentDocument.nextObject()) {
+                MSLayerPaster.updateOverridesOnInstance_withIDMap(instance, symbolIDMap);
+            }
+            document.reloadInspector();
+
+            NSApp.stopModal();
+        });
+
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));
+        divider.setWantsLayer(1);
+        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        itemView.addSubview(divider);
 
         contentView.addSubview(itemView);
     }
 
+    view.setDocumentView(contentView);
 
-    return contentView;
+}
+
+function createLabelNote(text) {
+    var textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(75, 30, 200, 20));
+    textLabelNote.setStringValue(text);
+    textLabelNote.setFont(NSFont.systemFontOfSize(10));
+    textLabelNote.setTextColor(NSColor.whiteColor());
+    textLabelNote.setBackgroundColor(NSColor.blueColor());
+    textLabelNote.setWantsLayer(true);
+    textLabelNote.layer().setCornerRadius(3);
+    textLabelNote.setBezeled(false);
+    textLabelNote.setEditable(false);
+    textLabelNote.sizeToFit();
+    return textLabelNote;
+}
+
+function instancesInDocument(document) {
+    var allInstances = NSMutableArray.alloc().init();
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
+    var loopPages = document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var instancesInPage = page.children().filteredArrayUsingPredicate(predicate);
+        allInstances.addObjectsFromArray(instancesInPage);
+    }
+    return allInstances;
 }

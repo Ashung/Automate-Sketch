@@ -7,41 +7,58 @@ var onRun = function(context) {
 
     if (context.command.identifier() == "remove_unused_layer_styles") {
 
-        var styles = documentData.layerStyles();
-
-        if (styles.numberOfSharedStyles() == 0) {
+        if (documentData.layerStyles().numberOfSharedStyles() == 0) {
             document.showMessage("Document have no any layer style.");
             return;
         }
 
-        createDialog(styles.sharedStyles(), "Remove Unused Layer Styles");
+        createDialog(context, 0);
 
     }
 
     if (context.command.identifier() == "remove_unused_text_styles") {
 
-        var styles = documentData.layerTextStyles();
-
-        if (styles.numberOfSharedStyles() == 0) {
+        if (documentData.layerTextStyles().numberOfSharedStyles() == 0) {
             document.showMessage("Document have no any text style.");
             return;
         }
 
-        createDialog(styles.sharedStyles(), "Remove Unused Text Styles");
+        createDialog(context, 1);
 
     }
 
-
-
-
-
-    // ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "UA-99098773-3", "Style", context.command.identifier());
 
 };
 
-function createDialog(items, title) {
+function createDialog(context, type) {
+
+    var document = context.document;
+    var documentData = document.documentData();
+    var styles = (type == 0) ? documentData.layerStyles() : documentData.layerTextStyles();
+    var stylesCopy = styles.objectsSortedByName().mutableCopy();
+    var loopPages = document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var predicate = (type == 0) ?
+            NSPredicate.predicateWithFormat("className != %@ && style.sharedObjectID != nil", "MSTextLayer") :
+            NSPredicate.predicateWithFormat("className == %@ && style.sharedObjectID != nil", "MSTextLayer");
+        var layers = page.children().filteredArrayUsingPredicate(predicate);
+        var loopLayers = layers.objectEnumerator();
+        var layer;
+        while (layer = loopLayers.nextObject()) {
+            var style = styles.sharedObjectWithID(layer.style().sharedObjectID());
+            stylesCopy.removeObject(style);
+        }
+    }
+
+    if (stylesCopy.count() == 0) {
+        document.showMessage("👍 Document have no any unused " + ((type == 0) ? "layer" : "text") + " style.");
+        return;
+    }
 
     var dialog = COSAlertWindow.alloc().init();
+    var title = (type == 0) ? "Remove Unused Layer Styles" : "Remove Unused Text Styles";
     dialog.setMessageText(title);
     dialog.setInformativeText("You can remove unused styles from list. Uncheck to keep it.");
 
@@ -50,16 +67,36 @@ function createDialog(items, title) {
     scrollView.setBorderType(NSBezelBorder);
     dialog.addAccessoryView(scrollView);
 
-    var contentView = createDataView(items);
+    var contentView = createDataView(stylesCopy);
     scrollView.setDocumentView(contentView);
 
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
     var responseCode = dialog.runModal();
-    if (responseCode == 1000) {}
+    if (responseCode == 1000) {
+        var subViews = contentView.subviews();
+        var loopSubViews = subViews.objectEnumerator();
+        var view;
+        var count = 0;
+        while (view = loopSubViews.nextObject()) {
+            var index = subViews.indexOfObject(view);
+            var checkbox = view.subviews().firstObject();
+            if (checkbox.state()) {
+                styles.removeSharedObject(stylesCopy.objectAtIndex(index));
+                count ++;
+            }
+        }
 
-    // removeSharedObjectsAtIndexes
+        var message;
+        if (count > 1) {
+            message = "🎉 " + count + ((type == 0) ? " layer" : " text") + " styles have been removed.";
+        } else if (count == 1) {
+            message = "😊 1 " + ((type == 0) ? " layer" : " text") + " style have been removed.";
+        }
+        document.showMessage(message);
+
+    }
 
 };
 
@@ -79,8 +116,9 @@ function createDataView(items) {
         itemView.setFlipped(true);
 
         var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 300, 40));
+        var label = item.name() ? " " + item.name() : "";
         checkbox.setButtonType(NSSwitchButton);
-        checkbox.setTitle(" " + item.name());
+        checkbox.setTitle(label);
         checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
 
