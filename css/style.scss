@@ -16,7 +16,7 @@ $highlight_color_transparent: rgba(255, 85, 0, .8);
 $breakpoint_small: 300px + 8px * 2;
 $breakpoint_medium: 600px + 8px * 2;
 $breakpoint_large: 600px * 2 + 16px * 3;
-$image_width: 600px;
+$image_width: 800px;
 $image_height: 400px;
 $image_width_small: 300px;
 $image_height_small: 200px;
@@ -141,10 +141,22 @@ header {
 section {
     width: $image_width;
     margin: 0 auto 2.5rem;
-    
+    text-align: left;
     table, td, th {
         text-align: left;
         border: 1px solid;
+    }
+}
+
+.changelogs {
+    li {
+        margin-bottom: 10px;
+        li {
+            color: $text_color_gray;
+            list-style: disc;
+            margin-left: 1.5em;
+            margin-bottom: 0;
+        }
     }
 }
 

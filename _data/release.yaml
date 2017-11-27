@@ -1,49 +1,58 @@
 -
+  title: 47.1.20171127 (for Sketch 47)
+  version: 47.1.20171127
+  description: |-
+      <ul><li>Add Remove Unused Styles.</li><li>Add Replace Symbol With Library Symbol.</li><li>Add Fix to Parent with Margin.</li><li>Select Layers by Name add layer type supported.</li><li>Fix bugs</li></ul>
+  commitID: f2df2848e25fdd39639a5a353747289ec4507028
+
+-
   version: 47.1.20171025
+  description: |-
+      <ul><li>Add select all instances of imported symbol.</li><li>Add change symbols to library symbol.</li><li>Fix paste inner shadow bug.</li></ul>
   commitID: 44b45228a5930940c7adcd553189216610184b65
 
 -
-  title: v47.0.20171011
+  title: 47.0.20171011
   description: |-
     <ul><li>Add Ungroup Shape Layer.</li><li>Remove Unused Symbols now support Sketch 47 foreign symbols.</li></ul>
   version: 47.0.20171011
   commitID: 4d5c5c6801f615d419dc798d575c4308774314f6
 
 -
-  title: v46.2.20170930
+  title: 46.2.20170930  (for Sketch 46)
   description: |-
     <ul><li>Add Paste Fills/Borders/Shadows/Iinner Shadows/Blur.</li></ul>
   version: 46.2.20170930
   commitID: f08db1747a36ead3e58cb975a59c05c03d0d707c
 
 -
-  title: v46.2.20170901
+  title: 46.2.20170901
   description: |-
     <ul><li>Fix bugs.</li></ul>
   version: 46.2.20170901
   commitID: ddc17804439ad8b2aa1f1fbe08de3d8eb9e05dbb
 
 -
-  title: v46.1.20170814
+  title: 46.1.20170814
   description: |-
     <ul><li>Fix "Select All Child Layers" bug.</li><li>Add "Select Parent Groups".</li></ul>
   version: 46.1.20170814
   commitID: 5d691a94f218e59ced90683c0ddfc81120189f59
 
--
-  title: v46.1.20170811
-  description: |-
-    <ul><li>Fix "Paste and Replace" bug.</li><li>Add "Arrange Objects".</li></ul>
-  version: 46.1.20170811
-  commitID: 9580b981d2028851840f3cad7ef6a65804a1475d
-
--
-  title: v46.1.20170810
-  description: |-
-    <ul><li>Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.</li></ul>
-  version: 46.1.20170810
-  commitID: 30eba8a875b0f2563ad86aa75d25faf3e194102c
-
+# -
+#   title: v46.1.20170811
+#   description: |-
+#     <ul><li>Fix "Paste and Replace" bug.</li><li>Add "Arrange Objects".</li></ul>
+#   version: 46.1.20170811
+#   commitID: 9580b981d2028851840f3cad7ef6a65804a1475d
+#
+# -
+#   title: v46.1.20170810
+#   description: |-
+#     <ul><li>Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.</li></ul>
+#   version: 46.1.20170810
+#   commitID: 30eba8a875b0f2563ad86aa75d25faf3e194102c
+#
 # -
 #   title: v2.0.20170808
 #   description: |-
