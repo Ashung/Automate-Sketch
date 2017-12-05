@@ -35,13 +35,23 @@ var onRun = function(context) {
 
         // Dialog
         var dialog = COSAlertWindow.new();
-        dialog.setMessageText("Move seleted symbol masters to the bottom of ...");
+        dialog.setMessageText("Move seleted symbol masters to the bottom of Anther");
 
-        var select = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
-        select.addItemsWithObjectValues(symbolMastersNames);
-        select.selectItemAtIndex(0);
+        var select = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
+        select.addItemsWithTitles(symbolMastersNames);
         dialog.addAccessoryView(select);
-        // TODO: When NSComboBox changed, show the symbol master
+
+        select.setCOSJSTargetFunction(function(sender) {
+            var selectedSymbol = symbolMasters[sender.indexOfSelectedItem()];
+            // Fix Sketch 45
+            if (appVersion < 45) {
+                selectedSymbol.select_byExpandingSelection(true, false);
+            } else {
+                selectedSymbol.select_byExtendingSelection(true, false);
+            }
+            // View - Center Selection
+            doc.currentView().centerSelectionInVisibleArea();
+        });
 
         dialog.addTextLabelWithValue("Space between 2 symbol masters:");
 
@@ -66,27 +76,30 @@ var onRun = function(context) {
                 symbol.frame().setX(positionX);
                 symbol.frame().setY(positionY);
             }
-        }
 
-        // Fix Sketch 45
-        if (page.deselectAllLayers) {
-            page.deselectAllLayers();
-        } else {
-            page.changeSelectionBySelectingLayers(nil);
-        }
-
-        for (var i = 0; i < selectedSymbolMasters.length; i++) {
-            var symbol = selectedSymbolMasters[i];
             // Fix Sketch 45
-            if (appVersion < 45) {
-                symbol.select_byExpandingSelection(true, true);
+            if (page.deselectAllLayers) {
+                page.deselectAllLayers();
             } else {
-                symbol.select_byExtendingSelection(true, true);
+                page.changeSelectionBySelectingLayers(nil);
             }
-        }
 
-        // View - Center Selection
-        doc.currentView().centerSelectionInVisibleArea();
+            for (var i = 0; i < selectedSymbolMasters.length; i++) {
+                var symbol = selectedSymbolMasters[i];
+                // Fix Sketch 45
+                if (appVersion < 45) {
+                    symbol.select_byExpandingSelection(true, true);
+                } else {
+                    symbol.select_byExtendingSelection(true, true);
+                }
+            }
+
+            // View - Center Selection
+            doc.currentView().centerSelectionInVisibleArea();
+
+        } else {
+
+        }
 
     } else {
         doc.showMessage("Please select at least one symbol master.");
