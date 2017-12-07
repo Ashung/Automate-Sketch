@@ -9,9 +9,9 @@ Make your workflow more efficient.
 
 ## Installation
 
-- Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/) or [Sketch Toolbox](http://sketchtoolbox.com/).
+- Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/).
 - Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
-- [Download](https://github.com/Ashung/Automate-Sketch/releases) for older version of Sketch.
+- [Download](http://ashung.github.io/Automate-Sketch/) for older version Sketch.
 
 ## Features
 
@@ -62,7 +62,8 @@ Make your workflow more efficient.
 | Artboard Form Group                      | Create a new artboard from group.        |
 | Artboard to Group                        | Artboard to group.                       |
 | Resize to Fix Height                     | Adjusts the artboard to fit the height.  |
-| Export all Artboards to PNG              | Export all artboards to PNG to set the zoom ratio. |
+| Move Artboards to Bottom of Anther       | Move artboards or symbol masters to the bottom of another one. |
+| Export all Artboards                     | Export all artboards, symbols to PNG / SVG. |
 | Export all Artboards to HTML             | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                               |                                          |
 | Set to Original Width / Height           | Set to original width / height.          |
@@ -70,15 +71,16 @@ Make your workflow more efficient.
 | Select All Instances of Imported symbol  | Select all instances of imported symbol (library symbol). |
 | Rename Instances                         | Reset the instance name to the component (symbol master) full name. |
 | Custom Instances Name                    | Change all instances of the selected page of the current page, artboard, or document to a custom name, symbol name, or symbol full name. |
-| Move Symbol Masters to Bottom of Anther  | Move to the bottom of another symbol master. |
 | Selection to Symbol Master               | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master              | Converts unused symbol templates to groups. |
 | Remove Unused Symbols                    | Remove unused symbols.                   |
 | Export all Symbols As PNG                | Export all symbols as PNG according to the "Page / symbol" rule. |
 | Sync Symbol Master from Sketch File      | Synchronize symbols from Sketch files base on symbol ID. |
 | Replace Pages from Sketch File           | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
+| **Library**                              |                                          |
+| Add Library Preview                      | Add a artboard for library preview image. |
 | Replace Symbol With Library Symbol       | Replace symbol with any library symbol.  |
-| Change symbols to Library Symbol         | Change the selected/all symbols to library symbol base on symbol ID. |
+| Change symbols to Library Symbol Base Symbol ID | Change the selected/all symbols to library symbol base on symbol ID. |
 | **Styles**                               |                                          |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color            | Fill from CSS color code.                |

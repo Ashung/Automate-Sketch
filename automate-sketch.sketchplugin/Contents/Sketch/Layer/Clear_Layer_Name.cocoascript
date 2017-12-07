@@ -50,6 +50,9 @@ function clearLayerName(arg_layer, callback) {
         arg_layer.setName(newLayerName);
         count ++;
     }
+    if (/^\s+/.test(arg_layer.name()) || /\s+$/.test(arg_layer.name())) {
+        arg_layer.setName(arg_layer.name().trim());
+    }
 
     callback(count);
 }

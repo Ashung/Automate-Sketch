@@ -111,6 +111,8 @@ var onRun = function(context) {
             var instanceWillReplaced;
             while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
                 instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
+                instanceWillReplaced.setName(instanceWillReplaced.symbolMaster().name());
+                instanceWillReplaced.resetSizeToMaster();
                 countInstance ++;
             }
 
@@ -130,7 +132,7 @@ var onRun = function(context) {
         var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
         var instance;
         while (instance = loopInstancesInCurrentDocument.nextObject()) {
-            MSLayerPaster.updateOverridesOnInstance_withIDMap(instance, symbolIDMap);
+            instance.updateOverridesWithObjectIDMap(symbolIDMap);
         }
         document.reloadInspector();
     }

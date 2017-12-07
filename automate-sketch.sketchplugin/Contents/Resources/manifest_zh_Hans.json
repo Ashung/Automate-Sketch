@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171127",
+    "version": "48.0.20171207",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -295,9 +295,9 @@
             "script": "Artboard/Artboard_to_Group.cocoascript"
         },
         {
-            "name": "将所有画板导出为 PNG",
-            "identifier": "export_all_artboars_to_png",
-            "script": "Artboard/Export_All_Artboars_to_PNG.cocoascript"
+            "name": "导出所有画板",
+            "identifier": "export_all_artboars",
+            "script": "Artboard/Export_All_Artboars.cocoascript"
         },
         {
             "name": "将所有画板导出为 HTML",
@@ -310,9 +310,9 @@
             "script": "Artboard/Resize_to_Fit_Height.cocoascript"
         },
         {
-            "name": "移动至另一组件模版下方",
-            "identifier": "move_symbol_masters_to_bottom_of_another",
-            "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Another.cocoascript"
+            "name": "移动画板至另一画板下方",
+            "identifier": "move_artboards_to_bottom_of_another",
+            "script": "Artboard/Move_Artboards_to_Bottom_of_Another.cocoascript"
         },
         {
             "name": "选择组件的所有实例",
@@ -620,12 +620,17 @@
         {
             "name": "基于 Symbol ID 将内部组件转为库组件",
             "identifier": "change_symbols_to_library_symbol",
-            "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
+            "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript"
         },
         {
             "name": "使用库组件替换内部组件",
             "identifier": "replace_symbol_with_library_symbol",
-            "script": "Symbol/Replace_Symbol_With_Library_Symbol.cocoascript"
+            "script": "Library/Replace_Symbol_With_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "添加库预览图",
+            "identifier": "add_library_preview",
+            "script": "Library/Add_Library_Preview.cocoascript"
         },
         {
             "name": "删除未使用图层样式",
@@ -636,6 +641,11 @@
             "name": "删除未使用文本样式",
             "identifier": "remove_unused_text_styles",
             "script": "Style/Remove_Unused_Styles.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "fix_library_id_conflict",
+            "script": "Library/Fix_Library_ID_Conflict.cocoascript"
         }
     ],
     "menu": {
@@ -732,7 +742,13 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_from_sketch_file",
+                    "replace_pages_from_sketch_file"
+                ]
+            },
+            {
+                "title": "库",
+                "items": [
+                    "add_library_preview",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
@@ -747,7 +763,9 @@
                     "-",
                     "resize_to_fit_height",
                     "-",
-                    "export_all_artboars_to_png",
+                    "move_artboards_to_bottom_of_another",
+                    "-",
+                    "export_all_artboars",
                     "export_all_artboars_to_html"
                 ]
             },

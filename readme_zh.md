@@ -7,9 +7,9 @@
 
 ## 安装方法
 
-- 从各种插件管理应用中搜索 "Automate Sketch"，现支持  [Sketch Runner](http://sketchrunner.com/)、[Sketchpacks](https://sketchpacks.com/) 和 [Sketch Toolbox](http://sketchtoolbox.com/)。
+- 从各种插件管理应用中搜索 "Automate Sketch"，现支持  [Sketch Runner](http://sketchrunner.com/)、[Sketchpacks](https://sketchpacks.com/)。
 - 下载并解压 [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip)，然后双击 "automate-sketch.sketchplugin" 文件。
-- 旧版 Sketch 兼容插件从此[下载](https://github.com/Ashung/Automate-Sketch/releases)。
+- 兼容旧版 Sketch 插件从[此处下载](http://ashung.github.io/Automate-Sketch/)。
 
 ## 功能
 
@@ -60,7 +60,8 @@
 | Artboard Form Group                      | 从组新建画板。                                  |
 | Artboard to Group                        | 画板转为组。                                   |
 | Resize to Fix Height                     | 调整画板以适配高度。                               |
-| Export All Artboards to PNG              | 将所有画板导出为 PNG，可设置缩放比例。                    |
+| Move Artboards to Bottom of Anther       | 移动画板或组件模版至另一画板下方。                        |
+| Export All Artboards                     | 将所有画板导出为 PNG 或 SVG，可设置缩放比例。              |
 | Export All Artboards to HTML             | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                               | **组件**                                   |
 | Set to Original Width / Height           | 设为原始宽度 / 高度。                             |
@@ -68,15 +69,16 @@
 | Select All Instances of Imported symbol  | 选择导入组件（库组件）的实例。                          |
 | Rename Instances                         | 重置实例名称为组件完整名。                            |
 | Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例改为自定义名、组件名或组件完整名。    |
-| Move Symbol Masters to Bottom of Anther  | 移动至另一组件模版下方。                             |
 | Selection to Symbol Master               | 将选中图层在原位置直接变为组件。                         |
 | Detach Unused Symbol Master              | 将未使用的组件模版转为组。                            |
 | Remove Unused Symbols                    | 删除未使用组件。                                 |
 | Export All Symbols As PNG                | 按照 "页面/组件" 规则，将所有组件导出为 PNG。              |
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
+| **Library**                              | **库**                                    |
+| Add Library Preview                      | 增加一个画板用于库的预览图。                           |
 | Replace Symbol With Library Symbol       | 将选中组件替换为任意的库组件。                          |
-| Change symbols to Library Symbol         | 根据组件 ID，将选中或全部组件转为库组件。                   |
+| Change symbols to Library Symbol Base Symbol ID | 根据组件 ID，将选中或全部组件转为库组件。                   |
 | **Styles**                               | **样式**                                   |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |

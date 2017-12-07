@@ -1,0 +1,124 @@
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var doc = context.document;
+    var selection = context.selection;
+    var page = doc.currentPage();
+
+    var selectedArtboards = NSMutableArray.alloc().init();
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        if (layer.class() == "MSSymbolMaster" || layer.class() == "MSArtboardGroup") {
+            selectedArtboards.addObject(layer);
+        }
+    }
+
+    if (selectedArtboards.count() == 0) {
+        doc.showMessage("Please select at least one artboard.");
+        return;
+    }
+
+    var artboards = page.artboards().mutableCopy();
+    artboards.removeObjectsInArray(selectedArtboards);
+
+    var sortByName = NSSortDescriptor.sortDescriptorWithKey_ascending("name", true);
+    artboards.sortUsingDescriptors(NSArray.arrayWithObject(sortByName));
+
+    if (artboards.count() == 0) {
+        doc.showMessage("You can't select all artboards.");
+        return;
+    }
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Move Selected Artboard or Symbol");
+    dialog.setInformativeText("You can move selected artboard or symbol master to the bottom of another one in current page.");
+
+    dialog.addTextLabelWithValue("Choose An Artboard or Symbol:");
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
+    var loopArtboards = artboards.objectEnumerator();
+    var artboard;
+    while (artboard = loopArtboards.nextObject()) {
+        selectBox.addItemWithTitle("");
+        selectBox.lastItem().setTitle(artboard.name());
+    }
+    dialog.addAccessoryView(selectBox);
+
+    selectBox.setCOSJSTargetFunction(function(sender) {
+        var target = artboards.objectAtIndex(sender.indexOfSelectedItem());
+        selectLayer(target, false);
+        centerSelection(doc);
+    });
+
+    dialog.addTextLabelWithValue("Space Between 2 Artboards:");
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 50, 24));
+    var gap = getPreferences(context, "space_between_two_artboards") || "50";
+    textField.setStringValue(gap);
+    dialog.addAccessoryView(textField);
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        setPreferences(context, "space_between_two_artboards", textField.stringValue());
+
+        var target = artboards.objectAtIndex(selectBox.indexOfSelectedItem());
+        var space = parseInt(textField.stringValue());
+        var positionX = target.frame().x();
+        var positionY = target.frame().maxY() + space;
+
+        var loopSelectedArtboards = selectedArtboards.objectEnumerator();
+        var selectedArtboard;
+        while (selectedArtboard = loopSelectedArtboards.nextObject()) {
+            selectedArtboard.frame().setX(positionX);
+            selectedArtboard.frame().setY(positionY);
+            positionY += (selectedArtboard.frame().height() + space);
+        }
+
+    } else {
+        selectLayers(context, selection);
+    }
+
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+
+};
+
+function selectLayers(context, layers) {
+    var doc = context.document;
+    var page = doc.currentPage();
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+    var loopLayers = layers.objectEnumerator();
+    var layer;
+    while (layer = loopLayers.nextObject()) {
+        selectLayer(layer, true);
+        centerSelection(doc);
+    }
+}
+
+function centerSelection(document) {
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    if (appVersion >= 48) {
+        document.contentDrawView().centerSelectionInVisibleArea();
+    } else {
+        document.currentView().centerSelectionInVisibleArea();
+    }
+}
+
+
+function selectLayer(layer, add) {
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    if (appVersion < 45) {
+        layer.select_byExpandingSelection(true, add);
+    } else {
+        layer.select_byExtendingSelection(true, add);
+    }
+}
