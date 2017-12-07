@@ -1,4 +1,10 @@
 -
+  version: 48.0.20171207
+  description: |-
+      <ul><li>Add Library Preview.</li><li>Improved Export All Artboards.</li><li>Improved Move Artboards to Bottom of Anther.</li><li>Fix Sketch 48 support.</li></ul>
+  commitID: 626d51307dedd4d2606fc3013041b95e7e6a87ab
+
+-
   title: 47.1.20171127 (for Sketch 47)
   version: 47.1.20171127
   description: |-
