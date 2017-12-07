@@ -1,0 +1,65 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    // Library list
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var libraries = assetLibraryController.userLibraries();
+
+    if (libraries.count() == 0) {
+        document.showMessage("You have not any user library.");
+        return;
+    }
+
+    var loopLibraries = libraries.reverseObjectEnumerator();
+    var library;
+    while (library = loopLibraries.nextObject()) {
+        // selectBox.addItemWithTitle("");
+        // selectBox.lastItem().setTitle(availableLibrary.name());
+
+        log(library.name())
+        log(library.locationOnDisk())
+        log(library.libraryID())
+        // log(availableLibrary.previewItemURL())
+        // log(availableLibrary.libraryType())
+
+
+        var document = MSDocumentReader.readerForDocumentAtURL(library.locationOnDisk());
+        var image = document.previewImageWithMaximumSize(CGSizeMake(200, 160));
+
+        // var imageData = MSImageData.alloc().initWithImage(image);
+        // var layer = MSBitmapLayer.alloc().initWithFrame_image(CGRectMake(0, 0, image.size().width, image.size().height), imageData);
+        // context.document.currentPage().addLayer(layer);
+        //
+        // imageData.data().writeToFile_atomically("/Users/ylyulong/Desktop/" + library.libraryID() + ".png", "YES");
+
+
+    }
+
+    window(context, "title", "message", "subview");
+
+};
+
+
+function window(context, title, message, subview) {
+
+    var windowWidth = 600,
+        windowHeight = 400;
+    var window = NSWindow.alloc().init();
+    window.setTitle(title);
+    window.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), false);
+    window.setStyleMask(NSTitledWindowMask | NSClosableWindowMask);
+    window.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true);
+    window.standardWindowButton(NSWindowZoomButton).setHidden(true);
+
+    var closeButton = window.standardWindowButton(NSWindowCloseButton);
+    closeButton.setCOSJSTargetFunction(function(sender) {
+        NSApp.stopModal();
+    });
+
+    // window.contentView().addSubview(subview);
+    window.autorelease();
+    window.center();
+
+    return NSApp.runModalForWindow(window);
+}

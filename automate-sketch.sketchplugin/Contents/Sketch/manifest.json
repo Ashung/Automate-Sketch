@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "47.1.20171127",
+    "version": "48.0.20171207",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -295,9 +295,9 @@
             "script": "Artboard/Artboard_to_Group.cocoascript"
         },
         {
-            "name": "Export All Artboards to PNG",
-            "identifier": "export_all_artboars_to_png",
-            "script": "Artboard/Export_All_Artboars_to_PNG.cocoascript"
+            "name": "Export All Artboards",
+            "identifier": "export_all_artboars",
+            "script": "Artboard/Export_All_Artboars.cocoascript"
         },
         {
             "name": "Export All Artboards to HTML",
@@ -310,9 +310,9 @@
             "script": "Artboard/Resize_to_Fit_Height.cocoascript"
         },
         {
-            "name": "Move Symbol Masters to Bottom of Another",
-            "identifier": "move_symbol_masters_to_bottom_of_another",
-            "script": "Symbol/Move_Symbol_Masters_to_Bottom_of_Another.cocoascript"
+            "name": "Move Artboards to Bottom of Another",
+            "identifier": "move_artboards_to_bottom_of_another",
+            "script": "Artboard/Move_Artboards_to_Bottom_of_Another.cocoascript"
         },
         {
             "name": "Select All Instances of Symbol",
@@ -620,12 +620,17 @@
         {
             "name": "Change Symbols to Library Symbol Base Symbol ID",
             "identifier": "change_symbols_to_library_symbol",
-            "script": "Symbol/Change_Symbols_to_Library_Symbol.cocoascript"
+            "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript"
         },
         {
             "name": "Replace Symbol With Library Symbol",
             "identifier": "replace_symbol_with_library_symbol",
-            "script": "Symbol/Replace_Symbol_With_Library_Symbol.cocoascript"
+            "script": "Library/Replace_Symbol_With_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "Add Library Preview Artboard",
+            "identifier": "add_library_preview",
+            "script": "Library/Add_Library_Preview.cocoascript"
         },
         {
             "name": "Remove Unused Layer Styles",
@@ -636,6 +641,11 @@
             "name": "Remove Unused Text Styles",
             "identifier": "remove_unused_text_styles",
             "script": "Style/Remove_Unused_Styles.cocoascript"
+        },
+        {
+            "name": "Fix Library ID Conflict",
+            "identifier": "fix_library_id_conflict",
+            "script": "Library/Fix_Library_ID_Conflict.cocoascript"
         }
     ],
     "menu": {
@@ -732,7 +742,13 @@
                     "export_all_symbols_as_png",
                     "-",
                     "sync_symbol_master_from_sketch_file",
-                    "replace_pages_from_sketch_file",
+                    "replace_pages_from_sketch_file"
+                ]
+            },
+            {
+                "title": "Library",
+                "items": [
+                    "add_library_preview",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
@@ -747,7 +763,9 @@
                     "-",
                     "resize_to_fit_height",
                     "-",
-                    "export_all_artboars_to_png",
+                    "move_artboards_to_bottom_of_another",
+                    "-",
+                    "export_all_artboars",
                     "export_all_artboars_to_html"
                 ]
             },

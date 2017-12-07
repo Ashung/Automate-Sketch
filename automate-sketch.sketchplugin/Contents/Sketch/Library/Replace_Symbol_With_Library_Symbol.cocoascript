@@ -45,14 +45,6 @@ var onRun = function(context) {
         return;
     }
 
-    var librariesList = NSMutableArray.alloc().init();
-    var loopAvailableLibraries = availableLibraries.objectEnumerator();
-    var availableLibrary;
-    while (availableLibrary = loopAvailableLibraries.nextObject()) {
-        var label = availableLibrary.name();
-        librariesList.addObject(label);
-    }
-
     // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
@@ -62,7 +54,12 @@ var onRun = function(context) {
 
     dialog.addTextLabelWithValue("Choose A Library:");
     var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-    selectBox.addItemsWithTitles(librariesList);
+    var loopAvailableLibraries = availableLibraries.reverseObjectEnumerator();
+    var availableLibrary;
+    while (availableLibrary = loopAvailableLibraries.nextObject()) {
+        selectBox.addItemWithTitle("");
+        selectBox.lastItem().setTitle(availableLibrary.name());
+    }
     dialog.addAccessoryView(selectBox);
 
     dialog.addTextLabelWithValue("All Symbols:");
@@ -71,12 +68,19 @@ var onRun = function(context) {
     scrollView1.setBorderType(NSBezelBorder);
     dialog.addAccessoryView(scrollView1);
 
-    var selectedLibrary = availableLibraries.firstObject();
-    reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary);
+    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
+    checkboxSize.setButtonType(NSSwitchButton);
+    checkboxSize.setTitle("Set to original size.");
+    checkboxSize.setState(NSOffState);
+    dialog.addAccessoryView(checkboxSize);
+
+    var selectedLibrary = availableLibraries.lastObject();
+    reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary, checkboxSize);
 
     selectBox.setCOSJSTargetFunction(function(sender) {
-        var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
-        reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary);
+        var i = availableLibraries.count() - sender.indexOfSelectedItem() - 1;
+        var selectedLibrary = availableLibraries.objectAtIndex(i);
+        reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary, checkboxSize);
     });
 
     dialog.addButtonWithTitle("Cancel");
@@ -86,7 +90,7 @@ var onRun = function(context) {
 
 };
 
-function reloadSymbolData(context, view, symbol, library) {
+function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
     var document = context.document;
     var documentData = document.documentData();
@@ -190,7 +194,13 @@ function reloadSymbolData(context, view, symbol, library) {
             var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
             var instance;
             while (instance = loopInstancesInCurrentDocument.nextObject()) {
-                MSLayerPaster.updateOverridesOnInstance_withIDMap(instance, symbolIDMap);
+                instance.updateOverridesWithObjectIDMap(symbolIDMap);
+                if (instance.symbolMaster() == importedSymbol.symbolMaster()) {
+                    instance.setName(instance.symbolMaster().name());
+                    if (checkboxSize.state()) {
+                        instance.resetSizeToMaster();
+                    }
+                }
             }
             document.reloadInspector();
 
