@@ -19,7 +19,7 @@ var onRun = function(context) {
 
     page.addLayer(artboard);
 
-    if (document.contentDrawView()) {
+    if (document.contentDrawView != nil) {
         document.contentDrawView().centerRect_animated(artboard.frame().rect(), true);
     } else {
         document.currentView().centerRect_animated(artboard.frame().rect(), true);

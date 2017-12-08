@@ -4,12 +4,20 @@ var onRun = function(context) {
 
     var document = context.document;
     var documentData = document.documentData();
+    var selection = context.selection;
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
     if (documentData.localSymbols().count() == 0) {
         document.showMessage("Current document have not any local symbol.");
         return;
     }
 
-    var selection = context.selection;
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
     if (selection.count() == 0) {
         document.showMessage("Please select one symbol.");
         return;
@@ -36,15 +44,6 @@ var onRun = function(context) {
         return;
     }
 
-    // Library list
-    var assetLibraryController = AppController.sharedInstance().librariesController();
-    var availableLibraries = assetLibraryController.availableLibraries();
-
-    if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
-        return;
-    }
-
     // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
@@ -63,10 +62,10 @@ var onRun = function(context) {
     dialog.addAccessoryView(selectBox);
 
     dialog.addTextLabelWithValue("All Symbols:");
-    var scrollView1 = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
-    scrollView1.setHasVerticalScroller(true);
-    scrollView1.setBorderType(NSBezelBorder);
-    dialog.addAccessoryView(scrollView1);
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
+    scrollView.setHasVerticalScroller(true);
+    scrollView.setBorderType(NSBezelBorder);
+    dialog.addAccessoryView(scrollView);
 
     var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
     checkboxSize.setButtonType(NSSwitchButton);
@@ -75,12 +74,12 @@ var onRun = function(context) {
     dialog.addAccessoryView(checkboxSize);
 
     var selectedLibrary = availableLibraries.lastObject();
-    reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary, checkboxSize);
+    reloadSymbolData(context, scrollView, selectedSymbol, selectedLibrary, checkboxSize);
 
     selectBox.setCOSJSTargetFunction(function(sender) {
         var i = availableLibraries.count() - sender.indexOfSelectedItem() - 1;
         var selectedLibrary = availableLibraries.objectAtIndex(i);
-        reloadSymbolData(context, scrollView1, selectedSymbol, selectedLibrary, checkboxSize);
+        reloadSymbolData(context, scrollView, selectedSymbol, selectedLibrary, checkboxSize);
     });
 
     dialog.addButtonWithTitle("Cancel");
@@ -153,17 +152,12 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         imageButton.setTitle(symbol_2.symbolID());
         imageButton.setBordered(0);
 
-        var scale = Math.round(itemHeight / symbol_2.frame().width() * 10) / 10;
-        if (symbol_2.frame().width() < symbol_2.frame().height()) {
-            scale = Math.round(itemHeight / symbol_2.frame().height() * 10) / 10;
-        }
-
+        // Symbol preview image.
         var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
-        var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(layerAncestry).firstObject();
-        exportRequest.setFormat("png");
-        exportRequest.setScale(scale);
-        var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
-        imageButton.setImage(exporter.previewImage());
+        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            layerAncestry, CGSizeMake(itemHeight, itemHeight), NSColorSpace.sRGBColorSpace(), true
+        );
+        imageButton.setImage(symbolPreviewImage);
         itemView.addSubview(imageButton);
 
         imageButton.setCOSJSTargetFunction(function(sender) {
@@ -235,10 +229,10 @@ function createLabelNote(text) {
 
 function instancesInDocument(document) {
     var allInstances = NSMutableArray.alloc().init();
-    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
     var loopPages = document.pages().objectEnumerator();
     var page;
     while (page = loopPages.nextObject()) {
+        var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
         var instancesInPage = page.children().filteredArrayUsingPredicate(predicate);
         allInstances.addObjectsFromArray(instancesInPage);
     }

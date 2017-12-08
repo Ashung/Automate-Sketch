@@ -12,7 +12,10 @@ var onRun = function(context) {
         while (layer = loopSelection.nextObject()) {
             if (layer.class() == "MSTextLayer") {
 
-                if (layer.attributeForKey(NSVerticalGlyphFormAttributeName) == 0) {
+                if (
+                    layer.attributeForKey(NSVerticalGlyphFormAttributeName) == null ||
+                    layer.attributeForKey(NSVerticalGlyphFormAttributeName) == 0
+                ) {
                     layer.addAttribute_value(NSVerticalGlyphFormAttributeName, 1);
                     if (layer.rotation() == 0) {
                         layer.setRotation(-90)

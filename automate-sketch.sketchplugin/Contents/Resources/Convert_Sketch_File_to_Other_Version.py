@@ -10,6 +10,7 @@ appVersion = sys.argv[2]
 build = sys.argv[3]
 version = sys.argv[4]
 commit = sys.argv[5]
+compatibilityVersion = sys.argv[6]
 
 if zipfile.is_zipfile(sketchFile):
 
@@ -22,6 +23,9 @@ if zipfile.is_zipfile(sketchFile):
     meta = re.sub(r'"build":[0-9]{5,}', '"build":' + build, meta)
     meta = re.sub(r'"version":[0-9]{2,}', '"version":' + version, meta)
     meta = re.sub(r'"saveHistory":\["NONAPPSTORE\.[0-9]{5,}"\]', '"saveHistory":["NONAPPSTORE.' + build + '"]', meta)
+
+    if appVersion >= 47:
+        meta = re.sub(r'"compatibilityVersion":[0-9]{2,}', '"compatibilityVersion":' + compatibilityVersion, meta)
 
     # save a temp mate.json
     tmpFile = os.path.join(os.getcwd(), '.meta.json')

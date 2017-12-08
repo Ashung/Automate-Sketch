@@ -71,6 +71,8 @@ function addSlice(context, preset) {
                 if (layer.class() == "MSLayerGroup") {
                     slice.exportOptions().setLayerOptions(2);
                 }
+            } else {
+                slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
             }
         }
 
