@@ -12,7 +12,7 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var viewWidth = 600,
+    var viewWidth = 500,
         viewHeight = 400,
         padding = 10,
         previewImageWidth = 100,

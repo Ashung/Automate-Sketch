@@ -48,30 +48,52 @@ var onRun = function(context) {
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
     dialog.setInformativeText(
-        "You current select the symbol master named \"" + selectedSymbol.name() +"\", Click the image of symbol to replace."
+        "You current select the symbol master named \"" + selectedSymbol.name() +"\"."
     );
 
-    dialog.addTextLabelWithValue("Choose A Library:");
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    var accessoryView = NSView.alloc().init();
+    accessoryView.setFlipped(true);
+    accessoryView.setFrame(NSMakeRect(0, 0, 500, 500));
+
+    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 500, 20));
+    labelView.setStringValue("Choose A Library:");
+    labelView.setFont(NSFont.boldSystemFontOfSize(12));
+    labelView.setBezeled(false);
+    labelView.setDrawsBackground(false);
+    labelView.setEditable(false);
+    labelView.setSelectable(false);
+    accessoryView.addSubview(labelView);
+
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 20, 200, 30));
     var loopAvailableLibraries = availableLibraries.reverseObjectEnumerator();
     var availableLibrary;
     while (availableLibrary = loopAvailableLibraries.nextObject()) {
         selectBox.addItemWithTitle("");
         selectBox.lastItem().setTitle(availableLibrary.name());
     }
-    dialog.addAccessoryView(selectBox);
+    accessoryView.addSubview(selectBox);
 
-    dialog.addTextLabelWithValue("All Symbols:");
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
+    var labelView2 = NSTextField.alloc().initWithFrame(NSMakeRect(0, 50, 500, 20));
+    labelView2.setStringValue("All Symbols:");
+    labelView2.setFont(NSFont.boldSystemFontOfSize(12));
+    labelView2.setBezeled(false);
+    labelView2.setDrawsBackground(false);
+    labelView2.setEditable(false);
+    labelView2.setSelectable(false);
+    accessoryView.addSubview(labelView2);
+
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 70, 500, 400));
     scrollView.setHasVerticalScroller(true);
     scrollView.setBorderType(NSBezelBorder);
-    dialog.addAccessoryView(scrollView);
+    accessoryView.addSubview(scrollView);
 
-    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
+    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 480, 500, 20));
     checkboxSize.setButtonType(NSSwitchButton);
-    checkboxSize.setTitle("Set to original size.");
+    checkboxSize.setTitle("After replace with library symbols, set all instances to original size.");
     checkboxSize.setState(NSOffState);
-    dialog.addAccessoryView(checkboxSize);
+    accessoryView.addSubview(checkboxSize);
+
+    dialog.setAccessoryView(accessoryView);
 
     var selectedLibrary = availableLibraries.lastObject();
     reloadSymbolData(context, scrollView, selectedSymbol, selectedLibrary, checkboxSize);
@@ -120,52 +142,63 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         allSymbols.insertObjects_atIndexes(symbolsWithSameSize, indexes);
     }
 
-    var itemHeight = 70;
+    var itemHeight = 100;
     var itemsCount = allSymbols.count();
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, (itemsCount + 0.5) * itemHeight));
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, itemsCount * itemHeight + 10));
     contentView.setFlipped(true);
 
     var loopAllSymbols_2 = allSymbols.objectEnumerator();
     var symbol_2;
     while (symbol_2 = loopAllSymbols_2.nextObject()) {
+
         var index = allSymbols.indexOfObject(symbol_2);
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 500, itemHeight));
         itemView.setFlipped(true);
 
-        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(75, 10, 220, 20));
+        // Symbol ID
+        var symbolIDView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
+        symbolIDView.setStringValue(symbol_2.symbolID());
+        itemView.addSubview(symbolIDView);
+
+        // Preview image
+        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, itemHeight - 20, itemHeight - 20));
+        var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
+        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            layerAncestry, CGSizeMake(itemHeight - 20, itemHeight - 20), NSColorSpace.sRGBColorSpace(), true
+        );
+        imageView.setImage(symbolPreviewImage);
+        itemView.addSubview(imageView);
+
+        // Symbol Name
+        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(100, 40, 300, 20));
         textLabelName.setStringValue(symbol_2.name());
+        textLabelName.setFont(NSFont.systemFontOfSize(12));
         textLabelName.setBezeled(false);
         textLabelName.setEditable(false);
         itemView.addSubview(textLabelName);
 
+        // Tag
         if (symbol_2.symbolID().isEqualToString(symbol.symbolID)) {
-            var textLabelNote = createLabelNote("Same ID");
+            var textLabelNote = createLabelNote(NSMakeRect(103, 20, 200, 20), "Same ID");
             itemView.addSubview(textLabelNote);
         }
-
         if (symbolsWithSameSize.containsObject(symbol_2)) {
-            var textLabelNote = createLabelNote("Same Size");
+            var textLabelNote = createLabelNote(NSMakeRect(103, 20, 200, 20), "Same Size");
             itemView.addSubview(textLabelNote);
         }
 
-        var imageButton = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, itemHeight, itemHeight));
-        imageButton.setTitle(symbol_2.symbolID());
-        imageButton.setBordered(0);
-
-        // Symbol preview image.
-        var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
-        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(itemHeight, itemHeight), NSColorSpace.sRGBColorSpace(), true
-        );
-        imageButton.setImage(symbolPreviewImage);
-        itemView.addSubview(imageButton);
-
-        imageButton.setCOSJSTargetFunction(function(sender) {
+        // Button
+        var replaceButton = NSButton.alloc().initWithFrame(NSMakeRect(410, 35, 80, 30));
+        replaceButton.setBezelStyle(NSRoundedBezelStyle);
+        replaceButton.setTitle("Replace");
+        replaceButton.setStringValue(symbol_2.symbolID());
+        replaceButton.setCOSJSTargetFunction(function(sender) {
 
             // Import symbol
             var assetLibraryController = AppController.sharedInstance().librariesController();
+            var symbolID = sender.superview().subviews().firstObject().stringValue();
             var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                library.symbolWithID(sender.title()), library, documentData
+                library.symbolWithID(symbolID), library, documentData
             );
 
             // Replace all instances of symbol master
@@ -200,8 +233,10 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
             NSApp.stopModal();
         });
+        itemView.addSubview(replaceButton);
 
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));
+        // Divide line
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 500, 1));
         divider.setWantsLayer(1);
         divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
         itemView.addSubview(divider);
@@ -213,8 +248,8 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
 }
 
-function createLabelNote(text) {
-    var textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(75, 30, 200, 20));
+function createLabelNote(rect, text) {
+    var textLabelNote = NSTextField.alloc().initWithFrame(rect);
     textLabelNote.setStringValue(text);
     textLabelNote.setFont(NSFont.systemFontOfSize(10));
     textLabelNote.setTextColor(NSColor.whiteColor());
