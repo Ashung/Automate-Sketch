@@ -1,4 +1,10 @@
 -
+  version: 48.1.20171211
+  description: |-
+      <ul><li>Fix Paste & replace broken in Sketch v48.</li></ul>
+  commitID: 20a2e5522cc3523bde816d3078dcfe60ad3a9610
+
+-
   version: 48.0.20171207
   description: |-
       <ul><li>Add Library Preview.</li><li>Improved Export All Artboards.</li><li>Improved Move Artboards to Bottom of Anther.</li><li>Fix Sketch 48 support.</li></ul>
