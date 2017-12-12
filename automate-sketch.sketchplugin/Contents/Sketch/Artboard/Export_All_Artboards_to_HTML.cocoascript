@@ -40,7 +40,7 @@ var onRun = function(context) {
 
             if (savePanel.runModal() == NSOKButton) {
 
-                var htmlTemplatePath = context.plugin.urlForResourceNamed("Export_All_Artboars_to_HTML.html").path();
+                var htmlTemplatePath = context.plugin.urlForResourceNamed("Export_All_Artboards_to_HTML.html").path();
                 var htmlTemplate = NSString.stringWithContentsOfFile_encoding_error_(
                     htmlTemplatePath, NSUTF8StringEncoding, nil
                 );

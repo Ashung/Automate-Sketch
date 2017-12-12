@@ -107,7 +107,7 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("Cancel");
     dialog.runModal();
 
-    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+    ga(context, "UA-99098773-3", "Library", context.command.identifier());
 
 };
 
@@ -142,9 +142,10 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         allSymbols.insertObjects_atIndexes(symbolsWithSameSize, indexes);
     }
 
-    var itemHeight = 100;
+    var viewWidth = 500;
+    var itemHeight = 50;
     var itemsCount = allSymbols.count();
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, itemsCount * itemHeight + 10));
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, itemsCount * itemHeight + 10));
     contentView.setFlipped(true);
 
     var loopAllSymbols_2 = allSymbols.objectEnumerator();
@@ -152,7 +153,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
     while (symbol_2 = loopAllSymbols_2.nextObject()) {
 
         var index = allSymbols.indexOfObject(symbol_2);
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 500, itemHeight));
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, viewWidth, itemHeight));
         itemView.setFlipped(true);
 
         // Symbol ID
@@ -170,7 +171,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         itemView.addSubview(imageView);
 
         // Symbol Name
-        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(100, 40, 300, 20));
+        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(itemHeight, (itemHeight - 20)/2, viewWidth - itemHeight - 90, 20));
         textLabelName.setStringValue(symbol_2.name());
         textLabelName.setFont(NSFont.systemFontOfSize(12));
         textLabelName.setBezeled(false);
@@ -179,19 +180,18 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
         // Tag
         if (symbol_2.symbolID().isEqualToString(symbol.symbolID)) {
-            var textLabelNote = createLabelNote(NSMakeRect(103, 20, 200, 20), "Same ID");
+            var textLabelNote = createLabelNote(NSMakeRect(itemHeight, itemHeight - 18, 200, 20), "Same ID");
             itemView.addSubview(textLabelNote);
         }
         if (symbolsWithSameSize.containsObject(symbol_2)) {
-            var textLabelNote = createLabelNote(NSMakeRect(103, 20, 200, 20), "Same Size");
+            var textLabelNote = createLabelNote(NSMakeRect(itemHeight, itemHeight - 18, 200, 20), "Same Size");
             itemView.addSubview(textLabelNote);
         }
 
         // Button
-        var replaceButton = NSButton.alloc().initWithFrame(NSMakeRect(410, 35, 80, 30));
+        var replaceButton = NSButton.alloc().initWithFrame(NSMakeRect(viewWidth - 90, (itemHeight - 30)/2, 80, 30));
         replaceButton.setBezelStyle(NSRoundedBezelStyle);
         replaceButton.setTitle("Replace");
-        replaceButton.setStringValue(symbol_2.symbolID());
         replaceButton.setCOSJSTargetFunction(function(sender) {
 
             // Import symbol

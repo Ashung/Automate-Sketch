@@ -4,7 +4,7 @@ var onRun = function(context) {
 
     // Library list
     var assetLibraryController = AppController.sharedInstance().librariesController();
-    var libraries = assetLibraryController.libraries(); //userLibraries();
+    var libraries = assetLibraryController.libraries();
 
     if (libraries.count() == 0) {
         document.showMessage("You have not any user library.");
@@ -12,17 +12,16 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var viewWidth = 500,
+    var viewWidth = 600,
         viewHeight = 400,
         padding = 10,
         previewImageWidth = 100,
         previewImageHeight = 80;
 
     var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Fix Library ID Conflict");
-    dialog.setInformativeText("message");
-    // dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    dialog.setMessageText("(WIP) Fix Library ID Conflict");
+    dialog.setInformativeText("Change the library ID, symbol's auto update will broken.");
+    dialog.addButtonWithTitle("Close");
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
@@ -65,10 +64,8 @@ var onRun = function(context) {
         imageView.addSubview(imageSrc);
         itemView.addSubview(imageView);
 
-        // // imageButton.setTitle(symbol_2.symbolID());
-        // // imageButton.setBordered(0);
-        //
-        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 20, viewWidth - previewImageWidth + padding * 3, 20));
+        // Title
+        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 20, viewWidth - previewImageWidth - 100 + padding * 3, 20));
         titleView.setStringValue(library.name());
         titleView.setFont(NSFont.boldSystemFontOfSize(14));
         titleView.setTextColor(NSColor.blackColor());
@@ -78,7 +75,8 @@ var onRun = function(context) {
         titleView.setSelectable(false);
         itemView.addSubview(titleView);
 
-        var idView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 40, viewWidth - previewImageWidth + padding * 3, 20));
+        // Library ID
+        var idView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 40, viewWidth - previewImageWidth - 100 + padding * 3, 20));
         idView.setStringValue(library.libraryID());
         idView.setFont(NSFont.monospacedDigitSystemFontOfSize_weight(12, NSFontWeightRegular));
         idView.setTextColor(NSColor.blackColor());
@@ -88,7 +86,8 @@ var onRun = function(context) {
         idView.setSelectable(false);
         itemView.addSubview(idView);
 
-        var locationView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, viewWidth - previewImageWidth + padding * 3, 20));
+        // Library URL
+        var locationView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, viewWidth - previewImageWidth - 100 + padding * 3, 20));
         if (library.libraryType() == 0) {
             locationView.setStringValue("Internal Library");
         } else {
@@ -102,6 +101,22 @@ var onRun = function(context) {
         locationView.setSelectable(false);
         itemView.addSubview(locationView);
 
+        // Button
+        if (library.libraryType() == 1) {
+            var changeButton = NSButton.alloc().initWithFrame(NSMakeRect(viewWidth - 100, 35, 90, 30));
+            changeButton.setBezelStyle(NSRoundedBezelStyle);
+            changeButton.setTitle("Change ID");
+            changeButton.setCOSJSTargetFunction(function(sender) {
+                var targetLibraryPath = sender.superview().subviews().objectAtIndex(3).stringValue();
+                var targetLibrary = libraryWithPath(targetLibraryPath);
+                if (targetLibrary) {
+                    log(targetLibrary.document().objectID());
+                    targetLibrary.document().generateObjectID();
+                    log(targetLibrary.document().objectID());
+                }
+            });
+            itemView.addSubview(changeButton);
+        }
 
         var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, viewWidth, 1));
         divider.setWantsLayer(true);
@@ -131,6 +146,19 @@ var onRun = function(context) {
 
 };
 
+function libraryWithPath(path) {
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var libraries = assetLibraryController.libraries();
+
+    var predicate = NSPredicate.predicateWithFormat("locationOnDisk == %@", NSURL.fileURLWithPath(path));
+    var results = libraries.filteredArrayUsingPredicate(predicate);
+    if (results.count() > 0) {
+        return results.firstObject();
+    } else {
+        return "XXX";
+    }
+
+}
 
 //
 // function window(context, title, message, subview) {

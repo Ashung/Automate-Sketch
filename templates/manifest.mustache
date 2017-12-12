@@ -295,14 +295,14 @@
             "script": "Artboard/Artboard_to_Group.cocoascript"
         },
         {
-            "name": "{{export_all_artboars}}",
-            "identifier": "export_all_artboars",
-            "script": "Artboard/Export_All_Artboars.cocoascript"
+            "name": "{{export_all_artboards}}",
+            "identifier": "export_all_artboards",
+            "script": "Artboard/Export_All_Artboards.cocoascript"
         },
         {
-            "name": "{{export_all_artboars_to_html}}",
-            "identifier": "export_all_artboars_to_html",
-            "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
+            "name": "{{export_all_artboards_to_html}}",
+            "identifier": "export_all_artboards_to_html",
+            "script": "Artboard/Export_All_Artboards_to_HTML.cocoascript"
         },
         {
             "name": "{{resize_to_fit_height}}",
@@ -342,6 +342,11 @@
         {
             "name": "{{remove_unused_symbols}}",
             "identifier": "remove_unused_symbols",
+            "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
+        },
+        {
+            "name": "{{remove_unused_symbols_old}}",
+            "identifier": "remove_unused_symbols_old",
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
@@ -738,6 +743,7 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
+                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",
@@ -749,6 +755,8 @@
                 "title": "{{library}}",
                 "items": [
                     "add_library_preview",
+                    "-",
+                    "fix_library_id_conflict",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
@@ -765,8 +773,8 @@
                     "-",
                     "move_artboards_to_bottom_of_another",
                     "-",
-                    "export_all_artboars",
-                    "export_all_artboars_to_html"
+                    "export_all_artboards",
+                    "export_all_artboards_to_html"
                 ]
             },
             {

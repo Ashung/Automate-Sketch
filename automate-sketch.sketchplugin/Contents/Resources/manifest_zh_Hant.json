@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.1.20171211",
+    "version": "48.1.20171212",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -296,13 +296,13 @@
         },
         {
             "name": "匯出所有畫板",
-            "identifier": "export_all_artboars",
-            "script": "Artboard/Export_All_Artboars.cocoascript"
+            "identifier": "export_all_artboards",
+            "script": "Artboard/Export_All_Artboards.cocoascript"
         },
         {
             "name": "將所有畫板匯出為 HTML",
-            "identifier": "export_all_artboars_to_html",
-            "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
+            "identifier": "export_all_artboards_to_html",
+            "script": "Artboard/Export_All_Artboards_to_HTML.cocoascript"
         },
         {
             "name": "調整畫板以適配高度",
@@ -342,6 +342,11 @@
         {
             "name": "刪除未用元件",
             "identifier": "remove_unused_symbols",
+            "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
+        },
+        {
+            "name": "刪除未用元件 (舊版相容)",
+            "identifier": "remove_unused_symbols_old",
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
@@ -738,6 +743,7 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
+                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",
@@ -749,6 +755,8 @@
                 "title": "庫",
                 "items": [
                     "add_library_preview",
+                    "-",
+                    "fix_library_id_conflict",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
@@ -765,8 +773,8 @@
                     "-",
                     "move_artboards_to_bottom_of_another",
                     "-",
-                    "export_all_artboars",
-                    "export_all_artboars_to_html"
+                    "export_all_artboards",
+                    "export_all_artboards_to_html"
                 ]
             },
             {
