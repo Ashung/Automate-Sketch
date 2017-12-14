@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    var document = context.document;
+
     // Library list
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var libraries = assetLibraryController.libraries();
@@ -12,15 +14,15 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var viewWidth = 600,
+    var viewWidth = 550,
         viewHeight = 400,
         padding = 10,
         previewImageWidth = 100,
         previewImageHeight = 80;
 
     var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("(WIP) Fix Library ID Conflict");
-    dialog.setInformativeText("Change the library ID, symbol's auto update will broken.");
+    dialog.setMessageText("Fix Library ID Conflict");
+    dialog.setInformativeText("Change the library ID, will cause symbol's auto update broken.");
     dialog.addButtonWithTitle("Close");
 
     var accessoryView = NSView.alloc().init();
@@ -67,6 +69,9 @@ var onRun = function(context) {
         // Title
         var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 20, viewWidth - previewImageWidth - 100 + padding * 3, 20));
         titleView.setStringValue(library.name());
+        if (!library.enabled()) {
+            titleView.setStringValue(library.name() + " 🙈");
+        }
         titleView.setFont(NSFont.boldSystemFontOfSize(14));
         titleView.setTextColor(NSColor.blackColor());
         titleView.setBezeled(false);
@@ -88,10 +93,13 @@ var onRun = function(context) {
 
         // Library URL
         var locationView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, viewWidth - previewImageWidth - 100 + padding * 3, 20));
+        // libraryType 0 : Internal Library
+        // libraryType 1 : User Library
         if (library.libraryType() == 0) {
             locationView.setStringValue("Internal Library");
         } else {
-            locationView.setStringValue(library.locationOnDisk().path());
+            var filePath = library.locationOnDisk().path().replace(NSHomeDirectory(), "~");
+            locationView.setStringValue(filePath);
         }
         locationView.setFont(NSFont.systemFontOfSize(12));
         locationView.setTextColor(NSColor.grayColor());
@@ -107,13 +115,11 @@ var onRun = function(context) {
             changeButton.setBezelStyle(NSRoundedBezelStyle);
             changeButton.setTitle("Change ID");
             changeButton.setCOSJSTargetFunction(function(sender) {
+                var idView = sender.superview().subviews().objectAtIndex(2);
                 var targetLibraryPath = sender.superview().subviews().objectAtIndex(3).stringValue();
-                var targetLibrary = libraryWithPath(targetLibraryPath);
-                if (targetLibrary) {
-                    log(targetLibrary.document().objectID());
-                    targetLibrary.document().generateObjectID();
-                    log(targetLibrary.document().objectID());
-                }
+                targetLibraryPath = targetLibraryPath.replace(/^~/, NSHomeDirectory());
+                var newID = changeDocumentID(context, targetLibraryPath);
+                idView.setStringValue(newID);
             });
             itemView.addSubview(changeButton);
         }
@@ -125,17 +131,6 @@ var onRun = function(context) {
 
         contentView.addSubview(itemView);
 
-
-
-
-
-
-        // var imageData = MSImageData.alloc().initWithImage(image);
-        // var layer = MSBitmapLayer.alloc().initWithFrame_image(CGRectMake(0, 0, image.size().width, image.size().height), imageData);
-        // context.document.currentPage().addLayer(layer);
-        //
-        // imageData.data().writeToFile_atomically("/Users/ylyulong/Desktop/" + library.libraryID() + ".png", "YES");
-
         i ++;
     }
 
@@ -146,57 +141,20 @@ var onRun = function(context) {
 
 };
 
-function libraryWithPath(path) {
-    var assetLibraryController = AppController.sharedInstance().librariesController();
-    var libraries = assetLibraryController.libraries();
-
-    var predicate = NSPredicate.predicateWithFormat("locationOnDisk == %@", NSURL.fileURLWithPath(path));
-    var results = libraries.filteredArrayUsingPredicate(predicate);
-    if (results.count() > 0) {
-        return results.firstObject();
+function changeDocumentID(context, documentPath) {
+    var newDocument = MSDocument.alloc().init();
+    var fileURL = NSURL.fileURLWithPath(documentPath);
+    var type = "com.bohemiancoding.sketch.drawing";
+    newDocument.readFromURL_ofType_error(fileURL, type, nil);
+    var newID = NSUUID.UUID().UUIDString();
+    newDocument.documentData().setObjectID(newID);
+    // Hack
+    newDocument.addBlankPage();
+    newDocument.removePage(newDocument.pages().lastObject());
+    var writeToNewDocument = newDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(fileURL, type, NSSaveOperation, nil, nil);
+    if (writeToNewDocument) {
+        return newID;
     } else {
-        return "XXX";
+        return nil;
     }
-
 }
-
-//
-// function window(context, title, message, subview) {
-//
-//     var windowWidth = 600,
-//         windowHeight = 400;
-//     var window = NSWindow.alloc().init();
-//     window.setTitle(title);
-//     window.setTitlebarAppearsTransparent(true);
-//     window.setFrame_display(NSMakeRect(0, 0, windowWidth, windowHeight), false);
-//     // window.setStyleMask(NSTitledWindowMask | NSClosableWindowMask);
-//     window.setStyleMask(NSTexturedBackgroundWindowMask | NSTitledWindowMask | NSClosableWindowMask);
-//     window.setBackgroundColor(NSColor.colorWithRed_green_blue_alpha(242.0/255, 242.0/255, 242.0/255, 1.0));
-//
-//     textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(75, 30, 200, 20));
-//         textLabelNote.setStringValue(text);
-//         textLabelNote.setFont(NSFont.systemFontOfSize(12));
-//         textLabelNote.setTextColor(NSColor.blackColor());
-//         // textLabelNote.setBackgroundColor(NSColor.blueColor());
-//         // textLabelNote.setWantsLayer(true);
-//         textLabelNote.layer().setCornerRadius(3);
-//         textLabelNote.setBezeled(false);
-//         textLabelNote.setEditable(false);
-//         textLabelNote.sizeToFit();
-//
-//
-//
-//     window.standardWindowButton(NSWindowMiniaturizeButton).setHidden(true);
-//     window.standardWindowButton(NSWindowZoomButton).setHidden(true);
-//
-//     var closeButton = window.standardWindowButton(NSWindowCloseButton);
-//     closeButton.setCOSJSTargetFunction(function(sender) {
-//         NSApp.stopModal();
-//     });
-//
-//     // window.contentView().addSubview(subview);
-//     // window.autorelease();
-//     window.center();
-//
-//     return NSApp.runModalForWindow(window);
-// }
