@@ -4,12 +4,15 @@ var onRun = function(context) {
 
     var document = context.document;
 
-    // Library list
-    var assetLibraryController = AppController.sharedInstance().librariesController();
-    var libraries = assetLibraryController.libraries();
+    var libraries = librariesWithConflictID();
+
+    if (!libraries) {
+        document.showMessage("You have not any library.");
+        return;
+    }
 
     if (libraries.count() == 0) {
-        document.showMessage("You have not any user library.");
+        document.showMessage("😀 You have not any library with conflict ID.");
         return;
     }
 
@@ -37,12 +40,7 @@ var onRun = function(context) {
     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, libraries.count() * (previewImageHeight + padding * 2) + 10));
     contentView.setFlipped(true);
 
-    // Sort by library ID
-    var librariesCopy = libraries.mutableCopy();
-    var sortByID = NSSortDescriptor.sortDescriptorWithKey_ascending("libraryID", true);
-    librariesCopy.sortUsingDescriptors(NSArray.arrayWithObject(sortByID));
-
-    var loopLibraries = librariesCopy.objectEnumerator();
+    var loopLibraries = libraries.objectEnumerator();
     var library;
     var i = 0;
     while (library = loopLibraries.nextObject()) {
@@ -51,6 +49,12 @@ var onRun = function(context) {
         var itemHeight = previewImageHeight + padding * 2;
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * i, viewWidth, itemHeight));
         itemView.setFlipped(true);
+
+        // Library full path
+        var libraryPath = library.locationOnDisk().path();
+        var fullPathView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
+        fullPathView.setStringValue(libraryPath);
+        itemView.addSubview(fullPathView);
 
         // Preview image
         var imageView = NSView.alloc().initWithFrame(NSMakeRect(padding, padding, previewImageWidth, previewImageHeight));
@@ -92,21 +96,26 @@ var onRun = function(context) {
         itemView.addSubview(idView);
 
         // Library URL
-        var locationView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, viewWidth - previewImageWidth - 100 + padding * 3, 20));
-        // libraryType 0 : Internal Library
-        // libraryType 1 : User Library
+        var locationView = NSButton.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, 100, 20));
+        locationView.setButtonType(NSMomentaryChangeButton);
+        locationView.setBezelStyle(nil);
+        locationView.setBordered("NO");
+        locationView.setAlphaValue(0.4);
         if (library.libraryType() == 0) {
-            locationView.setStringValue("Internal Library");
-        } else {
-            var filePath = library.locationOnDisk().path().replace(NSHomeDirectory(), "~");
-            locationView.setStringValue(filePath);
+            locationView.setTitle("Internal Library");
         }
-        locationView.setFont(NSFont.systemFontOfSize(12));
-        locationView.setTextColor(NSColor.grayColor());
-        locationView.setBezeled(false);
-        locationView.setDrawsBackground(false);
-        locationView.setEditable(false);
-        locationView.setSelectable(false);
+        if (library.libraryType() == 1) {
+            var libraryDir = libraryPath.stringByDeletingLastPathComponent();
+            var regex = new RegExp("^" + NSHomeDirectory().replace(/(\/)/g, "\\/"), "gi");
+            libraryDir = libraryDir.replace(regex, "~")
+            locationView.setTitle(libraryDir);
+
+            locationView.setCOSJSTargetFunction(function(sender) {
+                var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
+                NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(targetLibraryPath, nil);
+            });
+        }
+        locationView.sizeToFit();
         itemView.addSubview(locationView);
 
         // Button
@@ -115,10 +124,9 @@ var onRun = function(context) {
             changeButton.setBezelStyle(NSRoundedBezelStyle);
             changeButton.setTitle("Change ID");
             changeButton.setCOSJSTargetFunction(function(sender) {
-                var idView = sender.superview().subviews().objectAtIndex(2);
-                var targetLibraryPath = sender.superview().subviews().objectAtIndex(3).stringValue();
-                targetLibraryPath = targetLibraryPath.replace(/^~/, NSHomeDirectory());
-                var newID = changeDocumentID(context, targetLibraryPath);
+                var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
+                var newID = changeDocumentID(targetLibraryPath);
+                var idView = sender.superview().subviews().objectAtIndex(3);
                 idView.setStringValue(newID);
             });
             itemView.addSubview(changeButton);
@@ -139,9 +147,48 @@ var onRun = function(context) {
     dialog.setAccessoryView(accessoryView);
     return dialog.runModal();
 
+    ga(context, "UA-99098773-3", "Library", context.command.identifier());
+
 };
 
-function changeDocumentID(context, documentPath) {
+function librariesWithConflictID() {
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var libraries = assetLibraryController.libraries();
+
+    if (libraries.count() == 0) {
+        return nil;
+    }
+
+    // Sort by library ID
+    var librariesCopy = libraries.mutableCopy();
+    var sortByID = NSSortDescriptor.sortDescriptorWithKey_ascending("libraryID", true);
+    librariesCopy.sortUsingDescriptors(NSArray.arrayWithObject(sortByID));
+
+    var librariesCopy2 = librariesCopy.mutableCopy();
+    librariesCopy2.forEach(function(library, index, array) {
+        if (index == 0) {
+            if (!library.libraryID().isEqualToString(librariesCopy2[index + 1].libraryID())) {
+                librariesCopy.removeObject(library);
+            }
+        } else if (index == librariesCopy2.count() - 1) {
+            if (!library.libraryID().isEqualToString(librariesCopy2[index - 1].libraryID())) {
+                librariesCopy.removeObject(library);
+            }
+        } else {
+            if (
+                !library.libraryID().isEqualToString(librariesCopy2[index + 1].libraryID()) &&
+                !library.libraryID().isEqualToString(librariesCopy2[index - 1].libraryID())
+            ) {
+                librariesCopy.removeObject(library);
+            }
+        }
+    });
+
+    return librariesCopy;
+}
+
+function changeDocumentID(documentPath) {
     var newDocument = MSDocument.alloc().init();
     var fileURL = NSURL.fileURLWithPath(documentPath);
     var type = "com.bohemiancoding.sketch.drawing";
