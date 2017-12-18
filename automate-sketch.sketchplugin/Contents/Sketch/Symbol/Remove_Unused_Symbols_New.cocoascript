@@ -4,6 +4,12 @@ var onRun = function(context) {
 
     var document = context.document;
     var documentData = document.documentData();
+
+    if (MSApplicationMetadata.metadata().appVersion < 48) {
+        document.showMessage("😮 You have to update Sketch 48+ to use thie feature.");
+        return;
+    }
+
     var unusedSymbols = getAllUnusedSymbols(context);
 
     if (unusedSymbols.count() == 0) {

@@ -4,6 +4,11 @@ var onRun = function(context) {
 
     var document = context.document;
 
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
     var libraries = librariesWithConflictID();
 
     if (!libraries) {
@@ -26,7 +31,7 @@ var onRun = function(context) {
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Fix Library ID Conflict");
     dialog.setInformativeText("Change the library ID, will cause symbol's auto update broken.");
-    dialog.addButtonWithTitle("Close");
+    dialog.addButtonWithTitle("Cancel");
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
@@ -145,7 +150,7 @@ var onRun = function(context) {
     scrollView.setDocumentView(contentView);
 
     dialog.setAccessoryView(accessoryView);
-    return dialog.runModal();
+    dialog.runModal();
 
     ga(context, "UA-99098773-3", "Library", context.command.identifier());
 

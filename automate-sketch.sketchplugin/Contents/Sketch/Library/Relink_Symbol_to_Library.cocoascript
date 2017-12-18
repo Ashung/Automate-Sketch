@@ -1,0 +1,108 @@
+
+
+var onRun = function(context) {
+
+    var document = context.document;
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
+    var documentData = document.documentData();
+    var allImportedSymbols = documentData.foreignSymbols();
+    if (allImportedSymbols.count() == 0) {
+        document.showMessage("You have not any imported symbol.");
+        return;
+    }
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    // Dialog
+    // var viewWidth = 550,
+    //     viewHeight = 400,
+    //     padding = 10,
+    //     previewImageSize = 100,
+    //     previewImageHeight = 80;
+    var dialog = NSAlert.alloc().init();
+    dialog.setMessageText("Relink Symbol to Library");
+    dialog.setInformativeText("Relink.");
+    dialog.addButtonWithTitle("Cancel");
+
+    var accessoryView = NSView.alloc().init();
+    accessoryView.setFlipped(true);
+    accessoryView.setFrame(NSMakeRect(0, 0, 550, 400));
+
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 550, 400));
+    scrollView.setHasVerticalScroller(true);
+    scrollView.setBorderType(NSBezelBorder);
+    accessoryView.addSubview(scrollView);
+
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 550, allImportedSymbols.count() * 60 + 10));
+    contentView.setFlipped(true);
+
+    var loopImportedSymbols = allImportedSymbols.objectEnumerator();
+    var importedSymbol;
+    var i = 0;
+    while (importedSymbol = loopImportedSymbols.nextObject()) {
+
+        // List
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 550, 60));
+        itemView.setFlipped(true);
+
+        // Preview image
+        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, 40, 40));
+        var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(importedSymbol.symbolMaster());
+        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            layerAncestry, CGSizeMake(80, 80), NSColorSpace.sRGBColorSpace(), true
+        );
+        imageView.setImage(symbolPreviewImage);
+        itemView.addSubview(imageView);
+
+        // Title
+        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 20, 200, 20));
+        titleView.setStringValue(importedSymbol.symbolMaster().name());
+        titleView.setBezeled(false);
+        titleView.setEditable(false);
+        itemView.addSubview(titleView);
+
+
+        log(importedSymbol.symbolMaster().name());
+        log(importedSymbol.sourceLibraryName());
+
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 550, 1));
+        divider.setWantsLayer(true);
+        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        itemView.addSubview(divider);
+
+        contentView.addSubview(itemView);
+
+        i ++;
+
+
+    }
+
+    scrollView.setDocumentView(contentView);
+
+    dialog.setAccessoryView(accessoryView);
+    dialog.runModal();
+
+    log(allImportedSymbols)
+
+};
+
+function libraryWithID(id) {
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+    var predicate = NSPredicate.predicateWithFormat("libraryID == %@", id);
+    var results = availableLibraries.filteredArrayUsingPredicate(predicate);
+    if (results.count() > 0) {
+        return results.firstObject();
+    } else {
+        return nil;
+    }
+}

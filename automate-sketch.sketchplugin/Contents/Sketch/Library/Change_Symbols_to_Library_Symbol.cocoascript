@@ -4,6 +4,12 @@ var onRun = function(context) {
 
     var document = context.document;
     var documentData = document.documentData();
+
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+    
     var selection = context.selection;
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();

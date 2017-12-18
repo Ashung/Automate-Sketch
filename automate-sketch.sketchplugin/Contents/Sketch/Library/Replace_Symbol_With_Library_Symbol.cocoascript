@@ -4,6 +4,12 @@ var onRun = function(context) {
 
     var document = context.document;
     var documentData = document.documentData();
+
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
     var selection = context.selection;
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
@@ -165,7 +171,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, itemHeight - 20, itemHeight - 20));
         var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(itemHeight - 20, itemHeight - 20), NSColorSpace.sRGBColorSpace(), true
+            layerAncestry, CGSizeMake((itemHeight - 20)*2, (itemHeight - 20)*2), NSColorSpace.sRGBColorSpace(), true
         );
         imageView.setImage(symbolPreviewImage);
         itemView.addSubview(imageView);

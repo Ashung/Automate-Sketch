@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.1.20171212",
+    "version": "48.1.20171218",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -651,6 +651,16 @@
             "name": "Fix Library ID Conflict",
             "identifier": "fix_library_id_conflict",
             "script": "Library/Fix_Library_ID_Conflict.cocoascript"
+        },
+        {
+            "name": "Relink Symbol to Library",
+            "identifier": "relink_symbol_to_library",
+            "script": "Library/Relink_Symbol_to_Library.cocoascript"
+        },
+        {
+            "name": "Auto Slice",
+            "identifier": "auto_slice",
+            "script": "Slice/Auto_Slice.cocoascript"
         }
     ],
     "menu": {
@@ -758,6 +768,8 @@
                     "-",
                     "fix_library_id_conflict",
                     "-",
+                    "relink_symbol_to_library",
+                    "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol"
                 ]
@@ -841,6 +853,8 @@
             {
                 "title": "Slice",
                 "items": [
+                    "auto_slice",
+                    "-",
                     "new_layer_base_slice",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_android_1x",
