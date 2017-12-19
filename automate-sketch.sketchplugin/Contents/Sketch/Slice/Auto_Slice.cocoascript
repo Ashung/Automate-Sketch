@@ -76,6 +76,12 @@ var onRun = function(context) {
 
             var slice = MSSliceLayer.sliceLayerFromLayer(layer);
 
+            var msRect = MSRect.rectWithUnionOfRects([
+                MSRect.alloc().initWithRect(slice.absoluteRect().rect()),
+                MSRect.alloc().initWithRect(layer.absoluteRect().rect())
+            ]);
+            slice.absoluteRect().setRect(msRect.rect());
+
             if (sliceWith > 0) {
                 slice.frame().setWidth(sliceWith);
                 slice.frame().setMidX(midX);

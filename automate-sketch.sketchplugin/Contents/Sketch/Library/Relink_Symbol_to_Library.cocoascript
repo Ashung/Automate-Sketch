@@ -50,9 +50,17 @@ var onRun = function(context) {
     var i = 0;
     while (importedSymbol = loopImportedSymbols.nextObject()) {
 
+        var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+        var sourceLibraryName = importedSymbol.sourceLibraryName();
+
         // List
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 550, 60));
         itemView.setFlipped(true);
+
+        // Library ID
+        var libraryIDView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
+        libraryIDView.setStringValue(importedSymbol.libraryID());
+        itemView.addSubview(libraryIDView);
 
         // Preview image
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, 40, 40));
@@ -64,15 +72,26 @@ var onRun = function(context) {
         itemView.addSubview(imageView);
 
         // Title
-        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 20, 200, 20));
+        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 10, 200, 20));
         titleView.setStringValue(importedSymbol.symbolMaster().name());
         titleView.setBezeled(false);
         titleView.setEditable(false);
         itemView.addSubview(titleView);
 
+        // Library name
+        var libraryNameView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 30, 200, 20));
+        libraryNameView.setStringValue(libraryForSymbol ? libraryForSymbol.name() : sourceLibraryName);
+        libraryNameView.setBezeled(false);
+        libraryNameView.setEditable(false);
+        libraryNameView.setTextColor(NSColor.grayColor());
+        itemView.addSubview(libraryNameView);
 
-        log(importedSymbol.symbolMaster().name());
-        log(importedSymbol.sourceLibraryName());
+
+
+
+
+
+
 
         var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 550, 1));
         divider.setWantsLayer(true);
@@ -80,6 +99,8 @@ var onRun = function(context) {
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);
+
+
 
         i ++;
 
