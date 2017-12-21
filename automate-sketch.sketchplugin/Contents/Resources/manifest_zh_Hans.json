@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.1.20171218",
+    "version": "48.2.20171221",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -661,6 +661,11 @@
             "name": "自动切片",
             "identifier": "auto_slice",
             "script": "Slice/Auto_Slice.cocoascript"
+        },
+        {
+            "name": "Select All Siblings Layers",
+            "identifier": "select_all_siblings_layers",
+            "script": "Layer/Select_All_Siblings_Layers.cocoascript"
         }
     ],
     "menu": {
@@ -724,6 +729,7 @@
                     },
                     "select_layers_by_name",
                     "select_all_child_layers",
+                    "select_all_siblings_layers",
                     "select_parent_groups",
                     "-",
                     "paste_and_replace",
