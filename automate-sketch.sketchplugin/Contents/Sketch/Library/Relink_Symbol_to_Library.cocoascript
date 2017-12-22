@@ -23,11 +23,6 @@ var onRun = function(context) {
     }
 
     // Dialog
-    // var viewWidth = 550,
-    //     viewHeight = 400,
-    //     padding = 10,
-    //     previewImageSize = 100,
-    //     previewImageHeight = 80;
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Relink Symbol to Library");
     dialog.setInformativeText("Relink.");
@@ -35,14 +30,14 @@ var onRun = function(context) {
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, 550, 400));
+    accessoryView.setFrame(NSMakeRect(0, 0, 500, 400));
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 550, 400));
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 500, 400));
     scrollView.setHasVerticalScroller(true);
     scrollView.setBorderType(NSBezelBorder);
     accessoryView.addSubview(scrollView);
 
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 550, allImportedSymbols.count() * 60 + 10));
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, allImportedSymbols.count() * 60 + 10));
     contentView.setFlipped(true);
 
     var loopImportedSymbols = allImportedSymbols.objectEnumerator();
@@ -54,13 +49,22 @@ var onRun = function(context) {
         var sourceLibraryName = importedSymbol.sourceLibraryName();
 
         // List
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 550, 60));
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 500, 60));
         itemView.setFlipped(true);
 
         // Library ID
         var libraryIDView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
         libraryIDView.setStringValue(importedSymbol.libraryID());
         itemView.addSubview(libraryIDView);
+
+        // Tips
+        var tipView = NSTextField.alloc().initWithFrame(NSMakeRect(370, 42, 120, 30));
+        tipView.setStringValue("");
+        tipView.setFont(NSFont.systemFontOfSize(10));
+        tipView.setTextColor(NSColor.redColor());
+        tipView.setBezeled(false);
+        tipView.setEditable(false);
+        itemView.addSubview(tipView);
 
         // Preview image
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, 40, 40));
@@ -72,28 +76,44 @@ var onRun = function(context) {
         itemView.addSubview(imageView);
 
         // Title
-        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 10, 200, 20));
+        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 10, 300, 20));
         titleView.setStringValue(importedSymbol.symbolMaster().name());
         titleView.setBezeled(false);
         titleView.setEditable(false);
         itemView.addSubview(titleView);
 
         // Library name
-        var libraryNameView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 30, 200, 20));
+        var libraryNameView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 30, 300, 20));
         libraryNameView.setStringValue(libraryForSymbol ? libraryForSymbol.name() : sourceLibraryName);
         libraryNameView.setBezeled(false);
         libraryNameView.setEditable(false);
         libraryNameView.setTextColor(NSColor.grayColor());
         itemView.addSubview(libraryNameView);
 
+        if (!libraryForSymbol) {
+            tipView.setStringValue("Library no found.");
+        }
 
+        // Library list
+        var libraryListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(370, 15, 120, 30));
+        if (!libraryForSymbol) {
+            libraryListView.addItemWithTitle("");
+            libraryListView.lastItem().setTitle(sourceLibraryName);
+        }
+        var loopAvailableLibraries = availableLibraries.objectEnumerator();
+        var availableLibrary;
+        while (availableLibrary = loopAvailableLibraries.nextObject()) {
+            libraryListView.addItemWithTitle("");
+            libraryListView.lastItem().setTitle(availableLibrary.name());
+        }
+        itemView.addSubview(libraryListView);
 
+        if (libraryForSymbol) {
+            libraryListView.selectItemAtIndex(availableLibraries.indexOfObject(libraryForSymbol));
+        }
 
-
-
-
-
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 550, 1));
+        // Divider
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 500, 1));
         divider.setWantsLayer(true);
         divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
         itemView.addSubview(divider);
