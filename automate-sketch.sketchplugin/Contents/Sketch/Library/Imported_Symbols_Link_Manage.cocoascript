@@ -1,4 +1,4 @@
-
+@import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
 
@@ -24,9 +24,9 @@ var onRun = function(context) {
 
     // Dialog
     var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Relink Symbol to Library");
-    dialog.setInformativeText("Relink.");
-    dialog.addButtonWithTitle("Cancel");
+    dialog.setMessageText("Imported Symbols Link Manage");
+    dialog.setInformativeText("Link imported symbols to another library, or fix the library not found error.");
+    dialog.addButtonWithTitle("OK");
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
@@ -52,10 +52,10 @@ var onRun = function(context) {
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 500, 60));
         itemView.setFlipped(true);
 
-        // Library ID
-        var libraryIDView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
-        libraryIDView.setStringValue(importedSymbol.libraryID());
-        itemView.addSubview(libraryIDView);
+        // 0: Index allImportedSymbols
+        var indexView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
+        indexView.setStringValue(i);
+        itemView.addSubview(indexView);
 
         // Tips
         var tipView = NSTextField.alloc().initWithFrame(NSMakeRect(370, 42, 120, 30));
@@ -91,7 +91,11 @@ var onRun = function(context) {
         itemView.addSubview(libraryNameView);
 
         if (!libraryForSymbol) {
-            tipView.setStringValue("Library no found.");
+            tipView.setStringValue("Library not found.");
+        } else {
+            if (libraryForSymbol.enabled() == false) {
+                tipView.setStringValue("Library is disabled.");
+            }
         }
 
         // Library list
@@ -99,6 +103,11 @@ var onRun = function(context) {
         if (!libraryForSymbol) {
             libraryListView.addItemWithTitle("");
             libraryListView.lastItem().setTitle(sourceLibraryName);
+        } else {
+            if (libraryForSymbol.enabled() == false) {
+                libraryListView.addItemWithTitle("");
+                libraryListView.lastItem().setTitle(libraryForSymbol.name());
+            }
         }
         var loopAvailableLibraries = availableLibraries.objectEnumerator();
         var availableLibrary;
@@ -109,8 +118,57 @@ var onRun = function(context) {
         itemView.addSubview(libraryListView);
 
         if (libraryForSymbol) {
-            libraryListView.selectItemAtIndex(availableLibraries.indexOfObject(libraryForSymbol));
+            if (libraryForSymbol.enabled()) {
+                libraryListView.selectItemAtIndex(availableLibraries.indexOfObject(libraryForSymbol));
+            }
         }
+
+        // Change the libraryID of MSForeignSymbol
+        libraryListView.setCOSJSTargetFunction(function(sender) {
+
+            var tipView = sender.superview().subviews().objectAtIndex(1);
+            var importedSymbolIndex = parseInt(sender.superview().subviews().objectAtIndex(0).stringValue());
+            var importedSymbol = allImportedSymbols.objectAtIndex(importedSymbolIndex);
+            var originalLibrary = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+            var originalLibraryID = importedSymbol.libraryID();
+            var originalLibraryName = importedSymbol.sourceLibraryName();
+
+            var selectedLibraryIndex  = sender.indexOfSelectedItem();
+            if (sender.numberOfItems() == availableLibraries.count()) {
+                var finalLibrary = availableLibraries.objectAtIndex(selectedLibraryIndex);
+            } else {
+                if (selectedLibraryIndex == 0) {
+                    var finalLibrary = nil;
+                } else {
+                    var finalLibrary = availableLibraries.objectAtIndex(selectedLibraryIndex - 1);
+                }
+            }
+
+            if (finalLibrary) {
+                var finalLibraryID = finalLibrary.libraryID();
+                var finalLibraryName = finalLibrary.name();
+                if (importedSymbol.masterFromLibrary(finalLibrary)) {
+                    tipView.setStringValue("");
+                } else {
+                    tipView.setStringValue("Symbol not found.");
+                }
+
+            } else {
+                var finalLibraryID = originalLibraryID;
+                var finalLibraryName = originalLibraryName;
+                if (!originalLibrary) {
+                    tipView.setStringValue("Library not found.");
+                } else {
+                    if (originalLibrary.enabled() == false) {
+                        tipView.setStringValue("Library is disabled.");
+                    }
+                }
+            }
+
+            importedSymbol.setLibraryID(finalLibraryID);
+            importedSymbol.setSourceLibraryName(finalLibraryName);
+
+        });
 
         // Divider
         var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 500, 1));
@@ -120,10 +178,7 @@ var onRun = function(context) {
 
         contentView.addSubview(itemView);
 
-
-
         i ++;
-
 
     }
 
@@ -132,18 +187,6 @@ var onRun = function(context) {
     dialog.setAccessoryView(accessoryView);
     dialog.runModal();
 
-    log(allImportedSymbols)
+    ga(context, "UA-99098773-3", "Library", context.command.identifier());
 
 };
-
-function libraryWithID(id) {
-    var assetLibraryController = AppController.sharedInstance().librariesController();
-    var availableLibraries = assetLibraryController.availableLibraries();
-    var predicate = NSPredicate.predicateWithFormat("libraryID == %@", id);
-    var results = availableLibraries.filteredArrayUsingPredicate(predicate);
-    if (results.count() > 0) {
-        return results.firstObject();
-    } else {
-        return nil;
-    }
-}

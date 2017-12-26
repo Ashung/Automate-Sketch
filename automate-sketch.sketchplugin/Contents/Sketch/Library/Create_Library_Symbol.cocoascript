@@ -1,0 +1,39 @@
+
+
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
+    if (selection.count() == 0) {
+        document.showMessage("Please select at least one layer.");
+        return;
+    }
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var userLibraries = assetLibraryController.userLibraries();
+    var predicate = NSPredicate.predicateWithFormat("enabled == YES");
+    var userLibraries = userLibraries.filteredArrayUsingPredicate(predicate);
+
+    if (userLibraries.count() == 0) {
+        document.showMessage("You have not any available user library.");
+        return;
+    }
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Create Library Symbol");
+    dialog.setInformativeText("Create a imported symbol from selected layers, and send the symbol master to a library.");
+
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+    dialog.runModal();
+
+};

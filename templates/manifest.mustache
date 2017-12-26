@@ -653,9 +653,9 @@
             "script": "Library/Fix_Library_ID_Conflict.cocoascript"
         },
         {
-            "name": "{{relink_symbol_to_library}}",
-            "identifier": "relink_symbol_to_library",
-            "script": "Library/Relink_Symbol_to_Library.cocoascript"
+            "name": "{{imported_symbols_link_manage}}",
+            "identifier": "imported_symbols_link_manage",
+            "script": "Library/Imported_Symbols_Link_Manage.cocoascript"
         },
         {
             "name": "{{auto_slice}}",
@@ -666,6 +666,23 @@
             "name": "{{select_all_siblings_layers}}",
             "identifier": "select_all_siblings_layers",
             "script": "Layer/Select_All_Siblings_Layers.cocoascript"
+        },
+        {
+            "name": "{{save_export_presets}}",
+            "identifier": "save_export_presets",
+            "handler": "saveExportPresetsToFile",
+            "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "{{load_export_presets}}",
+            "identifier": "load_export_presets",
+            "handler": "loadExportPresetsFromFile",
+            "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "{{create_library_symbol}}",
+            "identifier": "create_library_symbol",
+            "script": "Library/Create_Library_Symbol.cocoascript"
         }
     ],
     "menu": {
@@ -770,14 +787,15 @@
             {
                 "title": "{{library}}",
                 "items": [
-                    "add_library_preview",
+                    "create_library_symbol",
                     "-",
                     "fix_library_id_conflict",
-                    "-",
-                    "relink_symbol_to_library",
+                    "imported_symbols_link_manage",
                     "-",
                     "replace_symbol_with_library_symbol",
-                    "change_symbols_to_library_symbol"
+                    "change_symbols_to_library_symbol",
+                    "-",
+                    "add_library_preview"
                 ]
             },
             {
@@ -868,7 +886,10 @@
                     "new_layer_base_slice_for_svg",
                     "-",
                     "clear_slices",
-                    "clear_exportables"
+                    "clear_exportables",
+                    "-",
+                    "save_export_presets",
+                    "load_export_presets"
                 ]
             },
             {

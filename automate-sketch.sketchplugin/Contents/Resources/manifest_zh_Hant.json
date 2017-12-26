@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.20171222",
+    "version": "48.2.20171226",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -653,9 +653,9 @@
             "script": "Library/Fix_Library_ID_Conflict.cocoascript"
         },
         {
-            "name": "",
-            "identifier": "relink_symbol_to_library",
-            "script": "Library/Relink_Symbol_to_Library.cocoascript"
+            "name": "庫元件連結管理",
+            "identifier": "imported_symbols_link_manage",
+            "script": "Library/Imported_Symbols_Link_Manage.cocoascript"
         },
         {
             "name": "自動切片",
@@ -663,9 +663,26 @@
             "script": "Slice/Auto_Slice.cocoascript"
         },
         {
-            "name": "Select All Siblings Layers",
+            "name": "選擇所有兄弟圖層",
             "identifier": "select_all_siblings_layers",
             "script": "Layer/Select_All_Siblings_Layers.cocoascript"
+        },
+        {
+            "name": "儲存匯出預設",
+            "identifier": "save_export_presets",
+            "handler": "saveExportPresetsToFile",
+            "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "載入匯出預設",
+            "identifier": "load_export_presets",
+            "handler": "loadExportPresetsFromFile",
+            "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "建立庫元件",
+            "identifier": "create_library_symbol",
+            "script": "Library/Create_Library_Symbol.cocoascript"
         }
     ],
     "menu": {
@@ -770,14 +787,15 @@
             {
                 "title": "庫",
                 "items": [
-                    "add_library_preview",
+                    "create_library_symbol",
                     "-",
                     "fix_library_id_conflict",
-                    "-",
-                    "relink_symbol_to_library",
+                    "imported_symbols_link_manage",
                     "-",
                     "replace_symbol_with_library_symbol",
-                    "change_symbols_to_library_symbol"
+                    "change_symbols_to_library_symbol",
+                    "-",
+                    "add_library_preview"
                 ]
             },
             {
@@ -868,7 +886,10 @@
                     "new_layer_base_slice_for_svg",
                     "-",
                     "clear_slices",
-                    "clear_exportables"
+                    "clear_exportables",
+                    "-",
+                    "save_export_presets",
+                    "load_export_presets"
                 ]
             },
             {

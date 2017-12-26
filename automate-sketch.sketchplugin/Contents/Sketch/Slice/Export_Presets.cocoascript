@@ -1,0 +1,113 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var saveExportPresetsToFile = function(context) {
+
+    var exportPresets = MSExportPreset.allExportPresets();
+
+    if (exportPresets.count() == 0) {
+        context.document.showMessage("Have not any export presets.");
+        return;
+    };
+
+    var exportPresetsJSON = [];
+
+    var loopExportPresets = exportPresets.objectEnumerator();
+    var exportPreset;
+    while (exportPreset = loopExportPresets.nextObject()) {
+
+        var formats = [];
+        var loopExportFormats = exportPreset.exportFormats().objectEnumerator();
+        var exportFormat;
+        while (exportFormat = loopExportFormats.nextObject()) {
+            var format = {
+                "absoluteSize": parseFloat(exportFormat.absoluteSize()),
+                "fileFormat": String(exportFormat.fileFormat()),
+                "name": String(exportFormat.name()),
+                "namingScheme": parseInt(exportFormat.namingScheme()),
+                "scale": parseFloat(exportFormat.scale()),
+                "visibleScaleType": parseInt(exportFormat.visibleScaleType())
+            };
+            formats.push(format);
+        }
+
+        var item = {
+            "name": String(exportPreset.name()),
+            "shouldApplyAutomatically": Boolean(exportPreset.shouldApplyAutomatically()),
+            "exportFormats": formats
+        };
+
+        exportPresetsJSON.push(item);
+
+    }
+
+    var panel = NSSavePanel.savePanel();
+    panel.setNameFieldStringValue("sketch_export_presets.json");
+    panel.setCanCreateDirectories(true);
+    if (panel.runModal() == NSOKButton) {
+        var content = NSString.stringWithString(JSON.stringify(exportPresetsJSON, null, 4));
+        var filePath = panel.URL().path();
+        content.writeToFile_atomically_encoding_error(filePath, true, NSUTF8StringEncoding, nil);
+        context.document.showMessage("Export presets save to " + filePath);
+        NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
+    }
+
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+
+};
+
+var loadExportPresetsFromFile = function(context) {
+
+    var exportPresets = MSExportPreset.allExportPresets();
+
+    // Restore defaults export presets
+    if (exportPresets.count() == 0) {
+        exportPresets.addObjectsFromArray(MSPersistentAssetCollection.defaultExportPresets());
+    }
+
+    var panel = NSOpenPanel.openPanel();
+    panel.setCanChooseDirectories(false);
+    panel.setAllowedFileTypes(["json"]);
+    if (panel.runModal() == NSOKButton) {
+        var filePath = panel.URL().path();
+        var content = NSString.stringWithContentsOfFile_encoding_error(filePath, NSUTF8StringEncoding, nil);
+
+        var exportPresetsJSON = JSON.parse(String(content));
+
+        exportPresets.removeAllObjects();
+
+        for (var i = 0; i < exportPresetsJSON.length; i ++) {
+
+            var item = exportPresetsJSON[i];
+
+            var exportFormats = NSMutableArray.alloc().init();
+            for (var j = 0; j < item["exportFormats"].length; j ++) {
+                var format = item["exportFormats"][j];
+                var exportFormat = MSExportFormat.alloc().init();
+                exportFormat.setAbsoluteSize(format["absoluteSize"]);
+                exportFormat.setFileFormat(format["fileFormat"]);
+                exportFormat.setName(format["name"]);
+                exportFormat.setNamingScheme(format["namingScheme"]);
+                exportFormat.setScale(format["scale"]);
+                exportFormat.setVisibleScaleType(format["visibleScaleType"]);
+                exportFormats.addObject(exportFormat);
+            }
+
+            var exportPreset = MSExportPreset.alloc().initWithName_formats(item["name"], exportFormats);
+            exportPreset.setShouldApplyAutomatically(item["shouldApplyAutomatically"]);
+            exportPresets.addObject(exportPreset);
+
+        }
+
+        // Refresh data
+        var panelController = MSPreferencesController.sharedController();
+        panelController.switchToPaneWithIdentifier(MSExportPresetsPreferencePane.identifier());
+        panelController.currentPreferencePane().tableView().reloadData();
+        panelController.window().close();
+
+        context.document.showMessage("Export presets have loaded.");
+
+    }
+
+    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+
+};
