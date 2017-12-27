@@ -5,6 +5,11 @@ var onRun = function(context) {
     var doc = context.document;
     var selection = context.selection;
 
+    if (MSApplicationMetadata.metadata().appVersion >= 48) {
+        doc.showMessage("😥 Sorry, this feature can‘t running in Sketch 48+.");
+        return;
+    }
+
     if (selection.count() == 1 && selection.firstObject().class() == "MSTextLayer") {
 
         var textLayer = selection.firstObject();

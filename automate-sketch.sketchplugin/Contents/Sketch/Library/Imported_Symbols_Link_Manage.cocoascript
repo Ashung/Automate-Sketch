@@ -133,7 +133,7 @@ var onRun = function(context) {
             var originalLibraryID = importedSymbol.libraryID();
             var originalLibraryName = importedSymbol.sourceLibraryName();
 
-            var selectedLibraryIndex  = sender.indexOfSelectedItem();
+            var selectedLibraryIndex = sender.indexOfSelectedItem();
             if (sender.numberOfItems() == availableLibraries.count()) {
                 var finalLibrary = availableLibraries.objectAtIndex(selectedLibraryIndex);
             } else {
