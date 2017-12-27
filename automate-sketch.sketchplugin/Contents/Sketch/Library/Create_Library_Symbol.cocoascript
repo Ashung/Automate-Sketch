@@ -85,7 +85,8 @@ var onRun = function(context) {
         setPreferences(context, "libraryIndexForCreateSymbol", libraryListView.indexOfSelectedItem());
 
         var selectedLibrary = userLibraries.objectAtIndex(libraryListView.indexOfSelectedItem());
-        // var selectedPage = selectedLibrary.document().pages().objectAtIndex(pageListView.indexOfSelectedItem());
+        var selectedLibraryPath = selectedLibrary.locationOnDisk().path();
+        var libraryFileURL = NSURL.fileURLWithPath(selectedLibraryPath);
 
         // log(selectedLibrary.name());
         // log(selectedPage.name())
@@ -96,49 +97,67 @@ var onRun = function(context) {
             var symbolName = symbolNameView.stringValue();
             var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
             var symbolMaster = symbolInstance.symbolMaster();
-            symbolMaster.setRect(symbolInstance.absoluteRect().rect());
+            // symbolMaster.setRect(symbolInstance.absoluteRect().rect());
             symbolMaster.setLayerListExpandedType(1);
             symbolInstance.removeFromParent();
-            // symbolMaster.setRect(symbolInstance.absoluteRect().rect());
-            // symbolMaster.setLayerListExpandedType(1);
+
         } else {
             document.showMessage("😮 Can't create symbol from selected layer.");
             return;
         }
 
-
-        try {
-            var libraryDocumentClone = MSDocument.alloc().init();
-            var libraryFileURL = NSURL.fileURLWithPath(selectedLibrary.locationOnDisk().path());
-            libraryDocumentClone.readFromURL_ofType_error(libraryFileURL, "com.bohemiancoding.sketch.drawing", nil);
-
-            var targetPage = libraryDocumentClone.documentData().pages().objectAtIndex(pageListView.indexOfSelectedItem());
-            var originForSymbolMaster = targetPage.originForNewArtboard();
-
-            // !
-            // targetPage.addLayers([symbolMaster]);
-            // symbolMaster.removeFromParent();
-
-            //
-            // var symbolMasterInLibrary = libraryDocumentClone.documentData().symbolWithID(symbolMaster.symbolID());
-            // symbolMasterInLibrary.frame().setX(originForSymbolMaster.x);
-            // symbolMasterInLibrary.frame().setY(originForSymbolMaster.y);
-            //
-            // libraryDocumentClone.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
-            //     libraryFileURL, "com.bohemiancoding.sketch.drawing", NSSaveOperation, nil, nil
-            // );
-
-            //
-
-
-        } catch (error) {
-            document.showMessage("😮 Can't open the library file.");
-            return;
+        // Library file is opened
+        var openedSelectedLibrary = findDocumentFromOpenedDocuments_withPath(selectedLibraryPath);
+        if (openedSelectedLibrary) {
+            var libraryDocument = openedSelectedLibrary;
+        } else {
+            try {
+                var libraryDocument = MSDocument.alloc().init();
+                libraryDocument.readFromURL_ofType_error(libraryFileURL, "com.bohemiancoding.sketch.drawing", nil);
+            } catch (error) {
+                document.showMessage("😮 Can't open the library file.");
+                return;
+            }
         }
+
+        // Add symbol master to library
+        var targetPage = libraryDocument.pages().objectAtIndex(pageListView.indexOfSelectedItem());
+        var originForSymbolMaster = targetPage.originForNewArtboard();
+
+        targetPage.addLayer(symbolMaster);
+        document.currentPage().removeLayer(symbolMaster);
+
+        var symbolMasterInLibrary = libraryDocument.documentData().symbolWithID(symbolMaster.symbolID());
+        symbolMasterInLibrary.frame().setX(originForSymbolMaster.x);
+        symbolMasterInLibrary.frame().setY(originForSymbolMaster.y);
+
+        // Save
+        if (!openedSelectedLibrary) {
+            libraryDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
+                libraryFileURL, "com.bohemiancoding.sketch.drawing", NSSaveOperation, nil, nil
+            );
+            libraryDocument.close();
+        }
+
+
 
     }
 
 };
+
+function findDocumentFromOpenedDocuments_withPath(path) {
+    var documents = NSDocumentController.sharedDocumentController().documents();
+    var loopDocuments = documents.objectEnumerator();
+    var document;
+    while (document = loopDocuments.nextObject()) {
+        if (document.fileURL()) {
+            if (document.fileURL().path() == path) {
+                return document;
+            }
+        }
+    }
+    return null;
+}
 
 function reloadPagesInLibrary_toPopUpButton(library, button) {
 
