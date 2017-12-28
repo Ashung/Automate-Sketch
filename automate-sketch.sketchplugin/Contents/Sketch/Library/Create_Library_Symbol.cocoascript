@@ -88,32 +88,32 @@ var onRun = function(context) {
         var selectedLibraryPath = selectedLibrary.locationOnDisk().path();
         var libraryFileURL = NSURL.fileURLWithPath(selectedLibraryPath);
 
-        // log(selectedLibrary.name());
-        // log(selectedPage.name())
-
         // Convert selected layer to symbol master
         var layers = MSLayerArray.arrayWithLayers(selection);
         if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
             var symbolName = symbolNameView.stringValue();
             var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
             var symbolMaster = symbolInstance.symbolMaster();
-            // symbolMaster.setRect(symbolInstance.absoluteRect().rect());
             symbolMaster.setLayerListExpandedType(1);
             symbolInstance.removeFromParent();
-
         } else {
             document.showMessage("😮 Can't create symbol from selected layer.");
             return;
         }
 
-        // Library file is opened
-        var openedSelectedLibrary = findDocumentFromOpenedDocuments_withPath(selectedLibraryPath);
+        // TODO: get nested symbol master
+
+        
+
+        // Library file is opened or not
+        var documentController = NSDocumentController.sharedDocumentController();
+        var openedSelectedLibrary = documentController.documentForURL(libraryFileURL);
         if (openedSelectedLibrary) {
             var libraryDocument = openedSelectedLibrary;
         } else {
             try {
                 var libraryDocument = MSDocument.alloc().init();
-                libraryDocument.readFromURL_ofType_error(libraryFileURL, "com.bohemiancoding.sketch.drawing", nil);
+                libraryDocument.readDocumentFromURL_ofType_error(libraryFileURL, "com.bohemiancoding.sketch.drawing", nil);
             } catch (error) {
                 document.showMessage("😮 Can't open the library file.");
                 return;
@@ -132,7 +132,9 @@ var onRun = function(context) {
         symbolMasterInLibrary.frame().setY(originForSymbolMaster.y);
 
         // Save
-        if (!openedSelectedLibrary) {
+        if (openedSelectedLibrary) {
+            libraryDocument.saveDocument(nil);
+        } else {
             libraryDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
                 libraryFileURL, "com.bohemiancoding.sketch.drawing", NSSaveOperation, nil, nil
             );
@@ -145,19 +147,6 @@ var onRun = function(context) {
 
 };
 
-function findDocumentFromOpenedDocuments_withPath(path) {
-    var documents = NSDocumentController.sharedDocumentController().documents();
-    var loopDocuments = documents.objectEnumerator();
-    var document;
-    while (document = loopDocuments.nextObject()) {
-        if (document.fileURL()) {
-            if (document.fileURL().path() == path) {
-                return document;
-            }
-        }
-    }
-    return null;
-}
 
 function reloadPagesInLibrary_toPopUpButton(library, button) {
 

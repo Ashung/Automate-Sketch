@@ -194,19 +194,34 @@ function librariesWithConflictID() {
 }
 
 function changeDocumentID(documentPath) {
-    var newDocument = MSDocument.alloc().init();
-    var fileURL = NSURL.fileURLWithPath(documentPath);
-    var type = "com.bohemiancoding.sketch.drawing";
-    newDocument.readFromURL_ofType_error(fileURL, type, nil);
     var newID = NSUUID.UUID().UUIDString();
-    newDocument.documentData().setObjectID(newID);
-    // Hack
-    newDocument.addBlankPage();
-    newDocument.removePage(newDocument.pages().lastObject());
-    var writeToNewDocument = newDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(fileURL, type, NSSaveOperation, nil, nil);
-    if (writeToNewDocument) {
+    var documentController = NSDocumentController.sharedDocumentController();
+    var fileURL = NSURL.fileURLWithPath(documentPath);
+
+    // If document is opened
+    var document = documentController.documentForURL(fileURL);
+    if (document) {
+        document.documentData().setObjectID(newID);
+        document.saveDocument(nil);
         return newID;
     } else {
-        return nil;
+        var document = MSDocument.alloc().init();
+        var type = "com.bohemiancoding.sketch.drawing";
+        document.readFromURL_ofType_error(fileURL, type, nil);
+        document.documentData().setObjectID(newID);
+
+        // Hack
+        document.addBlankPage();
+        document.removePage(document.pages().lastObject());
+
+        var writeToNewDocument = document.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
+            fileURL, type, NSSaveOperation, nil, nil
+        );
+
+        if (writeToNewDocument) {
+            return newID;
+        } else {
+            return nil;
+        }
     }
 }
