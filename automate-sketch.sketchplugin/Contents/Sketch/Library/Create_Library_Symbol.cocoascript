@@ -16,10 +16,7 @@ var onRun = function(context) {
         return;
     }
 
-    var assetLibraryController = AppController.sharedInstance().librariesController();
-    var userLibraries = assetLibraryController.userLibraries();
-    var predicate = NSPredicate.predicateWithFormat("enabled == YES");
-    var userLibraries = userLibraries.filteredArrayUsingPredicate(predicate);
+    var userLibraries = getUserLibraries();
 
     if (userLibraries.count() == 0) {
         document.showMessage("You have not any available user library.");
@@ -33,7 +30,7 @@ var onRun = function(context) {
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, 300, 80));
+    accessoryView.setFrame(NSMakeRect(0, 0, 300, 340));
     dialog.setAccessoryView(accessoryView);
 
     // Symbol name
@@ -73,7 +70,7 @@ var onRun = function(context) {
     accessoryView.addSubview(view);
 
     // Nested symbol
-    var view2 = NSView.alloc().initWithFrame(NSMakeRect(0, 85, 300, 0));
+    var view2 = NSView.alloc().initWithFrame(NSMakeRect(0, 85, 300, 250));
     view2.setFlipped(true);
     accessoryView.addSubview(view2);
 
@@ -106,11 +103,11 @@ var onRun = function(context) {
         var selectedLibrary = userLibraries.objectAtIndex(libraryListView.indexOfSelectedItem());
         var selectedLibraryPath = selectedLibrary.locationOnDisk().path();
         var libraryFileURL = NSURL.fileURLWithPath(selectedLibraryPath);
-        return;
+
         // Convert selected layer to symbol master
         var layers = MSLayerArray.arrayWithLayers(selection);
         if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
-            var symbolName = "xxx"; //symbolNameView.stringValue();
+            var symbolName = symbolNameView.stringValue();
             var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
             var symbolMaster = symbolInstance.symbolMaster();
             symbolMaster.setLayerListExpandedType(1);
@@ -135,8 +132,63 @@ var onRun = function(context) {
             }
         }
 
-        // Add symbol master to library
+        // Add nested symbols without conflict
         var targetPage = libraryDocument.pages().objectAtIndex(pageListView.indexOfSelectedItem());
+
+        var loopNestedSymbolMasters = nestedSymbolMasters.objectEnumerator();
+        var nestedSymbolMaster;
+        while (nestedSymbolMaster = loopNestedSymbolMasters.nextObject()) {
+            if (nestedSymbolMaster.isForeign()) {
+                var symbolLayer = nestedSymbolMaster.foreignSymbol().originalMaster();
+            } else {
+                var symbolLayer = nestedSymbolMaster;
+            }
+            var symbolID = symbolLayer.symbolID();
+            var symbolInLibrary = selectedLibrary.document().symbolWithID(symbolID);
+            if (!symbolInLibrary) {
+                var originForNestedSymbolMaster = targetPage.originForNewArtboard();
+                targetPage.addLayer(symbolLayer);
+                var nestedSymbolMasterInLibrary = libraryDocument.documentData().symbolWithID(symbolID);
+                nestedSymbolMasterInLibrary.frame().setX(originForNestedSymbolMaster.x);
+                nestedSymbolMasterInLibrary.frame().setY(originForNestedSymbolMaster.y);
+            }
+        }
+
+        // Add conflict symbols
+        var conflictSymbols = getConflictSymbols_inLibrary(nestedSymbolMasters, selectedLibrary);
+        var conflictSymbolContentViews = view2.subviews().objectAtIndex(1).documentView().subviews();
+        var loopConflictSymbols = conflictSymbols.objectEnumerator();
+        var conflictSymbol;
+        var i = 0;
+        while (conflictSymbol = loopConflictSymbols.nextObject()) {
+            var actionForConflictSymbol = conflictSymbolContentViews.objectAtIndex(i).subviews().objectAtIndex(3).indexOfSelectedItem();
+
+            // 0: Ignore
+            // 1: Replace
+            if (actionForConflictSymbol == 1) {
+                if (conflictSymbol.isForeign()) {
+                    var symbolLayer = conflictSymbol.foreignSymbol().originalMaster();
+                } else {
+                    var symbolLayer = conflictSymbol;
+                }
+                var symbolID = symbolLayer.symbolID();
+                var oldSymbol = libraryDocument.documentData().symbolWithID(symbolID);
+                var originalName = oldSymbol.name();
+                var originalFrame = oldSymbol.frame();
+                oldSymbol.removeFromParent();
+                targetPage.addLayer(symbolLayer);
+                var newSymbol = libraryDocument.documentData().symbolWithID(symbolID);
+                newSymbol.setName(originalName);
+                newSymbol.setFrame(originalFrame);
+            }
+
+            // 2: Duplicate
+
+
+            i ++;
+        }
+
+        // Add symbol master to library
         var originForSymbolMaster = targetPage.originForNewArtboard();
 
         targetPage.addLayer(symbolMaster);
@@ -147,11 +199,12 @@ var onRun = function(context) {
         symbolMasterInLibrary.frame().setY(originForSymbolMaster.y);
 
 
-
+        // TODO:
+        // layer.changeInstanceToSymbol(layer.symbolMaster().foreignSymbol().originalMaster())
 
         // Save
         if (openedSelectedLibrary) {
-            libraryDocument.saveDocument(nil);
+            // openedSelectedLibrary.saveDocument(nil);
         } else {
             libraryDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
                 libraryFileURL, "com.bohemiancoding.sketch.drawing", NSSaveOperation, nil, nil
@@ -168,119 +221,82 @@ var onRun = function(context) {
 
 function loadConflictNestedSymbol(dialog, view, symbols, library) {
 
-    var window = dialog.window();
-    var accessoryView = dialog.accessoryView();
-
     view.setSubviews([]);
 
-    if (symbols.count() > 0) {
+    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    labelView.setStringValue("Conflict Nested Symbols (" + symbols.count() + "):");
 
-        log(window.contentView().frame())
+    labelView.setTextColor(NSColor.blackColor());
+    labelView.setBezeled(false);
+    labelView.setDrawsBackground(false);
+    labelView.setEditable(false);
+    labelView.setSelectable(false);
+    view.addSubview(labelView);
 
-        // log(window.contentRectForFrameRect(window.frame()))
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 20, 300, 230));
+    scrollView.setHasVerticalScroller(true);
+    scrollView.setBorderType(NSBezelBorder);
+    view.addSubview(scrollView);
 
-        window.setFrame_display_animate(
-            NSMakeRect(
-                window.frame().origin.x,
-                window.frame().origin.y,
-                window.frame().size.width,
-                501
-            ),
-            "YES", "YES"
+    var itemSize = 60;
+
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, symbols.count() * itemSize + 10));
+    contentView.setFlipped(true);
+    scrollView.setDocumentView(contentView);
+
+    var loopNestedSymbols = symbols.objectEnumerator();
+    var symbol;
+    var i = 0;
+    while (symbol = loopNestedSymbols.nextObject()) {
+
+        // List
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize * i, 300, itemSize));
+        itemView.setFlipped(true);
+
+        // Preview image
+        var imageSize = itemSize;
+        var imageViewLeft = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageSize, imageSize));
+        var symbolPreviewImageLeft = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol),
+            CGSizeMake(imageSize, imageSize),
+            NSColorSpace.sRGBColorSpace(),
+            true
         );
+        imageViewLeft.setImage(symbolPreviewImageLeft);
+        itemView.addSubview(imageViewLeft);
 
-        accessoryView.setFrame(NSMakeRect(0, 0, 300, 340));
-        view.setFrameSize(NSMakeSize(300, 250));
+        var symbolID = symbol.isForeign() ? symbol.foreignSymbol().originalMaster().symbolID() : symbol.symbolID();
+        var symbolInLibrary = library.document().symbolWithID(symbolID);
 
-        // log(window.frame())
-
-        var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-        labelView.setStringValue("Conflict Nested Symbols (" + symbols.count() + "):");
-
-        labelView.setTextColor(NSColor.blackColor());
-        labelView.setBezeled(false);
-        labelView.setDrawsBackground(false);
-        labelView.setEditable(false);
-        labelView.setSelectable(false);
-        view.addSubview(labelView);
-
-        var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 20, 300, 230));
-        scrollView.setHasVerticalScroller(true);
-        scrollView.setBorderType(NSBezelBorder);
-        view.addSubview(scrollView);
-
-        var itemSize = 60;
-
-        var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, symbols.count() * itemSize + 10));
-        contentView.setFlipped(true);
-        scrollView.setDocumentView(contentView);
-
-        var loopNestedSymbols = symbols.objectEnumerator();
-        var symbol;
-        var i = 0;
-        while (symbol = loopNestedSymbols.nextObject()) {
-
-            // List
-            var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize * i, 300, itemSize));
-            itemView.setFlipped(true);
-
-            // Preview image
-            var imageSize = itemSize;
-            var imageViewLeft = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageSize, imageSize));
-            var symbolPreviewImageLeft = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol),
-                CGSizeMake(imageSize, imageSize),
-                NSColorSpace.sRGBColorSpace(),
-                true
-            );
-            imageViewLeft.setImage(symbolPreviewImageLeft);
-            itemView.addSubview(imageViewLeft);
-
-
-            var symbolID = symbol.isForeign() ? symbol.foreignSymbol().originalMaster().symbolID() : symbol.symbolID();
-            var symbolInLibrary = library.document().symbolWithID(symbolID);
-
-            var imageViewRight = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 48, 0, imageSize, imageSize));
-            var symbolPreviewImageRight = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                MSImmutableLayerAncestry.alloc().initWithMSLayer(symbolInLibrary),
-                CGSizeMake(imageSize, imageSize),
-                NSColorSpace.sRGBColorSpace(),
-                true
-            );
-            imageViewRight.setImage(symbolPreviewImageRight);
-            itemView.addSubview(imageViewRight);
-
-            var iconFile = NSURL.fileURLWithPath("/Applications/Sketch.app/Contents/Resources/prefs_go.tiff").path();
-            var icon = NSImage.alloc().initWithContentsOfFile(iconFile);
-            var arrowIconView = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 12, (itemSize - 24) / 2, 24, 24));
-            arrowIconView.setImage(icon);
-            itemView.addSubview(arrowIconView);
-
-            // Divider line
-            var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize - 1, 300, 1));
-            divider.setWantsLayer(true);
-            divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
-            itemView.addSubview(divider);
-
-            contentView.addSubview(itemView);
-
-            i ++;
-
-        }
-
-    } else {
-
-        window.setFrame_display_animate(
-            NSMakeRect(
-                window.frame().origin.x,
-                window.frame().origin.y,
-                window.frame().size.width,
-                241
-            ),
-            "YES", "YES"
+        var imageViewRight = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 48, 0, imageSize, imageSize));
+        var symbolPreviewImageRight = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            MSImmutableLayerAncestry.alloc().initWithMSLayer(symbolInLibrary),
+            CGSizeMake(imageSize, imageSize),
+            NSColorSpace.sRGBColorSpace(),
+            true
         );
+        imageViewRight.setImage(symbolPreviewImageRight);
+        itemView.addSubview(imageViewRight);
 
-        accessoryView.setFrame(NSMakeRect(0, 0, 300, 80));
+        var iconFile = NSURL.fileURLWithPath("/Applications/Sketch.app/Contents/Resources/prefs_go.tiff").path();
+        var icon = NSImage.alloc().initWithContentsOfFile(iconFile);
+        var arrowIconView = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 12, (itemSize - 24) / 2, 24, 24));
+        arrowIconView.setImage(icon);
+        itemView.addSubview(arrowIconView);
+
+        var actionView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(180, 15, 100, 30));
+        actionView.addItemsWithTitles(["Ignore", "Replace", "Duplicate"]);
+        itemView.addSubview(actionView);
+
+        // Divider line
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize - 1, 300, 1));
+        divider.setWantsLayer(true);
+        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        itemView.addSubview(divider);
+
+        contentView.addSubview(itemView);
+
+        i ++;
 
     }
 }
@@ -344,7 +360,6 @@ function getAllNestedSymbolMasters_inSelection(context) {
     return allNestedSymbolMasters;
 }
 
-
 function reloadPagesInLibrary_toPopUpButton(library, button) {
 
     button.removeAllItems();
@@ -374,4 +389,24 @@ function addTextLabelToView_withRect(text, view, rect) {
     textView.setDrawsBackground(false);
     view.addSubview(textView);
     return textView;
+}
+
+function getUserLibraries() {
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var userLibraries = assetLibraryController.userLibraries();
+    var userLibrariesCopy = userLibraries.mutableCopy();
+    var loopUserLibraries = userLibraries.objectEnumerator();
+    var userLibrary;
+    while (userLibrary = loopUserLibraries.nextObject()) {
+        if (userLibrary.enabled() == false) {
+            userLibrariesCopy.removeObject(userLibrary);
+        }
+
+        var libraryPath = userLibrary.locationOnDisk().path();
+        var regexBundle = new RegExp("^" + NSBundle.mainBundle().bundlePath().replace(/(\/)/g, "\\/"), "gi");
+        if (regexBundle.test(libraryPath)) {
+            userLibrariesCopy.removeObject(userLibrary);
+        }
+    }
+    return userLibrariesCopy;
 }

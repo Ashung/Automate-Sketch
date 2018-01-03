@@ -61,6 +61,12 @@ var onRun = function(context) {
         fullPathView.setStringValue(libraryPath);
         itemView.addSubview(fullPathView);
 
+        var libraryInAppBundle = false;
+        var regexBundle = new RegExp("^" + NSBundle.mainBundle().bundlePath().replace(/(\/)/g, "\\/"), "gi");
+        if (regexBundle.test(libraryPath)) {
+            libraryInAppBundle = true;
+        }
+
         // Preview image
         var imageView = NSView.alloc().initWithFrame(NSMakeRect(padding, padding, previewImageWidth, previewImageHeight));
         imageView.setWantsLayer(true);
@@ -74,6 +80,29 @@ var onRun = function(context) {
         imageSrc.setImage(image);
         imageView.addSubview(imageSrc);
         itemView.addSubview(imageView);
+
+        // Open button
+        var openButtonView = NSButton.alloc().initWithFrame(NSMakeRect(padding, padding, previewImageWidth, previewImageHeight));
+        openButtonView.setButtonType(NSMomentaryChangeButton);
+        openButtonView.setBezelStyle(nil);
+        openButtonView.setBordered("NO");
+        openButtonView.setTitle("");
+
+        if (library.libraryType() == 1 && !libraryInAppBundle) {
+            openButtonView.setCOSJSTargetFunction(function(sender) {
+                var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
+                var targetLibraryURL = NSURL.fileURLWithPath(targetLibraryPath);
+                NSApp.stopModal();
+                var welcomeWindow = MSWelcomeWindowController.alloc().init();
+                welcomeWindow.openDocumentAtURL(targetLibraryURL);
+            });
+        } else {
+            openButtonView.setCOSJSTargetFunction(function(sender) {
+                context.document.showMessage("You can't edit this file.");
+            });
+        }
+
+        itemView.addSubview(openButtonView);
 
         // Title
         var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 20, viewWidth - previewImageWidth - 100 + padding * 3, 20));
@@ -101,31 +130,27 @@ var onRun = function(context) {
         itemView.addSubview(idView);
 
         // Library URL
-        var locationView = NSButton.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, 100, 20));
-        locationView.setButtonType(NSMomentaryChangeButton);
-        locationView.setBezelStyle(nil);
-        locationView.setBordered("NO");
-        locationView.setAlphaValue(0.4);
-        if (library.libraryType() == 0) {
-            locationView.setTitle("Internal Library");
+        var locationView = NSTextField.alloc().initWithFrame(NSMakeRect(previewImageWidth + padding * 2, 60, 100, 20));
+        locationView.setTextColor(NSColor.grayColor());
+        locationView.setBezeled(false);
+        locationView.setDrawsBackground(false);
+        locationView.setEditable(false);
+        locationView.setSelectable(false);
+        if (library.libraryType() == 0 || libraryInAppBundle) {
+            locationView.setStringValue("Internal Library");
         }
-        if (library.libraryType() == 1) {
+        if (library.libraryType() == 1 && !libraryInAppBundle) {
             var libraryDir = libraryPath.stringByDeletingLastPathComponent();
-            var regex = new RegExp("^" + NSHomeDirectory().replace(/(\/)/g, "\\/"), "gi");
-            libraryDir = libraryDir.replace(regex, "~")
-            locationView.setTitle(libraryDir);
-
-            locationView.setCOSJSTargetFunction(function(sender) {
-                var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
-                NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(targetLibraryPath, nil);
-            });
+            var regexHome = new RegExp("^" + NSHomeDirectory().replace(/(\/)/g, "\\/"), "gi");
+            libraryDir = libraryDir.replace(regexHome, "~")
+            locationView.setStringValue(libraryDir);
         }
         locationView.sizeToFit();
         itemView.addSubview(locationView);
 
         // Button
-        if (library.libraryType() == 1) {
-            var changeButton = NSButton.alloc().initWithFrame(NSMakeRect(viewWidth - 100, 35, 90, 30));
+        if (library.libraryType() == 1 && !libraryInAppBundle) {
+            var changeButton = NSButton.alloc().initWithFrame(NSMakeRect(viewWidth - 110, 35, 90, 30));
             changeButton.setBezelStyle(NSRoundedBezelStyle);
             changeButton.setTitle("Change ID");
             changeButton.setCOSJSTargetFunction(function(sender) {
