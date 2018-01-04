@@ -1,4 +1,10 @@
 -
+  version: 48.2.20180104
+  description: |-
+      <ul><li>Add Fix Library ID Conflict.</li><li>Add Imported Symbols Link Manage.</li><li>Add new Remove Unused Symbols for Sketch 48.</li><li>Add Auto Slice.</li><li>Add Select All Siblings Layers.</li><li>Add Save/Load Export Presets.</li><li>Change Select Layers By Name.</li><li>Fix Include Layers bugs.</li></ul>
+  commitID: 49eda844dde1892096f2c35e083f2595fca0a750
+
+-
   version: 48.1.20171211
   description: |-
       <ul><li>Fix Paste & replace broken in Sketch v48.</li></ul>
