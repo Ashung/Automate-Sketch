@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.1.20171211",
+    "version": "48.2.20180104",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -296,13 +296,13 @@
         },
         {
             "name": "匯出所有畫板",
-            "identifier": "export_all_artboars",
-            "script": "Artboard/Export_All_Artboars.cocoascript"
+            "identifier": "export_all_artboards",
+            "script": "Artboard/Export_All_Artboards.cocoascript"
         },
         {
             "name": "將所有畫板匯出為 HTML",
-            "identifier": "export_all_artboars_to_html",
-            "script": "Artboard/Export_All_Artboars_to_HTML.cocoascript"
+            "identifier": "export_all_artboards_to_html",
+            "script": "Artboard/Export_All_Artboards_to_HTML.cocoascript"
         },
         {
             "name": "調整畫板以適配高度",
@@ -342,6 +342,11 @@
         {
             "name": "刪除未用元件",
             "identifier": "remove_unused_symbols",
+            "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
+        },
+        {
+            "name": "刪除未用元件 (舊版相容)",
+            "identifier": "remove_unused_symbols_old",
             "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
@@ -643,9 +648,36 @@
             "script": "Style/Remove_Unused_Styles.cocoascript"
         },
         {
-            "name": "",
+            "name": "解決庫 ID 衝突",
             "identifier": "fix_library_id_conflict",
             "script": "Library/Fix_Library_ID_Conflict.cocoascript"
+        },
+        {
+            "name": "庫元件連結管理",
+            "identifier": "imported_symbols_link_manage",
+            "script": "Library/Imported_Symbols_Link_Manage.cocoascript"
+        },
+        {
+            "name": "自動切片",
+            "identifier": "auto_slice",
+            "script": "Slice/Auto_Slice.cocoascript"
+        },
+        {
+            "name": "選擇所有兄弟圖層",
+            "identifier": "select_all_siblings_layers",
+            "script": "Layer/Select_All_Siblings_Layers.cocoascript"
+        },
+        {
+            "name": "儲存匯出預設",
+            "identifier": "save_export_presets",
+            "handler": "saveExportPresetsToFile",
+            "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "載入匯出預設",
+            "identifier": "load_export_presets",
+            "handler": "loadExportPresetsFromFile",
+            "script": "Slice/Export_Presets.cocoascript"
         }
     ],
     "menu": {
@@ -709,6 +741,7 @@
                     },
                     "select_layers_by_name",
                     "select_all_child_layers",
+                    "select_all_siblings_layers",
                     "select_parent_groups",
                     "-",
                     "paste_and_replace",
@@ -738,6 +771,7 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
+                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",
@@ -748,10 +782,13 @@
             {
                 "title": "庫",
                 "items": [
-                    "add_library_preview",
+                    "fix_library_id_conflict",
+                    "imported_symbols_link_manage",
                     "-",
                     "replace_symbol_with_library_symbol",
-                    "change_symbols_to_library_symbol"
+                    "change_symbols_to_library_symbol",
+                    "-",
+                    "add_library_preview"
                 ]
             },
             {
@@ -765,8 +802,8 @@
                     "-",
                     "move_artboards_to_bottom_of_another",
                     "-",
-                    "export_all_artboars",
-                    "export_all_artboars_to_html"
+                    "export_all_artboards",
+                    "export_all_artboards_to_html"
                 ]
             },
             {
@@ -833,6 +870,8 @@
             {
                 "title": "切片",
                 "items": [
+                    "auto_slice",
+                    "-",
                     "new_layer_base_slice",
                     "new_layer_base_slice_for_ios_1x",
                     "new_layer_base_slice_for_android_1x",
@@ -840,7 +879,10 @@
                     "new_layer_base_slice_for_svg",
                     "-",
                     "clear_slices",
-                    "clear_exportables"
+                    "clear_exportables",
+                    "-",
+                    "save_export_presets",
+                    "load_export_presets"
                 ]
             },
             {

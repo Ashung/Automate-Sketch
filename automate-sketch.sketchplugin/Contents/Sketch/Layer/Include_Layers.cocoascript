@@ -26,10 +26,10 @@ var createIncludeLayer = function(context) {
     if (target && source) {
 
         // Copy layer in source to target
-        var targetGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers([target]))
+        var targetGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers([target]));
         targetGroup.setName("@include(" + source.objectID() + ")");
-        targetGroup.setIsLocked(true);
-        copyLayersFromSourceGroup_toTargetGroup(context, source, targetGroup);
+        // targetGroup.setIsLocked(true);
+        copyLayersFromSourceGroup_toTargetGroup(source, targetGroup);
         target.removeFromParent();
 
     } else {
@@ -47,9 +47,9 @@ var syncIncludeLayers = function(context) {
     var loopChildren = page.children().objectEnumerator();
     var layer;
     while (layer = loopChildren.nextObject()) {
-        if (layer.class() == "MSLayerGroup" && /@include\([A-F0-9\-]{36}\)/.test(layer.name())) {
+        if (layer.class() == "MSLayerGroup" && /^@include\([A-F0-9\-]{36}\)$/.test(layer.name())) {
             layer.removeAllLayers();
-            var sourceGroupID = /@include\(([A-F0-9\-]{36})\)/.exec(layer.name())[1];
+            var sourceGroupID = /^@include\(([A-F0-9\-]{36})\)$/.exec(layer.name())[1];
             var sourceGroup = doc.documentData().layerWithID(sourceGroupID);
             copyLayersFromSourceGroup_toTargetGroup(sourceGroup, layer);
         }
@@ -61,18 +61,21 @@ var syncIncludeLayers = function(context) {
 
 function copyLayersFromSourceGroup_toTargetGroup(sourceGroup, targetGroup) {
 
-    var loopSourceLayer = sourceGroup.layers().objectEnumerator();
+    var loopSourceLayers = sourceGroup.layers().objectEnumerator();
     var layer;
-    while (layer = loopSourceLayer.nextObject()) {
+    while (layer = loopSourceLayers.nextObject()) {
         layer.copyToLayer_beforeLayer(targetGroup, nil);
     }
     targetGroup.resizeToFitChildrenWithOption(1);
 
-    // Fix Sketch 45
-    if (MSApplicationMetadata.metadata().appVersion < 45) {
-        targetGroup.select_byExpandingSelection(true, true);
-    } else {
-        targetGroup.select_byExtendingSelection(true, true);
+    var loopTargetGroupLayers = targetGroup.layers().objectEnumerator();
+    var targetGroupLayer;
+    while (targetGroupLayer = loopTargetGroupLayers.nextObject()) {
+        if (MSApplicationMetadata.metadata().appVersion < 45) {
+            targetGroupLayer.select_byExpandingSelection(false, false);
+        } else {
+            targetGroupLayer.select_byExtendingSelection(false, false);
+        }
     }
 
 }

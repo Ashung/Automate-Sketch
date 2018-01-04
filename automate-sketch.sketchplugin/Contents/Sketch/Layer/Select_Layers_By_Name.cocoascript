@@ -19,32 +19,53 @@ var onRun = function(context) {
     ];
 
     var defaultUserInputString = getPreferences(context, "selectLayersByName") || "";
+    var selectLayersByNameRegExp = getPreferences(context, "selectLayersByNameRegExp") == 1 ? NSOnState : NSOffState;
+    var selectLayersType = getPreferences(context, "selectLayersType") || 0;
 
     // Dialog
-    var dialog = COSAlertWindow.new();
+    var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Select Layer by Name.");
-    dialog.setInformativeText("Tips: String like \"123\" or RegExp like \"\\d+\".")
+    dialog.setInformativeText("Tips: String like \"123\" or Regex like \"\\d+\".")
 
-    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    view.setFlipped(true);
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 200, 24));
     textField.setStringValue(defaultUserInputString);
-    dialog.addAccessoryView(textField);
+    view.addSubview(textField);
 
-    var checkboxRegExp = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    var checkboxRegExp = NSButton.alloc().initWithFrame(NSMakeRect(210, 0, 90, 24));
     checkboxRegExp.setButtonType(NSSwitchButton);
-    checkboxRegExp.setTitle("Use RegExp.");
-    checkboxRegExp.setState(getPreferences(context, "selectLayersByNameRegExp") == 1 ? NSOnState : NSOffState);
-    dialog.addAccessoryView(checkboxRegExp);
+    checkboxRegExp.setTitle("Use Regex");
+    checkboxRegExp.setState(selectLayersByNameRegExp);
+    view.addSubview(checkboxRegExp);
 
-    dialog.addTextLabelWithValue("Type:");
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    dialog.addAccessoryView(view);
+
+    var view2 = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    view2.setFlipped(true);
+    var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 110, 24));
+    titleView.setStringValue("Filter Layer Type:");
+    titleView.setFont(NSFont.systemFontOfSize(12));
+    titleView.setTextColor(NSColor.blackColor());
+    titleView.setBezeled(false);
+    titleView.setDrawsBackground(false);
+    titleView.setEditable(false);
+    titleView.setSelectable(false);
+    view2.addSubview(titleView);
+
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(110, 0, 120, 24));
     selectBox.addItemsWithTitles(layerTypes);
-    dialog.addAccessoryView(selectBox);
+    selectBox.selectItemAtIndex(selectLayersType);
+    view2.addSubview(selectBox);
+
+    dialog.addAccessoryView(view2);
 
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
-    var responseCode = dialog.runModal();
+    dialog.alert().window().setInitialFirstResponder(textField);
 
+    var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
         if (checkboxRegExp.state() == 1) {
@@ -53,18 +74,22 @@ var onRun = function(context) {
             setPreferences(context, "selectLayersByNameRegExp", false);
         }
 
+        var filterType = selectBox.indexOfSelectedItem();
+        setPreferences(context, "selectLayersType", filterType);
+
         var userInputString = textField.stringValue();
-        if (userInputString) {
-
-            setPreferences(context, "selectLayersByName", userInputString);
-
-            var filterType = selectBox.indexOfSelectedItem();
+        if (userInputString != "") {
 
             if (checkboxRegExp.state() == 1) {
                 selectLayerByNameWithSelection(context, page, selection, userInputString, true, filterType);
             } else {
                 selectLayerByNameWithSelection(context, page, selection, userInputString, false, filterType);
             }
+
+            setPreferences(context, "selectLayersByName", userInputString);
+
+        } else {
+            doc.showMessage("Input layer name.");
         }
     }
 

@@ -26,6 +26,7 @@
 | Select All Layers In Selection By Type   | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。         |
 | Select All Layers In Selection By Name   | 根据图层名选择。                                 |
 | Select All Child Layers                  | 选择所有子图层。                                 |
+| Select All Siblings Layers               | 选择所有兄弟图层。                                |
 | Select Parent Groups                     | 选择所有父级图层。                                |
 | Paste and Replace                        | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Clear Layer Name                         | 清理图层名，删除图层名后的 copy。                      |
@@ -42,7 +43,7 @@
 | Reverse Layer Order                      | 反转图层列表中的位置。                              |
 | **Type**                                 | **文本**                                   |
 | Capitalize                               | 首字大写。                                    |
-| Change Baseline offset                   | 调整选中文本的基线偏移。                             |
+| Change Baseline offset                   | 调整选中文本的基线偏移。（暂时在 48+ 版本不可用）              |
 | Change Text Orientation                  | 更改文本书写方向，竖排或横排。                          |
 | Change Typeface for Latin Character      | 更改文本图层中西文的字体。                            |
 | Add Space Between CJK and Latin Character | 文本图层中西文间增加空格。                            |
@@ -51,10 +52,12 @@
 | Resize to Fit Text Height                | 自适应文本高度。                                 |
 | Unfixed Layer Name                       | 取消文本图层的固定图层名，让文本的图层名跟随内容。                |
 | **Slice**                                | **切片**                                   |
+| Auto Slice                               | 基于图层新建切片，并自动添加切片预设。                      |
 | New Layer Base Slice                     | 基于图层新建切片。                                |
 | New Layer Base Slice for ...             | 同上, 带 iOS、Android 和 Web 预设。              |
 | Remove All Slices                        | 清除所有切片。                                  |
 | Clear All Exportables                    | 清除全部 Exportables 设置。                     |
+| Save/Load Export Presets                 | 导出和导入切片预设，用于不同用户或电脑之间预设共享。               |
 | **Artboard**                             | **画板**                                   |
 | Artboard Form Selection                  | 从选择对象新建画板。                               |
 | Artboard Form Group                      | 从组新建画板。                                  |
@@ -71,14 +74,17 @@
 | Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例改为自定义名、组件名或组件完整名。    |
 | Selection to Symbol Master               | 将选中图层在原位置直接变为组件。                         |
 | Detach Unused Symbol Master              | 将未使用的组件模版转为组。                            |
-| Remove Unused Symbols                    | 删除未使用组件。                                 |
+| Remove Unused Symbols (Legacy)           | 删除未使用组件。                                 |
+| Remove Unused Symbols                    | 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
 | Export All Symbols As PNG                | 按照 "页面/组件" 规则，将所有组件导出为 PNG。              |
 | Sync Symbol Master from Sketch File      | 根据 Symbol ID，从 Sketch 文件同步组件。            |
 | Replace Pages from Sketch File           | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
 | **Library**                              | **库**                                    |
-| Add Library Preview                      | 增加一个画板用于库的预览图。                           |
+| Fix Library ID Conflict                  | 解决库 ID 冲突问题，库中存在同 ID 的文件，会导致同 ID 的库影响组件的更新。 |
+| Imported Symbols Link Manage             | 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。       |
 | Replace Symbol With Library Symbol       | 将选中组件替换为任意的库组件。                          |
 | Change symbols to Library Symbol Base Symbol ID | 根据组件 ID，将选中或全部组件转为库组件。                   |
+| Add Library Preview                      | 增加一个画板用于库的预览图。                           |
 | **Styles**                               | **样式**                                   |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color            | 从 CSS 色彩代码添加填充。                          |

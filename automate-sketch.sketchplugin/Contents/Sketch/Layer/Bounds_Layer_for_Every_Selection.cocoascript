@@ -16,8 +16,6 @@ var onRun = function(context) {
 
         if (userInputString) {
 
-            log(userInputString)
-
             if (!/^\d+$/.test(userInputString) && !/^\d+x\d+$/.test(userInputString)) {
                 doc.showMessage("Bad input format.");
                 return;

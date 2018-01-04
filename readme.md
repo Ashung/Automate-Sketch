@@ -28,6 +28,7 @@ Make your workflow more efficient.
 | Select All Layers In Selection By Type   | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
 | Select All Layers In Selection By Name   | Select all layers match by layer name.   |
 | Select All Child Layers                  | Select all sub-layers.                   |
+| Select All Siblings Layers               | Select all siblings layers.              |
 | Select Parent Groups                     | Select parent groups.                    |
 | Paste and Replace                        | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Clear Layer Name                         | Clears the layer name and removes the "copy" after the layer name. |
@@ -53,10 +54,12 @@ Make your workflow more efficient.
 | Resize to Fit Text Height                | Resize text layer to fit text field height. |
 | Unfixed Layer Name                       | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                |                                          |
+| Auto Slice                               | Create a slice based on layer with export preset. |
 | New Layer Base Slice                     | Create a new slice based on a layer.     |
 | New Layer Base Slice for ...             | Create a new slice based on a layer,  iOS, Android and Web presets. |
 | Remove All Slices                        | Clear all slices.                        |
 | Clear All Exportables                    | Clear all Exportable settings.           |
+| Save/Load Export Presets                 | Save and load export presets.            |
 | **Artboard**                             |                                          |
 | Artboard Form Selection                  | Create a new artboard from the selection object. |
 | Artboard Form Group                      | Create a new artboard from group.        |
@@ -73,14 +76,17 @@ Make your workflow more efficient.
 | Custom Instances Name                    | Change all instances of the selected page of the current page, artboard, or document to a custom name, symbol name, or symbol full name. |
 | Selection to Symbol Master               | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master              | Converts unused symbol templates to groups. |
-| Remove Unused Symbols                    | Remove unused symbols.                   |
+| Remove Unused Symbols (Legacy)           | Remove unused symbols.                   |
+| Remove Unused Symbols                    | For Sketch 48+, with symbol preview.     |
 | Export all Symbols As PNG                | Export all symbols as PNG according to the "Page / symbol" rule. |
 | Sync Symbol Master from Sketch File      | Synchronize symbols from Sketch files base on symbol ID. |
 | Replace Pages from Sketch File           | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
 | **Library**                              |                                          |
-| Add Library Preview                      | Add a artboard for library preview image. |
+| Fix Library ID Conflict                  | Fix library file with same document ID.  |
+| Imported Symbols Link Manage             | Link imported symbols to another library, or fix the library not found error. |
 | Replace Symbol With Library Symbol       | Replace symbol with any library symbol.  |
 | Change symbols to Library Symbol Base Symbol ID | Change the selected/all symbols to library symbol base on symbol ID. |
+| Add Library Preview                      | Add a artboard for library preview image. |
 | **Styles**                               |                                          |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color            | Fill from CSS color code.                |

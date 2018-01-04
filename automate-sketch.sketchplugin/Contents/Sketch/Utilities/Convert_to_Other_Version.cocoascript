@@ -98,6 +98,13 @@ var onRun = function(context) {
         //     "compatibilityVersion": "93",
         //     "commit":"5b9531439a15a8e8d2e29be292655447768783db"
         // },
+        // {
+        //     "appVersion": "48.2",
+        //     "build": "47327",
+        //     "version": "97",
+        //     "compatibilityVersion": "93",
+        //     "commit":"b8111e3393c4ca1f2399ecfdfc1e9488029ebe7b"
+        // },
     ];
 
     var versions = sketchMetaDatas.map(function(item) {
