@@ -120,7 +120,7 @@ Make your workflow more efficient.
 | Nudge Distance Setting                   | Setting to move layers with the arrow keys (also supported in latest version of Sketch) |
 | Convert Sketch File to Other Version     | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
 
-**[Feature Qequest](https://github.com/Ashung/Automate-Sketch/issues/new)**
+**[Feature Request](https://github.com/Ashung/Automate-Sketch/issues/new)**
 
 ## License
 
