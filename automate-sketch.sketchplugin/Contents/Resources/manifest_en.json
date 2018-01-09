@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.20180104",
+    "version": "48.2.20180109",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -238,36 +238,6 @@
             "name": "Replace Fonts",
             "identifier": "replace_fonts",
             "script": "Type/Replace_Fonts.cocoascript"
-        },
-        {
-            "name": "New Layer Base Slice",
-            "identifier": "new_layer_base_slice",
-            "handler": "new_slice_for_normal",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "New Layer Base Slice for iOS (1x to all)",
-            "identifier": "new_layer_base_slice_for_ios_1x",
-            "handler": "new_slice_for_ios_1x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "New Layer Base Slice for Android (MDPI to all)",
-            "identifier": "new_layer_base_slice_for_android_1x",
-            "handler": "new_slice_for_android_1x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "New Layer Base Slice for Web (1x to noraml and retina)",
-            "identifier": "new_slice_base_slice_for_web",
-            "handler": "new_slice_for_web",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "New Layer Base Slice for Web (SVG)",
-            "identifier": "new_layer_base_slice_for_svg",
-            "handler": "new_slice_for_svg",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
             "name": "Remove All Slices",
@@ -878,12 +848,6 @@
                 "title": "Slice",
                 "items": [
                     "auto_slice",
-                    "-",
-                    "new_layer_base_slice",
-                    "new_layer_base_slice_for_ios_1x",
-                    "new_layer_base_slice_for_android_1x",
-                    "new_slice_base_slice_for_web",
-                    "new_layer_base_slice_for_svg",
                     "-",
                     "clear_slices",
                     "clear_exportables",

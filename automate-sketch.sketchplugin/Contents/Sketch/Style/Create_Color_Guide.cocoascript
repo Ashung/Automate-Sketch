@@ -4,142 +4,162 @@
 var onRun = function(context) {
 
     var document = context.document;
-    var page = document.currentPage();
-
     var documentColors = document.documentData().assets().colors();
+    if (documentColors.count() == 0) {
+        document.showMessage("No any document color in current document.");
+        return;
+    }
 
-    if (documentColors.count() > 0) {
+    var colorFormats = [
+        "HEX, #FFFFFF (alpha:100%)",
+        "RGB, r:255 g:255 b:255 (a:100%)",
+        "CSS RGB, rgb(255, 255, 255)",
+        "CSS RGBA, rgba(255, 255, 255, 1)",
+        "CSS HSL, hsl(360, 100%, 100%)",
+        "CSS HSLA, hsla(360, 100%, 100%, 1)",
+        "Android, #FFFFFFFF",
+        "iOS/macOS, red:1 green:1 blue:1 alpha:1"
+    ];
 
-        var colorFormats = [
-            "HEX, #FFFFFF (alpha:100%)",
-            "RGB, r:255 g:255 b:255 (a:100%)",
-            "CSS RGB, rgb(255, 255, 255)",
-            "CSS RGBA, rgba(255, 255, 255, 1)",
-            "CSS HSL, hsl(360, 100%, 100%)",
-            "CSS HSLA, hsla(360, 100%, 100%, 1)",
-            "Android, #FFFFFFFF",
-            "iOS/macOS, red:1 green:1 blue:1 alpha:1"
-        ];
+    // Dialog
+    var dialog = COSAlertWindow.new();
+    dialog.setMessageText("Create Color Guide");
+    dialog.setInformativeText("Create color guide from document colors.")
 
-        // Dialog
-        var dialog = COSAlertWindow.new();
-        dialog.setMessageText("Create Color Guide");
-        dialog.setInformativeText("Create color guide from document colors.")
+    dialog.addTextLabelWithValue("Palette Size:");
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(getPreferences(context, "paletteSize") || "");
+    textField.setPlaceholderString("Input the format like \"100\" or \"100x50\"");
+    dialog.addAccessoryView(textField);
 
-        dialog.addTextLabelWithValue("Palette Size:");
-        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue(getPreferences(context, "paletteSize") || "");
-        textField.setPlaceholderString("Input the format like \"100\" or \"100x50\"");
-        dialog.addAccessoryView(textField);
+    dialog.addTextLabelWithValue("Color Format:");
+    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    selectBox.addItemsWithObjectValues(colorFormats);
+    selectBox.selectItemAtIndex(parseInt(getPreferences(context, "colorFormat")) || 0);
+    dialog.addAccessoryView(selectBox);
 
-        dialog.addTextLabelWithValue("Color Format:");
-        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-        selectBox.addItemsWithObjectValues(colorFormats);
-        selectBox.selectItemAtIndex(parseInt(getPreferences(context, "colorFormat")) || 0);
-        dialog.addAccessoryView(selectBox);
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
 
-        dialog.addButtonWithTitle("OK");
-        dialog.addButtonWithTitle("Cancel");
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
 
-        var responseCode = dialog.runModal();
-        if (responseCode == 1000) {
+        var page = document.currentPage();
 
-            var palettePositionX = page.originForNewArtboard().x,
-                palettePositionY = page.originForNewArtboard().y,
-                paletteWidth = 200,
-                paletteHeight = 100,
-                spaceBetweenPalettes = 24,
-                spaceBetweenPaletteAndText = 8,
-                textHeight = 16,
-                textFontSize = 14,
-                textColor = MSColor.colorWithRed_green_blue_alpha(51/255, 51/255, 51/255, 1),
-                textFontName = "Monaco";
+        var palettePositionX = page.originForNewArtboard().x,
+            palettePositionY = page.originForNewArtboard().y,
+            paletteWidth = 200,
+            paletteHeight = 100,
+            spaceBetweenPalettes = 24,
+            spaceBetweenPaletteAndText = 8,
+            textHeight = 16,
+            textFontSize = 14,
+            textColor = MSColor.colorWithRed_green_blue_alpha(51/255, 51/255, 51/255, 1),
+            textFontName = "Monaco";
 
-            var userInputString = textField.stringValue();
-            if (/^\d+$/.test(userInputString)) {
-                paletteWidth = paletteHeight = parseInt(userInputString);
+        var userInputString = textField.stringValue();
+        if (/^\d+$/.test(userInputString)) {
+            paletteWidth = paletteHeight = parseInt(userInputString);
+        }
+        if (/^\d+x\d+$/i.test(userInputString)) {
+            var paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
+            var paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
+        }
+        setPreferences(context, "paletteSize", userInputString.toString());
+
+        var colorFormatIndex = selectBox.indexOfSelectedItem();
+        setPreferences(context, "colorFormat", colorFormatIndex);
+
+        var paletteGroupLayers = [];
+
+        var loopDocumentColors = documentColors.objectEnumerator();
+        var color;
+        while (color = loopDocumentColors.nextObject()) {
+
+            // Add layer group
+            var paletteGroup = MSLayerGroup.alloc().init();
+            paletteGroup.setName("color");
+            paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
+            page.addLayer(paletteGroup);
+
+            palettePositionX = palettePositionX + paletteWidth + spaceBetweenPalettes;
+
+            // Add palette layer
+            var rectangle = MSRectangleShape.alloc().init();
+            rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
+            var palette = MSShapeGroup.shapeWithPath(rectangle);
+            palette.style().addStylePartOfType(0);
+            palette.style().fills().firstObject().setColor(color);
+            palette.setName("color");
+            paletteGroup.addLayer(palette);
+
+            // Add text layer
+            var text = MSTextLayer.alloc().init();
+            text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+            var stringValue;
+            switch (colorFormatIndex) {
+                case 0:
+                    stringValue = MSColorToHEX(color);
+                    break;
+                case 1:
+                    stringValue = MSColorToRGB(color);
+                    break;
+                case 2:
+                    stringValue = MSColorToCSSRGB(color);
+                    break;
+                case 3:
+                    stringValue = MSColorToCSSRGBA(color);
+                    break;
+                case 4:
+                    stringValue = MSColorToCSSHSL(color);
+                    break;
+                case 5:
+                    stringValue = MSColorToCSSHSLA(color);
+                    break;
+                case 6:
+                    stringValue = MSColorToAndroid(color);
+                    break;
+                case 7:
+                    stringValue = MSColorToNSColor(color);
+                    break;
+                default:
+                    stringValue = MSColorToHEX(color);
             }
-            if (/^\d+x\d+$/i.test(userInputString)) {
-                var paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
-                var paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
-            }
-            setPreferences(context, "paletteSize", userInputString.toString());
+            text.setStringValue(stringValue);
+            text.setLineHeight(textHeight);
+            text.setFontPostscriptName(textFontName);
+            text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
+            text.setFontSize(textFontSize);
+            text.setName("label");
+            paletteGroup.insertLayer_beforeLayer(text, palette);
 
-            var colorFormatIndex = selectBox.indexOfSelectedItem();
-            setPreferences(context, "colorFormat", colorFormatIndex);
-
-            var loopDocumentColors = documentColors.objectEnumerator();
-            var color;
-            while (color = loopDocumentColors.nextObject()) {
-
-                // Add layer group
-                var paletteGroup = MSLayerGroup.alloc().init();
-                paletteGroup.setName("color");
-                paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
-                page.addLayers([paletteGroup]);
-
-                palettePositionX = palettePositionX + paletteWidth + spaceBetweenPalettes;
-
-                // Add palette layer
-                var rectangle = MSRectangleShape.alloc().init();
-                rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
-                var palette = MSShapeGroup.shapeWithPath(rectangle);
-                palette.style().addStylePartOfType(0);
-                palette.style().fills().firstObject().setColor(color);
-                palette.setName("color");
-                paletteGroup.addLayers([palette]);
-
-                // Add text layer
-                var text = MSTextLayer.alloc().init();
-                text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
-                var stringValue;
-                switch (colorFormatIndex) {
-                    case 0:
-                        stringValue = MSColorToHEX(color);
-                        break;
-                    case 1:
-                        stringValue = MSColorToRGB(color);
-                        break;
-                    case 2:
-                        stringValue = MSColorToCSSRGB(color);
-                        break;
-                    case 3:
-                        stringValue = MSColorToCSSRGBA(color);
-                        break;
-                    case 4:
-                        stringValue = MSColorToCSSHSL(color);
-                        break;
-                    case 5:
-                        stringValue = MSColorToCSSHSLA(color);
-                        break;
-                    case 6:
-                        stringValue = MSColorToAndroid(color);
-                        break;
-                    case 7:
-                        stringValue = MSColorToNSColor(color);
-                        break;
-                    default:
-                        stringValue = MSColorToHEX(color);
-                }
-                text.setStringValue(stringValue);
-                text.setLineHeight(textHeight);
-                text.setFontPostscriptName(textFontName);
-                text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
-                text.setFontSize(textFontSize);
-                text.setName("label");
-                paletteGroup.insertLayers_beforeLayer([text], palette);
-
-            }
+            paletteGroupLayers.push(paletteGroup);
 
         }
 
-    } else {
-        document.showMessage("No any document color in current document.");
+        centerRect_byLayers(document, paletteGroupLayers);
+
     }
 
     ga(context, "UA-99098773-3", "Style", context.command.identifier());
 
 };
+
+function centerRect_byLayers(document, layers) {
+
+    var rects = layers.map(function(item) {
+        return MSRect.alloc().initWithRect(item.absoluteRect().rect());
+    });
+    var rect = MSRect.rectWithUnionOfRects(rects).rect();
+
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    if (appVersion >= 48) {
+        document.contentDrawView().centerRect_animated(rect, true);
+    } else {
+        document.currentView().centerRect_animated(rect, true);
+    }
+
+}
 
 function MSColorToHEX(mscolor) {
     var alpha = mscolor.alpha() < 1 ? " (alpha:" + Math.round(mscolor.alpha() * 100) + "%)" : "";

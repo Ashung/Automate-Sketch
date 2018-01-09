@@ -5,7 +5,7 @@ var onRun = function(context) {
     var doc = context.document;
     var documentData = doc.documentData();
 
-    if (doc.artboards().count() == 0) {
+    if (documentData.allArtboards().count() == 0) {
         doc.showMessage("Document have no any artboard.");
         return;
     }
