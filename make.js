@@ -6,6 +6,8 @@ var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
 var buildDateString = getDateString();
 var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
+var features = 0;
+
 for (var i = 0; i < supportLanguages.length; i++) {
     var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
         language.version = buildDateString;
@@ -17,12 +19,15 @@ for (var i = 0; i < supportLanguages.length; i++) {
             if (supportLanguages[i] == "en") {
                 fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
             }
+            features = JSON.parse(manifest)["commands"].length;
         }
     } catch (e) {
         console.error(e);
     }
 
 }
+
+console.log("Features: " + features);
 
 function getDateString() {
     var y = new Date().getFullYear(),
