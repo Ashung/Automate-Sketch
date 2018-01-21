@@ -3,6 +3,7 @@
 var onRun = function(context) {
 
     var document = context.document;
+    var currentPage = document.currentPage();
     var selection = context.selection;
 
     if (selection.count() == 0) {
@@ -16,9 +17,38 @@ var onRun = function(context) {
         return;
     }
 
-    log(symbolMasters);
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Move Symbol Masters To Another Page");
+    dialog.setInformativeText("Move selected symbol masters to anthoer page.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
 
-    
+    dialog.addTextLabelWithValue("Choose Page:");
+
+    var pageList = document.pages().mutableCopy();
+    pageList.removeObject(currentPage);
+
+    var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    pageListView.addItemWithTitle("New Blank Page");
+    var loopPageList = pageList.objectEnumerator();
+    var page;
+    while (page = loopPageList.nextObject()) {
+        pageListView.addItemWithTitle("");
+        pageListView.lastItem().setTitle(page.name());
+    }
+    dialog.addAccessoryView(pageListView);
+
+    pageListView.setCOSJSTargetFunction(function(sender) {
+        if (sender.indexOfSelectedItem() > 0) {
+            document.setCurrentPage(pageList.objectAtIndex(sender.indexOfSelectedItem() - 1));
+        }
+    });
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+    }
 
 
 
