@@ -30,7 +30,7 @@ var onRun = function(context) {
     var pageList = document.pages().mutableCopy();
     pageList.removeObject(originalPage);
 
-    var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 30));
     pageListView.addItemWithTitle("New Blank Page");
     var loopPageList = pageList.objectEnumerator();
     var page;
@@ -40,14 +40,9 @@ var onRun = function(context) {
     }
     dialog.addAccessoryView(pageListView);
 
-    // pageListView.setCOSJSTargetFunction(function(sender) {
-    //     if (sender.indexOfSelectedItem() > 0) {
-    //         document.setCurrentPage(pageList.objectAtIndex(sender.indexOfSelectedItem() - 1));
-    //     }
-    // });
-
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
+
         if (pageListView.indexOfSelectedItem() == 0) {
             var targetPage = document.addBlankPage();
             document.setCurrentPage(originalPage);
@@ -65,28 +60,23 @@ var onRun = function(context) {
             targetPage.addLayer(symbolMaster);
             originalPage.removeLayer(symbolMaster);
 
-            document.setCurrentPage(targetPage);
-
-            log(symbolMaster.parentPage())
-//
-//             var symbolMasterInTargetPage = symbolMaster.parentPage().layerWithID(symbolMaster.objectID());
-//
-// log(symbolMasterInTargetPage)
-//
             symbolMaster.frame().setX(positionX);
             symbolMaster.frame().setY(positionY);
 
-
-
         }
 
-        // var rects = symbolMasters.map(function(item) {
-        //     return MSRect.alloc().initWithRect(item.absoluteRect().rect());
-        // });
-        // var rect = MSRect.rectWithUnionOfRects(rects).rect();
-        // document.contentDrawView().centerRect_animated(rect, true);
+        document.setCurrentPage(targetPage);
+
+        // Center layers
+        var rects = symbolMasters.slice().map(function(item) {
+            return MSRect.alloc().initWithRect(item.absoluteRect().rect());
+        });
+        var rect = MSRect.rectWithUnionOfRects(rects).rect();
+        document.contentDrawView().centerRect_animated(rect, true);
 
     }
+
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
 
 };
 
