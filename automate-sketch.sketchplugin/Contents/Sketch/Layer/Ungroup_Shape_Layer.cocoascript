@@ -12,12 +12,7 @@ var onRun = function(context) {
         var layer;
         while (layer = loopSelection.nextObject()) {
             if (layer.class() == "MSShapeGroup") {
-                var childLayersCount = layer.layers().count();
-                for (var i = 1; i < childLayersCount; i++) {
-                    var newLayer = layer.duplicate();
-                    removeChildLayersOfLayer_ExceptChildAtIndex(newLayer, childLayersCount - i);
-                }
-                removeChildLayersOfLayer_ExceptChildAtIndex(layer, 0);
+                layer.splitPathsIntoShapes();
             }
         }
 
@@ -27,15 +22,4 @@ var onRun = function(context) {
 
     ga(context, "UA-99098773-3", "Layer", context.command.identifier());
 
-}
-
-function removeChildLayersOfLayer_ExceptChildAtIndex(layer, childIndex) {
-    var name = layer.layers().objectAtIndex(childIndex).name();
-    layer.layers().objectAtIndex(childIndex).moveToLayer_beforeLayer(layer, layer.layers().objectAtIndex(0));
-    while(layer.layers().count() > 1) {
-        var child = layer.layers().lastObject();
-        child.removeFromParent();
-    }
-    layer.setName(name);
-    layer.resizeToFitChildrenWithOption(1);
 }

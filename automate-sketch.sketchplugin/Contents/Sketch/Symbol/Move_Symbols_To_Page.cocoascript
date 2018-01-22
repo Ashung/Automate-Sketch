@@ -3,8 +3,9 @@
 var onRun = function(context) {
 
     var document = context.document;
-    var currentPage = document.currentPage();
     var selection = context.selection;
+
+    var originalPage = document.currentPage();
 
     if (selection.count() == 0) {
         document.showMessage("Please select at least one symbol master.");
@@ -27,7 +28,7 @@ var onRun = function(context) {
     dialog.addTextLabelWithValue("Choose Page:");
 
     var pageList = document.pages().mutableCopy();
-    pageList.removeObject(currentPage);
+    pageList.removeObject(originalPage);
 
     var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
     pageListView.addItemWithTitle("New Blank Page");
@@ -39,19 +40,53 @@ var onRun = function(context) {
     }
     dialog.addAccessoryView(pageListView);
 
-    pageListView.setCOSJSTargetFunction(function(sender) {
-        if (sender.indexOfSelectedItem() > 0) {
-            document.setCurrentPage(pageList.objectAtIndex(sender.indexOfSelectedItem() - 1));
-        }
-    });
+    // pageListView.setCOSJSTargetFunction(function(sender) {
+    //     if (sender.indexOfSelectedItem() > 0) {
+    //         document.setCurrentPage(pageList.objectAtIndex(sender.indexOfSelectedItem() - 1));
+    //     }
+    // });
 
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
+        if (pageListView.indexOfSelectedItem() == 0) {
+            var targetPage = document.addBlankPage();
+            document.setCurrentPage(originalPage);
+        } else {
+            var targetPage = pageList.objectAtIndex(pageListView.indexOfSelectedItem() - 1);
+        }
+
+        var loopSymbolMasters = symbolMasters.objectEnumerator();
+        var symbolMaster;
+        while (symbolMaster = loopSymbolMasters.nextObject()) {
+
+            var positionX = targetPage.originForNewArtboard().x;
+            var positionY = targetPage.originForNewArtboard().y;
+
+            targetPage.addLayer(symbolMaster);
+            originalPage.removeLayer(symbolMaster);
+
+            document.setCurrentPage(targetPage);
+
+            log(symbolMaster.parentPage())
+//
+//             var symbolMasterInTargetPage = symbolMaster.parentPage().layerWithID(symbolMaster.objectID());
+//
+// log(symbolMasterInTargetPage)
+//
+            symbolMaster.frame().setX(positionX);
+            symbolMaster.frame().setY(positionY);
+
+
+
+        }
+
+        // var rects = symbolMasters.map(function(item) {
+        //     return MSRect.alloc().initWithRect(item.absoluteRect().rect());
+        // });
+        // var rect = MSRect.rectWithUnionOfRects(rects).rect();
+        // document.contentDrawView().centerRect_animated(rect, true);
 
     }
-
-
-
 
 };
 
