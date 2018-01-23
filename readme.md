@@ -55,8 +55,6 @@ Make your workflow more efficient.
 | Unfixed Layer Name                       | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                |                                          |
 | Auto Slice                               | Create a slice based on layer with export preset. |
-| New Layer Base Slice                     | Create a new slice based on a layer.     |
-| New Layer Base Slice for ...             | Create a new slice based on a layer,  iOS, Android and Web presets. |
 | Remove All Slices                        | Clear all slices.                        |
 | Clear All Exportables                    | Clear all Exportable settings.           |
 | Save/Load Export Presets                 | Save and load export presets.            |
@@ -74,6 +72,7 @@ Make your workflow more efficient.
 | Select All Instances of Imported symbol  | Select all instances of imported symbol (library symbol). |
 | Rename Instances                         | Reset the instance name to the component (symbol master) full name. |
 | Custom Instances Name                    | Change all instances of the selected page of the current page, artboard, or document to a custom name, symbol name, or symbol full name. |
+| Move Symbol Masters To Another Page      | Move selected symbol masters to anthoer page. |
 | Selection to Symbol Master               | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master              | Converts unused symbol templates to groups. |
 | Remove Unused Symbols (Legacy)           | Remove unused symbols.                   |

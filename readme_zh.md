@@ -53,8 +53,6 @@
 | Unfixed Layer Name                       | 取消文本图层的固定图层名，让文本的图层名跟随内容。                |
 | **Slice**                                | **切片**                                   |
 | Auto Slice                               | 基于图层新建切片，并自动添加切片预设。                      |
-| New Layer Base Slice                     | 基于图层新建切片。                                |
-| New Layer Base Slice for ...             | 同上, 带 iOS、Android 和 Web 预设。              |
 | Remove All Slices                        | 清除所有切片。                                  |
 | Clear All Exportables                    | 清除全部 Exportables 设置。                     |
 | Save/Load Export Presets                 | 导出和导入切片预设，用于不同用户或电脑之间预设共享。               |
@@ -72,6 +70,7 @@
 | Select All Instances of Imported symbol  | 选择导入组件（库组件）的实例。                          |
 | Rename Instances                         | 重置实例名称为组件完整名。                            |
 | Custom Instances Name                    | 将当前页、画板或文档的选中元件的所有实例改为自定义名、组件名或组件完整名。    |
+| Move Symbol Masters To Another Page      | 将选中组件模版移动至其他页面。                          |
 | Selection to Symbol Master               | 将选中图层在原位置直接变为组件。                         |
 | Detach Unused Symbol Master              | 将未使用的组件模版转为组。                            |
 | Remove Unused Symbols (Legacy)           | 删除未使用组件。                                 |
