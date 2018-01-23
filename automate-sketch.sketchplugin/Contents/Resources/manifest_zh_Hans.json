@@ -762,8 +762,6 @@
             {
                 "title": "库",
                 "items": [
-                    "create_library_symbol",
-                    "-",
                     "fix_library_id_conflict",
                     "imported_symbols_link_manage",
                     "-",

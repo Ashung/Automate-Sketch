@@ -47,20 +47,7 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        var sliceWith = 0,
-            sliceHeight = 0;
-
         var userInputString = textField.stringValue();
-        if (/^\d+$/.test(userInputString)) {
-            sliceWith = parseInt(userInputString);
-            sliceHeight = parseInt(userInputString);
-        } else if (/^\d+x\d+$/.test(userInputString)) {
-            sliceWith = parseInt(userInputString.match(/\d+/g)[0]);
-            sliceHeight = parseInt(userInputString.match(/\d+/g)[1]);
-        } else {
-            document.showMessage("Bad format.");
-            return;
-        }
         setPreferences(context, "sliceSize", userInputString);
 
         var exportPresetIndex = selectBox.indexOfSelectedItem();
@@ -71,8 +58,24 @@ var onRun = function(context) {
         var layer;
         while (layer = loopSelection.nextObject()) {
 
-            var midX = Math.round(layer.frame().midX()),
-                midY = Math.round(layer.frame().midY());
+            var sliceWith = 0,
+                sliceHeight = 0;
+
+            if (/^\d+$/.test(userInputString)) {
+                if (parseInt(userInputString) > 0) {
+                    sliceWith = parseInt(userInputString) * 2 + Math.ceil(layer.frame().width());
+                    sliceHeight = parseInt(userInputString) * 2 + Math.ceil(layer.frame().height());
+                }
+            } else if (/^\d+x\d+$/.test(userInputString)) {
+                sliceWith = parseInt(userInputString.match(/\d+/g)[0]);
+                sliceHeight = parseInt(userInputString.match(/\d+/g)[1]);
+            } else {
+                document.showMessage("Bad format.");
+                return;
+            }
+
+            var midX = layer.frame().midX(),
+                midY = layer.frame().midY();
 
             var slice = MSSliceLayer.sliceLayerFromLayer(layer);
 
@@ -90,6 +93,9 @@ var onRun = function(context) {
                 slice.frame().setHeight(sliceHeight);
                 slice.frame().setMidY(midY);
             }
+
+            slice.frame().setX(Math.round(slice.frame().x()));
+            slice.frame().setY(Math.round(slice.frame().y()));
 
             if (
                 layer.class() == "MSLayerGroup" ||
