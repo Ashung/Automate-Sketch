@@ -1,0 +1,412 @@
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
+    if (selection.count() == 0) {
+        document.showMessage("Please select at least one layer.");
+        return;
+    }
+
+    var userLibraries = getUserLibraries();
+
+    if (userLibraries.count() == 0) {
+        document.showMessage("You have not any available user library.");
+        return;
+    }
+
+    // Dialog
+    var dialog = NSAlert.alloc().init();
+    dialog.setMessageText("Create Library Symbol");
+    dialog.setInformativeText("Create a imported symbol from selected layers, and send the symbol master to a library.");
+
+    var accessoryView = NSView.alloc().init();
+    accessoryView.setFlipped(true);
+    accessoryView.setFrame(NSMakeRect(0, 0, 300, 340));
+    dialog.setAccessoryView(accessoryView);
+
+    // Symbol name
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 80));
+    view.setFlipped(true);
+
+    var symbolNameView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25));
+    symbolNameView.setStringValue(selection.firstObject().name());
+    view.addSubview(symbolNameView);
+
+    // Choose library and page
+    var libraryTitleView = addTextLabelToView_withRect("Library:", view, NSMakeRect(0, 30, 145, 20));
+    var pageTitleView = addTextLabelToView_withRect("Page:", view, NSMakeRect(155, 30, 145, 20));
+
+    // Library
+    var libraryListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 50, 145, 30));
+    var loopUserLibraries = userLibraries.objectEnumerator();
+    var userLibrary;
+    while (userLibrary = loopUserLibraries.nextObject()) {
+        libraryListView.addItemWithTitle("");
+        libraryListView.lastItem().setTitle(userLibrary.name());
+    }
+    view.addSubview(libraryListView);
+
+    var selectedLibraryIndex = getPreferences(context, "libraryIndexForCreateSymbol") || 0;
+    if (selectedLibraryIndex >= userLibraries.count()) {
+        selectedLibraryIndex = 0;
+    }
+    libraryListView.selectItemAtIndex(selectedLibraryIndex);
+
+    // Page
+    var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(155, 50, 145, 30));
+    var selectedLibrary = userLibraries.objectAtIndex(libraryListView.indexOfSelectedItem());
+    reloadPagesInLibrary_toPopUpButton(selectedLibrary, pageListView);
+    view.addSubview(pageListView);
+
+    accessoryView.addSubview(view);
+
+    // Nested symbol
+    var view2 = NSView.alloc().initWithFrame(NSMakeRect(0, 85, 300, 250));
+    view2.setFlipped(true);
+    accessoryView.addSubview(view2);
+
+    // Nested symbol master in selection
+    var nestedSymbolMasters = getAllNestedSymbolMasters_inSelection(context);
+    var selectedLibrary = userLibraries.objectAtIndex(selectedLibraryIndex);
+    var conflictSymbols = getConflictSymbols_inLibrary(nestedSymbolMasters, selectedLibrary);
+    loadConflictNestedSymbol(dialog, view2, conflictSymbols, selectedLibrary);
+
+    // Library button action
+    libraryListView.setCOSJSTargetFunction(function(sender) {
+        var selectedLibraryIndex = sender.indexOfSelectedItem();
+        var selectedLibrary = userLibraries.objectAtIndex(selectedLibraryIndex);
+        reloadPagesInLibrary_toPopUpButton(selectedLibrary, pageListView);
+
+        var conflictSymbols = getConflictSymbols_inLibrary(nestedSymbolMasters, selectedLibrary);
+        loadConflictNestedSymbol(dialog, view2, conflictSymbols, selectedLibrary);
+    });
+
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.window().setInitialFirstResponder(symbolNameView);
+
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        setPreferences(context, "libraryIndexForCreateSymbol", libraryListView.indexOfSelectedItem());
+
+        var selectedLibrary = userLibraries.objectAtIndex(libraryListView.indexOfSelectedItem());
+        var selectedLibraryPath = selectedLibrary.locationOnDisk().path();
+        var libraryFileURL = NSURL.fileURLWithPath(selectedLibraryPath);
+
+        // Convert selected layer to symbol master
+        var layers = MSLayerArray.arrayWithLayers(selection);
+        if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
+            var symbolName = symbolNameView.stringValue();
+            var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
+            var symbolMaster = symbolInstance.symbolMaster();
+            symbolMaster.setLayerListExpandedType(1);
+            symbolInstance.removeFromParent();
+        } else {
+            document.showMessage("😮 Can't create symbol from selected layer.");
+            return;
+        }
+
+        // Library file is opened or not
+        var documentController = NSDocumentController.sharedDocumentController();
+        var openedSelectedLibrary = documentController.documentForURL(libraryFileURL);
+        if (openedSelectedLibrary) {
+            var libraryDocument = openedSelectedLibrary;
+        } else {
+            try {
+                var libraryDocument = MSDocument.alloc().init();
+                libraryDocument.readDocumentFromURL_ofType_error(libraryFileURL, "com.bohemiancoding.sketch.drawing", nil);
+            } catch (error) {
+                document.showMessage("😮 Can't open the library file.");
+                return;
+            }
+        }
+
+        // Add nested symbols without conflict
+        var targetPage = libraryDocument.pages().objectAtIndex(pageListView.indexOfSelectedItem());
+
+        var loopNestedSymbolMasters = nestedSymbolMasters.objectEnumerator();
+        var nestedSymbolMaster;
+        while (nestedSymbolMaster = loopNestedSymbolMasters.nextObject()) {
+            if (nestedSymbolMaster.isForeign()) {
+                var symbolLayer = nestedSymbolMaster.foreignSymbol().originalMaster();
+            } else {
+                var symbolLayer = nestedSymbolMaster;
+            }
+            var symbolID = symbolLayer.symbolID();
+            var symbolInLibrary = selectedLibrary.document().symbolWithID(symbolID);
+            if (!symbolInLibrary) {
+                var originForNestedSymbolMaster = targetPage.originForNewArtboard();
+                targetPage.addLayer(symbolLayer);
+                var nestedSymbolMasterInLibrary = libraryDocument.documentData().symbolWithID(symbolID);
+                nestedSymbolMasterInLibrary.frame().setX(originForNestedSymbolMaster.x);
+                nestedSymbolMasterInLibrary.frame().setY(originForNestedSymbolMaster.y);
+            }
+        }
+
+        // Add conflict symbols
+        var conflictSymbols = getConflictSymbols_inLibrary(nestedSymbolMasters, selectedLibrary);
+        var conflictSymbolContentViews = view2.subviews().objectAtIndex(1).documentView().subviews();
+        var loopConflictSymbols = conflictSymbols.objectEnumerator();
+        var conflictSymbol;
+        var i = 0;
+        while (conflictSymbol = loopConflictSymbols.nextObject()) {
+            var actionForConflictSymbol = conflictSymbolContentViews.objectAtIndex(i).subviews().objectAtIndex(3).indexOfSelectedItem();
+
+            // 0: Ignore
+            // 1: Replace
+            if (actionForConflictSymbol == 1) {
+                if (conflictSymbol.isForeign()) {
+                    var symbolLayer = conflictSymbol.foreignSymbol().originalMaster();
+                } else {
+                    var symbolLayer = conflictSymbol;
+                }
+                var symbolID = symbolLayer.symbolID();
+                var oldSymbol = libraryDocument.documentData().symbolWithID(symbolID);
+                var originalName = oldSymbol.name();
+                var originalFrame = oldSymbol.frame();
+                oldSymbol.removeFromParent();
+                targetPage.addLayer(symbolLayer);
+                var newSymbol = libraryDocument.documentData().symbolWithID(symbolID);
+                newSymbol.setName(originalName);
+                newSymbol.setFrame(originalFrame);
+            }
+
+            // 2: Duplicate
+
+
+            i ++;
+        }
+
+        // Add symbol master to library
+        var originForSymbolMaster = targetPage.originForNewArtboard();
+
+        targetPage.addLayer(symbolMaster);
+        document.currentPage().removeLayer(symbolMaster);
+
+        var symbolMasterInLibrary = libraryDocument.documentData().symbolWithID(symbolMaster.symbolID());
+        symbolMasterInLibrary.frame().setX(originForSymbolMaster.x);
+        symbolMasterInLibrary.frame().setY(originForSymbolMaster.y);
+
+
+        // TODO:
+        // layer.changeInstanceToSymbol(layer.symbolMaster().foreignSymbol().originalMaster())
+
+        // Save
+        if (openedSelectedLibrary) {
+            // openedSelectedLibrary.saveDocument(nil);
+        } else {
+            libraryDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
+                libraryFileURL, "com.bohemiancoding.sketch.drawing", NSSaveOperation, nil, nil
+            );
+            libraryDocument.close();
+        }
+
+
+
+    }
+
+};
+
+
+function loadConflictNestedSymbol(dialog, view, symbols, library) {
+
+    view.setSubviews([]);
+
+    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    labelView.setStringValue("Conflict Nested Symbols (" + symbols.count() + "):");
+
+    labelView.setTextColor(NSColor.blackColor());
+    labelView.setBezeled(false);
+    labelView.setDrawsBackground(false);
+    labelView.setEditable(false);
+    labelView.setSelectable(false);
+    view.addSubview(labelView);
+
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 20, 300, 230));
+    scrollView.setHasVerticalScroller(true);
+    scrollView.setBorderType(NSBezelBorder);
+    view.addSubview(scrollView);
+
+    var itemSize = 60;
+
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, symbols.count() * itemSize + 10));
+    contentView.setFlipped(true);
+    scrollView.setDocumentView(contentView);
+
+    var loopNestedSymbols = symbols.objectEnumerator();
+    var symbol;
+    var i = 0;
+    while (symbol = loopNestedSymbols.nextObject()) {
+
+        // List
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize * i, 300, itemSize));
+        itemView.setFlipped(true);
+
+        // Preview image
+        var imageSize = itemSize;
+        var imageViewLeft = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageSize, imageSize));
+        var symbolPreviewImageLeft = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol),
+            CGSizeMake(imageSize, imageSize),
+            NSColorSpace.sRGBColorSpace(),
+            true
+        );
+        imageViewLeft.setImage(symbolPreviewImageLeft);
+        itemView.addSubview(imageViewLeft);
+
+        var symbolID = symbol.isForeign() ? symbol.foreignSymbol().originalMaster().symbolID() : symbol.symbolID();
+        var symbolInLibrary = library.document().symbolWithID(symbolID);
+
+        var imageViewRight = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 48, 0, imageSize, imageSize));
+        var symbolPreviewImageRight = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+            MSImmutableLayerAncestry.alloc().initWithMSLayer(symbolInLibrary),
+            CGSizeMake(imageSize, imageSize),
+            NSColorSpace.sRGBColorSpace(),
+            true
+        );
+        imageViewRight.setImage(symbolPreviewImageRight);
+        itemView.addSubview(imageViewRight);
+
+        var iconFile = NSURL.fileURLWithPath("/Applications/Sketch.app/Contents/Resources/prefs_go.tiff").path();
+        var icon = NSImage.alloc().initWithContentsOfFile(iconFile);
+        var arrowIconView = NSImageView.alloc().initWithFrame(NSMakeRect(itemSize + 12, (itemSize - 24) / 2, 24, 24));
+        arrowIconView.setImage(icon);
+        itemView.addSubview(arrowIconView);
+
+        var actionView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(180, 15, 100, 30));
+        actionView.addItemsWithTitles(["Ignore", "Replace", "Duplicate"]);
+        itemView.addSubview(actionView);
+
+        // Divider line
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemSize - 1, 300, 1));
+        divider.setWantsLayer(true);
+        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        itemView.addSubview(divider);
+
+        contentView.addSubview(itemView);
+
+        i ++;
+
+    }
+}
+
+function getConflictSymbols_inLibrary(symbols, library) {
+
+    var conflictSymbols = NSMutableArray.alloc().init();
+
+    var loopSymbols = symbols.objectEnumerator();
+    var symbol;
+    while (symbol = loopSymbols.nextObject()) {
+        var symbolID = symbol.isForeign() ?
+            symbol.foreignSymbol().originalMaster().symbolID() :
+            symbol.symbolID();
+        var symbolInLibrary = library.document().symbolWithID(symbolID);
+        if (symbolInLibrary) {
+            conflictSymbols.addObject(symbol);
+        }
+    }
+
+    return conflictSymbols;
+
+}
+
+function getAllNestedSymbolMasters_inSelection(context) {
+
+    var documentData = context.document.documentData();
+
+    var allNestedSymbolMasters = NSMutableArray.alloc().init();
+
+    var selection = context.selection;
+    var loopSelection = selection.objectEnumerator();
+    var layer;
+    while (layer = loopSelection.nextObject()) {
+        var instancesInChildren = layer.allSymbolInstancesInChildren().allObjects();
+        var loopInstances = instancesInChildren.objectEnumerator();
+        var instance;
+        while (instance = loopInstances.nextObject()) {
+
+            var symbolMaster = instance.symbolMaster();
+            if (!allNestedSymbolMasters.containsObject(symbolMaster)) {
+                allNestedSymbolMasters.addObject(symbolMaster);
+            }
+
+            var overrideValues = instance.overrideValues();
+            if (overrideValues.count() > 0) {
+                var loopOverrideValues = overrideValues.objectEnumerator();
+                var overrideValue;
+                while (overrideValue = loopOverrideValues.nextObject()) {
+                    if (overrideValue.overrideName().containsString("_symbolID")) {
+                        var symbolMasterInOverride = documentData.symbolWithID(overrideValue.value())
+                        if (!allNestedSymbolMasters.containsObject(symbolMasterInOverride)) {
+                            allNestedSymbolMasters.addObject(symbolMasterInOverride);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    return allNestedSymbolMasters;
+}
+
+function reloadPagesInLibrary_toPopUpButton(library, button) {
+
+    button.removeAllItems();
+
+    var pages = library.document().pages();
+    var selectItemIndex = 0;
+    var loopPages = pages.objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        button.addItemWithTitle("");
+        if (page == library.document().symbolsPage()) {
+            button.lastItem().setTitle(page.name() + " *");
+            selectItemIndex = pages.indexOfObject(page);
+        } else {
+            button.lastItem().setTitle(page.name());
+        }
+    }
+
+    button.selectItemAtIndex(selectItemIndex);
+}
+
+function addTextLabelToView_withRect(text, view, rect) {
+    var textView = NSTextField.alloc().initWithFrame(rect);
+    textView.setStringValue(text);
+    textView.setBezeled(false);
+    textView.setEditable(false);
+    textView.setDrawsBackground(false);
+    view.addSubview(textView);
+    return textView;
+}
+
+function getUserLibraries() {
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var userLibraries = assetLibraryController.userLibraries();
+    var userLibrariesCopy = userLibraries.mutableCopy();
+    var loopUserLibraries = userLibraries.objectEnumerator();
+    var userLibrary;
+    while (userLibrary = loopUserLibraries.nextObject()) {
+        if (userLibrary.enabled() == false) {
+            userLibrariesCopy.removeObject(userLibrary);
+        }
+
+        var libraryPath = userLibrary.locationOnDisk().path();
+        var regexBundle = new RegExp("^" + NSBundle.mainBundle().bundlePath().replace(/(\/)/g, "\\/"), "gi");
+        if (regexBundle.test(libraryPath)) {
+            userLibrariesCopy.removeObject(userLibrary);
+        }
+    }
+    return userLibrariesCopy;
+}

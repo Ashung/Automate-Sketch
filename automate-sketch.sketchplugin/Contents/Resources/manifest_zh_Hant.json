@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.20180104",
+    "version": "48.2.20180123",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -238,36 +238,6 @@
             "name": "替換字型",
             "identifier": "replace_fonts",
             "script": "Type/Replace_Fonts.cocoascript"
-        },
-        {
-            "name": "基於物件切片",
-            "identifier": "new_layer_base_slice",
-            "handler": "new_slice_for_normal",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基於物件切片 iOS (由 1x 到所有)",
-            "identifier": "new_layer_base_slice_for_ios_1x",
-            "handler": "new_slice_for_ios_1x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基於物件切片 Android (由 MDPI 到所有)",
-            "identifier": "new_layer_base_slice_for_android_1x",
-            "handler": "new_slice_for_android_1x",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基於物件切片網頁 (由 1x 到 1x 和 2x)",
-            "identifier": "new_slice_base_slice_for_web",
-            "handler": "new_slice_for_web",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
-        },
-        {
-            "name": "基於物件切片網頁 (SVG)",
-            "identifier": "new_layer_base_slice_for_svg",
-            "handler": "new_slice_for_svg",
-            "script": "Slice/New_Layer_Base_Slice_With_Preset.cocoascript"
         },
         {
             "name": "清除當頁切片",
@@ -678,6 +648,16 @@
             "identifier": "load_export_presets",
             "handler": "loadExportPresetsFromFile",
             "script": "Slice/Export_Presets.cocoascript"
+        },
+        {
+            "name": "建立庫元件",
+            "identifier": "create_library_symbol",
+            "script": "Library/Create_Library_Symbol.cocoascript"
+        },
+        {
+            "name": "移動元件模版至另一頁",
+            "identifier": "move_symbols_to_page",
+            "script": "Symbol/Move_Symbols_To_Page.cocoascript"
         }
     ],
     "menu": {
@@ -767,7 +747,7 @@
                     "rename_instances",
                     "custom_instances_name",
                     "-",
-                    "move_symbol_masters_to_bottom_of_another",
+                    "move_symbols_to_page",
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
@@ -871,12 +851,6 @@
                 "title": "切片",
                 "items": [
                     "auto_slice",
-                    "-",
-                    "new_layer_base_slice",
-                    "new_layer_base_slice_for_ios_1x",
-                    "new_layer_base_slice_for_android_1x",
-                    "new_slice_base_slice_for_web",
-                    "new_layer_base_slice_for_svg",
                     "-",
                     "clear_slices",
                     "clear_exportables",

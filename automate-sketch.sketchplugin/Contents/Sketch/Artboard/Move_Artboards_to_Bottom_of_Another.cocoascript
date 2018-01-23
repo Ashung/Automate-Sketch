@@ -113,7 +113,6 @@ function centerSelection(document) {
     }
 }
 
-
 function selectLayer(layer, add) {
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     if (appVersion < 45) {

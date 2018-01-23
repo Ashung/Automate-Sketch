@@ -4,86 +4,106 @@
 var onRun = function(context) {
 
     var document = context.document;
-    var page = document.currentPage();
-
     var textStyles = document.documentData().layerTextStyles().objects();
+    if (textStyles.count() == 0) {
+        document.showMessage("No any text style in current document.");
+        return;
+    }
 
-    if (textStyles.count() > 0) {
+    // Dialog
+    var dialog = COSAlertWindow.new();
+    dialog.setMessageText("Create Typography Guide");
+    dialog.setInformativeText("Create typography guide from document text styles. \n\nIf your want to use style name as preview text, leave the option blank.")
 
-        // Dialog
-        var dialog = COSAlertWindow.new();
-        dialog.setMessageText("Create Typography Guide");
-        dialog.setInformativeText("Create typography guide from document text styles. \n\nIf your want to use style name as preview text, leave the option blank.")
+    dialog.addTextLabelWithValue("Preview Text:");
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(getPreferences(context, "previewText") || "");
+    dialog.addAccessoryView(textField);
 
-        dialog.addTextLabelWithValue("Preview Text:");
-        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue(getPreferences(context, "previewText") || "");
-        dialog.addAccessoryView(textField);
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
 
-        dialog.addButtonWithTitle("OK");
-        dialog.addButtonWithTitle("Cancel");
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
 
-        var responseCode = dialog.runModal();
-        if (responseCode == 1000) {
+        var page = document.currentPage();
 
-            var typographyPositionX = page.originForNewArtboard().x,
-                typographyPositionY = page.originForNewArtboard().y,
-                spaceBetweenTypographys = 32,
-                spaceBetweenTypographyAndText = 8,
-                textHeight = 16,
-                textFontSize = 14,
-                textColor = MSColor.colorWithRed_green_blue_alpha(153/255, 153/255, 153/255, 1),
-                textFontName = "HelveticaNeue";
+        var typographyPositionX = page.originForNewArtboard().x,
+            typographyPositionY = page.originForNewArtboard().y,
+            spaceBetweenTypographys = 32,
+            spaceBetweenTypographyAndText = 8,
+            textHeight = 16,
+            textFontSize = 14,
+            textColor = MSColor.colorWithRed_green_blue_alpha(153/255, 153/255, 153/255, 1),
+            textFontName = "HelveticaNeue";
 
-            var previewText = textField.stringValue();
-            setPreferences(context, "previewText", previewText);
+        var previewText = textField.stringValue();
+        setPreferences(context, "previewText", previewText);
 
-            var loopTextStyles = textStyles.objectEnumerator();
-            var textStyle;
-            while (textStyle = loopTextStyles.nextObject()) {
+        var typographyGroupLayers = [];
 
-                // Add layer group
-                var typographyGroup = MSLayerGroup.alloc().init();
-                typographyGroup.setName("style");
-                typographyGroup.setRect(CGRectMake(typographyPositionX, typographyPositionY, 100, 10));
-                page.addLayers([typographyGroup]);
+        var loopTextStyles = textStyles.objectEnumerator();
+        var textStyle;
+        while (textStyle = loopTextStyles.nextObject()) {
 
-                // Add typography layer
-                var typography = MSTextLayer.alloc().init();
-                typography.setName("preview");
-                if (previewText == "") {
-                    typography.setStringValue(textStyle.name().replace(/^.*(\/)/i, ""));
-                } else {
-                    typography.setStringValue(previewText);
-                }
-                typography.setStyle(textStyle.style());
-                typography.frame().setX(0);
-                typography.frame().setY(0);
-                typographyGroup.addLayers([typography]);
+            // Add layer group
+            var typographyGroup = MSLayerGroup.alloc().init();
+            typographyGroup.setName("style");
+            typographyGroup.setRect(CGRectMake(typographyPositionX, typographyPositionY, 100, 10));
+            page.addLayer(typographyGroup);
 
-                // Add text layer
-                var text = MSTextLayer.alloc().init();
-                text.setStringValue(textStyle.name());
-                text.setLineHeight(textHeight);
-                text.setFontPostscriptName(textFontName);
-                text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
-                text.setFontSize(textFontSize);
-                text.setName("label");
-                text.frame().setX(0);
-                text.frame().setY(typography.frame().height() + spaceBetweenTypographyAndText);
-                typographyGroup.insertLayers_beforeLayer([text], typography);
-
-                typographyGroup.resizeToFitChildrenWithOption(1);
-                typographyPositionY = typographyPositionY + spaceBetweenTypographys + typographyGroup.frame().height();
-
+            // Add typography layer
+            var typography = MSTextLayer.alloc().init();
+            typography.setName("preview");
+            if (previewText == "") {
+                typography.setStringValue(textStyle.name().replace(/^.*(\/)/i, ""));
+            } else {
+                typography.setStringValue(previewText);
             }
+            typography.setStyle(textStyle.style());
+            typography.frame().setX(0);
+            typography.frame().setY(0);
+            typographyGroup.addLayer(typography);
+
+            // Add text layer
+            var text = MSTextLayer.alloc().init();
+            text.setStringValue(textStyle.name());
+            text.setLineHeight(textHeight);
+            text.setFontPostscriptName(textFontName);
+            text.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
+            text.setFontSize(textFontSize);
+            text.setName("label");
+            text.frame().setX(0);
+            text.frame().setY(typography.frame().height() + spaceBetweenTypographyAndText);
+            typographyGroup.insertLayer_beforeLayer(text, typography);
+
+            typographyGroup.resizeToFitChildrenWithOption(1);
+            typographyPositionY = typographyPositionY + spaceBetweenTypographys + typographyGroup.frame().height();
+
+            typographyGroupLayers.push(typographyGroup);
 
         }
 
-    } else {
-        document.showMessage("No any text style in current document.");
+        centerRect_byLayers(document, typographyGroupLayers);
+
     }
 
     ga(context, "UA-99098773-3", "Style", context.command.identifier());
 
 };
+
+function centerRect_byLayers(document, layers) {
+
+    var rects = layers.map(function(item) {
+        return MSRect.alloc().initWithRect(item.absoluteRect().rect());
+    });
+    var rect = MSRect.rectWithUnionOfRects(rects).rect();
+
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    if (appVersion >= 48) {
+        document.contentDrawView().centerRect_animated(rect, true);
+    } else {
+        document.currentView().centerRect_animated(rect, true);
+    }
+
+}

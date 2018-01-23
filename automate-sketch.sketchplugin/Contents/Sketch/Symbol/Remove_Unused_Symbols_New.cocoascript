@@ -18,13 +18,13 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var viewWidth = 400,
+    var viewWidth = 350,
         viewHeight = 400,
         rowHeight = 50;
 
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Remove Unused Symbols");
-    dialog.setInformativeText("Uncheck the symbol to keep it.");
+    dialog.setInformativeText("Check the symbol to remove it.");
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
@@ -32,14 +32,24 @@ var onRun = function(context) {
     accessoryView.setFlipped(true);
     accessoryView.setFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight - 30));
     scrollView.setHasVerticalScroller(true);
     scrollView.setBorderType(NSBezelBorder);
     accessoryView.addSubview(scrollView);
 
+    var selectAll = NSButton.alloc().initWithFrame(NSMakeRect(0, 380, viewWidth, 20));
+    selectAll.setButtonType(NSSwitchButton);
+    selectAll.setAllowsMixedState(true);
+    selectAll.setTitle(" Select / Deselect All Unused Symbols.");
+    selectAll.setState(NSOnState);
+    accessoryView.addSubview(selectAll);
+
     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, unusedSymbols.count() * rowHeight + 10));
     contentView.setFlipped(true);
     scrollView.setDocumentView(contentView);
+
+    var checked = unusedSymbols.count();
+    var unChecked = 0;
 
     var loopUnusedSymbols = unusedSymbols.objectEnumerator();
     var unusedSymbol;
@@ -51,12 +61,30 @@ var onRun = function(context) {
         itemView.setFlipped(true);
 
         // Checkbox
-        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, (rowHeight - 30) / 2, viewWidth - 50, 30));
+        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, (rowHeight - 30) / 2, viewWidth - 10, 30));
         checkbox.setButtonType(NSSwitchButton);
         var title = "             " + unusedSymbol.name();
         checkbox.setTitle(title);
         checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
+
+        checkbox.setCOSJSTargetFunction(function(sender) {
+            if (sender.state() == NSOffState) {
+                checked --;
+                unChecked ++;
+            }
+            if (sender.state() == NSOnState) {
+                checked ++;
+                unChecked --;
+            }
+            if (checked == unusedSymbols.count() && unChecked == 0) {
+                selectAll.setState(NSOnState);
+            } else if (checked == 0 && unChecked == unusedSymbols.count()) {
+                selectAll.setState(NSOffState);
+            } else {
+                selectAll.setState(NSMixedState);
+            }
+        });
 
         // Preview image
         var imageSize = rowHeight - 20;
@@ -65,16 +93,21 @@ var onRun = function(context) {
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
             layerAncestry, CGSizeMake(imageSize, imageSize), NSColorSpace.sRGBColorSpace(), true
         );
+        var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+        imageView.setWantsLayer(true);
+        imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
         imageView.setImage(symbolPreviewImage);
         itemView.addSubview(imageView);
 
         // Library symbol icon
         if (unusedSymbol.isForeign()) {
-            var iconFile = NSURL.fileURLWithPath("/Applications/Sketch.app/Contents/Resources/layerlist_foreign_symbol.tiff").path();
-            var icon = NSImage.alloc().initWithContentsOfFile(iconFile);
-            var iconView = NSImageView.alloc().initWithFrame(NSMakeRect(viewWidth - 40, (rowHeight - 48) / 2, 48, 48));
+            var iconViewWrapper = NSView.alloc().initWithFrame(NSMakeRect(55, 30, 16, 16));
+            iconViewWrapper.setWantsLayer(true);
+            var icon = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/layerlist_foreign_symbol.tiff");
+            var iconView = NSImageView.alloc().initWithFrame(NSMakeRect(-13, -15, 48, 48));
             iconView.setImage(icon);
-            itemView.addSubview(iconView);
+            iconViewWrapper.addSubview(iconView);
+            itemView.addSubview(iconViewWrapper);
         }
 
         // Divider line
@@ -87,6 +120,30 @@ var onRun = function(context) {
 
         i ++;
     }
+
+    // Select / Deselect
+    selectAll.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState || sender.state() == NSMixedState) {
+            sender.setState(NSOnState);
+            checked = unusedSymbols.count();
+            unChecked = 0;
+            var unusedSymbolViews = contentView.subviews().objectEnumerator();
+            var unusedSymbolView;
+            while (unusedSymbolView = unusedSymbolViews.nextObject()) {
+                var checkbox = unusedSymbolView.subviews().firstObject();
+                checkbox.setState(NSOnState);
+            }
+        } else {
+            checked = 0;
+            unChecked = unusedSymbols.count();
+            var unusedSymbolViews = contentView.subviews().objectEnumerator();
+            var unusedSymbolView;
+            while (unusedSymbolView = unusedSymbolViews.nextObject()) {
+                var checkbox = unusedSymbolView.subviews().firstObject();
+                checkbox.setState(NSOffState);
+            }
+        }
+    });
 
     dialog.setAccessoryView(accessoryView);
 

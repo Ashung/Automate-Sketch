@@ -62,13 +62,52 @@ function createDialog(context, type) {
     dialog.setMessageText(title);
     dialog.setInformativeText("You can remove unused styles from list. Uncheck to keep it.");
 
+    var selectAllView = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    selectAllView.setButtonType(NSSwitchButton);
+    selectAllView.setAllowsMixedState(true);
+    selectAllView.setTitle(" Select / Deselect All.");
+    selectAllView.setState(NSOnState);
+    dialog.addAccessoryView(selectAllView);
+
     var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
     scrollView.setHasVerticalScroller(true);
     scrollView.setBorderType(NSBezelBorder);
     dialog.addAccessoryView(scrollView);
 
-    var contentView = createDataView(stylesCopy);
+    var checked = stylesCopy.count();
+    var unChecked = 0;
+
+    if (type == 0) {
+        var contentView = createDataView(stylesCopy, 0, selectAllView, [checked, unChecked]);
+    }
+    if (type == 1) {
+        var contentView = createDataView(stylesCopy, 1, selectAllView, [checked, unChecked]);
+    }
     scrollView.setDocumentView(contentView);
+
+    // Select / Deselect
+    selectAllView.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState || sender.state() == NSMixedState) {
+            sender.setState(NSOnState);
+            checked = stylesCopy.count();
+            unChecked = 0;
+            var styleItemViews = contentView.subviews().objectEnumerator();
+            var styleItemView;
+            while (styleItemView = styleItemViews.nextObject()) {
+                var checkbox = styleItemView.subviews().firstObject();
+                checkbox.setState(NSOnState);
+            }
+        } else {
+            checked = 0;
+            unChecked = stylesCopy.count();
+            var styleItemViews = contentView.subviews().objectEnumerator();
+            var styleItemView;
+            while (styleItemView = styleItemViews.nextObject()) {
+                var checkbox = styleItemView.subviews().firstObject();
+                checkbox.setState(NSOffState);
+            }
+        }
+    });
 
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
@@ -100,9 +139,10 @@ function createDialog(context, type) {
 
 };
 
-function createDataView(items) {
+function createDataView(items, type, selectAll, checkedStatus) {
 
     var itemHeight = 40;
+
     var itemsCount = items.count();
     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, (itemsCount + 0.5) * itemHeight));
     contentView.setFlipped(true);
@@ -115,14 +155,88 @@ function createDataView(items) {
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
         itemView.setFlipped(true);
 
-        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 300, 40));
-        var label = item.name() ? " " + item.name() : "";
+        // Title
+        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 300, itemHeight));
         checkbox.setButtonType(NSSwitchButton);
-        checkbox.setTitle(label);
         checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
 
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 39, 300, 1));
+        if (type == 0) {
+            checkbox.setTitle("         " + item.name());
+
+            // Preview image
+            var layerStyleTempLayer = MSArtboardGroup.alloc().init();
+            layerStyleTempLayer.frame().setWidth(24);
+            layerStyleTempLayer.frame().setHeight(24);
+            var rectangle = MSRectangleShape.alloc().init();
+            rectangle.setRect(CGRectMake(2, 2, 20, 20));
+            var previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+            previewLayer.setStyle(item.style());
+            layerStyleTempLayer.addLayer(previewLayer);
+            var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));
+            var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(layerStyleTempLayer);
+            var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+                layerAncestry, CGSizeMake(24, 24), NSColorSpace.sRGBColorSpace(), false
+            );
+            imageView.setImage(previewImage);
+            itemView.addSubview(imageView);
+        }
+
+        if (type == 1) {
+            checkbox.setTitle("");
+
+            // Preview image
+            var textStyleTempLayer = MSTextLayer.alloc().init();
+            textStyleTempLayer.setStringValue(item.name());
+            textStyleTempLayer.setStyle(item.style());
+            var textLayerWidth = textStyleTempLayer.frame().width();
+            var textLayerHeight = textStyleTempLayer.frame().height();
+            var textStyleTempArtboard = MSArtboardGroup.alloc().init();
+            textStyleTempArtboard.frame().setWidth(textLayerWidth);
+            textStyleTempArtboard.frame().setHeight(textLayerHeight);
+            textStyleTempLayer.moveToLayer_beforeLayer(textStyleTempArtboard, nil);
+            var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(textStyleTempArtboard);
+            var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+                layerAncestry, CGSizeMake(textLayerWidth, textLayerHeight), NSColorSpace.sRGBColorSpace(), false
+            );
+            if (textLayerWidth <= 260 || textLayerHeight <= itemHeight) {
+                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, (itemHeight - textLayerHeight)/2, textLayerWidth, textLayerHeight));
+            } else {
+                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 260, itemHeight));
+            }
+            imageView.setImage(previewImage);
+            imageView.setWantsLayer(true);
+
+            // Add gray background color
+            var textColor = MSColor.alloc().initWithImmutableObject(textStyleTempLayer.textColor());
+            if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
+                imageView.setBackgroundColor(NSColor.grayColor());
+            } else {
+                imageView.setBackgroundColor(NSColor.whiteColor());
+            }
+
+            itemView.addSubview(imageView);
+        }
+
+        checkbox.setCOSJSTargetFunction(function(sender) {
+            if (sender.state() == NSOffState) {
+                checkedStatus[0] --;
+                checkedStatus[1] ++;
+            }
+            if (sender.state() == NSOnState) {
+                checkedStatus[0] ++;
+                checkedStatus[1] --;
+            }
+            if (checkedStatus[0] == itemsCount && checkedStatus[1] == 0) {
+                selectAll.setState(NSOnState);
+            } else if (checkedStatus[0] == 0 && checkedStatus[1] == itemsCount) {
+                selectAll.setState(NSOffState);
+            } else {
+                selectAll.setState(NSMixedState);
+            }
+        });
+
+        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));
         divider.setWantsLayer(1);
         divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
         itemView.addSubview(divider);
