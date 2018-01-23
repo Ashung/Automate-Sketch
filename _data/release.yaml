@@ -1,3 +1,16 @@
+
+-
+  version: 48.2.20180123
+  description: |-
+    <ul>
+    <li>Add Move symbol master to another page.</li>
+    <li>Add preview and select all for remove unused styles.</li>
+    <li>Add preview and select all for Remove Unused Symbols.</li>
+    <li>Fix Export All Artboards bug.</li>
+    <li>Center layers after create color/typography guide.</li>
+    </ul>
+  commitID: b5bf2a3ef5d3f2b31c7fa83ed5bd246f4a07de02
+
 -
   version: 48.2.20180104
   description: |-
