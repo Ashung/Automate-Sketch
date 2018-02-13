@@ -658,6 +658,23 @@
             "name": "{{move_symbols_to_page}}",
             "identifier": "move_symbols_to_page",
             "script": "Symbol/Move_Symbols_To_Page.cocoascript"
+        },
+        {
+            "name": "{{remove_transparency_layers}}",
+            "identifier": "remove_transparency_layers",
+            "handler": "removeTransparencyLayersHandler",
+            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+        },
+        {
+            "name": "{{select_transparency_layers}}",
+            "identifier": "select_transparency_layers",
+            "handler": "selectTransparencyLayersHandler",
+            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+        },
+        {
+            "name": "{{pick_color_and_copy}}",
+            "identifier": "pick_color_and_copy",
+            "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript"
         }
     ],
     "menu": {
@@ -702,9 +719,6 @@
                     "-",
                     "unlock_all_layers",
                     "-",
-                    "click_through_off",
-                    "click_through_on",
-                    "-",
                     {
                         "title": "{{select_layers_by_type}}",
                         "items": [
@@ -716,7 +730,8 @@
                             "select_layers_by_type_slice",
                             "select_layers_by_type_exportable",
                             "-",
-                            "select_all_hidden_layers"
+                            "select_all_hidden_layers",
+                            "select_transparency_layers"
                         ]
                     },
                     "select_layers_by_name",
@@ -727,8 +742,9 @@
                     "paste_and_replace",
                     "-",
                     "remove_redundant_groups",
-                    "remove_hidden_layers",
                     "remove_empty_groups",
+                    "remove_hidden_layers",
+                    "remove_transparency_layers",
                     "-",
                     "clear_layer_name",
                     "-",
@@ -860,17 +876,9 @@
                 ]
             },
             {
-                "title": "{{utilities}}",
-                "items": [
-                    "svg_export_setting",
-                    "nudge_distance_setting",
-                    "-",
-                    "convert_to_other_version"
-                ]
-            },
-            {
                 "title": "{{development}}",
                 "items": [
+                    "pick_color_and_copy",
                     "copy_slice_as_base64",
                     "-",
                     "copy_selected_layer_name",
@@ -882,6 +890,15 @@
                     "script_editor_setting",
                     "edit_plugin_setting",
                     "reload_plugins"
+                ]
+            },
+            {
+                "title": "{{utilities}}",
+                "items": [
+                    "svg_export_setting",
+                    "nudge_distance_setting",
+                    "-",
+                    "convert_to_other_version"
                 ]
             },
             {
