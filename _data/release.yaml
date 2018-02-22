@@ -1,3 +1,14 @@
+-
+  version: 48.2.20180222
+  description: |-
+    <ul>
+    <li>Add Remove / Select Transparency Layers.</li>
+    <li>Add Pick Color and Copy the HEX Code.</li>
+    <li>Fix #51 Sketch Runner can't show symbol menu.</li>
+    <li>Fix auto slice bugs.</li>
+    <li>Fix select all instances of imported symbol bugs.</li>
+    </ul>
+  commitID: 884c49630726f6d154d53cfd306f3dd4e98bcc68
 
 -
   version: 48.2.20180123
