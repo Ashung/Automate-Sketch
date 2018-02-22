@@ -46,7 +46,7 @@ var onRun = function(context) {
     }
 
     if (!selectedSymbol) {
-        document.showMessage("You have not select any symbol.");
+        document.showMessage("You have not select any local symbol.");
         return;
     }
 
@@ -119,6 +119,8 @@ var onRun = function(context) {
 
 function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
+    var originalSymbolID = symbol.symbolID();
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -126,7 +128,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
     var sortByName = NSSortDescriptor.sortDescriptorWithKey_ascending("name", true);
     allSymbols.sortUsingDescriptors(NSArray.arrayWithObject(sortByName));
 
-    var symbolWithSameID = library.document().symbolWithID(symbol.symbolID());
+    var symbolWithSameID = library.document().symbolWithID(originalSymbolID);
 
     var symbolsWithSameSize = NSMutableArray.alloc().init();
     var loopAllSymbols_1 = allSymbols.objectEnumerator();
@@ -177,22 +179,31 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         itemView.addSubview(imageView);
 
         // Symbol Name
-        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(itemHeight, (itemHeight - 20)/2, viewWidth - itemHeight - 90, 20));
+        var textLabelName = NSTextField.alloc().initWithFrame(NSMakeRect(itemHeight, 8, viewWidth - itemHeight - 90, 20));
         textLabelName.setStringValue(symbol_2.name());
         textLabelName.setFont(NSFont.systemFontOfSize(12));
         textLabelName.setBezeled(false);
         textLabelName.setEditable(false);
         itemView.addSubview(textLabelName);
 
-        // Tag
-        if (symbol_2.symbolID().isEqualToString(symbol.symbolID)) {
-            var textLabelNote = createLabelNote(NSMakeRect(itemHeight, itemHeight - 18, 200, 20), "Same ID");
-            itemView.addSubview(textLabelNote);
+        // Tip
+        var textLabelNote = NSTextField.alloc().initWithFrame(NSMakeRect(itemHeight, 28, 200, 20));
+        textLabelNote.setFont(NSFont.systemFontOfSize(9));
+        textLabelNote.setTextColor(NSColor.grayColor());
+        textLabelNote.setBezeled(false);
+        textLabelNote.setEditable(false);
+        if (symbol_2.symbolID().isEqualToString(originalSymbolID) && symbolsWithSameSize.containsObject(symbol_2)) {
+            textLabelNote.setStringValue("Same ID & Size");
+        } else {
+            if (symbol_2.symbolID().isEqualToString(originalSymbolID)) {
+                textLabelNote.setStringValue("Same ID");
+            }
+            if (symbolsWithSameSize.containsObject(symbol_2)) {
+                textLabelNote.setStringValue("Same Size");
+            }
         }
-        if (symbolsWithSameSize.containsObject(symbol_2)) {
-            var textLabelNote = createLabelNote(NSMakeRect(itemHeight, itemHeight - 18, 200, 20), "Same Size");
-            itemView.addSubview(textLabelNote);
-        }
+        textLabelNote.sizeToFit();
+        itemView.addSubview(textLabelNote);
 
         // Button
         var replaceButton = NSButton.alloc().initWithFrame(NSMakeRect(viewWidth - 90, (itemHeight - 30)/2, 80, 30));
@@ -202,10 +213,14 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
             // Import symbol
             var assetLibraryController = AppController.sharedInstance().librariesController();
-            var symbolID = sender.superview().subviews().firstObject().stringValue();
+            var importedSymbolID = sender.superview().subviews().firstObject().stringValue();
             var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                library.symbolWithID(symbolID), library, documentData
+                library.symbolWithID(importedSymbolID), library, documentData
             );
+
+            if (importedSymbol.isOutOfDateWithLibrary(library)) {
+                importedSymbol.syncWithMaster(library.symbolWithID(importedSymbolID));
+            }
 
             // Replace all instances of symbol master
             var instancesWillReplaced = symbol.allInstances();
@@ -217,7 +232,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
             // Symbol ID map
             var symbolIDMap = NSMutableDictionary.alloc().init();
-            symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), symbol.symbolID());
+            symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), originalSymbolID);
 
             // Delete symbolMaster
             symbol.removeFromParent();
@@ -258,10 +273,11 @@ function createLabelNote(rect, text) {
     var textLabelNote = NSTextField.alloc().initWithFrame(rect);
     textLabelNote.setStringValue(text);
     textLabelNote.setFont(NSFont.systemFontOfSize(10));
-    textLabelNote.setTextColor(NSColor.whiteColor());
-    textLabelNote.setBackgroundColor(NSColor.blueColor());
-    textLabelNote.setWantsLayer(true);
-    textLabelNote.layer().setCornerRadius(3);
+    textLabelNote.setTextColor(NSColor.redColor());
+    // textLabelNote.setTextColor(NSColor.whiteColor());
+    // textLabelNote.setBackgroundColor(NSColor.blueColor());
+    // textLabelNote.setWantsLayer(true);
+    // textLabelNote.layer().setCornerRadius(3);
     textLabelNote.setBezeled(false);
     textLabelNote.setEditable(false);
     textLabelNote.sizeToFit();

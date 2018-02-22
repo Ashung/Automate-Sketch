@@ -7,62 +7,28 @@ var onRun = function(context) {
     var selection = context.selection;
     var currentPage = document.currentPage();
 
-    // Get selected symbol
-    var currentForeignSymbol = currentForeignSymbolInSelection(context);
+    if (selection.count() != 1) {
+        document.showMessage("Please select one imported symbol.");
+        return;
+    } else {
+        var layer = selection.firstObject();
+        if (layer.class() == "MSSymbolInstance") {
+            if (layer.symbolMaster().isForeign()) {
 
-    if (!currentForeignSymbol) {
+                var instancesInCurrentPage = NSMutableArray.alloc().init();
 
-        // List all imported symbols
-        var foreignSymbols = documentData.foreignSymbols();
-
-        var foreignSymbolsList = NSMutableArray.alloc().init();
-        var loopForeignSymbols = foreignSymbols.objectEnumerator();
-        var foreignSymbol;
-        while (foreignSymbol = loopForeignSymbols.nextObject()) {
-            foreignSymbolsList.addObject(
-                foreignSymbol.symbolMaster().name() + " - " +
-                foreignSymbol.sourceLibraryName()
-            );
-        }
-
-        // Choose an imported symbol
-        var dialog = COSAlertWindow.alloc().init();
-        dialog.setMessageText("Select All Instances of Imported Symbol");
-        dialog.setInformativeText("Choose an imported symbol, and select all instances of the imported symbol.");
-
-        dialog.addTextLabelWithValue("All Imported Symbol.");
-        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-        selectBox.addItemsWithObjectValues(foreignSymbolsList);
-        selectBox.selectItemAtIndex(0);
-        dialog.addAccessoryView(selectBox);
-
-        dialog.addButtonWithTitle("OK");
-        dialog.addButtonWithTitle("Cancel");
-
-        var responseCode = dialog.runModal();
-        if (responseCode == 1000) {
-
-            currentForeignSymbol = foreignSymbols.objectAtIndex(selectBox.indexOfSelectedItem());
-
-            // Filter instances in current page
-            var allInstances = currentForeignSymbol.symbolMaster().allInstances();
-            var instancesInCurrentPage = NSMutableArray.alloc().init();
-            var loopAllInstances = allInstances.objectEnumerator();
-            var instance;
-            while (instance = loopAllInstances.nextObject()) {
-                if (instance.parentPage() == currentPage) {
-                    instancesInCurrentPage.addObject(instance);
+                var allInstances = layer.symbolMaster().allInstances();
+                var loopAllInstances = allInstances.objectEnumerator();
+                var instance;
+                while (instance = loopAllInstances.nextObject()) {
+                    if (instance.parentPage() == currentPage) {
+                        instancesInCurrentPage.addObject(instance);
+                    }
                 }
-            }
-
-            var count = instancesInCurrentPage.count();
-            if (count > 0) {
 
                 currentPage.changeSelectionBySelectingLayers(instancesInCurrentPage);
 
-                // Same as CMD + 2
-                NSApp.sendAction_to_from("zoomToSelection:", nil, document);
-
+                var count = instancesInCurrentPage.count();
                 document.showMessage(
                     "Select " + count + " instance " +
                     (count == 1 ? "layer" : "layers") +
@@ -70,38 +36,13 @@ var onRun = function(context) {
                 );
 
             } else {
-                document.showMessage(
-                    "No any instance layer in current page."
-                );
+                document.showMessage("Please select one imported symbol.");
             }
-
         } else {
-            document.showMessage("Please choose an imported symbol.");
-            return;
+            document.showMessage("Please select one imported symbol.");
         }
     }
 
     ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
 
 };
-
-// Return MSForeignSymbol
-function currentForeignSymbolInSelection(context) {
-
-    var selection = context.selection;
-
-    if (selection.count() == 0) {
-        return;
-    }
-
-    var loopSelection = selection.reverseObjectEnumerator();
-    var layer;
-    while (layer = loopSelection.nextObject()) {
-        if (layer.class() == "MSSymbolInstance") {
-            if (layer.symbolMaster().isForeign()) {
-                return layer.symbolMaster().foreignSymbol();
-            }
-        }
-    }
-
-}
