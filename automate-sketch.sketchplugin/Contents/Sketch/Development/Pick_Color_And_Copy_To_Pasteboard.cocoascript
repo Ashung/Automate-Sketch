@@ -1,0 +1,27 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+
+    coscript.setShouldKeepAround(true);
+
+    var button = BCMagnifierButton.alloc().initWithFrame(NSZeroRect);
+    button.setCOSJSTargetFunction(function(obj) {
+
+        var pickColor = obj.chosenColor();
+        var color = MSColor.colorWithRed_green_blue_alpha(pickColor.red(), pickColor.green(), pickColor.blue(), 1);
+        var hexValue = "#" + color.immutableModelObject().hexValue();
+
+        var pboard = NSPasteboard.generalPasteboard();
+        pboard.clearContents();
+        pboard.setString_forType_(hexValue, NSStringPboardType);
+
+        document.showMessage("The color code \"" + hexValue + "\" has been copied.");
+
+    });
+    button.performClick(null);
+
+    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+
+};
