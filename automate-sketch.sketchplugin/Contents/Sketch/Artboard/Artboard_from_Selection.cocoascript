@@ -9,12 +9,19 @@ var onRun = function(context) {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
-            var artboard = MSArtboardGroup.alloc().init();
-            artboard.setName(layer.name());
-            artboard.setFrame(MSRect.alloc().initWithRect(layer.absoluteRect().rect()));
-            doc.currentPage().addLayers([artboard]);
-            artboard.frame().setConstrainProportions(false);
-            layer.moveToLayer_beforeLayer(artboard, nil);
+            if (layer.class() != "MSArtboardGroup" && layer.class() != "MSSymbolMaster") {
+                var artboard = MSArtboardGroup.alloc().init();
+                artboard.setName(layer.name());
+                artboard.setFrame(MSRect.alloc().initWithRect(layer.absoluteRect().rect()));
+                doc.currentPage().addLayers([artboard]);
+                artboard.frame().setConstrainProportions(false);
+                layer.moveToLayer_beforeLayer(artboard, nil);
+
+                if (layer.class() == "MSLayerGroup") {
+                    var layerGroup = artboard.layers().firstObject();
+                    layerGroup.ungroup();
+                }
+            }
         }
     }
 
