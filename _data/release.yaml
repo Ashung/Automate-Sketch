@@ -1,4 +1,16 @@
 -
+  version: 49.0.20180301
+  description: |-
+    <ul>
+    <li>Add Reset Overrides.</li>
+    <li>Selection to artboard or symbol will remove the group layer.</li>
+    <li>Selection to symbol now support artboard.</li>
+    <li>Fix Replace Symbol With Library Symbol reduplicated symbol bug.</li>
+    <li>Fix some Sketch 49 compatibility.</li>
+    </ul>
+  commitID: 8484f13830f373f2732ffa7c2f772daac219460a
+
+-
   version: 48.2.20180222
   description: |-
     <ul>
