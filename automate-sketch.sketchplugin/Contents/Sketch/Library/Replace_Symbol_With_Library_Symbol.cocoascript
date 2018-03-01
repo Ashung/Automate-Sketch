@@ -214,9 +214,25 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
             // Import symbol
             var assetLibraryController = AppController.sharedInstance().librariesController();
             var importedSymbolID = sender.superview().subviews().firstObject().stringValue();
+
+            // Remove exist imported symbol with same remoteSymbolID
+            var foreignSymbolID;
+            var foreignSymbols = documentData.foreignSymbols().objectEnumerator();
+            var foreignSymbol;
+            while (foreignSymbol = foreignSymbols.nextObject()) {
+                if (foreignSymbol.remoteSymbolID().isEqualToString(importedSymbolID)) {
+                    documentData.removeForeignSymbol(foreignSymbol);
+                    foreignSymbolID = foreignSymbol.symbolMaster().symbolID();
+                }
+            }
+
             var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
                 library.symbolWithID(importedSymbolID), library, documentData
             );
+
+            if (foreignSymbolID) {
+                importedSymbol.symbolMaster().setSymbolID(foreignSymbolID);
+            }
 
             if (importedSymbol.isOutOfDateWithLibrary(library)) {
                 importedSymbol.syncWithMaster(library.symbolWithID(importedSymbolID));
@@ -274,10 +290,6 @@ function createLabelNote(rect, text) {
     textLabelNote.setStringValue(text);
     textLabelNote.setFont(NSFont.systemFontOfSize(10));
     textLabelNote.setTextColor(NSColor.redColor());
-    // textLabelNote.setTextColor(NSColor.whiteColor());
-    // textLabelNote.setBackgroundColor(NSColor.blueColor());
-    // textLabelNote.setWantsLayer(true);
-    // textLabelNote.layer().setCornerRadius(3);
     textLabelNote.setBezeled(false);
     textLabelNote.setEditable(false);
     textLabelNote.sizeToFit();

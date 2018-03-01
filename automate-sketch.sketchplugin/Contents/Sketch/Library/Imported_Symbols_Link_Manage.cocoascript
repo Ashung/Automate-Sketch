@@ -45,7 +45,11 @@ var onRun = function(context) {
     var i = 0;
     while (importedSymbol = loopImportedSymbols.nextObject()) {
 
-        var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+            var libraryForSymbol = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
+        } else {
+            var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+        }
         var sourceLibraryName = importedSymbol.sourceLibraryName();
 
         // List
@@ -129,7 +133,11 @@ var onRun = function(context) {
             var tipView = sender.superview().subviews().objectAtIndex(1);
             var importedSymbolIndex = parseInt(sender.superview().subviews().objectAtIndex(0).stringValue());
             var importedSymbol = allImportedSymbols.objectAtIndex(importedSymbolIndex);
-            var originalLibrary = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+            if (MSApplicationMetadata.metadata().appVersion >= 49) {
+                var originalLibrary = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
+            } else {
+                var originalLibrary = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+            }
             var originalLibraryID = importedSymbol.libraryID();
             var originalLibraryName = importedSymbol.sourceLibraryName();
 

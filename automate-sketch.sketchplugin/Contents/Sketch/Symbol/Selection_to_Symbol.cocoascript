@@ -10,16 +10,26 @@ var onRun = function(context) {
     while (layer = loopSelection.nextObject()) {
 
         var layers = MSLayerArray.arrayWithLayers([layer]);
-        if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
+        if (layer.class() == "MSArtboardGroup") {
+            layers = MSLayerArray.arrayWithLayers(layer.layers());
+            layer.ungroup();
+        }
 
+        if (MSSymbolCreator.canCreateSymbolFromLayers(layers)) {
             var symbolName = layer.name();
             var symbolInstance = MSSymbolCreator.createSymbolFromLayers_withName_onSymbolsPage(layers, symbolName, false);
             var symbolMaster = symbolInstance.symbolMaster();
+
+            if (layer.class() == "MSLayerGroup") {
+                var layerGroup = symbolMaster.layers().firstObject();
+                layerGroup.ungroup();
+            }
 
             symbolMaster.setRect(symbolInstance.absoluteRect().rect());
             symbolMaster.setLayerListExpandedType(1);
             symbolInstance.removeFromParent();
         }
+
     }
 
     ga(context, "UA-99098773-3", "Symbol", context.command.identifier());

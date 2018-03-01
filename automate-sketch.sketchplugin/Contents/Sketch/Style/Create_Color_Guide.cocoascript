@@ -46,8 +46,15 @@ var onRun = function(context) {
 
         var page = document.currentPage();
 
-        var palettePositionX = page.originForNewArtboard().x,
-            palettePositionY = page.originForNewArtboard().y,
+        var point;
+        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+            point = page.originForNewArtboardWithSize(CGSizeMake(100,100));
+        } else {
+            point = page.originForNewArtboard();
+        }
+
+        var palettePositionX = point.x,
+            palettePositionY = point.y,
             paletteWidth = 200,
             paletteHeight = 100,
             spaceBetweenPalettes = 24,

@@ -28,8 +28,15 @@ var onRun = function(context) {
 
         var page = document.currentPage();
 
-        var typographyPositionX = page.originForNewArtboard().x,
-            typographyPositionY = page.originForNewArtboard().y,
+        var point;
+        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+            point = page.originForNewArtboardWithSize(CGSizeMake(100,100));
+        } else {
+            point = page.originForNewArtboard();
+        }
+
+        var typographyPositionX = point.x,
+            typographyPositionY = point.y,
             spaceBetweenTypographys = 32,
             spaceBetweenTypographyAndText = 8,
             textHeight = 16,
