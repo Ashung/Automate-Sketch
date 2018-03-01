@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.{{version}}",
+    "version": "49.0.{{version}}",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -313,11 +313,6 @@
             "name": "{{remove_unused_symbols}}",
             "identifier": "remove_unused_symbols",
             "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
-        },
-        {
-            "name": "{{remove_unused_symbols_old}}",
-            "identifier": "remove_unused_symbols_old",
-            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
         },
         {
             "name": "{{set_to_original_width}}",
@@ -675,6 +670,11 @@
             "name": "{{pick_color_and_copy}}",
             "identifier": "pick_color_and_copy",
             "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript"
+        },
+        {
+            "name": "{{reset_overrides}}",
+            "identifier": "reset_overrides",
+            "script": "Symbol/Reset_Overrides.cocoascript"
         }
     ],
     "menu": {
@@ -757,6 +757,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "reset_overrides",
                     "-",
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
@@ -767,7 +768,6 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
-                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",

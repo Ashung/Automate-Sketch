@@ -290,10 +290,6 @@ function createLabelNote(rect, text) {
     textLabelNote.setStringValue(text);
     textLabelNote.setFont(NSFont.systemFontOfSize(10));
     textLabelNote.setTextColor(NSColor.redColor());
-    // textLabelNote.setTextColor(NSColor.whiteColor());
-    // textLabelNote.setBackgroundColor(NSColor.blueColor());
-    // textLabelNote.setWantsLayer(true);
-    // textLabelNote.layer().setCornerRadius(3);
     textLabelNote.setBezeled(false);
     textLabelNote.setEditable(false);
     textLabelNote.sizeToFit();

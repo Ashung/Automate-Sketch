@@ -54,8 +54,15 @@ var onRun = function(context) {
         var symbolMaster;
         while (symbolMaster = loopSymbolMasters.nextObject()) {
 
-            var positionX = targetPage.originForNewArtboard().x;
-            var positionY = targetPage.originForNewArtboard().y;
+            var artboardPosition;
+            if (MSApplicationMetadata.metadata().appVersion >= 49) {
+                artboardPosition = targetPage.originForNewArtboardWithSize(symbolMaster.rect().size);
+            } else {
+                artboardPosition = targetPage.originForNewArtboard();
+            }
+
+            var positionX = artboardPosition.x;
+            var positionY = artboardPosition.y;
 
             targetPage.addLayer(symbolMaster);
             originalPage.removeLayer(symbolMaster);

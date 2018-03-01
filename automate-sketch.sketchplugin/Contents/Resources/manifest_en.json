@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.20180224",
+    "version": "49.0.20180301",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -315,17 +315,12 @@
             "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
         },
         {
-            "name": "Remove Unused Symbols (Legacy)",
-            "identifier": "remove_unused_symbols_old",
-            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
-        },
-        {
-            "name": "Set to Original Width",
+            "name": "Reset to Original Width",
             "identifier": "set_to_original_width",
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
         {
-            "name": "Set to Original Height",
+            "name": "Reset to Original Height",
             "identifier": "set_to_original_height",
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
@@ -675,6 +670,11 @@
             "name": "Pick Color and Copy the HEX Code",
             "identifier": "pick_color_and_copy",
             "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript"
+        },
+        {
+            "name": "Reset Overrides",
+            "identifier": "reset_overrides",
+            "script": "Symbol/Reset_Overrides.cocoascript"
         }
     ],
     "menu": {
@@ -757,6 +757,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "reset_overrides",
                     "-",
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
@@ -767,7 +768,6 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
-                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",

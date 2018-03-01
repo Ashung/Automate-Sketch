@@ -1,0 +1,28 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+    var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
+
+    if (selection.count() == 0 || symbolInstancesInSelection.count() == 0) {
+        document.showMessage("Please select at least one symbol instance.");
+        return;
+    }
+
+    var loopSymbolInstancesInSelection = symbolInstancesInSelection.objectEnumerator();
+    var symbolInstance;
+    while (symbolInstance = loopSymbolInstancesInSelection.nextObject()) {
+        symbolInstance.setOverrides(nil);
+    }
+
+    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+
+};
+
+
+function getSymbolInstancesInSelection(selection) {
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
+    return selection.filteredArrayUsingPredicate(predicate);
+}

@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "48.2.20180224",
+    "version": "49.0.20180301",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -315,17 +315,12 @@
             "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
         },
         {
-            "name": "刪除未用元件 (舊版相容)",
-            "identifier": "remove_unused_symbols_old",
-            "script": "Symbol/Remove_Unused_Symbols.cocoascript"
-        },
-        {
-            "name": "設為原始寬度",
+            "name": "重置為原始寬度",
             "identifier": "set_to_original_width",
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
         {
-            "name": "設為原始高度",
+            "name": "重置為原始高度",
             "identifier": "set_to_original_height",
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
@@ -675,6 +670,11 @@
             "name": "螢幕取色並複製色彩程式碼",
             "identifier": "pick_color_and_copy",
             "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript"
+        },
+        {
+            "name": "重置覆蓋",
+            "identifier": "reset_overrides",
+            "script": "Symbol/Reset_Overrides.cocoascript"
         }
     ],
     "menu": {
@@ -757,6 +757,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "reset_overrides",
                     "-",
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
@@ -767,7 +768,6 @@
                     "selection_to_symbol_master",
                     "detach_unused_symbol_master",
                     "remove_unused_symbols",
-                    "remove_unused_symbols_old",
                     "-",
                     "export_all_symbols_as_png",
                     "-",

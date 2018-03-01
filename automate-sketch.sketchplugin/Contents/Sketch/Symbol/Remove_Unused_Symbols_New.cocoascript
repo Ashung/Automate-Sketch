@@ -158,10 +158,14 @@ var onRun = function(context) {
             var state = unusedSymbolView.subviews().firstObject().state();
             if (state) {
                 var unusedSymbolsWillRemoved = unusedSymbols.objectAtIndex(unusedSymbolIndex);
-                if (unusedSymbolsWillRemoved.isForeign()) {
-                    documentData.removeForeignSymbol(unusedSymbolsWillRemoved.foreignSymbol());
-                } else {
+                if (MSApplicationMetadata.metadata().appVersion >= 49) {
                     unusedSymbolsWillRemoved.removeFromParent();
+                } else {
+                    if (unusedSymbolsWillRemoved.isForeign()) {
+                        documentData.removeForeignSymbol(unusedSymbolsWillRemoved.foreignSymbol());
+                    } else {
+                        unusedSymbolsWillRemoved.removeFromParent();
+                    }
                 }
                 count ++;
             }
@@ -184,7 +188,12 @@ function getAllUnusedSymbols(context) {
 
     var document = context.document;
     var documentData = document.documentData();
-    var allSymbols = documentData.allSymbols();
+    // In Sketch 49, unused Symbols imported from Libraries are now cleared when saving a document
+    if (MSApplicationMetadata.metadata().appVersion >= 49) {
+        var allSymbols = documentData.localSymbols();
+    } else {
+        var allSymbols = documentData.allSymbols();
+    }
     var result = allSymbols.mutableCopy();
 
     var loopPages = document.pages().objectEnumerator();

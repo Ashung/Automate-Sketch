@@ -156,7 +156,7 @@ var onRun = function(context) {
             changeButton.setCOSJSTargetFunction(function(sender) {
                 var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
                 var newID = changeDocumentID(targetLibraryPath);
-                var idView = sender.superview().subviews().objectAtIndex(3);
+                var idView = sender.superview().subviews().objectAtIndex(4);
                 idView.setStringValue(newID);
             });
             itemView.addSubview(changeButton);

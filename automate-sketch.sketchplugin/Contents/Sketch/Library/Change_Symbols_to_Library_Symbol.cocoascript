@@ -9,7 +9,7 @@ var onRun = function(context) {
         document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
         return;
     }
-    
+
     var selection = context.selection;
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
@@ -143,7 +143,7 @@ var onRun = function(context) {
     } else {
         message = "No any symbol master have been changed to library symbol.";
     }
-    doc.showMessage(message);
+    document.showMessage(message);
 
     ga(context, "UA-99098773-3", "Library", context.command.identifier());
 
