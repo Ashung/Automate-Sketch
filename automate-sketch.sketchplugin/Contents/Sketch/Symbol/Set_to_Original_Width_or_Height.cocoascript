@@ -30,6 +30,10 @@ var onRun = function(context) {
                 layer.frame().setHeight(originalHeight);
             }
 
+            if (layer.parentGroup().class() == "MSLayerGroup") {
+                layer.parentGroup().resizeToFitChildrenWithOption(1);
+            }
+
         }
     }
 

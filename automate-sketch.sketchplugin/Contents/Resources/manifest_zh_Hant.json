@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.0.20180301",
+    "version": "49.0.20180312",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -400,11 +400,6 @@
             "name": "SVG 匯出設定",
             "identifier": "svg_export_setting",
             "script": "Utilities/SVG_Export_Setting.cocoascript"
-        },
-        {
-            "name": "微調距離設定",
-            "identifier": "nudge_distance_setting",
-            "script": "Utilities/Nudge_Distance_Setting.cocoascript"
         },
         {
             "name": "網站",
@@ -884,9 +879,6 @@
                     "copy_selected_layer_name",
                     "copy_objectid_or_symbolid",
                     "-",
-                    "show_file_in_finder",
-                    "open_terminal_at_file_folder",
-                    "-",
                     "script_editor_setting",
                     "edit_plugin_setting",
                     "reload_plugins"
@@ -896,9 +888,11 @@
                 "title": "實用工具",
                 "items": [
                     "svg_export_setting",
-                    "nudge_distance_setting",
                     "-",
-                    "convert_to_other_version"
+                    "convert_to_other_version",
+                    "-",
+                    "show_file_in_finder",
+                    "open_terminal_at_file_folder"
                 ]
             },
             {

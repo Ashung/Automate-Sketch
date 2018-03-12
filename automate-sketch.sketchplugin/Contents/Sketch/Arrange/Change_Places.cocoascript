@@ -33,6 +33,14 @@ var onRun = function(context) {
             selection[1].frame().midY = midY1;
         }
 
+        // Resize group to fit children
+        if (selection[0].parentGroup().class() == "MSLayerGroup") {
+            selection[0].parentGroup().resizeToFitChildrenWithOption(1);
+        }
+        if (selection[1].parentGroup().class() == "MSLayerGroup") {
+            selection[1].parentGroup().resizeToFitChildrenWithOption(1);
+        }
+
     } else {
         doc.showMessage("Please select 2 objects.");
     }

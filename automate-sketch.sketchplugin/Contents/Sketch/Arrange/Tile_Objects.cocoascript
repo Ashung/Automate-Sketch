@@ -17,7 +17,7 @@ var tileLayersVerticallyByIndex = function(context) {
     tileLayer(context, "verticallyByIndex");
 };
 
-function tileLayer (context, orientation) {
+function tileLayer(context, orientation) {
     var doc = context.document;
     var selection = context.selection;
     if (selection.count() < 2) {
@@ -90,6 +90,15 @@ function tileLayer (context, orientation) {
                 selection.objectAtIndex(i).frame().setY(
                     selection.objectAtIndex(i-1).frame().y() + selection.objectAtIndex(i-1).frame().height() + gap
                 );
+            }
+        }
+
+        // Resize group to fit children
+        var loopSelection = selection.objectEnumerator();
+        var selectedLayer;
+        while (selectedLayer = loopSelection.nextObject()) {
+            if (selectedLayer.parentGroup().class() == "MSLayerGroup") {
+                selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);
             }
         }
 
