@@ -5,27 +5,27 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.0.20180312",
+    "version": "49.0.20180315",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
     "commands": [
         {
-            "name": "Fix to Parent Width with Margin",
-            "identifier": "fix_to_parent_width_with_margin",
-            "handler": "fixToParentWidthWithMargin",
-            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "name": "Fit to Parent Width with Margin",
+            "identifier": "fit_to_parent_width_with_margin",
+            "handler": "fitToParentWidthWithMargin",
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
-            "name": "Fix to Parent Height with Margin",
-            "identifier": "fix_to_parent_height_with_margin",
-            "handler": "fixToParentHeightWithMargin",
-            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "name": "Fit to Parent Height with Margin",
+            "identifier": "fit_to_parent_height_with_margin",
+            "handler": "fitToParentHeightWithMargin",
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
-            "name": "Fix to Parent with Margins",
-            "identifier": "fix_to_parent_with_margin",
-            "script": "Layer/Fix_to_Parent_with_Margin.cocoascript"
+            "name": "Fit to Parent with Margins",
+            "identifier": "fit_to_parent_with_margin",
+            "script": "Layer/Fit_to_Parent_with_Margin.cocoascript"
         },
         {
             "name": "Bounds Layer for Every Selection",
@@ -704,9 +704,9 @@
             {
                 "title": "Layer",
                 "items": [
-                    "fix_to_parent_with_margin",
-                    "fix_to_parent_width_with_margin",
-                    "fix_to_parent_height_with_margin",
+                    "fit_to_parent_with_margin",
+                    "fit_to_parent_width_with_margin",
+                    "fit_to_parent_height_with_margin",
                     "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",

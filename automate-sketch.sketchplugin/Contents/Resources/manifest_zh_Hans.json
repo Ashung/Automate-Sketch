@@ -5,27 +5,27 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.0.20180312",
+    "version": "49.0.20180315",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
     "commands": [
         {
             "name": "带边距适配父级宽",
-            "identifier": "fix_to_parent_width_with_margin",
-            "handler": "fixToParentWidthWithMargin",
-            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "identifier": "fit_to_parent_width_with_margin",
+            "handler": "fitToParentWidthWithMargin",
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
             "name": "带边距适配父级高",
-            "identifier": "fix_to_parent_height_with_margin",
-            "handler": "fixToParentHeightWithMargin",
-            "script": "Layer/Fix_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "identifier": "fit_to_parent_height_with_margin",
+            "handler": "fitToParentHeightWithMargin",
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
         },
         {
             "name": "带边距适配父级",
-            "identifier": "fix_to_parent_with_margin",
-            "script": "Layer/Fix_to_Parent_with_Margin.cocoascript"
+            "identifier": "fit_to_parent_with_margin",
+            "script": "Layer/Fit_to_Parent_with_Margin.cocoascript"
         },
         {
             "name": "为选中对象增加边界层",
@@ -704,9 +704,9 @@
             {
                 "title": "图层",
                 "items": [
-                    "fix_to_parent_with_margin",
-                    "fix_to_parent_width_with_margin",
-                    "fix_to_parent_height_with_margin",
+                    "fit_to_parent_with_margin",
+                    "fit_to_parent_width_with_margin",
+                    "fit_to_parent_height_with_margin",
                     "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",

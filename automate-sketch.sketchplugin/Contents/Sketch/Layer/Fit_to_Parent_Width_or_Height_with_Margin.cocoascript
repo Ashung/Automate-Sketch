@@ -1,7 +1,7 @@
 @import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 
-var fixToParentHeightWithMargin = function(context) {
+var fitToParentHeightWithMargin = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
@@ -37,7 +37,7 @@ var fixToParentHeightWithMargin = function(context) {
 
 };
 
-var fixToParentWidthWithMargin = function(context) {
+var fitToParentWidthWithMargin = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
