@@ -1,0 +1,83 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 0) {
+        document.showMessage("Please select at least one layer.");
+    }
+
+    var layer = selection.firstObject();
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Show Layer Info");
+    dialog.setInformativeText("You current select layer \"" + layer.name() + "\".");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var labelClass = labelView("layer.className()");
+    dialog.addAccessoryView(labelClass);
+    var textFieldClass = textFieldView(layer.class(), false);
+    dialog.addAccessoryView(textFieldClass);
+
+    var labelObjectID = labelView("layer.objectID()");
+    dialog.addAccessoryView(labelObjectID);
+    var textFieldObjectID = textFieldView(layer.objectID());
+    dialog.addAccessoryView(textFieldObjectID);
+
+    if (layer.class() == "MSSymbolInstance" || layer.class() == "MSSymbolMaster") {
+        var labelSymbolID = labelView("layer.symbolID()");
+        dialog.addAccessoryView(labelSymbolID);
+        var textFieldSymbolID = textFieldView(layer.symbolID());
+        dialog.addAccessoryView(textFieldSymbolID);
+    }
+
+    if (layer.class() == "MSSymbolInstance") {
+        if (layer.symbolMaster().isForeign()) {
+
+            var labelRemoteSymbolID = labelView("layer.symbolMaster().foreignObject().remoteSymbolID()");
+            dialog.addAccessoryView(labelRemoteSymbolID);
+            var textFieldRemoteSymbolID = textFieldView(layer.symbolMaster().foreignObject().remoteSymbolID());
+            dialog.addAccessoryView(textFieldRemoteSymbolID);
+
+            // log(layer.symbolMaster().foreignObject().libraryID())
+            
+        }
+    }
+
+
+    // dialog.accessoryView().addSubview(labelClass);
+
+    dialog.runModal();
+
+};
+
+function labelView(text) {
+    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20)));
+    textView.setStringValue(text);
+    textView.setFont(NSFont.boldSystemFontOfSize(12));
+    textView.setTextColor(NSColor.blackColor());
+    textView.setBezeled(false);
+    textView.setDrawsBackground(false);
+    textView.setEditable(false);
+    textView.setSelectable(false);
+    return textView;
+}
+
+function textFieldView(text, editable) {
+    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 270, 25)));
+    textView.setStringValue(text);
+    textView.setFont(NSFont.fontWithName_size("Monaco", 12));
+    // textView.setTextColor(NSColor.blackColor());
+    // textView.setBezeled(false);
+    // textView.setDrawsBackground(false);
+    //
+    // textView.setSelectable(false);
+    if (editable == false) {
+        textView.setEditable(false);
+    }
+    return textView;
+}

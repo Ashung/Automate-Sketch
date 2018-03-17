@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.0.20180315",
+    "version": "49.0.20180317",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -670,6 +670,11 @@
             "name": "Reset Overrides",
             "identifier": "reset_overrides",
             "script": "Symbol/Reset_Overrides.cocoascript"
+        },
+        {
+            "name": "Show Layer Info",
+            "identifier": "show_layer_info",
+            "script": "Development/Show_Layer_Info.cocoascript"
         }
     ],
     "menu": {
@@ -878,6 +883,7 @@
                     "-",
                     "copy_selected_layer_name",
                     "copy_objectid_or_symbolid",
+                    "show_layer_info",
                     "-",
                     "script_editor_setting",
                     "edit_plugin_setting",
