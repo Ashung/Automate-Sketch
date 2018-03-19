@@ -58,8 +58,8 @@ var onRun = function(context) {
 
         document.showMessage(
             "Imported " + newColors.count() + " colors, " +
-            newGradients + " gradients, " +
-            newPatterns + " patterns."
+            newGradients.count() + " gradients, " +
+            newPatterns.count() + " patterns."
         );
 
     }
