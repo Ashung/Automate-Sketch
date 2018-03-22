@@ -9,34 +9,29 @@ var onRun = function(context) {
 
     var presets = [
         {
-            title: "8x8",
+            title: "1 x 8",
             gridSize: 1,
             thickGridTimes: 8
         },
         {
-            title: "10x10",
+            title: "8 x 1 (Layout grid)",
+            gridSize: 8,
+            thickGridTimes: 1
+        },
+        {
+            title: "1 x 10",
             gridSize: 1,
             thickGridTimes: 10
         },
         {
-            title: "12x12",
+            title: "1 x 12 (For 24px icon design)",
             gridSize: 1,
             thickGridTimes: 12
         },
         {
-            title: "8x8 retina",
-            gridSize: 2,
-            thickGridTimes: 8
-        },
-        {
-            title: "10x10 retina",
+            title: "2 x 10",
             gridSize: 2,
             thickGridTimes: 10
-        },
-        {
-            title: "12x12 retina",
-            gridSize: 2,
-            thickGridTimes: 12
         }
     ];
 
@@ -71,7 +66,7 @@ var onRun = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier(), "grid_setting", title);
+    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
 };
 
 function getGrid(parent, gridSize, thickGridTimes) {
