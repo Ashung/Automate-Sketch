@@ -15,6 +15,6 @@ var onRun = function(context) {
         doc.showMessage("Select a symbol master.");
     }
 
-    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+    ga(context, "Symbol");
 
 };

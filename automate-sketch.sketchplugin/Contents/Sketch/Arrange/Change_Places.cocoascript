@@ -45,6 +45,6 @@ var onRun = function(context) {
         doc.showMessage("Please select 2 objects.");
     }
 
-    ga(context, "UA-99098773-3", "Arrange", pluginIdentifier);
+    ga(context, "Arrange", pluginIdentifier);
 
 };

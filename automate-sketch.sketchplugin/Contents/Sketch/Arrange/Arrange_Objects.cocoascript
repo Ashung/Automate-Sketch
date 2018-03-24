@@ -58,7 +58,7 @@ var onRun = function(context) {
         doc.showMessage("Please select at least 2 layers.");
     }
 
-    ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
+    ga(context, "Arrange");
 
 };
 

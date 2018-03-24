@@ -83,7 +83,7 @@ var selectAllExportableInSelection = function(context) {
         doc.showMessage("Select " + totalCount + " exportable layers.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 
@@ -148,7 +148,7 @@ function selectLayersInSelectionByType(context, type) {
         doc.showMessage("Select " + totalCount + friendlyTypeName + " layers.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier(), "select_layer_type", type);
+    ga(context, "Layer");
 
 }
 

@@ -51,7 +51,7 @@ var saveExportPresetsToFile = function(context) {
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
 
-    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+    ga(context, "Slice");
 
 };
 
@@ -108,6 +108,6 @@ var loadExportPresetsFromFile = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+    ga(context, "Slice");
 
 };

@@ -33,7 +33,7 @@ var fitToParentHeightWithMargin = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 
@@ -69,6 +69,6 @@ var fitToParentWidthWithMargin = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };

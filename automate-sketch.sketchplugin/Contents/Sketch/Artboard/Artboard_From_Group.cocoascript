@@ -30,5 +30,5 @@ var onRun = function(context) {
         doc.showMessage("Please select at least 1 group.");
     }
 
-    ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+    ga(context, "Artboard");
 };

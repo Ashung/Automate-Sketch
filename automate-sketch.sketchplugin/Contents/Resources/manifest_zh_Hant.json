@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.0.20180317",
+    "version": "49.0.20180324",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -293,11 +293,6 @@
             "name": "重新命名例項",
             "identifier": "rename_instances",
             "script": "Symbol/Rename_Instances.cocoascript"
-        },
-        {
-            "name": "自定義例項名稱",
-            "identifier": "custom_instances_name",
-            "script": "Symbol/Custom_Instances_Name.cocoascript"
         },
         {
             "name": "將選中圖層直接變為元件",
@@ -762,7 +757,6 @@
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
                     "rename_instances",
-                    "custom_instances_name",
                     "-",
                     "move_symbols_to_page",
                     "selection_to_symbol_master",

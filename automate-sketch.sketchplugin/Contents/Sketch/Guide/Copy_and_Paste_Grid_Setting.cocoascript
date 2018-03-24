@@ -30,7 +30,7 @@ var copyGrid = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    ga(context, "Guide");
 };
 
 var pasteGrid = function(context) {
@@ -62,7 +62,7 @@ var pasteGrid = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    ga(context, "Guide");
 };
 
 function copyGridToPasteboard(context, layer) {

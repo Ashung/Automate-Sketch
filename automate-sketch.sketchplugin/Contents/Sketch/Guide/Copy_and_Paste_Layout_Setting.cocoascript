@@ -30,7 +30,7 @@ var copyLayout = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    ga(context, "Guide");
 };
 
 var pasteLayout = function(context) {
@@ -62,7 +62,7 @@ var pasteLayout = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    ga(context, "Guide");
 };
 
 function copyLayoutToPasteboard(context, layer) {

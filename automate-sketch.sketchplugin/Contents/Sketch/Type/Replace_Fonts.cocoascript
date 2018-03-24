@@ -76,7 +76,7 @@ var onRun = function(context) {
 
             doc.showMessage('Complete replace "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
-            ga(context, "UA-99098773-3", "Type", context.command.identifier(), "replace_font", replaceFont);
+            ga(context, "Type");
 
         }
     } else {

@@ -39,7 +39,7 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select at least one layer.");
     }
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 };
 
 function selectLayer(layer) {

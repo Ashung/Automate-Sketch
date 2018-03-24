@@ -22,6 +22,6 @@ var onRun = function(context) {
     });
     button.performClick(null);
 
-    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+    ga(context, "Development");
 
 };

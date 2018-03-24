@@ -54,6 +54,6 @@ var onRun = function(context) {
 
     doc.layerTreeLayoutDidChange();
 
-    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+    ga(context, "Slice");
 
 };

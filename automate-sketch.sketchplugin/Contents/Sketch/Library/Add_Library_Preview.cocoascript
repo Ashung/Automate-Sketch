@@ -25,6 +25,6 @@ var onRun = function(context) {
         document.currentView().centerRect_animated(artboard.frame().rect(), true);
     }
 
-    ga(context, "UA-99098773-3", "Library", context.command.identifier());
+    ga(context, "Library");
 
 };

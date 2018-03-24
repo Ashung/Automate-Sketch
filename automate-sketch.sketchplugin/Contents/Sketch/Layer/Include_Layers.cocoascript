@@ -36,7 +36,7 @@ var createIncludeLayer = function(context) {
         doc.showMessage("Please selected 1 rectangle layer and 1 gourp/artboard.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 
@@ -55,7 +55,7 @@ var syncIncludeLayers = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 

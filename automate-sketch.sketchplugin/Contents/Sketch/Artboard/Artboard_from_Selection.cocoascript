@@ -25,6 +25,6 @@ var onRun = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+    ga(context, "Artboard");
 
 };

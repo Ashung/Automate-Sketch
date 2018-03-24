@@ -98,7 +98,7 @@ var onRun = function(context) {
         document.showMessage("Clipboard is empty.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 }
 

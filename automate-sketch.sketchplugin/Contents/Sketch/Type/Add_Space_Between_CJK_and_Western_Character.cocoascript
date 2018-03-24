@@ -49,6 +49,6 @@ var onRun = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+    ga(context, "Type");
 
 };

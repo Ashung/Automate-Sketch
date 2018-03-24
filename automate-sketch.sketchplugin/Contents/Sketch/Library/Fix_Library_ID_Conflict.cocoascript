@@ -177,7 +177,7 @@ var onRun = function(context) {
     dialog.setAccessoryView(accessoryView);
     dialog.runModal();
 
-    ga(context, "UA-99098773-3", "Library", context.command.identifier());
+    ga(context, "Library");
 
 };
 

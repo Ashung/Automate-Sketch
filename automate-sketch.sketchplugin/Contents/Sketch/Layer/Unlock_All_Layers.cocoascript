@@ -10,5 +10,5 @@ var onRun = function(context) {
             layer.setIsLocked(false);
         }
     }
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 };

@@ -75,6 +75,6 @@ var onRun = function(context) {
         doc.showMessage("Please select one layer with fill or border.");
     }
 
-    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "Style");
 
 }

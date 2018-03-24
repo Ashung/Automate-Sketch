@@ -18,5 +18,5 @@ function clickThrough(context, clicked) {
             layer.setHasClickThrough(clicked);
         }
     }
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 }

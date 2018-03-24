@@ -102,7 +102,7 @@ function tileLayer(context, orientation) {
             }
         }
 
-        ga(context, "UA-99098773-3", "Arrange", context.command.identifier(), "user_input_gap", gap);
+        ga(context, "Arrange");
 
     }
 };
