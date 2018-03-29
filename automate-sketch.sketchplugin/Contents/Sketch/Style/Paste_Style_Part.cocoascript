@@ -177,5 +177,5 @@ var onRun = function(context) {
         doc.showMessage('You need to copy style first, with "Edit" - "Copy" - "Copy Style ⌥⌘C".');
     }
 
-    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "Style");
 }

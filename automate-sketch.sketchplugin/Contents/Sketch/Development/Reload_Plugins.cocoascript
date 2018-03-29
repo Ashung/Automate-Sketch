@@ -2,5 +2,5 @@
 
 var onRun = function(context) {
     AppController.sharedInstance().pluginManager().reloadPlugins();
-    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+    ga(context, "Development");
 };

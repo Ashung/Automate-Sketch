@@ -25,7 +25,7 @@ var onRun = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Guide", context.command.identifier());
+    ga(context, "Guide");
 
 };
 

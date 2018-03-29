@@ -72,7 +72,7 @@ var onRun = function(context) {
             doc.showMessage("Your selection have no include a text layer.");
         }
 
-        ga(context, "UA-99098773-3", "Type", context.command.identifier(), "typeface_of_latin", postScriptName);
+        ga(context, "Type");
 
     } else {
         doc.showMessage("Please select a text layer.");

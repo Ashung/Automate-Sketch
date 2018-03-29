@@ -20,6 +20,6 @@ var onRun = function(context) {
         doc.showMessage("Please select at least one shape layer.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 }

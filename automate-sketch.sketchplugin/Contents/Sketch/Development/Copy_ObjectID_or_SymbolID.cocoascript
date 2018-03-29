@@ -49,6 +49,6 @@ var onRun = function(context) {
         document.showMessage("Please select one layer.");
     }
 
-    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+    ga(context, "Development");
 
 };

@@ -72,6 +72,6 @@ var onRun = function(context) {
         }
     }
 
-    ga(context, "UA-99098773-3", "Development", context.command.identifier(), "plugin_editor", editorTitle);
+    ga(context, "Development");
 
 };

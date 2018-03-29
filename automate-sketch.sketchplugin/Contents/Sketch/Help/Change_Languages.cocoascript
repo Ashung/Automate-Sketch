@@ -53,5 +53,5 @@ var onRun = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Help", context.command.identifier(), "language", supportLanguagesKeys[languageIndex]);
+    ga(context, "Help");
 };

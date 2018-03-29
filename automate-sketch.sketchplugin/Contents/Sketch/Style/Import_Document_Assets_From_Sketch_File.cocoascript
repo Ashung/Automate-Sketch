@@ -58,12 +58,12 @@ var onRun = function(context) {
 
         document.showMessage(
             "Imported " + newColors.count() + " colors, " +
-            newGradients + " gradients, " +
-            newPatterns + " patterns."
+            newGradients.count() + " gradients, " +
+            newPatterns.count() + " patterns."
         );
 
     }
 
-    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "Style");
 
 };

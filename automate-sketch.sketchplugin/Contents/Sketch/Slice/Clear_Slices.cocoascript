@@ -25,6 +25,6 @@ var onRun = function(context) {
     }
     doc.showMessage(message);
 
-    ga(context, "UA-99098773-3", "Slice", context.command.identifier());
+    ga(context, "Slice");
 
 };

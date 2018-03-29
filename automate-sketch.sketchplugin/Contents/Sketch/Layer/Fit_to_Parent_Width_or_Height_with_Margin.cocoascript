@@ -1,7 +1,7 @@
 @import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 
-var fixToParentHeightWithMargin = function(context) {
+var fitToParentHeightWithMargin = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
@@ -33,11 +33,11 @@ var fixToParentHeightWithMargin = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 
-var fixToParentWidthWithMargin = function(context) {
+var fitToParentWidthWithMargin = function(context) {
 
     var doc = context.document;
     var selection = context.selection;
@@ -69,6 +69,6 @@ var fixToParentWidthWithMargin = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };

@@ -26,7 +26,7 @@ var onRun = function(context) {
         doc.showMessage("Do not seleted any text layer.");
     }
 
-    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+    ga(context, "Type");
 
 };
 

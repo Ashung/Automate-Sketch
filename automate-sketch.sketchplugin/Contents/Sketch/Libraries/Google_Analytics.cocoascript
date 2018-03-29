@@ -1,5 +1,7 @@
 
-function ga(context, trackingID, eventCategory, eventAction, eventLabel, eventValue) {
+function ga(context, eventCategory) {
+
+    var trackingID = "UA-99098773-3";
 
     var uuidKey = "google.analytics.uuid";
     var uuid = NSUserDefaults.standardUserDefaults().objectForKey(uuidKey);
@@ -34,15 +36,16 @@ function ga(context, trackingID, eventCategory, eventAction, eventLabel, eventVa
     // Event category
     url += "&ec=" + encodeURI(eventCategory);
     // Event action
-    url += "&ea=" + encodeURI(eventAction);
+    // url += "&ea=" + encodeURI(eventAction);
+    url += "&ea=" + encodeURI(context.command.identifier());
     // Event label
-    if (eventLabel) {
-        url += "&el=" + encodeURI(eventLabel);
-    }
+    // if (eventLabel) {
+    //     url += "&el=" + encodeURI(eventLabel);
+    // }
     // Event value
-    if (eventValue) {
-        url += "&ev=" + encodeURI(eventValue);
-    }
+    // if (eventValue) {
+    //     url += "&ev=" + encodeURI(eventValue);
+    // }
 
     var session = NSURLSession.sharedSession();
     var task = session.dataTaskWithURL(NSURL.URLWithString(NSString.stringWithString(url)));

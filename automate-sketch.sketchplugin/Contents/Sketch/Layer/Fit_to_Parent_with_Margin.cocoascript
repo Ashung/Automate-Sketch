@@ -6,7 +6,7 @@ var onRun = function(context) {
     var doc = context.document;
     var selection = context.selection;
 
-    var defaultUserInput = getPreferences(context, "fix_to_parent_margins") || "0";
+    var defaultUserInput = getPreferences(context, "fit_to_parent_margins") || "0";
     var userInput = doc.askForUserInput_initialValue(
         'Margins: "all", "TB LR", "T LR B" or "T R B L"',
         defaultUserInput
@@ -46,7 +46,7 @@ var onRun = function(context) {
             return;
         }
 
-        setPreferences(context, "fix_to_parent_margins", userInput.toString());
+        setPreferences(context, "fit_to_parent_margins", userInput.toString());
 
         var loopSelection = selection.objectEnumerator();
         var layer;
@@ -66,6 +66,6 @@ var onRun = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };

@@ -47,13 +47,18 @@ var onRun = function(context) {
 
             arrangeLayers(layers, globalLeft, globalTop, gapX, gapY, globalTop, snapDistance);
 
+            // Resize group to fit children
+            if (selection.firstObject().parentGroup().class() == "MSLayerGroup") {
+                selection.firstObject().parentGroup().resizeToFitChildrenWithOption(1);
+            }
+
         }
 
     } else {
         doc.showMessage("Please select at least 2 layers.");
     }
 
-    ga(context, "UA-99098773-3", "Arrange", context.command.identifier());
+    ga(context, "Arrange");
 
 };
 
@@ -100,7 +105,7 @@ function arrangeLayers(layers, originX, originY, gapX, gapY, rowTop, snapDistanc
     var loopLayers = layers.objectEnumerator();
     var layer;
     while (layer = loopLayers.nextObject()) {
-        if (layer.frame().y() - originY <= snapDistance) {
+        if (layer.frame().y() - originY < snapDistance) {
             rowGroup.push(layer);
         }
     }

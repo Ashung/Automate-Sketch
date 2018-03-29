@@ -30,9 +30,13 @@ var onRun = function(context) {
                 layer.frame().setHeight(originalHeight);
             }
 
+            if (layer.parentGroup().class() == "MSLayerGroup") {
+                layer.parentGroup().resizeToFitChildrenWithOption(1);
+            }
+
         }
     }
 
-    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+    ga(context, "Symbol");
 
 };

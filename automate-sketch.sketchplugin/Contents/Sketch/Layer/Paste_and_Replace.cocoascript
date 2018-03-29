@@ -35,15 +35,16 @@ var onRun = function(context) {
                 while (oldLayer = loopSelection.nextObject()) {
 
                     var pasteboardLayers = getPasteboardLayers(context);
+                    var parentGroup = oldLayer.parentGroup();
 
                     pasteboardLayers.insertInGroup_atPosition_afterLayer(
-                        oldLayer.parentGroup(),
+                        parentGroup,
                         oldLayer.frame().rect().origin,
                         oldLayer
                     );
 
                     var group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
-                    group.moveToLayer_beforeLayer(oldLayer.parentGroup(), oldLayer);
+                    group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     group.frame().setX(oldLayer.frame().x());
                     group.frame().setY(oldLayer.frame().y());
                     group.ungroup();
@@ -69,6 +70,10 @@ var onRun = function(context) {
 
                     newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
 
+                    if (parentGroup.class() == "MSLayerGroup") {
+                        parentGroup.resizeToFitChildrenWithOption(1);
+                    }
+
                 }
 
                 if (appVersion >= 45) {
@@ -93,7 +98,7 @@ var onRun = function(context) {
         document.showMessage("Clipboard is empty.");
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 }
 

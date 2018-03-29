@@ -26,7 +26,7 @@ var showFileInFinder = function(context) {
         var filePath = doc.fileURL().path();
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
-    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+    ga(context, "Development");
 };
 
 var openTerminalAtFileFolder = function(context) {
@@ -37,5 +37,5 @@ var openTerminalAtFileFolder = function(context) {
         var fileFolder = doc.fileURL().path().stringByDeletingLastPathComponent();
         NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Terminal");
     }
-    ga(context, "UA-99098773-3", "Development", context.command.identifier());
+    ga(context, "Development");
 };

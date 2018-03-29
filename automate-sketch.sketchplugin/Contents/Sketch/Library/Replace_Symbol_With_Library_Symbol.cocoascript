@@ -113,7 +113,7 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("Cancel");
     dialog.runModal();
 
-    ga(context, "UA-99098773-3", "Library", context.command.identifier());
+    ga(context, "Library");
 
 };
 

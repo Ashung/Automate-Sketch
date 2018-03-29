@@ -3,13 +3,13 @@
 var fillColorFromGlobalColors = function(context) {
     var globalColors = NSApp.delegate().globalAssets().colors();
     fillColorFromColors(context, globalColors, "You have no any color in Global Colors.");
-    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "Style");
 };
 
 var fillColorFromDocumentColors = function(context) {
     var documentColors = context.document.documentData().assets().colors();
     fillColorFromColors(context, documentColors, "You have no any color in Document Colors.");
-    ga(context, "UA-99098773-3", "Style", context.command.identifier());
+    ga(context, "Style");
 };
 
 function fillColorFromColors(context, colors, alertMessage) {

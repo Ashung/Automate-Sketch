@@ -24,6 +24,6 @@ var onRun = function(context) {
         doc.showMessage("Please select at least one text layer.");
     }
 
-    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+    ga(context, "Type");
 
 };

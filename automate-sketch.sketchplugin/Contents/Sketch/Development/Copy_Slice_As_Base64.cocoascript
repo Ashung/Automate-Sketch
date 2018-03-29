@@ -42,7 +42,7 @@ var onRun = function(context) {
 
         doc.showMessage("The base64 code \"" + base64Preview + "\" of slice has copied.");
 
-        ga(context, "UA-99098773-3", "Development", context.command.identifier(), "base64_type", format + "");
+        ga(context, "Development");
 
     } else {
         doc.showMessage("Please select 1 slice layer.");

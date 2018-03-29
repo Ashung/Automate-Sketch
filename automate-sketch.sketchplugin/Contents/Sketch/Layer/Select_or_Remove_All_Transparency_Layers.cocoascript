@@ -36,7 +36,7 @@ var removeTransparencyLayersHandler = function(context) {
     }
     document.showMessage(message);
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 
@@ -58,7 +58,7 @@ var selectTransparencyLayersHandler = function(context) {
         selectTransparencyLayers(page);
     }
 
-    ga(context, "UA-99098773-3", "Layer", context.command.identifier());
+    ga(context, "Layer");
 
 };
 

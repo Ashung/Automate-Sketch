@@ -24,7 +24,6 @@ Make your workflow more efficient.
 | Divide Layer                                           | Split Layer.                                                 |
 | Ungroup Shape Layer                                    | Ungroup shape layer.                                         |
 | Unlock All Layers                                      | Unlock all layers.                                           |
-| Click Through On (Off)                                 | Trun on/off the click through.                               |
 | Select All Layers In Selection By Type                 | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
 | Select All Layers In Selection By Name                 | Select all layers match by layer name.                       |
 | Select All Child Layers                                | Select all sub-layers.                                       |
@@ -72,13 +71,11 @@ Make your workflow more efficient.
 | Reset Overrides                                        | Reset symbol overrides in selection.                         |
 | Select All Instance of Symbol                          | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                | Select all instances of imported symbol (library symbol).    |
-| Rename Instances                                       | Reset the instance name to the component (symbol master) full name. |
-| Custom Instances Name                                  | Change all instances of the selected page of the current page, artboard, or document to a custom name, symbol name, or symbol full name. |
+| Rename Instances                                       | Rename all instances in selection.                           |
 | Move Symbol Masters To Another Page                    | Move selected symbol masters to anthoer page.                |
 | Selection to Symbol Master                             | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master                            | Converts unused symbol templates to groups.                  |
-| Remove Unused Symbols (Legacy)                         | Remove unused symbols.                                       |
-| Remove Unused Symbols                                  | For Sketch 48+, with symbol preview.                         |
+| Remove Unused Symbols                                  | Remove unused symbols, for Sketch 48+, with symbol preview.  |
 | Export all Symbols As PNG                              | Export all symbols as PNG according to the "Page / symbol" rule. |
 | Sync Symbol Master from Sketch File                    | Synchronize symbols from Sketch files base on symbol ID.     |
 | Replace Pages from Sketch File                         | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
@@ -93,7 +90,6 @@ Make your workflow more efficient.
 | Add Solid Fill from CSS Color                          | Fill from CSS color code.                                    |
 | Fill Color from Global (Document) Colors               | Fill from the global (document) color fast.                  |
 | Swap Fill and Border                                   | Swap fills and borders.                                      |
-| Reflection                                             | Show the hidden reflection style.                            |
 | Remove All Disabled Styles                             | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                      | Remove unused layer styles and text styles.                  |
 | Create Color Guide                                     | Create a color guide from document color.                    |
@@ -107,20 +103,22 @@ Make your workflow more efficient.
 | Hide All Grid/Layout                                   | Hide all grid or layout.                                     |
 | Copy Grid/Layout/Guide                                 | Copy the grid/layout/guide from seleted artboard.            |
 | Paste Grid/Layout/Guide                                | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
+| **Prototyping**                                        |                                                              |
+| Bring All Hotspot to Front                             | Bring all hotspot layer to front.                            |
 | **Development**                                        |                                                              |
-| Copy ObjectID or SymbolID                              | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
+| Pick Color and Copy the HEX Code                       | Pick a color from screen and copy the HEX code.              |
 | Copy Slice as Base64                                   | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
 | Copy Selected Layer Name                               | Copy the selected layer name to the clipboard.               |
-| Show File in Finder                                    | Open the current document in the Finder.                     |
-| Open Terminal at File Folder                           | Open the terminal and switch to the directory of the current document. |
+| Copy ObjectID or SymbolID                              | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
+| Show and Change Layer Info                             | Show and change layer's objectID, symbolID etc.              |
 | Script Editor Setting                                  | Script editor font and font size settings.                   |
 | Edit Plugin Setting                                    | Set up external plugin editor, default editor Atom, Sublime Text, Visual Studio Code and WebStorm. |
 | Reload Plugins                                         | Reload all plugins.                                          |
-| Pick Color and Copy the HEX Code                       | Pick a color from screen and copy the HEX code.              |
 | **Utilities**                                          |                                                              |
 | SVG Export Setting                                     | SVG export settings.                                         |
-| Nudge Distance Setting                                 | Setting to move layers with the arrow keys (also supported in latest version of Sketch) |
 | Convert Sketch File to Other Version                   | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
+| Show File in Finder                                    | Open the current document in the Finder.                     |
+| Open Terminal at File Folder                           | Open the terminal and switch to the directory of the current document. |
 
 **[Feature Request](https://github.com/Ashung/Automate-Sketch/issues/new)**
 

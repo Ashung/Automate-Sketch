@@ -2,117 +2,132 @@
 
 var onRun = function(context) {
 
-    var doc = context.document;
+    var document = context.document;
     var selection = context.selection;
+    var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
+
+    if (selection.count() == 0 || symbolInstancesInSelection.count() == 0) {
+        document.showMessage("Please select at least one symbol instance.");
+        return;
+    }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
+    var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Rename Instances");
-    dialog.setInformativeText("Choose what instances you want to rename.");
+    dialog.setInformativeText("Change the name for all selected sysmbol instances.");
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
-    // Radio buttons
-    var buttonType = NSButtonCell.alloc().init();
-        buttonType.setButtonType(NSRadioButton);
-    var matrixType = NSMatrix.alloc().initWithFrame_mode_prototype_numberOfRows_numberOfColumns(
-        NSMakeRect(0, 0, 300, 80),
-        NSRadioModeMatrix,
-        buttonType,
-        3,
-        1
-    );
-    matrixType.setCellSize(CGSizeMake(300, 25));
-    var cells = matrixType.cells();
-        cells.objectAtIndex(0).setTitle("All instances.");
-        cells.objectAtIndex(1).setTitle("Instances in selected Artboard/Group.");
-        cells.objectAtIndex(2).setTitle("Instances in current Page.");
+    // Views
+    var views = NSMutableArray.alloc().init();
 
-    dialog.setAccessoryView(matrixType);
+    var labelNameType = labelView("Change the name to...");
+    views.addObject(labelNameType);
 
+    var buttonNameType = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    buttonNameType.addItemsWithTitles([
+        "Original name of symbol master.",
+        "Base name of symbol master.",
+        "Custom name."
+    ]);
+    views.addObject(buttonNameType);
+
+    var labelCustomName = labelView("Custom name");
+    views.addObject(labelCustomName);
+
+    var inputCustomName = textFieldView(getPreferences(context, "custom_instance_name") || "");
+    textFieldEditable(inputCustomName, false);
+    views.addObject(inputCustomName);
+
+    buttonNameType.setCOSJSTargetFunction(function(sender) {
+        if (sender.indexOfSelectedItem() == sender.itemArray().count() - 1) {
+            textFieldEditable(inputCustomName, true);
+        } else {
+            textFieldEditable(inputCustomName, false);
+        }
+    });
+
+    // Layout
+    var wrapViewHeight = 0;
+    var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 0));
+    accessoryView.setFlipped(true);
+    views.forEach(function(view) {
+        var currentFrame = view.bounds();
+        currentFrame.origin.y = wrapViewHeight + 8;
+        wrapViewHeight += currentFrame.size.height + 8;
+        view.setFrame(currentFrame);
+        accessoryView.addSubview(view);
+    });
+
+    var viewFrame = accessoryView.frame();
+    viewFrame.size.height = wrapViewHeight;
+    accessoryView.setFrame(viewFrame);
+    dialog.setAccessoryView(accessoryView);
+
+    // Run
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        var selectedRadioIndex = matrixType.cells().indexOfObject(matrixType.selectedCell());
+        setPreferences(context, "custom_instance_name", inputCustomName.stringValue());
 
-        if (selectedRadioIndex == 0) {
+        var loopSymbolInstancesInSelection = symbolInstancesInSelection.objectEnumerator();
+        var instance;
+        while (instance = loopSymbolInstancesInSelection.nextObject()) {
 
-            var count = 0;
-
-            var loopPages = doc.pages().objectEnumerator();
-            var page;
-            while (page = loopPages.nextObject()) {
-                var instances = page.allSymbolInstancesInChildren().allObjects();
-                var loopInstances = instances.objectEnumerator();
-                var instance;
-                while (instance = loopInstances.nextObject()) {
-                    if (instance.symbolMaster()) {
-                        instance.setName(instance.symbolMaster().name());
-                        count++;
-                    }
-                }
+            // Original name of symbol master.
+            if (buttonNameType.indexOfSelectedItem() == 0) {
+                instance.setName(instance.symbolMaster().name());
             }
 
-            doc.showMessage("Rename " + count + " instances in current document.");
-
-        }
-
-        if (selectedRadioIndex == 1) {
-
-            if (selection.count() > 0) {
-
-                var count = 0;
-
-                var loopSelection  = selection.objectEnumerator();
-                var layer;
-                while (layer = loopSelection.nextObject()) {
-
-                    if (layer.class() == "MSSymbolInstance" && layer.symbolMaster()) {
-                        layer.setName(layer.symbolMaster().name());
-                        count++;
-                    }
-
-                    if (layer.allSymbolInstancesInChildren().allObjects().count() > 0) {
-                        var instances = layer.allSymbolInstancesInChildren().allObjects();
-                        var loopInstances = instances.objectEnumerator();
-                        var instance;
-                        while (instance = loopInstances.nextObject()) {
-                            if (instance.symbolMaster()) {
-                                instance.setName(instance.symbolMaster().name());
-                                count++;
-                            }
-                        }
-                    }
-
-                }
-
-                doc.showMessage("Rename " + count + " instances in selection.");
-
+            // Base name of symbol master.
+            if (buttonNameType.indexOfSelectedItem() == 1) {
+                var lastIndexOfSlash = instance.symbolMaster().name().lastIndexOf("/");
+                instance.setName(instance.symbolMaster().name().substr(lastIndexOfSlash + 1).trim());
             }
 
-        }
-
-        if (selectedRadioIndex == 2) {
-
-            var count = 0;
-
-            var page = doc.currentPage();
-            var instances = page.allSymbolInstancesInChildren().allObjects();
-            var loopInstances = instances.objectEnumerator();
-            var instance;
-            while (instance = loopInstances.nextObject()) {
-                if (instance.symbolMaster()) {
-                    instance.setName(instance.symbolMaster().name());
-                    count++;
-                }
+            // Custom name.
+            if (buttonNameType.indexOfSelectedItem() == 2) {
+                instance.setName(inputCustomName.stringValue());
             }
-
-            doc.showMessage("Rename " + count + " instances in current page.");
 
         }
 
     }
 
-    ga(context, "UA-99098773-3", "Symbol", context.command.identifier());
+    ga(context, "Symbol");
 
 };
+
+function getSymbolInstancesInSelection(selection) {
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
+    return selection.filteredArrayUsingPredicate(predicate);
+}
+
+function labelView(text) {
+    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16)));
+    textView.setStringValue(text);
+    textView.setFont(NSFont.boldSystemFontOfSize(12));
+    textView.setTextColor(NSColor.blackColor());
+    textView.setBezeled(false);
+    textView.setDrawsBackground(false);
+    textView.setEditable(false);
+    textView.setSelectable(false);
+    return textView;
+}
+
+function textFieldView(text) {
+    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25)));
+    textView.setStringValue(text);
+    textView.setFont(NSFont.systemFontOfSize(12));
+    return textView;
+}
+
+function textFieldEditable(view, bool) {
+    if (bool) {
+        view.setEditable(true);
+        view.setTextColor(NSColor.blackColor());
+    } else {
+        view.setEditable(false);
+        view.setTextColor(NSColor.grayColor());
+    }
+}

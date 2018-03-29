@@ -114,6 +114,6 @@ var onRun = function(context) {
         doc.showMessage("Document have no any artboard.");
     }
 
-    ga(context, "UA-99098773-3", "Artboard", context.command.identifier());
+    ga(context, "Artboard");
 
 };

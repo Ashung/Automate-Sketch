@@ -77,7 +77,7 @@ var onRun = function(context) {
         doc.showMessage("Please select 1 text layer.");
     }
 
-    ga(context, "UA-99098773-3", "Type", context.command.identifier());
+    ga(context, "Type");
 
 };
 

@@ -22,7 +22,6 @@
 | Divide Layer                                           | 均分图层。                                                   |
 | Ungroup Shape Layer                                    | 取消形状图层组，解决手动取消组出现的图层位置偏移。           |
 | Unlock All Layers                                      | 解锁所有图层。                                               |
-| Click Through On (Off)                                 | 点击穿透开关。                                               |
 | Select All Layers In Selection By Type                 | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。 |
 | Select All Layers In Selection By Name                 | 根据图层名选择。                                             |
 | Select All Child Layers                                | 选择所有子图层。                                             |
@@ -70,12 +69,10 @@
 | Reset Overrides                                        | 重置选中组件的覆盖。                                         |
 | Select All Instance of Symbol                          | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                | 选择导入组件（库组件）的实例。                               |
-| Rename Instances                                       | 重置实例名称为组件完整名。                                   |
-| Custom Instances Name                                  | 将当前页、画板或文档的选中元件的所有实例改为自定义名、组件名或组件完整名。 |
+| Rename Instances                                       | 修改选择的实例名称。                                         |
 | Move Symbol Masters To Another Page                    | 将选中组件模版移动至其他页面。                               |
 | Selection to Symbol Master                             | 将选中图层在原位置直接变为组件。                             |
 | Detach Unused Symbol Master                            | 将未使用的组件模版转为组。                                   |
-| Remove Unused Symbols (Legacy)                         | 删除未使用组件。                                             |
 | Remove Unused Symbols                                  | 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
 | Export All Symbols As PNG                              | 按照 "页面/组件" 规则，将所有组件导出为 PNG。                |
 | Sync Symbol Master from Sketch File                    | 根据 Symbol ID，从 Sketch 文件同步组件。                     |
@@ -91,7 +88,6 @@
 | Add Solid Fill from CSS Color                          | 从 CSS 色彩代码添加填充。                                    |
 | Fill Color from Global (Document) Colors               | 从全局 (文档) 色版快速填充。                                 |
 | Swap Fill and Border                                   | 互换填充和描边。                                             |
-| Reflection                                             | 显示隐藏的倒影样式。                                         |
 | Remove All Disabled Styles                             | 删除当前页所有图层中禁用样式。                               |
 | Remove Unused Layer / Text Styles                      | 删除文档中未使用的图层样式或文本样式。                       |
 | Create Color Guide                                     | 从文档颜色创建色彩指南。                                     |
@@ -105,20 +101,22 @@
 | Hide All Grid/Layout                                   | 隐藏所有网格或布局。                                         |
 | Copy Grid/Layout/Guide                                 | 复制选中画板的网格、布局或辅助线信息。                       |
 | Paste Grid/Layout/Guide                                | 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
+| **Prototyping**                                        | **原型**                                                     |
+| Bring All Hotspot to Front                             | 置顶所有热区图层。                                           |
 | **Development**                                        | **开发**                                                     |
-| Copy ObjectID or SymbolID                              | 当选择图层时复制图层的 ObjectID 或 SymbolID到剪贴板。        |
+| Pick Color and Copy the HEX Code                       | 从屏幕取色并负责色彩的十六进制值。                           |
 | Copy Slice as Base64                                   | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Copy Selected Layer Name                               | 复制选中的图层名到剪贴板。                                   |
-| Show File in Finder                                    | 在 Finder 中打开当前文档。                                   |
-| Open Termianl at File Folder                           | 打开终端，并切换到当前文档的目录。                           |
+| Copy ObjectID or SymbolID                              | 当选择图层时复制图层的 ObjectID 或 SymbolID到剪贴板。        |
+| Show and Change Layer Info                             | 显示和修改图层的 ObjectID 或 SymbolID 等等。                 |
 | Script Editor Setting                                  | 脚本编辑器的字体与字号设置。                                 |
 | Edit Plugin Setting                                    | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
 | Reload Plugins                                         | 重载所有插件。                                               |
-| Pick Color and Copy the HEX Code                       | 从屏幕取色并负责色彩的十六进制值。                           |
 | **Utilities**                                          | **实用工具**                                                 |
 | SVG Export Setting                                     | SVG 导出设置。                                               |
-| Nudge Distance Setting                                 | 方向键移动距离设置。                                         |
 | Convert Sketch File to Other Version                   | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
+| Show File in Finder                                    | 在 Finder 中打开当前文档。                                   |
+| Open Termianl at File Folder                           | 打开终端，并切换到当前文档的目录。                           |
 
 部分功能，当有选中元素时，将只操作元素内的图层。
 

@@ -105,6 +105,27 @@ var onRun = function(context) {
         //     "compatibilityVersion": "93",
         //     "commit":"b8111e3393c4ca1f2399ecfdfc1e9488029ebe7b"
         // },
+        // {
+        //     "appVersion": "49",
+        //     "build": "51002",
+        //     "version": "97",
+        //     "compatibilityVersion": "93",
+        //     "commit":"0d6159dce47524c255dd4fa80da3eb7398495bb5"
+        // },
+        // {
+        //     "appVersion": "49.1",
+        //     "build": "51147",
+        //     "version": "101",
+        //     "compatibilityVersion": "93",
+        //     "commit":"9dcf53ec96d1408dbda79e7865e04e3284438d9d"
+        // },
+        // {
+        //     "appVersion": "49.2",
+        //     "build": "51160",
+        //     "version": "101",
+        //     "compatibilityVersion": "93",
+        //     "commit":"3ddf4a853aaf3543a90063fa41305860bd6d6e7a"
+        // },
     ];
 
     var versions = sketchMetaDatas.map(function(item) {
@@ -173,6 +194,6 @@ var onRun = function(context) {
 
     }
 
-    ga(context, "UA-99098773-3", "Utilities", context.command.identifier());
+    ga(context, "Utilities");
 
 }
