@@ -1,3 +1,14 @@
+
+-
+  version: 49.2.20180329
+  description: |-
+    <ul>
+    <li>Add new Rename instances.</li>
+    <li>Add Show and Change Layer Info.</li>
+    <li>Fix bugs, resize layer group to fix children.</li>
+    </ul>
+  commitID: 3def79ac4c70500e828f0520815448327e50c336
+
 -
   version: 49.0.20180301
   description: |-
