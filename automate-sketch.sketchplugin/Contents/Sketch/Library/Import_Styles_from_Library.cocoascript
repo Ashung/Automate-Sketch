@@ -1,0 +1,110 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Import Style from Library");
+    dialog.setInformativeText("You can import layer styles and text styles from any library.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.addTextLabelWithValue("Choose a library.");
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    var loopAvailableLibraries = availableLibraries.objectEnumerator();
+    var availableLibrary;
+    while (availableLibrary = loopAvailableLibraries.nextObject()) {
+        selectBox.addItemWithTitle("");
+        selectBox.lastItem().setTitle(availableLibrary.name());
+    }
+    dialog.addAccessoryView(selectBox);
+
+    var checkboxTextStyle = checkboxView("Import text styles.");
+    dialog.addAccessoryView(checkboxTextStyle);
+
+    var checkboxLayerStyle = checkboxView("Import layer style.");
+    dialog.addAccessoryView(checkboxLayerStyle);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var documentData = document.documentData();
+        var textStyles = documentData.layerTextStyles();
+        var layerStyles = documentData.layerStyles();
+
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
+        var libraryTextStyles = selectedLibrary.document().layerTextStyles();
+        var libraryLayerStyles = selectedLibrary.document().layerStyles();
+
+        if (checkboxTextStyle.state() && libraryTextStyles.numberOfSharedStyles() > 0) {
+            var loopLibraryTextStyles = libraryTextStyles.sharedStyles().objectEnumerator();
+            var textStyle;
+            while (textStyle = loopLibraryTextStyles.nextObject()) {
+
+                if (textStyles.sharedStyleWithID(textStyle.objectID())) {
+                    textStyles.removeSharedStyle(textStyles.sharedStyleWithID(textStyle.objectID()));
+                }
+
+                var newTextStyle = MSSharedStyle.alloc().initWithName_sharedObjectID_value(
+                    textStyle.name(), textStyle.objectID(), textStyle.value()
+                );
+
+                textStyles.addSharedObject(newTextStyle);
+
+            }
+        }
+
+        if (checkboxLayerStyle.state() && libraryLayerStyles.numberOfSharedStyles() > 0) {
+            var loopLibraryLayerStyles = libraryLayerStyles.sharedStyles().objectEnumerator();
+            var layerStyle;
+            while (layerStyle = loopLibraryLayerStyles.nextObject()) {
+
+                if (layerStyles.sharedStyleWithID(layerStyle.objectID())) {
+                    layerStyles.removeSharedStyle(layerStyles.sharedStyleWithID(layerStyle.objectID()));
+                }
+
+                var newLayerStyle = MSSharedStyle.alloc().initWithName_sharedObjectID_value(
+                    layerStyle.name(), layerStyle.objectID(), layerStyle.value()
+                );
+
+                layerStyles.addSharedObject(newLayerStyle);
+
+            }
+        }
+
+        document.reloadInspector();
+
+        document.showMessage(
+            "Imported " + libraryTextStyles.numberOfSharedStyles() + " text styles, " +
+            libraryLayerStyles.numberOfSharedStyles() + " layer styles from library \"" +
+            selectedLibrary.name() + "\"."
+        );
+
+    }
+
+    ga(context, "Library");
+
+};
+
+function checkboxView(text) {
+    var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkbox.setButtonType(NSSwitchButton);
+    checkbox.setTitle(text);
+    checkbox.setState(NSOnState);
+    return checkbox;
+}

@@ -39,6 +39,8 @@ var onRun = function(context) {
 
         }
 
+        document.reloadInspector();
+
         document.showMessage("Imported " + newTextStyles.count() + " text styles.");
 
     }

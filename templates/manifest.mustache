@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.2.{{version}}",
+    "version": "49.3.{{version}}",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -157,6 +157,12 @@
             "name": "{{change_layer_places_center}}",
             "identifier": "change_layer_places_center",
             "script": "Arrange/Change_Places.cocoascript"
+        },
+        {
+            "name": "{{tile_layers}}",
+            "identifier": "tile_layers",
+            "handler": "customTileLayers",
+            "script": "Arrange/Tile_Objects.cocoascript"
         },
         {
             "name": "{{tile_layers_by_position_x}}",
@@ -635,11 +641,6 @@
             "script": "Slice/Export_Presets.cocoascript"
         },
         {
-            "name": "{{create_library_symbol}}",
-            "identifier": "create_library_symbol",
-            "script": "Library/Create_Library_Symbol.cocoascript"
-        },
-        {
             "name": "{{move_symbols_to_page}}",
             "identifier": "move_symbols_to_page",
             "script": "Symbol/Move_Symbols_To_Page.cocoascript"
@@ -675,6 +676,16 @@
             "name": "{{bring_all_hotspot_to_front}}",
             "identifier": "bring_all_hotspot_to_front",
             "script": "Prototyping/Bring_All_Hotspot_to_Front.cocoascript"
+        },
+        {
+            "name": "{{import_document_assets_from_library}}",
+            "identifier": "import_document_assets_from_library",
+            "script": "Library/Import_Document_Assets_from_Library.cocoascript"
+        },
+        {
+            "name": "{{import_styles_from_library}}",
+            "identifier": "import_styles_from_library",
+            "script": "Library/Import_Styles_from_Library.cocoascript"
         }
     ],
     "menu": {
@@ -687,6 +698,7 @@
                     "change_layer_places",
                     "change_layer_places_center",
                     "-",
+                    "tile_layers",
                     "tile_layers_by_position_x",
                     "tile_layers_by_position_y",
                     "tile_layers_horizontally_by_index",
@@ -782,6 +794,9 @@
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol",
+                    "-",
+                    "import_styles_from_library",
+                    "import_document_assets_from_library",
                     "-",
                     "add_library_preview"
                 ]

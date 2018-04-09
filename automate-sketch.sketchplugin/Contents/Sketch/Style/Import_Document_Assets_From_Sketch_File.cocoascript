@@ -56,6 +56,8 @@ var onRun = function(context) {
             }
         }
 
+        document.reloadInspector();
+
         document.showMessage(
             "Imported " + newColors.count() + " colors, " +
             newGradients.count() + " gradients, " +

@@ -17,6 +17,84 @@ var tileLayersVerticallyByIndex = function(context) {
     tileLayer(context, "verticallyByIndex");
 };
 
+var customTileLayers = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (selection.count() < 2) {
+        document.showMessage("Please select more than 2 layers.");
+        return;
+    }
+
+    // Get last user input
+    var defaultMarginX = getPreferences(context, "tileObjectMarginX") || 20,
+        defaultMarginY = getPreferences(context, "tileObjectMarginY") || 20,
+        defaultColums = getPreferences(context, "tileObjectColumns") || 10;
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Tile Objects");
+    dialog.setInformativeText("Tile objects with grid or any orientations.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.addTextLabelWithValue("How to tile...");
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    selectBox.addItemsWithTitles([
+        "🔣 Grid",
+        "➡️ Left to Right",
+        "⬇️ Top to Bottom",
+        "⬅️ Right to Left",
+        "⬆️ Bottom to Top",
+        "↘️ TopLeft to BottomRight",
+        "↖️ BottomRight to TopLeft",
+        "↗️ BottomLeft to TopRight",
+        "↙️ TopRight to BottomLeft"
+    ]);
+    dialog.addAccessoryView(selectBox);
+
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
+    var inputColumns = andInputGroup(view, 0, 80, "Columns", defaultColums);
+    var inputMarginX = andInputGroup(view, 100, 80, "Margin X", defaultMarginX);
+    var inputMarginY = andInputGroup(view, 200, 80, "Margin Y", defaultMarginY);
+    dialog.addAccessoryView(view);
+
+    var checkboxOrderByName = checkboxView("Order by name.");
+    checkboxOrderByName.setState(NSOffState);
+    dialog.addAccessoryView(checkboxOrderByName);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var columns = parseInt(inputColumns.stringValue()) || defaultColums,
+            marginX = parseInt(inputMarginX.stringValue()) || defaultMarginX,
+            marginY = parseInt(inputMarginY.stringValue()) || defaultMarginY;
+
+        setPreferences(context, "tileObjectColumns", columns);
+        setPreferences(context, "tileObjectMarginX", marginX);
+        setPreferences(context, "tileObjectMarginY", marginY);
+
+        var layers = selection.mutableCopy();
+        if (checkboxOrderByName.state()) {
+            layers.sort(function(a, b) {
+                if (a.name() > b.name()) {
+                    return 1;
+                }
+                if (a.name() < b.name()) {
+                    return -1;
+                }
+                return 0;
+            });
+        }
+
+        log(layers)
+
+    }
+
+};
+
 function tileLayer(context, orientation) {
     var doc = context.document;
     var selection = context.selection;
@@ -106,3 +184,26 @@ function tileLayer(context, orientation) {
 
     }
 };
+
+function andInputGroup(view, x, width, label, defaultString) {
+    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 25, width, 25));
+    labelView.setDrawsBackground("NO");
+    labelView.setEditable("NO");
+    labelView.setBezeled("NO");
+    labelView.setStringValue(label);
+    view.addSubview(labelView);
+    var inputView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 0, width, 25));
+    inputView.setStringValue(defaultString);
+    var formatter = NSNumberFormatter.alloc().init().autorelease();
+    inputView.setFormatter(formatter);
+    view.addSubview(inputView);
+    return inputView;
+}
+
+function checkboxView(text) {
+    var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25));
+    checkbox.setButtonType(NSSwitchButton);
+    checkbox.setTitle(text);
+    checkbox.setState(NSOnState);
+    return checkbox;
+}
