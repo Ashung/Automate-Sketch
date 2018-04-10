@@ -1,3 +1,13 @@
+-
+  version: 49.3.20180410
+  description: |-
+    <ul>
+    <li>Add Import Document Assets from Library.</li>
+    <li>Add Import Styles from Library.</li>
+    <li>Add Tile objects.</li>
+    <li>Fix Rename Instances bug.</li>
+    </ul>
+  commitID: c71aa50584ba9e3431d83d055a1ed3ae3439c74e
 
 -
   version: 49.2.20180329
