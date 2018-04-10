@@ -40,8 +40,8 @@ var customTileLayers = function(context) {
     dialog.addButtonWithTitle("Cancel");
 
     dialog.addTextLabelWithValue("How to tile...");
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    selectBox.addItemsWithTitles([
+    var selectTileType = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    selectTileType.addItemsWithTitles([
         "🔣 Grid",
         "➡️ Left to Right",
         "⬇️ Top to Bottom",
@@ -52,7 +52,7 @@ var customTileLayers = function(context) {
         "↗️ BottomLeft to TopRight",
         "↙️ TopRight to BottomLeft"
     ]);
-    dialog.addAccessoryView(selectBox);
+    dialog.addAccessoryView(selectTileType);
 
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
     var inputColumns = andInputGroup(view, 0, 80, "Columns", defaultColums);
@@ -89,10 +89,120 @@ var customTileLayers = function(context) {
             });
         }
 
-        log(layers)
+        var tileType = selectTileType.indexOfSelectedItem();
+
+        var rect = getRectFromLayers(layers);
+        var x = rect.x();
+        var y = rect.y();
+        var right = rect.maxX();
+        var bottom = rect.maxY();
+
+        // Grid
+        if (tileType == 0) {
+            var rowHeight = 0;
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                if (i % columns == 0) {
+                    x = rect.x();
+                    if (i != 0) {
+                        y = y + rowHeight + marginY;
+                    }
+                }
+                layer.frame().setX(x);
+                layer.frame().setY(y);
+                x = x + layer.frame().width() + marginX;
+                rowHeight = layer.frame().height() > rowHeight ? layer.frame().height() : rowHeight;
+            }
+        }
+
+        // Left to Right
+        if (tileType == 1) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setX(x);
+                layer.frame().setY(y);
+                x = x + layer.frame().width() + marginX;
+            }
+        }
+
+        // Top to Bottom
+        if (tileType == 2) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setX(x);
+                layer.frame().setY(y);
+                y = y + layer.frame().height() + marginY;
+            }
+        }
+
+        // Right to Left
+        if (tileType == 3) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setMaxX(right);
+                layer.frame().setY(y);
+                right = right - layer.frame().width() - marginX;
+            }
+        }
+
+        // Bottom to Top
+        if (tileType == 4) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                log(`${layer.name()} (${x}, ${bottom})`);
+                layer.frame().setX(x);
+                layer.frame().setMaxY(bottom);
+                bottom = bottom - layer.frame().height() - marginY;
+            }
+        }
+
+        // TopLeft to BottomRight
+        if (tileType == 5) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setX(x);
+                layer.frame().setY(y);
+                x = x + layer.frame().width() + marginX;
+                y = y + layer.frame().height() + marginY;
+            }
+        }
+
+        // BottomRight to TopLeft
+        if (tileType == 6) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setMaxX(right);
+                layer.frame().setMaxY(bottom);
+                right = right - layer.frame().width() - marginX;
+                bottom = bottom - layer.frame().height() - marginY;
+            }
+        }
+
+        // BottomLeft to TopRight
+        if (tileType == 7) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setX(x);
+                layer.frame().setMaxY(bottom);
+                x = x + layer.frame().width() + marginX;
+                bottom = bottom - layer.frame().height() - marginY;
+            }
+        }
+
+        // TopRight to BottomLeft
+        if (tileType == 8) {
+            for (var i = 0; i < layers.count(); i++) {
+                var layer = layers[i];
+                layer.frame().setMaxX(right);
+                layer.frame().setY(y);
+                right = right - layer.frame().width() - marginX;
+                y = y + layer.frame().height() + marginY;
+            }
+        }
 
     }
 
+    ga(context, "Arrange");
 };
 
 function tileLayer(context, orientation) {
@@ -179,10 +289,8 @@ function tileLayer(context, orientation) {
                 selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);
             }
         }
-
-        ga(context, "Arrange");
-
     }
+    ga(context, "Arrange");
 };
 
 function andInputGroup(view, x, width, label, defaultString) {
@@ -206,4 +314,14 @@ function checkboxView(text) {
     checkbox.setTitle(text);
     checkbox.setState(NSOnState);
     return checkbox;
+}
+
+function getRectFromLayers(layers) {
+    var rectArray = NSMutableArray.alloc().init();
+    var loopLayers = layers.objectEnumerator();
+    var layer;
+    while (layer = loopLayers.nextObject()) {
+        rectArray.addObject(layer.frame());
+    }
+    return MSRect.rectWithUnionOfRects(rectArray);
 }

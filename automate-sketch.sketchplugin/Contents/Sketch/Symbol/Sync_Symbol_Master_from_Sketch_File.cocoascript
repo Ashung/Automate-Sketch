@@ -14,10 +14,16 @@ var onRun = function(context) {
     if (chooseFile.runModal() == NSOKButton) {
 
         // Read data from the new sketch file.
+        var error = MOPointer.alloc().init();
         var newDocument = MSDocument.alloc().init();
-            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
-        var newDocumentData = newDocument.documentData();
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", error);
 
+        if (error.value() != null) {
+            document.showMessage("Error: " + error.value());
+            return;
+        }
+
+        var newDocumentData = newDocument.documentData();
         var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
 
         // Iteration symbolMasters in current document

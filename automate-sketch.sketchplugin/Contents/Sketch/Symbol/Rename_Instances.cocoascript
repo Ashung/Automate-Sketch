@@ -1,3 +1,4 @@
+@import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
