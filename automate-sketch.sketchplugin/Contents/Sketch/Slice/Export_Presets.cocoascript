@@ -46,7 +46,12 @@ var saveExportPresetsToFile = function(context) {
     if (panel.runModal() == NSOKButton) {
         var content = NSString.stringWithString(JSON.stringify(exportPresetsJSON, null, 4));
         var filePath = panel.URL().path();
-        content.writeToFile_atomically_encoding_error(filePath, true, NSUTF8StringEncoding, nil);
+        var error = MOPointer.alloc().init();
+        content.writeToFile_atomically_encoding_error(filePath, true, NSUTF8StringEncoding, error);
+        if (error.value() != null) {
+            context.document.showMessage("Error: " + error.value());
+            return;
+        }
         context.document.showMessage("Export presets save to " + filePath);
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
@@ -69,7 +74,13 @@ var loadExportPresetsFromFile = function(context) {
     panel.setAllowedFileTypes(["json"]);
     if (panel.runModal() == NSOKButton) {
         var filePath = panel.URL().path();
-        var content = NSString.stringWithContentsOfFile_encoding_error(filePath, NSUTF8StringEncoding, nil);
+        var error = MOPointer.alloc().init();
+        var content = NSString.stringWithContentsOfFile_encoding_error(filePath, NSUTF8StringEncoding, error);
+
+        if (error.value() != null) {
+            context.document.showMessage("Error: " + error.value());
+            return;
+        }
 
         var exportPresetsJSON = JSON.parse(String(content));
 

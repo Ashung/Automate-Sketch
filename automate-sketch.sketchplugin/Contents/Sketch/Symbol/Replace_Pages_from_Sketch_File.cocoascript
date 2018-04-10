@@ -16,8 +16,14 @@ var onRun = function(context) {
         var count = 0;
 
         // Read data from the new sketch file.
+        var error = MOPointer.alloc().init();
         var newDocument = MSDocument.alloc().init();
-            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", nil);
+            newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", error);
+
+        if (error.value() != null) {
+            document.showMessage("Error: " + error.value());
+            return;
+        }
 
         var loopPages = document.pages().objectEnumerator();
         var page;

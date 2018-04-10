@@ -38,8 +38,9 @@ Make your workflow more efficient.
 | Create / Sync Include Layer                            | Create and synchronize reference layers, automatically synchronize the copied layers into a group. |
 | **Arrange**                                            |                                                              |
 | Change Places Between Two Layers                       | Change two objects positions based on midpoint or coordinate origin. |
-| Tile Layers by Position X (Y)                          | Horizontal or vertical tiling objects.                       |
-| Tile Layers Horizontally (Vertically) by Index         | Horizontal or vertical tile based on layer list location.    |
+| Tile Objects                                           | Tile objects with grid or any orientations.                  |
+| Tile Objects by Position X (Y)                         | Horizontal or vertical tiling objects.                       |
+| Tile Objects Horizontally (Vertically) by Index        | Horizontal or vertical tile based on layer list location.    |
 | Arrange Objects                                        | Arrange selected layers or artboard.                         |
 | Order Layers By ...                                    | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                    | Invert the position in the layer list.                       |
@@ -84,6 +85,8 @@ Make your workflow more efficient.
 | Imported Symbols Link Manage                           | Link imported symbols to another library, or fix the library not found error. |
 | Replace Symbol With Library Symbol                     | Replace symbol with any library symbol.                      |
 | Change symbols to Library Symbol Base Symbol ID        | Change the selected/all symbols to library symbol base on symbol ID. |
+| Import Document Assets from Library                    | Import document assets like colors, gradients and images from any library. |
+| Import Styles from Library                             | Import text styles and layer styles from any library.        |
 | Add Library Preview                                    | Add a artboard for library preview image.                    |
 | **Styles**                                             |                                                              |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |

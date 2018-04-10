@@ -36,8 +36,9 @@
 | Create / Sync Include Layer                            | 创建和同步引用图层，自动同步复制图层到某个组内。             |
 | **Arrange**                                            | **排列**                                                     |
 | Change Places Between Two Layers                       | 根据中点或坐标原点，两个对象交换位置。                       |
-| Tile Layers by Position X (Y)                          | 水平或垂直平铺对象。                                         |
-| Tile Layers Horizontally (Vertically) by Index         | 根据图层列表位置水平或垂直平铺图层。                         |
+| Tile Objects                                           | 使用网格或任意方向排列对象，可设置按命名排列。               |
+| Tile Objects by Position X (Y)                         | 水平或垂直平铺对象。                                         |
+| Tile Objects Horizontally (Vertically) by Index        | 根据图层列表位置水平或垂直平铺图层。                         |
 | Arrange Objects                                        | 智能排列图层或画板。                                         |
 | Order Layers By ...                                    | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                    | 反转图层列表中的位置。                                       |
@@ -82,6 +83,8 @@
 | Imported Symbols Link Manage                           | 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
 | Replace Symbol With Library Symbol                     | 将选中组件替换为任意的库组件。                               |
 | Change symbols to Library Symbol Base Symbol ID        | 根据组件 ID，将选中或全部组件转为库组件。                    |
+| Import Document Assets from Library                    | 从库导入色彩、渐变和图案填充等文档资源，                     |
+| Import Styles from Library                             | 从库导入图层样式和文本样式。                                 |
 | Add Library Preview                                    | 增加一个画板用于库的预览图。                                 |
 | **Styles**                                             | **样式**                                                     |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |

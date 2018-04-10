@@ -230,18 +230,31 @@ function changeDocumentID(documentPath) {
         document.saveDocument(nil);
         return newID;
     } else {
+        var error = MOPointer.alloc().init();
         var document = MSDocument.alloc().init();
         var type = "com.bohemiancoding.sketch.drawing";
-        document.readFromURL_ofType_error(fileURL, type, nil);
+        document.readFromURL_ofType_error(fileURL, type, error);
+
+        if (error.value() != null) {
+            document.showMessage("Error: " + error.value());
+            return;
+        }
+
         document.documentData().setObjectID(newID);
 
         // Hack
         document.addBlankPage();
         document.removePage(document.pages().lastObject());
 
+        var error2 = MOPointer.alloc().init();
         var writeToNewDocument = document.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
-            fileURL, type, NSSaveOperation, nil, nil
+            fileURL, type, NSSaveOperation, nil, error2
         );
+
+        if (error2.value() != null) {
+            document.showMessage("Error: " + error2.value());
+            return;
+        }
 
         if (writeToNewDocument) {
             return newID;

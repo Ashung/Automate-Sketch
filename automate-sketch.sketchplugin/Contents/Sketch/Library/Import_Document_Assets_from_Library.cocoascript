@@ -1,0 +1,117 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    if (MSApplicationMetadata.metadata().appVersion < 47) {
+        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        return;
+    }
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Import Document Assets from Library");
+    dialog.setInformativeText("You can import colors, gradients, images from any library.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.addTextLabelWithValue("Choose a library.");
+    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    var loopAvailableLibraries = availableLibraries.objectEnumerator();
+    var availableLibrary;
+    while (availableLibrary = loopAvailableLibraries.nextObject()) {
+        selectBox.addItemWithTitle("");
+        selectBox.lastItem().setTitle(availableLibrary.name());
+    }
+    dialog.addAccessoryView(selectBox);
+
+    var checkboxColors = checkboxView("Import colors.");
+    dialog.addAccessoryView(checkboxColors);
+
+    var checkboxGradients = checkboxView("Import gradients.");
+    dialog.addAccessoryView(checkboxGradients);
+
+    var checkboxImages = checkboxView("Import images.");
+    dialog.addAccessoryView(checkboxImages);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var assets = document.documentData().assets();
+        var colors = assets.colors();
+        var gradients = assets.gradients();
+        var images = assets.images();
+
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
+        var libraryAssets = selectedLibrary.document().assets();
+
+        if (checkboxColors.state() && libraryAssets.colors().count() > 0) {
+            var loopLibraryColors = libraryAssets.colors().objectEnumerator();
+            var color;
+            while (color = loopLibraryColors.nextObject()) {
+                if (!colors.containsObject(color)) {
+                    colors.addObject(color);
+                }
+            }
+        }
+
+        if (checkboxGradients.state() && libraryAssets.gradients().count() > 0) {
+            var loopLibraryGradients = libraryAssets.gradients().objectEnumerator();
+            var gradient;
+            while (gradient = loopLibraryGradients.nextObject()) {
+                var containsObject = false;
+                var loopDocumentGradients = gradients.objectEnumerator();
+                var documentGradient;
+                while (documentGradient = loopDocumentGradients.nextObject()) {
+                    if (documentGradient.isAssetEqual(gradient)) {
+                        containsObject = true;
+                        break;
+                    }
+                }
+                if (!containsObject) {
+                    gradients.addObject(gradient);
+                }
+            }
+        }
+
+        if (checkboxImages.state() && libraryAssets.images().count() > 0) {
+            var loopLibraryImages = libraryAssets.images().objectEnumerator();
+            var image;
+            while (image = loopLibraryImages.nextObject()) {
+                if (!images.containsObject(image)) {
+                    assets.addAsset(image);
+                }
+            }
+        }
+
+        document.reloadInspector();
+
+        document.showMessage(
+            "Imported " + libraryAssets.colors().count() + " colors, " +
+            libraryAssets.gradients().count() + " gradients, " +
+            libraryAssets.images().count() + " patterns from library \"" +
+            selectedLibrary.name() + "\"."
+        );
+
+    }
+
+    ga(context, "Library");
+
+};
+
+function checkboxView(text) {
+    var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkbox.setButtonType(NSSwitchButton);
+    checkbox.setTitle(text);
+    checkbox.setState(NSOnState);
+    return checkbox;
+}
