@@ -43,6 +43,9 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
+        var importedTextStyleCount = 0;
+        var importedLayerStyleCount = 0;
+
         var documentData = document.documentData();
         var textStyles = documentData.layerTextStyles();
         var layerStyles = documentData.layerStyles();
@@ -67,6 +70,8 @@ var onRun = function(context) {
                 textStyles.addSharedObject(newTextStyle);
 
             }
+
+            importedTextStyleCount = libraryTextStyles.numberOfSharedStyles();
         }
 
         if (checkboxLayerStyle.state() && libraryLayerStyles.numberOfSharedStyles() > 0) {
@@ -85,15 +90,30 @@ var onRun = function(context) {
                 layerStyles.addSharedObject(newLayerStyle);
 
             }
+
+            importedLayerStyleCount = libraryLayerStyles.numberOfSharedStyles();
         }
 
         document.reloadInspector();
 
-        document.showMessage(
-            "Imported " + libraryTextStyles.numberOfSharedStyles() + " text styles, " +
-            libraryLayerStyles.numberOfSharedStyles() + " layer styles from library \"" +
-            selectedLibrary.name() + "\"."
-        );
+        if (importedTextStyleCount > 0 && importedLayerStyleCount > 0) {
+            var msg = 'Imported ' +
+                (importedTextStyleCount > 1 ? importedTextStyleCount + ' text styles ' : importedTextStyleCount + ' text style ') +
+                'and ' +
+                (importedLayerStyleCount > 1 ? importedLayerStyleCount + ' layer styles ' : importedLayerStyleCount + ' layer style ') +
+                'from library "' + selectedLibrary.name() + '"';
+            document.showMessage(msg);
+        } else if (importedTextStyleCount > 0) {
+            var msg = 'Imported ' +
+                (importedTextStyleCount > 1 ? importedTextStyleCount + ' text styles ' : importedTextStyleCount + ' text style ') +
+                'from library "' + selectedLibrary.name() + '"';
+            document.showMessage(msg);
+        } else if (importedLayerStyleCount > 0) {
+            var msg = 'Imported ' +
+                (importedLayerStyleCount > 1 ? importedLayerStyleCount + ' layer styles ' : importedLayerStyleCount + ' layer style ') +
+                'from library "' + selectedLibrary.name() + '"';
+            document.showMessage(msg);
+        }
 
     }
 

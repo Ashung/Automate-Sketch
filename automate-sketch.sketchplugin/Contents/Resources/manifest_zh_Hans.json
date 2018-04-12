@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.3.20180410",
+    "version": "49.3.20180412",
     "identifier": "com.ashung.hung.automate_sketch",
     "compatibleVersion": "40",
     "bundleVersion": "1",
@@ -574,6 +574,16 @@
             "script": "Style/Paste_Style_Part.cocoascript"
         },
         {
+            "name": "粘贴文本样式",
+            "identifier": "paste_text_style",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "粘贴文本颜色",
+            "identifier": "paste_text_color",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
             "name": "取消形状图层组",
             "identifier": "ungroup_shape_layer",
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
@@ -824,6 +834,8 @@
                     "paste_style_shadows",
                     "paste_style_innershadows",
                     "paste_style_blur",
+                    "paste_text_style",
+                    "paste_text_color",
                     "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
