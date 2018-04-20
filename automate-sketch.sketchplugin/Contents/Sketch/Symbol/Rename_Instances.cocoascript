@@ -29,6 +29,8 @@ var onRun = function(context) {
     buttonNameType.addItemsWithTitles([
         "Original name of symbol master.",
         "Base name of symbol master.",
+        "1st group name of symbol master.",
+        "2nd group name of symbol master.",
         "Custom name."
     ]);
     views.addObject(buttonNameType);

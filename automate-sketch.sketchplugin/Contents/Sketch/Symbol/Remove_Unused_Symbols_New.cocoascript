@@ -91,7 +91,7 @@ var onRun = function(context) {
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 10, imageSize, imageSize));
         var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(unusedSymbol);
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(imageSize, imageSize), NSColorSpace.sRGBColorSpace(), true
+            layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), true
         );
         var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
         imageView.setWantsLayer(true);
