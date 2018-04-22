@@ -63,7 +63,7 @@ var onRun = function(context) {
         // Checkbox
         var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, (rowHeight - 30) / 2, viewWidth - 10, 30));
         checkbox.setButtonType(NSSwitchButton);
-        var title = "             " + unusedSymbol.name();
+        var title = "                " + unusedSymbol.name();
         checkbox.setTitle(title);
         checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
@@ -87,8 +87,8 @@ var onRun = function(context) {
         });
 
         // Preview image
-        var imageSize = rowHeight - 20;
-        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 10, imageSize, imageSize));
+        var imageSize = rowHeight - 10;
+        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 5, imageSize, imageSize));
         var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(unusedSymbol);
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
             layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), true

@@ -170,10 +170,10 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         itemView.addSubview(symbolIDView);
 
         // Preview image
-        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, itemHeight - 20, itemHeight - 20));
+        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(5, 5, itemHeight - 10, itemHeight - 10));
         var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol_2);
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake((itemHeight - 20)*2, (itemHeight - 20)*2), NSColorSpace.sRGBColorSpace(), true
+            layerAncestry, CGSizeMake((itemHeight - 10) * 2, (itemHeight - 10) * 2), NSColorSpace.sRGBColorSpace(), true
         );
         imageView.setImage(symbolPreviewImage);
         itemView.addSubview(imageView);
