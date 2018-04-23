@@ -9,23 +9,41 @@ var onRun = function(context) {
     var symbolMastersInSelection = getSymbolMastersInSelection(selection);
 
     // Rename all instances
-    if (selection.count() == 0 || symbolInstancesInSelection.count() == 0 || symbolMastersInSelection.count() == 0) {
-        // page.allSymbolInstancesInChildren().allObjects();
+    if (
+        selection.count() == 0 ||
+        (symbolInstancesInSelection.count() == 0 && symbolMastersInSelection.count() == 0)
+    ) {
+        var instances = NSMutableArray.alloc().init();
+        var loopPages = document.pages().objectEnumerator();
+        var page;
+        while (page = loopPages.nextObject()) {
+            instances.addObjectsFromArray(page.allSymbolInstancesInChildren().allObjects());
+        }
+        renameInstances(context, instances, "Rename All Instances", "Change the name for all sysmbol instances.");
     }
 
     // Rename all selected instances
-    if (symbolInstancesInSelection.count() >= symbolMastersInSelection.count()) {
+    else if (
+        symbolInstancesInSelection.count() > 0 &&
+        symbolInstancesInSelection.count() >= symbolMastersInSelection.count()
+    ) {
         var instances = symbolInstancesInSelection;
         renameInstances(context, instances, "Rename Instances", "Change the name for all selected sysmbol instances.");
     }
 
     // Rename all instances of selected symbol master
-    if (symbolInstancesInSelection.count() < symbolMastersInSelection.count()) {
-
+    else if (
+        symbolMastersInSelection.count() > 0 &&
+        symbolMastersInSelection.count() > symbolInstancesInSelection.count()
+    ) {
+        var instances = NSMutableArray.alloc().init();
+        var loopSymbolMasterInSelection = symbolMastersInSelection.objectEnumerator();
+        var symbolMaster;
+        while (symbolMaster = loopSymbolMasterInSelection.nextObject()) {
+            instances.addObjectsFromArray(symbolMaster.allInstances());
+        }
+        renameInstances(context, instances, "Rename Instances of Symbol Master", "Change the name for all sysmbol instances of selected symbol masters.");
     }
-
-
-    return;
 
     ga(context, "Symbol");
 
@@ -99,13 +117,27 @@ function renameInstances(context, instances, title, message) {
 
             // Original name of symbol master.
             if (buttonNameType.indexOfSelectedItem() == 0) {
-                instance.setName(instance.symbolMaster().name());
+                instance.setName(instance.symbolMaster().name().trim());
             }
 
             // Base name of symbol master.
             if (buttonNameType.indexOfSelectedItem() == 1) {
                 var lastIndexOfSlash = instance.symbolMaster().name().lastIndexOf("/");
-                instance.setName(instance.symbolMaster().name().substr(lastIndexOfSlash + 1).trim());
+                var name = instance.symbolMaster().name().substr(lastIndexOfSlash + 1).trim();
+                instance.setName(name);
+            }
+
+            // 1st group name of symbol master
+            if (buttonNameType.indexOfSelectedItem() == 2) {
+                var name = instance.symbolMaster().name().split("/")[0].trim();
+                instance.setName(name);
+            }
+
+            // 2nd group name of symbol master
+            if (buttonNameType.indexOfSelectedItem() == 3) {
+                var nameArray = instance.symbolMaster().name().split("/");
+                var name = (nameArray.length > 1 ? nameArray[1] : nameArray[0]).trim();
+                instance.setName(name);
             }
 
             // Custom name.

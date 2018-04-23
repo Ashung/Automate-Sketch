@@ -1,0 +1,36 @@
+
+
+var selectLayersByLayerStyle = function(context) {
+    var documentData = context.document.documentData();
+    var layerStyles = documentData.layerStyles().sharedStyles();
+    main(layerStyles, "Select Layers by Layer Style", "Select all layers with a layer style.");
+};
+
+var selectLayersByTextStyle = function(context) {
+    var documentData = context.document.documentData();
+    var textStyles = documentData.layerTextStyles().sharedStyles();
+    main(textStyles, "Select Layers by Text Style", "Select all layers with a text style.");
+};
+
+function main(styles, title, message) {
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText(title);
+    dialog.setInformativeText(message);
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.addTextLabelWithValue("Choose Style:");
+    var styleListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    var loopStyles = styles.objectEnumerator();
+    var style;
+    while (style = loopStyles.nextObject()) {
+        styleListView.addItemWithTitle("");
+        styleListView.lastItem().setTitle(style.name());
+    }
+    dialog.addAccessoryView(styleListView);
+
+
+    dialog.runModal();
+}

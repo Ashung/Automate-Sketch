@@ -697,6 +697,18 @@
             "name": "{{import_styles_from_library}}",
             "identifier": "import_styles_from_library",
             "script": "Library/Import_Styles_from_Library.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_layer_style}}",
+            "identifier": "select_layers_by_layer_style",
+            "handler": "selectLayersByLayerStyle",
+            "script": "Style/Select_Layers_by_Style.cocoascript"
+        },
+        {
+            "name": "{{select_layers_by_text_style}}",
+            "identifier": "select_layers_by_text_style",
+            "handler": "selectLayersByTextStyle",
+            "script": "Style/Select_Layers_by_Style.cocoascript"
         }
     ],
     "menu": {
@@ -846,6 +858,9 @@
                     "remove_all_disabled_styles",
                     "remove_unused_layer_styles",
                     "remove_unused_text_styles",
+                    "-",
+                    "select_layers_by_layer_style",
+                    "select_layers_by_text_style",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",
