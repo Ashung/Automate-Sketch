@@ -1,3 +1,18 @@
+
+-
+  version: 49.3.20180425
+  description: |-
+    <ul>
+    <li>Add select layers by layer or text style.</li>
+    <li>Add Paste Text Style, Paste Text Color.</li>
+    <li>Rename Instances now can rename all instance in page, or by selected symbol master.</li>
+    <li>Preview images now support retina.</li>
+    <li>Fix tile objects marginX/Y 0 bug.</li>
+    <li>Fix select parent groups bug.</li>
+    <li>Fix pick color and copy bug.</li>
+    </ul>
+  commitID: 943c0217f25e0f2977be4701f34d190f761163ac
+
 -
   version: 49.3.20180410
   description: |-
