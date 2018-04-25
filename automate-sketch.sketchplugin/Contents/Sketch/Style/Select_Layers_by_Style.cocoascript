@@ -1,0 +1,83 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var selectLayersByLayerStyle = function(context) {
+    var documentData = context.document.documentData();
+    var layerStyles = documentData.layerStyles().sharedStyles();
+    main(context, layerStyles, "Select Layers by Layer Style", "Select all layers with a layer style.");
+};
+
+var selectLayersByTextStyle = function(context) {
+    var documentData = context.document.documentData();
+    var textStyles = documentData.layerTextStyles().sharedStyles();
+    main(context, textStyles, "Select Layers by Text Style", "Select all layers with a text style.");
+};
+
+function main(context, styles, title, message) {
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText(title);
+    dialog.setInformativeText(message);
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    dialog.addTextLabelWithValue("Choose Style:");
+    var styleListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 30));
+    var loopStyles = styles.objectEnumerator();
+    var style;
+    while (style = loopStyles.nextObject()) {
+        styleListView.addItemWithTitle("");
+        styleListView.lastItem().setTitle(style.name());
+    }
+    dialog.addAccessoryView(styleListView);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var document = context.document;
+        var page = document.currentPage();
+        var selection = context.selection;
+
+        var selectedStyle = styles.objectAtIndex(styleListView.indexOfSelectedItem());
+
+        if (selectedStyle.style().hasTextStyle()) {
+            var styleType = "text style";
+        }
+        else {
+            var styleType = "layer style";
+        }
+
+        if (selection.count() > 0) {
+            var childLayers = NSMutableArray.alloc().init();
+            var loopSelection = selection.objectEnumerator();
+            var layer;
+            while (layer = loopSelection.nextObject()) {
+                childLayers.addObjectsFromArray(layer.children());
+            }
+            var messageAddon = " in selected layers";
+        }
+        else {
+            var childLayers = page.children();
+            var messageAddon = " in current page";
+        }
+
+        var predicate = NSPredicate.predicateWithFormat("style.sharedObjectID == %@", selectedStyle.objectID());
+        var childLayersWithStyle = childLayers.filteredArrayUsingPredicate(predicate);
+
+        if (childLayersWithStyle.count() > 1) {
+            page.changeSelectionBySelectingLayers(childLayersWithStyle);
+            document.showMessage(`Select ${childLayersWithStyle.count()} layers with ${styleType} "${selectedStyle.name()}"${messageAddon}.`);
+        }
+        else if (childLayersWithStyle.count() == 1) {
+            page.changeSelectionBySelectingLayers(childLayersWithStyle);
+            document.showMessage(`Select 1 layer with ${styleType} "${selectedStyle.name()}"${messageAddon}.`);
+        }
+        else {
+            document.showMessage(`Not any layer with ${styleType} "${selectedStyle.name()}"${messageAddon}.`);
+        }
+
+    }
+
+    ga(context, "Style");
+}

@@ -168,6 +168,36 @@ var onRun = function(context) {
                 }
             }
 
+            // Text style without textcolor
+            if (pluginIdentifier == "paste_text_style") {
+                if (styleJSON.textStyle) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (layer.class() == "MSTextLayer") {
+                            var textStyle = MSTextStyle.alloc().initWithImmutableModelObject(decoded.textStyle());
+                            var textColor = layer.textColor();
+                            layer.style().setTextStyle(textStyle);
+                            layer.setTextColor(textColor);
+                        }
+                    }
+                }
+            }
+
+            // Text Color
+            if (pluginIdentifier == "paste_text_color") {
+                if (styleJSON.textStyle) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (layer.class() == "MSTextLayer") {
+                            var textColor = decoded.textStyle().decodedAttributes().objectForKey("MSAttributedStringColorAttribute").newMutableCounterpart();
+                            layer.setTextColor(textColor);
+                        }
+                    }
+                }
+            }
+
             doc.reloadInspector();
 
         } else {

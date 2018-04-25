@@ -62,7 +62,7 @@ function deselectAllChildAndSelf(layer, self) {
     var loop = layer.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {
-        if (self == false && child == layer.children().lastObject()) {
+        if (self == false && child == layer) {
             continue;
         }
         if (MSApplicationMetadata.metadata().appVersion < 45) {

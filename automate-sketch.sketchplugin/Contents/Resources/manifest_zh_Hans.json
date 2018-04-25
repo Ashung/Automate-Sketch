@@ -5,8 +5,9 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.3.20180410",
+    "version": "49.3.20180425",
     "identifier": "com.ashung.hung.automate_sketch",
+    "icon": "icon.png",
     "compatibleVersion": "40",
     "bundleVersion": "1",
     "commands": [
@@ -574,6 +575,16 @@
             "script": "Style/Paste_Style_Part.cocoascript"
         },
         {
+            "name": "粘贴文本样式",
+            "identifier": "paste_text_style",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "粘贴文本颜色",
+            "identifier": "paste_text_color",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
             "name": "取消形状图层组",
             "identifier": "ungroup_shape_layer",
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
@@ -686,6 +697,18 @@
             "name": "从库导入样式",
             "identifier": "import_styles_from_library",
             "script": "Library/Import_Styles_from_Library.cocoascript"
+        },
+        {
+            "name": "按图层样式选择图层",
+            "identifier": "select_layers_by_layer_style",
+            "handler": "selectLayersByLayerStyle",
+            "script": "Style/Select_Layers_by_Style.cocoascript"
+        },
+        {
+            "name": "按文本样式选择图层",
+            "identifier": "select_layers_by_text_style",
+            "handler": "selectLayersByTextStyle",
+            "script": "Style/Select_Layers_by_Style.cocoascript"
         }
     ],
     "menu": {
@@ -819,11 +842,16 @@
             {
                 "title": "样式",
                 "items": [
+                    "select_layers_by_layer_style",
+                    "select_layers_by_text_style",
+                    "-",
                     "paste_style_fills",
                     "paste_style_borders",
                     "paste_style_shadows",
                     "paste_style_innershadows",
                     "paste_style_blur",
+                    "paste_text_style",
+                    "paste_text_color",
                     "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
@@ -845,10 +873,11 @@
             {
                 "title": "辅助线",
                 "items": [
+                    "grid_setting",
+                    "-",
                     "copy_grid_setting",
                     "paste_grid_setting",
                     "hide_all_grid",
-                    "grid_setting",
                     "-",
                     "copy_layout_setting",
                     "paste_layout_setting",

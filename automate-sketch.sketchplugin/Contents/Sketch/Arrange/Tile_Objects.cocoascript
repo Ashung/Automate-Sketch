@@ -68,9 +68,9 @@ var customTileLayers = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        var columns = parseInt(inputColumns.stringValue()) || defaultColums,
-            marginX = parseInt(inputMarginX.stringValue()) || defaultMarginX,
-            marginY = parseInt(inputMarginY.stringValue()) || defaultMarginY;
+        var columns = parseInt(inputColumns.stringValue()) > 0 ? parseInt(inputColumns.stringValue()) : defaultColums,
+            marginX = parseInt(inputMarginX.stringValue()) >= 0 ? parseInt(inputMarginX.stringValue()) : defaultMarginX,
+            marginY = parseInt(inputMarginY.stringValue()) >= 0 ? parseInt(inputMarginY.stringValue()) : defaultMarginY;
 
         setPreferences(context, "tileObjectColumns", columns);
         setPreferences(context, "tileObjectMarginX", marginX);
