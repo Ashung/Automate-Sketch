@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.3.20180423",
+    "version": "49.3.20180425",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -699,13 +699,13 @@
             "script": "Library/Import_Styles_from_Library.cocoascript"
         },
         {
-            "name": "",
+            "name": "按圖層樣式選擇圖層",
             "identifier": "select_layers_by_layer_style",
             "handler": "selectLayersByLayerStyle",
             "script": "Style/Select_Layers_by_Style.cocoascript"
         },
         {
-            "name": "",
+            "name": "按文字樣式選擇圖層",
             "identifier": "select_layers_by_text_style",
             "handler": "selectLayersByTextStyle",
             "script": "Style/Select_Layers_by_Style.cocoascript"
@@ -842,6 +842,9 @@
             {
                 "title": "样式",
                 "items": [
+                    "select_layers_by_layer_style",
+                    "select_layers_by_text_style",
+                    "-",
                     "paste_style_fills",
                     "paste_style_borders",
                     "paste_style_shadows",
@@ -858,9 +861,6 @@
                     "remove_all_disabled_styles",
                     "remove_unused_layer_styles",
                     "remove_unused_text_styles",
-                    "-",
-                    "select_layers_by_layer_style",
-                    "select_layers_by_text_style",
                     "-",
                     "create_color_guide",
                     "create_typography_guide",
