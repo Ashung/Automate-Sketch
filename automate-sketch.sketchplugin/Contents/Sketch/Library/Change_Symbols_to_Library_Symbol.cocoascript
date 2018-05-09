@@ -95,13 +95,22 @@ var onRun = function(context) {
     var loopSymbolMastersWillChanged = symbolMastersWillChanged.objectEnumerator();
     var symbolMaster;
     while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
-        var remoteSymbol = selectedLibrary.symbolWithID(symbolMaster.symbolID());
+        var remoteSymbol = selectedLibrary.document().symbolWithID(symbolMaster.symbolID());
         if (remoteSymbol) {
 
             // Import symbol
-            var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                remoteSymbol, selectedLibrary, documentData
-            );
+            if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
+                    remoteSymbol, selectedLibrary
+                );
+                var importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
+                    shareableObjectReference, documentData
+                );
+            } else {
+                var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                    remoteSymbol, selectedLibrary, documentData
+                );
+            }
 
             // Replace all instances of symbolMaster
             var instancesWillReplaced = symbolMaster.allInstances();

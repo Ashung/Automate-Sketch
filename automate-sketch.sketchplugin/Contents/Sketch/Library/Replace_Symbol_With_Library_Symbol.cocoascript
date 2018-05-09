@@ -226,16 +226,27 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
                 }
             }
 
-            var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                library.symbolWithID(importedSymbolID), library, documentData
-            );
+            if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
+                    library.document().symbolWithID(importedSymbolID),
+                    library
+                );
+                var importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
+                    shareableObjectReference,
+                    documentData
+                );
+            } else {
+                var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                    library.document().symbolWithID(importedSymbolID), library, documentData
+                );
+            }
 
             if (foreignSymbolID) {
                 importedSymbol.symbolMaster().setSymbolID(foreignSymbolID);
             }
 
             if (importedSymbol.isOutOfDateWithLibrary(library)) {
-                importedSymbol.syncWithMaster(library.symbolWithID(importedSymbolID));
+                importedSymbol.syncWithMaster(library.document().symbolWithID(importedSymbolID));
             }
 
             // Replace all instances of symbol master
