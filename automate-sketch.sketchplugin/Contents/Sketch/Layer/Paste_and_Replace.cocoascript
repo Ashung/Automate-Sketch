@@ -37,11 +37,21 @@ var onRun = function(context) {
                     var pasteboardLayers = getPasteboardLayers(context);
                     var parentGroup = oldLayer.parentGroup();
 
-                    pasteboardLayers.insertInGroup_atPosition_afterLayer(
-                        parentGroup,
-                        oldLayer.frame().rect().origin,
-                        oldLayer
-                    );
+                    if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                        pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
+                            parentGroup,
+                            oldLayer.frame().rect().origin,
+                            oldLayer,
+                            document.contentDrawView().viewPort(),
+                            false
+                        );
+                    } else {
+                        pasteboardLayers.insertInGroup_atPosition_afterLayer(
+                            parentGroup,
+                            oldLayer.frame().rect().origin,
+                            oldLayer
+                        );
+                    }
 
                     var group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
