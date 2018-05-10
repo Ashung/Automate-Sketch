@@ -1,3 +1,11 @@
+-
+  version: 50.0.20180510
+  description: |-
+    <ul>
+    <li>Add Link Layer, remove include layer.</li>
+    <li>Fix sketch 50 bugs.</li>
+    </ul>
+  commitID: 22704cf7e1970726dbf79efb3d0559c5e468ea0b
 
 -
   version: 49.3.20180425
