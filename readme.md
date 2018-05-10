@@ -35,7 +35,7 @@ Make your workflow more efficient.
 | Remove Empty Groups                                          | Remove empty group.                                          |
 | Remove Hidden Layers                                         | Remove hidden layers.                                        |
 | Remove Transparency Layers                                   | Remove transparency layers.                                  |
-| Create / Sync Include Layer                                  | Create and synchronize reference layers, automatically synchronize the copied layers into a group. |
+| Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
 | **Arrange**                                                  |                                                              |
 | Change Places Between Two Layers                             | Change two objects positions based on midpoint or coordinate origin. |
 | Tile Objects                                                 | Tile objects with grid or any orientations.                  |

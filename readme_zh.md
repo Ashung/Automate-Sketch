@@ -35,7 +35,7 @@
 | Remove Empty Groups                                          | 删除空组。                                                   |
 | Remove Hidden Layers                                         | 删除隐藏图层。                                               |
 | Remove Transparency Layers                                   | 删除完全透明的图层。                                         |
-| Create / Sync Include Layer                                  | 创建和同步引用图层，自动同步复制图层到某个组内。             |
+| Create / Sync Link Layer                                     | 从组或画板创建引用的库组件，用于解决设计中重复拷贝的图标，可自动更新引用库组件的内容。 |
 | **Arrange**                                                  | **排列**                                                     |
 | Change Places Between Two Layers                             | 根据中点或坐标原点，两个对象交换位置。                       |
 | Tile Objects                                                 | 使用网格或任意方向排列对象，可设置按命名排列。               |

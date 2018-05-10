@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "49.3.20180425",
+    "version": "50.0.20180510",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -136,18 +136,6 @@
             "name": "清除隱藏圖層",
             "identifier": "remove_hidden_layers",
             "script": "Layer/Remove_Hidden_Layers.cocoascript"
-        },
-        {
-            "name": "建立引用圖層",
-            "identifier": "create_include_layer",
-            "handler": "createIncludeLayer",
-            "script": "Layer/Include_Layers.cocoascript"
-        },
-        {
-            "name": "同步引用圖層",
-            "identifier": "sync_include_layers",
-            "handler": "syncIncludeLayers",
-            "script": "Layer/Include_Layers.cocoascript"
         },
         {
             "name": "兩物件互換位置",
@@ -709,6 +697,18 @@
             "identifier": "select_layers_by_text_style",
             "handler": "selectLayersByTextStyle",
             "script": "Style/Select_Layers_by_Style.cocoascript"
+        },
+        {
+            "name": "建立引用圖層",
+            "identifier": "create_link_layer",
+            "handler": "createLinkLayer",
+            "script": "Layer/Link_Layer.cocoascript"
+        },
+        {
+            "name": "同步引用圖層",
+            "identifier": "sync_link_layers",
+            "handler": "syncLinkLayers",
+            "script": "Layer/Link_Layer.cocoascript"
         }
     ],
     "menu": {
@@ -783,8 +783,8 @@
                     "-",
                     "clear_layer_name",
                     "-",
-                    "create_include_layer",
-                    "sync_include_layers"
+                    "create_link_layer",
+                    "sync_link_layers"
                 ]
             },
             {
