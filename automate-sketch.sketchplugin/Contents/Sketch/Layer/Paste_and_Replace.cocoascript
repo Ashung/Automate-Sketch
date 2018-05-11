@@ -57,6 +57,16 @@ var onRun = function(context) {
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     group.frame().setX(oldLayer.frame().x());
                     group.frame().setY(oldLayer.frame().y());
+
+                    // oldLayer is a mask
+                    if (
+                        oldLayer.hasClippingMask() &&
+                        pasteboardLayers.layers().layers().count() == 1 &&
+                        group.layers().firstObject().class() == "MSShapeGroup"
+                    ) {
+                        group.layers().firstObject().setHasClippingMask(true);
+                    }
+
                     group.ungroup();
 
                     // Replace symbol master
