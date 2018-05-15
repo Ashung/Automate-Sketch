@@ -107,7 +107,7 @@ function foreignSymbolFromGroup(context, group) {
 function findForeignSymbolFromGroup(context, group) {
     var document = context.document;
     var documentData = document.documentData();
-    var predicate = NSPredicate.predicateWithFormat("libraryID == '" + documentData.objectID() + "' && sourceLibraryName == %@", group.objectID());
+    var predicate = NSPredicate.predicateWithFormat("libraryID == %@ && sourceLibraryName == %@", documentData.objectID(), group.objectID());
     var foreignSymbols = documentData.allForeignObjects().filteredArrayUsingPredicate(predicate);
     if (foreignSymbols.count() > 0) {
         return foreignSymbols.firstObject();

@@ -6,13 +6,27 @@ var onRun = function(context) {
     var doc = context.document;
     var selection = context.selection;
 
-    var defaultUserInput = getPreferences(context, "fit_to_parent_margins") || "0";
-    var userInput = doc.askForUserInput_initialValue(
-        'Margins: "all", "TB LR", "T LR B" or "T R B L"',
-        defaultUserInput
-    );
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Fit to Parent with Margin");
+    dialog.setInformativeText(
+        'Input CSS margins like "all", "TB LR", "T LR B" or "T R B L", ' +
+        'use "x", "*" or "-" to keep a original margin.');
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
 
-    if (userInput) {
+    var defaultUserInput = getPreferences(context, "fit_to_parent_margins") || "0";
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(defaultUserInput);
+    dialog.addAccessoryView(textField);
+
+    dialog.alert().window().setInitialFirstResponder(textField);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var userInput = textField.stringValue();
 
         var marginTop = 0,
             marginBottom = 0,
@@ -23,22 +37,22 @@ var onRun = function(context) {
             marginTop = marginBottom = marginLeft = marginRight = parseInt(userInput);
         }
 
-        else if (/^\d+\s\d+$/.test(userInput)) {
-            marginTop = marginBottom = parseInt(/^(\d+)\s(\d+)$/.exec(userInput)[1]);
-            marginLeft = marginRight = parseInt(/^(\d+)\s(\d+)$/.exec(userInput)[2]);
+        else if (/^(\d+|x|\*|-)\s(\d+|x|\*|-)$/i.test(userInput)) {
+            marginTop = marginBottom = parseInt(userInput.split(/\s+/)[0]);
+            marginLeft = marginRight = parseInt(userInput.split(/\s+/)[1]);
         }
 
-        else if (/^\d+(\s\d+){2}$/.test(userInput)) {
-            marginTop = parseInt(/^(\d+)(\s\d+){2}$/.exec(userInput)[1]);
-            marginLeft = marginRight = parseInt(/^\d+\s(\d+)\s\d+$/.exec(userInput)[1]);
-            marginBottom = parseInt(/^\d+\s\d+\s(\d+)$/.exec(userInput)[1]);
+        else if (/^(\d+|x|\*|-)(\s(\d+|x|\*|-)){2}$/.test(userInput)) {
+            marginTop = parseInt(userInput.split(/\s+/)[0]);
+            marginLeft = marginRight = parseInt(userInput.split(/\s+/)[1]);
+            marginBottom = parseInt(userInput.split(/\s+/)[2]);
         }
 
-        else if (/^\d+(\s\d+){3}$/.test(userInput)) {
-            marginTop = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[1]);
-            marginRight = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[2]);
-            marginBottom = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[3]);
-            marginLeft = parseInt(/^(\d+)\s(\d+)\s(\d+)\s(\d+)$/.exec(userInput)[4]);
+        else if (/^(\d+|x|\*|-)(\s(\d+|x|\*|-)){3}$/.test(userInput)) {
+            marginTop = parseInt(userInput.split(/\s+/)[0]);
+            marginRight = parseInt(userInput.split(/\s+/)[1]);
+            marginBottom = parseInt(userInput.split(/\s+/)[2]);
+            marginLeft = parseInt(userInput.split(/\s+/)[3]);
         }
 
         else {
@@ -55,6 +69,19 @@ var onRun = function(context) {
 
                 var parentHeight = layer.parentGroup().frame().height(),
                     parentWidth = layer.parentGroup().frame().width();
+
+                if (isNaN(marginTop)) {
+                    marginTop = layer.frame().y();
+                }
+                if (isNaN(marginRight)) {
+                    marginRight = parentWidth - layer.frame().maxX();
+                }
+                if (isNaN(marginBottom)) {
+                    marginBottom = parentHeight - layer.frame().maxX();
+                }
+                if (isNaN(marginLeft)) {
+                    marginLeft = layer.frame().x();
+                }
 
                 layer.frame().setWidth(parentWidth - marginLeft - marginRight);
                 layer.frame().setHeight(parentHeight - marginTop - marginBottom);
