@@ -22,6 +22,21 @@ var onRun = function(context) {
         return;
     }
 
+    // Imported symbols that library file is not found.
+    var allImportedSymbolsMissLibrary = allImportedSymbols.mutableCopy();
+    var loopAllImportedSymbols = allImportedSymbols.objectEnumerator();
+    var importedSymbol;
+    while (importedSymbol = loopAllImportedSymbols.nextObject()) {
+        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+            var libraryForSymbol = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
+        } else {
+            var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
+        }
+        if (libraryForSymbol) {
+            allImportedSymbolsMissLibrary.removeObject(importedSymbol);
+        }
+    }
+
     // Dialog
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Imported Symbols Link Manage");
@@ -30,17 +45,45 @@ var onRun = function(context) {
 
     var accessoryView = NSView.alloc().init();
     accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, 500, 400));
+    accessoryView.setFrame(NSMakeRect(0, 0, 500, 430));
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 500, 400));
+    var filterView = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 500, 20));
+    filterView.setButtonType(NSSwitchButton);
+    filterView.setTitle("Show only symbols that library file is not found.");
+    filterView.setState(NSOnState);
+    accessoryView.addSubview(filterView);
+
+    filterView.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState) {
+            loadData(scrollView, allImportedSymbolsMissLibrary);
+        } else {
+            loadData(scrollView, allImportedSymbols);
+        }
+    });
+
+    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 30, 500, 400));
     scrollView.setHasVerticalScroller(true);
     scrollView.setBorderType(NSBezelBorder);
     accessoryView.addSubview(scrollView);
 
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, allImportedSymbols.count() * 60 + 10));
+    loadData(scrollView, allImportedSymbolsMissLibrary);
+
+    dialog.setAccessoryView(accessoryView);
+    dialog.runModal();
+
+    ga(context, "Library");
+
+};
+
+function loadData(scrollView, symbols) {
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, symbols.count() * 60 + 10));
     contentView.setFlipped(true);
 
-    var loopImportedSymbols = allImportedSymbols.objectEnumerator();
+    var loopImportedSymbols = symbols.objectEnumerator();
     var importedSymbol;
     var i = 0;
     while (importedSymbol = loopImportedSymbols.nextObject()) {
@@ -56,7 +99,7 @@ var onRun = function(context) {
         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 500, 60));
         itemView.setFlipped(true);
 
-        // 0: Index allImportedSymbols
+        // 0: Index symbols
         var indexView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
         indexView.setStringValue(i);
         itemView.addSubview(indexView);
@@ -132,7 +175,7 @@ var onRun = function(context) {
 
             var tipView = sender.superview().subviews().objectAtIndex(1);
             var importedSymbolIndex = parseInt(sender.superview().subviews().objectAtIndex(0).stringValue());
-            var importedSymbol = allImportedSymbols.objectAtIndex(importedSymbolIndex);
+            var importedSymbol = symbols.objectAtIndex(importedSymbolIndex);
             if (MSApplicationMetadata.metadata().appVersion >= 49) {
                 var originalLibrary = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
             } else {
@@ -191,10 +234,4 @@ var onRun = function(context) {
     }
 
     scrollView.setDocumentView(contentView);
-
-    dialog.setAccessoryView(accessoryView);
-    dialog.runModal();
-
-    ga(context, "Library");
-
-};
+}

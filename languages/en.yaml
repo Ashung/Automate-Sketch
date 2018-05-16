@@ -1,153 +1,154 @@
-description: "Make your workflow more efficient."
-automate: "Automate"
-layer: "Layer"
-arrange: "Arrange"
-type: "Type"
-slice: "Slice"
-artboard: "Artboard"
-symbol: "Symbοl"
-library: "Library"
-style: "Style"
-guide: "Guide"
-prototyping: "Prototyping"
-development: "Development"
-utilities: "Utilities"
-help: "Help"
-fit_to_parent_width_with_margin: "Fit to Parent Width with Margin"
-fit_to_parent_height_with_margin: "Fit to Parent Height with Margin"
-fit_to_parent_with_margin: "Fit to Parent with Margins"
-change_layer_places: "Change Places Between Two Objects"
-change_layer_places_center: "Change Places Between Two Objects (center)"
-tile_layers: "Tile Objects"
-tile_layers_by_position_x: "Tile Objects by Position X"
-tile_layers_by_position_y: "Tile Objects by Position Y"
-tile_layers_horizontally_by_index: "Tile Objects Horizontally by Index"
-tile_layers_vertically_by_index: "Tile Objects Vertically by Index"
-order_layers_by: "Order Layers By ..."
-order_layers_by_x: "Position X"
-order_layers_by_y: "Position Y"
-order_layers_by_name: "Name"
-order_layers_by_kind: "Kind"
-reverse_layer_order: "Reverse Layer Order"
-add_solid_fill_from_css_color: "Add Solid Fill from CSS Color"
-bounds_layer_for_every_selection: "Bounds Layer for Every Selection"
-divide_layer: "Divide Layer"
-unlock_all_layers: "Unlock All Layers"
-click_through_off: "Click Through Off"
-click_through_on: "Click Through On"
-select_layers_by_type: "Select Layers in Selection By Type"
-select_layers_by_type_group: "Groups"
-select_layers_by_type_text: "Text Layers"
-select_layers_by_type_shape: "Shape Layers"
-select_layers_by_type_image: "Images"
-select_layers_by_type_symbol_instance: "Symbol Instances"
-select_layers_by_type_slice: "Slices"
-select_layers_by_type_exportable: "Exportable Layers"
-select_layers_by_name: "Select Layers in Selection By Name"
-select_all_child_layers: "Select All Child Layers"
-select_all_hidden_layers: "Hidden Layers"
-capitalize: "Capitalize"
-change_typeface_for_the_latin_character_set: "Change Typeface for Latin Character"
-add_space_between_cjk_and_western_character: "Add Space Between CJK and Latin Character"
-unfixed_layer_name: "Unfixed Layer Name"
-clear_slices: "Remove All Slices"
-clear_exportables: "Clear All Exportables"
-artboard_from_selection: "Artboard From Selection"
-artboard_from_group: "Artboard From Group"
-artboard_to_group: "Artboard To Group"
-select_all_instances_of_symbol: "Select All Instances of Symbol"
-rename_instances: "Rename Instances"
-selection_to_symbol_master: "Selection to Symbol Master"
-detach_unused_symbol_master: "Detach Unused Symbol Master"
-remove_unused_symbols: "Remove Unused Symbols"
-remove_unused_symbols_old: "Remove Unused Symbols (Legacy)"
-fill_color_from_global_colors: "Fill Color from Global Colors"
-fill_color_from_document_colors: "Fill Color from Document Colors"
-clear_layer_name: "Clear Layer Name"
-clear_guides: "Clear Guides"
-remove_empty_groups: "Remove Empty Groups"
-remove_hidden_layers: "Remove Hidden Layers"
-remove_all_disabled_styles: "Remove All Disabled Styles"
-show_file_in_finder: "Show File in Finder"
-open_terminal_at_file_folder: "Open Terminal at File Folder"
-web_site: "Web Site"
-report_issue: "Report Issue"
-donate: "Donate"
-change_language: "Change Language"
-remove_redundant_groups: "Remove Redundant Groups"
-move_artboards_to_bottom_of_another: "Move Artboards to Bottom of Another"
-set_to_original_width: "Reset to Original Width"
-set_to_original_height: "Reset to Original Height"
-export_all_symbols_as_png: "Export All Symbols As PNG"
-replace_missing_fonts: "Replace Missing Fonts"
-replace_fonts: "Replace Fonts"
-create_link_layer: "Create Link Layer"
-sync_link_layers: "Sync Link Layers"
-resize_to_fit_height: "Resize to Fit Height"
-export_all_artboards: "Export All Artboards"
-svg_export_setting: "SVG Export Setting"
-nudge_distance_setting: "Nudge Distance Setting"
-sync_symbol_master_from_sketch_file: "Sync Symbol Master from Sketch File base Symbol ID"
-import_document_assets_from_sketch_file: "Import Document Assets from Sketch File"
-import_text_styles_from_sketch_file: "Import Text Styles from Sketch File"
-import_layer_styles_from_sketch_file: "Import Layer Styles from Sketch File"
-replace_pages_from_sketch_file: "Replace Pages with Same Name From Sketch File"
-create_color_guide: "Create Color Guide"
-create_typography_guide: "Create Typography Guide"
-export_all_artboards_to_html: "Export All Artboards to HTML"
-copy_selected_layer_name: "Copy Selected Layer Name"
-copy_slice_as_base64: "Copy Slice As Base64"
-copy_objectid_or_symbolid: "Copy Object ID or Symbol ID"
-grid_setting: "Grid Presets"
-reload_plugins: "Reload Plugins"
-edit_plugin_setting: "Plugin Editor Setting"
-script_editor_setting: "Script Editor Setting"
-convert_to_other_version: "Convert Sketch File to Other Version"
-paste_and_replace: "Paste and Replace"
-swap_fill_and_border: "Swap Fill and Border"
-hide_all_grid: "Hide All Grid"
-hide_all_layout: "Hide All Layout"
-copy_grid_setting: "Copy Grid"
-paste_grid_setting: "Paste Grid"
-copy_layout_setting: "Copy Layout"
-paste_layout_setting: "Paste Layout"
-copy_guide_setting: "Copy Guide"
-paste_guide_setting: "Paste Guide"
-arrange_objects: "Arrange Objects"
-select_parent_groups: "Select Parent Groups"
-baseline: "Change Baseline Offset"
-resize_fit_text_height: "Resize to Fix Text Height"
-reflection: "Reflection"
-change_text_orientation: "Change Text Orientation"
-paste_style_fills: "Paste Fills"
-paste_style_borders: "Paste Borders"
-paste_style_shadows: "Paste Shadows"
-paste_style_innershadows: "Paste Inner Shadows"
-paste_style_blur: "Paste Blur"
-paste_text_style: "Paste Text Style"
-paste_text_color: "Paste Text Color"
-ungroup_shape_layer: "Ungroup Shape Layer"
-select_all_instances_of_imported_symbol: "Select All Instances of Imported Symbol"
-change_symbols_to_library_symbol: "Change Symbols to Library Symbol Base Symbol ID"
-replace_symbol_with_library_symbol: "Replace Symbol With Library Symbol"
-remove_unused_layer_styles: "Remove Unused Layer Styles"
-remove_unused_text_styles: "Remove Unused Text Styles"
-add_library_preview: "Add Library Preview"
-fix_library_id_conflict: "Fix Library ID Conflict"
-imported_symbols_link_manage: "Imported Symbols Link Manage"
-auto_slice: "Auto Slice"
-select_all_siblings_layers: "Select All Siblings Layers"
-save_export_presets: "Save Export Presets"
-load_export_presets: "Load Export Presets"
-create_library_symbol: "Create Library Symbol"
-move_symbols_to_page: "Move Symbol Masters To Another Page"
-remove_transparency_layers: "Remove Transparency Layers"
-select_transparency_layers: "Transparency Layers"
-pick_color_and_copy: "Pick Color and Copy the HEX Code"
-reset_overrides: "Reset Overrides"
-show_layer_info: "Show and Change Layer Info"
-bring_all_hotspot_to_front: "Bring All Hotspot to Front"
-import_document_assets_from_library: "Import Document Assets from Library"
-import_styles_from_library: "Import Styles from Library"
-select_layers_by_layer_style: "Select Layers by Layer Style"
-select_layers_by_text_style: "Select Layers by Text Style"
+description: Make your workflow more efficient.
+automate: Automate
+layer: Layer
+arrange: Arrange
+type: Type
+slice: Slice
+artboard: Artboard
+symbol: Symbοl
+library: Library
+style: Style
+guide: Guide
+prototyping: Prototyping
+development: Development
+utilities: Utilities
+help: Help
+fit_to_parent_width_with_margin: Fit to Parent Width with Margin
+fit_to_parent_height_with_margin: Fit to Parent Height with Margin
+fit_to_parent_with_margin: Fit to Parent with Margins
+change_layer_places: Change Places Between Two Objects
+change_layer_places_center: Change Places Between Two Objects (center)
+tile_layers: Tile Objects
+tile_layers_by_position_x: Tile Objects by Position X
+tile_layers_by_position_y: Tile Objects by Position Y
+tile_layers_horizontally_by_index: Tile Objects Horizontally by Index
+tile_layers_vertically_by_index: Tile Objects Vertically by Index
+order_layers_by: Order Layers By ...
+order_layers_by_x: Position X
+order_layers_by_y: Position Y
+order_layers_by_name: Name
+order_layers_by_kind: Kind
+reverse_layer_order: Reverse Layer Order
+add_solid_fill_from_css_color: Add Solid Fill from CSS Color
+bounds_layer_for_every_selection: Bounds Layer for Every Selection
+divide_layer: Divide Layer
+unlock_all_layers: Unlock All Layers
+click_through_off: Click Through Off
+click_through_on: Click Through On
+select_layers_by_type: Select Layers in Selection By Type
+select_layers_by_type_group: Groups
+select_layers_by_type_text: Text Layers
+select_layers_by_type_shape: Shape Layers
+select_layers_by_type_image: Images
+select_layers_by_type_symbol_instance: Symbol Instances
+select_layers_by_type_slice: Slices
+select_layers_by_type_exportable: Exportable Layers
+select_layers_by_name: Select Layers in Selection By Name
+select_all_child_layers: Select All Child Layers
+select_all_hidden_layers: Hidden Layers
+capitalize: Capitalize
+change_typeface_for_the_latin_character_set: Change Typeface for Latin Character
+add_space_between_cjk_and_western_character: Add Space Between CJK and Latin Character
+unfixed_layer_name: Unfixed Layer Name
+clear_slices: Remove All Slices
+clear_exportables: Clear All Exportables
+artboard_from_selection: Artboard From Selection
+artboard_from_group: Artboard From Group
+artboard_to_group: Artboard To Group
+select_all_instances_of_symbol: Select All Instances of Symbol
+rename_instances: Rename Instances
+selection_to_symbol_master: Selection to Symbol Master
+detach_unused_symbol_master: Detach Unused Symbol Master
+remove_unused_symbols: Remove Unused Symbols
+remove_unused_symbols_old: Remove Unused Symbols (Legacy)
+fill_color_from_global_colors: Fill Color from Global Colors
+fill_color_from_document_colors: Fill Color from Document Colors
+clear_layer_name: Clear Layer Name
+clear_guides: Clear Guides
+remove_empty_groups: Remove Empty Groups
+remove_hidden_layers: Remove Hidden Layers
+remove_all_disabled_styles: Remove All Disabled Styles
+show_file_in_finder: Show File in Finder
+open_terminal_at_file_folder: Open Terminal at File Folder
+web_site: Web Site
+report_issue: Report Issue
+donate: Donate
+change_language: Change Language
+remove_redundant_groups: Remove Redundant Groups
+move_artboards_to_bottom_of_another: Move Artboards to Bottom of Another
+set_to_original_width: Reset to Original Width
+set_to_original_height: Reset to Original Height
+export_all_symbols_as_png: Export All Symbols As PNG
+replace_missing_fonts: Replace Missing Fonts
+replace_fonts: Replace Fonts
+create_link_layer: Create Link Layer
+sync_link_layers: Sync Link Layers
+resize_to_fit_height: Resize to Fit Height
+export_all_artboards: Export All Artboards
+svg_export_setting: SVG Export Setting
+nudge_distance_setting: Nudge Distance Setting
+sync_symbol_master_from_sketch_file: Sync Symbol Master from Sketch File base Symbol ID
+import_document_assets_from_sketch_file: Import Document Assets from Sketch File
+import_text_styles_from_sketch_file: Import Text Styles from Sketch File
+import_layer_styles_from_sketch_file: Import Layer Styles from Sketch File
+replace_pages_from_sketch_file: Replace Pages with Same Name From Sketch File
+create_color_guide: Create Color Guide
+create_typography_guide: Create Typography Guide
+export_all_artboards_to_html: Export All Artboards to HTML
+copy_selected_layer_name: Copy Selected Layer Name
+copy_slice_as_base64: Copy Slice As Base64
+copy_objectid_or_symbolid: Copy Object ID or Symbol ID
+grid_setting: Grid Presets
+reload_plugins: Reload Plugins
+edit_plugin_setting: Plugin Editor Setting
+script_editor_setting: Script Editor Setting
+convert_to_other_version: Convert Sketch File to Other Version
+paste_and_replace: Paste and Replace
+swap_fill_and_border: Swap Fill and Border
+hide_all_grid: Hide All Grid
+hide_all_layout: Hide All Layout
+copy_grid_setting: Copy Grid
+paste_grid_setting: Paste Grid
+copy_layout_setting: Copy Layout
+paste_layout_setting: Paste Layout
+copy_guide_setting: Copy Guide
+paste_guide_setting: Paste Guide
+arrange_objects: Arrange Objects
+select_parent_groups: Select Parent Groups
+baseline: Change Baseline Offset
+resize_fit_text_height: Resize to Fix Text Height
+reflection: Reflection
+change_text_orientation: Change Text Orientation
+paste_style_fills: Paste Fills
+paste_style_borders: Paste Borders
+paste_style_shadows: Paste Shadows
+paste_style_innershadows: Paste Inner Shadows
+paste_style_blur: Paste Blur
+paste_text_style: Paste Text Style
+paste_text_color: Paste Text Color
+ungroup_shape_layer: Ungroup Shape Layer
+select_all_instances_of_imported_symbol: Select All Instances of Imported Symbol
+change_symbols_to_library_symbol: Change Symbols to Library Symbol Base Symbol ID
+replace_symbol_with_library_symbol: Replace Symbol With Library Symbol
+remove_unused_layer_styles: Remove Unused Layer Styles
+remove_unused_text_styles: Remove Unused Text Styles
+add_library_preview: Add Library Preview
+fix_library_id_conflict: Fix Library ID Conflict
+imported_symbols_link_manage: Imported Symbols Link Manage
+auto_slice: Auto Slice
+select_all_siblings_layers: Select All Siblings Layers
+save_export_presets: Save Export Presets
+load_export_presets: Load Export Presets
+create_library_symbol: Create Library Symbol
+move_symbols_to_page: Move Symbol Masters To Another Page
+remove_transparency_layers: Remove Transparency Layers
+select_transparency_layers: Transparency Layers
+pick_color_and_copy: Pick Color and Copy the HEX Code
+reset_overrides: Reset Overrides
+show_layer_info: Show and Change Layer Info
+bring_all_hotspot_to_front: Bring All Hotspot to Front
+import_document_assets_from_library: Import Document Assets from Library
+import_styles_from_library: Import Styles from Library
+select_layers_by_layer_style: Select Layers by Layer Style
+select_layers_by_text_style: Select Layers by Text Style
+export_clean_code_svg: Export Clean Code SVG

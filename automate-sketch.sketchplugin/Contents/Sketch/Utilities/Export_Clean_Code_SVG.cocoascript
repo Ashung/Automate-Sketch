@@ -1,0 +1,148 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 0) {
+        document.showMessage("Place select a layer to export.");
+        return;
+    }
+
+    // Dialog
+    var dialog = COSAlertWindow.alloc().init();
+    dialog.setMessageText("Export Clean Code SVG");
+    dialog.setInformativeText("Export clean code SVG files from symbol masters, groups, without make a copy and remove layers.");
+    dialog.addButtonWithTitle("OK");
+    dialog.addButtonWithTitle("Cancel");
+
+    var optionsBasic = groupLabel("Basic Options");
+    dialog.addAccessoryView(optionsBasic);
+
+    // var fileNameView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    var f = textField("File name");
+    dialog.addAccessoryView(f);
+
+
+    var nameType = popupButton([
+        "a/b/c",
+        "a_b_c",
+        "c"
+    ], CGSizeMake(200, 24));
+    dialog.addAccessoryView(nameType);
+
+
+    var divider1 = divider();
+    dialog.addAccessoryView(divider1);
+
+    var ignoreBitmap = checkBox(true, "Ignore bitmap layers.");
+    dialog.addAccessoryView(ignoreBitmap);
+
+    var ignoreText = checkBox(true, "Ignore text layers.");
+    dialog.addAccessoryView(ignoreText);
+
+    var ignoreSymbol = checkBox(true, "Ignore symbol instances.");
+    dialog.addAccessoryView(ignoreSymbol);
+
+    var ignoreMask = checkBox(true, "Release clipping mask.");
+    dialog.addAccessoryView(ignoreMask);
+
+    var ignoreTransparency = checkBox(true, "Ignore transparency layers.");
+    dialog.addAccessoryView(ignoreTransparency);
+
+    var ignoreGroup = checkBox(true, "Ungroup all layer group.");
+    dialog.addAccessoryView(ignoreGroup);
+
+    var tempGap = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 5));
+    dialog.addAccessoryView(tempGap);
+
+    var optionsAdvanced = groupLabel("Advanced Options");
+    dialog.addAccessoryView(optionsAdvanced);
+
+    var changeFillRule = checkBox(false, "Change fill rule to Non-Zero.");
+    dialog.addAccessoryView(changeFillRule);
+
+    var colorView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    var changeColor = checkBox(false, "Change fill / border color to ...");
+    colorView.addSubview(changeColor);
+    var colorPicker = NSColorWell.alloc().initWithFrame(NSMakeRect(200, 0, 40, 20));
+    colorPicker.setColor(NSColor.blackColor());
+    colorView.addSubview(colorPicker);
+    dialog.addAccessoryView(colorView);
+
+    var svgo = checkBox(false, "Optimizing SVG code with SVGO.");
+    dialog.addAccessoryView(svgo);
+
+    // Run
+    var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
+
+        var loopSelection = selection.objectEnumerator();
+        var layer;
+        while (layer = loopSelection.nextObject()) {
+
+            log(layer)
+
+
+        }
+
+
+
+    }
+
+
+
+
+};
+
+function checkBox(status, title) {
+    var view = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    view.setButtonType(NSSwitchButton);
+    view.setTitle(title);
+    if (status == true) {
+        view.setState(NSOnState);
+    } else {
+        view.setState(NSOffState);
+    }
+    return view;
+}
+
+function groupLabel(text) {
+    var view = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16));
+    view.setStringValue(text.toUpperCase());
+    view.setFont(NSFont.boldSystemFontOfSize(11));
+    view.setTextColor(NSColor.blackColor());
+    view.setBezeled(false);
+    view.setDrawsBackground(false);
+    view.setEditable(false);
+    view.setSelectable(false);
+    return view;
+}
+
+function textField(text) {
+    var view = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16));
+    view.setStringValue(text);
+    view.setBezeled(false);
+    view.setDrawsBackground(false);
+    view.setEditable(false);
+    view.setSelectable(false);
+    return view;
+}
+
+function popupButton(items, size) {
+    var view = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, size.width, size.height));
+    items.forEach(function(item) {
+        view.addItemWithTitle("");
+        view.lastItem().setTitle(item);
+    });
+    return view;
+}
+
+function divider() {
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 1));
+    view.setWantsLayer(true);
+    view.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.2));
+    return view;
+}

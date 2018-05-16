@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.0.20180510",
+    "version": "50.2.20180516",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -709,6 +709,11 @@
             "identifier": "sync_link_layers",
             "handler": "syncLinkLayers",
             "script": "Layer/Link_Layer.cocoascript"
+        },
+        {
+            "name": "导出代码整洁的 SVG",
+            "identifier": "export_clean_code_svg",
+            "script": "Utilities/Export_Clean_Code_SVG.cocoascript"
         }
     ],
     "menu": {
@@ -942,6 +947,7 @@
             {
                 "title": "实用工具",
                 "items": [
+                    "export_clean_code_svg",
                     "svg_export_setting",
                     "-",
                     "convert_to_other_version",
