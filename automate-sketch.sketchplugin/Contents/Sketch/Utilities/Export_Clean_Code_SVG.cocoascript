@@ -1,4 +1,6 @@
+@import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
 @import "../Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
 
 var onRun = function(context) {
@@ -18,73 +20,167 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
-    var optionsBasic = groupLabel("Basic Options");
+    var optionsBasic = UI.groupLabel("Basic Options");
     dialog.addAccessoryView(optionsBasic);
 
-    // var fileNameView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    var f = textField("File name");
-    dialog.addAccessoryView(f);
+    var fileNameLabel = UI.textLabel("Change layer name to ...");
+    dialog.addAccessoryView(fileNameLabel);
 
-
-    var nameType = popupButton([
-        "a/b/c",
-        "a_b_c",
-        "c"
-    ], CGSizeMake(200, 24));
+    var fileNameTypes = [
+        "group/name.svg",
+        "group_name.svg",
+        "name.svg"
+    ];
+    var nameType = UI.popupButton(fileNameTypes, 200);
     dialog.addAccessoryView(nameType);
 
-
-    var divider1 = divider();
+    var divider1 = UI.divider(300);
     dialog.addAccessoryView(divider1);
 
-    var ignoreBitmap = checkBox(true, "Ignore bitmap layers.");
+    var ignoreBitmap = UI.checkBox(true, "Ignore bitmap and image fill layers.");
     dialog.addAccessoryView(ignoreBitmap);
 
-    var ignoreText = checkBox(true, "Ignore text layers.");
+    var ignoreText = UI.checkBox(true, "Ignore text layers.");
     dialog.addAccessoryView(ignoreText);
 
-    var ignoreSymbol = checkBox(true, "Ignore symbol instances.");
+    var ignoreSymbol = UI.checkBox(true, "Ignore symbol instances.");
     dialog.addAccessoryView(ignoreSymbol);
 
-    var ignoreMask = checkBox(true, "Release clipping mask.");
-    dialog.addAccessoryView(ignoreMask);
-
-    var ignoreTransparency = checkBox(true, "Ignore transparency layers.");
+    var ignoreTransparency = UI.checkBox(true, "Ignore transparency layers except mask.");
     dialog.addAccessoryView(ignoreTransparency);
 
-    var ignoreGroup = checkBox(true, "Ungroup all layer group.");
-    dialog.addAccessoryView(ignoreGroup);
+    var ignoreMask = UI.checkBox(true, "Release clipping mask.");
+    dialog.addAccessoryView(ignoreMask);
 
-    var tempGap = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 5));
+    var divider2 = UI.divider(300);
+    dialog.addAccessoryView(divider2);
+
+    var ignoreLayerName = UI.checkBox(false, "Ignore layer with following names.");
+    dialog.addAccessoryView(ignoreLayerName);
+
+    var defaultIgnoreLayerName = getPreferences(context, "ignore_layer_name") || "#,bounds,tint,color"
+    var ignoreLayerNames = UI.textField(defaultIgnoreLayerName);
+    UI.disableTextField(ignoreLayerNames);
+    dialog.addAccessoryView(ignoreLayerNames);
+
+    var tempGap = UI.gap();
     dialog.addAccessoryView(tempGap);
 
-    var optionsAdvanced = groupLabel("Advanced Options");
+    var optionsAdvanced = UI.groupLabel("Advanced Options");
     dialog.addAccessoryView(optionsAdvanced);
 
-    var changeFillRule = checkBox(false, "Change fill rule to Non-Zero.");
+    var ignoreGroup = UI.checkBox(false, "Ungroup all layer group inside.");
+    dialog.addAccessoryView(ignoreGroup);
+
+    var changeFillRule = UI.checkBox(false, "Change path fill rule to Non-Zero.");
     dialog.addAccessoryView(changeFillRule);
 
     var colorView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    var changeColor = checkBox(false, "Change fill / border color to ...");
+    var changeColor = UI.checkBox(false, "Change path fill / border color to ...");
     colorView.addSubview(changeColor);
-    var colorPicker = NSColorWell.alloc().initWithFrame(NSMakeRect(200, 0, 40, 20));
-    colorPicker.setColor(NSColor.blackColor());
+    var colorPicker = UI.colorPicker([240, 0, 40, 20]);
     colorView.addSubview(colorPicker);
     dialog.addAccessoryView(colorView);
 
-    var svgo = checkBox(false, "Optimizing SVG code with SVGO.");
+    var svgo = UI.checkBox(false, "Optimizing SVG code with SVGO.");
     dialog.addAccessoryView(svgo);
+
+    ignoreLayerName.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState) {
+            UI.disableTextField(layerNames, false);
+        } else {
+            UI.disableTextField(layerNames, true);
+        }
+    });
 
     // Run
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
+        var ignoreLayerNamesArray = ignoreLayerNames.stringValue().split(/,\s+/);
+
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
 
-            log(layer)
+            var layerCopy = layer.duplicate();
 
+            if (ignoreGroup.state() == NSOnState) {
+                ungroupAllChild(layerCopy);
+            }
+
+            var childrens = layerCopy.children();
+            childrens.removeObject(layerCopy);
+            var predicate = NSPredicate.predicateWithFormat(
+                'className == "MSShapeGroup" || className == "MSBitmapLayer" || className == "MSLayerGroup" || className == "MSTextLayer" || className == "MSSymbolInstance"'
+            );
+            var childrens = childrens.filteredArrayUsingPredicate(predicate);
+
+            var loopChildrens = childrens.objectEnumerator();
+            var children;
+            while (children = loopChildrens.nextObject()) {
+
+                // Basic Options
+                if (
+                    (ignoreBitmap.state() == NSOnState && children.class() == "MSBitmapLayer") ||
+                    (ignoreText.state() == NSOnState && children.class() == "MSTextLayer") ||
+                    (ignoreSymbol.state() == NSOnState && children.class() == "MSSymbolInstance") ||
+                    (ignoreTransparency.state() == NSOnState && layerIsTransparency(children) && !children.hasClippingMask()) ||
+                    (ignoreLayerName.state() == NSOnState && ignoreLayerNamesArray.indexOf(children.name()) >= 0)
+                ) {
+                    children.removeFromParent();
+                }
+
+                if (ignoreBitmap.state() == NSOnState && children.class() == "MSShapeGroup") {
+                    if (children.style().enabledFills().count() > 0) {
+                        if (
+                            children.style().enabledFills().lastObject().fillType() == 4 ||
+                            children.style().enabledFills().lastObject().fillType() == 5
+                        ) {
+                            children.removeFromParent();
+                        }
+                    }
+                }
+
+                if (ignoreBitmap.state() == NSOnState && children.hasClippingMask()) {
+                    children.setHasClippingMask(false);
+                    if (children.style().enabledFills().count() == 0) {
+                        var fill = children.style().addStylePartOfType(0);
+                        fill.setFillType(0);
+                        fill.setColor(MSColor.blackColor());
+                    }
+                }
+
+                // Advanced Options
+                if (changeFillRule.state() == NSOnState && children.class() == "MSShapeGroup") {
+                    children.setWindingRule(0);
+                }
+
+                if (changeColor.state() == NSOnState && children.class() == "MSShapeGroup") {
+                    var color = colorPicker.color();
+                    if (children.style().enabledFills().count() > 0) {
+                        children.style().enabledFills().lastObject().setColor(MSColor.colorWithNSColor(color));
+                    }
+                    if (children.style().enabledBorders().count() > 0) {
+                        children.style().enabledBorders().lastObject().setColor(MSColor.colorWithNSColor(color));
+                    }
+                }
+
+            }
+
+            var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(layerCopy);
+            var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
+            exportRequest.setFormat("svg");
+            var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
+            var svgData = exporter.data();
+            var svgString = NSString.alloc().initWithData_encoding(svgData, NSUTF8StringEncoding);
+            log(svgString);
+
+
+            // log(layerCopy.children().count())
+            // log(layerCopy.children())
+
+            layerCopy.removeFromParent();
 
         }
 
@@ -97,52 +193,11 @@ var onRun = function(context) {
 
 };
 
-function checkBox(status, title) {
-    var view = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    view.setButtonType(NSSwitchButton);
-    view.setTitle(title);
-    if (status == true) {
-        view.setState(NSOnState);
-    } else {
-        view.setState(NSOffState);
+function ungroupAllChild(layerGroup) {
+    var groupsInChild = layerGroup.children().filteredArrayUsingPredicate(NSPredicate.predicateWithFormat('className == "MSLayerGroup"'));
+    var loopGroups = groupsInChild.reverseObjectEnumerator();
+    var group;
+    while (group = loopGroups.nextObject()) {
+        group.ungroup();
     }
-    return view;
-}
-
-function groupLabel(text) {
-    var view = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16));
-    view.setStringValue(text.toUpperCase());
-    view.setFont(NSFont.boldSystemFontOfSize(11));
-    view.setTextColor(NSColor.blackColor());
-    view.setBezeled(false);
-    view.setDrawsBackground(false);
-    view.setEditable(false);
-    view.setSelectable(false);
-    return view;
-}
-
-function textField(text) {
-    var view = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16));
-    view.setStringValue(text);
-    view.setBezeled(false);
-    view.setDrawsBackground(false);
-    view.setEditable(false);
-    view.setSelectable(false);
-    return view;
-}
-
-function popupButton(items, size) {
-    var view = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, size.width, size.height));
-    items.forEach(function(item) {
-        view.addItemWithTitle("");
-        view.lastItem().setTitle(item);
-    });
-    return view;
-}
-
-function divider() {
-    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 1));
-    view.setWantsLayer(true);
-    view.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.2));
-    return view;
 }
