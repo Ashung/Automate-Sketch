@@ -90,7 +90,7 @@ var onRun = function(context) {
             "version": "97",
             "compatibilityVersion": "93",
             "commit":"804a89154e71ed59eb7d91c713b0b4458e5bb3e7"
-        }
+        },
         // {
         //     "appVersion": "48.1",
         //     "build": "47250",
@@ -125,6 +125,26 @@ var onRun = function(context) {
         //     "version": "101",
         //     "compatibilityVersion": "93",
         //     "commit":"3ddf4a853aaf3543a90063fa41305860bd6d6e7a"
+        // },
+        //     "appVersion": "49.3",
+        //     "build": "51167",
+        //     "version": "101",
+        //     "compatibilityVersion": "93",
+        //     "commit":"2b45d75f77b3d86c8cfab3e1090bcc520c37ea74"
+        // },
+        {
+            "appVersion": "50",
+            "build": "54983",
+            "version": "103",
+            "compatibilityVersion": "99",
+            "commit":"f74bbbd73197756d9dfb269acddca1dac42fbdca"
+        }
+        // {
+        //     "appVersion": "50.2",
+        //     "build": "55047",
+        //     "version": "103",
+        //     "compatibilityVersion": "99",
+        //     "commit":"4e7e2f5d7940a711b59f89190b5b7e3029f050f5"
         // },
     ];
 

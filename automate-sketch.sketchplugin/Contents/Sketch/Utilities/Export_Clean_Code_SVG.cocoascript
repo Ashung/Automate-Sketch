@@ -1,6 +1,7 @@
 @import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/UI_Controls.cocoascript";
+@import "../Libraries/Run_Command.cocoascript";
 @import "../Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
 
 var onRun = function(context) {
@@ -82,8 +83,8 @@ var onRun = function(context) {
     colorView.addSubview(colorPicker);
     dialog.addAccessoryView(colorView);
 
-    var svgo = UI.checkBox(false, "Optimizing SVG code with SVGO.");
-    dialog.addAccessoryView(svgo);
+    var useSVGO = UI.checkBox(false, "Optimizing SVG code with SVGO.");
+    dialog.addAccessoryView(useSVGO);
 
     ignoreLayerName.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOnState) {
@@ -97,6 +98,20 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
+        if (useSVGO.state() == NSOnState) {
+            var svgo = "";
+            runCommand("/bin/bash", ["-l", "-c", "which svgo"], function(status, msg) {
+                if (status && msg != "") {
+                    svgo += msg;
+                    svgo = svgo.replace(/\s*$/g, "");
+                }
+            });
+            if (svgo == "") {
+                document.showMessage("You have to install SVGO.");
+                return;
+            }
+        }
+
         var ignoreLayerNamesArray = ignoreLayerNames.stringValue().split(/,\s+/);
 
         var loopSelection = selection.objectEnumerator();
@@ -106,7 +121,12 @@ var onRun = function(context) {
             var layerCopy = layer.duplicate();
 
             if (ignoreGroup.state() == NSOnState) {
-                ungroupAllChild(layerCopy);
+                var groupsInChild = layerCopy.children().filteredArrayUsingPredicate(NSPredicate.predicateWithFormat('className == "MSLayerGroup"'));
+                var loopGroups = groupsInChild.reverseObjectEnumerator();
+                var group;
+                while (group = loopGroups.nextObject()) {
+                    group.ungroup();
+                }
             }
 
             var childrens = layerCopy.children();
@@ -173,14 +193,62 @@ var onRun = function(context) {
             exportRequest.setFormat("svg");
             var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
             var svgData = exporter.data();
-            var svgString = NSString.alloc().initWithData_encoding(svgData, NSUTF8StringEncoding);
-            log(svgString);
+            var svgCode = NSString.alloc().initWithData_encoding(svgData, NSUTF8StringEncoding);
+
+            svgCode = svgCode.replace(/\s+<!--.*-->/, "")
+                .replace(/\s+<title>.*<\/title>/, "")
+                .replace(/\s+<desc>.*<\/desc>/, "")
+                .replace(/\s+<defs><\/defs>/, "");
+
+            if (useSVGO.state() == NSOnState) {
+
+                var config = {
+                    plugins: [
+                        {
+                            convertColors: {
+                                shorthex: false
+                            }
+                        },
+                        {
+                            cleanupListOfValues: {
+                                floatPrecision: 2
+                            }
+                        },
+                        {
+                            cleanupNumericValues: {
+                                floatPrecision: 2
+                            }
+                        },
+                        {
+                            convertPathData: {
+                                floatPrecision: 2,
+                                leadingZero: false
+                            }
+                        }
+                    ]
+                };
+                runCommand(
+                    "/bin/bash",
+                    ["-l", "-c", svgo + " --config='" + JSON.stringify(config) + "' -s '" + svgCode + "'"],
+                    function(status, msg) {
+                        if (status && msg != "") {
+                            svgCode = msg;
+                            svgCode = svgCode.replace(/\s*$/g, "");
+                        }
+                    });
+                );
+
+            }
+
+            log(svgCode);
 
 
             // log(layerCopy.children().count())
             // log(layerCopy.children())
 
             layerCopy.removeFromParent();
+
+            // TODO: wirte to disk
 
         }
 
@@ -192,12 +260,3 @@ var onRun = function(context) {
 
 
 };
-
-function ungroupAllChild(layerGroup) {
-    var groupsInChild = layerGroup.children().filteredArrayUsingPredicate(NSPredicate.predicateWithFormat('className == "MSLayerGroup"'));
-    var loopGroups = groupsInChild.reverseObjectEnumerator();
-    var group;
-    while (group = loopGroups.nextObject()) {
-        group.ungroup();
-    }
-}
