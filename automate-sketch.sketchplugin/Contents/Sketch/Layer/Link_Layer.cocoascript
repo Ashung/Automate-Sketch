@@ -24,7 +24,11 @@ var createLinkLayer = function(context) {
 
     // Create library symbol from selected group
     var group = selection.firstObject();
-    var foreignSymbol = foreignSymbolFromGroup(context, group);
+    if (findForeignSymbolFromGroup(context, group)) {
+        var foreignSymbol = findForeignSymbolFromGroup(context, group);
+    } else {
+        var foreignSymbol = foreignSymbolFromGroup(context, group);
+    }
 
     // Insert symbol instance.
     try {
@@ -98,4 +102,16 @@ function foreignSymbolFromGroup(context, group) {
     foreignSymbol.setSourceLibraryName(group.objectID());
     documentData.addForeignSymbol(foreignSymbol);
     return foreignSymbol;
+}
+
+function findForeignSymbolFromGroup(context, group) {
+    var document = context.document;
+    var documentData = document.documentData();
+    var predicate = NSPredicate.predicateWithFormat("libraryID == %@ && sourceLibraryName == %@", documentData.objectID(), group.objectID());
+    var foreignSymbols = documentData.allForeignObjects().filteredArrayUsingPredicate(predicate);
+    if (foreignSymbols.count() > 0) {
+        return foreignSymbols.firstObject();
+    } else {
+        return nil;
+    }
 }

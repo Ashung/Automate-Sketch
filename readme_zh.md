@@ -119,6 +119,7 @@
 | Edit Plugin Setting                                          | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
 | Reload Plugins                                               | 重载所有插件。                                               |
 | **Utilities**                                                | **实用工具**                                                 |
+| Export Clean Code SVG                                        | 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码。 |
 | SVG Export Setting                                           | SVG 导出设置。                                               |
 | Convert Sketch File to Other Version                         | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
 | Show File in Finder                                          | 在 Finder 中打开当前文档。                                   |

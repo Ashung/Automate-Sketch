@@ -28,11 +28,11 @@ var removeTransparencyLayersHandler = function(context) {
 
     var message;
     if (count > 1) {
-        message = "🎉 " + count + " ransparency layers have been removed.";
+        message = "🎉 " + count + " transparency layers have been removed.";
     } else if (count == 1) {
-        message = "😊 1 ransparency layer have been removed.";
+        message = "😊 1 transparency layer have been removed.";
     } else {
-        message = "👍 Your document have no any ransparency layer.";
+        message = "👍 Your document have no any transparency layer.";
     }
     document.showMessage(message);
 
