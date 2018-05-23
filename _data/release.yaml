@@ -1,4 +1,16 @@
 -
+  version: 50.2.20180523
+  description: |-
+    <ul>
+    <li>Add Export Clean Code SVG.</li>
+    <li>Fix link layer create reduplicated symbol.</li>
+    <li>Paste and Replace now support mask layer.</li>
+    <li>Fit to parent with margin now support use "x *".</li>
+    <li>Imported symbols link manage add a filter.</li>
+    </ul>
+  commitID: 04121921b59894f582bf851c095626e87002308f
+
+-
   version: 50.0.20180510
   description: |-
     <ul>
