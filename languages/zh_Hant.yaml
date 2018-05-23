@@ -151,4 +151,4 @@ import_document_assets_from_library: 從庫導入文檔資源
 import_styles_from_library: 從庫導入樣式
 select_layers_by_layer_style: 按圖層樣式選擇圖層
 select_layers_by_text_style: 按文字樣式選擇圖層
-export_clean_code_svg: Export Clean Code SVG
+export_clean_code_svg: 導出代碼整潔的 SVG

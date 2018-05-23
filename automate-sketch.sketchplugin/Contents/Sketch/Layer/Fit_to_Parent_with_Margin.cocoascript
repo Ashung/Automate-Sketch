@@ -77,11 +77,13 @@ var onRun = function(context) {
                     marginRight = parentWidth - layer.frame().maxX();
                 }
                 if (isNaN(marginBottom)) {
-                    marginBottom = parentHeight - layer.frame().maxX();
+                    marginBottom = parentHeight - layer.frame().maxY();
                 }
                 if (isNaN(marginLeft)) {
                     marginLeft = layer.frame().x();
                 }
+
+                // log(`${marginTop} ${marginRight} ${marginBottom} ${marginLeft}`);
 
                 layer.frame().setWidth(parentWidth - marginLeft - marginRight);
                 layer.frame().setHeight(parentHeight - marginTop - marginBottom);

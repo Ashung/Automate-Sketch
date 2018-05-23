@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180516",
+    "version": "50.2.20180523",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
