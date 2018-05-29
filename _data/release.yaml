@@ -1,3 +1,12 @@
+
+-
+  version: 50.2.20180529
+  description: |-
+    <ul>
+    <li>Fix Styles are not saved after import #72</li>
+    </ul>
+  commitID: f10a958c1f837ec0d97802fed69c9770ea80a1c8
+
 -
   version: 50.2.20180523
   description: |-
