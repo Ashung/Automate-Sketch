@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
 
 var onRun = function(context) {
 
@@ -24,7 +25,123 @@ var onRun = function(context) {
         }
 
         var newDocumentData = newDocument.documentData();
+        var newDocumentSymbols = newDocumentData.localSymbols();
         var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
+
+        if (newDocumentSymbols.count() == 0) {
+            document.showMessage('Not any symbol masters in "' + chooseFile.URL().path() + '".');
+            return;
+        }
+
+        // Dialog
+        var viewWidth = 400;
+        var rowHeight = 200;
+
+        var dialog = NSAlert.alloc().init();
+        dialog.setMessageText("Sync Symbol Master from Sketch File");
+        dialog.setInformativeText("Replace symbol master form file base symbolID, and import new symbol masters.");
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 400));
+        accessoryView.setFlipped(true);
+
+        var selectAll = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 20));
+        selectAll.setButtonType(NSSwitchButton);
+        selectAll.setAllowsMixedState(true);
+        selectAll.setTitle("Select / deselect all symbol masters.");
+        selectAll.setState(NSOnState);
+        accessoryView.addSubview(selectAll);
+
+        var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 30, viewWidth, 370));
+        scrollView.setHasVerticalScroller(true);
+        scrollView.setBorderType(NSBezelBorder);
+        accessoryView.addSubview(scrollView);
+
+
+
+        var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, newDocumentSymbols.count() * rowHeight + 10));
+        contentView.setFlipped(true);
+        scrollView.setDocumentView(contentView);
+
+        var loopSymbols = newDocumentSymbols.objectEnumerator();
+        var symbol;
+        var i = 0;
+        while (symbol = loopSymbols.nextObject()) {
+
+            // List
+            var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight * i, viewWidth, rowHeight));
+            itemView.setFlipped(true);
+
+            // Checkbox
+            var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 10, viewWidth - 20, 20));
+            checkbox.setButtonType(NSSwitchButton);
+            var originalSymbol = documentData.symbolWithID(symbol.symbolID());
+            var originalSymbolName = originalSymbol ? originalSymbol.name() : "";
+            var newSymbolName = symbol.name();
+            var title = newSymbolName;
+            if (originalSymbol && originalSymbolName != newSymbolName) {
+                title = originalSymbolName + " > " + newSymbolName;
+            }
+            checkbox.setTitle(title);
+            checkbox.setState(NSOnState);
+            itemView.addSubview(checkbox);
+            //
+            // checkbox.setCOSJSTargetFunction(function(sender) {
+            //     if (sender.state() == NSOffState) {
+            //         checked --;
+            //         unChecked ++;
+            //     }
+            //     if (sender.state() == NSOnState) {
+            //         checked ++;
+            //         unChecked --;
+            //     }
+            //     if (checked == symbols.count() && unChecked == 0) {
+            //         selectAll.setState(NSOnState);
+            //     } else if (checked == 0 && unChecked == symbols.count()) {
+            //         selectAll.setState(NSOffState);
+            //     } else {
+            //         selectAll.setState(NSMixedState);
+            //     }
+            // });
+            //
+            // Preview image
+            var imageWidth = 200;
+            var imageHeight = 150;
+            var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 40, imageWidth, imageHeight));
+            var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol);
+            var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+                layerAncestry, CGSizeMake(imageWidth * 2, imageHeight * 2), NSColorSpace.sRGBColorSpace(), true
+            );
+            var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+            imageView.setWantsLayer(true);
+            imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
+            imageView.setImage(symbolPreviewImage);
+            itemView.addSubview(imageView);
+            //
+            //
+            //
+            // Divider line
+            var divider = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight - 1, viewWidth, 1));
+            divider.setWantsLayer(true);
+            divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+            itemView.addSubview(divider);
+
+            contentView.addSubview(itemView);
+
+            i ++;
+        }
+
+
+        dialog.setAccessoryView(accessoryView);
+
+        // Run
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+            log(documentData.allSymbols())
+        }
+
+        return;
 
         // Iteration symbolMasters in current document
         var loopSymbolMasters = documentData.allSymbols().objectEnumerator();

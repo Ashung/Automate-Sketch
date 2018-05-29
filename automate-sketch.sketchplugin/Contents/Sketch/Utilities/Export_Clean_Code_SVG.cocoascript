@@ -90,7 +90,7 @@ var onRun = function(context) {
     colorView.addSubview(colorPicker);
     dialog.addAccessoryView(colorView);
 
-    var useSVGO = UI.checkBox(false, "Optimizing SVG code with SVGO.");
+    var useSVGO = UI.checkBox(false, "Optimizing SVG code with SVGO (slowly).");
     dialog.addAccessoryView(useSVGO);
 
     ignoreLayerName.setCOSJSTargetFunction(function(sender) {
