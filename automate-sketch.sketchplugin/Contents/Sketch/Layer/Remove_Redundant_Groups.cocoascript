@@ -24,12 +24,12 @@ var onRun = function(context) {
 function removeRedundantGroups(layer) {
     if (layer.class() == "MSLayerGroup") {
         // Ungroup Redundant Groups
-        if (layer.layers().count() == 1 && layer.layers().firstObject().class() == "MSLayerGroup") {
+        if (layer.layers().count() == 1) {
             var child = layer.layers().firstObject();
             if(groupIsSafeToUngroup(layer)) {
                 layer.ungroup();
             }
-            removeRedundantGroups(child);
+            if (child.class() == "MSLayerGroup") {removeRedundantGroups(child);}
         } else {
             for (var i = 0; i < layer.layers().count(); i++) {
                 var childLayer = layer.layers().objectAtIndex(i);

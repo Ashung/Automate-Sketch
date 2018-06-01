@@ -68,6 +68,7 @@ var onRun = function(context) {
     dialog.setInformativeText("This will change local symbol to library symbol base symbol ID.");
 
     dialog.addTextLabelWithValue("Choose a library.");
+
     var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
     var loopAvailableLibraries = availableLibraries.reverseObjectEnumerator();
     var availableLibrary;
@@ -76,6 +77,12 @@ var onRun = function(context) {
         selectBox.lastItem().setTitle(availableLibrary.name());
     }
     dialog.addAccessoryView(selectBox);
+
+    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+    checkboxSize.setButtonType(NSSwitchButton);
+    checkboxSize.setTitle("Set all instances to original size.");
+    checkboxSize.setState(NSOffState);
+    dialog.addAccessoryView(checkboxSize);
 
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
@@ -119,7 +126,9 @@ var onRun = function(context) {
             while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
                 instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
                 instanceWillReplaced.setName(instanceWillReplaced.symbolMaster().name());
-                instanceWillReplaced.resetSizeToMaster();
+                if (checkboxSize.state()) {
+                    instanceWillReplaced.resetSizeToMaster();
+                }
                 countInstance ++;
             }
 
