@@ -152,3 +152,5 @@ import_styles_from_library: 从库导入样式
 select_layers_by_layer_style: 按图层样式选择图层
 select_layers_by_text_style: 按文本样式选择图层
 export_clean_code_svg: 导出代码整洁的 SVG
+split_text_layer: 拆分文本图层
+combine_text_layer: 合并文本图层

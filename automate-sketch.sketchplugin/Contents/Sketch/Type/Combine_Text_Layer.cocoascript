@@ -1,0 +1,28 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    var selection = context.selection;
+    var predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer"')
+    var selectedTextLayers = selection.filteredArrayUsingPredicate(predicate).mutableCopy();
+    if (selectedTextLayers.count() < 1) {
+        document.showMessage("Place select at least 2 text layers.");
+        return;
+    }
+
+    // Sort by y
+    selectedTextLayers.sort(function(a, b) {
+        return a.frame().y() - b.frame().y();
+    });
+
+    
+
+    log(selectedTextLayers)
+
+    log(selectedTextLayers[0])
+
+    ga(context, "Type");
+
+};

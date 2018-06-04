@@ -152,3 +152,5 @@ import_styles_from_library: Import Styles from Library
 select_layers_by_layer_style: Select Layers by Layer Style
 select_layers_by_text_style: Select Layers by Text Style
 export_clean_code_svg: Export Clean Code SVG
+split_text_layer: Split Text Layer
+combine_text_layer: Combine Text Layers

@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180529",
+    "version": "50.2.20180604",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -714,6 +714,16 @@
             "name": "導出代碼整潔的 SVG",
             "identifier": "export_clean_code_svg",
             "script": "Utilities/Export_Clean_Code_SVG.cocoascript"
+        },
+        {
+            "name": "拆分文字圖層",
+            "identifier": "split_text_layer",
+            "script": "Type/Split_Text_Layer.cocoascript"
+        },
+        {
+            "name": "合併文字圖層",
+            "identifier": "combine_text_layer",
+            "script": "Type/Combine_Text_Layer.cocoascript"
         }
     ],
     "menu": {
@@ -896,6 +906,9 @@
             {
                 "title": "文字",
                 "items": [
+                    "split_text_layer",
+                    "combine_text_layer",
+                    "-",
                     "capitalize",
                     "baseline",
                     "-",

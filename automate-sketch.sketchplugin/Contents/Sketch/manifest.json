@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180529",
+    "version": "50.2.20180604",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -714,6 +714,16 @@
             "name": "Export Clean Code SVG",
             "identifier": "export_clean_code_svg",
             "script": "Utilities/Export_Clean_Code_SVG.cocoascript"
+        },
+        {
+            "name": "Split Text Layer",
+            "identifier": "split_text_layer",
+            "script": "Type/Split_Text_Layer.cocoascript"
+        },
+        {
+            "name": "Combine Text Layer",
+            "identifier": "combine_text_layer",
+            "script": "Type/Combine_Text_Layer.cocoascript"
         }
     ],
     "menu": {
@@ -896,6 +906,9 @@
             {
                 "title": "Type",
                 "items": [
+                    "split_text_layer",
+                    "combine_text_layer",
+                    "-",
                     "capitalize",
                     "baseline",
                     "-",
