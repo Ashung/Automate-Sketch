@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180604",
+    "version": "50.2.20180605",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -721,7 +721,7 @@
             "script": "Type/Split_Text_Layer.cocoascript"
         },
         {
-            "name": "Combine Text Layer",
+            "name": "Combine Text Layers",
             "identifier": "combine_text_layer",
             "script": "Type/Combine_Text_Layer.cocoascript"
         }
