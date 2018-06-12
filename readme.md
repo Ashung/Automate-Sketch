@@ -1,5 +1,8 @@
+<div align="center">
 
 ![Automate Sketch](automate-sketch.png)
+
+</div>
 
 # Automate Sketch
 
