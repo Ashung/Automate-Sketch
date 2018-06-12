@@ -31,17 +31,6 @@ var onRun = function(context) {
         }
     }
 
-    switch (count) {
-        case 0:
-            doc.showMessage();
-            break;
-        case 1:
-            doc.showMessage();
-            break;
-        default:
-            doc.showMessage();
-    }
-
     var message;
     if (count > 1) {
         message = count + " exportable layers have been removed in current page.";

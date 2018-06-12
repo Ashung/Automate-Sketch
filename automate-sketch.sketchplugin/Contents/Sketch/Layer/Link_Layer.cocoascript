@@ -2,6 +2,8 @@
 
 var createLinkLayer = function(context) {
 
+    ga(context, "Layer");
+
     var document = context.document;
     var documentData = document.documentData();
     var page = document.currentPage();
@@ -38,8 +40,6 @@ var createLinkLayer = function(context) {
         tempMenuItem.setRepresentedObject([symbolRef]);
         insertAction.doPerformAction(tempMenuItem);
     } catch(error) {}
-
-    ga(context, "Layer");
 
 };
 

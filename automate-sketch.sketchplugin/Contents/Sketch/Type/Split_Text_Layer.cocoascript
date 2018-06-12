@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var document = context.document;
     var selection = context.selection;
     var predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer"')
@@ -109,8 +111,6 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Type");
 
 };
 

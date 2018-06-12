@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var document = context.document;
     var page = document.currentPage();
     var selection = context.selection;
@@ -30,7 +32,5 @@ var onRun = function(context) {
             child.select_byExtendingSelection(true, true);
         }
     }
-
-    ga(context, "Layer");
 
 };

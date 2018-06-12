@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+    
     var document = context.document;
     var textStyles = document.documentData().layerTextStyles().objects();
     if (textStyles.count() == 0) {
@@ -94,8 +96,6 @@ var onRun = function(context) {
         centerRect_byLayers(document, typographyGroupLayers);
 
     }
-
-    ga(context, "Style");
 
 };
 

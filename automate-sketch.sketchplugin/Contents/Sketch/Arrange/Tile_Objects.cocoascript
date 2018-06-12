@@ -19,6 +19,8 @@ var tileLayersVerticallyByIndex = function(context) {
 
 var customTileLayers = function(context) {
 
+    ga(context, "Arrange");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -202,7 +204,6 @@ var customTileLayers = function(context) {
 
     }
 
-    ga(context, "Arrange");
 };
 
 function tileLayer(context, orientation) {

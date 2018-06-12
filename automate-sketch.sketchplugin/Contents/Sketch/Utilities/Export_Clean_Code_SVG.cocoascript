@@ -6,6 +6,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Utilities");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -308,8 +310,6 @@ var onRun = function(context) {
         NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
 
     }
-
-    ga(context, "Utilities");
 
 };
 

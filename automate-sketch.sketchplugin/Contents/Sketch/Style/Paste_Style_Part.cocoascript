@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -207,5 +209,4 @@ var onRun = function(context) {
         doc.showMessage('You need to copy style first, with "Edit" - "Copy" - "Copy Style ⌥⌘C".');
     }
 
-    ga(context, "Style");
-}
+};

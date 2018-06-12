@@ -2,6 +2,8 @@
 
 var saveExportPresetsToFile = function(context) {
 
+    ga(context, "Slice");
+
     var exportPresets = MSExportPreset.allExportPresets();
 
     if (exportPresets.count() == 0) {
@@ -56,11 +58,11 @@ var saveExportPresetsToFile = function(context) {
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
 
-    ga(context, "Slice");
-
 };
 
 var loadExportPresetsFromFile = function(context) {
+
+    ga(context, "Slice");
 
     var exportPresets = MSExportPreset.allExportPresets();
 
@@ -118,7 +120,5 @@ var loadExportPresetsFromFile = function(context) {
         context.document.showMessage("Export presets have loaded.");
 
     }
-
-    ga(context, "Slice");
 
 };

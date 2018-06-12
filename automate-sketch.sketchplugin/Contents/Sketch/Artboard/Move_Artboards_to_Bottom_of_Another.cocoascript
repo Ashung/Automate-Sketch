@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var doc = context.document;
     var selection = context.selection;
     var page = doc.currentPage();
@@ -83,8 +85,6 @@ var onRun = function(context) {
     } else {
         selectLayers(context, selection);
     }
-
-    ga(context, "Symbol");
 
 };
 

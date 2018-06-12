@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Development");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -41,8 +43,6 @@ var onRun = function(context) {
         pboard.setString_forType_(base64Code, NSStringPboardType);
 
         doc.showMessage("The base64 code \"" + base64Preview + "\" of slice has copied.");
-
-        ga(context, "Development");
 
     } else {
         doc.showMessage("Please select 1 slice layer.");

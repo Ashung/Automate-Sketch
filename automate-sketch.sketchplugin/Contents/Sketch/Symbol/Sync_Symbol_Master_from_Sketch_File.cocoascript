@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -219,8 +221,6 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Symbol");
 
 };
 

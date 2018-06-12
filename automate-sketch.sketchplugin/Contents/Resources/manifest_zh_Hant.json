@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180605",
+    "version": "50.2.20180612",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -42,18 +42,6 @@
             "name": "解鎖當頁所有圖層",
             "identifier": "unlock_all_layers",
             "script": "Layer/Unlock_All_Layers.cocoascript"
-        },
-        {
-            "name": "穿透點選關閉",
-            "identifier": "click_through_off",
-            "handler": "clickThroughOff",
-            "script": "Layer/Click_Through.cocoascript"
-        },
-        {
-            "name": "穿透點選開啟",
-            "identifier": "click_through_on",
-            "handler": "clickThroughOn",
-            "script": "Layer/Click_Through.cocoascript"
         },
         {
             "name": "組",
@@ -724,6 +712,11 @@
             "name": "合併文字圖層",
             "identifier": "combine_text_layer",
             "script": "Type/Combine_Text_Layer.cocoascript"
+        },
+        {
+            "name": "選擇畫板邊界外的圖層",
+            "identifier": "select_layers_outside_of_artboard_bounds",
+            "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
         }
     ],
     "menu": {
@@ -788,6 +781,7 @@
                     "select_all_child_layers",
                     "select_all_siblings_layers",
                     "select_parent_groups",
+                    "select_layers_outside_of_artboard_bounds",
                     "-",
                     "paste_and_replace",
                     "-",

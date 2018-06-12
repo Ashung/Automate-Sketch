@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
 
     if (!doc.fileURL()) {
@@ -80,8 +82,6 @@ var onRun = function(context) {
             doc.saveDocument(nil);
 
             doc.showMessage('Complete replace "' + selectedMissingFont + '" with ' + '"' + replaceFont + '".');
-
-            ga(context, "Type");
 
         }
 

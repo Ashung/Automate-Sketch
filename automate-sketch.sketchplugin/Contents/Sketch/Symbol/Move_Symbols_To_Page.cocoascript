@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -82,8 +84,6 @@ var onRun = function(context) {
         document.contentDrawView().centerRect_animated(rect, true);
 
     }
-
-    ga(context, "Symbol");
 
 };
 

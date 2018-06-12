@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Library");
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -162,8 +164,6 @@ var onRun = function(context) {
         message = "No any symbol master have been changed to library symbol.";
     }
     document.showMessage(message);
-
-    ga(context, "Library");
 
 };
 

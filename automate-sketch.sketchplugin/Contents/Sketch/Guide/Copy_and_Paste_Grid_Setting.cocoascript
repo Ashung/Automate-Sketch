@@ -2,6 +2,8 @@
 
 var copyGrid = function(context) {
 
+    ga(context, "Guide");
+
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
@@ -30,7 +32,6 @@ var copyGrid = function(context) {
         }
     }
 
-    ga(context, "Guide");
 };
 
 var pasteGrid = function(context) {

@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
 
     var fontUsedInDocument = NSMutableArray.alloc().init();
@@ -75,8 +77,6 @@ var onRun = function(context) {
             setPreferences(context, "replaceFont", replaceFont);
 
             doc.showMessage('Complete replace "' + selectedFont + '" with ' + '"' + replaceFont + '".');
-
-            ga(context, "Type");
 
         }
     } else {

@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Library");
+
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
         document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
@@ -70,8 +72,6 @@ var onRun = function(context) {
 
     dialog.setAccessoryView(accessoryView);
     dialog.runModal();
-
-    ga(context, "Library");
 
 };
 

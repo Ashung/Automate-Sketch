@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -71,8 +73,6 @@ var onRun = function(context) {
         } else {
             doc.showMessage("Your selection have no include a text layer.");
         }
-
-        ga(context, "Type");
 
     } else {
         doc.showMessage("Please select a text layer.");

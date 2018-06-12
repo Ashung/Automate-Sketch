@@ -9,7 +9,7 @@ var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 var features = 0;
 
 for (var i = 0; i < supportLanguages.length; i++) {
-    var language = yaml.safeLoad(fs.readFileSync("languages/" + supportLanguages[i] + ".yaml", "utf8"));
+    var language = yaml.safeLoad(fs.readFileSync("templates/" + supportLanguages[i] + ".yaml", "utf8"));
         language.version = buildDateString;
     var manifest = Mustache.render(template, language);
 

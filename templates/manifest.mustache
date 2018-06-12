@@ -44,18 +44,6 @@
             "script": "Layer/Unlock_All_Layers.cocoascript"
         },
         {
-            "name": "{{click_through_off}}",
-            "identifier": "click_through_off",
-            "handler": "clickThroughOff",
-            "script": "Layer/Click_Through.cocoascript"
-        },
-        {
-            "name": "{{click_through_on}}",
-            "identifier": "click_through_on",
-            "handler": "clickThroughOn",
-            "script": "Layer/Click_Through.cocoascript"
-        },
-        {
             "name": "{{select_layers_by_type_group}}",
             "identifier": "select_layers_by_type_group",
             "handler": "selectAllGroupsInSelection",
@@ -724,6 +712,11 @@
             "name": "{{combine_text_layer}}",
             "identifier": "combine_text_layer",
             "script": "Type/Combine_Text_Layer.cocoascript"
+        },
+        {
+            "name": "{{select_layers_outside_of_artboard_bounds}}",
+            "identifier": "select_layers_outside_of_artboard_bounds",
+            "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
         }
     ],
     "menu": {
@@ -788,6 +781,7 @@
                     "select_all_child_layers",
                     "select_all_siblings_layers",
                     "select_parent_groups",
+                    "select_layers_outside_of_artboard_bounds",
                     "-",
                     "paste_and_replace",
                     "-",

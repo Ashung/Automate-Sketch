@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var documentData = document.documentData();
     var selection = context.selection;
@@ -42,7 +44,5 @@ var onRun = function(context) {
             document.showMessage("Please select one imported symbol.");
         }
     }
-
-    ga(context, "Symbol");
 
 };
