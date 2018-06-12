@@ -1,1 +1,147 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
 
+var onRun = function(context) {
+
+    // ga(context, "Utilities");
+
+    var document = context.document;
+    var selection = context.selection;
+    var layer = selection.firstObject();
+    if (!layer) {
+        document.showMessage("Please select a bitmap layer.");
+        return;
+    } else {
+        if (layer.class() != "MSBitmapLayer") {
+            document.showMessage("Please select a bitmap layer.");
+            return;
+        }
+    }
+
+    var image = layer.NSImage();
+    var imageWidth = image.size().width;
+    var imageHeight = image.size().height;
+    var bitmapRep = image.representations().firstObject();
+    // var bitmapWidth = bitmapRep.pixelsWide();
+    // var bitmapHeight = bitmapRep.pixelsHigh();
+    var layerWidth = layer.frame().width();
+    var layerHeight = layer.frame().height();
+
+    // for (var y = 0; y < layerHeight; y++) {
+    //     for (var x = 0; x < bitmapWidth; x++) {
+    //         var color = bitmapRep.colorAtX_y(x, y);
+    //         log(`(${x},${y}) - ${color}`)
+    //     }
+    // }
+
+    // Dialog
+    var dialog = UI.cosDialog(
+        "Nine-Slice from Bitmap Layer",
+        "xxx."
+    );
+
+    var thumbWidth = 200;
+    var thumbHeight = Math.round(200 * imageHeight / imageWidth);
+    if (imageHeight > imageWidth) {
+        thumbWidth = Math.round(200 * imageWidth / imageHeight);
+        thumbHeight = 200;
+    }
+
+    // Resize NSImage
+    var originalImage = image.copy();
+    var thumbSize = CGSizeMake(thumbWidth, thumbHeight);
+    originalImage.setScalesWhenResized(true);
+    var resizedImage = NSImage.alloc().initWithSize(thumbSize);
+    resizedImage.lockFocus();
+    originalImage.setSize(thumbSize);
+    NSGraphicsContext.currentContext().setImageInterpolation(NSImageInterpolationNone);
+    originalImage.drawAtPoint_fromRect_operation_fraction(NSZeroPoint, CGRectMake(0, 0, thumbSize.width, thumbSize.height), NSCompositeCopy, 1);
+    resizedImage.unlockFocus();
+
+    // Thumb view
+    var imageWrapper = NSView.alloc().initWithFrame(NSMakeRect(0, 0, thumbWidth, thumbHeight));
+    imageWrapper.setFlipped(true);
+    var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, thumbWidth, thumbHeight));
+    var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+    imageView.setWantsLayer(true);
+    imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
+    imageView.setImage(resizedImage);
+
+    // Add red lines
+    var lineLeft = lineView(Math.round(thumbWidth / 3), 0, 1, thumbHeight);
+    var lineRight = lineView(Math.round(thumbWidth / 3 * 2), 0, 1, thumbHeight);
+    var lineTop = lineView(0, Math.round(thumbHeight / 3), thumbWidth, 1);
+    var lineBottom = lineView(0, Math.round(thumbHeight / 3 * 2), thumbWidth, 1);
+    imageWrapper.addSubview(imageView);
+    imageWrapper.addSubview(lineLeft);
+    imageWrapper.addSubview(lineRight);
+    imageWrapper.addSubview(lineTop);
+    imageWrapper.addSubview(lineBottom);
+    dialog.addAccessoryView(imageWrapper);
+
+    log(`${imageWidth}x${imageHeight}`);
+
+    //
+    var slideBarLeft = sliderBarView("Left: " + Math.round(imageWidth / 3), imageWidth, Math.round(imageWidth / 3));
+    var slideBarRight = sliderBarView("Right: " + Math.round(imageWidth / 3 * 2), imageWidth, Math.round(imageWidth / 3 * 2));
+
+    dialog.addAccessoryView(slideBarLeft.container);
+    dialog.addAccessoryView(slideBarRight.container);
+
+
+    slideBarLeft.slider.setCOSJSTargetFunction(function(sender) {
+        var value = sender.intValue();
+        // if (value >= slideBarRight.slider.intValue()) {
+        //     value = slideBarRight.slider.intValue() - 1;
+        //     sender.setIntValue(value);
+        // }
+        slideBarLeft.label.setStringValue(`Left: ${value}`);
+        lineLeft.setFrameOrigin(CGPointMake(1, 0));
+
+        // CGPointMake(Math.round(value * thumbHeight / thumbWidth), 0)
+    });
+    // slideBarRight.slider.setCOSJSTargetFunction(function(sender) {
+    //     var value = sender.intValue();
+    //     // if (value <= slideBarLeft.slider.intValue()) {
+    //     //     value = slideBarLeft.slider.intValue() + 1;
+    //     //     sender.setIntValue(value);
+    //     // }
+    //     slideBarRight.label.setStringValue(`Right: ${value}`);
+    //     lineRight.setFrameOrigin(CGPointMake(Math.round(value * thumbHeight / thumbWidth), 0));
+    // });
+
+
+    var responseCode = dialog.runModal();
+
+
+    // log(`${bitmapWidth}x${bitmapHeight}`)
+};
+
+function lineView(x, y, w, h) {
+    var view = NSView.alloc().initWithFrame(NSMakeRect(x, y, w, h));
+    view.setWantsLayer(true);
+    view.layer().setBackgroundColor(CGColorCreateGenericRGB(1, 0, 0, 0.8));
+    return view;
+}
+
+function sliderBarView(lebal, maxValue, initValue) {
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
+
+    var sliderView = NSSlider.alloc().initWithFrame(NSMakeRect(0, 0, 200, 20));
+    sliderView.setMaxValue(maxValue);
+    sliderView.setMinValue(0);
+    sliderView.setIntValue(initValue);
+
+    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(210, 0, 90, 20));
+    textView.setStringValue(lebal);
+    textView.setTextColor(NSColor.blackColor());
+    textView.setBezeled(false);
+    textView.setDrawsBackground(false);
+    textView.setEditable(false);
+    textView.setSelectable(false);
+
+    view.addSubview(textView);
+    view.addSubview(sliderView);
+
+    return { container: view, label: textView, slider: sliderView };
+}

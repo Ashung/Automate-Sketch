@@ -155,3 +155,4 @@ export_clean_code_svg: Export Clean Code SVG
 split_text_layer: Split Text Layer
 combine_text_layer: Combine Text Layers
 select_layers_outside_of_artboard_bounds: Select Layers Outside of Artboard Bounds
+nine_slice_from_bitmap_layer: Nine-Slice from Bitmap Layer

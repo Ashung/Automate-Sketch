@@ -717,6 +717,11 @@
             "name": "选择画板边界外的图层",
             "identifier": "select_layers_outside_of_artboard_bounds",
             "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "nine_slice_from_bitmap_layer",
+            "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
         }
     ],
     "menu": {
@@ -956,6 +961,8 @@
                 "items": [
                     "export_clean_code_svg",
                     "svg_export_setting",
+                    "-",
+                    "nine_slice_from_bitmap_layer",
                     "-",
                     "convert_to_other_version",
                     "-",
