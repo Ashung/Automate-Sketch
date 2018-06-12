@@ -8,6 +8,7 @@
         <description>Make your workflow more efficient.</description>
         <language>en</language>
         {% for item in site.data.release %}
+        {% if forloop.index < 2 %}
         <item>
             <title>v{{ item.version }}</title>
             <enclosure
@@ -15,6 +16,7 @@
                 sparkle:version="{{ item.version }}"
                 type="application/octet-stream"/>
         </item>
+        {% endif %}
         {% endfor %}
     </channel>
 </rss>

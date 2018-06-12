@@ -1,3 +1,14 @@
+-
+  version: 50.2.20180612
+  description: |-
+    <ul>
+    <li>Add Select Layers Outside of Artboard Bounds #76.</li>
+    <li>Add split and combine text #73.</li>
+    <li>Feature Enhancement: Change Symbols to Library Symbol Base Symbol ID (keep size) #74.</li>
+    <li>Feature Enhancement: Sync Symbol Masters from Sketch File now can choose which symbol to update, like library symbol update.</li>
+    <li>Change "Remove redundant groups" to remove also groups that only contain one single layer.</li>
+    </ul>
+  commitID: 5a1e6c48cb7966fdb35f3d5f9edf9b1f333a2831
 
 -
   version: 50.2.20180529
