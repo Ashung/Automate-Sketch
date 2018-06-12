@@ -2,11 +2,11 @@
 
 ![Automate Sketch](automate-sketch.png)
 
-</div>
-
-# Automate Sketch
-
 Make your workflow more efficient.
+
+ 
+
+</div>
 
 [中文说明](readme_zh.md)
 
