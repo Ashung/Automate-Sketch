@@ -29,6 +29,7 @@
 | Select All Child Layers                                      | 选择所有子图层。                                             |
 | Select All Siblings Layers                                   | 选择所有兄弟图层。                                           |
 | Select Parent Groups                                         | 选择所有父级图层。                                           |
+| Select Layers Outside of Artboard Bounds                     | 选择并显示在画板边界外的不可见图层。                         |
 | Paste and Replace                                            | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Clear Layer Name                                             | 清理图层名，删除图层名后的 copy。                            |
 | Remove Redundant Groups                                      | 删除多余的嵌套组。                                           |
@@ -45,6 +46,8 @@
 | Order Layers By ...                                          | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                          | 反转图层列表中的位置。                                       |
 | **Type**                                                     | **文本**                                                     |
+| Split Text Layer                                             | 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
+| Combine Text Layers                                          | 合并选中文本图层。                                           |
 | Capitalize                                                   | 首字大写。                                                   |
 | Change Baseline offset                                       | 调整选中文本的基线偏移。（暂时在 48+ 版本不可用）            |
 | Change Text Orientation                                      | 更改文本书写方向，竖排或横排。                               |
@@ -78,7 +81,7 @@
 | Detach Unused Symbol Master                                  | 将未使用的组件模版转为组。                                   |
 | Remove Unused Symbols                                        | 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
 | Export All Symbols As PNG                                    | 按照 "页面/组件" 规则，将所有组件导出为 PNG。                |
-| Sync Symbol Master from Sketch File                          | 根据 Symbol ID，从 Sketch 文件同步组件。                     |
+| Sync Symbol Master from Sketch File                          | 根据 Symbol ID，从 Sketch 文件更新组件。                     |
 | Replace Pages from Sketch File                               | 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
 | **Library**                                                  | **库**                                                       |
 | Fix Library ID Conflict                                      | 解决库 ID 冲突问题，库中存在同 ID 的文件，会导致同 ID 的库影响组件的更新。 |

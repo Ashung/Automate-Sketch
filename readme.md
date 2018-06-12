@@ -29,6 +29,7 @@ Make your workflow more efficient.
 | Select All Child Layers                                      | Select all sub-layers.                                       |
 | Select All Siblings Layers                                   | Select all siblings layers.                                  |
 | Select Parent Groups                                         | Select parent groups.                                        |
+| Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
@@ -45,6 +46,8 @@ Make your workflow more efficient.
 | Order Layers By ...                                          | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
 | **Type**                                                     |                                                              |
+| Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
+| Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |
 | Change Baseline offset                                       | Change Baseline Offset for selected range of text layer.     |
 | Change Text Orientation                                      | Change Text Orientation for CJK text layout.                 |
@@ -133,4 +136,4 @@ MIT
 
 ## Donate
 
-Donate [$1.00](https://www.paypal.me/ashung/1)  [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) via PayPal.
+Donate [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) [$10.00](https://www.paypal.me/ashung/10)  via PayPal.

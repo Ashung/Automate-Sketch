@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Artboard");
+
     var doc = context.document;
     var documentData = doc.documentData();
 
@@ -135,7 +137,5 @@ var onRun = function(context) {
 
         }
     }
-
-    ga(context, "Artboard");
 
 };

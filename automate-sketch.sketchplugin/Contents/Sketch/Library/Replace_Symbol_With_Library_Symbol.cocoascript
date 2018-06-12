@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Library");
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -112,8 +114,6 @@ var onRun = function(context) {
 
     dialog.addButtonWithTitle("Cancel");
     dialog.runModal();
-
-    ga(context, "Library");
 
 };
 

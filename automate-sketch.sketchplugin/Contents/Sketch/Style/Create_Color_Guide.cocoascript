@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+
     var document = context.document;
     var documentColors = document.documentData().assets().colors();
     if (documentColors.count() == 0) {
@@ -147,8 +149,6 @@ var onRun = function(context) {
         centerRect_byLayers(document, paletteGroupLayers);
 
     }
-
-    ga(context, "Style");
 
 };
 

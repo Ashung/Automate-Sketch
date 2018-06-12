@@ -2,11 +2,14 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var selection = context.selection;
 
     if (selection.count() == 0) {
         document.showMessage("Please select at least one layer.");
+        return;
     }
 
     var layer = selection.firstObject();
@@ -168,8 +171,6 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Symbol");
 
 };
 

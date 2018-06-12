@@ -26,6 +26,21 @@ var UI = {
         }
     },
 
+    cosDialog : function(title, info, buttons) {
+        var dialog = COSAlertWindow.alloc().init();
+        dialog.setMessageText(title);
+        dialog.setInformativeText(info);
+        if (!buttons || !buttons instanceof Array) {
+            dialog.addButtonWithTitle("OK");
+            dialog.addButtonWithTitle("Cancel");
+        } else {
+            buttons.forEach(function(button) {
+                dialog.addButtonWithTitle(button);
+            });
+        }
+        return dialog;
+    },
+
     checkBox : function(status, title, size) {
         if (size && Array.isArray(size)) {
             var frame = this.rect(size);

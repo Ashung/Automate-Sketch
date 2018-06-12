@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var allSymbols = document.documentData().localSymbols();
 
@@ -36,7 +38,5 @@ var onRun = function(context) {
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
 
     }
-
-    ga(context, "Symbol");
 
 };

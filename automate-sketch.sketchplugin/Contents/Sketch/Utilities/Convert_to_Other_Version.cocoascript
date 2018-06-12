@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Utilities");
+
     var sketchMetaDatas = [
         {
             "appVersion": "43",
@@ -213,7 +215,5 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Utilities");
 
 }

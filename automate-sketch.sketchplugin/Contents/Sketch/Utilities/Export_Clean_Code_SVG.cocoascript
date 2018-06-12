@@ -6,6 +6,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Utilities");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -15,11 +17,11 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Export Clean Code SVG");
-    dialog.setInformativeText("Export clean code SVG files from symbol masters, groups, without make a copy and remove layers.");
-    dialog.addButtonWithTitle("Save");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = UI.cosDialog(
+        "Export Clean Code SVG",
+        "Export clean code SVG files from symbol masters, groups, without make a copy and remove layers.",
+        ["Save", "Cancel"]
+    );
 
     if (selection.count() == 1) {
         dialog.addButtonWithTitle("Copy");
@@ -308,8 +310,6 @@ var onRun = function(context) {
         NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
 
     }
-
-    ga(context, "Utilities");
 
 };
 

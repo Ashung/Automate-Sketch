@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Slice");
+
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {
@@ -116,7 +118,5 @@ var onRun = function(context) {
         document.reloadInspector();
 
     }
-
-    ga(context, "Slice");
 
 };

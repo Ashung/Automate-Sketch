@@ -1,15 +1,15 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var fillColorFromGlobalColors = function(context) {
+    ga(context, "Style");
     var globalColors = NSApp.delegate().globalAssets().colors();
     fillColorFromColors(context, globalColors, "You have no any color in Global Colors.");
-    ga(context, "Style");
 };
 
 var fillColorFromDocumentColors = function(context) {
+    ga(context, "Style");
     var documentColors = context.document.documentData().assets().colors();
     fillColorFromColors(context, documentColors, "You have no any color in Document Colors.");
-    ga(context, "Style");
 };
 
 function fillColorFromColors(context, colors, alertMessage) {

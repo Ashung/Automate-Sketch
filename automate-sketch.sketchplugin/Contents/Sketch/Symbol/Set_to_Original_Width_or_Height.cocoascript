@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+    
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -36,7 +38,5 @@ var onRun = function(context) {
 
         }
     }
-
-    ga(context, "Symbol");
 
 };

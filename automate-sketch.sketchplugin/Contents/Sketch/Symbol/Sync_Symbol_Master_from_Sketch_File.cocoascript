@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -17,76 +19,237 @@ var onRun = function(context) {
         var error = MOPointer.alloc().init();
         var newDocument = MSDocument.alloc().init();
             newDocument.readFromURL_ofType_error(chooseFile.URL(), "com.bohemiancoding.sketch.drawing", error);
-
         if (error.value() != null) {
-            document.showMessage("Error: " + error.value());
+            document.showMessage("Can't open Sketch file. Error: " + error.value());
             return;
         }
 
         var newDocumentData = newDocument.documentData();
-        var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
-
-        // Iteration symbolMasters in current document
-        var loopSymbolMasters = documentData.allSymbols().objectEnumerator();
-        var symbolMaster;
-        while (symbolMaster = loopSymbolMasters.nextObject()) {
-
-            // Replace symbolMaster
-            var newSymbolMaster = newDocumentData.symbolWithID(symbolMaster.symbolID());
-            if (newSymbolMaster && !newSymbolMastersWillAddToDocument.containsObject(newSymbolMaster)) {
-
-                newSymbolMastersWillAddToDocument.addObject(newSymbolMaster);
-
-                // Nested Symbol in new sketch file
-                iterateNestedSymbols(newSymbolMaster);
-
-                function iterateNestedSymbols(_symbolmaster) {
-                    var loopSymbolInstance = _symbolmaster.allSymbolInstancesInChildren().objectEnumerator();
-                    var symbolInstance;
-                    while (symbolInstance = loopSymbolInstance.nextObject()) {
-
-                        var nestedSymbolMaster = symbolInstance.symbolMaster();
-                        if (!newSymbolMastersWillAddToDocument.containsObject(nestedSymbolMaster)) {
-                            newSymbolMastersWillAddToDocument.addObject(nestedSymbolMaster);
-                        }
-
-                        iterateNestedSymbols(nestedSymbolMaster);
-                    }
-                }
-
-            }
+        var newDocumentSymbols = newDocumentData.localSymbols();
+        if (newDocumentSymbols.count() == 0) {
+            document.showMessage('Not any symbol masters in "' + chooseFile.URL().path() + '".');
+            return;
         }
 
-        var loopSymbolMastersWillAddToDocument = newSymbolMastersWillAddToDocument.objectEnumerator();
-        var symbolMasterWillAddToDocument;
-        while (symbolMasterWillAddToDocument = loopSymbolMastersWillAddToDocument.nextObject()) {
-
-            symbolMasterWillAddToDocument.setLayerListExpandedType(1);
-
-            var oldSymbolMaster = documentData.symbolWithID(symbolMasterWillAddToDocument.symbolID());
-            if (oldSymbolMaster) {
-                var page = oldSymbolMaster.parentPage();
-                symbolMasterWillAddToDocument.frame().setX(oldSymbolMaster.frame().x());
-                symbolMasterWillAddToDocument.frame().setY(oldSymbolMaster.frame().y());
-                page.insertLayers_beforeLayer([symbolMasterWillAddToDocument], oldSymbolMaster);
-                oldSymbolMaster.removeFromParent();
+        // Filter symbols have changed
+        var differentSymbols = NSMutableArray.alloc().init();
+        newDocumentSymbols.forEach(function(symbol) {
+            var originalSymbol = documentData.symbolWithID(symbol.symbolID());
+            if (!originalSymbol) {
+                differentSymbols.addObject(symbol);
             } else {
-                var page = documentData.layerWithID(symbolMasterWillAddToDocument.parentPage().objectID());
-                if (page && page.class() == "MSPage") {
-                    page.addLayers([symbolMasterWillAddToDocument]);
-                } else {
-                    documentData.symbolsPageOrCreateIfNecessary().addLayers([symbolMasterWillAddToDocument]);
+                if (
+                    !originalSymbol.treeAsDictionary().layers.propertiesAreEqual(symbol.treeAsDictionary().layers) ||
+                    !originalSymbol.treeAsDictionary().backgroundColor.propertiesAreEqual(symbol.treeAsDictionary().backgroundColor) ||
+                    !originalSymbol.treeAsDictionary().exportOptions.propertiesAreEqual(symbol.treeAsDictionary().exportOptions) ||
+                    !originalSymbol.treeAsDictionary().horizontalRulerData.propertiesAreEqual(symbol.treeAsDictionary().horizontalRulerData) ||
+                    !originalSymbol.treeAsDictionary().style.propertiesAreEqual(symbol.treeAsDictionary().style) ||
+                    !originalSymbol.treeAsDictionary().verticalRulerData.propertiesAreEqual(symbol.treeAsDictionary().verticalRulerData)
+                ) {
+                    differentSymbols.addObject(symbol);
                 }
             }
-
+        });
+        if (differentSymbols.count() == 0) {
+            document.showMessage('Symbol masters not need to update.');
+            return;
         }
 
-        document.loadLayerListPanel();
+        // Dialog
+        var viewWidth = 400;
+        var rowHeight = 200;
 
-        document.showMessage("Sync " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
+        var dialog = NSAlert.alloc().init();
+        dialog.setMessageText("Sync Symbol Master from Sketch File");
+        dialog.setInformativeText("Replace symbol master form file base symbolID, and import new symbol masters.");
+        dialog.addButtonWithTitle("OK");
+        dialog.addButtonWithTitle("Cancel");
+
+        var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 400));
+        accessoryView.setFlipped(true);
+
+        var selectedSymbolCount = differentSymbols.count();
+        var selectAll = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 20));
+        selectAll.setButtonType(NSSwitchButton);
+        selectAll.setAllowsMixedState(true);
+        selectAll.setTitle("Select / Deselect all symbol masters.");
+        selectAll.setState(NSOnState);
+        accessoryView.addSubview(selectAll);
+
+        var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 30, viewWidth, 370));
+        scrollView.setHasVerticalScroller(true);
+        scrollView.setBorderType(NSBezelBorder);
+        accessoryView.addSubview(scrollView);
+
+        var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, differentSymbols.count() * rowHeight));
+        contentView.setFlipped(true);
+        scrollView.setDocumentView(contentView);
+
+        // Symbol list
+        differentSymbols.forEach(function(symbol, i) {
+
+            // List
+            var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight * i, viewWidth, rowHeight));
+            itemView.setFlipped(true);
+
+            // Checkbox
+            var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 10, viewWidth - 20, 20));
+            checkbox.setButtonType(NSSwitchButton);
+            var originalSymbol = documentData.symbolWithID(symbol.symbolID());
+            var originalSymbolName = originalSymbol ? originalSymbol.name() : "";
+            var newSymbolName = symbol.name();
+            var title = newSymbolName;
+            if (originalSymbol && originalSymbolName != newSymbolName) {
+                title = originalSymbolName + " ➝ " + newSymbolName;
+            }
+            checkbox.setTitle(title);
+            checkbox.setState(NSOnState);
+            itemView.addSubview(checkbox);
+
+            checkbox.setCOSJSTargetFunction(function(sender) {
+                if (sender.state() == NSOffState) {
+                    selectedSymbolCount --;
+                }
+                if (sender.state() == NSOnState) {
+                    selectedSymbolCount ++;
+                }
+                if (selectedSymbolCount == differentSymbols.count()) {
+                    selectAll.setState(NSOnState);
+                } else if (selectedSymbolCount == 0) {
+                    selectAll.setState(NSOffState);
+                } else {
+                    selectAll.setState(NSMixedState);
+                }
+            });
+
+            // Preview image
+            var imageWidth = 180;
+            var imageHeight = 150;
+            if (originalSymbol) {
+                var originalSymbolView = symbolThumbView(originalSymbol, 10, 40, imageWidth, imageHeight, "OLD");
+                var newSymbolView = symbolThumbView(symbol, 200, 40, imageWidth, imageHeight, "NEW");
+                itemView.addSubview(originalSymbolView);
+            } else {
+                var newSymbolView = symbolThumbView(symbol, 10, 40, imageWidth, imageHeight, "NEW");
+            }
+            itemView.addSubview(newSymbolView);
+
+            // Divider line
+            if (i < differentSymbols.count() - 1) {
+                var divider = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight - 1, viewWidth, 1));
+                divider.setWantsLayer(true);
+                divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+                itemView.addSubview(divider);
+            }
+
+            contentView.addSubview(itemView);
+
+        });
+
+        // Select and deselect
+        selectAll.setCOSJSTargetFunction(function(sender) {
+            if (sender.state() == NSOnState || sender.state() == NSMixedState) {
+                sender.setState(NSOnState);
+                selectedSymbolCount = differentSymbols.count();
+                contentView.subviews().forEach(function(view) {
+                    view.subviews().firstObject().setState(NSOnState);
+                });
+            } else {
+                selectedSymbolCount = 0;
+                contentView.subviews().forEach(function(view) {
+                    view.subviews().firstObject().setState(NSOffState);
+                });
+            }
+        });
+
+        dialog.setAccessoryView(accessoryView);
+
+        // Run
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+
+            var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
+            contentView.subviews().forEach(function(view, i) {
+                var state = view.subviews().firstObject().state();
+                if (state == NSOnState) {
+                    newSymbolMastersWillAddToDocument.addObject(differentSymbols.objectAtIndex(i));
+
+                    // Nested Symbol in new sketch file
+                    iterateNestedSymbols(differentSymbols.objectAtIndex(i));
+                    function iterateNestedSymbols(_symbolmaster) {
+                        _symbolmaster.allSymbolInstancesInChildren().allObjects().forEach(function(symbolInstance) {
+                            var nestedSymbolMaster = symbolInstance.symbolMaster();
+                            if (
+                                !newSymbolMastersWillAddToDocument.containsObject(nestedSymbolMaster) &&
+                                differentSymbols.containsObject(nestedSymbolMaster)
+                            ) {
+                                newSymbolMastersWillAddToDocument.addObject(nestedSymbolMaster);
+                            }
+                            iterateNestedSymbols(nestedSymbolMaster);
+                        });
+                    }
+
+                }
+            });
+
+
+            newSymbolMastersWillAddToDocument.forEach(function(symbolMaster) {
+                symbolMaster.setLayerListExpandedType(1);
+                var originalSymbol = documentData.symbolWithID(symbolMaster.symbolID());
+                if (originalSymbol) {
+                    var page = originalSymbol.parentPage();
+                    symbolMaster.frame().setX(originalSymbol.frame().x());
+                    symbolMaster.frame().setY(originalSymbol.frame().y());
+                    page.insertLayer_beforeLayer(symbolMaster, originalSymbol);
+                    originalSymbol.removeFromParent();
+                } else {
+                    var page = documentData.layerWithID(symbolMaster.parentPage().objectID());
+                    if (!page || page.class() != "MSPage") {
+                        page = documentData.symbolsPageOrCreateIfNecessary();
+                    }
+                    var origin = page.originForNewArtboardWithSize(symbolMaster.rect().size);
+                    symbolMaster.frame().setX(origin.x);
+                    symbolMaster.frame().setY(origin.y);
+                    page.addLayer(symbolMaster);
+                }
+            });
+
+            document.loadLayerListPanel();
+
+            document.showMessage("Update " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
+
+        }
 
     }
 
-    ga(context, "Symbol");
-
 };
+
+function symbolThumbView(symbol, x, y, imageWidth, imageHeight, label) {
+    var imageViewWrap = NSView.alloc().initWithFrame(NSMakeRect(x, y, imageWidth, imageHeight));
+    var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageWidth, imageHeight));
+    var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol);
+    var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+        layerAncestry, CGSizeMake(imageWidth * 2, imageHeight * 2), NSColorSpace.sRGBColorSpace(), true
+    );
+    var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+    imageView.setWantsLayer(true);
+    imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
+    imageView.setImage(symbolPreviewImage);
+
+    var textLableView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 20, 20));
+    textLableView.setFont(NSFont.boldSystemFontOfSize(10));
+    textLableView.setTextColor(NSColor.whiteColor());
+    textLableView.setStringValue(label);
+    textLableView.setBezeled(false);
+    textLableView.setWantsLayer(true);
+    textLableView.setBackgroundColor(NSColor.colorWithRed_green_blue_alpha(0, 0.6, 0, 1));
+    if (label == "OLD") {
+        textLableView.setBackgroundColor(NSColor.colorWithRed_green_blue_alpha(0.9, 0, 0, 1));
+    }
+    textLableView.setEditable(false);
+    textLableView.sizeToFit();
+
+    imageViewWrap.addSubview(imageView);
+    imageViewWrap.addSubview(textLableView);
+    return imageViewWrap;
+}

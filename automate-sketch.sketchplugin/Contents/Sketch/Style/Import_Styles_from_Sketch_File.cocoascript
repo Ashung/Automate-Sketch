@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+
     var document = context.document;
     var pluginIdentifier = context.command.identifier();
     var documentData = document.documentData();
@@ -67,7 +69,5 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Style");
 
 };

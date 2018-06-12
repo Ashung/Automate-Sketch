@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Library");
+
     var document = context.document;
 
     if (MSApplicationMetadata.metadata().appVersion < 48) {
@@ -176,8 +178,6 @@ var onRun = function(context) {
 
     dialog.setAccessoryView(accessoryView);
     dialog.runModal();
-
-    ga(context, "Library");
 
 };
 
