@@ -46,6 +46,7 @@ var onRun = function(context) {
         thumbWidth = Math.round(200 * imageWidth / imageHeight);
         thumbHeight = 200;
     }
+    var scale = thumbWidth / imageWidth;
 
     // Resize NSImage
     var originalImage = image.copy();
@@ -84,10 +85,12 @@ var onRun = function(context) {
     //
     var slideBarLeft = sliderBarView("Left: " + Math.round(imageWidth / 3), imageWidth, Math.round(imageWidth / 3));
     var slideBarRight = sliderBarView("Right: " + Math.round(imageWidth / 3 * 2), imageWidth, Math.round(imageWidth / 3 * 2));
-
+    var slideBarTop = sliderBarView("Top: " + Math.round(imageHeight / 3), imageHeight, Math.round(imageHeight / 3));
+    var slideBarBottom = sliderBarView("Bottom: " + Math.round(imageHeight / 3 * 2), imageHeight, Math.round(imageHeight / 3 * 2));
     dialog.addAccessoryView(slideBarLeft.container);
     dialog.addAccessoryView(slideBarRight.container);
-
+    dialog.addAccessoryView(slideBarTop.container);
+    dialog.addAccessoryView(slideBarBottom.container);
 
     slideBarLeft.slider.setCOSJSTargetFunction(function(sender) {
         var value = sender.intValue();
@@ -96,21 +99,35 @@ var onRun = function(context) {
         //     sender.setIntValue(value);
         // }
         slideBarLeft.label.setStringValue(`Left: ${value}`);
-        lineLeft.setFrameOrigin(CGPointMake(1, 0));
-
-        // CGPointMake(Math.round(value * thumbHeight / thumbWidth), 0)
+        lineLeft.setFrameOrigin(CGPointMake(Math.round(value * scale), 0));
     });
-    // slideBarRight.slider.setCOSJSTargetFunction(function(sender) {
-    //     var value = sender.intValue();
-    //     // if (value <= slideBarLeft.slider.intValue()) {
-    //     //     value = slideBarLeft.slider.intValue() + 1;
-    //     //     sender.setIntValue(value);
-    //     // }
-    //     slideBarRight.label.setStringValue(`Right: ${value}`);
-    //     lineRight.setFrameOrigin(CGPointMake(Math.round(value * thumbHeight / thumbWidth), 0));
-    // });
-
-
+    slideBarRight.slider.setCOSJSTargetFunction(function(sender) {
+        var value = sender.intValue();
+        // if (value <= slideBarLeft.slider.intValue()) {
+        //     value = slideBarLeft.slider.intValue() + 1;
+        //     sender.setIntValue(value);
+        // }
+        slideBarRight.label.setStringValue(`Right: ${value}`);
+        lineRight.setFrameOrigin(CGPointMake(Math.round(value * scale), 0));
+    });
+    slideBarTop.slider.setCOSJSTargetFunction(function(sender) {
+        var value = sender.intValue();
+        // if (value <= slideBarLeft.slider.intValue()) {
+        //     value = slideBarLeft.slider.intValue() + 1;
+        //     sender.setIntValue(value);
+        // }
+        slideBarTop.label.setStringValue(`Top: ${value}`);
+        lineTop.setFrameOrigin(CGPointMake(0, Math.round(value * scale)));
+    });
+    slideBarBottom.slider.setCOSJSTargetFunction(function(sender) {
+        var value = sender.intValue();
+        // if (value <= slideBarLeft.slider.intValue()) {
+        //     value = slideBarLeft.slider.intValue() + 1;
+        //     sender.setIntValue(value);
+        // }
+        slideBarBottom.label.setStringValue(`Bottom: ${value}`);
+        lineBottom.setFrameOrigin(CGPointMake(0, Math.round(value * scale)));
+    });
     var responseCode = dialog.runModal();
 
 
