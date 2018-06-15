@@ -22,7 +22,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Auto Slice");
-    dialog.setInformativeText("Input the size like 24, 24x24 or 0, use 0 means to fix the layer size.");
+    dialog.setInformativeText("Input the size like 24, 24x24 or 0, use 0 means to fit the layer size.");
 
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
 

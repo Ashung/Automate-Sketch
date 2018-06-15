@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180612",
+    "version": "50.2.20180615",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -722,6 +722,18 @@
             "name": "Nine-Slice from Bitmap Layer",
             "identifier": "nine_slice_from_bitmap_layer",
             "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
+        },
+        {
+            "name": "Fast Slice",
+            "identifier": "fast_slice",
+            "handler": "runFastSlice",
+            "script": "Slice/Fast_Slice.cocoascript"
+        },
+        {
+            "name": "Fast Slice Setting",
+            "identifier": "fast_slice_setting",
+            "handler": "runFastSliceSetting",
+            "script": "Slice/Fast_Slice.cocoascript"
         }
     ],
     "menu": {
@@ -927,6 +939,8 @@
                 "title": "Slice",
                 "items": [
                     "auto_slice",
+                    "fast_slice",
+                    "fast_slice_setting",
                     "-",
                     "clear_slices",
                     "clear_exportables",

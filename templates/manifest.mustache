@@ -722,6 +722,18 @@
             "name": "{{nine_slice_from_bitmap_layer}}",
             "identifier": "nine_slice_from_bitmap_layer",
             "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
+        },
+        {
+            "name": "{{fast_slice}}",
+            "identifier": "fast_slice",
+            "handler": "runFastSlice",
+            "script": "Slice/Fast_Slice.cocoascript"
+        },
+        {
+            "name": "{{fast_slice_setting}}",
+            "identifier": "fast_slice_setting",
+            "handler": "runFastSliceSetting",
+            "script": "Slice/Fast_Slice.cocoascript"
         }
     ],
     "menu": {
@@ -927,6 +939,8 @@
                 "title": "{{slice}}",
                 "items": [
                     "auto_slice",
+                    "fast_slice",
+                    "fast_slice_setting",
                     "-",
                     "clear_slices",
                     "clear_exportables",
