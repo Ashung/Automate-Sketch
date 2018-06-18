@@ -80,9 +80,7 @@ var onRun = function(context) {
     imageWrapper.addSubview(lineBottom);
     dialog.addAccessoryView(imageWrapper);
 
-    log(`${imageWidth}x${imageHeight}`);
-
-    //
+    // Slidebars
     var slideBarLeft = sliderBarView("Left: " + Math.round(imageWidth / 3), imageWidth, Math.round(imageWidth / 3));
     var slideBarRight = sliderBarView("Right: " + Math.round(imageWidth / 3 * 2), imageWidth, Math.round(imageWidth / 3 * 2));
     var slideBarTop = sliderBarView("Top: " + Math.round(imageHeight / 3), imageHeight, Math.round(imageHeight / 3));
@@ -93,45 +91,33 @@ var onRun = function(context) {
     dialog.addAccessoryView(slideBarBottom.container);
 
     slideBarLeft.slider.setCOSJSTargetFunction(function(sender) {
-        var value = sender.intValue();
-        // if (value >= slideBarRight.slider.intValue()) {
-        //     value = slideBarRight.slider.intValue() - 1;
-        //     sender.setIntValue(value);
-        // }
-        slideBarLeft.label.setStringValue(`Left: ${value}`);
-        lineLeft.setFrameOrigin(CGPointMake(Math.round(value * scale), 0));
+        restrictValue(sender, 0, slideBarRight.slider.intValue());
+        slideBarLeft.label.setStringValue(`Left: ${sender.intValue()}`);
+        lineLeft.setFrameOrigin(CGPointMake(Math.round(sender.intValue() * scale), 0));
     });
     slideBarRight.slider.setCOSJSTargetFunction(function(sender) {
-        var value = sender.intValue();
-        // if (value <= slideBarLeft.slider.intValue()) {
-        //     value = slideBarLeft.slider.intValue() + 1;
-        //     sender.setIntValue(value);
-        // }
-        slideBarRight.label.setStringValue(`Right: ${value}`);
-        lineRight.setFrameOrigin(CGPointMake(Math.round(value * scale), 0));
+        restrictValue(sender, slideBarLeft.slider.intValue(), imageWidth);
+        slideBarRight.label.setStringValue(`Right: ${sender.intValue()}`);
+        lineRight.setFrameOrigin(CGPointMake(Math.round(sender.intValue() * scale), 0));
     });
     slideBarTop.slider.setCOSJSTargetFunction(function(sender) {
-        var value = sender.intValue();
-        // if (value <= slideBarLeft.slider.intValue()) {
-        //     value = slideBarLeft.slider.intValue() + 1;
-        //     sender.setIntValue(value);
-        // }
-        slideBarTop.label.setStringValue(`Top: ${value}`);
-        lineTop.setFrameOrigin(CGPointMake(0, Math.round(value * scale)));
+        restrictValue(sender, 0, slideBarBottom.slider.intValue());
+        slideBarTop.label.setStringValue(`Top: ${sender.intValue()}`);
+        lineTop.setFrameOrigin(CGPointMake(0, Math.round(sender.intValue() * scale)));
     });
     slideBarBottom.slider.setCOSJSTargetFunction(function(sender) {
-        var value = sender.intValue();
-        // if (value <= slideBarLeft.slider.intValue()) {
-        //     value = slideBarLeft.slider.intValue() + 1;
-        //     sender.setIntValue(value);
-        // }
-        slideBarBottom.label.setStringValue(`Bottom: ${value}`);
-        lineBottom.setFrameOrigin(CGPointMake(0, Math.round(value * scale)));
+        restrictValue(sender, slideBarTop.slider.intValue(), imageHeight);
+        slideBarBottom.label.setStringValue(`Bottom: ${sender.intValue()}`);
+        lineBottom.setFrameOrigin(CGPointMake(0, Math.round(sender.intValue() * scale)));
     });
+
     var responseCode = dialog.runModal();
+    if (responseCode == 1000) {
 
 
-    // log(`${bitmapWidth}x${bitmapHeight}`)
+        log(`left:${slideBarLeft.slider.intValue()}-right:${slideBarRight.slider.intValue()}-top:${slideBarTop.slider.intValue()}-bottom:${slideBarBottom.slider.intValue()}`)
+    }
+
 };
 
 function lineView(x, y, w, h) {
@@ -161,4 +147,15 @@ function sliderBarView(lebal, maxValue, initValue) {
     view.addSubview(sliderView);
 
     return { container: view, label: textView, slider: sliderView };
+}
+
+function restrictValue(sliderView, minValue, maxValue) {
+    var value = sliderView.intValue();
+    if (value <= minValue) {
+        value = minValue + 1;
+    }
+    if (value >= maxValue) {
+        value = maxValue - 1;
+    }
+    sliderView.setIntValue(value);
 }
