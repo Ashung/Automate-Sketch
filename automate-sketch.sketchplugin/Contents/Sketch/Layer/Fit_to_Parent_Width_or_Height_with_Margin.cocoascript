@@ -3,8 +3,15 @@
 
 var fitToParentHeightWithMargin = function(context) {
 
+    ga(context, "Layer");
+    
     var doc = context.document;
     var selection = context.selection;
+
+    if (selection.count() == 0) {
+        doc.showMessage("Please select at least 1 layer.");
+        return;
+    }
 
     var defaultUserInput = getPreferences(context, "margin") || "0";
 
@@ -33,14 +40,19 @@ var fitToParentHeightWithMargin = function(context) {
 
     }
 
-    ga(context, "Layer");
-
 };
 
 var fitToParentWidthWithMargin = function(context) {
 
+    ga(context, "Layer");
+
     var doc = context.document;
     var selection = context.selection;
+
+    if (selection.count() == 0) {
+        doc.showMessage("Please select at least 1 layer.");
+        return;
+    }
 
     var defaultUserInput = getPreferences(context, "margin") || "0";
 
@@ -68,7 +80,5 @@ var fitToParentWidthWithMargin = function(context) {
         }
 
     }
-
-    ga(context, "Layer");
 
 };

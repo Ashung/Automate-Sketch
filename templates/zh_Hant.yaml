@@ -155,3 +155,4 @@ export_clean_code_svg: 導出代碼整潔的 SVG
 split_text_layer: 拆分文字圖層
 combine_text_layer: 合併文字圖層
 select_layers_outside_of_artboard_bounds: 選擇畫板邊界外的圖層
+select_reverse: 反選

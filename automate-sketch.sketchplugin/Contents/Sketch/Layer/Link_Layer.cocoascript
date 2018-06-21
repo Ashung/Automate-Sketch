@@ -49,7 +49,7 @@ var syncLinkLayers = function(context) {
     var documentData = document.documentData();
 
     var predicate = NSPredicate.predicateWithFormat("libraryID == %@", documentData.objectID());
-    var linkLayers = documentData.allForeignObjects().filteredArrayUsingPredicate(predicate);
+    var linkLayers = documentData.foreignSymbols().filteredArrayUsingPredicate(predicate);
 
     var loopLinkLayers = linkLayers.objectEnumerator();
     var foreignSymbol;
@@ -108,7 +108,7 @@ function findForeignSymbolFromGroup(context, group) {
     var document = context.document;
     var documentData = document.documentData();
     var predicate = NSPredicate.predicateWithFormat("libraryID == %@ && sourceLibraryName == %@", documentData.objectID(), group.objectID());
-    var foreignSymbols = documentData.allForeignObjects().filteredArrayUsingPredicate(predicate);
+    var foreignSymbols = documentData.foreignSymbols().filteredArrayUsingPredicate(predicate);
     if (foreignSymbols.count() > 0) {
         return foreignSymbols.firstObject();
     } else {

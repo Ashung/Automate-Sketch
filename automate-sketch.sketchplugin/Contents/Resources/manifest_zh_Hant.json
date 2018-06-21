@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180615",
+    "version": "50.2.20180621",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -734,6 +734,11 @@
             "identifier": "fast_slice_setting",
             "handler": "runFastSliceSetting",
             "script": "Slice/Fast_Slice.cocoascript"
+        },
+        {
+            "name": "反選",
+            "identifier": "select_reverse",
+            "script": "Layer/Select_Reverse.cocoascript"
         }
     ],
     "menu": {
@@ -799,6 +804,7 @@
                     "select_all_siblings_layers",
                     "select_parent_groups",
                     "select_layers_outside_of_artboard_bounds",
+                    "select_reverse",
                     "-",
                     "paste_and_replace",
                     "-",
