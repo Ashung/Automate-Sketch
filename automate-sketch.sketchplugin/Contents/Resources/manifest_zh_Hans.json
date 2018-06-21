@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180612",
+    "version": "50.2.20180621",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -717,6 +717,28 @@
             "name": "选择画板边界外的图层",
             "identifier": "select_layers_outside_of_artboard_bounds",
             "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "nine_slice_from_bitmap_layer",
+            "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "fast_slice",
+            "handler": "runFastSlice",
+            "script": "Slice/Fast_Slice.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "fast_slice_setting",
+            "handler": "runFastSliceSetting",
+            "script": "Slice/Fast_Slice.cocoascript"
+        },
+        {
+            "name": "反选",
+            "identifier": "select_reverse",
+            "script": "Layer/Select_Reverse.cocoascript"
         }
     ],
     "menu": {
@@ -782,6 +804,7 @@
                     "select_all_siblings_layers",
                     "select_parent_groups",
                     "select_layers_outside_of_artboard_bounds",
+                    "select_reverse",
                     "-",
                     "paste_and_replace",
                     "-",
@@ -922,6 +945,8 @@
                 "title": "切片",
                 "items": [
                     "auto_slice",
+                    "fast_slice",
+                    "fast_slice_setting",
                     "-",
                     "clear_slices",
                     "clear_exportables",
@@ -956,6 +981,8 @@
                 "items": [
                     "export_clean_code_svg",
                     "svg_export_setting",
+                    "-",
+                    "nine_slice_from_bitmap_layer",
                     "-",
                     "convert_to_other_version",
                     "-",

@@ -30,6 +30,7 @@
 | Select All Siblings Layers                                   | 选择所有兄弟图层。                                           |
 | Select Parent Groups                                         | 选择所有父级图层。                                           |
 | Select Layers Outside of Artboard Bounds                     | 选择并显示在画板边界外的不可见图层。                         |
+| Select Reverse                                               | 反选。                                                       |
 | Paste and Replace                                            | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Clear Layer Name                                             | 清理图层名，删除图层名后的 copy。                            |
 | Remove Redundant Groups                                      | 删除多余的嵌套组。                                           |
@@ -59,6 +60,7 @@
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
 | **Slice**                                                    | **切片**                                                     |
 | Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设。                       |
+| Fast slice, Fast slice Setting                               | 快速新建基于图层的切片，并自动添加切片预设，切片名称会修改会开发友好名称。 |
 | Remove All Slices                                            | 清除所有切片。                                               |
 | Clear All Exportables                                        | 清除全部 Exportables 设置。                                  |
 | Save/Load Export Presets                                     | 导出和导入切片预设，用于不同用户或电脑之间预设共享。         |
@@ -124,6 +126,7 @@
 | **Utilities**                                                | **实用工具**                                                 |
 | Export Clean Code SVG                                        | 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码。 |
 | SVG Export Setting                                           | SVG 导出设置。                                               |
+| Nine-Slice from Bitmap Layer                                 | 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。        |
 | Convert Sketch File to Other Version                         | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
 | Show File in Finder                                          | 在 Finder 中打开当前文档。                                   |
 | Open Termianl at File Folder                                 | 打开终端，并切换到当前文档的目录。                           |

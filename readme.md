@@ -1,12 +1,6 @@
-<div align="center">
-
 ![Automate Sketch](automate-sketch.png)
 
 Make your workflow more efficient.
-
- 
-
-</div>
 
 [中文说明](readme_zh.md)
 
@@ -33,6 +27,7 @@ Make your workflow more efficient.
 | Select All Siblings Layers                                   | Select all siblings layers.                                  |
 | Select Parent Groups                                         | Select parent groups.                                        |
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
+| Select Reverse                                               | Select reverse.                                              |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
@@ -62,6 +57,7 @@ Make your workflow more efficient.
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                                    |                                                              |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
+| Fast slice, Fast slice Setting                               | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Remove All Slices                                            | Clear all slices.                                            |
 | Clear All Exportables                                        | Clear all Exportable settings.                               |
 | Save/Load Export Presets                                     | Save and load export presets.                                |
@@ -127,6 +123,7 @@ Make your workflow more efficient.
 | **Utilities**                                                |                                                              |
 | Export Clean Code SVG                                        | Export or copy selected layers to clean code SVG, it can ignore layers by name or type, and optimize with SVGO. |
 | SVG Export Setting                                           | SVG export settings.                                         |
+| Nine-Slice from Bitmap Layer                                 | Crop a bitmap layer to 9 part with resizing constraint settings. |
 | Convert Sketch File to Other Version                         | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
 | Show File in Finder                                          | Open the current document in the Finder.                     |
 | Open Terminal at File Folder                                 | Open the terminal and switch to the directory of the current document. |
