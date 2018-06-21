@@ -1,4 +1,16 @@
 -
+  version: 50.2.20180621
+  description: |-
+    <ul>
+    <li>Add Select Reverse.</li>
+    <li>Add Nine-Slice from Bitmap Layer.</li>
+    <li>Add Fast slice #79.</li>
+    <li>Fixed Create Link Layer not working no Sketch 49 #81.</li>
+    <li>Fixed Fit ot Parent without select a layer.</li>
+    </ul>
+  commitID: 98a738e77d1d5f3e6b58805a7ab5206484cc5c70
+
+-
   version: 50.2.20180612
   description: |-
     <ul>
