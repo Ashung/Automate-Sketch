@@ -1,3 +1,12 @@
+
+-
+  version: 50.2.20180622
+  description: |-
+    <ul>
+    <li>Fixed Fast Slice bugs.</li>
+    </ul>
+  commitID: bc98a87341ead48001f80cfef0f6bb23c07f57fa
+
 -
   version: 50.2.20180621
   description: |-
