@@ -87,27 +87,27 @@ var runFastSlice = function(context) {
         var layerName = layer.name();
         // group/base_name
         if (fastSliceNameFormat == 0) {
-            layerName = formatLayerName(layerName, "_", "/");
+            layerName = formatLayerName(layerName, "_", "/", { removeStartDigits: true });
         }
         // group/base-name
         if (fastSliceNameFormat == 1) {
-            layerName = formatLayerName(layerName, "-", "/");
+            layerName = formatLayerName(layerName, "-", "/", { removeStartDigits: true });
         }
         // group_base_name
         if (fastSliceNameFormat == 2) {
-            layerName = formatLayerName(layerName, "_", "_");
+            layerName = formatLayerName(layerName, "_", "_").replace(/^\d+_*/, "");
         }
         // group-base-name
         if (fastSliceNameFormat == 3) {
-            layerName = formatLayerName(layerName, "-", "-");
+            layerName = formatLayerName(layerName, "-", "-").replace(/^\d+-*/, "");
         }
         // base_name
         if (fastSliceNameFormat == 4) {
-            layerName = cropLayerName(layerName, "_");
+            layerName = cropLayerName(layerName, "_").replace(/^\d+_*/, "");
         }
         // base-name
         if (fastSliceNameFormat == 5) {
-            layerName = cropLayerName(layerName, "-");
+            layerName = cropLayerName(layerName, "-").replace(/^\d+-*/, "");
         }
         slice.setName(layerName);
 
@@ -178,7 +178,7 @@ function fastSliceSetting(context) {
     return responseCode;
 }
 
-function cleanNameArray(name) {
+function cleanNameArray(name, options) {
     var nameArray = [];
     String(name).split(/\s*\/\s*/).forEach(function(part) {
         // Latin to ascii
@@ -243,7 +243,9 @@ function cleanNameArray(name) {
         // Remove unsupport character
         part = part.replace(/[\u0021-\u002B\u003A-\u0040\u005B-\u005E\u0060\u007B-\u007E]/g, "");
         // Remove digits at the beginning of name
-        part = part.replace(/^\d+/, "");
+        if (options && options["removeStartDigits"] == true) {
+            part = part.replace(/^\d+\s*/, "");
+        }
         // Unix hidden file
         part = part.replace(/^\./, "");
         // , - . _ to space
@@ -257,8 +259,8 @@ function cleanNameArray(name) {
     return nameArray;
 }
 
-function formatLayerName(name, space, join) {
-    var newNameArray = cleanNameArray(name).map(function(part) {
+function formatLayerName(name, space, join, options) {
+    var newNameArray = cleanNameArray(name, options).map(function(part) {
         return part.replace(/\s+/g, space);
     });
     return newNameArray.join(join);
