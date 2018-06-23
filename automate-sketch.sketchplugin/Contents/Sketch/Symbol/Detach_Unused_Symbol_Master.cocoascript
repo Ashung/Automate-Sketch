@@ -9,7 +9,7 @@ var onRun = function(context) {
         if (!symbol.hasInstances()) {
             symbol.ungroup();
         } else {
-            doc.showMessage("This symbol master is uesed.");
+            doc.showMessage("This symbol master is currently being used.");
         }
     } else {
         doc.showMessage("Select a symbol master.");
