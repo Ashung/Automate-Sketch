@@ -49,7 +49,10 @@ var runFastSlice = function(context) {
         return;
     }
 
+    document.currentPage().changeSelectionBySelectingLayers(nil);
+
     // Add Slice
+    var allSlices = [];
     var loopSelection = selection.objectEnumerator();
     var layer;
     while (layer = loopSelection.nextObject()) {
@@ -111,9 +114,13 @@ var runFastSlice = function(context) {
         }
         slice.setName(layerName);
 
+        allSlices.push(slice);
+
     }
 
     document.reloadInspector();
+
+    document.currentPage().changeSelectionBySelectingLayers(allSlices);
 
 };
 
