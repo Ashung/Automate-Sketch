@@ -19,7 +19,7 @@ var onRun = function(context) {
         var layer;
         while (layer = loop.nextObject()) {
             if (
-                layer.class() == "MSShapeGroup" ||
+                (layer.class() == "MSShapeGroup" && layer.layers().count() > 1) ||
                 layer.class() == "MSLayerGroup" ||
                 layer.class() == "MSArtboardGroup" ||
                 layer.class() == "MSSymbolMaster"
