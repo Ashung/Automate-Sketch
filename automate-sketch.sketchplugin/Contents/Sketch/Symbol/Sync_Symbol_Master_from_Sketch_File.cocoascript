@@ -99,7 +99,7 @@ var onRun = function(context) {
             var originalSymbolName = originalSymbol ? originalSymbol.name() : "";
             var newSymbolName = symbol.name();
             var title = newSymbolName;
-            if (originalSymbol && originalSymbolName != newSymbolName) {
+            if (originalSymbol && String(originalSymbolName) != String(newSymbolName)) {
                 title = originalSymbolName + " ➝ " + newSymbolName;
             }
             checkbox.setTitle(title);
