@@ -1,5 +1,14 @@
 
 -
+  version: 50.2.20180706
+  description: |-
+    <ul>
+    <li>Select all child layer support shape ground.</li>
+    <li>Select slice after run fast slice.</li>
+    </ul>
+  commitID: 739078c8e99416c5926d7287ecd2a0a09786c803
+
+-
   version: 50.2.20180622
   description: |-
     <ul>
