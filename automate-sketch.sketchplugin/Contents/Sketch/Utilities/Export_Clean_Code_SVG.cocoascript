@@ -208,7 +208,12 @@ var onRun = function(context) {
 
                 // Advanced Options
                 if (changeFillRule.state() == NSOnState && children.class() == "MSShapeGroup") {
-                    children.setWindingRule(0);
+                    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+                        children.style().setWindingRule(0);
+                    }
+                    else {
+                        children.setWindingRule(0);
+                    }
                 }
 
                 if (changeColor.state() == NSOnState && children.class() == "MSShapeGroup") {
