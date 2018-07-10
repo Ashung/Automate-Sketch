@@ -2,7 +2,7 @@
 
 Make your workflow more efficient.
 
-[中文说明](readme_zh.md)
+[**中文说明**](readme_zh.md)
 
 ## Installation
 
@@ -21,6 +21,7 @@ Make your workflow more efficient.
 | Divide Layer                                                 | Split Layer.                                                 |
 | Ungroup Shape Layer                                          | Ungroup shape layer.                                         |
 | Unlock All Layers                                            | Unlock all layers.                                           |
+| Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
 | Select All Layers In Selection By Type                       | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
 | Select All Layers In Selection By Name                       | Select all layers match by layer name.                       |
 | Select All Child Layers                                      | Select all sub-layers.                                       |

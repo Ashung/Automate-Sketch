@@ -3,9 +3,9 @@
 
 # Automate Sketch
 
-近上百个功能让您的工作更高效，推荐与 [Sketch Runner](http://sketchrunner.com/) 一起使用。
+上百个功能让您的工作更高效，推荐与 [Sketch Runner](http://sketchrunner.com/) 一起使用。
 
-如果你在使用 Sketch 中遇到需要自动化处理的问题可以在[此处](https://github.com/Ashung/Automate-Sketch/issues)提需求，通过页面下方的支付宝或微信扫码打赏者可获得免费技术支持。
+如果你在使用 Sketch 中遇到需要自动化处理的问题可以在 [**此处**](https://github.com/Ashung/Automate-Sketch/issues) 提需求，通过页面下方的支付宝或微信扫码打赏者可获得免费技术支持。
 
 ## 安装方法
 
@@ -24,6 +24,7 @@
 | Divide Layer                                                 | 均分图层。                                                   |
 | Ungroup Shape Layer                                          | 取消形状图层组，解决手动取消组出现的图层位置偏移。           |
 | Unlock All Layers                                            | 解锁所有图层。                                               |
+| Toggle Layer Constrain Proportions                           | 锁定和解锁选中图层的比例约束。                               |
 | Select All Layers In Selection By Type                       | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。 |
 | Select All Layers In Selection By Name                       | 根据图层名选择。                                             |
 | Select All Child Layers                                      | 选择所有子图层。                                             |
@@ -124,7 +125,7 @@
 | Edit Plugin Setting                                          | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
 | Reload Plugins                                               | 重载所有插件。                                               |
 | **Utilities**                                                | **实用工具**                                                 |
-| Export Clean Code SVG                                        | 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码。 |
+| Export Clean Code SVG                                        | 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码 (较慢)。 |
 | SVG Export Setting                                           | SVG 导出设置。                                               |
 | Nine-Slice from Bitmap Layer                                 | 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。        |
 | Convert Sketch File to Other Version                         | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
