@@ -1,5 +1,14 @@
 
 -
+  version: 51.0.20180710
+  description: |-
+    <ul>
+    <li>Add Toggle Layer Constrain Proportions.</li>
+    <li>Export Clean SVG Code now support Sketch 51.</li>
+    </ul>
+  commitID: d87542769e9db8536538443cc2328c4022f939a5
+
+-
   version: 50.2.20180706
   description: |-
     <ul>
