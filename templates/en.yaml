@@ -159,3 +159,4 @@ nine_slice_from_bitmap_layer: Nine-Slice from Bitmap Layer
 fast_slice: Fast Slice
 fast_slice_setting: Fast Slice Setting
 select_reverse: Select Reverse
+toggle_layer_constrain_proportions: Toggle Layer Constrain Proportions

@@ -156,3 +156,4 @@ split_text_layer: 拆分文本图层
 combine_text_layer: 合并文本图层
 select_layers_outside_of_artboard_bounds: 选择画板边界外的图层
 select_reverse: 反选
+toggle_layer_constrain_proportions: 图层比例限制开关

@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "50.2.20180706",
+    "version": "51.0.20180710",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -739,6 +739,11 @@
             "name": "反选",
             "identifier": "select_reverse",
             "script": "Layer/Select_Reverse.cocoascript"
+        },
+        {
+            "name": "图层比例限制开关",
+            "identifier": "toggle_layer_constrain_proportions",
+            "script": "Layer/Toggle_Layer_Constrain_Proportions.cocoascript"
         }
     ],
     "menu": {
@@ -783,6 +788,8 @@
                     "ungroup_shape_layer",
                     "-",
                     "unlock_all_layers",
+                    "-",
+                    "toggle_layer_constrain_proportions",
                     "-",
                     {
                         "title": "基于类型选择选中对象内所有图层",
