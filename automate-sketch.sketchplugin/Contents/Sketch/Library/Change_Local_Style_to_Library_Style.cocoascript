@@ -1,0 +1,65 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
+
+var onRun = function(context) {
+
+    var document = context.document;
+    if (MSApplicationMetadata.metadata().appVersion < 51) {
+        document.showMessage("😮 You have to update Sketch 51+ to use thie feature.");
+        return;
+    }
+
+    var documentData = document.documentData();
+    var allLocalTextStyles = documentData.layerTextStyles().objects();
+    var allLocalLayerStyles = documentData.layerStyles().objects();
+    var allLocalStyle;
+    var styleType;
+    var pluginIdentifier = context.command.identifier();
+    if (pluginIdentifier == "change_local_text_style_to_library_text_style") {
+        allLocalStyle = allLocalTextStyles;
+        styleType = "text";
+    }
+    if (pluginIdentifier == "change_local_layer_style_to_library_layer_style") {
+        allLocalStyle = allLocalLayerStyles;
+        styleType = "layer";
+    }
+    if (allLocalStyle.count() == 0) {
+        document.showMessage(`No any ${styleType} styles in current document.`);
+        return;
+    }
+
+    var assetLibraryController = AppController.sharedInstance().librariesController();
+    var availableLibraries = assetLibraryController.availableLibraries();
+    if (availableLibraries.count() == 0) {
+        document.showMessage("You have not any available library.");
+        return;
+    }
+
+    // Dialog
+    var dialog = UI.cosDialog(
+        `Change Local ${capitalize(styleType)} Style to Library Style`,
+        `Select the following local ${styleType} styles to change it to library ${styleType} style.`,
+        ["OK", "Cancel"]
+    );
+
+    var libraryLabelView = UI.textLabel("Choose A Library");
+    dialog.addAccessoryView(libraryLabelView);
+
+    var libraryNames = [];
+    availableLibraries.forEach(function(library) {
+        libraryNames.push(library.name());
+    });
+    var chooseALibraryView = UI.popupButton(libraryNames, 200);
+    dialog.addAccessoryView(chooseALibraryView);
+    
+    // Run
+    var responseCode = dialog.runModal();
+
+
+    log(allLocalStyle);
+
+};
+
+function capitalize(str) {
+    return str[0].toUpperCase() + str.slice(1);
+}

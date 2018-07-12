@@ -160,3 +160,5 @@ fast_slice: Fast Slice
 fast_slice_setting: Fast Slice Setting
 select_reverse: Select Reverse
 toggle_layer_constrain_proportions: Toggle Layer Constrain Proportions
+change_local_text_style_to_library_text_style: Change Local Text Style to Library Text Style
+change_local_layer_style_to_library_layer_style: Change Local Layer Style to Library Layer Style

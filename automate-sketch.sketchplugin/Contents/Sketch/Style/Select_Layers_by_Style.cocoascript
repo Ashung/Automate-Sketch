@@ -1,15 +1,27 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var selectLayersByLayerStyle = function(context) {
-    var documentData = context.document.documentData();
+    var document = context.document;
+    var documentData = document.documentData();
     var layerStyles = documentData.layerStyles().sharedStyles();
-    main(context, layerStyles, "Select Layers by Layer Style", "Select all layers with a layer style.");
+    if (layerStyles.count() > 0) {
+        main(context, layerStyles, "Select Layers by Layer Style", "Select all layers with a layer style.");
+    } else {
+        document.showMessage("No any layer styles in current document.");
+    }
+    ga(context, "Style");
 };
 
 var selectLayersByTextStyle = function(context) {
-    var documentData = context.document.documentData();
+    var document = context.document;
+    var documentData = document.documentData();
     var textStyles = documentData.layerTextStyles().sharedStyles();
-    main(context, textStyles, "Select Layers by Text Style", "Select all layers with a text style.");
+    if (textStyles.count() > 0) {
+        main(context, textStyles, "Select Layers by Text Style", "Select all layers with a text style.");
+    } else {
+        document.showMessage("No any text styles in current document.");
+    }
+    ga(context, "Style");
 };
 
 function main(context, styles, title, message) {
@@ -78,6 +90,4 @@ function main(context, styles, title, message) {
         }
 
     }
-
-    ga(context, "Style");
 }
