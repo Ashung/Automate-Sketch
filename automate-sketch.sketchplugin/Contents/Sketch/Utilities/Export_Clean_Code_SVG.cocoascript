@@ -228,7 +228,7 @@ var onRun = function(context) {
 
             }
 
-            var ancestry = MSImmutableLayerAncestry.ancestryWithMSLayer(layerCopy);
+            var ancestry = layerCopy.ancestry();
             var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
             exportRequest.setFormat("svg");
             var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());

@@ -257,7 +257,7 @@ function loadConflictNestedSymbol(dialog, view, symbols, library) {
         var imageSize = itemSize;
         var imageViewLeft = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageSize, imageSize));
         var symbolPreviewImageLeft = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol),
+            symbol.ancestry(),
             CGSizeMake(imageSize, imageSize),
             NSColorSpace.sRGBColorSpace(),
             true

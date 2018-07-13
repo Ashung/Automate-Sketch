@@ -115,7 +115,7 @@ function loadData(scrollView, symbols) {
 
         // Preview image
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, 40, 40));
-        var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(importedSymbol.symbolMaster());
+        var layerAncestry = importedSymbol.symbolMaster().ancestry();;
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
             layerAncestry, CGSizeMake(80, 80), NSColorSpace.sRGBColorSpace(), true
         );
