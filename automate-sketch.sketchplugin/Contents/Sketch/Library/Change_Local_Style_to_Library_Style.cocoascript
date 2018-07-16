@@ -59,6 +59,9 @@ var onRun = function(context) {
     selectAllView.setAllowsMixedState(true);
     dialog.addAccessoryView(selectAllView);
 
+    var resetStyleView = UI.checkBox(NSOffState, `Reset all ${styleType} stytle.`);
+    dialog.addAccessoryView(resetStyleView);
+
     // Init
     var allMatchStyles = [];
     loadData(availableLibraries.firstObject());
@@ -72,9 +75,49 @@ var onRun = function(context) {
     // Run
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
-        log(allMatchStyles);
-    }
 
+        if (allMatchStyles.length == 0) {
+            return;
+        }
+
+        // Filter selected styles
+        var selectedMatchStyles = [];
+        scrollView.documentView().subviews().forEach(function(view, index) {
+            if (view.subviews().firstObject().state() == NSOnState) {
+                selectedMatchStyles.push(allMatchStyles[index]);
+            }
+        });
+
+        // Add library style to foreign style
+        var selectedLibrary = availableLibraries.objectAtIndex(chooseALibraryView.indexOfSelectedItem());
+        var localToForeignStyleIDMapping = {};
+        selectedMatchStyles.forEach(function(matchItem) {
+            var froeignStyle;
+            if (styleType == "text") {
+                froeignStyle = foreignTextStyleInDocument_forSharedStyle_fromLibray(documentData, matchItem.library, selectedLibrary);
+            }
+            if (styleType == "layer") {
+                froeignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibray(documentData, matchItem.library, selectedLibrary);
+            }
+            localToForeignStyleIDMapping[matchItem.local.objectID()] = froeignStyle.localShareID();
+        });
+
+        // Change sharedObjectID
+        var allLayerWithLocalStyle = getAllLayersWithSharedObjectIDs(document, Object.keys(localToForeignStyleIDMapping));
+        allLayerWithLocalStyle.forEach(function(layer) {
+            var localStyleID = layer.style().sharedObjectID();
+            layer.style().setSharedObjectID(localToForeignStyleIDMapping[localStyleID]);
+        });
+
+        // TODO: Remove local style
+        // var layerStyles = documentData.layerStyles(); // MSSharedStyleContainer
+        // var textStyles = documentData.layerTextStyles(); // MSSharedTextStyleContainer
+        // MSSharedObjectContainer.removeSharedObject();
+
+        // TODO: Reset Text/Layer Style
+
+
+    }
 
     function loadData(library) {
 
@@ -95,8 +138,7 @@ var onRun = function(context) {
                 if (localStyle.value().propertiesAreEqual(libraryStyle.value())) {
                     allMatchStyles.push({
                         "local": localStyle,
-                        "library": libraryStyle,
-                        "foreign": null
+                        "library": libraryStyle
                     });
                 }
             });
@@ -151,7 +193,6 @@ var onRun = function(context) {
                     selectedItemsCount = allMatchStyles.length;
                     scrollView.documentView().subviews().forEach(function(view) {
                         view.subviews().firstObject().setState(NSOnState);
-
                     });
                 } else {
                     selectedItemsCount = 0;
@@ -203,6 +244,7 @@ var onRun = function(context) {
                 itemView.addSubview(nameView);
             }
 
+            // TODO: layer view
             if (styleType == "layer") {
 
             }
@@ -218,6 +260,27 @@ var onRun = function(context) {
     }
 
 };
+
+function getAllLayersWithSharedObjectIDs(document, ids) {
+    var layers = NSMutableArray.alloc().init();
+    var idArray = NSArray.arrayWithArray(ids);
+    var loopPages = document.pages().objectEnumerator();
+    var page;
+    while (page = loopPages.nextObject()) {
+        var predicateSupportType = NSPredicate.predicateWithFormat(
+            "className == %@ OR className == %@ OR className == %@ OR className == %@",
+            "MSShapeGroup", "MSTextLayer", "MSLayerGroup", "MSBitmapLayer"
+        );
+        var predicateSharedStyle = NSPredicate.predicateWithFormat(
+            "style.sharedObjectID IN %@",
+            idArray
+        );
+        var layersCanApplyStyleInPage = page.children().filteredArrayUsingPredicate(predicateSupportType);
+        var layersWithSharedStyleInPage = layersCanApplyStyleInPage.filteredArrayUsingPredicate(predicateSharedStyle);
+        layers.addObjectsFromArray(layersWithSharedStyleInPage);
+    }
+    return layers;
+}
 
 function foreignTextStyleInDocument_forSharedStyle_fromLibray(documentData, sharedStyle, library) {
     for (var i = 0; i < documentData.foreignTextStyles().count(); i++) {
