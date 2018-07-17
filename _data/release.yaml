@@ -1,5 +1,15 @@
 
 -
+  version: 51.1.20180717
+  description: |-
+    <ul>
+    <li>Add Change Local Style to Library Style.</li>
+    <li>Add Check For Library Updates.</li>
+    <li>Select Layers by Style now support foreign style in Sketch 51.</li>
+    </ul>
+  commitID: ba05807c28f90c633372262f6cd961d7b150ccfe
+
+-
   version: 51.0.20180710
   description: |-
     <ul>
