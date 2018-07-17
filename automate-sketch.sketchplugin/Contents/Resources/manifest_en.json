@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.0.20180712",
+    "version": "51.1.20180717",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -754,6 +754,11 @@
             "name": "Change Local Layer Style to Library Layer Style",
             "identifier": "change_local_layer_style_to_library_layer_style",
             "script": "Library/Change_Local_Style_to_Library_Style.cocoascript"
+        },
+        {
+            "name": "Check For Library Updates",
+            "identifier": "check_for_library_updates",
+            "script": "Library/Check_For_Library_Updates.cocoascript"
         }
     ],
     "menu": {
@@ -872,7 +877,9 @@
                     "import_styles_from_library",
                     "import_document_assets_from_library",
                     "-",
-                    "add_library_preview"
+                    "add_library_preview",
+                    "-",
+                    "check_for_library_updates"
                 ]
             },
             {
@@ -940,7 +947,7 @@
                 ]
             },
             {
-                "title": "Type",
+                "title": "Text",
                 "items": [
                     "split_text_layer",
                     "combine_text_layer",

@@ -90,7 +90,7 @@ var onRun = function(context) {
 
         // Add library style to foreign style
         var selectedLibrary = availableLibraries.objectAtIndex(chooseALibraryView.indexOfSelectedItem());
-        var localToForeignStyleIDMapping = {};
+        var localStyleIDToForeignStyleMapping = {};
         selectedMatchStyles.forEach(function(matchItem) {
             var froeignStyle;
             if (styleType == "text") {
@@ -99,23 +99,37 @@ var onRun = function(context) {
             if (styleType == "layer") {
                 froeignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibray(documentData, matchItem.library, selectedLibrary);
             }
-            localToForeignStyleIDMapping[matchItem.local.objectID()] = froeignStyle.localShareID();
+            localStyleIDToForeignStyleMapping[matchItem.local.objectID()] = froeignStyle;
         });
 
         // Change sharedObjectID
-        var allLayerWithLocalStyle = getAllLayersWithSharedObjectIDs(document, Object.keys(localToForeignStyleIDMapping));
+        var allLayerWithLocalStyle = getAllLayersWithSharedObjectIDs(document, Object.keys(localStyleIDToForeignStyleMapping));
         allLayerWithLocalStyle.forEach(function(layer) {
             var localStyleID = layer.style().sharedObjectID();
-            layer.style().setSharedObjectID(localToForeignStyleIDMapping[localStyleID]);
+            if (resetStyleView.state() == NSOffState) {
+                layer.style().setSharedObjectID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+            }
+            // Reset Text/Layer Style
+            else {
+                layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance())
+            }
         });
 
-        // TODO: Remove local style
-        // var layerStyles = documentData.layerStyles(); // MSSharedStyleContainer
-        // var textStyles = documentData.layerTextStyles(); // MSSharedTextStyleContainer
-        // MSSharedObjectContainer.removeSharedObject();
+        // Remove local style
+        selectedMatchStyles.forEach(function(matchItem) {
+            var sharedObjectContainer;
+            if (styleType == "text") {
+                sharedObjectContainer = documentData.layerTextStyles();
+            }
+            if (styleType == "layer") {
+                sharedObjectContainer = documentData.layerStyles();
+            }
+            sharedObjectContainer.removeSharedObject(matchItem.local);
+        });
 
-        // TODO: Reset Text/Layer Style
-
+        document.showMessage(
+            `Change ${selectedMatchStyles.length} local ${styleType} style${selectedMatchStyles.length > 1 ? "s" : ""} to library style.`
+        );
 
     }
 
@@ -160,7 +174,9 @@ var onRun = function(context) {
         selectAllView.setState(NSOnState);
         selectAllView.setEnabled(true);
 
-        var itemHeight = 80;
+        var itemHeight;
+        if (styleType == "text") { itemHeight = 80; }
+        if (styleType == "layer") { itemHeight = 40; }
         var itemsCount = allMatchStyles.length;
         var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight));
         contentView.setFlipped(true);
@@ -244,9 +260,31 @@ var onRun = function(context) {
                 itemView.addSubview(nameView);
             }
 
-            // TODO: layer view
             if (styleType == "layer") {
+                // Preview image
+                var layerStyleTempLayer = MSArtboardGroup.alloc().init();
+                layerStyleTempLayer.frame().setWidth(40);
+                layerStyleTempLayer.frame().setHeight(40);
+                var rectangle = MSRectangleShape.alloc().init();
+                rectangle.setRect(CGRectMake(8, 8, 24, 24));
+                var previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+                previewLayer.setStyle(item.local.style());
+                layerStyleTempLayer.addLayer(previewLayer);
+                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 40, 40));
+                var layerAncestry = layerStyleTempLayer.ancestry();
+                var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+                    layerAncestry, CGSizeMake(80, 80), NSColorSpace.sRGBColorSpace(), false
+                );
+                imageView.setImage(previewImage);
+                itemView.addSubview(imageView);
 
+                var styleName = item.local.name();
+                var styleNameParts = styleName.split(/\s*\/\s*/);
+                var nameView1 = UI.textLabel(styleNameParts.slice(-1).join(""), [80, 5, 260, 16]);
+                var nameView2 = UI.textLabel(styleNameParts.slice(0, -1).join("/"), [80, 20, 260, 16]);
+                nameView2.setTextColor(NSColor.grayColor());
+                itemView.addSubview(nameView1);
+                itemView.addSubview(nameView2);
             }
 
             var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));

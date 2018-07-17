@@ -157,3 +157,6 @@ combine_text_layer: 合併文字圖層
 select_layers_outside_of_artboard_bounds: 選擇畫板邊界外的圖層
 select_reverse: 反選
 toggle_layer_constrain_proportions: 圖層比例限制開關
+change_local_text_style_to_library_text_style: 本地文字樣式轉為庫樣式
+change_local_layer_style_to_library_layer_style: 本地圖層樣式轉為庫樣式
+check_for_library_updates: 檢查庫更新
