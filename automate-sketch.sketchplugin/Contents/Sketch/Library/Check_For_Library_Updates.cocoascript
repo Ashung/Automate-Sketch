@@ -1,0 +1,6 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+    AppController.sharedInstance().checkForAssetLibraryUpdates();
+    ga(context, "Library");
+};

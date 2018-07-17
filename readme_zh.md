@@ -47,7 +47,7 @@
 | Arrange Objects                                              | 智能排列图层或画板。                                         |
 | Order Layers By ...                                          | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                          | 反转图层列表中的位置。                                       |
-| **Type**                                                     | **文本**                                                     |
+| **Text**                                                     | **文本**                                                     |
 | Split Text Layer                                             | 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
 | Combine Text Layers                                          | 合并选中文本图层。                                           |
 | Capitalize                                                   | 首字大写。                                                   |
@@ -91,9 +91,12 @@
 | Imported Symbols Link Manage                                 | 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
 | Replace Symbol With Library Symbol                           | 将选中组件替换为任意的库组件。                               |
 | Change symbols to Library Symbol Base Symbol ID              | 根据组件 ID，将选中或全部组件转为库组件。                    |
+| Change Local Text Style to Library Text Style                | 将本地文本样式转为指定库中的相同样式。                       |
+| Change Local Layer Style to Library Layer Style              | 将本地图层样式转为指定库中的相同样式。                       |
 | Import Document Assets from Library                          | 从库导入色彩、渐变和图案填充等文档资源，                     |
 | Import Styles from Library                                   | 从库导入图层样式和文本样式。                                 |
 | Add Library Preview                                          | 增加一个画板用于库的预览图。                                 |
+| Check For Library Updates                                    | 检查库更新。                                                 |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
@@ -136,6 +139,6 @@
 
 MIT
 
-## 捐款
+## 打赏
 
 [使用支付宝或微信扫码支付](https://ashung.github.io/donate.html)

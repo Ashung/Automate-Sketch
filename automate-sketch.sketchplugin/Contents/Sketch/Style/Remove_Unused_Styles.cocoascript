@@ -174,7 +174,7 @@ function createDataView(items, type, selectAll, checkedStatus) {
             previewLayer.setStyle(item.style());
             layerStyleTempLayer.addLayer(previewLayer);
             var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));
-            var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(layerStyleTempLayer);
+            var layerAncestry = layerStyleTempLayer.ancestry();
             var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
                 layerAncestry, CGSizeMake(48, 48), NSColorSpace.sRGBColorSpace(), false
             );
@@ -195,7 +195,7 @@ function createDataView(items, type, selectAll, checkedStatus) {
             textStyleTempArtboard.frame().setWidth(textLayerWidth);
             textStyleTempArtboard.frame().setHeight(textLayerHeight);
             textStyleTempLayer.moveToLayer_beforeLayer(textStyleTempArtboard, nil);
-            var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(textStyleTempArtboard);
+            var layerAncestry = textStyleTempArtboard.ancestry();
             var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
                 layerAncestry, CGSizeMake(textLayerWidth * 2, textLayerHeight * 2), NSColorSpace.sRGBColorSpace(), false
             );

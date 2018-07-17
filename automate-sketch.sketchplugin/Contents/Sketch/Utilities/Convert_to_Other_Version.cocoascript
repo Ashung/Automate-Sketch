@@ -140,7 +140,7 @@ var onRun = function(context) {
             "version": "103",
             "compatibilityVersion": "99",
             "commit":"f74bbbd73197756d9dfb269acddca1dac42fbdca"
-        }
+        },
         // {
         //     "appVersion": "50.2",
         //     "build": "55047",
@@ -148,6 +148,13 @@ var onRun = function(context) {
         //     "compatibilityVersion": "99",
         //     "commit":"4e7e2f5d7940a711b59f89190b5b7e3029f050f5"
         // },
+        {
+            "appVersion": "51",
+            "build": "57462",
+            "version": "105",
+            "compatibilityVersion": "99",
+            "commit":"1418cd50f72f7bffeb2043a8c14ab9895a5d0619"
+        }
     ];
 
     var versions = sketchMetaDatas.map(function(item) {

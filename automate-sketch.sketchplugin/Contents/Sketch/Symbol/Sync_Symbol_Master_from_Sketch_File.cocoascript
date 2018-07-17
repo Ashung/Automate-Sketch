@@ -227,7 +227,7 @@ var onRun = function(context) {
 function symbolThumbView(symbol, x, y, imageWidth, imageHeight, label) {
     var imageViewWrap = NSView.alloc().initWithFrame(NSMakeRect(x, y, imageWidth, imageHeight));
     var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageWidth, imageHeight));
-    var layerAncestry = MSImmutableLayerAncestry.alloc().initWithMSLayer(symbol);
+    var layerAncestry = symbol.ancestry();
     var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
         layerAncestry, CGSizeMake(imageWidth * 2, imageHeight * 2), NSColorSpace.sRGBColorSpace(), true
     );

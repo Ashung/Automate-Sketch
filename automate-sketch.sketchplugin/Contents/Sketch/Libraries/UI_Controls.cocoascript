@@ -144,6 +144,13 @@ var UI = {
         return view;
     },
 
+    scrollView : function(height) {
+        var view = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, height));
+        view.setHasVerticalScroller(true);
+        view.setBorderType(NSBezelBorder);
+        return view;
+    },
+
     colorPicker : function(size, hexColor) {
         if (size && Array.isArray(size)) {
             var frame = this.rect(size);

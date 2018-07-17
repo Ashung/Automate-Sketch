@@ -44,7 +44,7 @@ Make your workflow more efficient.
 | Arrange Objects                                              | Arrange selected layers or artboard.                         |
 | Order Layers By ...                                          | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
-| **Type**                                                     |                                                              |
+| **Text**                                                     |                                                              |
 | Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
 | Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |
@@ -88,9 +88,12 @@ Make your workflow more efficient.
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change symbols to Library Symbol Base Symbol ID              | Change the selected/all symbols to library symbol base on symbol ID. |
+| Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
+| Change Local Layer Style to Library Layer Style              | Change local layer styles to same library layer style from selected library. |
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
 | Import Styles from Library                                   | Import text styles and layer styles from any library.        |
 | Add Library Preview                                          | Add a artboard for library preview image.                    |
+| Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
@@ -137,4 +140,4 @@ MIT
 
 ## Donate
 
-Donate [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) [$10.00](https://www.paypal.me/ashung/10)  via PayPal.
+[Buy me a coffee](https://www.buymeacoffee.com/ashung) or donate [$2.00](https://www.paypal.me/ashung/2)  [$5.00](https://www.paypal.me/ashung/5) [$10.00](https://www.paypal.me/ashung/10)  via PayPal.
