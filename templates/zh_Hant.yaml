@@ -160,3 +160,10 @@ toggle_layer_constrain_proportions: 圖層比例限制開關
 change_local_text_style_to_library_text_style: 本地文字樣式轉為庫樣式
 change_local_layer_style_to_library_layer_style: 本地圖層樣式轉為庫樣式
 check_for_library_updates: 檢查庫更新
+increase_line_height: 增加行高
+decrease_line_height: 減小行高
+increase_letter_spacing: 增加字間距
+decrease_letter_spacing: 減小字間距
+increase_horizontally_scale: 增加水平拉伸
+decrease_horizontally_scale: 減小水平拉伸
+reset_horizontally_scale: 重置水平拉伸

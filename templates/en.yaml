@@ -163,3 +163,10 @@ toggle_layer_constrain_proportions: Toggle Layer Constrain Proportions
 change_local_text_style_to_library_text_style: Change Local Text Style to Library Text Style
 change_local_layer_style_to_library_layer_style: Change Local Layer Style to Library Layer Style
 check_for_library_updates: Check For Library Updates
+increase_line_height: Increase Line Height
+decrease_line_height: Decrease Line Height
+increase_letter_spacing: Increase Letter Spacing
+decrease_letter_spacing: Decrease Letter Spacing
+increase_horizontally_scale: Increase Horizontally Scale
+decrease_horizontally_scale: Decrease Horizontally Scale
+reset_horizontally_scale: Reset Horizontally Scale

@@ -1,0 +1,39 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    ga(context, "Type");
+
+    var pluginIdentifier = context.command.identifier();
+    var document = context.document;
+    var selection = context.selection;
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSTextLayer");
+    var selectedTextLayers = selection.filteredArrayUsingPredicate(predicate);
+    if (selectedTextLayers.count() == 0) {
+        document.showMessage("Please select at least one text layer.");
+        return;
+    }
+
+    var userDefaults = NSUserDefaults.standardUserDefaults();
+    var stepSize = userDefaults.floatForKey("nudgeDistanceBig") / 2;
+
+    selectedTextLayers.forEach(function(layer) {
+
+        if (pluginIdentifier == "increase_line_height") {
+            var lineHeight = Math.round(layer.lineHeight() / stepSize) * stepSize + stepSize;
+            layer.setLineHeight(lineHeight);
+        }
+
+        if (pluginIdentifier == "decrease_line_height") {
+            var lineHeight = Math.round(layer.lineHeight() / stepSize) * stepSize - stepSize;
+            if (lineHeight <= stepSize) {
+                lineHeight = stepSize;
+            }
+            layer.setLineHeight(lineHeight);
+        }
+
+    });
+
+    document.reloadInspector();
+
+});

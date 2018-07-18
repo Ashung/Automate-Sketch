@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.1.20180717",
+    "version": "51.1.20180718",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "40",
@@ -759,6 +759,41 @@
             "name": "Check For Library Updates",
             "identifier": "check_for_library_updates",
             "script": "Library/Check_For_Library_Updates.cocoascript"
+        },
+        {
+            "name": "Increase Line Height",
+            "identifier": "increase_line_height",
+            "script": "Type/Line_Height.cocoascript"
+        },
+        {
+            "name": "Decrease Line Height",
+            "identifier": "decrease_line_height",
+            "script": "Type/Line_Height.cocoascript"
+        },
+        {
+            "name": "Increase Letter Spacing",
+            "identifier": "increase_letter_spacing",
+            "script": "Type/Letter_Spacing.cocoascript"
+        },
+        {
+            "name": "Decrease Letter Spacing",
+            "identifier": "decrease_letter_spacing",
+            "script": "Type/Letter_Spacing.cocoascript"
+        },
+        {
+            "name": "Increase Horizontally Scale",
+            "identifier": "increase_horizontally_scale",
+            "script": "Type/Horizontally_Scale.cocoascript"
+        },
+        {
+            "name": "Decrease Horizontally Scale",
+            "identifier": "decrease_horizontally_scale",
+            "script": "Type/Horizontally_Scale.cocoascript"
+        },
+        {
+            "name": "Reset Horizontally Scale",
+            "identifier": "reset_horizontally_scale",
+            "script": "Type/Horizontally_Scale.cocoascript"
         }
     ],
     "menu": {
@@ -949,6 +984,14 @@
             {
                 "title": "Text",
                 "items": [
+                    "increase_line_height",
+                    "decrease_line_height",
+                    "increase_letter_spacing",
+                    "decrease_letter_spacing",
+                    "increase_horizontally_scale",
+                    "decrease_horizontally_scale",
+                    "reset_horizontally_scale",
+                    "-",
                     "split_text_layer",
                     "combine_text_layer",
                     "-",
