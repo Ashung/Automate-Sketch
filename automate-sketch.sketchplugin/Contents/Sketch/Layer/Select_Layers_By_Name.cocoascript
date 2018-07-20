@@ -102,6 +102,14 @@ function selectLayerByNameWithSelection(context, page, selection, userInputStrin
     var doc = context.document;
     var totalCount = 0;
 
+    // Fix Sketch 45
+    var page = doc.currentPage();
+    if (page.deselectAllLayers) {
+        page.deselectAllLayers();
+    } else {
+        page.changeSelectionBySelectingLayers(nil);
+    }
+
     if (selection.count() == 0) {
         selectLayerByName(page, userInputString, regexp, filterType, function(count){
             totalCount = count;
@@ -128,15 +136,6 @@ function selectLayerByNameWithSelection(context, page, selection, userInputStrin
 function selectLayerByName(parent, name, regexp, filterType, callback) {
 
     var count = 0;
-
-    // Fix Sketch 45
-    var page = parent.parentPage();
-    if (page.deselectAllLayers) {
-        page.deselectAllLayers();
-    } else {
-        page.changeSelectionBySelectingLayers(nil);
-    }
-
     var loop = parent.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {
