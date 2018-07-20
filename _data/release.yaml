@@ -1,5 +1,16 @@
 
 -
+  version: 51.1.20180720
+  description: |-
+    <ul>
+    <li>Add Increase / Decrease Line Height.</li>
+    <li>Add Increase / Decrease Letter Spacing.</li>
+    <li>Add Increase / Decrease / Reset Horizontally Scale.</li>
+    <li>Fix #90 Select Layers in Selection By Name bug.</li>
+    </ul>
+  commitID: 50abef508af3d0546d71852d4b450c49b4458b47
+
+-
   version: 51.1.20180717
   description: |-
     <ul>
