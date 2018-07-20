@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Library");
+
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 51) {
         document.showMessage("😮 You have to update Sketch 51+ to use thie feature.");

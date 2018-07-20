@@ -48,6 +48,9 @@
 | Order Layers By ...                                          | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                          | 反转图层列表中的位置。                                       |
 | **Text**                                                     | **文本**                                                     |
+| Increase / Decrease Line Height                              | 增加或减小选中文本图层的行高，值为按住 Shift 和方向键移动物体的距离的一半，数值可在 Preferences - Canvas - Nudging 设置界面修改。 |
+| Increase / Decrease Letter Spacing                           | 增加或减小选中文本图层的字间距，与 Sketch 内置功能一致增加或减小 0.38。 |
+| Increase / Decrease / Reset Horizontally Scale               | 增加、减小或重置选中文本图层的水平拉伸，功能类似 Photoshop 的字体拉伸。 |
 | Split Text Layer                                             | 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
 | Combine Text Layers                                          | 合并选中文本图层。                                           |
 | Capitalize                                                   | 首字大写。                                                   |

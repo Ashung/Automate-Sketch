@@ -45,6 +45,9 @@ Make your workflow more efficient.
 | Order Layers By ...                                          | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
 | **Text**                                                     |                                                              |
+| Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
+| Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
+| Increase / Decrease / Reset Horizontally Scale               | Increase, decrease and reset horizontally scale for all selected text layers. |
 | Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
 | Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |
