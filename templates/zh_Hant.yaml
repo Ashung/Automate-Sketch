@@ -155,6 +155,9 @@ export_clean_code_svg: 導出代碼整潔的 SVG
 split_text_layer: 拆分文字圖層
 combine_text_layer: 合併文字圖層
 select_layers_outside_of_artboard_bounds: 選擇畫板邊界外的圖層
+nine_slice_from_bitmap_layer: 從點陣圖建立九宮格拉伸圖層
+fast_slice: 快速切片
+fast_slice_setting: 快速切片設定
 select_reverse: 反選
 toggle_layer_constrain_proportions: 圖層比例限制開關
 change_local_text_style_to_library_text_style: 本地文字樣式轉為庫樣式
