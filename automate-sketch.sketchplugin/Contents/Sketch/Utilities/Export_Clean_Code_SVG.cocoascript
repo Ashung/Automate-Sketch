@@ -82,6 +82,9 @@ var onRun = function(context) {
     var ignoreGroup = UI.checkBox(false, "Ungroup all layer group inside.");
     dialog.addAccessoryView(ignoreGroup);
 
+    var flattenAllLayer = UI.checkBox(false, "Flatten all layers.");
+    dialog.addAccessoryView(flattenAllLayer);
+
     var changeFillRule = UI.checkBox(false, "Change path fill rule to Non-Zero.");
     dialog.addAccessoryView(changeFillRule);
 
@@ -119,26 +122,6 @@ var onRun = function(context) {
                 document.showMessage("You have to install SVGO.");
                 return;
             }
-        }
-
-        var savePanel;
-        var savePath;
-        if (selection.count() == 1) {
-            var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
-            savePanel = NSSavePanel.savePanel();
-            savePanel.setTitle("Save as SVG");
-            savePanel.setShowsTagField(false);
-            savePanel.setNameFieldStringValue(fileName);
-            savePanel.setCanCreateDirectories(true);
-        } else {
-            savePanel = NSOpenPanel.openPanel();
-            savePanel.setMessage("Export select layers as SVG");
-            savePanel.setCanChooseDirectories(true);
-            savePanel.setCanChooseFiles(false);
-            savePanel.setCanCreateDirectories(true);
-        }
-        if (savePanel.runModal() == NSOKButton) {
-            savePath = savePanel.URL().path();
         }
 
         var ignoreLayerNamesArray = [];
@@ -197,7 +180,7 @@ var onRun = function(context) {
                     }
                 }
 
-                if (ignoreBitmap.state() == NSOnState && children.hasClippingMask()) {
+                if (ignoreMask.state() == NSOnState && children.hasClippingMask()) {
                     children.setHasClippingMask(false);
                     if (children.style().enabledFills().count() == 0) {
                         var fill = children.style().addStylePartOfType(0);
@@ -213,6 +196,12 @@ var onRun = function(context) {
                     }
                     else {
                         children.setWindingRule(0);
+                    }
+                }
+
+                if (flattenAllLayer.state() == NSOnState && children.class() == "MSShapeGroup") {
+                    if (children.canFlatten()) {
+                        children.flatten();
                     }
                 }
 
@@ -244,27 +233,14 @@ var onRun = function(context) {
 
                 var config = {
                     plugins: [
-                        {
-                            convertColors: {
-                                shorthex: false
-                            }
-                        },
-                        {
-                            cleanupListOfValues: {
-                                floatPrecision: 2
-                            }
-                        },
-                        {
-                            cleanupNumericValues: {
-                                floatPrecision: 2
-                            }
-                        },
-                        {
-                            convertPathData: {
-                                floatPrecision: 2,
-                                leadingZero: false
-                            }
-                        }
+                        { cleanupListOfValues: { floatPrecision: 2, leadingZero: false } },
+                        { cleanupNumericValues: { floatPrecision: 2, leadingZero: false } },
+                        { convertPathData: { floatPrecision: 2, leadingZero: false } },
+                        { convertColors: { shorthex: false, shortname: false } },
+                        { convertShapeToPath: { convertArcs: true } },
+                        { removeRasterImages: true },
+                        { removeScriptElement: true },
+                        { removeViewBox: false }
                     ]
                 };
                 runCommand(
@@ -289,6 +265,27 @@ var onRun = function(context) {
             }
 
             if (responseCode == 1000) {
+
+                var savePanel;
+                var savePath;
+                if (selection.count() == 1) {
+                    var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
+                    savePanel = NSSavePanel.savePanel();
+                    savePanel.setTitle("Save as SVG");
+                    savePanel.setShowsTagField(false);
+                    savePanel.setNameFieldStringValue(fileName);
+                    savePanel.setCanCreateDirectories(true);
+                } else {
+                    savePanel = NSOpenPanel.openPanel();
+                    savePanel.setMessage("Export select layers as SVG");
+                    savePanel.setCanChooseDirectories(true);
+                    savePanel.setCanChooseFiles(false);
+                    savePanel.setCanCreateDirectories(true);
+                }
+                if (savePanel.runModal() == NSOKButton) {
+                    savePath = savePanel.URL().path();
+                }
+
                 if (savePath) {
                     var svgPath;
                     if (selection.count() == 1) {
@@ -308,11 +305,10 @@ var onRun = function(context) {
                     writeContentToFile(svgPath, svgCode);
                     exportedSVGFiles.addObject(NSURL.fileURLWithPath(svgPath));
                 }
+                NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
             }
 
         }
-
-        NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
 
     }
 
