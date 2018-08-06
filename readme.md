@@ -69,6 +69,8 @@ Make your workflow more efficient.
 | Artboard Form Selection                                      | Create a new artboard from the selection object.             |
 | Artboard Form Group                                          | Create a new artboard from group.                            |
 | Artboard to Group                                            | Artboard to group.                                           |
+| Select Parent Artboard                                       | Select parent artboard for selected layers.                  |
+| Artboard Navigator                                           | Quickly go to artboard and rename it.                        |
 | Resize to Fix Height                                         | Adjusts the artboard to fit the height.                      |
 | Move Artboards to Bottom of Anther                           | Move artboards or symbol masters to the bottom of another one. |
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |

@@ -72,6 +72,8 @@
 | Artboard Form Selection                                      | 从选择对象新建画板。                                         |
 | Artboard Form Group                                          | 从组新建画板。                                               |
 | Artboard to Group                                            | 画板转为组。                                                 |
+| Select Parent Artboard                                       | 选择选中图层的父级画板。                                     |
+| Artboard Navigator                                           | 画板导航，可以快速转到任何页面的画板，同时支持修改画板命名。 |
 | Resize to Fix Height                                         | 调整画板以适配高度。                                         |
 | Move Artboards to Bottom of Anther                           | 移动画板或组件模版至另一画板下方。                           |
 | Export All Artboards                                         | 将所有画板导出为 PNG 或 SVG，可设置缩放比例。                |

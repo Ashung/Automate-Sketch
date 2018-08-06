@@ -5,10 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.1.20180720",
+    "version": "51.2.20180806",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
-    "compatibleVersion": "40",
+    "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
         {
@@ -719,18 +719,18 @@
             "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
         },
         {
-            "name": "",
+            "name": "从位图创建九宫格拉伸图层",
             "identifier": "nine_slice_from_bitmap_layer",
             "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
         },
         {
-            "name": "",
+            "name": "快速切片",
             "identifier": "fast_slice",
             "handler": "runFastSlice",
             "script": "Slice/Fast_Slice.cocoascript"
         },
         {
-            "name": "",
+            "name": "快速切片设置",
             "identifier": "fast_slice_setting",
             "handler": "runFastSliceSetting",
             "script": "Slice/Fast_Slice.cocoascript"
@@ -794,6 +794,16 @@
             "name": "重置水平拉伸",
             "identifier": "reset_horizontally_scale",
             "script": "Type/Horizontally_Scale.cocoascript"
+        },
+        {
+            "name": "选择父级画板",
+            "identifier": "select_parent_artboard",
+            "script": "Artboard/Select_Parent_Artboard.cocoascript"
+        },
+        {
+            "name": "画板导航",
+            "identifier": "artboard_navigator",
+            "script": "Artboard/Artboard_Navigator.cocoascript"
         }
     ],
     "menu": {
@@ -923,6 +933,9 @@
                     "artboard_from_selection",
                     "artboard_from_group",
                     "artboard_to_group",
+                    "-",
+                    "select_parent_artboard",
+                    "artboard_navigator",
                     "-",
                     "resize_to_fit_height",
                     "-",
