@@ -1,5 +1,16 @@
 
 -
+  version: 51.2.20180806
+  description: |-
+    <ul>
+    <li>Add Select Parent Artboard.</li>
+    <li>Add Artboard Navigator.</li>
+    <li>Export Clean Code SVG add flatten all layer option.</li>
+    <li>Fix Export Clean Code SVG copy code and ignore mask buges.</li>
+    </ul>
+  commitID: a728f8d045bab44d1dcc951d7e531c195ca1c8bc
+
+-
   version: 51.1.20180720
   description: |-
     <ul>
