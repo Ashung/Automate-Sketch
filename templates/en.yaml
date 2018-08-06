@@ -170,3 +170,5 @@ decrease_letter_spacing: Decrease Letter Spacing
 increase_horizontally_scale: Increase Horizontally Scale
 decrease_horizontally_scale: Decrease Horizontally Scale
 reset_horizontally_scale: Reset Horizontally Scale
+select_parent_artboard: Select Parent Artboard
+artboard_navigator: Artboard Navigator

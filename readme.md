@@ -1,7 +1,7 @@
-# Automate Sketch
+![Automate Sketch](automate-sketch.png)
 
-Make Sketch more efficient -- a lot of usefull plugins in one.
+Make your workflow more efficient.
 
->   **NOTE**
->
->   Checkout "master" branch.
+## License
+
+MIT

@@ -289,9 +289,7 @@ var onRun = function(context) {
                 itemView.addSubview(nameView2);
             }
 
-            var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));
-            divider.setWantsLayer(1);
-            divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+            var divider = UI.divider([0, itemHeight - 1, 300, 1]);
             itemView.addSubview(divider);
 
             contentView.addSubview(itemView);

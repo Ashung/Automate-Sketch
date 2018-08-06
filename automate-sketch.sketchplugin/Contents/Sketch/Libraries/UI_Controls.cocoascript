@@ -134,7 +134,7 @@ var UI = {
         }
         var view = NSView.alloc().initWithFrame(frame);
         view.setWantsLayer(true);
-        view.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.2));
+        view.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
         return view;
     },
 

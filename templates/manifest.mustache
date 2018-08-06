@@ -5,10 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.1.{{version}}",
+    "version": "51.2.{{version}}",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
-    "compatibleVersion": "40",
+    "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
         {
@@ -794,6 +794,16 @@
             "name": "{{reset_horizontally_scale}}",
             "identifier": "reset_horizontally_scale",
             "script": "Type/Horizontally_Scale.cocoascript"
+        },
+        {
+            "name": "{{select_parent_artboard}}",
+            "identifier": "select_parent_artboard",
+            "script": "Artboard/Select_Parent_Artboard.cocoascript"
+        },
+        {
+            "name": "{{artboard_navigator}}",
+            "identifier": "artboard_navigator",
+            "script": "Artboard/Artboard_Navigator.cocoascript"
         }
     ],
     "menu": {
@@ -923,6 +933,9 @@
                     "artboard_from_selection",
                     "artboard_from_group",
                     "artboard_to_group",
+                    "-",
+                    "select_parent_artboard",
+                    "artboard_navigator",
                     "-",
                     "resize_to_fit_height",
                     "-",
