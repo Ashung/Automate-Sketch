@@ -1,5 +1,13 @@
 
 -
+  version: 51.2.20180808
+  description: |-
+    <ul>
+    <li>Add Create Symbols from Selected Layers.</li>
+    </ul>
+  commitID: 63a27d5c1312da4c811a7469d81f8ea73ba7e4f8
+
+-
   version: 51.2.20180806
   description: |-
     <ul>
