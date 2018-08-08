@@ -172,3 +172,4 @@ decrease_horizontally_scale: 減小水平拉伸
 reset_horizontally_scale: 重置水平拉伸
 select_parent_artboard: 選擇父級畫板
 artboard_navigator: 畫板導航
+create_symbols_from_selected_layers: 從選中圖層批量建立元件
