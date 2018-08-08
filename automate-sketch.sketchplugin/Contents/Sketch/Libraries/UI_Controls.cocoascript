@@ -29,7 +29,9 @@ var UI = {
     cosDialog : function(title, info, buttons) {
         var dialog = COSAlertWindow.alloc().init();
         dialog.setMessageText(title);
-        dialog.setInformativeText(info);
+        if (info) {
+            dialog.setInformativeText(info);
+        }
         if (!buttons || !buttons instanceof Array) {
             dialog.addButtonWithTitle("OK");
             dialog.addButtonWithTitle("Cancel");

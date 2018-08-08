@@ -1,0 +1,88 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
+
+var onRun = function(context) {
+
+    ga(context, "Symbol");
+
+    var document = context.document;
+    var selection = context.selection;
+    var documentData = document.documentData();
+
+    if (selection.count() == 0) {
+        document.showMessage("Please select a layer.");
+        return;
+    }
+
+    var layers = NSMutableArray.alloc().init();;
+    selection.forEach(function(layer) {
+        if (
+            layer.class() != "MSArtboardGroup" &&
+            layer.class() != "MSSymbolMaster"
+        ) {
+            layers.addObject(layer);
+        }
+    });
+
+    if (layers.count() == 0) {
+        document.showMessage("Please select a not Artboard or Symbol Master layer.");
+        return;
+    }
+
+    var currentPage = document.currentPage();
+    var symbolPage = documentData.symbolsPage();
+    var targetPage;
+    if (currentPage != symbolPage) {
+        var dialog = UI.cosDialog(
+            "Create Symbols from Selected Layers"
+        );
+
+        var symbolPageName = symbolPage ? symbolPage.name() : "Symbols";
+        var sendToSymbolPage = UI.checkBox(true, `Send Symbols to "${symbolPageName}" page.`);
+        dialog.addAccessoryView(sendToSymbolPage);
+
+        var responseCode = dialog.runModal();
+        if (responseCode == 1000) {
+            if (sendToSymbolPage.state() == NSOnState) {
+                targetPage = documentData.symbolsPageOrCreateIfNecessary();
+                document.pageTreeLayoutDidChange();
+            }
+            else {
+                targetPage = currentPage;
+            }
+        }
+    }
+    else {
+        targetPage = symbolPage;
+    }
+
+    if (targetPage) {
+        layers.forEach(function(layer) {
+            var parent = layer.parentGroup();
+
+            var tmplayer = MSLayer.alloc().init();
+            parent.addLayer(tmplayer);
+            tmplayer.moveToLayer_beforeLayer(parent, layer);
+
+            var frame = layer.frame().rect();
+            var symbolmaster = MSSymbolMaster.alloc().initWithFrame(frame);
+            symbolmaster.setName(layer.name());
+            layer.moveToLayer_beforeLayer(symbolmaster, nil);
+            layer.frame().setX(0);
+            layer.frame().setY(0);
+            var position = targetPage.originForNewArtboardWithSize(frame.size);
+            targetPage.addLayer(symbolmaster);
+            symbolmaster.frame().setX(position.x);
+            symbolmaster.frame().setY(position.y);
+
+            var instance = symbolmaster.newSymbolInstance();
+            parent.addLayer(instance);
+            instance.frame().setX(frame.origin.x);
+            instance.frame().setY(frame.origin.y);
+            instance.moveToLayer_beforeLayer(parent, tmplayer);
+
+            tmplayer.removeFromParent();
+        });
+    }
+
+};

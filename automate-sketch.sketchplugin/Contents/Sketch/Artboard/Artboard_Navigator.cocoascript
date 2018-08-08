@@ -8,7 +8,7 @@ var onRun = function(context) {
     var document = context.document;
     var currentPage = document.currentPage();
     var allPages = getAllPagesHaveArtboards(document);
-    var allArtboards = getAllArtboards(document);
+    var allArtboards = document.documentData().allArtboards();
 
     if (allArtboards.count() == 0) {
         document.showMessage("No any artboard in current document.");
@@ -138,12 +138,4 @@ function getAllPagesHaveArtboards(document) {
         }
     });
     return pages;
-}
-
-function getAllArtboards(document) {
-    var artboards = NSMutableArray.alloc().init();
-    document.pages().forEach(function(page) {
-        artboards.addObjectsFromArray(page.artboards());
-    });
-    return artboards;
 }
