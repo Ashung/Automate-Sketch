@@ -173,3 +173,5 @@ reset_horizontally_scale: Reset Horizontally Scale
 select_parent_artboard: Select Parent Artboard
 artboard_navigator: Artboard Navigator
 create_symbols_from_selected_layers: Create Symbols from Selected Layers
+rename_layer_to_style_name: Rename Layer to Style Name
+replace_unavailable_library: Replace Unavailable Library
