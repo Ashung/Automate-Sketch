@@ -173,3 +173,5 @@ reset_horizontally_scale: 重置水平拉伸
 select_parent_artboard: 选择父级画板
 artboard_navigator: 画板导航
 create_symbols_from_selected_layers: 从选中图层批量创建组件
+rename_layer_to_style_name: 重命名图层为样式名
+replace_library: 替换库

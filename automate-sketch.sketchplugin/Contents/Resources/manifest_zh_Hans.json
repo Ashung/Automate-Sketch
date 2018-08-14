@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.2.20180813",
+    "version": "51.2.20180814",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "50",
@@ -811,14 +811,14 @@
             "script": "Symbol/Create_Symbols_from_Selected_Layers.cocoascript"
         },
         {
-            "name": "",
+            "name": "重命名图层为样式名",
             "identifier": "rename_layer_to_style_name",
             "script": "Style/Rename_Layer_to_Style_Name.cocoascript"
         },
         {
-            "name": "",
-            "identifier": "replace_unavailable_library",
-            "script": "Library/replace_unavailable_library.cocoascript"
+            "name": "替换库",
+            "identifier": "replace_library",
+            "script": "Library/Replace_Library.cocoascript"
         }
     ],
     "menu": {
@@ -930,7 +930,7 @@
                 "items": [
                     "fix_library_id_conflict",
                     "imported_symbols_link_manage",
-                    "replace_unavailable_library",
+                    "replace_library",
                     "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol",
