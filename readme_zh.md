@@ -5,7 +5,7 @@
 
 上百个功能让您的工作更高效，推荐与 [Sketch Runner](http://sketchrunner.com/) 一起使用。
 
-如果你在使用 Sketch 中遇到需要自动化处理的问题可以在 [**此处**](https://github.com/Ashung/Automate-Sketch/issues) 提需求，通过页面下方的支付宝或微信扫码打赏者可获得免费技术支持。
+如果你在使用 Sketch 中遇到繁琐问题可以在 [**此处**](https://github.com/Ashung/Automate-Sketch/issues) 提需求，通过页面下方的支付宝或微信扫码打赏者可获得免费技术支持。
 
 ## 安装方法
 
@@ -85,6 +85,7 @@
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |
 | Rename Instances                                             | 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
 | Move Symbol Masters To Another Page                          | 将选中组件模版移动至其他页面。                               |
+| Create Symbols from Selected Layers                          | 从选中图层批量创建组件。                                     |
 | Selection to Symbol Master                                   | 将选中图层在原位置直接变为组件。                             |
 | Detach Unused Symbol Master                                  | 将未使用的组件模版转为组。                                   |
 | Remove Unused Symbols                                        | 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
@@ -94,6 +95,7 @@
 | **Library**                                                  | **库**                                                       |
 | Fix Library ID Conflict                                      | 解决库 ID 冲突问题，库中存在同 ID 的文件，会导致同 ID 的库影响组件的更新。 |
 | Imported Symbols Link Manage                                 | 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
+| Replace Library                                              | 将所有库组件从一个库替换链接到另一个库。                     |
 | Replace Symbol With Library Symbol                           | 将选中组件替换为任意的库组件。                               |
 | Change symbols to Library Symbol Base Symbol ID              | 根据组件 ID，将选中或全部组件转为库组件。                    |
 | Change Local Text Style to Library Text Style                | 将本地文本样式转为指定库中的相同样式。                       |
@@ -104,6 +106,7 @@
 | Check For Library Updates                                    | 检查库更新。                                                 |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
+| Rename Layer to Style Name                                   | 将选中图层重名为其共享样式的名称。                           |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color                                | 从 CSS 色彩代码添加填充。                                    |
 | Fill Color from Global (Document) Colors                     | 从全局 (文档) 色版快速填充。                                 |

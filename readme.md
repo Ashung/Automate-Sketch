@@ -6,11 +6,13 @@ Make your workflow more efficient.
 
 ## Installation
 
-- Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/),  [Sketchpacks](https://sketchpacks.com/).
+- Search "Automate Sketch" from [Sketch Runner](http://sketchrunner.com/).
 - Download [master.zip](https://github.com/Ashung/Automate-Sketch/archive/master.zip), unzip it, then double-click the "automate-sketch.sketchplugin".
 - [Download](http://ashung.github.io/Automate-Sketch/) for older version Sketch.
 
 ## All Features
+
+**[Feature Request](https://github.com/Ashung/Automate-Sketch/issues/new)**
 
 | Menu                                                         | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
@@ -82,6 +84,7 @@ Make your workflow more efficient.
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
 | Move Symbol Masters To Another Page                          | Move selected symbol masters to anthoer page.                |
+| Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
 | Remove Unused Symbols                                        | Remove unused symbols, for Sketch 48+, with symbol preview.  |
@@ -91,6 +94,7 @@ Make your workflow more efficient.
 | **Library**                                                  |                                                              |
 | Fix Library ID Conflict                                      | Fix library file with same document ID.                      |
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
+| Replace Library                                              | Swap all foreign symbols from one library to another.        |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change symbols to Library Symbol Base Symbol ID              | Change the selected/all symbols to library symbol base on symbol ID. |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
@@ -101,6 +105,7 @@ Make your workflow more efficient.
 | Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
+| Rename Layer to Style Name                                   | Rename selected layer to it's shared style name.             |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color                                | Fill from CSS color code.                                    |
 | Fill Color from Global (Document) Colors                     | Fill from the global (document) color fast.                  |
@@ -136,8 +141,6 @@ Make your workflow more efficient.
 | Convert Sketch File to Other Version                         | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
 | Show File in Finder                                          | Open the current document in the Finder.                     |
 | Open Terminal at File Folder                                 | Open the terminal and switch to the directory of the current document. |
-
-**[Feature Request](https://github.com/Ashung/Automate-Sketch/issues/new)**
 
 ## License
 

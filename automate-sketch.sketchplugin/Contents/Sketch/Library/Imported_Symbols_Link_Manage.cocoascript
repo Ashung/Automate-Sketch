@@ -142,6 +142,10 @@ function loadData(scrollView, symbols) {
         } else {
             if (libraryForSymbol.enabled() == false) {
                 tipView.setStringValue("Library is disabled.");
+            } else {
+                if (!importedSymbol.masterFromLibrary(libraryForSymbol)) {
+                    tipView.setStringValue("Symbol not found.");
+                }
             }
         }
 
@@ -203,7 +207,6 @@ function loadData(scrollView, symbols) {
                 } else {
                     tipView.setStringValue("Symbol not found.");
                 }
-
             } else {
                 var finalLibraryID = originalLibraryID;
                 var finalLibraryName = originalLibraryName;
