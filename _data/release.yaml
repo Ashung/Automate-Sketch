@@ -1,5 +1,14 @@
 
 -
+  version: 51.2.20180814
+  description: |-
+    <ul>
+    <li>Add Rename Layer to Style Name.</li>
+    <li>Add Replace Library.</li>
+    </ul>
+  commitID: 7fcb0cd9b50cb26b98360f366dd97b125188a948
+
+-
   version: 51.2.20180808
   description: |-
     <ul>
