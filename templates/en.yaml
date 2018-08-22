@@ -78,6 +78,7 @@ remove_redundant_groups: Remove Redundant Groups
 move_artboards_to_bottom_of_another: Move Artboards to Bottom of Another
 set_to_original_width: Reset to Original Width
 set_to_original_height: Reset to Original Height
+set_to_original_size: Reset to Original Size
 export_all_symbols_as_png: Export All Symbols As PNG
 replace_missing_fonts: Replace Missing Fonts
 replace_fonts: Replace Fonts

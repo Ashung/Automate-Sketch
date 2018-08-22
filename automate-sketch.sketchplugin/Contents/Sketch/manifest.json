@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.2.20180814",
+    "version": "51.2.20180822",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "50",
@@ -300,6 +300,11 @@
         {
             "name": "Reset to Original Height",
             "identifier": "set_to_original_height",
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+        },
+        {
+            "name": "Reset to Original Size",
+            "identifier": "set_to_original_size",
             "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
         },
         {
@@ -906,6 +911,7 @@
                 "items": [
                     "set_to_original_width",
                     "set_to_original_height",
+                    "set_to_original_size",
                     "reset_overrides",
                     "-",
                     "select_all_instances_of_symbol",

@@ -78,6 +78,7 @@ remove_redundant_groups: 删除不必要的嵌套组
 move_artboards_to_bottom_of_another: 移动画板至另一画板下方
 set_to_original_width: 重置为原始宽度
 set_to_original_height: 重置为原始高度
+set_to_original_size: 重置为原始尺寸
 export_all_symbols_as_png: 将所有组件导出为 PNG
 replace_missing_fonts: 替换缺失字体
 replace_fonts: 替换字体
