@@ -20,11 +20,13 @@
 | **Layer**                                                    | **图层**                                                     |
 | Fix to Parent with Margin                                    | 适配父级的宽度和高度，可设置边距。                           |
 | Fix to Parent Width (Height) with Margin                     | 适配父级的宽度或高度，可设置边距。                           |
+| Adjust Sizes                                                 | 基于突出右侧、底部或中心微调图层宽或高，微调值从 "Preferences" - "Nudging" 处设置。 |
 | Bounds Layer for Every Selection                             | 为从选中图层创建边界图层。                                   |
 | Divide Layer                                                 | 均分图层。                                                   |
 | Ungroup Shape Layer                                          | 取消形状图层组，解决手动取消组出现的图层位置偏移。           |
 | Unlock All Layers                                            | 解锁所有图层。                                               |
 | Toggle Layer Constrain Proportions                           | 锁定和解锁选中图层的比例约束。                               |
+| Toggle Select Group’s Content on Click                       | 点击组时选择组内容的开关。                                   |
 | Select All Layers In Selection By Type                       | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。 |
 | Select All Layers In Selection By Name                       | 根据图层名选择。                                             |
 | Select All Child Layers                                      | 选择所有子图层。                                             |
@@ -79,7 +81,7 @@
 | Export All Artboards                                         | 将所有画板导出为 PNG 或 SVG，可设置缩放比例。                |
 | Export All Artboards to HTML                                 | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
-| Reset to Original Width / Height                             | 设为原始宽度 / 高度。                                        |
+| Reset to Original Width / Height / Size                      | 设为原始宽度 / 高度 / 尺寸。                                 |
 | Reset Overrides                                              | 重置选中组件的覆盖。                                         |
 | Select All Instance of Symbol                                | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |

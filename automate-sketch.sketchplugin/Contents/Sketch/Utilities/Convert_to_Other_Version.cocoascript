@@ -217,6 +217,8 @@ var onRun = function(context) {
 
             if (parseInt(selectBox.objectValueOfSelectedItem()) >= 47) {
                 arguments.push(sketchMetaDatas[selectBox.indexOfSelectedItem()]["compatibilityVersion"]);
+            } else {
+                arguments.push("");
             }
 
             runCommand(

@@ -19,11 +19,13 @@ Make your workflow more efficient.
 | **Layer**                                                    |                                                              |
 | Fix to Parent with Margin                                    | Fix the width and height of the parent, and set the margins. |
 | Fix to Parent Width (Height) with Margin                     | Fix the width or height of the parent, and set the margins.  |
+| Adjust Sizes                                                 | Increase/decrease width/height for selected layers from right/bottom/center origin, the increase/decrease value can be changed in "Preferences" - "Nudging". |
 | Bounds Layer for Every Selection                             | Create a bounds layer from the selected layer.               |
 | Divide Layer                                                 | Split Layer.                                                 |
 | Ungroup Shape Layer                                          | Ungroup shape layer.                                         |
 | Unlock All Layers                                            | Unlock all layers.                                           |
 | Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
+| Toggle Select Group’s Content on Click                       | Toggle "select group’s content on click" option.             |
 | Select All Layers In Selection By Type                       | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
 | Select All Layers In Selection By Name                       | Select all layers match by layer name.                       |
 | Select All Child Layers                                      | Select all sub-layers.                                       |
@@ -78,7 +80,7 @@ Make your workflow more efficient.
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                                                   |                                                              |
-| Reset to Original Width / Height                             | Reset to original width / height.                            |
+| Reset to Original Width / Height / Size                      | Reset to original width / height / Size.                     |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |

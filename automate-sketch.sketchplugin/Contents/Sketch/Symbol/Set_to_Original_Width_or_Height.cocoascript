@@ -3,7 +3,7 @@
 var onRun = function(context) {
 
     ga(context, "Symbol");
-    
+
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -19,18 +19,20 @@ var onRun = function(context) {
         if (layer.class() == "MSSymbolInstance") {
 
             var symbolMaster = layer.symbolMaster();
+            var originalWidth = symbolMaster.frame().width();
+            var originalHeight = symbolMaster.frame().height();
 
             layer.frame().setConstrainProportions(false);
 
-            if (pluginIdentifier == "set_to_original_width") {
-                var originalWidth = symbolMaster.frame().width();
+            if (pluginIdentifier == "set_to_original_width" || pluginIdentifier == "set_to_original_size") {
                 layer.frame().setWidth(originalWidth);
             }
 
-            if (pluginIdentifier == "set_to_original_height") {
-                var originalHeight = symbolMaster.frame().height();
+            if (pluginIdentifier == "set_to_original_height" || pluginIdentifier == "set_to_original_size") {
                 layer.frame().setHeight(originalHeight);
             }
+
+            layer.setScale(1);
 
             if (layer.parentGroup().class() == "MSLayerGroup") {
                 layer.parentGroup().resizeToFitChildrenWithOption(1);
