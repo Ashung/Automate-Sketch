@@ -1,0 +1,25 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+
+    ga(context, "Layer");
+
+    var document = context.document;
+    var selection = context.selection;
+
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSLayerGroup");
+    var selectedGroups = selection.filteredArrayUsingPredicate(predicate);
+    if (selectedGroups.count() == 0) {
+        document.showMessage("Please select at least one layer group.");
+        return;
+    }
+
+    selectedGroups.forEach(function(group) {
+        if (group.hasClickThrough()) {
+            group.setHasClickThrough(false);
+        } else {
+            group.setHasClickThrough(true);
+        }
+    });
+
+};

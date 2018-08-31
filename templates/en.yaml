@@ -176,3 +176,21 @@ artboard_navigator: Artboard Navigator
 create_symbols_from_selected_layers: Create Symbols from Selected Layers
 rename_layer_to_style_name: Rename Layer to Style Name
 replace_library: Replace Library
+toggle_select_groups_content_on_click: Toggle Select Group’s Content on Click
+adjust_sizes: Adjust Sizes
+small_increase_width_from_right: Small Increase Width From Right
+large_increase_width_from_right: Large Increase Width From Right
+small_increase_width_from_center: Small Increase Width From Center
+large_increase_width_from_center: Large Increase Width From Center
+small_increase_height_from_bottom: Small Increase Height From Bottom
+large_increase_height_from_bottom: Large Increase Height From Bottom
+small_increase_height_from_center: Small Increase Height From Center
+large_increase_height_from_center: Large Increase Height From Center
+small_decrease_width_from_right: Small Decrease Width From Right
+large_decrease_width_from_right: Large Decrease Width From Right
+small_decrease_width_from_center: Small Decrease Width From Center
+large_decrease_width_from_center: Large Decrease Width From Center
+small_decrease_height_from_bottom: Small Decrease Height From Bottom
+large_decrease_height_from_bottom: Large Decrease Height From Bottom
+small_decrease_height_from_center: Small Decrease Height From Center
+large_decrease_height_from_center: Large Decrease Height From Center

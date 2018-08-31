@@ -176,3 +176,21 @@ artboard_navigator: 畫板導航
 create_symbols_from_selected_layers: 從選中圖層批量建立元件
 rename_layer_to_style_name: 重新命名圖層為樣式名
 replace_library: 替換庫
+toggle_select_groups_content_on_click: 點選時選擇組內容開關
+adjust_sizes: 調整尺寸
+small_increase_width_from_right: 由右側增寬 (小)
+large_increase_width_from_right: 由右側增寬 (大)
+small_increase_width_from_center: 由中心增寬 (小)
+large_increase_width_from_center: 由中心增寬 (大)
+small_increase_height_from_bottom: 由底部增高 (小)
+large_increase_height_from_bottom: 由底部增高 (大)
+small_increase_height_from_center: 由中心增高 (小)
+large_increase_height_from_center: 由中心增高 (大)
+small_decrease_width_from_right: 由右側減寬 (小)
+large_decrease_width_from_right: 由右側減寬 (大)
+small_decrease_width_from_center: 由中心減寬 (小)
+large_decrease_width_from_center: 由中心減寬 (大)
+small_decrease_height_from_bottom: 由底部減高 (小)
+large_decrease_height_from_bottom: 由底部減高 (大)
+small_decrease_height_from_center: 由中心減高 (小)
+large_decrease_height_from_center: 由中心減高 (大)

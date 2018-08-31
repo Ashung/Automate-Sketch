@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.2.20180822",
+    "version": "51.2.20180831",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "50",
@@ -824,6 +824,107 @@
             "name": "替换库",
             "identifier": "replace_library",
             "script": "Library/Replace_Library.cocoascript"
+        },
+        {
+            "name": "点击时选择组内容开关",
+            "identifier": "toggle_select_groups_content_on_click",
+            "script": "Layer/Toggle_Select_Groups_Content_On_Click.cocoascript"
+        },
+        {
+            "name": "由右侧增宽 (小)",
+            "identifier": "small_increase_width_from_right",
+            "handler": "smallIncreaseWidthFromRight",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由右侧增宽 (大)",
+            "identifier": "large_increase_width_from_right",
+            "handler": "largeIncreaseWidthFromRight",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心增宽 (小)",
+            "identifier": "small_increase_width_from_center",
+            "handler": "smallIncreaseWidthFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心增宽 (大)",
+            "identifier": "large_increase_width_from_center",
+            "handler": "largeIncreaseWidthFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由底部增高 (小)",
+            "identifier": "small_increase_height_from_bottom",
+            "handler": "smallIncreaseHeightFromBottom",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由底部增高 (大)",
+            "identifier": "large_increase_height_from_bottom",
+            "handler": "largeIncreaseHeightFromBottom",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心增高 (小)",
+            "identifier": "small_increase_height_from_center",
+            "handler": "smallIncreaseHeightFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心增高 (大)",
+            "identifier": "large_increase_height_from_center",
+            "handler": "largeIncreaseHeightFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由右侧减宽 (小)",
+            "identifier": "small_decrease_width_from_right",
+            "handler": "smallDecreaseWidthFromRight",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由右侧减宽 (大)",
+            "identifier": "large_decrease_width_from_right",
+            "handler": "largeDecreaseWidthFromRight",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心减宽 (小)",
+            "identifier": "small_decrease_width_from_center",
+            "handler": "smallDecreaseWidthFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心减宽 (大)",
+            "identifier": "large_decrease_width_from_center",
+            "handler": "largeDecreaseWidthFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由底部减高 (小)",
+            "identifier": "small_decrease_height_from_bottom",
+            "handler": "smallDecreaseHeightFromBottom",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由底部减高 (大)",
+            "identifier": "large_decrease_height_from_bottom",
+            "handler": "largeDecreaseHeightFromBottom",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心减高 (小)",
+            "identifier": "small_decrease_height_from_center",
+            "handler": "smallDecreaseHeightFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "由中心减高 (大)",
+            "identifier": "large_decrease_height_from_center",
+            "handler": "largeDecreaseHeightFromCenter",
+            "script": "Layer/Adjust_Sizes.cocoascript"
         }
     ],
     "menu": {
@@ -862,6 +963,28 @@
                     "fit_to_parent_with_margin",
                     "fit_to_parent_width_with_margin",
                     "fit_to_parent_height_with_margin",
+                    {
+                        "title": "调整尺寸",
+                        "items": [
+                            "small_increase_width_from_right",
+                            "large_increase_width_from_right",
+                            "small_increase_width_from_center",
+                            "large_increase_width_from_center",
+                            "small_increase_height_from_bottom",
+                            "large_increase_height_from_bottom",
+                            "small_increase_height_from_center",
+                            "large_increase_height_from_center",
+                            "-",
+                            "small_decrease_width_from_right",
+                            "large_decrease_width_from_right",
+                            "small_decrease_width_from_center",
+                            "large_decrease_width_from_center",
+                            "small_decrease_height_from_bottom",
+                            "large_decrease_height_from_bottom",
+                            "small_decrease_height_from_center",
+                            "large_decrease_height_from_center"
+                        ]
+                    },
                     "-",
                     "bounds_layer_for_every_selection",
                     "divide_layer",
@@ -870,6 +993,7 @@
                     "unlock_all_layers",
                     "-",
                     "toggle_layer_constrain_proportions",
+                    "toggle_select_groups_content_on_click",
                     "-",
                     {
                         "title": "基于类型选择选中对象内所有图层",
