@@ -1,5 +1,15 @@
 
 -
+  version: 51.2.20180831
+  description: |-
+    <ul>
+    <li>Add Set to Original Size.</li>
+    <li>Add Adjust Sizes.</li>
+    <li>Add Toggle Select Ground's content on Click.</li>
+    </ul>
+  commitID: ea482117de0ef206fcde879cd077feb2e8fe0b1c
+
+-
   version: 51.2.20180814
   description: |-
     <ul>
