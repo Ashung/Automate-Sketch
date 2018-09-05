@@ -23,15 +23,14 @@ var onRun = function(context) {
         var symbol;
         while (symbol = loopAllSymbols.nextObject()) {
             var fileName = symbol.parentPage().name() + "/" + symbol.name();
-                fileName = fileName.replace(/(\\)/g, "/");
             var fileNameParts = fileName.split("/"));
             fileNameParts = fileNameParts.map(function(item) {
                 return item.trim().replace(/^\./, "_")
-                    .replace(/[`~!@#$%^&*+=:;,<>?\|\(\)\{\}\[\]]/g, "_")
+                    .replace(/[`~!@#$%^&*+=:;,<>?|(){}\[\]\\]/g, "")
                     .trim();
             });
             fileName = fileNameParts.join("/");
-            doc.saveArtboardOrSlice_toFile(symbol, savePanel.URL().path() + "/" + fileName);
+            document.saveArtboardOrSlice_toFile(symbol, savePanel.URL().path() + "/" + fileName);
         }
 
         // Show in Finder
