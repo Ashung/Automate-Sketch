@@ -1,3 +1,11 @@
+-
+  version: 51.2.20180910
+  description: |-
+    <ul>
+    <li>Fix Export All Symbols As PNG not work bug. #99</li>
+    <li>Order layers by name/kind now sort layers like Finder do..</li>
+    </ul>
+  commitID: d18bf6d9dbc3e0d0cf9a87823f0a0acd27426397
 
 -
   version: 51.2.20180831
