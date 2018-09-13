@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "51.2.20180910",
+    "version": "51.2.20180913",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "compatibleVersion": "50",
@@ -925,6 +925,11 @@
             "identifier": "large_decrease_height_from_center",
             "handler": "largeDecreaseHeightFromCenter",
             "script": "Layer/Adjust_Sizes.cocoascript"
+        },
+        {
+            "name": "",
+            "identifier": "replace_symbol_override",
+            "script": "Symbol/Replace_Symbol_Override.cocoascript"
         }
     ],
     "menu": {
@@ -1036,6 +1041,8 @@
                     "set_to_original_width",
                     "set_to_original_height",
                     "set_to_original_size",
+                    "-",
+                    "replace_symbol_override",
                     "reset_overrides",
                     "-",
                     "select_all_instances_of_symbol",
