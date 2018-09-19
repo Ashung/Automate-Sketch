@@ -18,12 +18,8 @@ var onRun = function(context) {
         pboard.setString_forType_(hexValue, NSStringPboardType);
 
         document.showMessage("The color code \"" + hexValue + "\" has been copied.");
-
+        coscript.setShouldKeepAround(false);
     });
     button.performClick(null);
-
-    coscript.setShouldKeepAround(false);
-
     ga(context, "Development");
-
 };
