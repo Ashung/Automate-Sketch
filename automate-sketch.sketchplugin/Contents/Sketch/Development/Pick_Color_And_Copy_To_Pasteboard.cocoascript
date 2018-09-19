@@ -3,7 +3,7 @@
 var onRun = function(context) {
 
     var document = context.document;
-
+    coscript.pushAsCurrentCOScript();
     coscript.setShouldKeepAround(true);
 
     var button = BCMagnifierButton.alloc().initWithFrame(NSZeroRect);
