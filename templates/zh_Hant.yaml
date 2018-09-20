@@ -194,3 +194,4 @@ small_decrease_height_from_bottom: 由底部減高 (小)
 large_decrease_height_from_bottom: 由底部減高 (大)
 small_decrease_height_from_center: 由中心減高 (小)
 large_decrease_height_from_center: 由中心減高 (大)
+replace_override_symbol: 替换覆蓋元件

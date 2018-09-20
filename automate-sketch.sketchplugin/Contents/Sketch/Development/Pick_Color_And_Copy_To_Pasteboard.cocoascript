@@ -4,6 +4,7 @@ var onRun = function(context) {
 
     var document = context.document;
 
+    coscript.pushAsCurrentCOScript();
     coscript.setShouldKeepAround(true);
 
     var button = BCMagnifierButton.alloc().initWithFrame(NSZeroRect);
@@ -13,16 +14,18 @@ var onRun = function(context) {
         var color = MSColor.colorWithRed_green_blue_alpha(pickColor.red(), pickColor.green(), pickColor.blue(), 1);
         var hexValue = "#" + color.immutableModelObject().hexValue();
 
+        log(hexValue)
+
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();
         pboard.setString_forType_(hexValue, NSStringPboardType);
 
         document.showMessage("The color code \"" + hexValue + "\" has been copied.");
 
+        coscript.setShouldKeepAround(false);
+
     });
     button.performClick(null);
-
-    coscript.setShouldKeepAround(false);
 
     ga(context, "Development");
 

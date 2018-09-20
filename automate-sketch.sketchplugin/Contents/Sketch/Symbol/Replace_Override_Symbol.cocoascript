@@ -32,7 +32,7 @@ var onRun = function(context) {
     var changeableOverridePoints = NSMutableArray.alloc().init();
 
     instances.forEach(function(instance) {
-        instance.overridePoints().forEach(point => {
+        instance.overridePoints().forEach(function(point) {
             if(point.isSymbolOverride() && isUserChangeableOverride(context, point)) {
                 var symbolID = getValueSymbolID(context, instance, point);
                 changeableOverridePoints.addObject({
