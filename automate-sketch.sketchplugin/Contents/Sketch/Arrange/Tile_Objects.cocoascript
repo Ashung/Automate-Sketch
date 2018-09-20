@@ -80,15 +80,10 @@ var customTileLayers = function(context) {
 
         var layers = selection.mutableCopy();
         if (checkboxOrderByName.state()) {
-            layers.sort(function(a, b) {
-                if (a.name() > b.name()) {
-                    return 1;
-                }
-                if (a.name() < b.name()) {
-                    return -1;
-                }
-                return 0;
-            });
+            var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
+                "name", true, "localizedStandardCompare:"
+            );
+            layers = layers.sortedArrayUsingDescriptors([sortDescriptor]);
         }
 
         var tileType = selectTileType.indexOfSelectedItem();

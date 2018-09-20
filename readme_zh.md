@@ -82,6 +82,7 @@
 | Export All Artboards to HTML                                 | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
 | Reset to Original Width / Height / Size                      | 设为原始宽度 / 高度 / 尺寸。                                 |
+| Replace Override Symbol                                      | 查找和替换选中或全文档的组件上 override 中的组件。           |
 | Reset Overrides                                              | 重置选中组件的覆盖。                                         |
 | Select All Instance of Symbol                                | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |

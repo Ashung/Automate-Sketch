@@ -81,6 +81,7 @@ Make your workflow more efficient.
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                                                   |                                                              |
 | Reset to Original Width / Height / Size                      | Reset to original width / height / Size.                     |
+| Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
