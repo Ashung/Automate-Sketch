@@ -42,6 +42,9 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
                         if (
                             (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
+                            (layer.class() == "MSShapePathLayer" && layer.isLine() == false) ||
+                            layer.class() == "MSRectangleShape" ||
+                            layer.class() == "MSOvalShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -64,6 +67,9 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
                         if (
                             layer.class() == "MSShapeGroup" ||
+                            layer.class() == "MSShapePathLayer" ||
+                            layer.class() == "MSRectangleShape" ||
+                            layer.class() == "MSOvalShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -86,6 +92,9 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
                         if (
                             layer.class() == "MSShapeGroup" ||
+                            layer.class() == "MSShapePathLayer" ||
+                            layer.class() == "MSRectangleShape" ||
+                            layer.class() == "MSOvalShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer" ||
                             layer.class() == "MSSymbolInstance" ||
@@ -110,6 +119,9 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
                         if (
                             (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
+                            layer.class() == "MSShapePathLayer" ||
+                            layer.class() == "MSRectangleShape" ||
+                            layer.class() == "MSOvalShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -131,6 +143,7 @@ var onRun = function(context) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
+                        // TODO: 52
                         // Shape layer except line, can apply all blur.
                         if (
                             layer.class() == "MSShapeGroup" &&

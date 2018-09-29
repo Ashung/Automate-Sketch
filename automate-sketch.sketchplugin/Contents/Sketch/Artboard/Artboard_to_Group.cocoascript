@@ -2,42 +2,51 @@
 
 var onRun = function(context) {
 
-    var doc = context.document;
+    ga(context, "Artboard");
+
+    var document = context.document;
     var selection = context.selection;
-    var selectionHasArtboards = false;
+    
+    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSArtboardGroup");
+    var artboardsInSelection = selection.filteredArrayUsingPredicate(predicate);
 
-    if (selection.count() > 0) {
-        var loop = selection.objectEnumerator();
-        while (artboard = loop.nextObject()) {
-            if (artboard.class() == "MSArtboardGroup") {
-                selectionHasArtboards = true;
-
-                // Add background layer
-                if (artboard.hasBackgroundColor()) {
-                    var rectangle = MSRectangleShape.alloc().init();
-                    rectangle.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
-                    var backgroundLayer = MSShapeGroup.shapeWithPath(rectangle);
-                    backgroundLayer.setName("background");
-                    backgroundLayer.style().addStylePartOfType(0);
-                    backgroundLayer.style().fills().firstObject().setColor(artboard.backgroundColor());
-                    artboard.insertLayers_beforeLayer([backgroundLayer], artboard.firstLayer());
-                }
-
-                // Create new group for all layers in artboard
-                var newGroup = MSLayerGroup.groupFromLayers(MSLayerArray.arrayWithLayers(artboard.containedLayers()));
-                    newGroup.setName(artboard.name());
-
-                artboard.ungroup();
-            }
-        }
-
-        if (!selectionHasArtboards) {
-            doc.showMessage("Select a artboard first.");
-        }
-
-    } else {
-        doc.showMessage("Select a artboard first.");
+    if (artboardsInSelection.count() == 0) {
+        document.showMessage("Select a artboard first.");
     }
 
-    ga(context, "Artboard");
+    var loopArtboards = artboardsInSelection.objectEnumerator();
+    while (artboard = loopArtboards.nextObject()) {
+
+        // Add background layer
+        if (artboard.hasBackgroundColor()) {
+            var rectangle = MSRectangleShape.alloc().init();
+            rectangle.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
+            
+            var backgroundLayer;
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                backgroundLayer = rectangle;
+            } else {
+                backgroundLayer = MSShapeGroup.shapeWithPath(rectangle);
+            }
+
+            backgroundLayer.setName("background");
+            backgroundLayer.style().addStylePartOfType(0);
+            backgroundLayer.style().fills().firstObject().setColor(artboard.backgroundColor());
+            artboard.insertLayer_beforeLayer(backgroundLayer, artboard.firstLayer());
+        }
+
+        // Create new group for all layers in artboard
+        var newGroup;
+        var layerArray = MSLayerArray.arrayWithLayers(artboard.layers());
+        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            newGroup = MSLayerGroup.groupWithLayers(layerArray);
+        } else {
+            newGroup = MSLayerGroup.groupFromLayers(layerArray);
+        }
+        newGroup.setName(artboard.name());
+
+        artboard.ungroup();
+
+    }
+
 };

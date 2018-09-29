@@ -170,7 +170,12 @@ function createDataView(items, type, selectAll, checkedStatus) {
             layerStyleTempLayer.frame().setHeight(24);
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(2, 2, 20, 20));
-            var previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+            var previewLayer;
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                previewLayer = rectangle;
+            } else {
+                previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+            }
             previewLayer.setStyle(item.style());
             layerStyleTempLayer.addLayer(previewLayer);
             var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));

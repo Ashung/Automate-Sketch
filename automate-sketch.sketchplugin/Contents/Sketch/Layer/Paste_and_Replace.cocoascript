@@ -53,7 +53,12 @@ var onRun = function(context) {
                         );
                     }
 
-                    var group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
+                    var group;
+                    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                        group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
+                    } else {
+                        group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
+                    }
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     group.frame().setX(oldLayer.frame().x());
                     group.frame().setY(oldLayer.frame().y());
@@ -62,7 +67,12 @@ var onRun = function(context) {
                     if (
                         oldLayer.hasClippingMask() &&
                         pasteboardLayers.layers().layers().count() == 1 &&
-                        group.layers().firstObject().class() == "MSShapeGroup"
+                        (
+                            group.layers().firstObject().class() == "MSShapeGroup" ||
+                            group.layers().firstObject().class() == "MSRectangleShape" ||
+                            group.layers().firstObject().class() == "MSOvalShape" ||
+                            group.layers().firstObject().class() == "MSShapePathLayer"
+                        )
                     ) {
                         group.layers().firstObject().setHasClippingMask(true);
                     }

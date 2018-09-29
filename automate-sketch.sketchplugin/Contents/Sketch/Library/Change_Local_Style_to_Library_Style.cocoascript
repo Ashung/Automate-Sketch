@@ -269,7 +269,12 @@ var onRun = function(context) {
                 layerStyleTempLayer.frame().setHeight(40);
                 var rectangle = MSRectangleShape.alloc().init();
                 rectangle.setRect(CGRectMake(8, 8, 24, 24));
-                var previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+                var previewLayer;
+                if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                    previewLayer = rectangle;
+                } else {
+                    previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+                }
                 previewLayer.setStyle(item.local.style());
                 layerStyleTempLayer.addLayer(previewLayer);
                 var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 40, 40));

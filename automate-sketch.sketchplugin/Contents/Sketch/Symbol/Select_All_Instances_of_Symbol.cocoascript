@@ -122,6 +122,7 @@ function getCurrentSymbolMasterFromLayer(layer, callback) {
             callback(layer.symbolMaster());
         }
     }
+    // TODO: 52
     if (
         layer.class() == "MSLayerGroup" ||
         layer.class() == "MSShapeGroup" ||
