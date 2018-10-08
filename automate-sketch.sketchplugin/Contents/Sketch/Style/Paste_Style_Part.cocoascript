@@ -45,6 +45,9 @@ var onRun = function(context) {
                             (layer.class() == "MSShapePathLayer" && layer.isLine() == false) ||
                             layer.class() == "MSRectangleShape" ||
                             layer.class() == "MSOvalShape" ||
+                            layer.class() == "MSTriangleShape" ||
+                            layer.class() == "MSStarShape" ||
+                            layer.class() == "MSPolygonShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -70,6 +73,9 @@ var onRun = function(context) {
                             layer.class() == "MSShapePathLayer" ||
                             layer.class() == "MSRectangleShape" ||
                             layer.class() == "MSOvalShape" ||
+                            layer.class() == "MSTriangleShape" ||
+                            layer.class() == "MSStarShape" ||
+                            layer.class() == "MSPolygonShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -95,6 +101,9 @@ var onRun = function(context) {
                             layer.class() == "MSShapePathLayer" ||
                             layer.class() == "MSRectangleShape" ||
                             layer.class() == "MSOvalShape" ||
+                            layer.class() == "MSTriangleShape" ||
+                            layer.class() == "MSStarShape" ||
+                            layer.class() == "MSPolygonShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer" ||
                             layer.class() == "MSSymbolInstance" ||
@@ -122,6 +131,9 @@ var onRun = function(context) {
                             layer.class() == "MSShapePathLayer" ||
                             layer.class() == "MSRectangleShape" ||
                             layer.class() == "MSOvalShape" ||
+                            layer.class() == "MSTriangleShape" ||
+                            layer.class() == "MSStarShape" ||
+                            layer.class() == "MSPolygonShape" ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -143,14 +155,26 @@ var onRun = function(context) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
-                        // TODO: 52
-                        // Shape layer except line, can apply all blur.
+
                         if (
-                            layer.class() == "MSShapeGroup" &&
-                            layer.isLine() == false
+                            layer.class() == "MSShapeGroup" ||
+                            layer.class() == "MSShapePathLayer" ||
+                            layer.class() == "MSRectangleShape" ||
+                            layer.class() == "MSOvalShape" ||
+                            layer.class() == "MSTriangleShape" ||
+                            layer.class() == "MSStarShape" ||
+                            layer.class() == "MSPolygonShape"
                         ) {
-                            var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
-                            layer.style().setBlur(style.blur());
+                            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                                var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+                                layer.style().setBlur(style.blur());
+                            } else {
+                                // Sketch < 52, Shape layer except line, can apply all blur.
+                                if (layer.isLine() == false) {
+                                    var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
+                                    layer.style().setBlur(style.blur());
+                                }
+                            }
                         }
                         // Text and bitmap layer can not apply background blur.
                         else if (

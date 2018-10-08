@@ -37,17 +37,35 @@ function createDialog(context, type) {
     var documentData = document.documentData();
     var styles = (type == 0) ? documentData.layerStyles() : documentData.layerTextStyles();
     var stylesCopy = styles.objectsSortedByName().mutableCopy();
+
     var loopPages = document.pages().objectEnumerator();
     var page;
     while (page = loopPages.nextObject()) {
-        var predicate = (type == 0) ?
-            NSPredicate.predicateWithFormat("className != %@ && style.sharedObjectID != nil", "MSTextLayer") :
-            NSPredicate.predicateWithFormat("className == %@ && style.sharedObjectID != nil", "MSTextLayer");
+        var predicate;
+        if (type == 0) {
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                predicate = NSPredicate.predicateWithFormat('className != "MSTextLayer" && sharedStyle.objectID != nil');
+            } else {
+                predicate = NSPredicate.predicateWithFormat('className != "MSTextLayer" && style.sharedObjectID != nil')
+            }
+        }
+        if (type == 1) {
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer" && sharedStyle.objectID != nil');
+            } else {
+                predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer" && style.sharedObjectID != nil')
+            }
+        }
         var layers = page.children().filteredArrayUsingPredicate(predicate);
         var loopLayers = layers.objectEnumerator();
         var layer;
         while (layer = loopLayers.nextObject()) {
-            var style = styles.sharedObjectWithID(layer.style().sharedObjectID());
+            var style;
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                style = styles.sharedObjectWithID(layer.sharedStyleID());
+            } else {
+                style = styles.sharedObjectWithID(layer.style().sharedObjectID());
+            }
             stylesCopy.removeObject(style);
         }
     }
