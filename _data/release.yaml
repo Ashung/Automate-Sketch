@@ -1,3 +1,10 @@
+-
+  version: 52.1.20181008
+  description: |-
+    <ul>
+    <li>Fixed some Sketch 52 issues. </li>
+    </ul>
+  commitID: b655bc40f3c879c15fdf52d003177a631f3e5589
 
 -
   version: 51.3.20180920
