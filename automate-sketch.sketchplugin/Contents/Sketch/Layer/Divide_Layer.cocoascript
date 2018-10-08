@@ -3,13 +3,22 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var doc = context.document;
     var selection = context.selection;
 
-    if (selection.count() > 0 && selection.firstObject().class() == "MSShapeGroup") {
+    if (selection.count() != 1) {
+        doc.showMessage("Please select one shape layer.");
+    }
 
-        var layer = selection.firstObject();
-
+    var layer = selection.firstObject();
+    if (
+        layer.class() == "MSShapeGroup" ||
+        layer.class() == "MSRectangleShape" ||
+        layer.class() == "MSOvalShape" ||
+        (layer.class() == "MSShapePathLayer" && layer.isLine() == false)
+    ) {
         // \d+x\d+
         var userInputString = doc.askForUserInput_initialValue(
             "Input 2x2, 2x1 or 1x2.",
@@ -62,7 +71,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select one shape layer.");
     }
-
-    ga(context, "Layer");
 
 };

@@ -31,6 +31,9 @@ function fillColorFromColors(context, colors, alertMessage) {
         var layer = selection.objectAtIndex(i);
         if (
             layer.class() == "MSShapeGroup" ||
+            layer.class() == "MSRectangleShape" ||
+            layer.class() == "MSOvalShape" ||
+            layer.class() == "MSShapePathLayer" ||
             layer.class() == "MSTextLayer" ||
             layer.class() == "MSBitmapLayer"
         ) {
@@ -48,8 +51,14 @@ function fillColorFromColors(context, colors, alertMessage) {
 
 }
 
-function getFillColor(layer) {
-    if (layer.class() == "MSShapeGroup" || layer.class() == "MSBitmapLayer") {
+function getFillColor(layer) {     
+    if (
+        layer.class() == "MSShapeGroup" ||
+        layer.class() == "MSRectangleShape" ||
+        layer.class() == "MSOvalShape" ||
+        layer.class() == "MSShapePathLayer" ||
+        layer.class() == "MSBitmapLayer"
+    ) {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0) {
             if (fills.lastObject().fillType() == 0) {

@@ -107,14 +107,26 @@ var onRun = function(context) {
         // Change sharedObjectID
         var allLayerWithLocalStyle = getAllLayersWithSharedObjectIDs(document, Object.keys(localStyleIDToForeignStyleMapping));
         allLayerWithLocalStyle.forEach(function(layer) {
-            var localStyleID = layer.style().sharedObjectID();
-            if (resetStyleView.state() == NSOffState) {
-                layer.style().setSharedObjectID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
-            }
-            // Reset Text/Layer Style
-            else {
-                layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance())
-            }
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                var localStyleID = layer.sharedStyleID();
+                if (resetStyleView.state() == NSOffState) {
+                    layer.setSharedStyleID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+                }
+                // Reset Text/Layer Style
+                else {
+                    layer.setSharedStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle());
+                }
+                
+            } else {
+                var localStyleID = layer.style().sharedObjectID();
+                if (resetStyleView.state() == NSOffState) {
+                    layer.style().setSharedObjectID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+                }
+                // Reset Text/Layer Style
+                else {
+                    layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance())
+                }
+            } 
         });
 
         // Remove local style
@@ -269,7 +281,12 @@ var onRun = function(context) {
                 layerStyleTempLayer.frame().setHeight(40);
                 var rectangle = MSRectangleShape.alloc().init();
                 rectangle.setRect(CGRectMake(8, 8, 24, 24));
-                var previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+                var previewLayer;
+                if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                    previewLayer = rectangle;
+                } else {
+                    previewLayer = MSShapeGroup.shapeWithPath(rectangle);
+                }
                 previewLayer.setStyle(item.local.style());
                 layerStyleTempLayer.addLayer(previewLayer);
                 var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 40, 40));
@@ -306,13 +323,21 @@ function getAllLayersWithSharedObjectIDs(document, ids) {
     var page;
     while (page = loopPages.nextObject()) {
         var predicateSupportType = NSPredicate.predicateWithFormat(
-            "className == %@ OR className == %@ OR className == %@ OR className == %@",
-            "MSShapeGroup", "MSTextLayer", "MSLayerGroup", "MSBitmapLayer"
+            "className IN %@",
+            ["MSShapeGroup", "MSTextLayer", "MSLayerGroup", "MSBitmapLayer", "MSOvalShape", "MSRectangleShape", "MSShapePathLayer", "MSTriangleShape", "MSStarShape", "MSPolygonShape"]
         );
-        var predicateSharedStyle = NSPredicate.predicateWithFormat(
-            "style.sharedObjectID IN %@",
-            idArray
-        );
+        var predicateSharedStyle;
+        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            predicateSharedStyle = NSPredicate.predicateWithFormat(
+                "sharedStyleID IN %@",
+                idArray
+            );
+        } else {
+            predicateSharedStyle = NSPredicate.predicateWithFormat(
+                "style.sharedObjectID IN %@",
+                idArray
+            );
+        }
         var layersCanApplyStyleInPage = page.children().filteredArrayUsingPredicate(predicateSupportType);
         var layersWithSharedStyleInPage = layersCanApplyStyleInPage.filteredArrayUsingPredicate(predicateSharedStyle);
         layers.addObjectsFromArray(layersWithSharedStyleInPage);

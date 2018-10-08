@@ -258,6 +258,9 @@ var onRun = function(context) {
 
             if (
                 layer.class() == "MSShapeGroup" ||
+                layer.class() == "MSRectangleShape" ||
+                layer.class() == "MSOvalShape" ||
+                layer.class() == "MSShapePathLayer" ||
                 layer.class() == "MSBitmapLayer"
             ) {
                 if (layer.style().enabledFills().count() == 0) {

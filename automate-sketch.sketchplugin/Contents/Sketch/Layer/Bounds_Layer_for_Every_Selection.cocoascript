@@ -70,15 +70,16 @@ var onRun = function(context) {
                 // Add bounds layer
                 var newBounds = CGRectMake(boundsLayerX, boundsLayerY, boundsLayerWidth, boundsLayerHeight);
                 var rectangle = MSRectangleShape.alloc().init();
-                    rectangle.setRect(newBounds);
-                var boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
-                    boundsLayer.setName(boundsLayerName);
-                parent.insertLayers_beforeLayer([boundsLayer], beforeLayer);
+                rectangle.setRect(newBounds);
 
-                // // Fill color for boundsLayer
-                // var boundsLayerFillColor = MSColor.colorWithRed_green_blue_alpha(255/255, 0/255, 0/255, 1.0);
-                // boundsLayer.style().addStylePartOfType(0);
-                // boundsLayer.style().fills().firstObject().setColor(boundsLayerFillColor);
+                var boundsLayer;
+                if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                    boundsLayer = rectangle;
+                } else {
+                    boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
+                }
+                boundsLayer.setName(boundsLayerName);
+                parent.insertLayer_beforeLayer(boundsLayer, beforeLayer);
 
                 // Select boundsLayer
                 if (boundsLayer.parentGroup() != layer){
@@ -117,7 +118,12 @@ var onRun = function(context) {
                         var childs = MSLayerArray.arrayWithLayers(layer.containedLayers());
                         var name = layer.name();
                         layer.ungroup();
-                        var newGroup = MSLayerGroup.groupFromLayers(childs);
+                        var newGroup;
+                        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                            newGroup = MSLayerGroup.groupWithLayers(childs);
+                        } else {
+                            newGroup = MSLayerGroup.groupFromLayers(childs);
+                        }
                         newGroup.setName(name);
                     }
                 }

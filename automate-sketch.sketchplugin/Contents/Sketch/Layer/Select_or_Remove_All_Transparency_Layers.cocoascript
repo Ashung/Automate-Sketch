@@ -132,7 +132,12 @@ function layerIsTransparency(layer) {
         }
     }
 
-    if (layer.class() == "MSShapeGroup") {
+    if (
+        layer.class() == "MSShapeGroup" ||
+        layer.class() == "MSRectangleShape" ||
+        layer.class() == "MSOvalShape" ||
+        layer.class() == "MSShapePathLayer"
+    ) {
         if (
             checkingFills(layer) &&
             checkingBorders(layer) &&

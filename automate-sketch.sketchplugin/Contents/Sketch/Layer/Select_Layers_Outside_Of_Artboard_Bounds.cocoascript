@@ -17,6 +17,9 @@ var onRun = function(context) {
                     child.class() == "MSSliceLayer" ||
                     child.class() == "MSLayerGroup" ||
                     child.class() == "MSShapeGroup" ||
+                    child.class() == "MSRectangleShape" ||
+                    child.class() == "MSOvalShape" ||
+                    child.class() == "MSShapePathLayer" ||
                     child.class() == "MSBitmapLayer" ||
                     child.class() == "MSTextLayer" ||
                     child.class() == "MSHotspotLayer" ||

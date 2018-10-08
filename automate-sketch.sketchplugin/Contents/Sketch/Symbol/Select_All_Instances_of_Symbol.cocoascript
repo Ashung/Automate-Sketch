@@ -122,18 +122,9 @@ function getCurrentSymbolMasterFromLayer(layer, callback) {
             callback(layer.symbolMaster());
         }
     }
-    if (
-        layer.class() == "MSLayerGroup" ||
-        layer.class() == "MSShapeGroup" ||
-        layer.class() == "MSTextLayer" ||
-        layer.class() == "MSBitmapLayer"
-    ) {
+    if (layer.parentGroup().class() != "MSPage") {
         getCurrentSymbolMasterFromLayer(layer.parentGroup(), callback);
-    }
-    if (
-        layer.class() == "MSArtboardGroup" ||
-        layer.class() == "MSPage"
-    ) {
+    } else {
         return;
     }
 }

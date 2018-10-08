@@ -106,6 +106,15 @@ function selectLayersInSelectionByType(context, type) {
         case "MSShapeGroup":
             friendlyTypeName = "shape";
             break;
+        case "MSRectangleShape":
+            friendlyTypeName = "shape";
+            break;
+        case "MSOvalShape":
+            friendlyTypeName = "shape";
+            break;
+        case "MSShapePathLayer":
+            friendlyTypeName = "shape";
+            break;
         case "MSBitmapLayer":
             friendlyTypeName = "image";
             break;

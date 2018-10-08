@@ -96,7 +96,12 @@ var onRun = function(context) {
             // Add palette layer
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
-            var palette = MSShapeGroup.shapeWithPath(rectangle);
+            var palette;
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                palette = rectangle;
+            } else {
+                palette = MSShapeGroup.shapeWithPath(rectangle);
+            }
             palette.style().addStylePartOfType(0);
             palette.style().fills().firstObject().setColor(color);
             palette.setName("color");
