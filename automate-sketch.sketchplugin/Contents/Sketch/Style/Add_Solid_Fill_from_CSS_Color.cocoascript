@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var colorKeywords = {
     "black": "#000000",
@@ -180,7 +181,6 @@ var onRun = function(context) {
 
         var defaultRandomColor = randomColors[Math.round(Math.random() * (randomColors.length - 1))];
 
-
         var cssCode = doc.askForUserInput_initialValue("hex, rgb, rgba, hsl, hsla, keywords", defaultRandomColor);
             cssCode = cssCode.replace(/\s+/g, "").toLowerCase();
 
@@ -198,9 +198,9 @@ var onRun = function(context) {
             // #rgb
             case (/^#?[0-9a-f]{3}$/.test(cssCode)):
                 rgba = [
-                    parseInt(repeatTwice(cssCode.substr(cssCode.length-3, 1)), 16),
-                    parseInt(repeatTwice(cssCode.substr(cssCode.length-2, 1)), 16),
-                    parseInt(repeatTwice(cssCode.substr(cssCode.length-1, 1)), 16),
+                    parseInt(cssCode.substr(cssCode.length-3, 1).repeat(2), 16),
+                    parseInt(cssCode.substr(cssCode.length-2, 1).repeat(2), 16),
+                    parseInt(cssCode.substr(cssCode.length-1, 1).repeat(2), 16),
                     1
                 ];
                 // log("#RGB: " + cssCode + " > " + rgba.toString());
@@ -257,10 +257,7 @@ var onRun = function(context) {
         while (layer = loopSelection.nextObject()) {
 
             if (
-                layer.class() == "MSShapeGroup" ||
-                layer.class() == "MSRectangleShape" ||
-                layer.class() == "MSOvalShape" ||
-                layer.class() == "MSShapePathLayer" ||
+                Sketch.isShapeLayer(layer) ||
                 layer.class() == "MSBitmapLayer"
             ) {
                 if (layer.style().enabledFills().count() == 0) {
@@ -292,10 +289,6 @@ var onRun = function(context) {
     ga(context, "Style");
 
 };
-
-function repeatTwice(repeatable) {
-    return repeatable.toString() + repeatable.toString();
-}
 
 function HSLtoRGB(h, s, l) {
     h = h / 360;

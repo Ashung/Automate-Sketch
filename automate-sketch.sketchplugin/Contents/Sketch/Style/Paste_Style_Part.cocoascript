@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var onRun = function(context) {
 
@@ -41,13 +42,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
-                            (layer.class() == "MSShapePathLayer" && layer.isLine() == false) ||
-                            layer.class() == "MSRectangleShape" ||
-                            layer.class() == "MSOvalShape" ||
-                            layer.class() == "MSTriangleShape" ||
-                            layer.class() == "MSStarShape" ||
-                            layer.class() == "MSPolygonShape" ||
+                            Sketch.isShapeLayer(layer) ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -69,13 +64,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            layer.class() == "MSShapeGroup" ||
-                            layer.class() == "MSShapePathLayer" ||
-                            layer.class() == "MSRectangleShape" ||
-                            layer.class() == "MSOvalShape" ||
-                            layer.class() == "MSTriangleShape" ||
-                            layer.class() == "MSStarShape" ||
-                            layer.class() == "MSPolygonShape" ||
+                            Sketch.isShapeLayer(layer) ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -97,13 +86,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            layer.class() == "MSShapeGroup" ||
-                            layer.class() == "MSShapePathLayer" ||
-                            layer.class() == "MSRectangleShape" ||
-                            layer.class() == "MSOvalShape" ||
-                            layer.class() == "MSTriangleShape" ||
-                            layer.class() == "MSStarShape" ||
-                            layer.class() == "MSPolygonShape" ||
+                            Sketch.isShapeLayer(layer) ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer" ||
                             layer.class() == "MSSymbolInstance" ||
@@ -127,13 +110,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            (layer.class() == "MSShapeGroup" && layer.isLine() == false) ||
-                            layer.class() == "MSShapePathLayer" ||
-                            layer.class() == "MSRectangleShape" ||
-                            layer.class() == "MSOvalShape" ||
-                            layer.class() == "MSTriangleShape" ||
-                            layer.class() == "MSStarShape" ||
-                            layer.class() == "MSPolygonShape" ||
+                            Sketch.isShapeLayer(layer) ||
                             layer.class() == "MSTextLayer" ||
                             layer.class() == "MSBitmapLayer"
                         ) {
@@ -156,15 +133,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
 
-                        if (
-                            layer.class() == "MSShapeGroup" ||
-                            layer.class() == "MSShapePathLayer" ||
-                            layer.class() == "MSRectangleShape" ||
-                            layer.class() == "MSOvalShape" ||
-                            layer.class() == "MSTriangleShape" ||
-                            layer.class() == "MSStarShape" ||
-                            layer.class() == "MSPolygonShape"
-                        ) {
+                        if (Sketch.isShapeLayer(layer)) {
                             if (MSApplicationMetadata.metadata().appVersion >= 52) {
                                 var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                                 layer.style().setBlur(style.blur());

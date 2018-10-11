@@ -1,5 +1,6 @@
 @import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var onRun = function(context) {
 
@@ -161,7 +162,7 @@ function selectLayerByName(parent, name, regexp, filterType, callback) {
                 (filterType == 2 && child.class() == "MSSymbolInstance") ||
                 (filterType == 3 && child.class() == "MSBitmapLayer") ||
                 (filterType == 4 && child.class() == "MSTextLayer") ||
-                (filterType == 5 && child.class() == "MSShapeGroup") ||
+                (filterType == 5 && Sketch.isShapeLayer(child)) ||
                 (filterType == 6 && child.class() == "MSSliceLayer") ||
                 (filterType == 7 && child.class() == "MSLayerGroup")
             ) {

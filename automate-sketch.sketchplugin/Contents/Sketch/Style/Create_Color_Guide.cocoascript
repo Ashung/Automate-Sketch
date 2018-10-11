@@ -175,7 +175,7 @@ function centerRect_byLayers(document, layers) {
 
 function MSColorToHEX(mscolor) {
     var alpha = mscolor.alpha() < 1 ? " (alpha:" + Math.round(mscolor.alpha() * 100) + "%)" : "";
-    return "#" + mscolor.NSColorWithColorSpace(nil).hexValue() + alpha;
+    return "#" + mscolor.immutableModelObject().hexValue() + alpha;
 }
 
 function MSColorToRGB(mscolor) {
@@ -217,7 +217,7 @@ function MSColorToCSSHSLA(mscolor) {
 }
 
 function MSColorToAndroid(mscolor) {
-    return "#" + Math.round(mscolor.alpha() * 255).toString(16).toUpperCase() + mscolor.NSColorWithColorSpace(nil).hexValue();
+    return "#" + Math.round(mscolor.alpha() * 255).toString(16).toUpperCase() + mscolor.immutableModelObject().hexValue();
 }
 
 function MSColorToNSColor(mscolor) {

@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var fillColorFromGlobalColors = function(context) {
     ga(context, "Style");
@@ -30,10 +31,7 @@ function fillColorFromColors(context, colors, alertMessage) {
     for (var i = 0; i < selection.count(); i++) {
         var layer = selection.objectAtIndex(i);
         if (
-            layer.class() == "MSShapeGroup" ||
-            layer.class() == "MSRectangleShape" ||
-            layer.class() == "MSOvalShape" ||
-            layer.class() == "MSShapePathLayer" ||
+            Sketch.isShapeLayer(layer) ||
             layer.class() == "MSTextLayer" ||
             layer.class() == "MSBitmapLayer"
         ) {
@@ -51,14 +49,8 @@ function fillColorFromColors(context, colors, alertMessage) {
 
 }
 
-function getFillColor(layer) {     
-    if (
-        layer.class() == "MSShapeGroup" ||
-        layer.class() == "MSRectangleShape" ||
-        layer.class() == "MSOvalShape" ||
-        layer.class() == "MSShapePathLayer" ||
-        layer.class() == "MSBitmapLayer"
-    ) {
+function getFillColor(layer) {
+    if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0) {
             if (fills.lastObject().fillType() == 0) {
@@ -76,7 +68,7 @@ function getFillColor(layer) {
 }
 
 function setFillColor(layer, color) {
-    if (layer.class() == "MSShapeGroup" || layer.class() == "MSBitmapLayer") {
+    if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0 && fills.lastObject().fillType() == 0) {
             fills.lastObject().setColor(color);
