@@ -9,6 +9,7 @@ symbol: 组件
 library: 库
 style: 样式
 guide: 辅助线
+data: 数据
 prototyping: 原型
 development: 开发
 utilities: 实用工具
@@ -195,3 +196,4 @@ large_decrease_height_from_bottom: 由底部减高 (大)
 small_decrease_height_from_center: 由中心减高 (小)
 large_decrease_height_from_center: 由中心减高 (大)
 replace_override_symbol: 替换覆盖组件
+export_data_from_text_layers: 从文本图层导出数据

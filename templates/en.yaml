@@ -9,6 +9,7 @@ symbol: Symbοl
 library: Library
 style: Style
 guide: Guide
+data: Data
 prototyping: Prototyping
 development: Development
 utilities: Utilities
@@ -195,3 +196,4 @@ large_decrease_height_from_bottom: Large Decrease Height From Bottom
 small_decrease_height_from_center: Small Decrease Height From Center
 large_decrease_height_from_center: Large Decrease Height From Center
 replace_override_symbol: Replace Override Symbol
+export_data_from_text_layers: Export Data From Text Layers

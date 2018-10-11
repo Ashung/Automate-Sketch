@@ -8,9 +8,10 @@ artboard: 畫板
 symbol: 元件
 library: 庫
 style: 样式
-development: 開發
 guide: 辅助线
+data: 數據
 prototyping: 原型
+development: 開發
 utilities: 實用工具
 help: 幫助
 fit_to_parent_width_with_margin: 帶邊距適配父級寬
@@ -195,3 +196,4 @@ large_decrease_height_from_bottom: 由底部減高 (大)
 small_decrease_height_from_center: 由中心減高 (小)
 large_decrease_height_from_center: 由中心減高 (大)
 replace_override_symbol: 替换覆蓋元件
+export_data_from_text_layers: 從文本圖層匯出數據

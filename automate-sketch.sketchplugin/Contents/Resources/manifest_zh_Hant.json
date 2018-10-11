@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.20181011",
+    "version": "52.2.20181012",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -933,6 +933,11 @@
             "script": "Symbol/Replace_Override_Symbol.cocoascript"
         },
         {
+            "name": "從文本圖層匯出數據",
+            "identifier": "export_data_from_text_layers",
+            "script": "Data/Export_Data_From_Text_Layers.cocoascript"
+        },
+        {
             "script": "Data/Supply_Data.cocoascript",
             "handlers": {
                 "actions": {
@@ -1206,6 +1211,12 @@
                     "-",
                     "save_export_presets",
                     "load_export_presets"
+                ]
+            },
+            {
+                "title": "數據",
+                "items": [
+                    "export_data_from_text_layers"
                 ]
             },
             {

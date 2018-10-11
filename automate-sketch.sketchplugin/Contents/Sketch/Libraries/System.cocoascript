@@ -21,6 +21,17 @@ System.chooseFolder = function() {
     }
 };
 
+System.savePanel = function(defaultName) {
+    var panel = NSSavePanel.savePanel();
+    if (defaultName) {
+        panel.setNameFieldStringValue(defaultName);
+    }
+    panel.setCanCreateDirectories(true);
+    if (panel.runModal() == NSOKButton) {
+        return panel.URL().path();
+    }
+};
+
 System.textsFromFile = function(path) {
     var contents = NSString.stringWithContentsOfFile_encoding_error(path, NSUTF8StringEncoding, nil);
     var data = contents.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet());
@@ -46,4 +57,14 @@ System.imagesFromFolder = function(path) {
         }
     });
     return images;
+};
+
+System.writeStringToFile = function(content, filePath) {
+    NSString.stringWithString(content).writeToFile_atomically_encoding_error_(
+        filePath, true, NSUTF8StringEncoding, nil
+    );
+};
+
+System.showInFinder = function(filePath) {
+    NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
 };
