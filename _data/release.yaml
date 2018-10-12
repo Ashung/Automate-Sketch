@@ -1,4 +1,16 @@
 -
+  version: 52.2.20181012
+  description: |-
+    <ul>
+    <li>Add Supply data from text file or image folder.</li>
+    <li>Add Export Data From Text Layers.</li>
+    <li>Add Export Image From Layers.</li>
+    <li>Add Export Data From Symbol Instances.</li>
+    <li>Fixed some Sketch 52.x issues. </li>
+    </ul>
+  commitID: 46b75098ed2b3216a3a1af7c882a876aca5dd6a0
+
+-
   version: 52.1.20181008
   description: |-
     <ul>
