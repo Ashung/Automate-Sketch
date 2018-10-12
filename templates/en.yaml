@@ -197,3 +197,5 @@ small_decrease_height_from_center: Small Decrease Height From Center
 large_decrease_height_from_center: Large Decrease Height From Center
 replace_override_symbol: Replace Override Symbol
 export_data_from_text_layers: Export Data From Text Layers
+export_image_from_layers: Export Image From Layers
+export_data_from_symbol_instances: Export Data From Symbol Instances

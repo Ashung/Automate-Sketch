@@ -197,3 +197,5 @@ small_decrease_height_from_center: 由中心减高 (小)
 large_decrease_height_from_center: 由中心减高 (大)
 replace_override_symbol: 替换覆盖组件
 export_data_from_text_layers: 从文本图层导出数据
+export_image_from_layers: 从图层导出图片
+export_data_from_symbol_instances: 从组件导出数据

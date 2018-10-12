@@ -11,11 +11,13 @@ System.chooseFile = function() {
     }
 };
 
-System.chooseFolder = function() {
+System.chooseFolder = function(setCanCreateDirectories) {
     var panel = NSOpenPanel.openPanel();
     panel.setCanChooseDirectories(true);
     panel.setCanChooseFiles(false);
-    panel.setCanCreateDirectories(false);
+    if (setCanCreateDirectories == true) {
+        panel.setCanCreateDirectories(true);
+    }
     if (panel.runModal() == NSOKButton) {
         return panel.URL().path();
     }
@@ -67,4 +69,10 @@ System.writeStringToFile = function(content, filePath) {
 
 System.showInFinder = function(filePath) {
     NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
+};
+
+System.mkdir = function(filePath) {
+    return NSFileManager.defaultManager().createDirectoryAtPath_withIntermediateDirectories_attributes_error_(
+        filePath, true, nil, nil
+    );
 };

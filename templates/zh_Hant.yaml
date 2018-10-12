@@ -197,3 +197,5 @@ small_decrease_height_from_center: 由中心減高 (小)
 large_decrease_height_from_center: 由中心減高 (大)
 replace_override_symbol: 替换覆蓋元件
 export_data_from_text_layers: 從文本圖層匯出數據
+export_image_from_layers: 從圖层匯出圖片
+export_data_from_symbol_instances: 從元件匯出數據
