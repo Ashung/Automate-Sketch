@@ -127,6 +127,12 @@
 | Hide All Grid/Layout                                         | 隐藏所有网格或布局。                                         |
 | Copy Grid/Layout/Guide                                       | 复制选中画板的网格、布局或辅助线信息。                       |
 | Paste Grid/Layout/Guide                                      | 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
+| **Data**                                                     | **数据**                                                     |
+| Export Data From Text Layers                                 | 将选中的文本图层内容导出到 TXT 文件。                        |
+| Export Image From Layers                                     | 导出选中的位图或位图填充图层内的图片。                       |
+| Export Data From Symbol Instances                            | 导出选中组件override上的文本和图片。                         |
+| Data - (Randrom) Image From Folder                           | 从图片文件夹获取图片数据，并随机或有序应用到形状图层或组件override上。 |
+| Data - (Randrom) Text From File                              | 从文本文件获取文本数据，并随机或有序应用到文本图层或组件override上。 |
 | **Prototyping**                                              | **原型**                                                     |
 | Bring All Hotspot to Front                                   | 置顶所有热区图层。                                           |
 | **Development**                                              | **开发**                                                     |
