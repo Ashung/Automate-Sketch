@@ -1,27 +1,28 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var selectAllGroupsInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSLayerGroup");
+    selectLayersInSelectionByType(context, "group");
 };
 
 var selectAllTextsInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSTextLayer");
+    selectLayersInSelectionByType(context, "text");
 };
 
 var selectAllShapesInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSShapeGroup");
+    selectLayersInSelectionByType(context, "shape");
 };
 
 var selectAllImagesInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSBitmapLayer");
+    selectLayersInSelectionByType(context, "image");
 };
 
 var selectAllSymbolInstancesInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSSymbolInstance");
+    selectLayersInSelectionByType(context, "symbol instance");
 };
 
 var selectAllSlicesInSelection = function(context) {
-    selectLayersInSelectionByType(context, "MSSliceLayer");
+    selectLayersInSelectionByType(context, "slice");
 };
 
 var selectAllExportableInSelection = function(context) {
@@ -95,39 +96,6 @@ function selectLayersInSelectionByType(context, type) {
 
     var totalCount = 0;
 
-    var friendlyTypeName = "";
-    switch (type) {
-        case "MSLayerGroup":
-            friendlyTypeName = "group";
-            break;
-        case "MSTextLayer":
-            friendlyTypeName = "text";
-            break;
-        case "MSShapeGroup":
-            friendlyTypeName = "shape";
-            break;
-        case "MSRectangleShape":
-            friendlyTypeName = "shape";
-            break;
-        case "MSOvalShape":
-            friendlyTypeName = "shape";
-            break;
-        case "MSShapePathLayer":
-            friendlyTypeName = "shape";
-            break;
-        case "MSBitmapLayer":
-            friendlyTypeName = "image";
-            break;
-        case "MSSymbolInstance":
-            friendlyTypeName = "symbol";
-            break;
-        case "MSSliceLayer":
-            friendlyTypeName = "slice";
-            break;
-        default:
-            friendlyTypeName = "";
-    }
-
     // Fix Sketch 45
     if (page.deselectAllLayers) {
         page.deselectAllLayers();
@@ -148,13 +116,12 @@ function selectLayersInSelectionByType(context, type) {
         }
     }
 
-    friendlyTypeName = friendlyTypeName ? " " + friendlyTypeName : "";
     if (totalCount == 0) {
-        doc.showMessage("No layer" + friendlyTypeName + " found.");
+        doc.showMessage(`No ${type} layer found.`);
     } else if (totalCount == 1) {
-        doc.showMessage("Select 1" + friendlyTypeName + " layer.");
+        doc.showMessage(`Select 1 ${type} layer.`);
     } else {
-        doc.showMessage("Select " + totalCount + friendlyTypeName + " layers.");
+        doc.showMessage(`Select ${totalCount} ${type} layers.`);
     }
 
     ga(context, "Layer");
@@ -171,11 +138,11 @@ function selectLayersInParent_byType(parent, type, callback) {
         parent.containsLayers() && parent.class() != "MSShapeGroup"
     ) {
 
-        if (type == "MSLayerGroup") {
+        if (type == "group") {
             var loopLayes = parent.layers().objectEnumerator();
             var layer;
             while (layer = loopLayes.nextObject()) {
-                if (layer.class() == type) {
+                if (layer.class() == "MSLayerGroup") {
                     // Fix Sketch 45
                     if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);
@@ -188,7 +155,7 @@ function selectLayersInParent_byType(parent, type, callback) {
                     var loopLayesInArtboard = layer.layers().objectEnumerator();
                     var layerInArtboard;
                     while (layerInArtboard = loopLayesInArtboard.nextObject()) {
-                        if (layerInArtboard.class() == type) {
+                        if (layerInArtboard.class() == "MSLayerGroup") {
                             // Fix Sketch 45
                             if (appVersion < 45) {
                                 layerInArtboard.select_byExpandingSelection(true, true);
@@ -204,17 +171,21 @@ function selectLayersInParent_byType(parent, type, callback) {
             var loopChildrens = parent.children().objectEnumerator();
             var layer;
             while (layer = loopChildrens.nextObject()) {
-                if (layer.class() == type) {
-
+                
+                if (
+                    (type == "text" && layer.class() == "MSTextLayer") ||
+                    (type == "shape" && Sketch.isShapeLayer(layer)) ||
+                    (type == "image" && layer.class() == "MSBitmapLayer") ||
+                    (type == "slice" && layer.class() == "MSSliceLayer") ||
+                    (type == "symbol instance" && layer.class() == "MSSymbolInstance")
+                ) {
                     // Fix Sketch 45
                     if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);
                     } else {
                         layer.select_byExtendingSelection(true, true);
                     }
-
                     count ++;
-
                 }
             }
         }

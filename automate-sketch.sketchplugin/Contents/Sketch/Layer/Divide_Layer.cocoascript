@@ -1,5 +1,6 @@
 @import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var onRun = function(context) {
 
@@ -13,12 +14,7 @@ var onRun = function(context) {
     }
 
     var layer = selection.firstObject();
-    if (
-        layer.class() == "MSShapeGroup" ||
-        layer.class() == "MSRectangleShape" ||
-        layer.class() == "MSOvalShape" ||
-        (layer.class() == "MSShapePathLayer" && layer.isLine() == false)
-    ) {
+    if (Sketch.isShapeLayer(layer)) {
         // \d+x\d+
         var userInputString = doc.askForUserInput_initialValue(
             "Input 2x2, 2x1 or 1x2.",

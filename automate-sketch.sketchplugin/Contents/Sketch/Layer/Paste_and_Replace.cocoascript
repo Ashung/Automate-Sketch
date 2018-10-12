@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var onRun = function(context) {
 
@@ -67,12 +68,7 @@ var onRun = function(context) {
                     if (
                         oldLayer.hasClippingMask() &&
                         pasteboardLayers.layers().layers().count() == 1 &&
-                        (
-                            group.layers().firstObject().class() == "MSShapeGroup" ||
-                            group.layers().firstObject().class() == "MSRectangleShape" ||
-                            group.layers().firstObject().class() == "MSOvalShape" ||
-                            group.layers().firstObject().class() == "MSShapePathLayer"
-                        )
+                        Sketch.isShapeLayer(group.layers().firstObject())
                     ) {
                         group.layers().firstObject().setHasClippingMask(true);
                     }

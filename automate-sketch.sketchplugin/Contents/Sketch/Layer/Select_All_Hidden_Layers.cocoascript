@@ -7,6 +7,11 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if (selection.count() > 0) {
+        if (page.deselectAllLayers) {
+            page.deselectAllLayers();
+        } else {
+            page.changeSelectionBySelectingLayers(nil);
+        }
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
             selectHiddenLayer(layer);
@@ -20,7 +25,6 @@ var onRun = function(context) {
 };
 
 function selectHiddenLayer(layer) {
-
     if (!layer.isVisible()) {
         // Fix Sketch 45
         if (MSApplicationMetadata.metadata().appVersion < 45) {

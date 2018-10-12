@@ -1,4 +1,5 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Sketch.cocoascript";
 
 var removeTransparencyLayersHandler = function(context) {
 
@@ -47,6 +48,13 @@ var selectTransparencyLayersHandler = function(context) {
     var selection = context.selection;
 
     if (selection.count() > 0) {
+
+        // Fix Sketch 45
+        if (page.deselectAllLayers) {
+            page.deselectAllLayers();
+        } else {
+            page.changeSelectionBySelectingLayers(nil);
+        }
 
         var loopSelection = selection.objectEnumerator();
         var layer;
@@ -132,12 +140,7 @@ function layerIsTransparency(layer) {
         }
     }
 
-    if (
-        layer.class() == "MSShapeGroup" ||
-        layer.class() == "MSRectangleShape" ||
-        layer.class() == "MSOvalShape" ||
-        layer.class() == "MSShapePathLayer"
-    ) {
+    if (Sketch.isShapeLayer(layer)) {
         if (
             checkingFills(layer) &&
             checkingBorders(layer) &&

@@ -5,9 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.1.20181008",
+    "version": "52.2.20181012",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
+    "suppliesData" : true,
     "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
@@ -930,6 +931,34 @@
             "name": "替换覆蓋元件",
             "identifier": "replace_override_symbol",
             "script": "Symbol/Replace_Override_Symbol.cocoascript"
+        },
+        {
+            "name": "從文本圖層匯出數據",
+            "identifier": "export_data_from_text_layers",
+            "script": "Data/Export_Data_From_Text_Layers.cocoascript"
+        },
+        {
+            "name": "從圖层匯出圖片",
+            "identifier": "export_image_from_layers",
+            "script": "Data/Export_Image_From_Layers.cocoascript"
+        },
+        {
+            "name": "從元件匯出數據",
+            "identifier": "export_data_from_symbol_instances",
+            "script": "Data/Export_Data_From_Symbol_Instances.cocoascript"
+        },
+        {
+            "script": "Data/Supply_Data.cocoascript",
+            "handlers": {
+                "actions": {
+                    "Startup": "onStartup",
+                    "Shutdown": "onShutdown",
+                    "SupplyTextFromFile": "onSupplyTextFromFile",
+                    "SupplyImageFromFolder": "onSupplyImageFromFolder",
+                    "SupplyRandomTextFromFile": "onSupplyRandomTextFromFile",
+                    "SupplyRandomImageFromFolder": "onSupplyRandomImageFromFolder"
+                }
+            }
         }
     ],
     "menu": {
@@ -1192,6 +1221,14 @@
                     "-",
                     "save_export_presets",
                     "load_export_presets"
+                ]
+            },
+            {
+                "title": "數據",
+                "items": [
+                    "export_data_from_text_layers",
+                    "export_image_from_layers",
+                    "export_data_from_symbol_instances"
                 ]
             },
             {

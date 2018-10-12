@@ -183,6 +183,13 @@ var onRun = function(context) {
             "compatibilityVersion": "99",
             "commit":"44fbd80fbaed5dccd549e2fcf407dc48b5b4a84e"
         }
+        // {
+        //     "appVersion": "52.2",
+        //     "build": "67145",
+        //     "version": "112",
+        //     "compatibilityVersion": "99",
+        //     "commit":"623a23f2c4848acdbb1a38c2689e571eb73eb823"
+        // }
     ];
 
     var versions = sketchMetaDatas.map(function(item) {
