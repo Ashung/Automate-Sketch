@@ -16,7 +16,7 @@ var onShutdown = function() {
 
 var onSupplyTextFromFile = function(context) {
     ga(context, "Data");
-    var texts = textsFromFile();
+    var texts = System.textsFromChooseFile();
     if (texts.length > 0) {
         supplyOrderedData(context, texts);
     }
@@ -24,7 +24,7 @@ var onSupplyTextFromFile = function(context) {
 
 var onSupplyImageFromFolder = function(context) {
     ga(context, "Data");
-    var images = imagesFromFolder();
+    var images = System.imagesFromChooseFolder();
     if (images.length > 0) {
         supplyOrderedData(context, images);
     }
@@ -32,7 +32,7 @@ var onSupplyImageFromFolder = function(context) {
 
 var onSupplyRandomTextFromFile = function(context) {
     ga(context, "Data");
-    var texts = textsFromFile();
+    var texts = System.textsFromChooseFile();
     if (texts.length > 0) {
         supplyRandomData(context, texts);
     }
@@ -40,29 +40,11 @@ var onSupplyRandomTextFromFile = function(context) {
 
 var onSupplyRandomImageFromFolder = function(context) {
     ga(context, "Data");
-    var images = imagesFromFolder();
+    var images = System.imagesFromChooseFolder();
     if (images.length > 0) {
         supplyRandomData(context, images);
     }
 };
-
-function textsFromFile() {
-    var textFile = System.chooseFile();
-    if (textFile == nil) {
-        return [];
-    } else {
-        return System.textsFromFile(textFile);
-    }
-}
-
-function imagesFromFolder() {
-    var imageFolder = System.chooseFolder();
-    if (imageFolder == nil) {
-        return [];
-    } else {
-        return System.imagesFromFolder(imageFolder);
-    }
-}
 
 function supplyOrderedData(context, data) {
     for (var i = 0; i < context.data.requestedCount; i++) {
