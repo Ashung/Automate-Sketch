@@ -99,17 +99,38 @@ var onRun = function(context) {
             slice.frame().setX(Math.round(slice.frame().x()));
             slice.frame().setY(Math.round(slice.frame().y()));
 
+            // layer order
             if (
-                layer.class() == "MSLayerGroup" ||
-                layer.class() == "MSArtboardGroup" ||
-                layer.class() == "MSSymbolMaster"
+                getPreferences(context, "slice_layer_order") == null ||
+                getPreferences(context, "slice_layer_order") == "0" ||
+                getPreferences(context, "slice_layer_order") == "1"
             ) {
-                slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
-                if (layer.class() == "MSLayerGroup") {
-                    slice.exportOptions().setLayerOptions(2);
+                if (
+                    layer.class() == "MSLayerGroup" ||
+                    layer.class() == "MSArtboardGroup" ||
+                    layer.class() == "MSSymbolMaster"
+                ) {
+                    if (layer.class() == "MSLayerGroup") {
+                        slice.exportOptions().setLayerOptions(2);
+                    }
+                    if (getPreferences(context, "slice_layer_order") == "1") {
+                        slice.moveToLayer_beforeLayer(layer, nil);
+                    } else {
+                        slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
+                    }
+                } else {
+                    if (getPreferences(context, "slice_layer_order") == "1") {
+                        var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
+                        var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
+                        slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
+                    } else {
+                        slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
+                    }
                 }
-            } else {
-                slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
+            }
+
+            if (slice.parentGroup().class() == "MSLayerGroup") {
+                slice.exportOptions().setLayerOptions(2);
             }
 
             slice.exportOptions().setExportFormats(exportPresets.objectAtIndex(exportPresetIndex).exportFormats());

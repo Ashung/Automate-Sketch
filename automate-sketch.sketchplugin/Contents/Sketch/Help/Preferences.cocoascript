@@ -1,0 +1,41 @@
+@import "../Libraries/Preferences.cocoascript";
+@import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
+
+var onRun = function(context) {
+
+    ga(context, "Preferences");
+
+    // Dialog
+    var dialog = UI.cosDialog(
+        "Preferences",
+        "",
+        ["Close"]
+    );
+
+    var labeb1 = UI.groupLabel("Paste and Replace");
+    dialog.addAccessoryView(labeb1);
+    var infoText1 = UI.textLabel("The position of new layer.");
+    dialog.addAccessoryView(infoText1);
+    var layerPosition = UI.popupButton(["Top-left on the old one (default).", "Center on the old one."]);
+    dialog.addAccessoryView(layerPosition);
+    layerPosition.selectItemAtIndex(parseInt(getPreferences(context, "paste_and_replace_layer_position")) || 0);
+    layerPosition.setCOSJSTargetFunction(function(sender) {
+        setPreferences(context, "paste_and_replace_layer_position", String(sender.indexOfSelectedItem()));
+    });
+
+    var labeb2 = UI.groupLabel("Slice Layer Order");
+    dialog.addAccessoryView(labeb2);
+    var infoText2 = UI.textLabel("Layer order of new slice which create from \"Auto Slice\" and \"Fast Slice\".", [300, 32]);
+    dialog.addAccessoryView(infoText2);
+    var sliceOrder = UI.popupButton(["Bottom, inside a group. (default)", "Top, inside a group.", "Top of layer list."]);
+    dialog.addAccessoryView(sliceOrder);
+    sliceOrder.selectItemAtIndex(parseInt(getPreferences(context, "slice_layer_order")) || 0);
+    sliceOrder.setCOSJSTargetFunction(function(sender) {
+        setPreferences(context, "slice_layer_order", String(sender.indexOfSelectedItem()));
+    });
+
+    // Run
+    dialog.runModal();
+
+};

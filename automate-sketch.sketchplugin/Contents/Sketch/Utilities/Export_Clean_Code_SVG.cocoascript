@@ -251,7 +251,7 @@ var onRun = function(context) {
                             svgCode = msg;
                             svgCode = svgCode.replace(/\s*$/g, "");
                         }
-                    });
+                    }
                 );
 
             }

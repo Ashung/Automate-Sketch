@@ -13,6 +13,7 @@ data: 数据
 prototyping: 原型
 development: 开发
 utilities: 实用工具
+preferences: 参数设置
 help: 帮助
 fit_to_parent_width_with_margin: 带边距适配父级宽
 fit_to_parent_height_with_margin: 带边距适配父级高
@@ -153,6 +154,7 @@ import_document_assets_from_library: 从库导入文档资源
 import_styles_from_library: 从库导入样式
 select_layers_by_layer_style: 按图层样式选择图层
 select_layers_by_text_style: 按文本样式选择图层
+select_layers_with_same_style: 按相同样式选择图层
 export_clean_code_svg: 导出代码整洁的 SVG
 split_text_layer: 拆分文本图层
 combine_text_layer: 合并文本图层
