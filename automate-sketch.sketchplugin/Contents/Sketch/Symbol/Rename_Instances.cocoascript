@@ -76,7 +76,7 @@ function renameInstances(context, instances, title, message) {
     var labelCustomName = labelView("Custom name");
     views.addObject(labelCustomName);
 
-    var inputCustomName = textFieldView(getPreferences(context, "custom_instance_name") || "");
+    var inputCustomName = textFieldView(getPreferences(context, "customInstanceName") || "");
     textFieldEditable(inputCustomName, false);
     views.addObject(inputCustomName);
 
@@ -109,7 +109,7 @@ function renameInstances(context, instances, title, message) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        setPreferences(context, "custom_instance_name", inputCustomName.stringValue());
+        setPreferences(context, "customInstanceName", inputCustomName.stringValue());
 
         var loopInstances = instances.objectEnumerator();
         var instance;

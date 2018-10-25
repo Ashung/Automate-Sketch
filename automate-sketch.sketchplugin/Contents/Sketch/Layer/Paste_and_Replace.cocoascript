@@ -64,7 +64,7 @@ var onRun = function(context) {
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     
                     // Position
-                    if (getPreferences(context, "paste_and_replace_layer_position") == "1") {
+                    if (getPreferences(context, "pasteAndReplaceLayerPosition") == "1") {
                         group.frame().setMidX(Math.round(oldLayer.frame().midX()));
                         group.frame().setMidY(Math.round(oldLayer.frame().midY()));
                     } else {

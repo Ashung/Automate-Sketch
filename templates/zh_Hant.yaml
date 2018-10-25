@@ -107,6 +107,7 @@ edit_plugin_setting: 外部外掛編輯器設定
 script_editor_setting: 指令碼編輯器設定
 convert_to_other_version: 轉換 Sketch 檔案至其他版本
 paste_and_replace: 貼上並替換
+paste_and_replace_setting: 貼上並替換設定
 swap_fill_and_border: 互換填充和描邊
 hide_all_grid: 隱藏所有網格
 hide_all_layout: 隱藏所有佈局
@@ -161,7 +162,7 @@ combine_text_layer: 合併文字圖層
 select_layers_outside_of_artboard_bounds: 選擇畫板邊界外的圖層
 nine_slice_from_bitmap_layer: 從點陣圖建立九宮格拉伸圖層
 fast_slice: 快速切片
-fast_slice_setting: 快速切片設定
+slice_setting: 切片設定
 select_reverse: 反選
 toggle_layer_constrain_proportions: 圖層比例限制開關
 change_local_text_style_to_library_text_style: 本地文字樣式轉為庫樣式

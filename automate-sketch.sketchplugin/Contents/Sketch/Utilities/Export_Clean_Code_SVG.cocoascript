@@ -68,7 +68,7 @@ var onRun = function(context) {
     var ignoreLayerName = UI.checkBox(false, "Ignore layer with following names.");
     dialog.addAccessoryView(ignoreLayerName);
 
-    var defaultIgnoreLayerName = getPreferences(context, "ignore_layer_name") || "#,bounds,tint,color"
+    var defaultIgnoreLayerName = getPreferences(context, "ignoreLayerName") || "#,bounds,tint,color"
     var ignoreLayerNames = UI.textField(defaultIgnoreLayerName);
     UI.disableTextField(ignoreLayerNames);
     dialog.addAccessoryView(ignoreLayerNames);
@@ -127,7 +127,7 @@ var onRun = function(context) {
         var ignoreLayerNamesArray = [];
         if (ignoreLayerName.state() == NSOnState) {
             ignoreLayerNamesArray = ignoreLayerNames.stringValue().split(/\s*,\s*/);
-            setPreferences(context, "ignore_layer_name", ignoreLayerNamesArray.toString());
+            setPreferences(context, "ignoreLayerName", ignoreLayerNamesArray.toString());
         }
 
         var exportedSVGFiles = NSMutableArray.alloc().init();

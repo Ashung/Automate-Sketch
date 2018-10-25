@@ -1,5 +1,4 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
+@import "Fast_Slice.cocoascript";
 
 var onRun = function(context) {
 
@@ -17,33 +16,33 @@ var onRun = function(context) {
 
     // Preferences
     var defaultUserInput = getPreferences(context, "sliceSize") || "0";
-    var defaultExportPresetIndex = getPreferences(context, "sliceExportPreset") || 0;
+    var defaultExportPresetIndex = getPreferences(context, "sliceExportPresetIndex") || 0;
+    var sliceNameFormat = getPreferences(context, "sliceNameFormat") || 0;
+    var renameSliceLayer = getPreferences(context, "renameSliceLayer") || false;
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Auto Slice");
-    dialog.setInformativeText("Input the size like 24, 24x24 or 0, use 0 means to fit the layer size.");
+    var dialog = UI.cosDialog(
+        "Auto Slice",
+        "Input the size like 24, 24x24 or 0, use 0 means to fit the layer size."
+    );
 
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
 
-    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 170, 24));
-    textField.setStringValue(defaultUserInput);
-    textField.setPlaceholderString("24, 24x24 or 0")
+    var textField = UI.textField(defaultUserInput, [0, 0, 170, 24]);
     view.addSubview(textField);
 
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(180, 0, 120, 24));
-    var loopExportPresets = exportPresets.objectEnumerator();
-    var exportPreset;
-    while (exportPreset = loopExportPresets.nextObject()) {
-        selectBox.addItemWithTitle(exportPreset.name());
-    }
+    var exportPresetTitles = exportPresets.slice().map(function(item) {
+        return item.name()
+    });
+    var selectBox = UI.popupButton(exportPresetTitles, [180, 0, 120, 24]);
     selectBox.selectItemAtIndex(defaultExportPresetIndex);
     view.addSubview(selectBox);
 
     dialog.addAccessoryView(view);
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
     dialog.alert().window().setInitialFirstResponder(textField);
+
+    var renameSliceCheckbox = UI.checkBox(renameSliceLayer, "Rename slice layer to url-friendly format.")
+    dialog.addAccessoryView(renameSliceCheckbox);
 
     // Run
     var responseCode = dialog.runModal();
@@ -53,7 +52,10 @@ var onRun = function(context) {
         setPreferences(context, "sliceSize", userInputString);
 
         var exportPresetIndex = selectBox.indexOfSelectedItem();
-        setPreferences(context, "sliceExportPreset", exportPresetIndex);
+        setPreferences(context, "sliceExportPresetIndex", exportPresetIndex);
+
+        var renameSliceBoolean = renameSliceCheckbox.state() == NSOnState ? true : false;
+        setPreferences(context, "renameSliceLayer", renameSliceBoolean);
 
         // Add Slice
         var loopSelection = selection.objectEnumerator();
@@ -101,9 +103,9 @@ var onRun = function(context) {
 
             // layer order
             if (
-                getPreferences(context, "slice_layer_order") == null ||
-                getPreferences(context, "slice_layer_order") == "0" ||
-                getPreferences(context, "slice_layer_order") == "1"
+                getPreferences(context, "sliceLayerOrder") == null ||
+                getPreferences(context, "sliceLayerOrder") == "0" ||
+                getPreferences(context, "sliceLayerOrder") == "1"
             ) {
                 if (
                     layer.class() == "MSLayerGroup" ||
@@ -113,13 +115,13 @@ var onRun = function(context) {
                     if (layer.class() == "MSLayerGroup") {
                         slice.exportOptions().setLayerOptions(2);
                     }
-                    if (getPreferences(context, "slice_layer_order") == "1") {
+                    if (getPreferences(context, "sliceLayerOrder") == "1") {
                         slice.moveToLayer_beforeLayer(layer, nil);
                     } else {
                         slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
                     }
                 } else {
-                    if (getPreferences(context, "slice_layer_order") == "1") {
+                    if (getPreferences(context, "sliceLayerOrder") == "1") {
                         var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
                         var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
                         slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
@@ -127,6 +129,36 @@ var onRun = function(context) {
                         slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
                     }
                 }
+            }
+
+            // Slice layer name
+            if (renameSliceCheckbox.state() == NSOnState) {
+                var layerName = layer.name();
+                // group/base_name
+                if (sliceNameFormat == 0) {
+                    layerName = formatLayerName(layerName, "_", "/", { removeStartDigits: true });
+                }
+                // group/base-name
+                if (sliceNameFormat == 1) {
+                    layerName = formatLayerName(layerName, "-", "/", { removeStartDigits: true });
+                }
+                // group_base_name
+                if (sliceNameFormat == 2) {
+                    layerName = formatLayerName(layerName, "_", "_").replace(/^\d+_*/, "");
+                }
+                // group-base-name
+                if (sliceNameFormat == 3) {
+                    layerName = formatLayerName(layerName, "-", "-").replace(/^\d+-*/, "");
+                }
+                // base_name
+                if (sliceNameFormat == 4) {
+                    layerName = cropLayerName(layerName, "_").replace(/^\d+_*/, "");
+                }
+                // base-name
+                if (sliceNameFormat == 5) {
+                    layerName = cropLayerName(layerName, "-").replace(/^\d+-*/, "");
+                }
+                slice.setName(layerName);
             }
 
             if (slice.parentGroup().class() == "MSLayerGroup") {

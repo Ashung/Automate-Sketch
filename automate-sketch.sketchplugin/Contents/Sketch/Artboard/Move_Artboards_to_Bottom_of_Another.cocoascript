@@ -57,7 +57,7 @@ var onRun = function(context) {
 
     dialog.addTextLabelWithValue("Space Between 2 Artboards:");
     var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 50, 24));
-    var gap = getPreferences(context, "space_between_two_artboards") || "50";
+    var gap = getPreferences(context, "spaceBetweenArtboards") || "50";
     textField.setStringValue(gap);
     dialog.addAccessoryView(textField);
 
@@ -67,7 +67,7 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        setPreferences(context, "space_between_two_artboards", textField.stringValue());
+        setPreferences(context, "spaceBetweenArtboards", textField.stringValue());
 
         var target = artboards.objectAtIndex(selectBox.indexOfSelectedItem());
         var space = parseInt(textField.stringValue());

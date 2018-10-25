@@ -22,7 +22,7 @@ var onRun = function(context) {
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
-    var defaultUserInput = getPreferences(context, "fit_to_parent_margins") || "0";
+    var defaultUserInput = getPreferences(context, "fitToParentMargins") || "0";
     var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
     textField.setStringValue(defaultUserInput);
     dialog.addAccessoryView(textField);
@@ -67,7 +67,7 @@ var onRun = function(context) {
             return;
         }
 
-        setPreferences(context, "fit_to_parent_margins", userInput.toString());
+        setPreferences(context, "fitToParentMargins", userInput.toString());
 
         var loopSelection = selection.objectEnumerator();
         var layer;

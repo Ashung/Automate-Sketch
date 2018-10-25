@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.20181022",
+    "version": "52.2.20181025",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -736,9 +736,9 @@
             "script": "Slice/Fast_Slice.cocoascript"
         },
         {
-            "name": "Fast Slice Setting",
-            "identifier": "fast_slice_setting",
-            "handler": "runFastSliceSetting",
+            "name": "Slice Setting",
+            "identifier": "slice_setting",
+            "handler": "runSliceSetting",
             "script": "Slice/Fast_Slice.cocoascript"
         },
         {
@@ -948,9 +948,9 @@
             "script": "Data/Export_Data_From_Symbol_Instances.cocoascript"
         },
         {
-            "name": "Preferences",
-            "identifier": "preferences",
-            "script": "Help/Preferences.cocoascript"
+            "name": "Paste and Replace Setting",
+            "identifier": "paste_and_replace_setting",
+            "script": "Layer/Paste_and_Replace_Setting.cocoascript"
         },
         {
             "name": "Select Layers With Same Style",
@@ -1062,6 +1062,7 @@
                     "select_reverse",
                     "-",
                     "paste_and_replace",
+                    "paste_and_replace_setting",
                     "-",
                     "remove_redundant_groups",
                     "remove_empty_groups",
@@ -1225,7 +1226,7 @@
                 "items": [
                     "auto_slice",
                     "fast_slice",
-                    "fast_slice_setting",
+                    "slice_setting",
                     "-",
                     "clear_slices",
                     "clear_exportables",
@@ -1277,7 +1278,6 @@
                     "open_terminal_at_file_folder"
                 ]
             },
-            "preferences",
             {
                 "title": "Help",
                 "items": [
