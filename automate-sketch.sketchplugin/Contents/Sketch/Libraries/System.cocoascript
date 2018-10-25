@@ -53,6 +53,7 @@ System.imagesFromFolder = function(path) {
     var supportFormats = ["png", "jpg", "jpeg", "tif", "tiff", "gif", "webp", "bmp"];
     var fileManager = NSFileManager.defaultManager();
     var fileList = fileManager.contentsOfDirectoryAtPath_error(path, nil);
+    fileList = fileList.sortedArrayUsingSelector("localizedStandardCompare:");
     fileList.forEach(function(file) {
         if (supportFormats.indexOf(String(file.pathExtension().lowercaseString())) != -1) {
             images.push(path + "/" + file);
@@ -60,6 +61,24 @@ System.imagesFromFolder = function(path) {
     });
     return images;
 };
+
+System.textsFromChooseFile = function() {
+    var textFile = System.chooseFile();
+    if (textFile == nil) {
+        return [];
+    } else {
+        return System.textsFromFile(textFile);
+    }
+}
+
+System.imagesFromChooseFolder = function() {
+    var imageFolder = System.chooseFolder();
+    if (imageFolder == nil) {
+        return [];
+    } else {
+        return System.imagesFromFolder(imageFolder);
+    }
+}
 
 System.writeStringToFile = function(content, filePath) {
     NSString.stringWithString(content).writeToFile_atomically_encoding_error_(

@@ -2,7 +2,8 @@
 
 var onRun = function(context) {
 
-    var doc = context.document;
+    var document = context.document;
+    var currentPage = document.currentPage();
     var selection = context.selection;
 
     if (selection.count() > 1) {
@@ -17,8 +18,12 @@ var onRun = function(context) {
 
         tempLayer.removeFromParent();
 
+        currentPage.changeSelectionBySelectingLayers(nil)
+        currentPage.changeSelectionBySelectingLayers(selection.reverseObjectEnumerator().allObjects());
+    
+
     } else {
-        doc.showMessage("You need to select at least 2 layers.");
+        document.showMessage("You need to select at least 2 layers.");
     }
 
     ga(context, "Arrange");

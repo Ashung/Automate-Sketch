@@ -11,16 +11,16 @@ var runFastSlice = function(context) {
 
     // Checking if need to run setting first.
     var runSettingFirst = false;
-    var fastSlicePresetIndex = getPreferences(context, "fastSlicePresetIndex");
-    var fastSlicePresetName = getPreferences(context, "fastSlicePresetName");
-    var fastSliceNameFormat = getPreferences(context, "fastSliceNameFormat");
-    if (!fastSlicePresetIndex || !fastSlicePresetIndex || !fastSliceNameFormat) {
+    var sliceExportPresetIndex = getPreferences(context, "sliceExportPresetIndex");
+    var sliceExportPresetName = getPreferences(context, "sliceExportPresetName");
+    var sliceNameFormat = getPreferences(context, "sliceNameFormat");
+    if (!sliceExportPresetIndex || !sliceExportPresetName || !sliceNameFormat) {
         runSettingFirst = true;
     }
     else {
-        var defaultPreset = exportPresets.objectAtIndex(fastSlicePresetIndex);
+        var defaultPreset = exportPresets.objectAtIndex(sliceExportPresetIndex);
         if (defaultPreset) {
-            if (defaultPreset.name() != fastSlicePresetName) {
+            if (defaultPreset.name() != sliceExportPresetName) {
                 runSettingFirst = true;
             }
         }
@@ -29,16 +29,16 @@ var runFastSlice = function(context) {
         }
     }
     if (runSettingFirst) {
-        document.showMessage("You may first time run Fast Slice, so config the Fast Slice Setting first.");
-        var setting = fastSliceSetting(context);
+        document.showMessage("You may first time run Fast Slice, so config the slice setting first.");
+        var setting = sliceSetting(context);
         if (setting != 1000) {
-            document.showMessage("You must confirm the Fast Slice Setting.");
+            document.showMessage("You must confirm the slice setting.");
             return;
         }
         if (setting == 1000) {
-            fastSlicePresetIndex = getPreferences(context, "fastSlicePresetIndex");
-            fastSlicePresetName = getPreferences(context, "fastSlicePresetName");
-            fastSliceNameFormat = getPreferences(context, "fastSliceNameFormat");
+            sliceExportPresetIndex = getPreferences(context, "sliceExportPresetIndex");
+            sliceExportPresetName = getPreferences(context, "sliceExportPresetName");
+            sliceNameFormat = getPreferences(context, "sliceNameFormat");
         }
     }
 
@@ -66,50 +66,67 @@ var runFastSlice = function(context) {
         slice.makeOriginIntegral();
         slice.makeOriginIntegral();
 
+        // layer order
         if (
-            layer.class() == "MSLayerGroup" ||
-            layer.class() == "MSArtboardGroup" ||
-            layer.class() == "MSSymbolMaster"
+            getPreferences(context, "sliceLayerOrder") == null ||
+            getPreferences(context, "sliceLayerOrder") == "0" ||
+            getPreferences(context, "sliceLayerOrder") == "1"
         ) {
-            slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
-            if (layer.class() == "MSLayerGroup") {
-                slice.exportOptions().setLayerOptions(2);
+            if (
+                layer.class() == "MSLayerGroup" ||
+                layer.class() == "MSArtboardGroup" ||
+                layer.class() == "MSSymbolMaster"
+            ) {
+                if (layer.class() == "MSLayerGroup") {
+                    slice.exportOptions().setLayerOptions(2);
+                }
+                if (getPreferences(context, "sliceLayerOrder") == "1") {
+                    slice.moveToLayer_beforeLayer(layer, nil);
+                } else {
+                    slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
+                }
+            } else {
+                if (getPreferences(context, "sliceLayerOrder") == "1") {
+                    var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
+                    var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
+                    slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
+                } else {
+                    slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
+                }
             }
-        } else {
-            slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
         }
 
         if (slice.parentGroup().class() == "MSLayerGroup") {
             slice.exportOptions().setLayerOptions(2);
         }
 
-        var exportFormats = exportPresets.objectAtIndex(fastSlicePresetIndex).exportFormats();
+        var exportFormats = exportPresets.objectAtIndex(sliceExportPresetIndex).exportFormats();
         slice.exportOptions().setExportFormats(exportFormats);
 
         // Slice layer name
         var layerName = layer.name();
         // group/base_name
-        if (fastSliceNameFormat == 0) {
+        if (sliceNameFormat == 0) {
             layerName = formatLayerName(layerName, "_", "/", { removeStartDigits: true });
         }
         // group/base-name
-        if (fastSliceNameFormat == 1) {
+        if (sliceNameFormat == 1) {
             layerName = formatLayerName(layerName, "-", "/", { removeStartDigits: true });
         }
         // group_base_name
-        if (fastSliceNameFormat == 2) {
+        if (sliceNameFormat == 2) {
             layerName = formatLayerName(layerName, "_", "_").replace(/^\d+_*/, "");
         }
         // group-base-name
-        if (fastSliceNameFormat == 3) {
+        if (sliceNameFormat == 3) {
             layerName = formatLayerName(layerName, "-", "-").replace(/^\d+-*/, "");
         }
         // base_name
-        if (fastSliceNameFormat == 4) {
+        if (sliceNameFormat == 4) {
             layerName = cropLayerName(layerName, "_").replace(/^\d+_*/, "");
         }
         // base-name
-        if (fastSliceNameFormat == 5) {
+        if (sliceNameFormat == 5) {
             layerName = cropLayerName(layerName, "-").replace(/^\d+-*/, "");
         }
         slice.setName(layerName);
@@ -124,19 +141,20 @@ var runFastSlice = function(context) {
 
 };
 
-var runFastSliceSetting = function(context) {
-    fastSliceSetting(context);
+var runSliceSetting = function(context) {
+    sliceSetting(context);
     ga(context, "Slice");
 };
 
-function fastSliceSetting(context) {
+function sliceSetting(context) {
 
     // Dialog
     var dialog = UI.cosDialog(
-        "Fast Slice Setting",
+        "Slice Setting",
         "Fast slice add a slice with an export preset and name to url-friendly format. " +
         "Slice name will change Latin char to ASCII char, remove not ASCII char, " +
-        "special sign and digits at the beginning of name."
+        "special sign and digits at the beginning of name.",
+        ["Save", "Cancel"]
     );
 
     var presetLabel = UI.textLabel("Choose Export Option Preset for Slice Layer");
@@ -162,24 +180,31 @@ function fastSliceSetting(context) {
     var nameFormat = UI.popupButton(nameFormats, 300);
     dialog.addAccessoryView(nameFormat);
 
-    var fastSlicePresetIndex = getPreferences(context, "fastSlicePresetIndex");
-    var fastSlicePresetName = getPreferences(context, "fastSlicePresetName");
-    var fastSliceNameFormat = getPreferences(context, "fastSliceNameFormat");
-    if (fastSlicePresetIndex && fastSlicePresetName) {
-        if (exportPresets[fastSlicePresetIndex] == fastSlicePresetName) {
-            preset.selectItemAtIndex(fastSlicePresetIndex);
+    var sliceExportPresetIndex = getPreferences(context, "sliceExportPresetIndex");
+    var sliceExportPresetName = getPreferences(context, "sliceExportPresetName");
+    var sliceNameFormat = getPreferences(context, "sliceNameFormat");
+    if (sliceExportPresetIndex && sliceExportPresetName) {
+        if (exportPresets[sliceExportPresetIndex] == sliceExportPresetName) {
+            preset.selectItemAtIndex(sliceExportPresetIndex);
         }
     }
-    if (fastSliceNameFormat) {
-        nameFormat.selectItemAtIndex(fastSliceNameFormat);
+    if (sliceNameFormat) {
+        nameFormat.selectItemAtIndex(sliceNameFormat);
     }
+
+    var layerOrderlabel = UI.textLabel("Order of New Slice Layer");
+    dialog.addAccessoryView(layerOrderlabel);
+    var sliceOrder = UI.popupButton(["Bottom, inside a group. (default)", "Top, inside a group.", "Top of layer list."]);
+    dialog.addAccessoryView(sliceOrder);
+    sliceOrder.selectItemAtIndex(parseInt(getPreferences(context, "sliceLayerOrder")) || 0);
 
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
         // Save preferences
-        setPreferences(context, "fastSlicePresetIndex", preset.indexOfSelectedItem());
-        setPreferences(context, "fastSlicePresetName", preset.titleOfSelectedItem());
-        setPreferences(context, "fastSliceNameFormat", nameFormat.indexOfSelectedItem());
+        setPreferences(context, "sliceExportPresetIndex", preset.indexOfSelectedItem());
+        setPreferences(context, "sliceExportPresetName", preset.titleOfSelectedItem());
+        setPreferences(context, "sliceNameFormat", nameFormat.indexOfSelectedItem());
+        setPreferences(context, "sliceLayerOrder", sliceOrder.indexOfSelectedItem());
     }
 
     return responseCode;

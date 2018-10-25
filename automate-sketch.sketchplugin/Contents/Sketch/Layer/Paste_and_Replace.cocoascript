@@ -1,3 +1,4 @@
+@import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/Sketch.cocoascript";
 
@@ -61,8 +62,15 @@ var onRun = function(context) {
                         group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
                     }
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
-                    group.frame().setX(oldLayer.frame().x());
-                    group.frame().setY(oldLayer.frame().y());
+                    
+                    // Position
+                    if (getPreferences(context, "pasteAndReplaceLayerPosition") == "1") {
+                        group.frame().setMidX(Math.round(oldLayer.frame().midX()));
+                        group.frame().setMidY(Math.round(oldLayer.frame().midY()));
+                    } else {
+                        group.frame().setX(Math.round(oldLayer.frame().x()));
+                        group.frame().setY(Math.round(oldLayer.frame().y()));
+                    }
 
                     // oldLayer is a mask
                     if (

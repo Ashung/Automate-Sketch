@@ -10,11 +10,16 @@ var onRun = function(context) {
     var button = BCMagnifierButton.alloc().initWithFrame(NSZeroRect);
     button.setCOSJSTargetFunction(function(obj) {
 
-        var pickColor = obj.chosenColor();
+        var pickColor;
+        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            pickColor = obj.color();
+        } else {
+            pickColor = obj.chosenColor();
+        }
         var color = MSColor.colorWithRed_green_blue_alpha(pickColor.red(), pickColor.green(), pickColor.blue(), 1);
         var hexValue = "#" + color.immutableModelObject().hexValue();
 
-        log(hexValue)
+        // log(hexValue)
 
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();

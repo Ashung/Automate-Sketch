@@ -35,6 +35,7 @@
 | Select Layers Outside of Artboard Bounds                     | 选择并显示在画板边界外的不可见图层。                         |
 | Select Reverse                                               | 反选。                                                       |
 | Paste and Replace                                            | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
+| Paste and Replace Setting                                    | 设置新图层的位置。                                           |
 | Clear Layer Name                                             | 清理图层名，删除图层名后的 copy。                            |
 | Remove Redundant Groups                                      | 删除多余的嵌套组。                                           |
 | Remove Empty Groups                                          | 删除空组。                                                   |
@@ -65,8 +66,9 @@
 | Resize to Fit Text Height                                    | 自适应文本高度。                                             |
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
 | **Slice**                                                    | **切片**                                                     |
-| Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设。                       |
-| Fast slice, Fast slice Setting                               | 快速新建基于图层的切片，并自动添加切片预设，切片名称会修改会开发友好名称。 |
+| Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切尺寸，有弹出层。 |
+| Fast slice                                                   | 快速新建基于图层的切片，并自动添加切片预设，切片名称会修改会开发友好名称，无弹出层。 |
+| Slice Setting                                                | 设置切片名称、预设和图层列表位置。                           |
 | Remove All Slices                                            | 清除所有切片。                                               |
 | Clear All Exportables                                        | 清除全部 Exportables 设置。                                  |
 | Save/Load Export Presets                                     | 导出和导入切片预设，用于不同用户或电脑之间预设共享。         |
@@ -109,6 +111,7 @@
 | Check For Library Updates                                    | 检查库更新。                                                 |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
+| Select Layers with Same Style                                | 选择当前页面中与选中图层有相同共享样式的图层。               |
 | Rename Layer to Style Name                                   | 将选中图层重名为其共享样式的名称。                           |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color                                | 从 CSS 色彩代码添加填充。                                    |

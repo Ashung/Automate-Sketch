@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.20181012",
+    "version": "52.2.20181025",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -736,9 +736,9 @@
             "script": "Slice/Fast_Slice.cocoascript"
         },
         {
-            "name": "Fast Slice Setting",
-            "identifier": "fast_slice_setting",
-            "handler": "runFastSliceSetting",
+            "name": "Slice Setting",
+            "identifier": "slice_setting",
+            "handler": "runSliceSetting",
             "script": "Slice/Fast_Slice.cocoascript"
         },
         {
@@ -948,6 +948,16 @@
             "script": "Data/Export_Data_From_Symbol_Instances.cocoascript"
         },
         {
+            "name": "Paste and Replace Setting",
+            "identifier": "paste_and_replace_setting",
+            "script": "Layer/Paste_and_Replace_Setting.cocoascript"
+        },
+        {
+            "name": "Select Layers With Same Style",
+            "identifier": "select_layers_with_same_style",
+            "script": "Style/select_layers_with_same_style.cocoascript"
+        },
+        {
             "script": "Data/Supply_Data.cocoascript",
             "handlers": {
                 "actions": {
@@ -1052,6 +1062,7 @@
                     "select_reverse",
                     "-",
                     "paste_and_replace",
+                    "paste_and_replace_setting",
                     "-",
                     "remove_redundant_groups",
                     "remove_empty_groups",
@@ -1134,6 +1145,7 @@
                 "items": [
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
+                    "select_layers_with_same_style",
                     "-",
                     "rename_layer_to_style_name",
                     "-",
@@ -1214,7 +1226,7 @@
                 "items": [
                     "auto_slice",
                     "fast_slice",
-                    "fast_slice_setting",
+                    "slice_setting",
                     "-",
                     "clear_slices",
                     "clear_exportables",

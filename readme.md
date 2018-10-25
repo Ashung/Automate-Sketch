@@ -34,6 +34,7 @@ Make your workflow more efficient.
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Select Reverse                                               | Select reverse.                                              |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
+| Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
 | Remove Empty Groups                                          | Remove empty group.                                          |
@@ -65,7 +66,8 @@ Make your workflow more efficient.
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                                    |                                                              |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
-| Fast slice, Fast slice Setting                               | Create a URL-friendly slice based on layer with export preset, without modal window. |
+| Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
+| Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
 | Remove All Slices                                            | Clear all slices.                                            |
 | Clear All Exportables                                        | Clear all Exportable settings.                               |
 | Save/Load Export Presets                                     | Save and load export presets.                                |
@@ -108,6 +110,7 @@ Make your workflow more efficient.
 | Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
+| Select Layers with Same Style                                | Select layers in current page with same shared style of selected layer. |
 | Rename Layer to Style Name                                   | Rename selected layer to it's shared style name.             |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color                                | Fill from CSS color code.                                    |
