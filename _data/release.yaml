@@ -1,4 +1,18 @@
 -
+  version: 52.2.20181025
+  description: |-
+    <ul>
+    <li>Select layer by style now have a orderd style list.</li>
+    <li>Supply images from floder now same order as Finder.</li>
+    <li>Add Select layers with same style.</li>
+    <li>Add Paste and Replace Setting.</li>
+    <li>Auto Slice add layer rename.</li>
+    <li>Auto Slice and Fast Slice now can change the slice layer order.</li>
+    <li>Fix Pick Color And Copy Sketch 52 bug.#112</li>
+    </ul>
+  commitID: 415c6bf91fd3f118166ddcb64d3603cecf582dc0
+
+-
   version: 52.2.20181012
   description: |-
     <ul>
