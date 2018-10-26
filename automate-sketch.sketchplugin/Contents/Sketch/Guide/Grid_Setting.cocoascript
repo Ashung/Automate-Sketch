@@ -1,11 +1,25 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
 
 var onRun = function(context) {
 
-    var sketch = context.api();
-    var doc = context.document;
-    var page = doc.currentPage();
+    ga(context, "Guide");
+
+    var document = context.document;
     var selection = context.selection;
+    var predicate = NSPredicate.predicateWithFormat("className IN %@", ["MSArtboardGroup", "MSSymbolMaster"]);
+    var selectedArtboards = selection.filteredArrayUsingPredicate(predicate);
+
+    if (selectedArtboards.count() == 0) {
+        document.showMessage("Please select a Artboard or Symbol Master.");
+        return;
+    }
+
+    var dialog = UI.cosDialog(
+        "Grid Preset",
+        "Choose the grid setting preset for selected artboards.",
+        ["Close"]
+    );
 
     var presets = [
         {
@@ -29,47 +43,44 @@ var onRun = function(context) {
             thickGridTimes: 12
         },
         {
+            title: "2 x 8",
+            gridSize: 2,
+            thickGridTimes: 8
+        },
+        {
             title: "2 x 10",
             gridSize: 2,
             thickGridTimes: 10
+        },
+        {
+            title: "4 x 8",
+            gridSize: 4,
+            thickGridTimes: 8
         }
     ];
-
-    var titles = presets.map(function(item){
+    var presetTitles = presets.map(function(item){
         return item.title;
     });
+    var preset = UI.popupButton(presetTitles);
+    dialog.addAccessoryView(preset);
 
-    var useChoose = sketch.getSelectionFromUser("Choose the grid setting preset.", titles);
+    preset.setCOSJSTargetFunction(function(sender) {
+        var presetIndex = sender.indexOfSelectedItem();
+        var gridSize = presets[presetIndex].gridSize;
+        var thickGridTimes = presets[presetIndex].thickGridTimes;
 
-    if (useChoose[0] == 1000) {
-
-        var title = presets[useChoose[1] + 0].title;
-        var gridSize = presets[useChoose[1] + 0].gridSize;
-        var thickGridTimes = presets[useChoose[1] + 0].thickGridTimes;
-
-        if (selection.count() > 0) {
-            var loop = selection.objectEnumerator();
-            while (select = loop.nextObject()) {
-                if (select.class() == "MSArtboardGroup") {
-                    getGrid(select, gridSize, thickGridTimes);
-                }
-                if (!select.parentArtboard()) {
-                    getGrid(page, gridSize, thickGridTimes);
-                }
-            }
-        } else {
-            if (page.currentArtboard()) {
-                getGrid(page.currentArtboard(), gridSize, thickGridTimes);
-            } else {
-                getGrid(page, gridSize, thickGridTimes);
-            }
+        var loopArtboard = selectedArtboards.objectEnumerator();
+        var artboard;
+        while (artboard = loopArtboard.nextObject()) {
+            setGrid(artboard, gridSize, thickGridTimes);
         }
-    }
+    });
 
-    ga(context, "Guide");
+    dialog.runModal();
+
 };
 
-function getGrid(parent, gridSize, thickGridTimes) {
+function setGrid(parent, gridSize, thickGridTimes) {
     var grid = MSSimpleGrid.alloc().init();
     grid.setThickGridTimes(thickGridTimes);
     grid.setGridSize(gridSize);
