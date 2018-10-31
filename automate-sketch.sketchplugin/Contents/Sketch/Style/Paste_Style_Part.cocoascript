@@ -176,7 +176,7 @@ var onRun = function(context) {
                 }
             }
 
-            // Text style without textcolor
+            // Text style without text color
             if (pluginIdentifier == "paste_text_style") {
                 if (styleJSON.textStyle) {
                     var loopSelection = selection.objectEnumerator();
@@ -192,7 +192,7 @@ var onRun = function(context) {
                 }
             }
 
-            // Text Color
+            // Text color
             if (pluginIdentifier == "paste_text_color") {
                 if (styleJSON.textStyle) {
                     var loopSelection = selection.objectEnumerator();
@@ -201,6 +201,21 @@ var onRun = function(context) {
                         if (layer.class() == "MSTextLayer") {
                             var textColor = decoded.textStyle().decodedAttributes().objectForKey("MSAttributedStringColorAttribute").newMutableCounterpart();
                             layer.setTextColor(textColor);
+                        }
+                    }
+                }
+            }
+
+            // Text font family
+            if (pluginIdentifier == "paste_text_font") {
+                if (styleJSON.textStyle) {
+                    var loopSelection = selection.objectEnumerator();
+                    var layer;
+                    while (layer = loopSelection.nextObject()) {
+                        if (layer.class() == "MSTextLayer") {
+                            var textStyle = MSTextStyle.alloc().initWithImmutableModelObject(decoded.textStyle());
+                            var font = textStyle.fontPostscriptName();
+                            layer.setFontPostscriptName(font);
                         }
                     }
                 }

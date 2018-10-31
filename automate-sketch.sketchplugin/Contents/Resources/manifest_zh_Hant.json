@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.20181025",
+    "version": "52.2.20181031",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -564,6 +564,11 @@
         {
             "name": "貼上文字顏色",
             "identifier": "paste_text_color",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
+            "name": "貼上文字字體",
+            "identifier": "paste_text_font",
             "script": "Style/Paste_Style_Part.cocoascript"
         },
         {
@@ -1156,6 +1161,7 @@
                     "paste_style_blur",
                     "paste_text_style",
                     "paste_text_color",
+                    "paste_text_font",
                     "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",

@@ -74,6 +74,7 @@ function andInputGroup(view, x, width, length, label, defaultString) {
     inputView.setStringValue(defaultString);
 
     var formatter = NSNumberFormatter.alloc().init().autorelease();
+    formatter.setNumberStyle(NSNumberFormatterNoStyle);
     inputView.setFormatter(formatter);
 
     view.addSubview(inputView);

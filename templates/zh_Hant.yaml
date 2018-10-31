@@ -130,6 +130,7 @@ paste_style_innershadows: 貼上內陰影
 paste_style_blur: 貼上模糊
 paste_text_style: 貼上文字樣式
 paste_text_color: 貼上文字顏色
+paste_text_font: 貼上文字字體
 ungroup_shape_layer: 取消形狀圖層組
 select_all_instances_of_imported_symbol: 選擇外部元件的所有例項
 change_symbols_to_library_symbol: 基於 Symbol ID 將內部元件轉為庫元件
