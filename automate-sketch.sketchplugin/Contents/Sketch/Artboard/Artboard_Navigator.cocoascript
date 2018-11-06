@@ -64,6 +64,11 @@ var onRun = function(context) {
 
 function loadData(context, scrollView, page) {
     var artboards = page.artboards().reverseObjectEnumerator().allObjects().mutableCopy();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
+        "name", true, "localizedStandardCompare:"
+    );
+    artboards = artboards.sortedArrayUsingDescriptors([sortDescriptor]);
+
     var itemsCount = artboards.count();
     var itemHeight = 40;
     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight + 10));
@@ -74,11 +79,10 @@ function loadData(context, scrollView, page) {
         itemView.setFlipped(true);
 
         var iconView = NSImageView.alloc().initWithFrame(NSMakeRect(4, 12, 16, 16));
-        var icon = NSImage.alloc().initWithContentsOfFile(NSBundle.mainBundle().bundlePath() + "/Contents/Resources/artboard24.tiff");
+        var icon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_artboard.png"));
         if (item.class() == "MSSymbolMaster") {
-            icon = NSImage.alloc().initWithContentsOfFile(NSBundle.mainBundle().bundlePath() + "/Contents/Resources/create-symbol24.tiff");
+            icon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_symbol.png"));
         }
-
         iconView.setImage(icon);
         itemView.addSubview(iconView);
 
@@ -97,7 +101,8 @@ function loadData(context, scrollView, page) {
         var renameButton = NSButton.alloc().initWithFrame(NSMakeRect(300 - itemHeight, 0, itemHeight, itemHeight));
         renameButton.setBezelStyle(nil);
         renameButton.setBordered("NO");
-        var editicon = NSImage.alloc().initWithContentsOfFile(NSBundle.mainBundle().bundlePath() + "/Contents/Resources/account_edit_hover.tiff");
+        var editicon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_edit.png"));
+        editicon.setSize(CGSizeMake(16, 16));
         renameButton.setImage(editicon);
         itemView.addSubview(renameButton);
 

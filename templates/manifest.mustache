@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.{{version}}",
+    "version": "52.3.{{version}}",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -963,6 +963,11 @@
             "script": "Style/select_layers_with_same_style.cocoascript"
         },
         {
+            "name": "{{toggle_text_auto_and_fixed}}",
+            "identifier": "toggle_text_auto_and_fixed",
+            "script": "Type/Toggle_Text_Auto_And_Fixed.cocoascript"
+        },
+        {
             "script": "Data/Supply_Data.cocoascript",
             "handlers": {
                 "actions": {
@@ -1223,6 +1228,7 @@
                     "replace_missing_fonts",
                     "-",
                     "resize_fit_text_height",
+                    "toggle_text_auto_and_fixed",
                     "-",
                     "unfixed_layer_name"
                 ]

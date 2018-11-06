@@ -95,7 +95,7 @@ var onRun = function(context) {
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
             layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), true
         );
-        var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+        var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
         imageView.setWantsLayer(true);
         imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
         imageView.setImage(symbolPreviewImage);
@@ -105,7 +105,7 @@ var onRun = function(context) {
         if (unusedSymbol.isForeign()) {
             var iconViewWrapper = NSView.alloc().initWithFrame(NSMakeRect(55, 30, 16, 16));
             iconViewWrapper.setWantsLayer(true);
-            var icon = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/layerlist_foreign_symbol.tiff");
+            var icon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_foreign_symbol.png"));
             var iconView = NSImageView.alloc().initWithFrame(NSMakeRect(-13, -15, 48, 48));
             iconView.setImage(icon);
             iconViewWrapper.addSubview(iconView);
