@@ -1,3 +1,15 @@
+
+-
+  version: 52.2.20181108
+  description: |-
+    <ul>
+    <li>Improved Grid Setting.</li>
+    <li>Add Paste Text Font.</li>
+    <li>Add Toggle Auto and Fixed for text layer.</li>
+    <li>Fixed Artboard Navigator crash.</li>
+    </ul>
+  commitID: e278786bce253c5f44e6ac2cea4f67ffcd9487a4
+
 -
   version: 52.2.20181025
   description: |-
