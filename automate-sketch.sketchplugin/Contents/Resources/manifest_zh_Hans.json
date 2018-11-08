@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.2.20181025",
+    "version": "52.3.20181108",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -567,6 +567,11 @@
             "script": "Style/Paste_Style_Part.cocoascript"
         },
         {
+            "name": "粘贴文本字体",
+            "identifier": "paste_text_font",
+            "script": "Style/Paste_Style_Part.cocoascript"
+        },
+        {
             "name": "取消形状图层组",
             "identifier": "ungroup_shape_layer",
             "script": "Layer/Ungroup_Shape_Layer.cocoascript"
@@ -958,6 +963,11 @@
             "script": "Style/select_layers_with_same_style.cocoascript"
         },
         {
+            "name": "切换自动和固定",
+            "identifier": "toggle_text_auto_and_fixed",
+            "script": "Type/Toggle_Text_Auto_And_Fixed.cocoascript"
+        },
+        {
             "script": "Data/Supply_Data.cocoascript",
             "handlers": {
                 "actions": {
@@ -1156,6 +1166,7 @@
                     "paste_style_blur",
                     "paste_text_style",
                     "paste_text_color",
+                    "paste_text_font",
                     "-",
                     "add_solid_fill_from_css_color",
                     "fill_color_from_global_colors",
@@ -1217,6 +1228,7 @@
                     "replace_missing_fonts",
                     "-",
                     "resize_fit_text_height",
+                    "toggle_text_auto_and_fixed",
                     "-",
                     "unfixed_layer_name"
                 ]

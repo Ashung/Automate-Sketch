@@ -64,6 +64,7 @@
 | Replace Fonts                                                | 替换字体。                                                   |
 | Replace Missing Fonts                                        | 替换缺失字体。                                               |
 | Resize to Fit Text Height                                    | 自适应文本高度。                                             |
+| Toggle Auto and Fixed                                        | 切换选中文本图层的宽度自动和固定。                           |
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
 | **Slice**                                                    | **切片**                                                     |
 | Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切尺寸，有弹出层。 |
@@ -113,7 +114,7 @@
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
 | Select Layers with Same Style                                | 选择当前页面中与选中图层有相同共享样式的图层。               |
 | Rename Layer to Style Name                                   | 将选中图层重名为其共享样式的名称。                           |
-| Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
+| Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color/ Text F0nt | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color                                | 从 CSS 色彩代码添加填充。                                    |
 | Fill Color from Global (Document) Colors                     | 从全局 (文档) 色版快速填充。                                 |
 | Swap Fill and Border                                         | 互换填充和描边。                                             |

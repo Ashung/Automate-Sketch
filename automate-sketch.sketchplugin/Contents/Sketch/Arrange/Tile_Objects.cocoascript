@@ -299,6 +299,7 @@ function andInputGroup(view, x, width, label, defaultString) {
     var inputView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 0, width, 25));
     inputView.setStringValue(defaultString);
     var formatter = NSNumberFormatter.alloc().init().autorelease();
+    formatter.setNumberStyle(NSNumberFormatterNoStyle);
     inputView.setFormatter(formatter);
     view.addSubview(inputView);
     return inputView;

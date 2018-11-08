@@ -63,6 +63,7 @@ Make your workflow more efficient.
 | Replace Fonts                                                | Replace Fonts.                                               |
 | Replace Missing Fonts                                        | Replace missing fonts.                                       |
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
+| Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | **Slice**                                                    |                                                              |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
@@ -112,7 +113,7 @@ Make your workflow more efficient.
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
 | Select Layers with Same Style                                | Select layers in current page with same shared style of selected layer. |
 | Rename Layer to Style Name                                   | Rename selected layer to it's shared style name.             |
-| Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
+| Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color / Text Font | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color                                | Fill from CSS color code.                                    |
 | Fill Color from Global (Document) Colors                     | Fill from the global (document) color fast.                  |
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
