@@ -134,8 +134,8 @@ Make your workflow more efficient.
 | Export Data From Text Layers                                 | Export text file from the content of selected text layers.   |
 | Export Image From Layers                                     | Export images from selected bitmap or image-fill layers.     |
 | Export Data From Symbol Instances                            | Export override texts and images from selected symbol instances. |
-| Data - (Randrom) Image From Folder                           | Apply image data to shape layer or overrides from image folder. |
-| Data - (Randrom) Text From File                              | Apply text data to text layer or overrides from text file.   |
+| Data - (Random) Image From Folder                            | Apply image data to shape layer or overrides from image folder. |
+| Data - (Random) Text From File                               | Apply text data to text layer or overrides from text file.   |
 | **Prototyping**                                              |                                                              |
 | Bring All Hotspot to Front                                   | Bring all hotspot layer to front.                            |
 | **Development**                                              |                                                              |
