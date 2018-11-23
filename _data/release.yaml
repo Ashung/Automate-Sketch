@@ -1,5 +1,15 @@
 
 -
+  version: 52.4.20181123
+  description: |-
+    <ul>
+    <li>Add Remove All Hotspot.</li>
+    <li>Add Reset Flow.</li>
+    <li>Add Charater Count.</li>
+    </ul>
+  commitID: b3f9307f97eb0e2c4b35c97eb5304916e85a39b0
+
+-
   version: 52.2.20181108
   description: |-
     <ul>
