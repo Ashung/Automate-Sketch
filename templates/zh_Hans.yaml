@@ -204,3 +204,6 @@ export_data_from_text_layers: 从文本图层导出数据
 export_image_from_layers: 从图层导出图片
 export_data_from_symbol_instances: 从组件导出数据
 toggle_text_auto_and_fixed: 切换自动和固定
+reset_flow: 重置链接
+remove_all_hotspot: 删除所有热区
+character_count: 字符统计

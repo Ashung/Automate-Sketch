@@ -1,0 +1,32 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+    
+    ga(context, "Prototyping");
+
+    var document = context.document;
+    var selection = context.selection;
+    var layer = selection.firstObject();
+
+    var showMessage = false;
+    if (selection.count() != 1) {
+        showMessage = true;
+    }
+    else {
+        if (layer.flow()) {
+            layer.resetFlow();
+            var addFlowAction = document.actionsController().actionForID("MSAddFlowAction");
+            if (addFlowAction.validate()) {
+                addFlowAction.performAction(null);
+            }
+        }
+        else {
+            showMessage = true;
+        }
+    }
+
+    if (showMessage) {
+        document.showMessage("Please select 1 hotspot layer or layer have a link.");
+    }
+
+};

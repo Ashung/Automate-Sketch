@@ -204,3 +204,6 @@ export_data_from_text_layers: Export Data From Text Layers
 export_image_from_layers: Export Image From Layers
 export_data_from_symbol_instances: Export Data From Symbol Instances
 toggle_text_auto_and_fixed: Toggle Auto and Fixed
+reset_flow: Reset Flow
+remove_all_hotspot: Remove All Hotspot
+character_count: Character Count

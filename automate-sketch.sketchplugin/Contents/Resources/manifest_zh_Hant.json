@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.3.20181108",
+    "version": "52.4.20181123",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -979,6 +979,21 @@
                     "SupplyRandomImageFromFolder": "onSupplyRandomImageFromFolder"
                 }
             }
+        },
+        {
+            "name": "重置鏈接",
+            "identifier": "reset_flow",
+            "script": "Prototyping/Reset_Flow.cocoascript"
+        },
+        {
+            "name": "刪除所有熱區",
+            "identifier": "remove_all_hotspot",
+            "script": "Prototyping/Remove_All_Hotspot.cocoascript"
+        },
+        {
+            "name": "字符統計",
+            "identifier": "character_count",
+            "script": "Type/Character_Count.cocoascript"
         }
     ],
     "menu": {
@@ -1230,7 +1245,9 @@
                     "resize_fit_text_height",
                     "toggle_text_auto_and_fixed",
                     "-",
-                    "unfixed_layer_name"
+                    "unfixed_layer_name",
+                    "-",
+                    "character_count"
                 ]
             },
             {
@@ -1258,7 +1275,9 @@
             {
                 "title": "原型",
                 "items": [
-                    "bring_all_hotspot_to_front"
+                    "bring_all_hotspot_to_front",
+                    "reset_flow",
+                    "remove_all_hotspot"
                 ]
             },
             {
