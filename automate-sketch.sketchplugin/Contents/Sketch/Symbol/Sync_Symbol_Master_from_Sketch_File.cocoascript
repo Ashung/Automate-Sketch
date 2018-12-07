@@ -229,9 +229,10 @@ function symbolThumbView(symbol, x, y, imageWidth, imageHeight, label) {
     var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageWidth, imageHeight));
     var layerAncestry = symbol.ancestry();
     var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-        layerAncestry, CGSizeMake(imageWidth * 2, imageHeight * 2), NSColorSpace.sRGBColorSpace(), true
+        layerAncestry, CGSizeMake(imageWidth * 2, imageHeight * 2), NSColorSpace.sRGBColorSpace(), false
     );
-    var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+
+    var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
     imageView.setWantsLayer(true);
     imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
     imageView.setImage(symbolPreviewImage);

@@ -230,7 +230,7 @@ function symbolMasterThumb(symbolMaster) {
     var size = 20;
     var image = NSImage.alloc().initWithSize(CGSizeMake(size, size));
     var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-        symbolMaster.ancestry(), CGSizeMake(size, size), NSColorSpace.sRGBColorSpace(), true
+        symbolMaster.ancestry(), CGSizeMake(size, size), NSColorSpace.sRGBColorSpace(), false
     );
     image.lockFocus();
     symbolPreviewImage.drawAtPoint_fromRect_operation_fraction(
