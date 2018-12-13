@@ -130,8 +130,29 @@ var onRun = function(context) {
             setPreferences(context, "ignoreLayerName", ignoreLayerNamesArray.toString());
         }
 
-        var exportedSVGFiles = NSMutableArray.alloc().init();
+        var savePanel;
+        var savePath;
+        if (responseCode == 1000) {
+            if (selection.count() == 1) {
+                var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
+                savePanel = NSSavePanel.savePanel();
+                savePanel.setTitle("Save as SVG");
+                savePanel.setShowsTagField(false);
+                savePanel.setNameFieldStringValue(fileName);
+                savePanel.setCanCreateDirectories(true);
+            } else {
+                savePanel = NSOpenPanel.openPanel();
+                savePanel.setMessage("Export select layers as SVG");
+                savePanel.setCanChooseDirectories(true);
+                savePanel.setCanChooseFiles(false);
+                savePanel.setCanCreateDirectories(true);
+            }
+            if (savePanel.runModal() == NSOKButton) {
+                savePath = savePanel.URL().path();
+            }
+        }
 
+        var exportedSVGFiles = NSMutableArray.alloc().init();
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
@@ -264,50 +285,51 @@ var onRun = function(context) {
                 pboard.setString_forType_(svgCode, NSStringPboardType);
             }
 
-            if (responseCode == 1000) {
+            // if (responseCode == 1000) {
 
-                var savePanel;
-                var savePath;
+            //     var savePanel;
+            //     var savePath;
+            //     if (selection.count() == 1) {
+            //         var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
+            //         savePanel = NSSavePanel.savePanel();
+            //         savePanel.setTitle("Save as SVG");
+            //         savePanel.setShowsTagField(false);
+            //         savePanel.setNameFieldStringValue(fileName);
+            //         savePanel.setCanCreateDirectories(true);
+            //     } else {
+            //         savePanel = NSOpenPanel.openPanel();
+            //         savePanel.setMessage("Export select layers as SVG");
+            //         savePanel.setCanChooseDirectories(true);
+            //         savePanel.setCanChooseFiles(false);
+            //         savePanel.setCanCreateDirectories(true);
+            //     }
+            //     if (savePanel.runModal() == NSOKButton) {
+            //         savePath = savePanel.URL().path();
+            //     }
+
+            if (savePath) {
+                var svgPath;
                 if (selection.count() == 1) {
-                    var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
-                    savePanel = NSSavePanel.savePanel();
-                    savePanel.setTitle("Save as SVG");
-                    savePanel.setShowsTagField(false);
-                    savePanel.setNameFieldStringValue(fileName);
-                    savePanel.setCanCreateDirectories(true);
-                } else {
-                    savePanel = NSOpenPanel.openPanel();
-                    savePanel.setMessage("Export select layers as SVG");
-                    savePanel.setCanChooseDirectories(true);
-                    savePanel.setCanChooseFiles(false);
-                    savePanel.setCanCreateDirectories(true);
-                }
-                if (savePanel.runModal() == NSOKButton) {
-                    savePath = savePanel.URL().path();
-                }
-
-                if (savePath) {
-                    var svgPath;
-                    if (selection.count() == 1) {
-                        if (savePath.pathExtension() != "svg") {
-                            svgPath = savePath.stringByAppendingString(".svg");
-                        } else {
-                            svgPath = savePath;
-                        }
+                    if (savePath.pathExtension() != "svg") {
+                        svgPath = savePath.stringByAppendingString(".svg");
                     } else {
-                        var layerName = fixedLayerName(layer.name(), nameType.indexOfSelectedItem());
-                        var fileName = NSString.stringWithString(layerName);
-                        if (fileName.pathExtension() != "svg") {
-                            fileName = fileName.stringByAppendingString(".svg");
-                        }
-                        svgPath = savePath.stringByAppendingPathComponent(fileName);
+                        svgPath = savePath;
                     }
-                    writeContentToFile(svgPath, svgCode);
-                    exportedSVGFiles.addObject(NSURL.fileURLWithPath(svgPath));
+                } else {
+                    var layerName = fixedLayerName(layer.name(), nameType.indexOfSelectedItem());
+                    var fileName = NSString.stringWithString(layerName);
+                    if (fileName.pathExtension() != "svg") {
+                        fileName = fileName.stringByAppendingString(".svg");
+                    }
+                    svgPath = savePath.stringByAppendingPathComponent(fileName);
                 }
-                NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
+                writeContentToFile(svgPath, svgCode);
+                exportedSVGFiles.addObject(NSURL.fileURLWithPath(svgPath));
             }
-
+        }
+        
+        if (exportedSVGFiles.count() > 0) {
+            NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
         }
 
     }
