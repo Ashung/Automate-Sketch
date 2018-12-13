@@ -66,6 +66,7 @@
 | Resize to Fit Text Height                                    | 自适应文本高度。                                             |
 | Toggle Auto and Fixed                                        | 切换选中文本图层的宽度自动和固定。                           |
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
+| Charater Count                                               | 字数统计。                                                   |
 | **Slice**                                                    | **切片**                                                     |
 | Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切尺寸，有弹出层。 |
 | Fast slice                                                   | 快速新建基于图层的切片，并自动添加切片预设，切片名称会修改会开发友好名称，无弹出层。 |
@@ -139,6 +140,8 @@
 | Data - (Random) Text From File                               | 从文本文件获取文本数据，并随机或有序应用到文本图层或组件override上。 |
 | **Prototyping**                                              | **原型**                                                     |
 | Bring All Hotspot to Front                                   | 置顶所有热区图层。                                           |
+| Reset Flow                                                   | 重置 flow 设置。                                             |
+| Remove All Hotspot                                           | 删除所有 hotspot 图层和设置。                                |
 | **Development**                                              | **开发**                                                     |
 | Pick Color and Copy the HEX Code                             | 从屏幕取色并负责色彩的十六进制值。                           |
 | Copy Slice as Base64                                         | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |

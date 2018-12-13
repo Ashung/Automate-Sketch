@@ -93,7 +93,7 @@ var onRun = function(context) {
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 5, imageSize, imageSize));
         var layerAncestry = unusedSymbol.ancestry();
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), true
+            layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), false
         );
         var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
         imageView.setWantsLayer(true);

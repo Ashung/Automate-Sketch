@@ -65,6 +65,7 @@ Make your workflow more efficient.
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
 | Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
+| Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
@@ -138,6 +139,8 @@ Make your workflow more efficient.
 | Data - (Random) Text From File                               | Apply text data to text layer or overrides from text file.   |
 | **Prototyping**                                              |                                                              |
 | Bring All Hotspot to Front                                   | Bring all hotspot layer to front.                            |
+| Reset Flow                                                   | Reset flow.                                                  |
+| Remove All Hotspot                                           | Remove all hotspot layer.                                    |
 | **Development**                                              |                                                              |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
 | Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |

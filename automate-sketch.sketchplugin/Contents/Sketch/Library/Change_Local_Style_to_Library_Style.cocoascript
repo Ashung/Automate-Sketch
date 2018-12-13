@@ -124,7 +124,7 @@ var onRun = function(context) {
                 }
                 // Reset Text/Layer Style
                 else {
-                    layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance())
+                    layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance());
                 }
             } 
         });

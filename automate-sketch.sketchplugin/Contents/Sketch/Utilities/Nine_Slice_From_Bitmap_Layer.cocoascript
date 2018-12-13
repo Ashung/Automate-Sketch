@@ -54,7 +54,7 @@ var onRun = function(context) {
     var imageWrapper = NSView.alloc().initWithFrame(NSMakeRect(0, 0, thumbWidth, thumbHeight));
     imageWrapper.setFlipped(true);
     var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, thumbWidth, thumbHeight));
-    var backgroundImage = NSImage.alloc().initWithContentsOfFile("/Applications/Sketch.app/Contents/Resources/touchbar_color_alpha@2x.png");
+    var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
     imageView.setWantsLayer(true);
     imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
     imageView.setImage(resizedImage);

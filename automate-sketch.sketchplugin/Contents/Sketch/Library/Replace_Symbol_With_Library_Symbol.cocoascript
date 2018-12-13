@@ -125,8 +125,10 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
     var documentData = document.documentData();
 
     var allSymbols = library.document().allSymbols().mutableCopy();
-    var sortByName = NSSortDescriptor.sortDescriptorWithKey_ascending("name", true);
-    allSymbols.sortUsingDescriptors(NSArray.arrayWithObject(sortByName));
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
+        "name", true, "localizedStandardCompare:"
+    );
+    allSymbols = allSymbols.sortedArrayUsingDescriptors([sortDescriptor]).mutableCopy();
 
     var symbolWithSameID = library.document().symbolWithID(originalSymbolID);
 
@@ -173,7 +175,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(5, 5, itemHeight - 10, itemHeight - 10));
         var layerAncestry = symbol_2.ancestry();
         var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake((itemHeight - 10) * 2, (itemHeight - 10) * 2), NSColorSpace.sRGBColorSpace(), true
+            layerAncestry, CGSizeMake((itemHeight - 10) * 2, (itemHeight - 10) * 2), NSColorSpace.sRGBColorSpace(), false
         );
         imageView.setImage(symbolPreviewImage);
         itemView.addSubview(imageView);
