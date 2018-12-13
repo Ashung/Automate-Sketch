@@ -1,5 +1,14 @@
 
 -
+  version: 52.5.20181213
+  description: |-
+    <ul>
+    <li>Symbol list in Replace Symbol With Library Symbol now sorted like Finder.</li>
+    <li>Fix bug when Export Clean Code SVG opening export window for each selection. #123</li>
+    </ul>
+  commitID: 7bc528d17284a4dddd6bb0570ee3fdb858654eb3
+
+-
   version: 52.4.20181123
   description: |-
     <ul>
