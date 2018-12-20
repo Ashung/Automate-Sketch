@@ -19,13 +19,16 @@ var onRun = function(context) {
 
     selectedTextLayers.forEach(function(layer) {
 
+        var defaultLineHeight = layer.defaultLineHeight(layer.immutableModelObject().createTextStorage().layoutManagers().firstObject());
+        var lineHeight = layer.lineHeight() == 0 ? defaultLineHeight : layer.lineHeight();
+
         if (pluginIdentifier == "increase_line_height") {
-            var lineHeight = Math.round(layer.lineHeight() / stepSize) * stepSize + stepSize;
+            lineHeight = Math.round(lineHeight / stepSize) * stepSize + stepSize;
             layer.setLineHeight(lineHeight);
         }
 
         if (pluginIdentifier == "decrease_line_height") {
-            var lineHeight = Math.round(layer.lineHeight() / stepSize) * stepSize - stepSize;
+            lineHeight = Math.round(lineHeight / stepSize) * stepSize - stepSize;
             if (lineHeight <= stepSize) {
                 lineHeight = stepSize;
             }
