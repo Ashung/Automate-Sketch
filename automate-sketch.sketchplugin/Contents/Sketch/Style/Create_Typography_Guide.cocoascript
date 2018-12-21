@@ -6,7 +6,7 @@ var onRun = function(context) {
     ga(context, "Style");
     
     var document = context.document;
-    var textStyles = document.documentData().layerTextStyles().objects();
+    var textStyles = document.documentData().layerTextStyles().sharedStyles();
     if (textStyles.count() == 0) {
         document.showMessage("No any text style in current document.");
         return;
@@ -70,6 +70,11 @@ var onRun = function(context) {
                 typography.setStringValue(previewText);
             }
             typography.setStyle(textStyle.style());
+            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                typography.setSharedStyleID(textStyle.objectID());
+            } else {
+                typography.style().setSharedObjectID(textStyle.objectID());
+            }
             typography.frame().setX(0);
             typography.frame().setY(0);
             typographyGroup.addLayer(typography);
