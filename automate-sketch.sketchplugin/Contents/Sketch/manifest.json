@@ -16,956 +16,1136 @@
             "name": "Fit to Parent Width with Margin",
             "identifier": "fit_to_parent_width_with_margin",
             "handler": "fitToParentWidthWithMargin",
-            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fit to Parent Height with Margin",
             "identifier": "fit_to_parent_height_with_margin",
             "handler": "fitToParentHeightWithMargin",
-            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript"
+            "script": "Layer/Fit_to_Parent_Width_or_Height_with_Margin.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fit to Parent with Margins",
             "identifier": "fit_to_parent_with_margin",
-            "script": "Layer/Fit_to_Parent_with_Margin.cocoascript"
+            "script": "Layer/Fit_to_Parent_with_Margin.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Bounds Layer for Every Selection",
             "identifier": "bounds_layer_for_every_selection",
-            "script": "Layer/Bounds_Layer_for_Every_Selection.cocoascript"
+            "script": "Layer/Bounds_Layer_for_Every_Selection.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Divide Layer",
             "identifier": "divide_layer",
-            "script": "Layer/Divide_Layer.cocoascript"
+            "script": "Layer/Divide_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Unlock All Layers",
             "identifier": "unlock_all_layers",
-            "script": "Layer/Unlock_All_Layers.cocoascript"
+            "script": "Layer/Unlock_All_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Groups",
             "identifier": "select_layers_by_type_group",
             "handler": "selectAllGroupsInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Text Layers",
             "identifier": "select_layers_by_type_text",
             "handler": "selectAllTextsInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Shape Layers",
             "identifier": "select_layers_by_type_shape",
             "handler": "selectAllShapesInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Images",
             "identifier": "select_layers_by_type_image",
             "handler": "selectAllImagesInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Symbol Instances",
             "identifier": "select_layers_by_type_symbol_instance",
             "handler": "selectAllSymbolInstancesInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Slices",
             "identifier": "select_layers_by_type_slice",
             "handler": "selectAllSlicesInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Exportable Layers",
             "identifier": "select_layers_by_type_exportable",
             "handler": "selectAllExportableInSelection",
-            "script": "Layer/Select_Layers_By_Type.cocoascript"
+            "script": "Layer/Select_Layers_By_Type.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Layers in Selection By Name",
             "identifier": "select_layers_by_name",
-            "script": "Layer/Select_Layers_By_Name.cocoascript"
+            "script": "Layer/Select_Layers_By_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Hidden Layers",
             "identifier": "select_all_hidden_layers",
-            "script": "Layer/Select_All_Hidden_Layers.cocoascript"
+            "script": "Layer/Select_All_Hidden_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select All Child Layers",
             "identifier": "select_all_child_layers",
-            "script": "Layer/Select_All_Child_Layers.cocoascript"
+            "script": "Layer/Select_All_Child_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Parent Groups",
             "identifier": "select_parent_groups",
-            "script": "Layer/Select_Parent_Groups.cocoascript"
+            "script": "Layer/Select_Parent_Groups.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Clear Layer Name",
             "identifier": "clear_layer_name",
-            "script": "Layer/Clear_Layer_Name.cocoascript"
+            "script": "Layer/Clear_Layer_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Redundant Groups",
             "identifier": "remove_redundant_groups",
-            "script": "Layer/Remove_Redundant_Groups.cocoascript"
+            "script": "Layer/Remove_Redundant_Groups.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Empty Groups",
             "identifier": "remove_empty_groups",
-            "script": "Layer/Remove_Empty_Groups.cocoascript"
+            "script": "Layer/Remove_Empty_Groups.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Hidden Layers",
             "identifier": "remove_hidden_layers",
-            "script": "Layer/Remove_Hidden_Layers.cocoascript"
+            "script": "Layer/Remove_Hidden_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Places Between Two Objects",
             "identifier": "change_layer_places",
-            "script": "Arrange/Change_Places.cocoascript"
+            "script": "Arrange/Change_Places.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Places Between Two Objects (center)",
             "identifier": "change_layer_places_center",
-            "script": "Arrange/Change_Places.cocoascript"
+            "script": "Arrange/Change_Places.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Tile Objects",
             "identifier": "tile_layers",
             "handler": "customTileLayers",
-            "script": "Arrange/Tile_Objects.cocoascript"
+            "script": "Arrange/Tile_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Tile Objects by Position X",
             "identifier": "tile_layers_by_position_x",
             "handler": "tileLayersByPositionX",
-            "script": "Arrange/Tile_Objects.cocoascript"
+            "script": "Arrange/Tile_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Tile Objects by Position Y",
             "identifier": "tile_layers_by_position_y",
             "handler": "tileLayersByPositionY",
-            "script": "Arrange/Tile_Objects.cocoascript"
+            "script": "Arrange/Tile_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Tile Objects Horizontally by Index",
             "identifier": "tile_layers_horizontally_by_index",
             "handler": "tileLayersHorizontallyByIndex",
-            "script": "Arrange/Tile_Objects.cocoascript"
+            "script": "Arrange/Tile_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Tile Objects Vertically by Index",
             "identifier": "tile_layers_vertically_by_index",
             "handler": "tileLayersVerticallyByIndex",
-            "script": "Arrange/Tile_Objects.cocoascript"
+            "script": "Arrange/Tile_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Position X",
             "identifier": "order_layers_by_x",
             "handler": "orderLayersByX",
-            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
+            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Position Y",
             "identifier": "order_layers_by_y",
             "handler": "orderLayersByY",
-            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript"
+            "script": "Arrange/Order_Layers_by_Position_XY.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reverse Layer Order",
             "identifier": "reverse_layer_order",
-            "script": "Arrange/Reverse_Layer_Order.cocoascript"
+            "script": "Arrange/Reverse_Layer_Order.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Name",
             "identifier": "order_layers_by_name",
-            "script": "Arrange/Order_Layers_by_Name.cocoascript"
+            "script": "Arrange/Order_Layers_by_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Kind",
             "identifier": "order_layers_by_kind",
-            "script": "Arrange/Order_Layers_by_Kind.cocoascript"
+            "script": "Arrange/Order_Layers_by_Kind.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Capitalize",
             "identifier": "capitalize",
-            "script": "Type/Capitalize.cocoascript"
+            "script": "Type/Capitalize.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Typeface for Latin Character",
             "identifier": "change_typeface_for_the_latin_character_set",
-            "script": "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript"
+            "script": "Type/Change_Typeface_for_the_Latin_Character_Set.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Add Space Between CJK and Latin Character",
             "identifier": "add_space_between_cjk_and_western_character",
-            "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript"
+            "script": "Type/Add_Space_Between_CJK_and_Western_Character.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Unfixed Layer Name",
             "identifier": "unfixed_layer_name",
-            "script": "Type/Unfixed_Layer_Name.cocoascript"
+            "script": "Type/Unfixed_Layer_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Missing Fonts",
             "identifier": "replace_missing_fonts",
-            "script": "Type/Replace_Missing_Fonts.cocoascript"
+            "script": "Type/Replace_Missing_Fonts.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Fonts",
             "identifier": "replace_fonts",
-            "script": "Type/Replace_Fonts.cocoascript"
+            "script": "Type/Replace_Fonts.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove All Slices",
             "identifier": "clear_slices",
-            "script": "Slice/Clear_Slices.cocoascript"
+            "script": "Slice/Clear_Slices.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Clear All Exportables",
             "identifier": "clear_exportables",
-            "script": "Slice/Clear_Exportables.cocoascript"
+            "script": "Slice/Clear_Exportables.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Artboard From Selection",
             "identifier": "artboard_from_selection",
-            "script": "Artboard/Artboard_from_Selection.cocoascript"
+            "script": "Artboard/Artboard_from_Selection.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Artboard From Group",
             "identifier": "artboard_from_group",
-            "script": "Artboard/Artboard_From_Group.cocoascript"
+            "script": "Artboard/Artboard_From_Group.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Artboard To Group",
             "identifier": "artboard_to_group",
-            "script": "Artboard/Artboard_to_Group.cocoascript"
+            "script": "Artboard/Artboard_to_Group.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export All Artboards",
             "identifier": "export_all_artboards",
-            "script": "Artboard/Export_All_Artboards.cocoascript"
+            "script": "Artboard/Export_All_Artboards.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export All Artboards to HTML",
             "identifier": "export_all_artboards_to_html",
-            "script": "Artboard/Export_All_Artboards_to_HTML.cocoascript"
+            "script": "Artboard/Export_All_Artboards_to_HTML.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Resize to Fit Height",
             "identifier": "resize_to_fit_height",
-            "script": "Artboard/Resize_to_Fit_Height.cocoascript"
+            "script": "Artboard/Resize_to_Fit_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Move Artboards to Bottom of Another",
             "identifier": "move_artboards_to_bottom_of_another",
-            "script": "Artboard/Move_Artboards_to_Bottom_of_Another.cocoascript"
+            "script": "Artboard/Move_Artboards_to_Bottom_of_Another.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select All Instances of Symbol",
             "identifier": "select_all_instances_of_symbol",
-            "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript"
+            "script": "Symbol/Select_All_Instances_of_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Rename Instances",
             "identifier": "rename_instances",
-            "script": "Symbol/Rename_Instances.cocoascript"
+            "script": "Symbol/Rename_Instances.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Selection to Symbol Master",
             "identifier": "selection_to_symbol_master",
-            "script": "Symbol/Selection_to_Symbol.cocoascript"
+            "script": "Symbol/Selection_to_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Detach Unused Symbol Master",
             "identifier": "detach_unused_symbol_master",
-            "script": "Symbol/Detach_Unused_Symbol_Master.cocoascript"
+            "script": "Symbol/Detach_Unused_Symbol_Master.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Unused Symbols",
             "identifier": "remove_unused_symbols",
-            "script": "Symbol/Remove_Unused_Symbols_New.cocoascript"
+            "script": "Symbol/Remove_Unused_Symbols_New.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reset to Original Width",
             "identifier": "set_to_original_width",
-            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reset to Original Height",
             "identifier": "set_to_original_height",
-            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reset to Original Size",
             "identifier": "set_to_original_size",
-            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript"
+            "script": "Symbol/Set_to_Original_Width_or_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export All Symbols As PNG",
             "identifier": "export_all_symbols_as_png",
-            "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript"
+            "script": "Symbol/Export_All_Symbols_As_PNG.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Sync Symbol Master from Sketch File base Symbol ID",
             "identifier": "sync_symbol_master_from_sketch_file",
-            "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript"
+            "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Pages with Same Name From Sketch File",
             "identifier": "replace_pages_from_sketch_file",
-            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript"
+            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Add Solid Fill from CSS Color",
             "identifier": "add_solid_fill_from_css_color",
-            "script": "Style/Add_Solid_Fill_from_CSS_Color.cocoascript"
+            "script": "Style/Add_Solid_Fill_from_CSS_Color.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fill Color from Global Colors",
             "identifier": "fill_color_from_global_colors",
             "handler": "fillColorFromGlobalColors",
-            "script": "Style/Fill_Color_from_Colors.cocoascript"
+            "script": "Style/Fill_Color_from_Colors.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fill Color from Document Colors",
             "identifier": "fill_color_from_document_colors",
             "handler": "fillColorFromDocumentColors",
-            "script": "Style/Fill_Color_from_Colors.cocoascript"
+            "script": "Style/Fill_Color_from_Colors.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove All Disabled Styles",
             "identifier": "remove_all_disabled_styles",
-            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Import Document Assets from Sketch File",
             "identifier": "import_document_assets_from_sketch_file",
-            "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript"
+            "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Import Text Styles from Sketch File",
             "identifier": "import_text_styles_from_sketch_file",
-            "script": "Style/Import_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Styles_from_Sketch_File.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Import Layer Styles from Sketch File",
             "identifier": "import_layer_styles_from_sketch_file",
-            "script": "Style/Import_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Styles_from_Sketch_File.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Create Color Guide",
             "identifier": "create_color_guide",
-            "script": "Style/Create_Color_Guide.cocoascript"
+            "script": "Style/Create_Color_Guide.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Create Typography Guide",
             "identifier": "create_typography_guide",
-            "script": "Style/Create_Typography_Guide.cocoascript"
+            "script": "Style/Create_Typography_Guide.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Clear Guides",
             "identifier": "clear_guides",
-            "script": "Guide/Clear_Guides.cocoascript"
+            "script": "Guide/Clear_Guides.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Grid Presets",
             "identifier": "grid_setting",
-            "script": "Guide/Grid_Setting.cocoascript"
+            "script": "Guide/Grid_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "SVG Export Setting",
             "identifier": "svg_export_setting",
-            "script": "Utilities/SVG_Export_Setting.cocoascript"
+            "script": "Utilities/SVG_Export_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Web Site",
             "identifier": "web_site",
             "handler": "website",
-            "script": "Help/help.cocoascript"
+            "script": "Help/help.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Report Issue",
             "identifier": "report_issue",
             "handler": "reportIssue",
-            "script": "Help/help.cocoascript"
+            "script": "Help/help.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Donate",
             "identifier": "donate",
             "handler": "donate",
-            "script": "Help/help.cocoascript"
+            "script": "Help/help.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Language",
             "identifier": "change_language",
-            "script": "Help/Change_Languages.cocoascript"
+            "script": "Help/Change_Languages.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Selected Layer Name",
             "identifier": "copy_selected_layer_name",
-            "script": "Development/Copy_Selected_Layer_Name.cocoascript"
+            "script": "Development/Copy_Selected_Layer_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Slice As Base64",
             "identifier": "copy_slice_as_base64",
-            "script": "Development/Copy_Slice_As_Base64.cocoascript"
+            "script": "Development/Copy_Slice_As_Base64.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Show File in Finder",
             "identifier": "show_file_in_finder",
             "handler": "showFileInFinder",
-            "script": "Development/Open_Finder_or_Terminal.cocoascript"
+            "script": "Development/Open_Finder_or_Terminal.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Open Terminal at File Folder",
             "identifier": "open_terminal_at_file_folder",
             "handler": "openTerminalAtFileFolder",
-            "script": "Development/Open_Finder_or_Terminal.cocoascript"
+            "script": "Development/Open_Finder_or_Terminal.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Object ID or Symbol ID",
             "identifier": "copy_objectid_or_symbolid",
-            "script": "Development/Copy_ObjectID_or_SymbolID.cocoascript"
+            "script": "Development/Copy_ObjectID_or_SymbolID.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reload Plugins",
             "identifier": "reload_plugins",
-            "script": "Development/Reload_Plugins.cocoascript"
+            "script": "Development/Reload_Plugins.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Plugin Editor Setting",
             "identifier": "edit_plugin_setting",
-            "script": "Development/Edit_Plugin_Setting.cocoascript"
+            "script": "Development/Edit_Plugin_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Script Editor Setting",
             "identifier": "script_editor_setting",
-            "script": "Development/Script_Editor_Setting.cocoascript"
+            "script": "Development/Script_Editor_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Convert Sketch File to Other Version",
             "identifier": "convert_to_other_version",
-            "script": "Utilities/Convert_to_Other_Version.cocoascript"
+            "script": "Utilities/Convert_to_Other_Version.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste and Replace",
             "identifier": "paste_and_replace",
-            "script": "Layer/Paste_and_Replace.cocoascript"
+            "script": "Layer/Paste_and_Replace.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Swap Fill and Border",
             "identifier": "swap_fill_and_border",
-            "script": "Style/Swap_Fill_and_Border.cocoascript"
+            "script": "Style/Swap_Fill_and_Border.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Hide All Grid",
             "identifier": "hide_all_grid",
-            "script": "Guide/Hide_All_Grid.cocoascript"
+            "script": "Guide/Hide_All_Grid.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Hide All Layout",
             "identifier": "hide_all_layout",
-            "script": "Guide/Hide_All_Layout.cocoascript"
+            "script": "Guide/Hide_All_Layout.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Grid",
             "identifier": "copy_grid_setting",
             "handler": "copyGrid",
-            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Grid",
             "identifier": "paste_grid_setting",
             "handler": "pasteGrid",
-            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Layout",
             "identifier": "copy_layout_setting",
             "handler": "copyLayout",
-            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Layout",
             "identifier": "paste_layout_setting",
             "handler": "pasteLayout",
-            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Layout_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Copy Guide",
             "identifier": "copy_guide_setting",
             "handler": "copyGuide",
-            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Guide",
             "identifier": "paste_guide_setting",
             "handler": "pasteGuide",
-            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript"
+            "script": "Guide/Copy_and_Paste_Guide_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Arrange Objects",
             "identifier": "arrange_objects",
-            "script": "Arrange/Arrange_Objects.cocoascript"
+            "script": "Arrange/Arrange_Objects.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Baseline Offset",
             "identifier": "baseline",
-            "script": "Type/Baseline.cocoascript"
+            "script": "Type/Baseline.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Resize to Fix Text Height",
             "identifier": "resize_fit_text_height",
-            "script": "Type/Resize_Fit_Text_Height.cocoascript"
+            "script": "Type/Resize_Fit_Text_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Text Orientation",
             "identifier": "change_text_orientation",
-            "script": "Type/Change_Text_Orientation.cocoascript"
+            "script": "Type/Change_Text_Orientation.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Fills",
             "identifier": "paste_style_fills",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Borders",
             "identifier": "paste_style_borders",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Shadows",
             "identifier": "paste_style_shadows",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Inner Shadows",
             "identifier": "paste_style_innershadows",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Blur",
             "identifier": "paste_style_blur",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Text Style",
             "identifier": "paste_text_style",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Text Color",
             "identifier": "paste_text_color",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste Text Font",
             "identifier": "paste_text_font",
-            "script": "Style/Paste_Style_Part.cocoascript"
+            "script": "Style/Paste_Style_Part.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Ungroup Shape Layer",
             "identifier": "ungroup_shape_layer",
-            "script": "Layer/Ungroup_Shape_Layer.cocoascript"
+            "script": "Layer/Ungroup_Shape_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select All Instances of Imported Symbol",
             "identifier": "select_all_instances_of_imported_symbol",
-            "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript"
+            "script": "Symbol/Select_All_Instances_of_Imported_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Symbols to Library Symbol Base Symbol ID",
             "identifier": "change_symbols_to_library_symbol",
-            "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript"
+            "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Symbol With Library Symbol",
             "identifier": "replace_symbol_with_library_symbol",
-            "script": "Library/Replace_Symbol_With_Library_Symbol.cocoascript"
+            "script": "Library/Replace_Symbol_With_Library_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Add Library Preview",
             "identifier": "add_library_preview",
-            "script": "Library/Add_Library_Preview.cocoascript"
+            "script": "Library/Add_Library_Preview.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Unused Layer Styles",
             "identifier": "remove_unused_layer_styles",
-            "script": "Style/Remove_Unused_Styles.cocoascript"
+            "script": "Style/Remove_Unused_Styles.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Unused Text Styles",
             "identifier": "remove_unused_text_styles",
-            "script": "Style/Remove_Unused_Styles.cocoascript"
+            "script": "Style/Remove_Unused_Styles.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fix Library ID Conflict",
             "identifier": "fix_library_id_conflict",
-            "script": "Library/Fix_Library_ID_Conflict.cocoascript"
+            "script": "Library/Fix_Library_ID_Conflict.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Imported Symbols Link Manage",
             "identifier": "imported_symbols_link_manage",
-            "script": "Library/Imported_Symbols_Link_Manage.cocoascript"
+            "script": "Library/Imported_Symbols_Link_Manage.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Auto Slice",
             "identifier": "auto_slice",
-            "script": "Slice/Auto_Slice.cocoascript"
+            "script": "Slice/Auto_Slice.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select All Siblings Layers",
             "identifier": "select_all_siblings_layers",
-            "script": "Layer/Select_All_Siblings_Layers.cocoascript"
+            "script": "Layer/Select_All_Siblings_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Save Export Presets",
             "identifier": "save_export_presets",
             "handler": "saveExportPresetsToFile",
-            "script": "Slice/Export_Presets.cocoascript"
+            "script": "Slice/Export_Presets.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Load Export Presets",
             "identifier": "load_export_presets",
             "handler": "loadExportPresetsFromFile",
-            "script": "Slice/Export_Presets.cocoascript"
+            "script": "Slice/Export_Presets.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Move Symbol Masters To Another Page",
             "identifier": "move_symbols_to_page",
-            "script": "Symbol/Move_Symbols_To_Page.cocoascript"
+            "script": "Symbol/Move_Symbols_To_Page.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove Transparency Layers",
             "identifier": "remove_transparency_layers",
             "handler": "removeTransparencyLayersHandler",
-            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Transparency Layers",
             "identifier": "select_transparency_layers",
             "handler": "selectTransparencyLayersHandler",
-            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+            "script": "Layer/Select_or_Remove_All_Transparency_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Pick Color and Copy the HEX Code",
             "identifier": "pick_color_and_copy",
-            "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript"
+            "script": "Development/Pick_Color_And_Copy_To_Pasteboard.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reset Overrides",
             "identifier": "reset_overrides",
-            "script": "Symbol/Reset_Overrides.cocoascript"
+            "script": "Symbol/Reset_Overrides.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Show and Change Layer Info",
             "identifier": "show_layer_info",
-            "script": "Development/Show_Layer_Info.cocoascript"
+            "script": "Development/Show_Layer_Info.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Bring All Hotspot to Front",
             "identifier": "bring_all_hotspot_to_front",
-            "script": "Prototyping/Bring_All_Hotspot_to_Front.cocoascript"
+            "script": "Prototyping/Bring_All_Hotspot_to_Front.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Import Document Assets from Library",
             "identifier": "import_document_assets_from_library",
-            "script": "Library/Import_Document_Assets_from_Library.cocoascript"
+            "script": "Library/Import_Document_Assets_from_Library.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Import Styles from Library",
             "identifier": "import_styles_from_library",
-            "script": "Library/Import_Styles_from_Library.cocoascript"
+            "script": "Library/Import_Styles_from_Library.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Layers by Layer Style",
             "identifier": "select_layers_by_layer_style",
             "handler": "selectLayersByLayerStyle",
-            "script": "Style/Select_Layers_by_Style.cocoascript"
+            "script": "Style/Select_Layers_by_Style.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Layers by Text Style",
             "identifier": "select_layers_by_text_style",
             "handler": "selectLayersByTextStyle",
-            "script": "Style/Select_Layers_by_Style.cocoascript"
+            "script": "Style/Select_Layers_by_Style.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Create Link Layer",
             "identifier": "create_link_layer",
             "handler": "createLinkLayer",
-            "script": "Layer/Link_Layer.cocoascript"
+            "script": "Layer/Link_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Sync Link Layers",
             "identifier": "sync_link_layers",
             "handler": "syncLinkLayers",
-            "script": "Layer/Link_Layer.cocoascript"
+            "script": "Layer/Link_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export Clean Code SVG",
             "identifier": "export_clean_code_svg",
-            "script": "Utilities/Export_Clean_Code_SVG.cocoascript"
+            "script": "Utilities/Export_Clean_Code_SVG.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Split Text Layer",
             "identifier": "split_text_layer",
-            "script": "Type/Split_Text_Layer.cocoascript"
+            "script": "Type/Split_Text_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Combine Text Layers",
             "identifier": "combine_text_layer",
-            "script": "Type/Combine_Text_Layer.cocoascript"
+            "script": "Type/Combine_Text_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Layers Outside of Artboard Bounds",
             "identifier": "select_layers_outside_of_artboard_bounds",
-            "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript"
+            "script": "Layer/Select_Layers_Outside_Of_Artboard_Bounds.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Nine-Slice from Bitmap Layer",
             "identifier": "nine_slice_from_bitmap_layer",
-            "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript"
+            "script": "Utilities/Nine_Slice_From_Bitmap_Layer.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Fast Slice",
             "identifier": "fast_slice",
             "handler": "runFastSlice",
-            "script": "Slice/Fast_Slice.cocoascript"
+            "script": "Slice/Fast_Slice.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Slice Setting",
             "identifier": "slice_setting",
             "handler": "runSliceSetting",
-            "script": "Slice/Fast_Slice.cocoascript"
+            "script": "Slice/Fast_Slice.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Reverse",
             "identifier": "select_reverse",
-            "script": "Layer/Select_Reverse.cocoascript"
+            "script": "Layer/Select_Reverse.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Toggle Layer Constrain Proportions",
             "identifier": "toggle_layer_constrain_proportions",
-            "script": "Layer/Toggle_Layer_Constrain_Proportions.cocoascript"
+            "script": "Layer/Toggle_Layer_Constrain_Proportions.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Local Text Style to Library Text Style",
             "identifier": "change_local_text_style_to_library_text_style",
-            "script": "Library/Change_Local_Style_to_Library_Style.cocoascript"
+            "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Change Local Layer Style to Library Layer Style",
             "identifier": "change_local_layer_style_to_library_layer_style",
-            "script": "Library/Change_Local_Style_to_Library_Style.cocoascript"
+            "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Check For Library Updates",
             "identifier": "check_for_library_updates",
-            "script": "Library/Check_For_Library_Updates.cocoascript"
+            "script": "Library/Check_For_Library_Updates.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Increase Line Height",
             "identifier": "increase_line_height",
-            "script": "Type/Line_Height.cocoascript"
+            "script": "Type/Line_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Decrease Line Height",
             "identifier": "decrease_line_height",
-            "script": "Type/Line_Height.cocoascript"
+            "script": "Type/Line_Height.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Increase Letter Spacing",
             "identifier": "increase_letter_spacing",
-            "script": "Type/Letter_Spacing.cocoascript"
+            "script": "Type/Letter_Spacing.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Decrease Letter Spacing",
             "identifier": "decrease_letter_spacing",
-            "script": "Type/Letter_Spacing.cocoascript"
+            "script": "Type/Letter_Spacing.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Increase Horizontally Scale",
             "identifier": "increase_horizontally_scale",
-            "script": "Type/Horizontally_Scale.cocoascript"
+            "script": "Type/Horizontally_Scale.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Decrease Horizontally Scale",
             "identifier": "decrease_horizontally_scale",
-            "script": "Type/Horizontally_Scale.cocoascript"
+            "script": "Type/Horizontally_Scale.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Reset Horizontally Scale",
             "identifier": "reset_horizontally_scale",
-            "script": "Type/Horizontally_Scale.cocoascript"
+            "script": "Type/Horizontally_Scale.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Parent Artboard",
             "identifier": "select_parent_artboard",
-            "script": "Artboard/Select_Parent_Artboard.cocoascript"
+            "script": "Artboard/Select_Parent_Artboard.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Artboard Navigator",
             "identifier": "artboard_navigator",
-            "script": "Artboard/Artboard_Navigator.cocoascript"
+            "script": "Artboard/Artboard_Navigator.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Create Symbols from Selected Layers",
             "identifier": "create_symbols_from_selected_layers",
-            "script": "Symbol/Create_Symbols_from_Selected_Layers.cocoascript"
+            "script": "Symbol/Create_Symbols_from_Selected_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Rename Layer to Style Name",
             "identifier": "rename_layer_to_style_name",
-            "script": "Style/Rename_Layer_to_Style_Name.cocoascript"
+            "script": "Style/Rename_Layer_to_Style_Name.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Library",
             "identifier": "replace_library",
-            "script": "Library/Replace_Library.cocoascript"
+            "script": "Library/Replace_Library.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Toggle Select Group’s Content on Click",
             "identifier": "toggle_select_groups_content_on_click",
-            "script": "Layer/Toggle_Select_Groups_Content_On_Click.cocoascript"
+            "script": "Layer/Toggle_Select_Groups_Content_On_Click.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Increase Width From Right",
             "identifier": "small_increase_width_from_right",
             "handler": "smallIncreaseWidthFromRight",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Increase Width From Right",
             "identifier": "large_increase_width_from_right",
             "handler": "largeIncreaseWidthFromRight",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Increase Width From Center",
             "identifier": "small_increase_width_from_center",
             "handler": "smallIncreaseWidthFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Increase Width From Center",
             "identifier": "large_increase_width_from_center",
             "handler": "largeIncreaseWidthFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Increase Height From Bottom",
             "identifier": "small_increase_height_from_bottom",
             "handler": "smallIncreaseHeightFromBottom",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Increase Height From Bottom",
             "identifier": "large_increase_height_from_bottom",
             "handler": "largeIncreaseHeightFromBottom",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Increase Height From Center",
             "identifier": "small_increase_height_from_center",
             "handler": "smallIncreaseHeightFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Increase Height From Center",
             "identifier": "large_increase_height_from_center",
             "handler": "largeIncreaseHeightFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Decrease Width From Right",
             "identifier": "small_decrease_width_from_right",
             "handler": "smallDecreaseWidthFromRight",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Decrease Width From Right",
             "identifier": "large_decrease_width_from_right",
             "handler": "largeDecreaseWidthFromRight",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Decrease Width From Center",
             "identifier": "small_decrease_width_from_center",
             "handler": "smallDecreaseWidthFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Decrease Width From Center",
             "identifier": "large_decrease_width_from_center",
             "handler": "largeDecreaseWidthFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Decrease Height From Bottom",
             "identifier": "small_decrease_height_from_bottom",
             "handler": "smallDecreaseHeightFromBottom",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Decrease Height From Bottom",
             "identifier": "large_decrease_height_from_bottom",
             "handler": "largeDecreaseHeightFromBottom",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Small Decrease Height From Center",
             "identifier": "small_decrease_height_from_center",
             "handler": "smallDecreaseHeightFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Large Decrease Height From Center",
             "identifier": "large_decrease_height_from_center",
             "handler": "largeDecreaseHeightFromCenter",
-            "script": "Layer/Adjust_Sizes.cocoascript"
+            "script": "Layer/Adjust_Sizes.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Replace Override Symbol",
             "identifier": "replace_override_symbol",
-            "script": "Symbol/Replace_Override_Symbol.cocoascript"
+            "script": "Symbol/Replace_Override_Symbol.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export Data From Text Layers",
             "identifier": "export_data_from_text_layers",
-            "script": "Data/Export_Data_From_Text_Layers.cocoascript"
+            "script": "Data/Export_Data_From_Text_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export Image From Layers",
             "identifier": "export_image_from_layers",
-            "script": "Data/Export_Image_From_Layers.cocoascript"
+            "script": "Data/Export_Image_From_Layers.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Export Data From Symbol Instances",
             "identifier": "export_data_from_symbol_instances",
-            "script": "Data/Export_Data_From_Symbol_Instances.cocoascript"
+            "script": "Data/Export_Data_From_Symbol_Instances.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Paste and Replace Setting",
             "identifier": "paste_and_replace_setting",
-            "script": "Layer/Paste_and_Replace_Setting.cocoascript"
+            "script": "Layer/Paste_and_Replace_Setting.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Select Layers With Same Style",
             "identifier": "select_layers_with_same_style",
-            "script": "Style/select_layers_with_same_style.cocoascript"
+            "script": "Style/select_layers_with_same_style.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Toggle Auto and Fixed",
             "identifier": "toggle_text_auto_and_fixed",
-            "script": "Type/Toggle_Text_Auto_And_Fixed.cocoascript"
+            "script": "Type/Toggle_Text_Auto_And_Fixed.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "script": "Data/Supply_Data.cocoascript",
@@ -983,17 +1163,20 @@
         {
             "name": "Reset Flow",
             "identifier": "reset_flow",
-            "script": "Prototyping/Reset_Flow.cocoascript"
+            "script": "Prototyping/Reset_Flow.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Remove All Hotspot",
             "identifier": "remove_all_hotspot",
-            "script": "Prototyping/Remove_All_Hotspot.cocoascript"
+            "script": "Prototyping/Remove_All_Hotspot.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "Character Count",
             "identifier": "character_count",
-            "script": "Type/Character_Count.cocoascript"
+            "script": "Type/Character_Count.cocoascript",
+            "icon": "icon_runner.png"
         }
     ],
     "menu": {
