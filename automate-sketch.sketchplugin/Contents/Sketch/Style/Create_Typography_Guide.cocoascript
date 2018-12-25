@@ -91,7 +91,11 @@ var onRun = function(context) {
             text.frame().setY(typography.frame().height() + spaceBetweenTypographyAndText);
             typographyGroup.insertLayer_beforeLayer(text, typography);
 
-            typographyGroup.resizeToFitChildrenWithOption(1);
+            if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                typographyGroup.fixGeometryWithOptions(1);
+            } else {
+                typographyGroup.resizeToFitChildrenWithOption(1);
+            }
             typographyPositionY = typographyPositionY + spaceBetweenTypographys + typographyGroup.frame().height();
 
             typographyGroupLayers.push(typographyGroup);

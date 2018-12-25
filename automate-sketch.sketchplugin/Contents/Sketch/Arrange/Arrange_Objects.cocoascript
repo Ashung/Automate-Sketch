@@ -49,7 +49,11 @@ var onRun = function(context) {
 
             // Resize group to fit children
             if (selection.firstObject().parentGroup().class() == "MSLayerGroup") {
-                selection.firstObject().parentGroup().resizeToFitChildrenWithOption(1);
+                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                    selection.firstObject().parentGroup().fixGeometryWithOptions(1);
+                } else {
+                    selection.firstObject().parentGroup().resizeToFitChildrenWithOption(1);
+                }
             }
 
         }

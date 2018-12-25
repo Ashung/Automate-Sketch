@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.5.20181220",
+    "version": "52.5.20181225",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData" : true,
@@ -994,6 +994,11 @@
             "name": "字符統計",
             "identifier": "character_count",
             "script": "Type/Character_Count.cocoascript"
+        },
+        {
+            "name": "Create Style Guide",
+            "identifier": "create_style_guide",
+            "script": "Style/Create_Style_Guide.cocoascript"
         }
     ],
     "menu": {
@@ -1193,6 +1198,7 @@
                     "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
+                    "create_style_guide",
                     "create_typography_guide",
                     "-",
                     "import_document_assets_from_sketch_file",

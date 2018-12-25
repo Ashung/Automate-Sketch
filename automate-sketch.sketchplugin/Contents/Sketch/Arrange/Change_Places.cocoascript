@@ -34,11 +34,17 @@ var onRun = function(context) {
         }
 
         // Resize group to fit children
-        if (selection[0].parentGroup().class() == "MSLayerGroup") {
-            selection[0].parentGroup().resizeToFitChildrenWithOption(1);
-        }
-        if (selection[1].parentGroup().class() == "MSLayerGroup") {
-            selection[1].parentGroup().resizeToFitChildrenWithOption(1);
+        // Resize group to fit children
+        var loopSelection = selection.objectEnumerator();
+        var selectedLayer;
+        while (selectedLayer = loopSelection.nextObject()) {
+            if (selectedLayer.parentGroup().class() == "MSLayerGroup") {
+                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                    selectedLayer.parentGroup().fixGeometryWithOptions(1);
+                } else {
+                    selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);
+                }
+            }
         }
 
     } else {
