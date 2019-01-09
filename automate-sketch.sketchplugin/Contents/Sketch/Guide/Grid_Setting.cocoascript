@@ -64,26 +64,29 @@ var onRun = function(context) {
     var preset = UI.popupButton(presetTitles);
     dialog.addAccessoryView(preset);
 
+    var gridSize = presets[0].gridSize;
+    var thickGridTimes = presets[0].thickGridTimes;
+    setGrid(selectedArtboards, gridSize, thickGridTimes)
+
     preset.setCOSJSTargetFunction(function(sender) {
         var presetIndex = sender.indexOfSelectedItem();
         var gridSize = presets[presetIndex].gridSize;
         var thickGridTimes = presets[presetIndex].thickGridTimes;
-
-        var loopArtboard = selectedArtboards.objectEnumerator();
-        var artboard;
-        while (artboard = loopArtboard.nextObject()) {
-            setGrid(artboard, gridSize, thickGridTimes);
-        }
+        setGrid(selectedArtboards, gridSize, thickGridTimes)
     });
 
     dialog.runModal();
 
 };
 
-function setGrid(parent, gridSize, thickGridTimes) {
-    var grid = MSSimpleGrid.alloc().init();
-    grid.setThickGridTimes(thickGridTimes);
-    grid.setGridSize(gridSize);
-    parent.setGrid(grid);
-    parent.grid().setIsEnabled(true);
+function setGrid(artboards, gridSize, thickGridTimes) {
+    var loopArtboard = artboards.objectEnumerator();
+    var artboard;
+    while (artboard = loopArtboard.nextObject()) {
+        var grid = MSSimpleGrid.alloc().init();
+        grid.setThickGridTimes(thickGridTimes);
+        grid.setGridSize(gridSize);
+        artboard.setGrid(grid);
+        artboard.grid().setIsEnabled(true);
+    }
 }

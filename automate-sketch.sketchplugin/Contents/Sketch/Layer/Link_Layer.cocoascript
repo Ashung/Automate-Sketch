@@ -15,21 +15,21 @@ var createLinkLayer = function(context) {
             selection.count() == 1 &&
             (
                 selection.firstObject().className() != "MSLayerGroup" &&
-                selection.firstObject().className() != "MSArtboardGroup" &&
-                selection.firstObject().className() != "MSSymbolMaster"
+                selection.firstObject().className() != "MSArtboardGroup"
             )
         )
     ) {
-        document.showMessage("Place select a group or artboard.");
+        document.showMessage("Place select a layer group or artboard.");
         return;
     }
 
     // Create library symbol from selected group
     var group = selection.firstObject();
+    var foreignSymbol;
     if (findForeignSymbolFromGroup(context, group)) {
-        var foreignSymbol = findForeignSymbolFromGroup(context, group);
+        foreignSymbol = findForeignSymbolFromGroup(context, group);
     } else {
-        var foreignSymbol = foreignSymbolFromGroup(context, group);
+        foreignSymbol = foreignSymbolFromGroup(context, group);
     }
 
     // Insert symbol instance.
@@ -39,7 +39,9 @@ var createLinkLayer = function(context) {
         var tempMenuItem = NSMenuItem.alloc().init();
         tempMenuItem.setRepresentedObject([symbolRef]);
         insertAction.doPerformAction(tempMenuItem);
-    } catch(error) {}
+    } catch(error) {
+        document.showMessage("Error: " + error.message);
+    }
 
 };
 
@@ -64,7 +66,6 @@ var syncLinkLayers = function(context) {
             while (instance = loopAllInstances.nextObject()) {
                 var newForeignSymbol = foreignSymbolFromGroup(context, targetGroup);
                 instance.changeInstanceToSymbol(newForeignSymbol.symbolMaster());
-                instance.resetSizeToMaster();
             }
 
         } else {
@@ -89,7 +90,7 @@ function foreignSymbolFromGroup(context, group) {
     var documentData = document.documentData();
     var rect = group.frame().rect();
     var symbolMaster = MSSymbolMaster.alloc().initWithFrame(rect);
-    symbolMaster.setName(group.name());
+    symbolMaster.setName("_linked" + "/" + group.name());
     group.layers().forEach(function(layer) {
         layer.copy().moveToLayer_beforeLayer(symbolMaster, nil);
         symbolMaster.layers().lastObject().frame().setX(layer.frame().x());

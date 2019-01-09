@@ -126,11 +126,11 @@ var onRun = function(context) {
             var imageWidth = 180;
             var imageHeight = 150;
             if (originalSymbol) {
-                var originalSymbolView = symbolThumbView(originalSymbol, 10, 40, imageWidth, imageHeight, "OLD");
-                var newSymbolView = symbolThumbView(symbol, 200, 40, imageWidth, imageHeight, "NEW");
+                var originalSymbolView = symbolThumbView(context, originalSymbol, 10, 40, imageWidth, imageHeight, "OLD");
+                var newSymbolView = symbolThumbView(context, symbol, 200, 40, imageWidth, imageHeight, "NEW");
                 itemView.addSubview(originalSymbolView);
             } else {
-                var newSymbolView = symbolThumbView(symbol, 10, 40, imageWidth, imageHeight, "NEW");
+                var newSymbolView = symbolThumbView(context, symbol, 10, 40, imageWidth, imageHeight, "NEW");
             }
             itemView.addSubview(newSymbolView);
 
@@ -224,7 +224,7 @@ var onRun = function(context) {
 
 };
 
-function symbolThumbView(symbol, x, y, imageWidth, imageHeight, label) {
+function symbolThumbView(context, symbol, x, y, imageWidth, imageHeight, label) {
     var imageViewWrap = NSView.alloc().initWithFrame(NSMakeRect(x, y, imageWidth, imageHeight));
     var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, imageWidth, imageHeight));
     var layerAncestry = symbol.ancestry();
