@@ -61,7 +61,7 @@ var onRun = function(context) {
     selectAllView.setAllowsMixedState(true);
     dialog.addAccessoryView(selectAllView);
 
-    var resetStyleView = UI.checkBox(NSOffState, `Reset all ${styleType} stytle.`);
+    var resetStyleView = UI.checkBox(NSOffState, `Reset all ${styleType} styles.`);
     dialog.addAccessoryView(resetStyleView);
 
     // Init
