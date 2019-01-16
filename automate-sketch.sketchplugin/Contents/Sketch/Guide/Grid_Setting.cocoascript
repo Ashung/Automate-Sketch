@@ -56,6 +56,11 @@ var onRun = function(context) {
             title: "4 x 8",
             gridSize: 4,
             thickGridTimes: 8
+        },
+        {
+            title: "8 x 8",
+            gridSize: 8,
+            thickGridTimes: 8
         }
     ];
     var presetTitles = presets.map(function(item){

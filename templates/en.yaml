@@ -109,8 +109,8 @@ convert_to_other_version: Convert Sketch File to Other Version
 paste_and_replace: Paste and Replace
 paste_and_replace_setting: Paste and Replace Setting
 swap_fill_and_border: Swap Fill and Border
-hide_all_grid: Hide All Grid
-hide_all_layout: Hide All Layout
+hide_all_grid: Show or Hide All Grid
+hide_all_layout: Show or Hide All Layout
 copy_grid_setting: Copy Grid
 paste_grid_setting: Paste Grid
 copy_layout_setting: Copy Layout
