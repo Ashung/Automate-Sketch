@@ -2,7 +2,7 @@
 var fs = require("fs");
 var yaml = require("js-yaml");
 var Mustache = require("mustache");
-var supportLanguages = ["en"]; //, "zh_Hans", "zh_Hant"
+var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
 var buildDateString = getDateString();
 var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
@@ -13,15 +13,13 @@ for (var i = 0; i < supportLanguages.length; i++) {
         language.version = buildDateString;
     var manifest = Mustache.render(template, language);
 
-    
-
     try {
         if (JSON.parse(manifest)) {
             var manifestJSON = JSON.parse(manifest);
             var commands = manifestJSON.commands;
             commands.forEach(function(command) {
                 if (command.name) {
-                    command["icon"] = "icon.png";
+                    command["icon"] = "icon_runner.png";
                 }
             });
             manifest = JSON.stringify(manifestJSON, null, 4);
