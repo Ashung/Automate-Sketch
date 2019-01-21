@@ -8,7 +8,7 @@ var onRun = function(context) {
     var documentData = document.documentData();
 
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
 
@@ -17,12 +17,12 @@ var onRun = function(context) {
     var availableLibraries = assetLibraryController.availableLibraries();
 
     if (documentData.localSymbols().count() == 0) {
-        document.showMessage("Current document have not any local symbol.");
+        document.showMessage("Current document has no local symbols.");
         return;
     }
 
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
+        document.showMessage("You have no available libraries.");
         return;
     }
 
@@ -48,7 +48,7 @@ var onRun = function(context) {
     }
 
     if (!selectedSymbol) {
-        document.showMessage("You have not select any local symbol.");
+        document.showMessage("You have not selected any local symbols.");
         return;
     }
 
@@ -56,7 +56,7 @@ var onRun = function(context) {
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Replace Symbol With Library Symbol");
     dialog.setInformativeText(
-        "You current select the symbol master named \"" + selectedSymbol.name() +"\"."
+        "You currently selected the symbol master named \"" + selectedSymbol.name() +"\"."
     );
 
     var accessoryView = NSView.alloc().init();
