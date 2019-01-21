@@ -35,7 +35,7 @@ var onRun = function(context) {
     }
 
     if (Object.keys(overrideData).length == 0) {
-        document.showMessage("Not any override in selection.");
+        document.showMessage("No overrides available in selection.");
         return;
     }
 
