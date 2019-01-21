@@ -22,7 +22,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Export All Artboards");
-    dialog.setInformativeText("Export all artboards, symbol master or both of them.");
+    dialog.setInformativeText("Export all artboards, symbol masters or both.");
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
