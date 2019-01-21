@@ -32,7 +32,7 @@ var onRun = function(context) {
 
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Fix Library ID Conflict");
-    dialog.setInformativeText("Change the library ID, will cause symbol's auto update broken.");
+    dialog.setInformativeText("Change the library ID, will cause symbol's auto update to break.");
     dialog.addButtonWithTitle("Cancel");
 
     var accessoryView = NSView.alloc().init();

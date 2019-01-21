@@ -6,21 +6,21 @@ var onRun = function(context) {
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
 
     var documentData = document.documentData();
     var allImportedSymbols = documentData.foreignSymbols();
     if (allImportedSymbols.count() == 0) {
-        document.showMessage("You have not any imported symbol.");
+        document.showMessage("You have no imported symbols.");
         return;
     }
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
+        document.showMessage("You have no available libraries.");
         return;
     }
 
@@ -42,7 +42,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = NSAlert.alloc().init();
     dialog.setMessageText("Imported Symbols Link Manage");
-    dialog.setInformativeText("Link imported symbols to another library, or fix the library not found error.");
+    dialog.setInformativeText("Link imported symbols to another library, or fix the 'Library not found' error.");
     dialog.addButtonWithTitle("Close");
 
     var accessoryView = NSView.alloc().init();
