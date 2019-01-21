@@ -27,7 +27,7 @@ var onRun = function(context) {
         // Dialog
         var alert = COSAlertWindow.new();
         alert.setMessageText("Replace Fonts.");
-        alert.setInformativeText("Tips: You can find the Postscript name of the font from \"Font Book\" app.")
+        alert.setInformativeText("Tips: You can find the PostScript name of the font from \"Font Book\" app.")
 
         alert.addTextLabelWithValue("Choose a font used in current document:");
 
@@ -40,7 +40,7 @@ var onRun = function(context) {
 
         var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
         textField.setStringValue(getPreferences(context, "replaceFont") || "");
-        textField.setPlaceholderString("Type the postscript name of the font.");
+        textField.setPlaceholderString("Type the PostScript name of the font.");
         alert.addAccessoryView(textField);
 
         alert.addButtonWithTitle("OK");
@@ -54,7 +54,7 @@ var onRun = function(context) {
 
             // Font no specified.
             if (replaceFont == "") {
-                showAlert("Font Not Specified.", "Pleace input the postscript of font you want to replace with.");
+                showAlert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
                 return;
             }
 
