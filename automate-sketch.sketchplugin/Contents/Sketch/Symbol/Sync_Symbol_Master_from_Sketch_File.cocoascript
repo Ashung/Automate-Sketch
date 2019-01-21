@@ -27,7 +27,7 @@ var onRun = function(context) {
         var newDocumentData = newDocument.documentData();
         var newDocumentSymbols = newDocumentData.localSymbols();
         if (newDocumentSymbols.count() == 0) {
-            document.showMessage('Not any symbol masters in "' + chooseFile.URL().path() + '".');
+            document.showMessage('No symbol masters in "' + chooseFile.URL().path() + '".');
             return;
         }
 
