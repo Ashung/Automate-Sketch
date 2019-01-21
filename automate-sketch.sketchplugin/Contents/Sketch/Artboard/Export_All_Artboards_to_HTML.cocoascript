@@ -111,7 +111,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Document have no any artboard.");
+        doc.showMessage("No artboards in current document.");
     }
 
     ga(context, "Artboard");
