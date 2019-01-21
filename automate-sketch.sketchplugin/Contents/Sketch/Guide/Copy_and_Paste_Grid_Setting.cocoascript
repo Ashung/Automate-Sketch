@@ -87,7 +87,7 @@ function copyStringToPasteboard(context, string) {
     var pasteboard = NSPasteboard.generalPasteboard();
     pasteboard.clearContents();
     pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-    context.document.showMessage("The grid setting has copied.");
+    context.document.showMessage("The grid setting copied.");
 }
 
 function getStringFromPasteboard(context) {

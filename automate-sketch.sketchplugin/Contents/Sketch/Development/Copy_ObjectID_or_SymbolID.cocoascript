@@ -22,7 +22,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(pasteboardContent, NSStringPboardType);
 
-        document.showMessage('Layer objectID/SymbolID has copied.');
+        document.showMessage('Layer objectID/SymbolID copied.');
 
     } else if (selection.count() == 1) {
 
@@ -36,13 +36,13 @@ var onRun = function(context) {
                 NSMutableString.stringWithString(layer.symbolID()),
                 NSStringPboardType
             );
-            document.showMessage('SymbolID "' + layer.symbolID() + '" has copied.');
+            document.showMessage('SymbolID "' + layer.symbolID() + '" copied.');
         } else {
             pboard.setString_forType_(
                 NSMutableString.stringWithString(layer.objectID()),
                 NSStringPboardType
             );
-            document.showMessage('Layer objectID "' + layer.objectID() + '" has copied.');
+            document.showMessage('Layer objectID "' + layer.objectID() + '" copied.');
         }
 
     } else {

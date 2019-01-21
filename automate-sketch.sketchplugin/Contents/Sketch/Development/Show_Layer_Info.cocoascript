@@ -200,5 +200,5 @@ function copyToPasteboard(context, cotentString) {
     var pboard = NSPasteboard.generalPasteboard();
     pboard.clearContents();
     pboard.setString_forType_(cotentString, NSStringPboardType);
-    context.document.showMessage("ID \"" + cotentString + "\" has copied.");
+    context.document.showMessage("ID \"" + cotentString + "\" copied.");
 }
