@@ -10,7 +10,7 @@ var onRun = function(context) {
     if (context.command.identifier() == "remove_unused_layer_styles") {
 
         if (documentData.layerStyles().numberOfSharedStyles() == 0) {
-            document.showMessage("Document have no any layer style.");
+            document.showMessage("Document has no layer styles.");
             return;
         }
 
@@ -21,7 +21,7 @@ var onRun = function(context) {
     if (context.command.identifier() == "remove_unused_text_styles") {
 
         if (documentData.layerTextStyles().numberOfSharedStyles() == 0) {
-            document.showMessage("Document have no any text style.");
+            document.showMessage("Document has no text styles.");
             return;
         }
 
@@ -71,14 +71,14 @@ function createDialog(context, type) {
     }
 
     if (stylesCopy.count() == 0) {
-        document.showMessage("👍 Document have no any unused " + ((type == 0) ? "layer" : "text") + " style.");
+        document.showMessage("👍 Document has no unused " + ((type == 0) ? "layer" : "text") + " styles.");
         return;
     }
 
     var dialog = COSAlertWindow.alloc().init();
     var title = (type == 0) ? "Remove Unused Layer Styles" : "Remove Unused Text Styles";
     dialog.setMessageText(title);
-    dialog.setInformativeText("You can remove unused styles from list. Uncheck to keep it.");
+    dialog.setInformativeText("You can remove unused styles from list. Uncheck styles to keep them.");
 
     var selectAllView = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
     selectAllView.setButtonType(NSSwitchButton);
