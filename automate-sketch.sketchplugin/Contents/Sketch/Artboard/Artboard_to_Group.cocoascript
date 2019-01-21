@@ -11,7 +11,7 @@ var onRun = function(context) {
     var artboardsInSelection = selection.filteredArrayUsingPredicate(predicate);
 
     if (artboardsInSelection.count() == 0) {
-        document.showMessage("Select a artboard first.");
+        document.showMessage("Select artboard first.");
     }
 
     var loopArtboards = artboardsInSelection.objectEnumerator();

@@ -9,7 +9,7 @@ var onRun = function(context) {
         // Dialog
         var dialog = COSAlertWindow.alloc().init();
         dialog.setMessageText("Export All Artboards to HTML");
-        dialog.setInformativeText("Choose the image format.\nThe artboard whitch is named begin with \".\" will be ignored.");
+        dialog.setInformativeText("Choose the image format.\nArtboards beginning with \".\" will be ignored.");
         dialog.addButtonWithTitle("OK");
         dialog.addButtonWithTitle("Cancel");
 
