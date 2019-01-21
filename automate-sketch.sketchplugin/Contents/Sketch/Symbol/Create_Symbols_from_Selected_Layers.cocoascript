@@ -25,7 +25,7 @@ var onRun = function(context) {
     });
 
     if (layers.count() == 0) {
-        document.showMessage("Please select a not Artboard or Symbol Master layer.");
+        document.showMessage("Selected layer must not be an artboard or symbol master.");
         return;
     }
 
