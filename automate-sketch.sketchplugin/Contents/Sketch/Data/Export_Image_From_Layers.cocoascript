@@ -31,7 +31,7 @@ var onRun = function(context) {
     }
 
     if (images.count() == 0) {
-        document.showMessage("Not any image-fill or bitmap layer in selection.");
+        document.showMessage("No image-fill or bitmap layers in selection.");
         return;
     }
     
