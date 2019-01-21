@@ -1,5 +1,21 @@
 
 -
+  version: 52.6.20190121
+  description: |-
+    <ul>
+    <li>Fixed increase/decrease line height bug. #127 </li>
+    <li>Create Color/Typography Guide now link to existing style. fix #128 </li>
+    <li>Add Create Style Guide. fix #129</li>
+    <li>Fix Sync Symbol Master from Sketch File bug.</li>
+    <li>Sync Link Lyaer does not reset symbol to original size.</li>
+    <li>Add Sketch Runner icon.</li>
+    <li>Hide All Grid/Layout can show or hide grid/layout. fix #131</li>
+    <li>Convert artboard to symbols now keep background setting.</li>
+    <li>Change Places now support layers in different artboard.</li>
+    </ul>
+  commitID: 1b5423f5278ea1391378987ccb52a4497ee59dce
+
+-
   version: 52.5.20181213
   description: |-
     <ul>
