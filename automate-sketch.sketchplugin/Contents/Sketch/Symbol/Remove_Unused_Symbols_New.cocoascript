@@ -175,9 +175,9 @@ var onRun = function(context) {
         }
 
         if (count > 1) {
-            document.showMessage("🎉 " + count + " unused symbols have been removed.");
+            document.showMessage("🎉 " + count + " unused symbols removed.");
         } else if (count == 1) {
-            document.showMessage("😊 1 unused symbol have been removed.");
+            document.showMessage("😊 1 unused symbol removed.");
         }
 
     }

@@ -147,9 +147,9 @@ function createDialog(context, type) {
 
         var message;
         if (count > 1) {
-            message = "🎉 " + count + ((type == 0) ? " layer" : " text") + " styles have been removed.";
+            message = "🎉 " + count + ((type == 0) ? " layer" : " text") + " styles removed.";
         } else if (count == 1) {
-            message = "😊 1 " + ((type == 0) ? " layer" : " text") + " style have been removed.";
+            message = "😊 1 " + ((type == 0) ? " layer" : " text") + " style removed.";
         }
         document.showMessage(message);
 
