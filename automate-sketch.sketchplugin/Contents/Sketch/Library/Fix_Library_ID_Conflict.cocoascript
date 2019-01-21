@@ -7,19 +7,19 @@ var onRun = function(context) {
     var document = context.document;
 
     if (MSApplicationMetadata.metadata().appVersion < 48) {
-        document.showMessage("😮 You have to update Sketch 48+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 48+ to use thie feature.");
         return;
     }
 
     var libraries = librariesWithConflictID();
 
     if (!libraries) {
-        document.showMessage("You have not any library.");
+        document.showMessage("You have no libraries.");
         return;
     }
 
     if (libraries.count() == 0) {
-        document.showMessage("😀 You have not any library with conflict ID.");
+        document.showMessage("😀 You have no libraries with conflict ID.");
         return;
     }
 
