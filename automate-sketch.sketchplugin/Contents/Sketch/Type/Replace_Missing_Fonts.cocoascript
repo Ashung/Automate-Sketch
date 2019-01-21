@@ -8,7 +8,7 @@ var onRun = function(context) {
     var doc = context.document;
 
     if (!doc.fileURL()) {
-        doc.showMessage("This document don't have any missing fonts.");
+        doc.showMessage("This document has no missing fonts.");
         return;
     }
 

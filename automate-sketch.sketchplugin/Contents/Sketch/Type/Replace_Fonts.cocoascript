@@ -27,7 +27,7 @@ var onRun = function(context) {
         // Dialog
         var alert = COSAlertWindow.new();
         alert.setMessageText("Replace Fonts.");
-        alert.setInformativeText("Tips: You can find the postscript name of font from \"Font Book\" app.")
+        alert.setInformativeText("Tips: You can find the Postscript name of the font from \"Font Book\" app.")
 
         alert.addTextLabelWithValue("Choose a font used in current document:");
 
@@ -76,11 +76,11 @@ var onRun = function(context) {
 
             setPreferences(context, "replaceFont", replaceFont);
 
-            doc.showMessage('Complete replace "' + selectedFont + '" with ' + '"' + replaceFont + '".');
+            doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
         }
     } else {
-        doc.showMessage("This document don't have any text layer.");
+        doc.showMessage("This document has no text layers.");
     }
 };
 
