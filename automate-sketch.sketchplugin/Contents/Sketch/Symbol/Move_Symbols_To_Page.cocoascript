@@ -16,14 +16,14 @@ var onRun = function(context) {
 
     var symbolMasters = symbolMasterInSelection(selection);
     if (symbolMasters.count() == 0) {
-        document.showMessage("There is no any symbol master in your selection.");
+        document.showMessage("There are no symbol masters in your selection.");
         return;
     }
 
     // Dialog
     var dialog = COSAlertWindow.alloc().init();
     dialog.setMessageText("Move Symbol Masters To Another Page");
-    dialog.setInformativeText("Move selected symbol masters to anthoer page.");
+    dialog.setInformativeText("Move selected symbol masters to another page.");
     dialog.addButtonWithTitle("OK");
     dialog.addButtonWithTitle("Cancel");
 
