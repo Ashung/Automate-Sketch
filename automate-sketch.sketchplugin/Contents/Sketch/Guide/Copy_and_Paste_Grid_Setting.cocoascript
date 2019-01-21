@@ -15,7 +15,7 @@ var copyGrid = function(context) {
             if (layer.grid()) {
                 copyGridToPasteboard(context, layer);
             } else {
-                document.showMessage("There is not grid setting in \"" + layer.name() + "\".");
+                document.showMessage("No grid setting in \"" + layer.name() + "\".");
                 return;
             }
         } else {
@@ -27,7 +27,7 @@ var copyGrid = function(context) {
         if (page.grid() && page.artboards().count() == 0) {
             copyGridToPasteboard(context, page);
         } else {
-            document.showMessage("There is not grid setting in \"" + page.name() + "\".");
+            document.showMessage("No grid setting in \"" + page.name() + "\".");
             return;
         }
     }
@@ -87,7 +87,7 @@ function copyStringToPasteboard(context, string) {
     var pasteboard = NSPasteboard.generalPasteboard();
     pasteboard.clearContents();
     pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-    context.document.showMessage("The grid setting copied.");
+    context.document.showMessage("Grid setting copied.");
 }
 
 function getStringFromPasteboard(context) {
@@ -98,7 +98,7 @@ function getStringFromPasteboard(context) {
         if (string) {
             return string;
         } else {
-            context.document.showMessage("Clipboard have not any grid setting.");
+            context.document.showMessage("No grid setting in clipboard.");
             return nil;
         }
     }
