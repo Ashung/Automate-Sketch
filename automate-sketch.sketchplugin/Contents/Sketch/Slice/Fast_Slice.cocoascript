@@ -32,7 +32,7 @@ var runFastSlice = function(context) {
         document.showMessage("This is your first time running Fast Slice, so you need to configure the slice settings first.");
         var setting = sliceSetting(context);
         if (setting != 1000) {
-            document.showMessage("You must confirm the slice setting.");
+            document.showMessage("You must confirm the slice settings.");
             return;
         }
         if (setting == 1000) {
