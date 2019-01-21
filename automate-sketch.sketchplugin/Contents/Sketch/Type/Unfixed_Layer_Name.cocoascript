@@ -17,7 +17,7 @@ var onRun = function(context) {
         }
 
         if (!selectionHasTextLayer) {
-            doc.showMessage("Your selection have no contains any text layer.");
+            doc.showMessage("Your selection has no text layers.");
         }
 
     } else {
