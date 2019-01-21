@@ -7,7 +7,7 @@ var onRun = function(context) {
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 51) {
-        document.showMessage("😮 You have to update Sketch 51+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 51+ to use thie feature.");
         return;
     }
 
@@ -26,21 +26,21 @@ var onRun = function(context) {
         styleType = "layer";
     }
     if (allLocalStyle.count() == 0) {
-        document.showMessage(`No any ${styleType} styles in current document.`);
+        document.showMessage(`No ${styleType} styles in current document.`);
         return;
     }
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
+        document.showMessage("You have no available libraries.");
         return;
     }
 
     // Dialog
     var dialog = UI.cosDialog(
         `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
-        `Change the following local ${styleType} styles to change it to foreign ${styleType} style from library.`,
+        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`,
         ["OK", "Cancel"]
     );
 
