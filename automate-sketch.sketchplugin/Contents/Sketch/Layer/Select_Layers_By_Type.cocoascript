@@ -117,7 +117,7 @@ function selectLayersInSelectionByType(context, type) {
     }
 
     if (totalCount == 0) {
-        doc.showMessage(`No ${type} layer found.`);
+        doc.showMessage(`No ${type} layers found.`);
     } else if (totalCount == 1) {
         doc.showMessage(`Select 1 ${type} layer.`);
     } else {
