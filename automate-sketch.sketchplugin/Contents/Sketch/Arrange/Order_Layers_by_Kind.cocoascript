@@ -7,7 +7,7 @@ var onRun = function(context) {
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {
-        document.showMessage("Please select at least 2 layer.");
+        document.showMessage("Please select at least 2 layers.");
         return;
     }
 
