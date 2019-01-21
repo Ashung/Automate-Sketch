@@ -12,14 +12,14 @@ var onRun = function(context) {
     var styles = documentData.layerStyles().sharedStyles();
 
     if (styles.count() == 0) {
-        document.showMessage("Document have no any layer style.");
+        document.showMessage("Document has no layer styles.");
         return;
     }
 
     // Dialog
     var dialog = UI.cosDialog(
         "Create Style Guide",
-        "Create style guide from layer style in document. Input the format like \"100\" or \"100x50\"."
+        "Create style guide from layer style in document. Input the format for Palette Size like \"100\" or \"100x50\"."
     );
 
     var label = UI.textLabel("Palette Size");
