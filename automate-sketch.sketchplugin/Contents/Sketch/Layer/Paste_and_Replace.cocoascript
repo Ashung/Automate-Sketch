@@ -105,7 +105,11 @@ var onRun = function(context) {
                     newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
 
                     if (parentGroup.class() == "MSLayerGroup") {
-                        parentGroup.resizeToFitChildrenWithOption(1);
+                        if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                            parentGroup.fixGeometryWithOptions(1);
+                        } else {
+                            parentGroup.resizeToFitChildrenWithOption(1);
+                        }
                     }
 
                 }

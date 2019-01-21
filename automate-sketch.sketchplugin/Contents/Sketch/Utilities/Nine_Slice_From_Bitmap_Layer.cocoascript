@@ -184,7 +184,7 @@ var onRun = function(context) {
 
         layer.parentGroup().addLayer(group);
 
-        group.select_byExpandingSelection(true, false);
+        group.select_byExtendingSelection(true, false);
 
     }
 

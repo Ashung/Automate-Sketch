@@ -5,10 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.5.20181213",
+    "version": "52.6.20190121",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
-    "suppliesData" : true,
+    "suppliesData": true,
     "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
@@ -552,13 +552,13 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "Hide All Grid",
+            "name": "Show or Hide All Grid",
             "identifier": "hide_all_grid",
             "script": "Guide/Hide_All_Grid.cocoascript",
             "icon": "icon_runner.png"
         },
         {
-            "name": "Hide All Layout",
+            "name": "Show or Hide All Layout",
             "identifier": "hide_all_layout",
             "script": "Guide/Hide_All_Layout.cocoascript",
             "icon": "icon_runner.png"
@@ -1136,9 +1136,9 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "Select Layers With Same Style",
-            "identifier": "select_layers_with_same_style",
-            "script": "Style/select_layers_with_same_style.cocoascript",
+            "name": "Select Layers With Same Shared Style",
+            "identifier": "select_layers_with_same_shared_style",
+            "script": "Style/Select_Layers_With_Same_Shared_Style.cocoascript",
             "icon": "icon_runner.png"
         },
         {
@@ -1176,6 +1176,12 @@
             "name": "Character Count",
             "identifier": "character_count",
             "script": "Type/Character_Count.cocoascript",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Create Style Guide",
+            "identifier": "create_style_guide",
+            "script": "Style/Create_Style_Guide.cocoascript",
             "icon": "icon_runner.png"
         }
     ],
@@ -1353,7 +1359,7 @@
                 "items": [
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
-                    "select_layers_with_same_style",
+                    "select_layers_with_same_shared_style",
                     "-",
                     "rename_layer_to_style_name",
                     "-",
@@ -1376,6 +1382,7 @@
                     "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
+                    "create_style_guide",
                     "create_typography_guide",
                     "-",
                     "import_document_assets_from_sketch_file",

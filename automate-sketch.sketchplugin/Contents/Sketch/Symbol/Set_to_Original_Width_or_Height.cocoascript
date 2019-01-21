@@ -35,7 +35,11 @@ var onRun = function(context) {
             layer.setScale(1);
 
             if (layer.parentGroup().class() == "MSLayerGroup") {
-                layer.parentGroup().resizeToFitChildrenWithOption(1);
+                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                    layer.parentGroup().fixGeometryWithOptions(1);
+                } else {
+                    layer.parentGroup().resizeToFitChildrenWithOption(1);
+                }
             }
 
         }

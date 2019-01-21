@@ -5,10 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.5.20181213",
+    "version": "52.6.20190121",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
-    "suppliesData" : true,
+    "suppliesData": true,
     "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
@@ -405,8 +405,7 @@
         {
             "name": "",
             "identifier": "remove_all_disabled_styles",
-            "script": "Style/Remove_All_Disabled_Styles.cocoascript",
-            "icon": "icon_runner.png"
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
         },
         {
             "name": "从 Sketch 文档导入资源",
@@ -552,13 +551,13 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "隐藏所有网格",
+            "name": "显示或隐藏所有网格",
             "identifier": "hide_all_grid",
             "script": "Guide/Hide_All_Grid.cocoascript",
             "icon": "icon_runner.png"
         },
         {
-            "name": "隐藏所有布局",
+            "name": "显示或隐藏所有布局",
             "identifier": "hide_all_layout",
             "script": "Guide/Hide_All_Layout.cocoascript",
             "icon": "icon_runner.png"
@@ -568,7 +567,6 @@
             "identifier": "copy_grid_setting",
             "handler": "copyGrid",
             "script": "Guide/Copy_and_Paste_Grid_Setting.cocoascript",
-            "icon": "icon_runner.png",
             "icon": "icon_runner.png"
         },
         {
@@ -1137,9 +1135,9 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "按相同样式选择图层",
-            "identifier": "select_layers_with_same_style",
-            "script": "Style/select_layers_with_same_style.cocoascript",
+            "name": "相同共享样式选择的图层",
+            "identifier": "select_layers_with_same_shared_style",
+            "script": "Style/Select_Layers_With_Same_Shared_Style.cocoascript",
             "icon": "icon_runner.png"
         },
         {
@@ -1164,17 +1162,26 @@
         {
             "name": "重置链接",
             "identifier": "reset_flow",
-            "script": "Prototyping/Reset_Flow.cocoascript"
+            "script": "Prototyping/Reset_Flow.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "删除所有热区",
             "identifier": "remove_all_hotspot",
-            "script": "Prototyping/Remove_All_Hotspot.cocoascript"
+            "script": "Prototyping/Remove_All_Hotspot.cocoascript",
+            "icon": "icon_runner.png"
         },
         {
             "name": "字符统计",
             "identifier": "character_count",
-            "script": "Type/Character_Count.cocoascript"
+            "script": "Type/Character_Count.cocoascript",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Create Style Guide",
+            "identifier": "create_style_guide",
+            "script": "Style/Create_Style_Guide.cocoascript",
+            "icon": "icon_runner.png"
         }
     ],
     "menu": {
@@ -1351,7 +1358,7 @@
                 "items": [
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
-                    "select_layers_with_same_style",
+                    "select_layers_with_same_shared_style",
                     "-",
                     "rename_layer_to_style_name",
                     "-",
@@ -1374,6 +1381,7 @@
                     "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
+                    "create_style_guide",
                     "create_typography_guide",
                     "-",
                     "import_document_assets_from_sketch_file",

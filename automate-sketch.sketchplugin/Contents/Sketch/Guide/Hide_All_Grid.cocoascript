@@ -1,40 +1,34 @@
 @import "../Libraries/Google_Analytics.cocoascript";
+@import "../Libraries/Preferences.cocoascript";
 
 var onRun = function(context) {
 
+    ga(context, "Guide");
+
     var document = context.document;
     var selection = context.selection;
-    var currentPage = document.currentPage();
-    var artboards = currentPage.artboards();
 
+    var selectedArtboards;
     if (selection.count() > 0) {
-
-        var loopSelection = selection.objectEnumerator();
-        while (layer = loopSelection.nextObject()) {
-            if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                if (layer.grid()) {
-                    layer.grid().setIsEnabled(false);
-                }
-            }
-        }
-
+        var predicate = NSPredicate.predicateWithFormat("className IN %@", ["MSArtboardGroup", "MSSymbolMaster"]);
+        selectedArtboards = selection.filteredArrayUsingPredicate(predicate);
     } else {
-
-        if (artboards.count() > 0) {
-            var loopArtboards = artboards.objectEnumerator();
-            while(artboard = loopArtboards.nextObject()) {
-                if (artboard.grid()) {
-                    artboard.grid().setIsEnabled(false);
-                }
-            }
-        } else {
-            if (currentPage.grid()) {
-                currentPage.grid().setIsEnabled(false);
-            }
-        }
-
+        selectedArtboards = document.currentPage().artboards();
     }
 
-    ga(context, "Guide");
+    if (selectedArtboards.count() == 0) {
+        document.showMessage("Please select a Artboard or Symbol Master.");
+        return;
+    }
+
+    var showGrid = getPreferences(context, "showGrid") || false;
+    var loopArtboards = selectedArtboards.objectEnumerator();
+    var artboard;
+    while (artboard = loopArtboards.nextObject()) {
+        if (artboard.grid()) {
+            artboard.grid().setIsEnabled(!Boolean(Number(showGrid)));
+        }
+    }
+    setPreferences(context, "showGrid", !Boolean(Number(showGrid)));
 
 };

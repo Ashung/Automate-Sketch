@@ -5,10 +5,10 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "52.5.20181213",
+    "version": "52.6.20190121",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
-    "suppliesData" : true,
+    "suppliesData": true,
     "compatibleVersion": "50",
     "bundleVersion": "1",
     "commands": [
@@ -405,8 +405,7 @@
         {
             "name": "",
             "identifier": "remove_all_disabled_styles",
-            "script": "Style/Remove_All_Disabled_Styles.cocoascript",
-            "icon": "icon_runner.png"
+            "script": "Style/Remove_All_Disabled_Styles.cocoascript"
         },
         {
             "name": "從 Sketch 檔案匯入資源",
@@ -552,13 +551,13 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "隱藏所有網格",
+            "name": "顯示或隱藏所有網格",
             "identifier": "hide_all_grid",
             "script": "Guide/Hide_All_Grid.cocoascript",
             "icon": "icon_runner.png"
         },
         {
-            "name": "隱藏所有佈局",
+            "name": "顯示或隱藏所有佈局",
             "identifier": "hide_all_layout",
             "script": "Guide/Hide_All_Layout.cocoascript",
             "icon": "icon_runner.png"
@@ -1136,9 +1135,9 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "按相同樣式選擇圖層",
-            "identifier": "select_layers_with_same_style",
-            "script": "Style/select_layers_with_same_style.cocoascript",
+            "name": "選擇相同共享樣式的圖層",
+            "identifier": "select_layers_with_same_shared_style",
+            "script": "Style/Select_Layers_With_Same_Shared_Style.cocoascript",
             "icon": "icon_runner.png"
         },
         {
@@ -1176,6 +1175,12 @@
             "name": "字符統計",
             "identifier": "character_count",
             "script": "Type/Character_Count.cocoascript",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Create Style Guide",
+            "identifier": "create_style_guide",
+            "script": "Style/Create_Style_Guide.cocoascript",
             "icon": "icon_runner.png"
         }
     ],
@@ -1353,7 +1358,7 @@
                 "items": [
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
-                    "select_layers_with_same_style",
+                    "select_layers_with_same_shared_style",
                     "-",
                     "rename_layer_to_style_name",
                     "-",
@@ -1376,6 +1381,7 @@
                     "remove_unused_text_styles",
                     "-",
                     "create_color_guide",
+                    "create_style_guide",
                     "create_typography_guide",
                     "-",
                     "import_document_assets_from_sketch_file",

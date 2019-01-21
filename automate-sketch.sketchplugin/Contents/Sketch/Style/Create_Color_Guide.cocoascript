@@ -5,10 +5,17 @@ var onRun = function(context) {
 
     ga(context, "Style");
 
+    var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
-    var documentColors = document.documentData().assets().colors();
+
+    var documentColors;
+    if (appVersion >= 53) {
+        documentColors = document.documentData().assets().colorAssets();
+    } else {
+        documentColors = document.documentData().assets().colors();
+    }
     if (documentColors.count() == 0) {
-        document.showMessage("No any document color in current document.");
+        document.showMessage("No any document color or gradient in current document.");
         return;
     }
 
@@ -19,7 +26,7 @@ var onRun = function(context) {
         "CSS RGBA, rgba(255, 255, 255, 1)",
         "CSS HSL, hsl(360, 100%, 100%)",
         "CSS HSLA, hsla(360, 100%, 100%, 1)",
-        "Android, #FFFFFFFF",
+        "Android, #AARRGGBB",
         "iOS/macOS, red:1 green:1 blue:1 alpha:1"
     ];
 
@@ -71,8 +78,8 @@ var onRun = function(context) {
             paletteWidth = paletteHeight = parseInt(userInputString);
         }
         if (/^\d+x\d+$/i.test(userInputString)) {
-            var paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
-            var paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
+            paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
+            paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
         }
         setPreferences(context, "paletteSize", userInputString.toString());
 
@@ -85,10 +92,17 @@ var onRun = function(context) {
         var color;
         while (color = loopDocumentColors.nextObject()) {
 
+            var mscolor;
+            if (color.class() == "MSColorAsset") {
+                mscolor = color.color();
+            } else {
+                mscolor = color;
+            }
+
             // Add layer group
             var paletteGroup = MSLayerGroup.alloc().init();
             paletteGroup.setName("color");
-            paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
+            paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight));
             page.addLayer(paletteGroup);
 
             palettePositionX = palettePositionX + paletteWidth + spaceBetweenPalettes;
@@ -103,41 +117,58 @@ var onRun = function(context) {
                 palette = MSShapeGroup.shapeWithPath(rectangle);
             }
             palette.style().addStylePartOfType(0);
-            palette.style().fills().firstObject().setColor(color);
-            palette.setName("color");
+            palette.style().fills().firstObject().setColor(mscolor);
+            palette.setName("palette");
             paletteGroup.addLayer(palette);
+
+            // Add name layer
+            if (color.class() == "MSColorAsset" && color.name()) {
+                var name = MSTextLayer.alloc().init();
+                name.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+                name.setStringValue(color.name());
+                name.setLineHeight(textHeight);
+                name.setFontPostscriptName(textFontName);
+                name.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
+                name.setFontSize(textFontSize);
+                name.setName("name");
+                paletteGroup.insertLayer_beforeLayer(name, palette);
+            }
 
             // Add text layer
             var text = MSTextLayer.alloc().init();
-            text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+            if (color.class() == "MSColorAsset" && color.name()) {
+                text.setRect(CGRectMake(0, paletteHeight + textHeight + spaceBetweenPaletteAndText * 2, paletteWidth, textHeight));
+            } else {
+                text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+            }
             var stringValue;
             switch (colorFormatIndex) {
                 case 0:
-                    stringValue = MSColorToHEX(color);
+                    stringValue = MSColorToHEX(mscolor);
                     break;
                 case 1:
-                    stringValue = MSColorToRGB(color);
+                    stringValue = MSColorToRGB(mscolor);
                     break;
                 case 2:
-                    stringValue = MSColorToCSSRGB(color);
+                    stringValue = MSColorToCSSRGB(mscolor);
                     break;
                 case 3:
-                    stringValue = MSColorToCSSRGBA(color);
+                    stringValue = MSColorToCSSRGBA(mscolor);
                     break;
                 case 4:
-                    stringValue = MSColorToCSSHSL(color);
+                    stringValue = MSColorToCSSHSL(mscolor);
                     break;
                 case 5:
-                    stringValue = MSColorToCSSHSLA(color);
+                    stringValue = MSColorToCSSHSLA(mscolor);
                     break;
                 case 6:
-                    stringValue = MSColorToAndroid(color);
+                    stringValue = MSColorToAndroid(mscolor);
                     break;
                 case 7:
-                    stringValue = MSColorToNSColor(color);
+                    stringValue = MSColorToNSColor(mscolor);
                     break;
                 default:
-                    stringValue = MSColorToHEX(color);
+                    stringValue = MSColorToHEX(mscolor);
             }
             text.setStringValue(stringValue);
             text.setLineHeight(textHeight);
@@ -146,6 +177,12 @@ var onRun = function(context) {
             text.setFontSize(textFontSize);
             text.setName("label");
             paletteGroup.insertLayer_beforeLayer(text, palette);
+
+            if (appVersion >= 53) {
+                paletteGroup.fixGeometryWithOptions(1);
+            } else {
+                paletteGroup.resizeToFitChildrenWithOption(1);
+            }
 
             paletteGroupLayers.push(paletteGroup);
 

@@ -107,7 +107,11 @@ var onRun = function(context) {
                 // Fix layer group bounds
                 if (layer.class() == "MSLayerGroup") {
                     // reset bounds
-                    layer.resizeToFitChildrenWithOption(1);
+                    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                        layer.fixGeometryWithOptions(1);
+                    } else {
+                        layer.resizeToFitChildrenWithOption(1);
+                    }
                     // Round to pixel
                     if (
                         layer.frame().x() - Math.floor(layer.frame().x()) != 0 ||
