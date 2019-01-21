@@ -8,7 +8,7 @@ var onRun = function(context) {
     var documentData = doc.documentData();
 
     if (documentData.allArtboards().count() == 0) {
-        doc.showMessage("Document have no any artboard.");
+        doc.showMessage("No artboards in current document.");
         return;
     }
 
@@ -72,10 +72,10 @@ var onRun = function(context) {
                 panelMessage = "Export All Artboards To ...";
                 break;
             case 1:
-                panelMessage = "Export All Symbol Master To ...";
+                panelMessage = "Export All Symbol Masters To ...";
                 break;
             case 2:
-                panelMessage = "Export All Artboards And Symbol Master To ...";
+                panelMessage = "Export All Artboards And Symbol Masters To ...";
                 break;
             default:
                 panelMessage = "Export All Artboards To ...";
