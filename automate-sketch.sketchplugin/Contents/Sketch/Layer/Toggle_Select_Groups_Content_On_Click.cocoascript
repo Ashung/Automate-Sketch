@@ -10,7 +10,7 @@ var onRun = function(context) {
     var predicate = NSPredicate.predicateWithFormat("className == %@", "MSLayerGroup");
     var selectedGroups = selection.filteredArrayUsingPredicate(predicate);
     if (selectedGroups.count() == 0) {
-        document.showMessage("Please select at least one layer group.");
+        document.showMessage("Please select at least 1 layer group.");
         return;
     }
 

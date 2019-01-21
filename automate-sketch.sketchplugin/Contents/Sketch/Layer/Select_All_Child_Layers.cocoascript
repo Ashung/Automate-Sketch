@@ -38,7 +38,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select at least one group or artboard.");
+        doc.showMessage("Please select at least 1 group or artboard.");
     }
 
     ga(context, "Layer");

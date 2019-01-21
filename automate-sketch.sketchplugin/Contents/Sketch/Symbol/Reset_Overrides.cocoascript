@@ -7,7 +7,7 @@ var onRun = function(context) {
     var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
 
     if (selection.count() == 0 || symbolInstancesInSelection.count() == 0) {
-        document.showMessage("Please select at least one symbol instance.");
+        document.showMessage("Please select at least 1 symbol instance.");
         return;
     }
 

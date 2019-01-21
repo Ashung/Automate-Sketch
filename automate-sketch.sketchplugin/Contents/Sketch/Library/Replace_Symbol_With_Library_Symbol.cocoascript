@@ -27,7 +27,7 @@ var onRun = function(context) {
     }
 
     if (selection.count() == 0) {
-        document.showMessage("Please select one symbol.");
+        document.showMessage("Please select 1 symbol.");
         return;
     }
 

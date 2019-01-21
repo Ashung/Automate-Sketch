@@ -10,7 +10,7 @@ var onRun = function(context) {
     var originalPage = document.currentPage();
 
     if (selection.count() == 0) {
-        document.showMessage("Please select at least one symbol master.");
+        document.showMessage("Please select at least 1 symbol master.");
         return;
     }
 

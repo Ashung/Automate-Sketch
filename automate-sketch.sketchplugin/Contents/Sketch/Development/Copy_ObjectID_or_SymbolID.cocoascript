@@ -46,7 +46,7 @@ var onRun = function(context) {
         }
 
     } else {
-        document.showMessage("Please select one layer.");
+        document.showMessage("Please select 1 layer.");
     }
 
     ga(context, "Development");

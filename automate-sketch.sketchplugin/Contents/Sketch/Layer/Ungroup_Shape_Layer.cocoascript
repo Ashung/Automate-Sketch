@@ -17,7 +17,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select at least one shape layer.");
+        doc.showMessage("Please select at least 1 shape layer.");
     }
 
     ga(context, "Layer");

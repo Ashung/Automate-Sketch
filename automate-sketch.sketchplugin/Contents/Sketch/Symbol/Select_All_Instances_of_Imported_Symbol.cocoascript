@@ -10,7 +10,7 @@ var onRun = function(context) {
     var currentPage = document.currentPage();
 
     if (selection.count() != 1) {
-        document.showMessage("Please select one imported symbol.");
+        document.showMessage("Please select 1 imported symbol.");
         return;
     } else {
         var layer = selection.firstObject();
@@ -38,10 +38,10 @@ var onRun = function(context) {
                 );
 
             } else {
-                document.showMessage("Please select one imported symbol.");
+                document.showMessage("Please select 1 imported symbol.");
             }
         } else {
-            document.showMessage("Please select one imported symbol.");
+            document.showMessage("Please select 1 imported symbol.");
         }
     }
 

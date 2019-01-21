@@ -45,7 +45,7 @@ var runFastSlice = function(context) {
     // Checking selection
     var selection = context.selection;
     if (selection.count() == 0) {
-        document.showMessage("Please select at least one layer.");
+        document.showMessage("Please select at least 1 layer.");
         return;
     }
 

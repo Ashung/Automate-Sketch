@@ -10,7 +10,7 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if (selection.count() != 1) {
-        doc.showMessage("Please select one shape layer.");
+        doc.showMessage("Please select 1 shape layer.");
     }
 
     var layer = selection.firstObject();
@@ -65,7 +65,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select one shape layer.");
+        doc.showMessage("Please select 1 shape layer.");
     }
 
 };

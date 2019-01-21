@@ -175,7 +175,7 @@ var onRun = function(context) {
         if (allMatchStyles.length == 0) {
             var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 260));
             contentView.setFlipped(true);
-            var noStyleTipView = UI.textLabel(`No any match ${styleType} styles in this library.`, [0, 120, 300, 30]);
+            var noStyleTipView = UI.textLabel(`No matching ${styleType} styles in this library.`, [0, 120, 300, 30]);
             noStyleTipView.setTextColor(NSColor.grayColor());
             noStyleTipView.setAlignment(NSCenterTextAlignment);
             contentView.addSubview(noStyleTipView);

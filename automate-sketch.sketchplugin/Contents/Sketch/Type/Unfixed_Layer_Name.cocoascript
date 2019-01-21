@@ -21,7 +21,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select at least one text layer.");
+        doc.showMessage("Please select at least 1 text layer.");
     }
 
     ga(context, "Type");

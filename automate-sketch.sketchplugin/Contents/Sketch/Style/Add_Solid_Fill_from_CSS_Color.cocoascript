@@ -283,7 +283,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select one shape layer.");
+        doc.showMessage("Please select 1 shape layer.");
     }
 
     ga(context, "Style");

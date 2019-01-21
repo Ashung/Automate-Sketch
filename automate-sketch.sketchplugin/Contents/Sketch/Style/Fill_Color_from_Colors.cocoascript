@@ -24,7 +24,7 @@ function fillColorFromColors(context, colors, alertMessage) {
     var selection = context.selection;
 
     if (selection.count() == 0) {
-        doc.showMessage("Please select one Shape or Text layer.");
+        doc.showMessage("Please select 1 Shape or Text layer.");
         return;
     }
 
