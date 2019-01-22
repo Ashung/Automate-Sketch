@@ -11,7 +11,7 @@ var onRun = function(context) {
     var selectedArtboards = selection.filteredArrayUsingPredicate(predicate);
 
     if (selectedArtboards.count() == 0) {
-        document.showMessage("Please select a Artboard or Symbol Master.");
+        document.showMessage("Please select an artboard or symbol master.");
         return;
     }
 

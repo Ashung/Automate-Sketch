@@ -45,7 +45,7 @@ function orderLayers(context, position) {
         tempLayer.removeFromParent();
 
     } else {
-        doc.showMessage("You need to select at least 2 layers.");
+        doc.showMessage("Please select at least 2 layers.");
     }
 
     ga(context, "Arrange");

@@ -6,7 +6,7 @@ var onRun = function(context) {
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
 
@@ -14,7 +14,7 @@ var onRun = function(context) {
     var availableLibraries = assetLibraryController.availableLibraries();
 
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
+        document.showMessage("You have no available libraries.");
         return;
     }
 
@@ -38,7 +38,7 @@ var onRun = function(context) {
     var checkboxTextStyle = checkboxView("Import text styles.");
     dialog.addAccessoryView(checkboxTextStyle);
 
-    var checkboxLayerStyle = checkboxView("Import layer style.");
+    var checkboxLayerStyle = checkboxView("Import layer styles.");
     dialog.addAccessoryView(checkboxLayerStyle);
 
     // Run

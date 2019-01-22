@@ -26,7 +26,7 @@ var onRun = function(context) {
     }
 
     if(!hasTextLayer) {
-        doc.showMessage("Do not have any text layer.");
+        doc.showMessage("No text layer.");
     }
 
     function addSpace(textlayer) {

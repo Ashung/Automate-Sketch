@@ -19,7 +19,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = UI.cosDialog(
         "Export Clean Code SVG",
-        "Export clean code SVG files from symbol masters, groups, without make a copy and remove layers.",
+        "Export clean code SVG files from symbol masters, groups, without making a copy and remove layers.",
         ["Save", "Cancel"]
     );
 
@@ -142,7 +142,7 @@ var onRun = function(context) {
                 savePanel.setCanCreateDirectories(true);
             } else {
                 savePanel = NSOpenPanel.openPanel();
-                savePanel.setMessage("Export select layers as SVG");
+                savePanel.setMessage("Export selected layers as SVG");
                 savePanel.setCanChooseDirectories(true);
                 savePanel.setCanChooseFiles(false);
                 savePanel.setCanCreateDirectories(true);
@@ -298,7 +298,7 @@ var onRun = function(context) {
             //         savePanel.setCanCreateDirectories(true);
             //     } else {
             //         savePanel = NSOpenPanel.openPanel();
-            //         savePanel.setMessage("Export select layers as SVG");
+            //         savePanel.setMessage("Export selected layers as SVG");
             //         savePanel.setCanChooseDirectories(true);
             //         savePanel.setCanChooseFiles(false);
             //         savePanel.setCanCreateDirectories(true);

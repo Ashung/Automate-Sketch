@@ -18,7 +18,7 @@ var onRun = function(context) {
     var count = selectedLayerWithSharedStyle.count();
 
     if (selection.count() == 0 || count == 0) {
-        document.showMessage("Please select a layer with shared style.");
+        document.showMessage("Please select a layer with a shared style.");
         return;
     }
 

@@ -11,7 +11,7 @@ var onRun = function(context) {
     var allArtboards = document.documentData().allArtboards();
 
     if (allArtboards.count() == 0) {
-        document.showMessage("No any artboard in current document.");
+        document.showMessage("No artboards in current document.");
         return;
     }
 

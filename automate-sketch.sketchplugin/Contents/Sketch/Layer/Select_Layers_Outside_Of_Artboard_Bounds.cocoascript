@@ -44,14 +44,14 @@ var onRun = function(context) {
     });
 
     if (artboardCount == 0) {
-        document.showMessage("This document have no any artboard.");
+        document.showMessage("This document has no artboards.");
         return;
     }
 
     if (layerCount > 0) {
-        document.showMessage(`Select ${layerCount} layer(s) in ${artboardCount} artbard(s) and ${pageCount} page(s).`);
+        document.showMessage(`Select ${layerCount} layer(s) in ${artboardCount} artboard(s) and ${pageCount} page(s).`);
     } else {
-        document.showMessage("No any layer outside of artboard bounds.");
+        document.showMessage("No layers outside of artboard bounds.");
     }
 
 };

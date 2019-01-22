@@ -31,7 +31,7 @@ var onRun = function(context) {
         document.showMessage(`Remove ${hotspotLayerCount} hotspot layers, ${linkLayerCount} layers with link.`);
     }
     else {
-        document.showMessage("Not any hotspot layer.");
+        document.showMessage("No hotspot layers.");
     }
 
 };

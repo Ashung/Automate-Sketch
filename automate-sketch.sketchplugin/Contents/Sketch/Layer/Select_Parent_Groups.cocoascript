@@ -37,7 +37,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select at least one layer.");
+        doc.showMessage("Please select at least 1 layer.");
     }
     ga(context, "Layer");
 };

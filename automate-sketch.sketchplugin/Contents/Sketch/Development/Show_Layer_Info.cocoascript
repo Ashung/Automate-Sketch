@@ -8,7 +8,7 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if (selection.count() == 0) {
-        document.showMessage("Please select at least one layer.");
+        document.showMessage("Please select at least 1 layer.");
         return;
     }
 
@@ -200,5 +200,5 @@ function copyToPasteboard(context, cotentString) {
     var pboard = NSPasteboard.generalPasteboard();
     pboard.clearContents();
     pboard.setString_forType_(cotentString, NSStringPboardType);
-    context.document.showMessage("ID \"" + cotentString + "\" has copied.");
+    context.document.showMessage("ID \"" + cotentString + "\" copied.");
 }

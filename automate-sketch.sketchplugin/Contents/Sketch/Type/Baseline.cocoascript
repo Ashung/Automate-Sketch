@@ -6,7 +6,7 @@ var onRun = function(context) {
     var selection = context.selection;
 
     if (MSApplicationMetadata.metadata().appVersion >= 48) {
-        doc.showMessage("😥 Sorry, this feature can‘t running in Sketch 48+.");
+        doc.showMessage("😥 Sorry, this feature is not compatiable with Sketch 48+.");
         return;
     }
 
@@ -23,7 +23,7 @@ var onRun = function(context) {
             selectedRange = textLayer.editingDelegate().textView().selectedRange();
 
             if (selectedRange.length == 0) {
-                doc.showMessage("Selected range have no any letter.");
+                doc.showMessage("Selected range has no letters.");
                 return;
             }
 

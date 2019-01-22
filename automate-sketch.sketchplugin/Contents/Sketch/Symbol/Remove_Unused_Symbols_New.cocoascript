@@ -8,14 +8,14 @@ var onRun = function(context) {
     var documentData = document.documentData();
 
     if (MSApplicationMetadata.metadata().appVersion < 48) {
-        document.showMessage("😮 You have to update Sketch 48+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 48+ to use thie feature.");
         return;
     }
 
     var unusedSymbols = getAllUnusedSymbols(context);
 
     if (unusedSymbols.count() == 0) {
-        document.showMessage("👍 Have not any unused symbol in current document.");
+        document.showMessage("👍 No unused symbols in current document.");
         return;
     }
 
@@ -175,9 +175,9 @@ var onRun = function(context) {
         }
 
         if (count > 1) {
-            document.showMessage("🎉 " + count + " unused symbols have been removed.");
+            document.showMessage("🎉 " + count + " unused symbols removed.");
         } else if (count == 1) {
-            document.showMessage("😊 1 unused symbol have been removed.");
+            document.showMessage("😊 1 unused symbol removed.");
         }
 
     }

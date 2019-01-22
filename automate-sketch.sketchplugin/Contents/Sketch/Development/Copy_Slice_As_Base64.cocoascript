@@ -42,7 +42,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(base64Code, NSStringPboardType);
 
-        doc.showMessage("The base64 code \"" + base64Preview + "\" of slice has copied.");
+        doc.showMessage("The base64 code \"" + base64Preview + "\" of slice copied.");
 
     } else {
         doc.showMessage("Please select 1 slice layer.");

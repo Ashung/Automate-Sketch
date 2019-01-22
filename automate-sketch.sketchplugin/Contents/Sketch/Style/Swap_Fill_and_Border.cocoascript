@@ -72,7 +72,7 @@ var onRun = function(context) {
         }
 
     } else {
-        doc.showMessage("Please select one layer with fill or border.");
+        doc.showMessage("Please select 1 layer with fill or border.");
     }
 
     ga(context, "Style");

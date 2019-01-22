@@ -22,7 +22,7 @@ var copyGuide = function(context) {
         if (page.artboards().count() == 0) {
             copyGuideToPasteboard(context, page);
         } else {
-            document.showMessage("There is not guide setting in \"" + page.name() + "\".");
+            document.showMessage("No guide setting in \"" + page.name() + "\".");
             return;
         }
     }
@@ -78,7 +78,7 @@ function copyGuideToPasteboard(context, layer) {
         layer.horizontalRulerData().guides().count() == 0 &&
         layer.verticalRulerData().guides().count() == 0
     ) {
-        document.showMessage("There is not guide setting in \"" + layer.name() + "\".");
+        document.showMessage("No guide setting in \"" + layer.name() + "\".");
         return;
     } else {
         var horizontalRulerData = layer.horizontalRulerData().guides().componentsJoinedByString(",");
@@ -103,7 +103,7 @@ function copyStringToPasteboard(context, string) {
     var pasteboard = NSPasteboard.generalPasteboard();
     pasteboard.clearContents();
     pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-    context.document.showMessage("The guide setting has copied.");
+    context.document.showMessage("Guide setting copied.");
 }
 
 function getStringFromPasteboard(context) {
@@ -114,7 +114,7 @@ function getStringFromPasteboard(context) {
         if (string) {
             return string;
         } else {
-            context.document.showMessage("Clipboard have not any guide setting.");
+            context.document.showMessage("No grid setting in clipboard.");
             return nil;
         }
     }

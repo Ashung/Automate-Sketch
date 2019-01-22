@@ -3,7 +3,7 @@
 var showFileInFinder = function(context) {
     var doc = context.document;
     if (!doc.fileURL()) {
-        doc.showMessage("You have to save this document.");
+        doc.showMessage("Please save this document first.");
     } else {
         var filePath = doc.fileURL().path();
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);

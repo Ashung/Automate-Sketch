@@ -33,11 +33,11 @@ var onRun = function(context) {
 
     var message;
     if (count > 1) {
-        message = count + " exportable layers have been removed in current page.";
+        message = count + " exportable layers removed in current page.";
     } else if (count == 1) {
-        message = "1 exportable layer have been removed in current page.";
+        message = "1 exportable layer removed in current page.";
     } else {
-        message = "Not any exportable layer found in current page.";
+        message = "No exportable layers found in current page.";
     }
     doc.showMessage(message);
 

@@ -34,16 +34,16 @@ var onRun = function(context) {
         if (pluginIdentifier == "import_text_styles_from_sketch_file") {
             styles = documentData.layerTextStyles();
             newStyles = newDocumentData.layerTextStyles();
-            name = "text sytle";
+            name = "text styles";
         }
         if (pluginIdentifier == "import_layer_styles_from_sketch_file") {
             styles = documentData.layerStyles();
             newStyles = newDocumentData.layerStyles();
-            name = "layer sytle";
+            name = "layer styles";
         }
 
         if (newStyles.numberOfSharedStyles() == 0) {
-            document.showMessage(`Not any ${name} in this file.`);
+            document.showMessage(`No ${name} in this file.`);
             return;
         }
 
