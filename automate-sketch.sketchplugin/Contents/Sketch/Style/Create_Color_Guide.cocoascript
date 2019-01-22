@@ -15,7 +15,7 @@ var onRun = function(context) {
         documentColors = document.documentData().assets().colors();
     }
     if (documentColors.count() == 0) {
-        document.showMessage("No any document color or gradient in current document.");
+        document.showMessage("No document colors or gradients in current document.");
         return;
     }
 

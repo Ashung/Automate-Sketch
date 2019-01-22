@@ -8,7 +8,7 @@ var onRun = function(context) {
     var documentData = document.documentData();
 
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
 
@@ -17,7 +17,7 @@ var onRun = function(context) {
     var availableLibraries = assetLibraryController.availableLibraries();
 
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have not any available library.");
+        document.showMessage("You have no available libraries.");
         return;
     }
 
@@ -52,9 +52,9 @@ var onRun = function(context) {
 
     if (symbolMastersWillChanged.count() == 0) {
         if (selection.count() > 0) {
-            document.showMessage("You have not select any symbol.");
+            document.showMessage("You have not selected any symbol.");
         } else {
-            document.showMessage("Current document have not any symbol.");
+            document.showMessage("Current document has no symbols.");
         }
         return;
     }
@@ -157,11 +157,11 @@ var onRun = function(context) {
 
     var message;
     if (countSymbol > 1) {
-        message = countSymbol + " symbol masters have been changed to library symbol.";
+        message = countSymbol + " symbol masters changed to library symbol.";
     } else if (countSymbol == 1) {
-        message = "1 symbol master have been changed to library symbol.";
+        message = "1 symbol master changed to library symbol.";
     } else {
-        message = "No any symbol master have been changed to library symbol.";
+        message = "No symbol masters changed to library symbol.";
     }
     document.showMessage(message);
 

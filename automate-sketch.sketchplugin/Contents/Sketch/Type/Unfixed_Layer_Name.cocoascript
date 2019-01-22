@@ -17,11 +17,11 @@ var onRun = function(context) {
         }
 
         if (!selectionHasTextLayer) {
-            doc.showMessage("Your selection have no contains any text layer.");
+            doc.showMessage("Your selection has no text layers.");
         }
 
     } else {
-        doc.showMessage("Please select at least one text layer.");
+        doc.showMessage("Please select at least 1 text layer.");
     }
 
     ga(context, "Type");

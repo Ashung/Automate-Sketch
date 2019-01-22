@@ -7,7 +7,7 @@ var saveExportPresetsToFile = function(context) {
     var exportPresets = MSExportPreset.allExportPresets();
 
     if (exportPresets.count() == 0) {
-        context.document.showMessage("Have not any export presets.");
+        context.document.showMessage("No export presets.");
         return;
     };
 
@@ -54,7 +54,7 @@ var saveExportPresetsToFile = function(context) {
             context.document.showMessage("Error: " + error.value());
             return;
         }
-        context.document.showMessage("Export presets save to " + filePath);
+        context.document.showMessage("Export presets saved to " + filePath);
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
 
@@ -117,7 +117,7 @@ var loadExportPresetsFromFile = function(context) {
         panelController.currentPreferencePane().tableView().reloadData();
         panelController.window().close();
 
-        context.document.showMessage("Export presets have loaded.");
+        context.document.showMessage("Export presets loaded.");
 
     }
 

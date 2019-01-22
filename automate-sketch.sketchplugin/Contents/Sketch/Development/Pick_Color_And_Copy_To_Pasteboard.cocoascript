@@ -25,7 +25,7 @@ var onRun = function(context) {
         pboard.clearContents();
         pboard.setString_forType_(hexValue, NSStringPboardType);
 
-        document.showMessage("The color code \"" + hexValue + "\" has been copied.");
+        document.showMessage("Color code \"" + hexValue + "\" copied.");
 
         coscript.setShouldKeepAround(false);
 

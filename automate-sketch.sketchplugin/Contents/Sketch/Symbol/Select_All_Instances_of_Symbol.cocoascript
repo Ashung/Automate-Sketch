@@ -51,7 +51,7 @@ var onRun = function(context) {
         }
 
         if (allInstancesOfCurrentSymbolMaster == 0) {
-            doc.showMessage("The symbol master has no instance.");
+            doc.showMessage("The symbol master has no instances.");
             return;
         }
 

@@ -53,7 +53,7 @@ var onRun = function(context) {
                         }
                     }
                 } else {
-                    doc.showMessage("Style no include fills.");
+                    doc.showMessage("Style does not include fills.");
                 }
             }
 
@@ -75,7 +75,7 @@ var onRun = function(context) {
                         }
                     }
                 } else {
-                    doc.showMessage("Style no include borders.");
+                    doc.showMessage("Style does not include borders.");
                 }
             }
 
@@ -99,7 +99,7 @@ var onRun = function(context) {
                         }
                     }
                 } else {
-                    doc.showMessage("Style no include shadows.");
+                    doc.showMessage("Style does not include shadows.");
                 }
             }
 
@@ -121,7 +121,7 @@ var onRun = function(context) {
                         }
                     }
                 } else {
-                    doc.showMessage("Style no include inner shadows.");
+                    doc.showMessage("Style does not include inner shadows.");
                 }
             }
 
@@ -172,7 +172,7 @@ var onRun = function(context) {
                         }
                     }
                 } else {
-                    doc.showMessage("Style no include blur.");
+                    doc.showMessage("Style does not include blur.");
                 }
             }
 

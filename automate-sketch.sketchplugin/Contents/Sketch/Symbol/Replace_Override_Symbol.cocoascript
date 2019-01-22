@@ -13,17 +13,17 @@ var onRun = function(context) {
 
     var instances;
     if (selection.count() == 0) {
-        dialogMessage = "Find a override symbol from document, and replace with another."
+        dialogMessage = "Find an override symbol from document, and replace with another."
         instances = symbolInstancesInDocument(context);
         if (instances.count() == 0) {
-            document.showMessage("Not any instance in selected layers.");
+            document.showMessage("No instances in selected layers.");
             return;
         }
     } else {
-        dialogMessage = "Find a override symbol from selected layers, and replace with another."
+        dialogMessage = "Find an override symbol from selected layers, and replace with another."
         instances = symbolInstancesInSelection(context);
         if (instances.count() == 0) {
-            document.showMessage("Not any instance in document.");
+            document.showMessage("No instances in document.");
             return;
         }
     }
@@ -48,7 +48,7 @@ var onRun = function(context) {
     });
 
     if (changeableOverridePoints.count() == 0) {
-        document.showMessage("Not any symbol override.");
+        document.showMessage("No symbol overrides.");
         return;
     }
 

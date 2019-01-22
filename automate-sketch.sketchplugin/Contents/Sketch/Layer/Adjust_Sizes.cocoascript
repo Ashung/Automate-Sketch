@@ -103,7 +103,7 @@ function runActionForSelection(context, action) {
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {
-        document.showMessage("Please select at least one layer.");
+        document.showMessage("Please select at least 1 layer.");
         return;
     }
     var loopSelection = selection.objectEnumerator();

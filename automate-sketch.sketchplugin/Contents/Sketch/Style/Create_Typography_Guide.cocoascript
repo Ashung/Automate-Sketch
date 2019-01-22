@@ -8,7 +8,7 @@ var onRun = function(context) {
     var document = context.document;
     var textStyles = document.documentData().layerTextStyles().sharedStyles();
     if (textStyles.count() == 0) {
-        document.showMessage("No any text style in current document.");
+        document.showMessage("No text styles in current document.");
         return;
     }
 

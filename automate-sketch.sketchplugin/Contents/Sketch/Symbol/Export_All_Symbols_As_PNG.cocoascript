@@ -8,7 +8,7 @@ var onRun = function(context) {
     var allSymbols = document.documentData().localSymbols();
 
     if (allSymbols.count() == 0) {
-        document.showMessage("This document have no any local symbol.");
+        document.showMessage("This document has no local symbols.");
         return;
     }
 

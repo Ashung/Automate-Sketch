@@ -23,7 +23,7 @@ var onRun = function(context) {
     }
 
     if(!hasTextLayer) {
-        doc.showMessage("Do not seleted any text layer.");
+        doc.showMessage("No text layers seleted.");
     }
 
     ga(context, "Type");

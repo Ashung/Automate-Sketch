@@ -4,13 +4,13 @@
 var fillColorFromGlobalColors = function(context) {
     ga(context, "Style");
     var globalColors = NSApp.delegate().globalAssets().colors();
-    fillColorFromColors(context, globalColors, "You have no any color in Global Colors.");
+    fillColorFromColors(context, globalColors, "You have no colors in Global Colors.");
 };
 
 var fillColorFromDocumentColors = function(context) {
     ga(context, "Style");
     var documentColors = context.document.documentData().assets().colors();
-    fillColorFromColors(context, documentColors, "You have no any color in Document Colors.");
+    fillColorFromColors(context, documentColors, "You have no colors in Document Colors.");
 };
 
 function fillColorFromColors(context, colors, alertMessage) {
@@ -24,7 +24,7 @@ function fillColorFromColors(context, colors, alertMessage) {
     var selection = context.selection;
 
     if (selection.count() == 0) {
-        doc.showMessage("Please select one Shape or Text layer.");
+        doc.showMessage("Please select 1 Shape or Text layer.");
         return;
     }
 

@@ -11,13 +11,13 @@ var onRun = function(context) {
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var allLibraries = assetLibraryController.libraries();
     if (allLibraries.count() == 0) {
-        document.showMessage('These is not any library in "Preferences" - "Libraries".');
+        document.showMessage('These are no libraries in "Preferences" - "Libraries".');
         return;
     }
 
     var foreignSymbols = documentData.foreignSymbols();
     if (foreignSymbols.count() == 0) {
-        document.showMessage("Current document have not use any library.");
+        document.showMessage("Current document is not using any libraries.");
         return;
     }
 

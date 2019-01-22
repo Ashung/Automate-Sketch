@@ -11,7 +11,7 @@ var selectLayersByLayerStyle = function(context) {
     if (layerStyles.count() > 0) {
         main(context, layerStyles, "Select Layers by Layer Style", "Select all layers with a layer style in current page.");
     } else {
-        document.showMessage("No any layer styles in current document.");
+        document.showMessage("No layer styles in current document.");
     }
     ga(context, "Style");
 };
@@ -27,7 +27,7 @@ var selectLayersByTextStyle = function(context) {
     if (textStyles.count() > 0) {
         main(context, textStyles, "Select Layers by Text Style", "Select all layers with a text style in current page.");
     } else {
-        document.showMessage("No any text styles in current document.");
+        document.showMessage("No text styles in current document.");
     }
     ga(context, "Style");
 };
@@ -138,7 +138,7 @@ function main(context, styles, title, message) {
             document.showMessage(`Select 1 layer with ${styleType} "${selectedStyleName}"${messageAddon}.`);
         }
         else {
-            document.showMessage(`Not any layer with ${styleType} "${selectedStyleName}"${messageAddon}.`);
+            document.showMessage(`No layers with ${styleType} "${selectedStyleName}"${messageAddon}.`);
         }
 
         NSApp.sendAction_to_from("zoomToSelection:", nil, document);

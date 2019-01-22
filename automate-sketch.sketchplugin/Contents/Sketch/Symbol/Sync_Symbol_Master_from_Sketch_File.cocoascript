@@ -27,7 +27,7 @@ var onRun = function(context) {
         var newDocumentData = newDocument.documentData();
         var newDocumentSymbols = newDocumentData.localSymbols();
         if (newDocumentSymbols.count() == 0) {
-            document.showMessage('Not any symbol masters in "' + chooseFile.URL().path() + '".');
+            document.showMessage('No symbol masters in "' + chooseFile.URL().path() + '".');
             return;
         }
 
@@ -51,7 +51,7 @@ var onRun = function(context) {
             }
         });
         if (differentSymbols.count() == 0) {
-            document.showMessage('Symbol masters not need to update.');
+            document.showMessage('Symbol masters are the same. No need to update.');
             return;
         }
 
@@ -61,7 +61,7 @@ var onRun = function(context) {
 
         var dialog = NSAlert.alloc().init();
         dialog.setMessageText("Sync Symbol Master from Sketch File");
-        dialog.setInformativeText("Replace symbol master form file base symbolID, and import new symbol masters.");
+        dialog.setInformativeText("Replace symbol masters from file based on symbolID, and import new symbol masters.");
         dialog.addButtonWithTitle("OK");
         dialog.addButtonWithTitle("Cancel");
 
@@ -216,7 +216,7 @@ var onRun = function(context) {
 
             document.loadLayerListPanel();
 
-            document.showMessage("Update " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
+            document.showMessage("Updated " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
 
         }
 

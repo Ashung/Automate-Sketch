@@ -19,7 +19,7 @@ var onRun = function(context) {
     }
 
     if (selectedArtboards.count() == 0) {
-        doc.showMessage("Please select at least one artboard.");
+        doc.showMessage("Please select at least 1 artboard.");
         return;
     }
 

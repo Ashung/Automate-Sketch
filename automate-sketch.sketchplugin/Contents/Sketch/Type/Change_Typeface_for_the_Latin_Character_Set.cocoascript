@@ -15,7 +15,7 @@ var onRun = function(context) {
     var dialog = {
         "title" : "Change typeface for the Latin character set.",
         "message" : "Type the PostScript name of font. \n" +
-                    "PostScript name can be finded in \"/Applications/FontBook.app\".\n\n" +
+                    "PostScript name can be found in \"/Applications/FontBook.app\".\n\n" +
                     "Android: Roboto-Regular(Thin, Light),\n" +
                     "iOS: SFUIDisplay-Regular, \n" +
                     "Web: Arial, Helvetica, HelveticaNeue",
@@ -71,7 +71,7 @@ var onRun = function(context) {
             }
 
         } else {
-            doc.showMessage("Your selection have no include a text layer.");
+            doc.showMessage("Your selection has no text layers.");
         }
 
     } else {

@@ -25,11 +25,11 @@ var onRun = function(context) {
 
     var message;
     if (count > 1) {
-        message = "🎉 " + count + " \"copy\"s have been removed.";
+        message = "🎉 " + count + " \"copy\"s removed.";
     } else if (count == 1) {
-        message = "😊 1 \"copy\" have been removed.";
+        message = "😊 1 \"copy\" removed.";
     } else {
-        message = "👍 Your document have no any \"copy\".";
+        message = "👍 Your document has no \"copy\".";
     }
     doc.showMessage(message);
 

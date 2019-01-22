@@ -15,11 +15,11 @@ var copyLayout = function(context) {
             if (layer.layout()) {
                 copyLayoutToPasteboard(context, layer);
             } else {
-                document.showMessage("There is not layout setting in \"" + layer.name() + "\".");
+                document.showMessage("No layout setting in \"" + layer.name() + "\".");
                 return;
             }
         } else {
-            document.showMessage("The layer \"" + layer.name() + "\" is not a artboard.");
+            document.showMessage("The layer \"" + layer.name() + "\" is not an artboard.");
             return;
         }
     } else {
@@ -27,7 +27,7 @@ var copyLayout = function(context) {
         if (page.layout() && page.artboards().count() == 0) {
             copyLayoutToPasteboard(context, page);
         } else {
-            document.showMessage("There is not layout setting in \"" + page.name() + "\".");
+            document.showMessage("No layout setting in \"" + page.name() + "\".");
             return;
         }
     }
@@ -110,7 +110,7 @@ function copyStringToPasteboard(context, string) {
     var pasteboard = NSPasteboard.generalPasteboard();
     pasteboard.clearContents();
     pasteboard.setString_forType(NSMutableString.stringWithString(string), NSPasteboardTypeString);
-    context.document.showMessage("The layout setting has copied.");
+    context.document.showMessage("Layout setting copied.");
 }
 
 function getStringFromPasteboard(context) {
@@ -121,7 +121,7 @@ function getStringFromPasteboard(context) {
         if (string) {
             return string;
         } else {
-            context.document.showMessage("Clipboard have not any layout setting.");
+            context.document.showMessage("No layout setting in clipboard.");
             return nil;
         }
     }
