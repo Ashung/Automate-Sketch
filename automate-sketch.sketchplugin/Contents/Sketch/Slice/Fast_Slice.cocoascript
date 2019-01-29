@@ -271,7 +271,7 @@ function cleanNameArray(name, options) {
             part = part.replace(regexp, i);
         }
         // Remove no ascii character
-        part = part.replace(/[^\u0020-\u007E]/g, "");
+        // part = part.replace(/[^\u0020-\u007E]/g, "");
         // Remove unsupport character
         part = part.replace(/[\u0021-\u002B\u003A-\u0040\u005B-\u005E\u0060\u007B-\u007E]/g, "");
         // Remove digits at the beginning of name

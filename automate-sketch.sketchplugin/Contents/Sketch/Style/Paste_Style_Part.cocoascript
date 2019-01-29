@@ -199,7 +199,7 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (layer.class() == "MSTextLayer") {
-                            var textColor = decoded.textStyle().decodedAttributes().objectForKey("MSAttributedStringColorAttribute").newMutableCounterpart();
+                            var textColor = decoded.textStyle().attributes().objectForKey("MSAttributedStringColorAttribute").newMutableCounterpart();
                             layer.setTextColor(textColor);
                         }
                     }
