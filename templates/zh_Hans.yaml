@@ -207,4 +207,5 @@ toggle_text_auto_and_fixed: 切换自动和固定
 reset_flow: 重置链接
 remove_all_hotspot: 删除所有热区
 character_count: 字符统计
-create_style_guide: Create Style Guide
+create_style_guide: 创建样式指南
+update_selected_library_symbol: 更新选中的库组件

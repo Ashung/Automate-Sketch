@@ -208,3 +208,4 @@ reset_flow: Reset Flow
 remove_all_hotspot: Remove All Hotspot
 character_count: Character Count
 create_style_guide: Create Style Guide
+update_selected_library_symbol: Update Selected Library Symbol
