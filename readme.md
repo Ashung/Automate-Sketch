@@ -109,6 +109,7 @@ Make your workflow more efficient.
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
 | Import Styles from Library                                   | Import text styles and layer styles from any library.        |
 | Add Library Preview                                          | Add a artboard for library preview image.                    |
+| Update Selected Library Symbol                               | Only update the selected library symbols.                    |
 | Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
@@ -120,8 +121,9 @@ Make your workflow more efficient.
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
 | Remove All Disabled Styles                                   | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
-| Create Color Guide                                           | Create a color guide from document color.                    |
-| Create Typography Guide                                      | Create a font style guide from a text style.                 |
+| Create Color Guide                                           | Create a color guide from document colors.                   |
+| Create Style Guide                                           | Greate style guide from layer styles in current document.    |
+| Create Typography Guide                                      | Create typography style guide from text styles in current document. |
 | Import Document Assets from Sketch File                      | Import resources (colors, gradients, and patterns) from Sketch files. |
 | Import Text Styles from Sketch File                          | Import text styles from Sketch files.                        |
 | Import Layer Styles from Sketch File                         | Import a layer style from Sketch file.                       |

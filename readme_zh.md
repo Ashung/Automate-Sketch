@@ -18,30 +18,30 @@
 | 菜单                                                         | 备注                                                         |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **Layer**                                                    | **图层**                                                     |
-| Fix to Parent with Margin                                    | 适配父级的宽度和高度，可设置边距。                           |
-| Fix to Parent Width (Height) with Margin                     | 适配父级的宽度或高度，可设置边距。                           |
-| Adjust Sizes                                                 | 基于突出右侧、底部或中心微调图层宽或高，微调值从 "Preferences" - "Nudging" 处设置。 |
-| Bounds Layer for Every Selection                             | 为从选中图层创建边界图层。                                   |
-| Divide Layer                                                 | 均分图层。                                                   |
+| Fix to Parent with Margin                                    | 让选中图层适配父级的宽度和高度，可设置边距。                 |
+| Fix to Parent Width (Height) with Margin                     | 同上。                                                       |
+| Adjust Sizes                                                 | 基于图层右侧、底部或中心，根据 "Preferences" - "Canvas" - "Nudging" 处设置的值微调图层宽或高。 |
+| Bounds Layer for Every Selection                             | 为从选中图层创建透明边界图层。                               |
+| Divide Layer                                                 | 均分选中图层。                                               |
 | Ungroup Shape Layer                                          | 取消形状图层组，解决手动取消组出现的图层位置偏移。           |
 | Unlock All Layers                                            | 解锁所有图层。                                               |
-| Toggle Layer Constrain Proportions                           | 锁定和解锁选中图层的比例约束。                               |
+| Toggle Layer Constrain Proportions                           | 锁定或解锁选中图层的比例约束。                               |
 | Toggle Select Group’s Content on Click                       | 点击组时选择组内容的开关。                                   |
-| Select All Layers In Selection By Type                       | 选择所有组、文本、形状、位图、组件、切片、可导出图层、隐藏图层。 |
-| Select All Layers In Selection By Name                       | 根据图层名选择。                                             |
+| Select All Layers In Selection By Type                       | 根据类型（组、文本、形状、位图、组件、切片、可导出图层、隐藏图层）选择图层。 |
+| Select All Layers In Selection By Name                       | 根据图层名选择图层。                                         |
 | Select All Child Layers                                      | 选择所有子图层。                                             |
 | Select All Siblings Layers                                   | 选择所有兄弟图层。                                           |
 | Select Parent Groups                                         | 选择所有父级图层。                                           |
-| Select Layers Outside of Artboard Bounds                     | 选择并显示在画板边界外的不可见图层。                         |
+| Select Layers Outside of Artboard Bounds                     | 选择并显示隐藏在画板边界外的图层。                           |
 | Select Reverse                                               | 反选。                                                       |
 | Paste and Replace                                            | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
-| Paste and Replace Setting                                    | 设置新图层的位置。                                           |
-| Clear Layer Name                                             | 清理图层名，删除图层名后的 copy。                            |
+| Paste and Replace Setting                                    | 设置新图层的位置，默认原点对齐或居中对齐。                   |
+| Clear Layer Name                                             | 删除图层名后的 copy。                                        |
 | Remove Redundant Groups                                      | 删除多余的嵌套组。                                           |
 | Remove Empty Groups                                          | 删除空组。                                                   |
 | Remove Hidden Layers                                         | 删除隐藏图层。                                               |
 | Remove Transparency Layers                                   | 删除完全透明的图层。                                         |
-| Create / Sync Link Layer                                     | 从组或画板创建引用的库组件，用于解决设计中重复拷贝的图标，可自动更新引用库组件的内容。 |
+| Create / Sync Link Layer                                     | 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
 | **Arrange**                                                  | **排列**                                                     |
 | Change Places Between Two Layers                             | 根据中点或坐标原点，两个对象交换位置。                       |
 | Tile Objects                                                 | 使用网格或任意方向排列对象，可设置按命名排列。               |
@@ -51,7 +51,7 @@
 | Order Layers By ...                                          | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                          | 反转图层列表中的位置。                                       |
 | **Text**                                                     | **文本**                                                     |
-| Increase / Decrease Line Height                              | 增加或减小选中文本图层的行高，值为按住 Shift 和方向键移动物体的距离的一半，数值可在 Preferences - Canvas - Nudging 设置界面修改。 |
+| Increase / Decrease Line Height                              | 根据 "Preferences" - "Canvas" - "Nudging" 的值，增加或减小选中文本图层的行高。 |
 | Increase / Decrease Letter Spacing                           | 增加或减小选中文本图层的字间距，与 Sketch 内置功能一致增加或减小 0.38。 |
 | Increase / Decrease / Reset Horizontally Scale               | 增加、减小或重置选中文本图层的水平拉伸，功能类似 Photoshop 的字体拉伸。 |
 | Split Text Layer                                             | 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
@@ -68,8 +68,8 @@
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
 | Charater Count                                               | 字数统计。                                                   |
 | **Slice**                                                    | **切片**                                                     |
-| Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切尺寸，有弹出层。 |
-| Fast slice                                                   | 快速新建基于图层的切片，并自动添加切片预设，切片名称会修改会开发友好名称，无弹出层。 |
+| Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。     |
+| Fast slice                                                   | 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
 | Slice Setting                                                | 设置切片名称、预设和图层列表位置。                           |
 | Remove All Slices                                            | 清除所有切片。                                               |
 | Clear All Exportables                                        | 清除全部 Exportables 设置。                                  |
@@ -110,6 +110,7 @@
 | Import Document Assets from Library                          | 从库导入色彩、渐变和图案填充等文档资源，                     |
 | Import Styles from Library                                   | 从库导入图层样式和文本样式。                                 |
 | Add Library Preview                                          | 增加一个画板用于库的预览图。                                 |
+| Update Selected Library Symbol                               | 只更新选中的库组件。                                         |
 | Check For Library Updates                                    | 检查库更新。                                                 |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
@@ -122,31 +123,32 @@
 | Remove All Disabled Styles                                   | 删除当前页所有图层中禁用样式。                               |
 | Remove Unused Layer / Text Styles                            | 删除文档中未使用的图层样式或文本样式。                       |
 | Create Color Guide                                           | 从文档颜色创建色彩指南。                                     |
+| Create Style Guide                                           | 从文档图层样式创建样式指南。                                 |
 | Create Typography Guide                                      | 从文本样式创建字体样式指南。                                 |
 | Import Document Assets from Sketch File                      | 从 Sketch 文件导入资源 (色彩、渐变及图案)。                  |
 | Import Text Styles from Sketch File                          | 从 Sketch 文件导入文本样式。                                 |
 | Import Layer Styles from Sketch File                         | 从 Sketch 文件导入图层样式。                                 |
 | **Guides**                                                   | **辅助线**                                                   |
 | Clear Guides                                                 | 清除所有辅助线。                                             |
-| Grid Presets                                                 | 常用网格预设，例如 8x8、10x10等等。                          |
-| Hide All Grid/Layout                                         | 隐藏所有网格或布局。                                         |
+| Grid Presets                                                 | 常用网格预设，例如 8x8、10x10 等等。                         |
+| Hide All Grid/Layout                                         | 隐藏或显示所有网格或布局。                                   |
 | Copy Grid/Layout/Guide                                       | 复制选中画板的网格、布局或辅助线信息。                       |
 | Paste Grid/Layout/Guide                                      | 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
 | **Data**                                                     | **数据**                                                     |
 | Export Data From Text Layers                                 | 将选中的文本图层内容导出到 TXT 文件。                        |
 | Export Image From Layers                                     | 导出选中的位图或位图填充图层内的图片。                       |
-| Export Data From Symbol Instances                            | 导出选中组件override上的文本和图片。                         |
-| Data - (Random) Image From Folder                            | 从图片文件夹获取图片数据，并随机或有序应用到形状图层或组件override上。 |
-| Data - (Random) Text From File                               | 从文本文件获取文本数据，并随机或有序应用到文本图层或组件override上。 |
+| Export Data From Symbol Instances                            | 导出选中组件 override 上的文本和图片。                       |
+| Data - (Random) Image From Folder                            | 从图片文件夹获取图片数据，并随机或有序应用到形状图层或组件 override 上。 |
+| Data - (Random) Text From File                               | 从文本文件获取文本数据，并随机或有序应用到文本图层或组件 override 上。 |
 | **Prototyping**                                              | **原型**                                                     |
 | Bring All Hotspot to Front                                   | 置顶所有热区图层。                                           |
 | Reset Flow                                                   | 重置 flow 设置。                                             |
-| Remove All Hotspot                                           | 删除所有 hotspot 图层和设置。                                |
+| Remove All Hotspot                                           | 删除所有热区图层和设置。                                     |
 | **Development**                                              | **开发**                                                     |
 | Pick Color and Copy the HEX Code                             | 从屏幕取色并负责色彩的十六进制值。                           |
 | Copy Slice as Base64                                         | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Copy Selected Layer Name                                     | 复制选中的图层名到剪贴板。                                   |
-| Copy ObjectID or SymbolID                                    | 当选择图层时复制图层的 ObjectID 或 SymbolID到剪贴板。        |
+| Copy ObjectID or SymbolID                                    | 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。       |
 | Show and Change Layer Info                                   | 显示和修改图层的 ObjectID 或 SymbolID 等等。                 |
 | Script Editor Setting                                        | 脚本编辑器的字体与字号设置。                                 |
 | Edit Plugin Setting                                          | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
