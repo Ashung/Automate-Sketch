@@ -1,3 +1,11 @@
+-
+  version: 52.6.20190130
+  description: |-
+    <ul>
+    <li>Fix paste text color bug. #136 </li>
+    <li>Add Update Selected Library Symbol. #134 </li>
+    </ul>
+  commitID: 0646d54a2a0a62e0403977742be81aa123529f46
 
 -
   version: 52.6.20190121
