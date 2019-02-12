@@ -209,3 +209,4 @@ remove_all_hotspot: 刪除所有熱區
 character_count: 字符統計
 create_style_guide: 建立樣式指南
 update_selected_library_symbol: 更新選中的庫元件
+select_none: 取消選擇

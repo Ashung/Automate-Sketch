@@ -1,0 +1,7 @@
+@import "../Libraries/Google_Analytics.cocoascript";
+
+var onRun = function(context) {
+    var document = require("sketch/dom").getSelectedDocument();
+    var selection = document.selectedLayers;
+    selection.clear()
+};

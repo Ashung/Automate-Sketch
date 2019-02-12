@@ -13,18 +13,21 @@ var onRun = function(context) {
         return;
     }
 
-    var layer1Artboard, layer1BeforeLayer, layer1Frame, layer2Artboard, layer2BeforeLayer, layer2Frame;
+    var layer1Artboard, layer1ParentGroup, layer1BeforeLayer, layer1Frame, 
+        layer2Artboard, layer2ParentGroup, layer2BeforeLayer, layer2Frame;
     if (selection[0].parentArtboard()) {
         layer1Artboard = selection[0].parentArtboard();
+        layer1ParentGroup = selection[0].parentGroup();
         layer1Frame = selection[0].frame();
-        layer1BeforeLayer = layer1Artboard.layers().count() == layer1Artboard.indexOfLayer(selection[0]) + 1 ? nil : layer1Artboard.layers().objectAtIndex(layer1Artboard.indexOfLayer(selection[0]) + 1);
+        layer1BeforeLayer = (layer1ParentGroup.layers().count() == layer1ParentGroup.indexOfLayer(selection[0]) + 1) ? nil : layer1ParentGroup.layers().objectAtIndex(layer1ParentGroup.indexOfLayer(selection[0]) + 1);
         selection[0].moveToLayer_beforeLayer(selection[0].parentPage(), nil);
     }
 
     if (selection[1].parentArtboard()) {
         layer2Artboard = selection[1].parentArtboard();
+        layer2ParentGroup = selection[1].parentGroup();
         layer2Frame = selection[1].frame();
-        layer2BeforeLayer = layer2Artboard.layers().count() == layer2Artboard.indexOfLayer(selection[1]) + 1 ? nil : layer2Artboard.layers().objectAtIndex(layer2Artboard.indexOfLayer(selection[1]) + 1);
+        layer2BeforeLayer = (layer2ParentGroup.layers().count() == layer2ParentGroup.indexOfLayer(selection[1]) + 1) ? nil : layer2ParentGroup.layers().objectAtIndex(layer2ParentGroup.indexOfLayer(selection[1]) + 1);
         selection[1].moveToLayer_beforeLayer(selection[1].parentPage(), nil);
     }
 
@@ -54,14 +57,14 @@ var onRun = function(context) {
     }
 
     if (layer1Artboard) {
-        selection[1].moveToLayer_beforeLayer(layer1Artboard, layer1BeforeLayer);
+        selection[1].moveToLayer_beforeLayer(layer1ParentGroup, layer1BeforeLayer);
         if (layer2Frame) {
             selection[1].setFrame(layer2Frame);
         }
     }
 
     if (layer2Artboard) {
-        selection[0].moveToLayer_beforeLayer(layer2Artboard, layer2BeforeLayer);
+        selection[0].moveToLayer_beforeLayer(layer2ParentGroup, layer2BeforeLayer);
         if (layer1Frame) {
             selection[0].setFrame(layer1Frame);
         }
