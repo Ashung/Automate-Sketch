@@ -1,3 +1,4 @@
+@import "../Libraries/Preferences.cocoascript";
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
@@ -26,6 +27,7 @@ var onRun = function(context) {
 
     // Imported symbols that library file is not found.
     var allImportedSymbolsMissLibrary = allImportedSymbols.mutableCopy();
+    var allImportedSymbolsNotFound = allImportedSymbols.mutableCopy();
     var loopAllImportedSymbols = allImportedSymbols.objectEnumerator();
     var importedSymbol;
     while (importedSymbol = loopAllImportedSymbols.nextObject()) {
@@ -36,6 +38,14 @@ var onRun = function(context) {
         }
         if (libraryForSymbol) {
             allImportedSymbolsMissLibrary.removeObject(importedSymbol);
+            if (libraryForSymbol.enabled() == false) {
+                allImportedSymbolsNotFound.removeObject(importedSymbol);
+            }
+            if (importedSymbol.masterFromLibrary(libraryForSymbol)) {
+                allImportedSymbolsNotFound.removeObject(importedSymbol);
+            }
+        } else {
+            allImportedSymbolsNotFound.removeObject(importedSymbol);
         }
     }
 
@@ -49,17 +59,24 @@ var onRun = function(context) {
     accessoryView.setFlipped(true);
     accessoryView.setFrame(NSMakeRect(0, 0, 500, 430));
 
-    var filterView = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 500, 20));
-    filterView.setButtonType(NSSwitchButton);
-    filterView.setTitle("Show only symbols that library file is not found.");
-    filterView.setState(NSOnState);
+    var filterView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    filterView.addItemsWithTitles([
+        "Show all symbols.",
+        "Show only symbols that library file is not found.",
+        "Show only symbols that symbol is not found in library."
+    ]);
     accessoryView.addSubview(filterView);
 
     filterView.setCOSJSTargetFunction(function(sender) {
-        if (sender.state() == NSOnState) {
+        if (sender.indexOfSelectedItem() == 1) {
             loadData(scrollView, allImportedSymbolsMissLibrary);
+            setPreferences(context, "importedSymbolsLinkManageFilter", "1");
+        } else if (sender.indexOfSelectedItem() == 2) {
+            loadData(scrollView, allImportedSymbolsNotFound);
+            setPreferences(context, "importedSymbolsLinkManageFilter", "2");
         } else {
             loadData(scrollView, allImportedSymbols);
+            setPreferences(context, "importedSymbolsLinkManageFilter", "0");
         }
     });
 
@@ -68,7 +85,17 @@ var onRun = function(context) {
     scrollView.setBorderType(NSBezelBorder);
     accessoryView.addSubview(scrollView);
 
-    loadData(scrollView, allImportedSymbolsMissLibrary);
+    var defaultFilterIndex = getPreferences(context, "importedSymbolsLinkManageFilter") || "0";
+    if (defaultFilterIndex == "0") {
+        filterView.selectItemAtIndex(0);
+        loadData(scrollView, allImportedSymbols);
+    } else if (defaultFilterIndex == "1") {
+        filterView.selectItemAtIndex(1);
+        loadData(scrollView, allImportedSymbolsMissLibrary);
+    } else if (defaultFilterIndex == "2") {
+        filterView.selectItemAtIndex(2);
+        loadData(scrollView, allImportedSymbolsNotFound);
+    }
 
     dialog.setAccessoryView(accessoryView);
     dialog.runModal();
