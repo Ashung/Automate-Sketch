@@ -1,4 +1,15 @@
 -
+  version: 53.0.20190213
+  description: |-
+    <ul>
+    <li>Add Select None. #137 </li>
+    <li>Imported Symbols Link Manage add symbol not found filter. #138 </li>
+    <li>Fix Change Places bug. #135 </li>
+    <li>Fix Tile Objects text field focus. #141 </li>
+    </ul>
+  commitID: 66afc9772c9db505c87f74e4dd383b5afd3ad580
+
+-
   version: 52.6.20190130
   description: |-
     <ul>
