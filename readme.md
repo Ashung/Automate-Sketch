@@ -33,6 +33,7 @@ Make your workflow more efficient.
 | Select Parent Groups                                         | Select parent groups.                                        |
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Select Reverse                                               | Select reverse.                                              |
+| Select None                                                  | Select none.                                                 |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |

@@ -202,6 +202,8 @@ var customTileLayers = function(context) {
 };
 
 function tileLayer(context, orientation) {
+    var version = parseFloat(require("sketch").version.sketch);
+    var UI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
     if (selection.count() < 2) {
@@ -209,12 +211,26 @@ function tileLayer(context, orientation) {
     } else {
 
         var defaultGap = getPreferences(context, "gap") || "0";
-        var gap = doc.askForUserInput_initialValue("The gap between two layers. (px)", defaultGap);
-            gap = parseInt(gap);
-
-        if (gap) {
-            setPreferences(context, "gap", gap);
+        var gap;
+        if (version >= 53) {
+            UI.getInputFromUser(
+                "Tile Objects",
+                {
+                    initialValue: defaultGap,
+                    description: "The gap between two layers. (px)"
+                },
+                function (err, value) {
+                  if (err) return;
+                  gap = value;
+                }
+            );
+        } else {
+            gap = UI.getStringFromUser("The gap between two layers. (px)", defaultGap);
         }
+        if (!gap) return;
+
+        gap = parseInt(gap);
+        setPreferences(context, "gap", gap);
 
         // Tile by position x/y
         if (orientation == "posx" || orientation == "posy") {

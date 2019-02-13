@@ -34,6 +34,7 @@
 | Select Parent Groups                                         | 选择所有父级图层。                                           |
 | Select Layers Outside of Artboard Bounds                     | 选择并显示隐藏在画板边界外的图层。                           |
 | Select Reverse                                               | 反选。                                                       |
+| Select None                                                  | 取消选择。                                                   |
 | Paste and Replace                                            | 粘贴并替换，将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Paste and Replace Setting                                    | 设置新图层的位置，默认原点对齐或居中对齐。                   |
 | Clear Layer Name                                             | 删除图层名后的 copy。                                        |
