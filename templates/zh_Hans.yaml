@@ -109,8 +109,6 @@ convert_to_other_version: 转换 Sketch 文件至其他版本
 paste_and_replace: 粘贴并替换
 paste_and_replace_setting: 粘贴并替换设置
 swap_fill_and_border: 互换填充和描边
-hide_all_grid: 显示或隐藏所有网格
-hide_all_layout: 显示或隐藏所有布局
 copy_grid_setting: 复制网格
 paste_grid_setting: 粘贴网格
 copy_layout_setting: 复制布局
