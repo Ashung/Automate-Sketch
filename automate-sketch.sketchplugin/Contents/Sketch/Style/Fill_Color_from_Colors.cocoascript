@@ -3,13 +3,31 @@
 
 var fillColorFromGlobalColors = function(context) {
     ga(context, "Style");
-    var globalColors = NSApp.delegate().globalAssets().colors();
+
+    var globalColors;
+    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+        globalColors = NSMutableArray.alloc().init();
+        MSPersistentAssetCollection.sharedGlobalAssets().colorAssets().forEach(function(item) {
+            globalColors.addObject(item.color());
+        });
+    } else {
+        globalColors = NSApp.delegate().globalAssets().colors();
+    }
+
     fillColorFromColors(context, globalColors, "You have no colors in Global Colors.");
 };
 
 var fillColorFromDocumentColors = function(context) {
     ga(context, "Style");
-    var documentColors = context.document.documentData().assets().colors();
+    var documentColors;
+    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+        documentColors = NSMutableArray.alloc().init();
+        context.document.documentData().assets().colorAssets().forEach(function(item) {
+            documentColors.addObject(item.color());
+        });
+    } else {
+        documentColors = context.document.documentData().assets().colors();
+    }
     fillColorFromColors(context, documentColors, "You have no colors in Document Colors.");
 };
 

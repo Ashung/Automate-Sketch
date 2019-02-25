@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "53.0.20190213",
+    "version": "53.0.20190220",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData": true,
@@ -548,18 +548,6 @@
             "name": "互换填充和描边",
             "identifier": "swap_fill_and_border",
             "script": "Style/Swap_Fill_and_Border.cocoascript",
-            "icon": "icon_runner.png"
-        },
-        {
-            "name": "显示或隐藏所有网格",
-            "identifier": "hide_all_grid",
-            "script": "Guide/Hide_All_Grid.cocoascript",
-            "icon": "icon_runner.png"
-        },
-        {
-            "name": "显示或隐藏所有布局",
-            "identifier": "hide_all_layout",
-            "script": "Guide/Hide_All_Layout.cocoascript",
             "icon": "icon_runner.png"
         },
         {
@@ -1410,11 +1398,9 @@
                     "-",
                     "copy_grid_setting",
                     "paste_grid_setting",
-                    "hide_all_grid",
                     "-",
                     "copy_layout_setting",
                     "paste_layout_setting",
-                    "hide_all_layout",
                     "-",
                     "copy_guide_setting",
                     "paste_guide_setting",
