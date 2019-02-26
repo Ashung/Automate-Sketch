@@ -1,6 +1,8 @@
 
 function ga(context, eventCategory) {
 
+    
+
     var trackingID = "UA-99098773-3";
 
     var uuidKey = "google.analytics.uuid";

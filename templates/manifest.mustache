@@ -999,6 +999,16 @@
             "name": "{{select_none}}",
             "identifier": "select_none",
             "script": "Layer/Select_None.cocoascript"
+        },
+        {
+            "name": "{{collapse_all_groups_and_fit_canvas}}",
+            "identifier": "collapse_all_groups_and_fit_canvas",
+            "script": "Arrange/Collapse_All_Groups_and_Fit_Canvas.js"
+        },
+        {
+            "name": "{{rename_instances_use_text_override}}",
+            "identifier": "rename_instances_use_text_override",
+            "script": "Symbol/Rename_Instances_Use_Text_Override.js"
         }
     ],
     "menu": {
@@ -1028,7 +1038,9 @@
                             "order_layers_by_kind"
                         ]
                     },
-                    "reverse_layer_order"
+                    "reverse_layer_order",
+                    "-",
+                    "collapse_all_groups_and_fit_canvas"
                 ]
             },
             {
@@ -1119,6 +1131,7 @@
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
                     "rename_instances",
+                    "rename_instances_use_text_override",
                     "-",
                     "create_symbols_from_selected_layers",
                     "selection_to_symbol_master",

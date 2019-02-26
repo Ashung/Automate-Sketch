@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "53.0.20190220",
+    "version": "53.0.20190226",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData": true,
@@ -1183,6 +1183,18 @@
             "identifier": "select_none",
             "script": "Layer/Select_None.cocoascript",
             "icon": "icon_runner.png"
+        },
+        {
+            "name": "Collapse All Groups and Fit Canvas",
+            "identifier": "collapse_all_groups_and_fit_canvas",
+            "script": "Arrange/Collapse_All_Groups_and_Fit_Canvas.js",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Rename Instances Use Text Override",
+            "identifier": "rename_instances_use_text_override",
+            "script": "Symbol/Rename_Instances_Use_Text_Override.js",
+            "icon": "icon_runner.png"
         }
     ],
     "menu": {
@@ -1212,7 +1224,9 @@
                             "order_layers_by_kind"
                         ]
                     },
-                    "reverse_layer_order"
+                    "reverse_layer_order",
+                    "-",
+                    "collapse_all_groups_and_fit_canvas"
                 ]
             },
             {
@@ -1303,6 +1317,7 @@
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
                     "rename_instances",
+                    "rename_instances_use_text_override",
                     "-",
                     "create_symbols_from_selected_layers",
                     "selection_to_symbol_master",
