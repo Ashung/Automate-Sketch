@@ -1,9 +1,10 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
+
+    ga(context, "Symbol");
     
     var util = require("util");
-    var Override = require("sketch/dom").Override;
     var document = require("sketch/dom").getSelectedDocument();
     var selectedLayers = document.selectedLayers.layers;
 

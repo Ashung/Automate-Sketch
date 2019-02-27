@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "53.0.{{version}}",
+    "version": "{{version}}",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData": true,
@@ -402,11 +402,6 @@
             "identifier": "donate",
             "handler": "donate",
             "script": "Help/help.cocoascript"
-        },
-        {
-            "name": "{{change_language}}",
-            "identifier": "change_language",
-            "script": "Help/Change_Languages.cocoascript"
         },
         {
             "name": "{{copy_selected_layer_name}}",
@@ -1009,6 +1004,11 @@
             "name": "{{rename_instances_use_text_override}}",
             "identifier": "rename_instances_use_text_override",
             "script": "Symbol/Rename_Instances_Use_Text_Override.js"
+        },
+        {
+            "name": "{{disable_google_analytics}}",
+            "identifier": "disable_google_analytics",
+            "script": "Help/Disable_Google_Analytics.js"
         }
     ],
     "menu": {
@@ -1334,7 +1334,7 @@
                     "web_site",
                     "report_issue",
                     "-",
-                    "change_language",
+                    "disable_google_analytics",
                     "-",
                     "donate"
                 ]

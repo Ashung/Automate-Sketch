@@ -4,7 +4,8 @@
   "main": "make_manifest.js",
   "author": "Ashung Hung",
   "scripts": {
-    "make": "node make.js && /Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool run automate-sketch.sketchplugin reload_plugins"
+    "make": "node make.js",
+    "reload": "/Applications/Sketch.app/Contents/Resources/sketchtool/bin/sketchtool run automate-sketch.sketchplugin reload_plugins"
   },
   "devDependencies": {
     "js-yaml": "^3.6.1",

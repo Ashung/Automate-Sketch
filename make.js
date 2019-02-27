@@ -1,39 +1,40 @@
+#!/usr/bin/env node
 
 var fs = require("fs");
 var yaml = require("js-yaml");
 var Mustache = require("mustache");
-var supportLanguages = ["en", "zh_Hans", "zh_Hant"];
+var sketchVersion = process.argv[2];
+if (!sketchVersion) {
+    console.error("Need Sketch version. npm run make -- 53.2 ");
+    return;
+}
 var buildDateString = getDateString();
 var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
 var features = 0;
 
-for (var i = 0; i < supportLanguages.length; i++) {
-    var language = yaml.safeLoad(fs.readFileSync("templates/" + supportLanguages[i] + ".yaml", "utf8"));
-        language.version = buildDateString;
-    var manifest = Mustache.render(template, language);
+var language = yaml.safeLoad(fs.readFileSync("templates/en.yaml", "utf8"));
+    language.version = sketchVersion + "." + buildDateString;
+var manifest = Mustache.render(template, language);
 
-    try {
-        if (JSON.parse(manifest)) {
-            var manifestJSON = JSON.parse(manifest);
-            var commands = manifestJSON.commands;
-            commands.forEach(function(command) {
-                if (command.name) {
-                    command["icon"] = "icon_runner.png";
-                }
-            });
-            manifest = JSON.stringify(manifestJSON, null, 4);
-            fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_" + supportLanguages[i] + ".json", manifest);
-            if (supportLanguages[i] == "en") {
-                fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+try {
+    if (JSON.parse(manifest)) {
+        var manifestJSON = JSON.parse(manifest);
+        var commands = manifestJSON.commands;
+        commands.forEach(function(command) {
+            if (command.name) {
+                command["icon"] = "icon_runner.png";
             }
-            features = commands.length;
-        }
-    } catch (e) {
-        console.error(e);
+        });
+        manifest = JSON.stringify(manifestJSON, null, 4);
+        fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+        features = commands.length;
     }
-
+} catch (e) {
+    console.error(e);
 }
+
+
 
 console.log("Features: " + features);
 

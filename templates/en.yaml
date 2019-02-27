@@ -75,7 +75,6 @@ open_terminal_at_file_folder: Open Terminal at File Folder
 web_site: Web Site
 report_issue: Report Issue
 donate: Donate
-change_language: Change Language
 remove_redundant_groups: Remove Redundant Groups
 move_artboards_to_bottom_of_another: Move Artboards to Bottom of Another
 set_to_original_width: Reset to Original Width
@@ -210,3 +209,4 @@ update_selected_library_symbol: Update Selected Library Symbol
 select_none: Select None
 collapse_all_groups_and_fit_canvas: Collapse All Groups and Fit Canvas
 rename_instances_use_text_override: Rename Instances Use Text Override
+disable_google_analytics: Disable Google Analytics

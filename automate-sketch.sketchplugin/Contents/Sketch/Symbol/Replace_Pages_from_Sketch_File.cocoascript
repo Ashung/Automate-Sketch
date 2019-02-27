@@ -3,7 +3,6 @@
 var onRun = function(context) {
 
     var document = context.document;
-    var documentData = document.documentData();
 
     // Choose the new sketch file.
     var chooseFile = NSOpenPanel.openPanel();
