@@ -1,4 +1,20 @@
 -
+  version: 53.2.20190227
+  description: |-
+    <ul>
+    <li>Add Rename Instances Use Text Override. #143</li>
+    <li>Fix Replace Override Symbol. #144 </li>
+    <li>Fix Remove All Disabled Styles. #145 </li>
+    <li>Add Collapse All Groups and Fit Canvas. #148</li>
+    <li>Fix Fill Color From Colors.</li>
+    <li>Fix Import Document Assets from Sketch File.</li>
+    <li>Remove hide/show all grid/layout</li>
+    <li>Add Disable Google Analytics. Fix #142</li>
+    <li>Remove languages.
+    </ul>
+  commitID: 225189727fe4ed434a0503a0873207d575a81246
+
+-
   version: 53.0.20190213
   description: |-
     <ul>
