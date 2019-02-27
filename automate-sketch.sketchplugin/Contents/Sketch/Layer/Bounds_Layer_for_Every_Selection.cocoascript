@@ -12,7 +12,24 @@ var onRun = function(context) {
         var defaultUserInputString = getPreferences(context, "boundsSize") || "0";
 
         // \d+, \d+x\d+
-        var userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", defaultUserInputString);
+        var userInputString;
+        var version = require("sketch").version.sketch;
+        var UI = require("sketch/ui");
+        if (version >= 53) {
+            UI.getInputFromUser(
+                "Bounds Layer for Every Selection",
+                {
+                    initialValue: defaultUserInputString,
+                    description: "Input <Number> or <Width>x<Height>. use \"0\" for same size as selected layer."
+                },
+                function (err, value) {
+                  if (err) return;
+                  userInputString = value;
+                }
+            );
+        } else {
+            userInputString = doc.askForUserInput_initialValue("Input <Number> or <Width>x<Height>.", defaultUserInputString);
+        }
 
         if (userInputString) {
 

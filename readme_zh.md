@@ -51,6 +51,7 @@
 | Arrange Objects                                              | 智能排列图层或画板。                                         |
 | Order Layers By ...                                          | 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。        |
 | Reverse Layer Order                                          | 反转图层列表中的位置。                                       |
+| Collapse All Groups and Fit Canvas                           | 在每个页面运行 “Collapse All Groups” 和 “Fit Canvas”。       |
 | **Text**                                                     | **文本**                                                     |
 | Increase / Decrease Line Height                              | 根据 "Preferences" - "Canvas" - "Nudging" 的值，增加或减小选中文本图层的行高。 |
 | Increase / Decrease Letter Spacing                           | 增加或减小选中文本图层的字间距，与 Sketch 内置功能一致增加或减小 0.38。 |
@@ -92,6 +93,7 @@
 | Select All Instance of Symbol                                | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |
 | Rename Instances                                             | 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
+| Rename Instances Use Text Override                           | 以选择的文本 override 值重命名实例，如果实例仅有一个文本 override 则使用此值。 |
 | Move Symbol Masters To Another Page                          | 将选中组件模版移动至其他页面。                               |
 | Create Symbols from Selected Layers                          | 从选中图层批量创建组件。                                     |
 | Selection to Symbol Master                                   | 将选中图层在原位置直接变为组件。                             |
@@ -132,7 +134,6 @@
 | **Guides**                                                   | **辅助线**                                                   |
 | Clear Guides                                                 | 清除所有辅助线。                                             |
 | Grid Presets                                                 | 常用网格预设，例如 8x8、10x10 等等。                         |
-| Hide All Grid/Layout                                         | 隐藏或显示所有网格或布局。                                   |
 | Copy Grid/Layout/Guide                                       | 复制选中画板的网格、布局或辅助线信息。                       |
 | Paste Grid/Layout/Guide                                      | 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
 | **Data**                                                     | **数据**                                                     |

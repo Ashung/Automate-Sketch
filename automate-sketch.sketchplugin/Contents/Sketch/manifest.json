@@ -5,7 +5,7 @@
     "email": "Ashung.hung@gmail.com",
     "homepage": "https://github.com/Ashung/Automate-Sketch",
     "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-    "version": "53.0.20190213",
+    "version": "53.2.20190227",
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData": true,
@@ -478,12 +478,6 @@
             "icon": "icon_runner.png"
         },
         {
-            "name": "Change Language",
-            "identifier": "change_language",
-            "script": "Help/Change_Languages.cocoascript",
-            "icon": "icon_runner.png"
-        },
-        {
             "name": "Copy Selected Layer Name",
             "identifier": "copy_selected_layer_name",
             "script": "Development/Copy_Selected_Layer_Name.cocoascript",
@@ -549,18 +543,6 @@
             "name": "Swap Fill and Border",
             "identifier": "swap_fill_and_border",
             "script": "Style/Swap_Fill_and_Border.cocoascript",
-            "icon": "icon_runner.png"
-        },
-        {
-            "name": "Show or Hide All Grid",
-            "identifier": "hide_all_grid",
-            "script": "Guide/Hide_All_Grid.cocoascript",
-            "icon": "icon_runner.png"
-        },
-        {
-            "name": "Show or Hide All Layout",
-            "identifier": "hide_all_layout",
-            "script": "Guide/Hide_All_Layout.cocoascript",
             "icon": "icon_runner.png"
         },
         {
@@ -1195,6 +1177,24 @@
             "identifier": "select_none",
             "script": "Layer/Select_None.cocoascript",
             "icon": "icon_runner.png"
+        },
+        {
+            "name": "Collapse All Groups and Fit Canvas",
+            "identifier": "collapse_all_groups_and_fit_canvas",
+            "script": "Arrange/Collapse_All_Groups_and_Fit_Canvas.js",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Rename Instances Use Text Override",
+            "identifier": "rename_instances_use_text_override",
+            "script": "Symbol/Rename_Instances_Use_Text_Override.js",
+            "icon": "icon_runner.png"
+        },
+        {
+            "name": "Disable Google Analytics",
+            "identifier": "disable_google_analytics",
+            "script": "Help/Disable_Google_Analytics.js",
+            "icon": "icon_runner.png"
         }
     ],
     "menu": {
@@ -1224,7 +1224,9 @@
                             "order_layers_by_kind"
                         ]
                     },
-                    "reverse_layer_order"
+                    "reverse_layer_order",
+                    "-",
+                    "collapse_all_groups_and_fit_canvas"
                 ]
             },
             {
@@ -1315,6 +1317,7 @@
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
                     "rename_instances",
+                    "rename_instances_use_text_override",
                     "-",
                     "create_symbols_from_selected_layers",
                     "selection_to_symbol_master",
@@ -1411,11 +1414,9 @@
                     "-",
                     "copy_grid_setting",
                     "paste_grid_setting",
-                    "hide_all_grid",
                     "-",
                     "copy_layout_setting",
                     "paste_layout_setting",
-                    "hide_all_layout",
                     "-",
                     "copy_guide_setting",
                     "paste_guide_setting",
@@ -1519,7 +1520,7 @@
                     "web_site",
                     "report_issue",
                     "-",
-                    "change_language",
+                    "disable_google_analytics",
                     "-",
                     "donate"
                 ]

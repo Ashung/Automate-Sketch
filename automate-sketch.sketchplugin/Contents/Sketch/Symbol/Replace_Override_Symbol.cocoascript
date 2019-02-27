@@ -6,11 +6,15 @@ var onRun = function(context) {
     ga(context, "Symbol");
 
     var document = context.document;
+    if (MSApplicationMetadata.metadata().appVersion < 53) {
+        document.showMessage("This feature only works in Sketch 53+.");
+        return;
+    }
+
     var selection = context.selection;
     var documentData = document.documentData();
 
     var dialogMessage;
-
     var instances;
     if (selection.count() == 0) {
         dialogMessage = "Find an override symbol from document, and replace with another."
@@ -32,19 +36,19 @@ var onRun = function(context) {
     var changeableOverridePoints = NSMutableArray.alloc().init();
 
     instances.forEach(function(instance) {
-        instance.overridePoints().forEach(function(point) {
-            if(point.isSymbolOverride() && isUserChangeableOverride(context, point)) {
-                var symbolID = getValueSymbolID(context, instance, point);
+        MSAvailableOverride.flattenAvailableOverrides(instance.availableOverrides()).forEach(function(override) {
+            if (override.isEditable() && override.overridePoint().isSymbolOverride()) {
+                var symbolID = override.currentValue() == "" ? override.defaultValue() : override.currentValue();
                 changeableOverridePoints.addObject({
-                    "layer": instance, // MSInstance
-                    "point": point, // MSPoint
-                    "value": symbolID // SymbolID
+                    "layer": instance,
+                    "point": override.overridePoint(),
+                    "value": symbolID
                 });
                 if (!uniqueOverrideValues.containsObject(symbolID)) {
                     uniqueOverrideValues.addObject(symbolID);
                 }
             }
-        })
+        });
     });
 
     if (changeableOverridePoints.count() == 0) {
@@ -124,20 +128,16 @@ var onRun = function(context) {
                             var library = replaceSymbol.library;
                             var importedSymbol;
                             var assetLibraryController = AppController.sharedInstance().librariesController();
-                            if (MSApplicationMetadata.metadata().appVersion >= 50) {
-                                var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
-                                    library.document().symbolWithID(replaceSymbol.symbol.symbolID()),
-                                    library
-                                );
-                                importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
-                                    shareableObjectReference,
-                                    documentData
-                                );
-                            } else {
-                                importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                                    library.document().symbolWithID(replaceSymbol.symbol.symbolID()), library, documentData
-                                );
-                            }
+                            
+                            var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
+                                library.document().symbolWithID(replaceSymbol.symbol.symbolID()),
+                                library
+                            );
+                            importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
+                                shareableObjectReference,
+                                documentData
+                            );
+                            
                             overrideValue = importedSymbol.symbolMaster().symbolID();
                         }
                     }
@@ -178,7 +178,6 @@ function loadReplaceSymbols(popupButton, data) {
 
 function sameSizeSymbols(context, size) {
     var symbols = NSMutableArray.alloc().init();
-    var symbolTitles = NSMutableArray.alloc().init();
 
     var sortDescriptorName = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
         "name", true, "localizedStandardCompare:"
@@ -241,29 +240,6 @@ function symbolMasterThumb(symbolMaster) {
     );
     image.unlockFocus();
     return image;
-}
-
-function getValueSymbolID(context, instance, point) {
-    var documentData = context.document.documentData();
-    var valueSymbolID = documentData.layerWithID(point.layerID()).symbolID();
-    instance.overrideValues().forEach(function(value) {
-        if (value.overrideName() == point.name()) {
-            valueSymbolID = value.value();
-        }
-    });
-    return valueSymbolID;
-}
-
-function isUserChangeableOverride(context, point) {
-    var documentData = context.document.documentData();
-    if (documentData.layerWithID(point.layerID()).isLocked()) {
-        return false;
-    } else {
-        if (point.parent()) {
-            isUserChangeableOverride(context, point.parent());
-        }
-    }
-    return true;
 }
 
 function symbolInstancesInSelection(context) {

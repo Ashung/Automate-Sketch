@@ -50,6 +50,7 @@ Make your workflow more efficient.
 | Arrange Objects                                              | Arrange selected layers or artboard.                         |
 | Order Layers By ...                                          | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
+| Collapse All Groups and Fit Canvas                           | Run "Collapse All Groups" and "Fit Canvas" for all pages.    |
 | **Text**                                                     |                                                              |
 | Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
 | Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
@@ -91,6 +92,7 @@ Make your workflow more efficient.
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
+| Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
 | Move Symbol Masters To Another Page                          | Move selected symbol masters to anthoer page.                |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
@@ -131,7 +133,6 @@ Make your workflow more efficient.
 | **Guides**                                                   |                                                              |
 | Clear Guides                                                 | Clear all guides.                                            |
 | Grid Presets                                                 | Common Grid Presets, like 8x8, 10x10 etc.                    |
-| Hide All Grid/Layout                                         | Hide all grid or layout.                                     |
 | Copy Grid/Layout/Guide                                       | Copy the grid/layout/guide from seleted artboard.            |
 | Paste Grid/Layout/Guide                                      | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
 | **Data**                                                     |                                                              |

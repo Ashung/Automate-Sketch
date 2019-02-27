@@ -5,31 +5,26 @@ var onRun = function(context) {
     var document = context.document;
     var currentPage = document.currentPage();
     var selection = context.selection;
-
     var selectedLayers = currentPage.selectedLayers().layers();
 
-    // Current page
-    if (selection.count() == 0) {
+    // Selected layer
+    if (selection.count() > 0) {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
             var loopChild = layer.children().objectEnumerator();
             var child;
             while (child = loopChild.nextObject()) {
-                if (child.style()) {
-                    removeUnusedStyles(context, child);
-                }
+                removeUnusedStyles(context, child);
             }
         }
     }
-    // Selected layer
+    // Current page
     else {
         var loopChild = currentPage.children().objectEnumerator();
         var child;
         while (child = loopChild.nextObject()) {
-            if (child.style()) {
-                removeUnusedStyles(context, child);
-            }
+            removeUnusedStyles(context, child);
         }
     }
 
@@ -43,6 +38,8 @@ var onRun = function(context) {
 function removeUnusedStyles(context, layer) {
     var document = context.document;
     layer.select_byExtendingSelection(true, false);
-    NSApp.sendAction_to_from_("removeUnusedStyles:", nil, document);
+    if (layer.isKindOfClass(MSStyledLayer)) {
+        NSApp.sendAction_to_from_("removeUnusedStyles:", nil, document);
+    }
     layer.select_byExtendingSelection(false, false);
 }
