@@ -69,7 +69,7 @@ var onRun = function(context) {
 
             // Add layer group
             var paletteGroup = MSLayerGroup.alloc().init();
-            paletteGroup.setName("style");
+            paletteGroup.setName(style.name());
             paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight + spaceBetweenPaletteAndText + textHeight));
             page.addLayer(paletteGroup);
 

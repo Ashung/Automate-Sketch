@@ -7,34 +7,51 @@ var sketchVersion = process.argv[2];
 if (!sketchVersion) {
     console.error("Need Sketch version. npm run make -- 53.2 ");
     return;
+} else {
+    sketchVersion = sketchVersion + "." + getDateString();
 }
-var buildDateString = getDateString();
-var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 
+var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 var features = 0;
 
-var language = yaml.safeLoad(fs.readFileSync("templates/en.yaml", "utf8"));
-    language.version = sketchVersion + "." + buildDateString;
-var manifest = Mustache.render(template, language);
+var data = yaml.safeLoad(fs.readFileSync("templates/langs.yaml", "utf8"));
+data.version = [sketchVersion, sketchVersion];
 
-try {
-    if (JSON.parse(manifest)) {
-        var manifestJSON = JSON.parse(manifest);
-        var commands = manifestJSON.commands;
-        commands.forEach(function(command) {
-            if (command.name) {
-                command["icon"] = "icon_runner.png";
+
+var language_en = {};
+var language_zh = {};
+
+Object.keys(data).forEach(key => {
+    language_en[key] = data[key][0];
+    language_zh[key] = data[key][1] || data[key][0];
+});
+
+[language_en, language_zh].forEach((language, index) => {
+    try {
+        var manifest = Mustache.render(template, language);
+        if (JSON.parse(manifest)) {
+            var manifestJSON = JSON.parse(manifest);
+            var commands = manifestJSON.commands;
+            commands.forEach(function(command) {
+                if (command.name) {
+                    command["icon"] = "icon_runner.png";
+                }
+            });
+            manifest = JSON.stringify(manifestJSON, null, 2);
+
+            if (index == 0) {
+                fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_en.json", manifest);
+                fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
+            } else {
+                fs.writeFileSync("automate-sketch.sketchplugin/Contents/Resources/manifest_zh.json", manifest);
             }
-        });
-        manifest = JSON.stringify(manifestJSON, null, 4);
-        fs.writeFileSync("automate-sketch.sketchplugin/Contents/Sketch/manifest.json", manifest);
-        features = commands.length;
+
+            features = commands.length;
+        }
+    } catch (e) {
+        console.error(e);
     }
-} catch (e) {
-    console.error(e);
-}
-
-
+});
 
 console.log("Features: " + features);
 

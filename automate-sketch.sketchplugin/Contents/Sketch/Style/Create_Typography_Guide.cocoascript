@@ -57,7 +57,7 @@ var onRun = function(context) {
 
             // Add layer group
             var typographyGroup = MSLayerGroup.alloc().init();
-            typographyGroup.setName("style");
+            typographyGroup.setName(textStyle.name());
             typographyGroup.setRect(CGRectMake(typographyPositionX, typographyPositionY, 100, 10));
             page.addLayer(typographyGroup);
 

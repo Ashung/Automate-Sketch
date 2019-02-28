@@ -6,6 +6,11 @@ var reportIssue = function(context) {
 };
 
 var website = function(context) {
+    openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/");
+    ga(context, "Help");
+};
+
+var changelog = function(context) {
     openUrlInBrowser("http://ashung.github.io/Automate-Sketch/");
     ga(context, "Help");
 };

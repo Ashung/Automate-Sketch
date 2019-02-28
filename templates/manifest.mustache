@@ -392,6 +392,12 @@
             "script": "Help/help.cocoascript"
         },
         {
+            "name": "{{change_log}}",
+            "identifier": "change_log",
+            "handler": "changelog",
+            "script": "Help/help.cocoascript"
+        },
+        {
             "name": "{{report_issue}}",
             "identifier": "report_issue",
             "handler": "reportIssue",
@@ -402,6 +408,11 @@
             "identifier": "donate",
             "handler": "donate",
             "script": "Help/help.cocoascript"
+        },
+        {
+            "name": "{{change_language}}",
+            "identifier": "change_language",
+            "script": "Help/Change_Languages.cocoascript"
         },
         {
             "name": "{{copy_selected_layer_name}}",
@@ -1332,7 +1343,10 @@
                 "title": "{{help}}",
                 "items": [
                     "web_site",
+                    "change_log",
                     "report_issue",
+                    "-",
+                    "change_language",
                     "-",
                     "disable_google_analytics",
                     "-",
