@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190228",
+  "version": "53.2.20190301",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1208,6 +1208,24 @@
       "identifier": "disable_google_analytics",
       "script": "Help/Disable_Google_Analytics.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Hide or Show All Grid",
+      "identifier": "hide_or_show_all_grid",
+      "script": "Guide/Toggle_Grid_or_Layout.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Hide or Show All Layout",
+      "identifier": "hide_or_show_all_layout",
+      "script": "Guide/Toggle_Grid_or_Layout.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Raname Layers",
+      "identifier": "rename_layers",
+      "script": "Layer/Rename_Layers.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1311,6 +1329,7 @@
           "remove_hidden_layers",
           "remove_transparency_layers",
           "-",
+          "rename_layers",
           "clear_layer_name",
           "-",
           "create_link_layer",
@@ -1433,7 +1452,10 @@
           "-",
           "copy_guide_setting",
           "paste_guide_setting",
-          "clear_guides"
+          "clear_guides",
+          "-",
+          "hide_or_show_all_grid",
+          "hide_or_show_all_layout"
         ]
       },
       {

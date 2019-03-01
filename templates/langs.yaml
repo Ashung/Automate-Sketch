@@ -640,3 +640,12 @@ rename_instances_use_text_override:
 disable_google_analytics:
   - Disable Google Analytics
   - 禁用谷歌分析
+hide_or_show_all_grid:
+  - Hide or Show All Grid
+  - 显示或隐藏所有网格
+hide_or_show_all_layout:
+  - Hide or Show All Layout
+  - 显示或隐藏所有布局
+rename_layers:
+  - Raname Layers
+  - 重命名图层
