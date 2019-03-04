@@ -1035,6 +1035,11 @@
             "name": "{{rename_layers}}",
             "identifier": "rename_layers",
             "script": "Layer/Rename_Layers.js"
+        },
+        {
+            "name": "{{change_texts}}",
+            "identifier": "change_texts",
+            "script": "Type/Change_Texts.js"
         }
     ],
     "menu": {
@@ -1270,6 +1275,8 @@
             {
                 "title": "{{type}}",
                 "items": [
+                    "change_texts",
+                    "-",
                     "increase_line_height",
                     "decrease_line_height",
                     "increase_letter_spacing",

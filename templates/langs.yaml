@@ -649,3 +649,6 @@ hide_or_show_all_layout:
 rename_layers:
   - Raname Layers
   - 重命名图层
+change_texts:
+  - Change Texts
+  - 更改文本

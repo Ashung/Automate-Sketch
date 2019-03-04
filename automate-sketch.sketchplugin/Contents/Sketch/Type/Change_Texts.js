@@ -4,26 +4,29 @@
 
 var onRun = function(context) {
 
-    ga(context, "Layer");
+    ga(context, "Type");
 
     var util = require("util");
     var sketch = require("sketch");
     var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
+    var selectedTextLayers = selectedLayers.filter(function(layer) {
+        return layer.type == "Text";
+    });
 
-    if (selectedLayers.length == 0) {
-        sketch.UI.message("Please select 1 layer.");
+    if (selectedTextLayers.length == 0) {
+        sketch.UI.message("Please select 1 text layer.");
         return;
     }
 
     var dialog = UI.cosDialog(
-        "Rename Layers",
-        "Rename selected layers use custom template."
+        "Change Texts",
+        "Change the text value of selected text layers use custom template."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
     layoutView.setFlipped(true);
 
-    var labelView1 = UI.textLabel("Name", [0, 0, 230, 20]);
+    var labelView1 = UI.textLabel("Text", [0, 0, 230, 20]);
     layoutView.addSubview(labelView1);
 
     var nameView = UI.textField("", [0, 20, 230, 24]);
@@ -34,8 +37,8 @@ var onRun = function(context) {
 
     var histories = [];
     var maxHistory = 10;
-    if (getPreferences(context, "renameLayerHistories")) {
-        histories = util.toArray(getPreferences(context, "renameLayerHistories"));
+    if (getPreferences(context, "changeTextHistories")) {
+        histories = util.toArray(getPreferences(context, "changeTextHistories"));
         nameView.setStringValue(histories[histories.length - 1]);
     }
 
@@ -50,18 +53,20 @@ var onRun = function(context) {
 
     // Templates
     var templates = [
-        { label: "Type", value: "$type", position: [0, 0] },
-        { label: "Symbol", value: "$symbol", position: [50, 0] },
-        { label: "Style", value: "$style", position: [115, 0] },
-        { label: "Text", value: "$text", position: [165, 0] },
-        { label: "Name", value: "$name", position: [210, 0] },
-        { label: "N", value: "$n", position: [265, 0] },
+        { label: "Text", value: "$text", position: [0, 0] },
+        { label: "Style", value: "$style", position: [45, 0] },
+        { label: "Font", value: "$font", position: [95, 0] },
+        { label: "Size", value: "$size", position: [145, 0] },
+        { label: "Font Style", value: "$fontStyle", position: [195, 0] },
         { label: "Artboard", value: "$artboard", position: [0, 30] },
         { label: "Page", value: "$page", position: [75, 30] },
-        { label: "Parent", value: "$parent", position: [130, 30] }
+        { label: "Parent", value: "$parent", position: [125, 30] },
+        { label: "Name", value: "$name", position: [185, 30] },
+        { label: "N", value: "$n", position: [240, 30] },
+        { label: "Lorem ipsum", value: "$lorem", position: [0, 60]}
     ];
 
-    var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
+    var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 80));
     buttonsView.setFlipped(true);
 
     templates.forEach(function(item) {
@@ -89,38 +94,45 @@ var onRun = function(context) {
         });
         histories.splice(0, histories.length - maxHistory);
 
-        setPreferences(context, "renameLayerHistories", histories);
+        setPreferences(context, "changeTextHistories", histories);
 
-        selectedLayers.forEach(function(layer, index) {
+        selectedTextLayers.forEach(function(layer, index) {
 
             var keywordMapping = {
-                "$type": layer.type,
-                "$symbol": (layer.type == "SymbolInstance") ? layer.sketchObject.symbolMaster().name() : "",
+                "$text": layer.text,
                 "$style": layer.sharedStyle ? layer.sharedStyle.name : "",
-                "$text": (layer.type == "Text") ? layer.text : "",
-                "$name": layer.name,
-                "$n": index + 1,
+                "$font": layer.style.fontFamily,
+                "$size": layer.style.fontSize,
+                "$fontStyle": function() {
+                    var fontDisplayName = layer.style.sketchObject.textStyle().attributes().NSFont.displayName();
+                    var result = fontDisplayName.replace(layer.style.fontFamily, "").trim();
+                    return result == "" ? "Regular" : result;
+                },
                 "$artboard": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
                 "$page": layer.sketchObject.parentPage().name(),
-                "$parent": layer.parent.name
+                "$parent": layer.parent.name,
+                "$name": layer.name,
+                "$n": index + 1,
+                "$lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar enim id mollis aliquam."
             };
 
-            var resultName = customTemplate;
+            var resultText = customTemplate;
             var regexKeyword = RegExp("\\$\\w+", "g");
             var match;
             while (match = regexKeyword.exec(customTemplate)) {
                 var keyword = match[0];
                 if (Object.keys(keywordMapping).includes(keyword)) {
                     var value = keywordMapping[keyword] || "";
-                    resultName = resultName.replace(match[0], value);
+                    resultText = resultText.replace(match[0], value);
                 }
             }
 
-            resultName = resultName.trim();
-            if (resultName == "") {
-                resultName = " ";
+            resultText = resultText.trim();
+            if (resultText == "") {
+                resultText = " ";
             }
-            layer.name = resultName;
+            layer.sketchObject.setNameIsFixed(1);
+            layer.text = resultText;
 
         });
 
