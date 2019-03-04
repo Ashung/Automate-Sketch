@@ -8,6 +8,12 @@ var onRun = function(context) {
 
     var util = require("util");
     var sketch = require("sketch");
+    var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
+
+    if (selectedLayers.length == 0) {
+        sketch.UI.message("Please select 1 layer.");
+        return;
+    }
 
     var dialog = UI.cosDialog(
         "Rename Layers",
@@ -45,12 +51,15 @@ var onRun = function(context) {
 
     // Templates
     var templates = [
-        { label: "Type", value: "${type}", position: [0, 0] },
-        { label: "Symbol", value: "${symbol}", position: [50, 0] },
-        { label: "Style", value: "${style}", position: [115, 0] },
-        { label: "Text", value: "${text}", position: [165, 0] },
-        { label: "Name", value: "${name}", position: [210, 0] },
-        { label: "N", value: "${n}", position: [265, 0] },
+        { label: "Type", value: "$type", position: [0, 0] },
+        { label: "Symbol", value: "$symbol", position: [50, 0] },
+        { label: "Style", value: "$style", position: [115, 0] },
+        { label: "Text", value: "$text", position: [165, 0] },
+        { label: "Name", value: "$name", position: [210, 0] },
+        { label: "N", value: "$n", position: [265, 0] },
+        { label: "Artboard", value: "$artboard", position: [0, 30] },
+        { label: "Page", value: "$page", position: [75, 30] },
+        { label: "Parent", value: "$parent", position: [130, 30] }
     ];
 
     var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -74,8 +83,6 @@ var onRun = function(context) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
-
         var customTemplate = String(nameView.stringValue());
         histories.push(customTemplate);
         histories = histories.filter(function(item, index, array) {
@@ -88,16 +95,19 @@ var onRun = function(context) {
         selectedLayers.forEach(function(layer, index) {
 
             var keywordMapping = {
-                "${type}": layer.type,
-                "${symbol}": (layer.type == "SymbolInstance") ? layer.sketchObject.symbolMaster().name() : "",
-                "${style}": layer.sharedStyle ? layer.sharedStyle.name : "",
-                "${text}": (layer.type == "Text") ? layer.text : "",
-                "${name}": layer.name,
-                "${n}": index + 1
+                "$type": layer.type,
+                "$symbol": (layer.type == "SymbolInstance") ? layer.sketchObject.symbolMaster().name() : "",
+                "$style": layer.sharedStyle ? layer.sharedStyle.name : "",
+                "$text": (layer.type == "Text") ? layer.text : "",
+                "$name": layer.name,
+                "$n": index + 1,
+                "$artboard": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
+                "$page": layer.sketchObject.parentPage().name(),
+                "$parent": layer.parent.name
             };
 
             var resultName = customTemplate;
-            var regexKeyword = RegExp("\\${\\w+}", "g");
+            var regexKeyword = RegExp("\\$\\w+", "g");
             var match;
             while (match = regexKeyword.exec(customTemplate)) {
                 var keyword = match[0];

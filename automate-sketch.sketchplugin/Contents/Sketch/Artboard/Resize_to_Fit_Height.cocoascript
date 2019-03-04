@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Artboard");
+
     var doc = context.document;
     var selection = context.selection;
     var loopSelection = selection.objectEnumerator();
@@ -19,8 +21,6 @@ var onRun = function(context) {
         }
 
     }
-
-    ga(context, "Artboard");
 
 };
 

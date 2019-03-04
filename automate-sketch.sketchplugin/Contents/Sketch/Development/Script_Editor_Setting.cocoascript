@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Development");
+
     var fontFamilies = [
         "Andale Mono",
         "Courier",
@@ -44,7 +46,5 @@ var onRun = function(context) {
         userDefaults.synchronize();
 
     }
-
-    ga(context, "Development");
 
 };

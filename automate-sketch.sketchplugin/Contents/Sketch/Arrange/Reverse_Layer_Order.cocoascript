@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Arrange");
+
     var document = context.document;
     var currentPage = document.currentPage();
     var selection = context.selection;
@@ -25,7 +27,5 @@ var onRun = function(context) {
     } else {
         document.showMessage("Please select at least 2 layers.");
     }
-
-    ga(context, "Arrange");
 
 };

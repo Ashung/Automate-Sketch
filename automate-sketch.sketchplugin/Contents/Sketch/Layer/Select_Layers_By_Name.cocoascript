@@ -4,6 +4,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -93,8 +95,6 @@ var onRun = function(context) {
             doc.showMessage("Input layer name.");
         }
     }
-
-    ga(context, "Layer");
 
 };
 

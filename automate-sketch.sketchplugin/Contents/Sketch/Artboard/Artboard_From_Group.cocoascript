@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Artboard");
+
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -30,5 +32,4 @@ var onRun = function(context) {
         doc.showMessage("Please select at least 1 group.");
     }
 
-    ga(context, "Artboard");
 };

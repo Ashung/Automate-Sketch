@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Development");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -48,7 +50,5 @@ var onRun = function(context) {
     } else {
         document.showMessage("Please select 1 layer.");
     }
-
-    ga(context, "Development");
 
 };

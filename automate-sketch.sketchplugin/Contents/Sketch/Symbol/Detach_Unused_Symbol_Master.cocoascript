@@ -1,6 +1,9 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
+
+    ga(context, "Symbol");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -14,7 +17,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Select a symbol master.");
     }
-
-    ga(context, "Symbol");
 
 };

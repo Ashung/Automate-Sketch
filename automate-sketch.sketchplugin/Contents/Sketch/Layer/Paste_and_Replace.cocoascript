@@ -4,6 +4,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
     var documentData = document.documentData();
@@ -135,8 +137,6 @@ var onRun = function(context) {
     } else {
         document.showMessage("Clipboard is empty.");
     }
-
-    ga(context, "Layer");
 
 }
 

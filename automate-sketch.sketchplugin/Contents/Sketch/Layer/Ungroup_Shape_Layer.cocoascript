@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -19,7 +21,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select at least 1 shape layer.");
     }
-
-    ga(context, "Layer");
 
 }

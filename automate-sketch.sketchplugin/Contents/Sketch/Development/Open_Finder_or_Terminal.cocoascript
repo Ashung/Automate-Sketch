@@ -1,6 +1,7 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var showFileInFinder = function(context) {
+    ga(context, "Development");
     var doc = context.document;
     if (!doc.fileURL()) {
         doc.showMessage("Please save this document first.");
@@ -8,10 +9,10 @@ var showFileInFinder = function(context) {
         var filePath = doc.fileURL().path();
         NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
     }
-    ga(context, "Development");
 };
 
 var openTerminalAtFileFolder = function(context) {
+    ga(context, "Development");
     var doc = context.document;
     if (!doc.fileURL()) {
         NSWorkspace.sharedWorkspace().openFile_withApplication_(nil, "Terminal");
@@ -19,5 +20,4 @@ var openTerminalAtFileFolder = function(context) {
         var fileFolder = doc.fileURL().path().stringByDeletingLastPathComponent();
         NSWorkspace.sharedWorkspace().openFile_withApplication_(fileFolder, "Terminal");
     }
-    ga(context, "Development");
 };

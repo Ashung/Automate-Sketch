@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
 
     // Choose the new sketch file.
@@ -46,7 +48,5 @@ var onRun = function(context) {
         document.showMessage("Replace " + ((count > 1) ? (count + " pages.") : (count + " page.")));
 
     }
-
-    ga(context, "Symbol");
 
 };

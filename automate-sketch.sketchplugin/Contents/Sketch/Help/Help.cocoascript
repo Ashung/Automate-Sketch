@@ -2,24 +2,21 @@
 
 var reportIssue = function(context) {
     openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/issues/");
-    ga(context, "Help");
 };
 
 var website = function(context) {
     openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/");
-    ga(context, "Help");
 };
 
 var changelog = function(context) {
     openUrlInBrowser("http://ashung.github.io/Automate-Sketch/");
-    ga(context, "Help");
 };
 
 var donate = function() {
     openUrlInBrowser("https://ashung.github.io/donate.html?ref=automate-sketch");
-    ga(context, "Help");
 };
 
 function openUrlInBrowser(url) {
+    ga(context, "Help");
     NSWorkspace.sharedWorkspace().openURL(NSURL.URLWithString(url));
 }

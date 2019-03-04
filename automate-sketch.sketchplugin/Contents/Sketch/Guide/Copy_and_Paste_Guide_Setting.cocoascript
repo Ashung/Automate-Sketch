@@ -31,6 +31,8 @@ var copyGuide = function(context) {
 
 var pasteGuide = function(context) {
 
+    ga(context, "Guide");
+
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
@@ -66,8 +68,6 @@ var pasteGuide = function(context) {
             document.showMessage("Please copy a guide setting first.");
         }
     }
-
-    ga(context, "Guide");
 };
 
 function copyGuideToPasteboard(context, layer) {

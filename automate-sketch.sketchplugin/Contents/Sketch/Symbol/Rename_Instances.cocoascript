@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var selection = context.selection;
     var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
@@ -44,8 +46,6 @@ var onRun = function(context) {
         }
         renameInstances(context, instances, "Rename Instances of Symbol Master", "Change the name for all sysmbol instances of selected symbol masters.");
     }
-
-    ga(context, "Symbol");
 
 };
 

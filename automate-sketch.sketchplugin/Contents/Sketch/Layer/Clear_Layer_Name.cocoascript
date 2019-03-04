@@ -1,6 +1,9 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
+
+    ga(context, "Layer");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -33,7 +36,6 @@ var onRun = function(context) {
     }
     doc.showMessage(message);
 
-    ga(context, "Layer");
 };
 
 function clearLayerName(arg_layer, callback) {

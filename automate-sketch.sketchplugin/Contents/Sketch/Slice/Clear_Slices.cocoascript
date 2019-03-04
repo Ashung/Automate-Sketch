@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Slice");
+
     var doc = context.document;
 
     var exportableLayers = doc.currentPage().exportableLayers();
@@ -24,7 +26,5 @@ var onRun = function(context) {
         message = "No slices found in current page.";
     }
     doc.showMessage(message);
-
-    ga(context, "Slice");
 
 };

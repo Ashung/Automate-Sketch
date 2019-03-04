@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -76,8 +78,6 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select 1 text layer.");
     }
-
-    ga(context, "Type");
 
 };
 

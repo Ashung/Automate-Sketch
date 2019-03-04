@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Arrange");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -61,8 +63,6 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select at least 2 layers.");
     }
-
-    ga(context, "Arrange");
 
 };
 

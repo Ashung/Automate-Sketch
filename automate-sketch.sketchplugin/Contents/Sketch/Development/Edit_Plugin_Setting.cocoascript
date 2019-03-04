@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Development");
+
     var editors = [
         {
             "title": "None",
@@ -71,7 +73,5 @@ var onRun = function(context) {
             }
         }
     }
-
-    ga(context, "Development");
 
 };
