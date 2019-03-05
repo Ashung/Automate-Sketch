@@ -1,4 +1,15 @@
 -
+  version: 53.2.20190304
+  description: |-
+    <ul>
+    <li>Redesign Hide or Show All Grid/Layout. Fix #151</li>
+    <li>Add Change Texts. Fix #149, Fix #150</li>
+    <li>Add Rename Layers.</li>
+    <li>Add Chinese language. Fix #152</li>
+    </ul>
+  commitID: 654c714547191875401a0340e159f45512c06be6
+
+-
   version: 53.2.20190227
   description: |-
     <ul>
@@ -10,7 +21,7 @@
     <li>Fix Import Document Assets from Sketch File.</li>
     <li>Remove hide/show all grid/layout</li>
     <li>Add Disable Google Analytics. Fix #142</li>
-    <li>Remove languages.
+    <li>Remove languages.</li>
     </ul>
   commitID: 225189727fe4ed434a0503a0873207d575a81246
 
