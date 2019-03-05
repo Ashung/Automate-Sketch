@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+
     var document = context.document;
     var selection = context.selection;
 
@@ -74,7 +76,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select 1 layer with fill or border.");
     }
-
-    ga(context, "Style");
 
 }

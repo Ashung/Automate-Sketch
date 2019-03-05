@@ -47,6 +47,8 @@ var createLinkLayer = function(context) {
 
 var syncLinkLayers = function(context) {
 
+    ga(context, "Layer");
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -80,8 +82,6 @@ var syncLinkLayers = function(context) {
 
         }
     }
-
-    ga(context, "Layer");
 
 };
 

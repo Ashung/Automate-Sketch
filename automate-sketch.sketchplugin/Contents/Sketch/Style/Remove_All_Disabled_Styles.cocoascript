@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Style");
+
     var document = context.document;
     var currentPage = document.currentPage();
     var selection = context.selection;
@@ -30,8 +32,6 @@ var onRun = function(context) {
 
     // Restore selection
     currentPage.changeSelectionBySelectingLayers(selectedLayers);
-
-    ga(context, "Style");
 
 };
 

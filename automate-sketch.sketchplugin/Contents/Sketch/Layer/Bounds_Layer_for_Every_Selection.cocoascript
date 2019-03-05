@@ -3,6 +3,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Layer");
+
     var boundsLayerName = "#";
 
     var doc = context.document;
@@ -156,7 +158,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select at least 1 layer.");
     }
-
-    ga(context, "Layer");
 
 };

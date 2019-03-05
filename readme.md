@@ -36,6 +36,7 @@ Make your workflow more efficient.
 | Select None                                                  | Select none.                                                 |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
+| Rename Layers                                                | Rename selected layers use custom template.                  |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
 | Remove Empty Groups                                          | Remove empty group.                                          |
@@ -52,6 +53,7 @@ Make your workflow more efficient.
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
 | Collapse All Groups and Fit Canvas                           | Run "Collapse All Groups" and "Fit Canvas" for all pages.    |
 | **Text**                                                     |                                                              |
+| Change Texts                                                 | Change text of selected layers use custom template.          |
 | Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
 | Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
 | Increase / Decrease / Reset Horizontally Scale               | Increase, decrease and reset horizontally scale for all selected text layers. |
@@ -133,6 +135,7 @@ Make your workflow more efficient.
 | **Guides**                                                   |                                                              |
 | Clear Guides                                                 | Clear all guides.                                            |
 | Grid Presets                                                 | Common Grid Presets, like 8x8, 10x10 etc.                    |
+| Hide or Show All Grid/Layout                                 | Hide or show all grid or layout of artboard.                 |
 | Copy Grid/Layout/Guide                                       | Copy the grid/layout/guide from seleted artboard.            |
 | Paste Grid/Layout/Guide                                      | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
 | **Data**                                                     |                                                              |

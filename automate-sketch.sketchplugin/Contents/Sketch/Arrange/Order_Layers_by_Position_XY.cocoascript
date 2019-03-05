@@ -10,6 +10,8 @@ var orderLayersByY = function(context) {
 
 function orderLayers(context, position) {
 
+    ga(context, "Arrange");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -48,5 +50,4 @@ function orderLayers(context, position) {
         doc.showMessage("Please select at least 2 layers.");
     }
 
-    ga(context, "Arrange");
 };

@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Symbol");
+
     var document = context.document;
     var selection = context.selection;
     var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
@@ -16,8 +18,6 @@ var onRun = function(context) {
     while (symbolInstance = loopSymbolInstancesInSelection.nextObject()) {
         symbolInstance.setOverrides(nil);
     }
-
-    ga(context, "Symbol");
 
 };
 

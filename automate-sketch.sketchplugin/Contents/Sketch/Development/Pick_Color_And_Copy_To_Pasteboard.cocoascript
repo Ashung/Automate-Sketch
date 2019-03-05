@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Development");
+
     var document = context.document;
 
     coscript.pushAsCurrentCOScript();
@@ -31,7 +33,5 @@ var onRun = function(context) {
 
     });
     button.performClick(null);
-
-    ga(context, "Development");
 
 };

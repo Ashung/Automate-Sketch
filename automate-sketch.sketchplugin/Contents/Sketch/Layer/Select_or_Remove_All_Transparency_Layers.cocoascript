@@ -3,6 +3,8 @@
 
 var removeTransparencyLayersHandler = function(context) {
 
+    ga(context, "Layer");
+
     var document = context.document;
     var page = document.currentPage();
     var selection = context.selection;
@@ -37,11 +39,11 @@ var removeTransparencyLayersHandler = function(context) {
     }
     document.showMessage(message);
 
-    ga(context, "Layer");
-
 };
 
 var selectTransparencyLayersHandler = function(context) {
+
+    ga(context, "Layer");
 
     var document = context.document;
     var page = document.currentPage();
@@ -65,8 +67,6 @@ var selectTransparencyLayersHandler = function(context) {
     } else {
         selectTransparencyLayers(page);
     }
-
-    ga(context, "Layer");
 
 };
 

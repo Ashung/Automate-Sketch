@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Slice");
+
     var doc = context.document;
     var page = doc.currentPage();
 
@@ -42,7 +44,5 @@ var onRun = function(context) {
     doc.showMessage(message);
 
     doc.layerTreeLayoutDidChange();
-
-    ga(context, "Slice");
 
 };

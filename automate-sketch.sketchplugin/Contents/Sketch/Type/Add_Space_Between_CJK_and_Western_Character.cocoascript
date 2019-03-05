@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -48,7 +50,5 @@ var onRun = function(context) {
         textlayer.adjustFrameToFit();
 
     }
-
-    ga(context, "Type");
 
 };

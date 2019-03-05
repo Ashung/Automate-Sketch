@@ -1,6 +1,9 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var onRun = function(context) {
+
+    ga(context, "Type");
+
     var doc = context.document;
     var selection = context.selection;
     var selectionHasTextLayer = false;
@@ -23,7 +26,5 @@ var onRun = function(context) {
     } else {
         doc.showMessage("Please select at least 1 text layer.");
     }
-
-    ga(context, "Type");
 
 };

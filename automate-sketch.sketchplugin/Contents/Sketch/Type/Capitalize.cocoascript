@@ -2,6 +2,8 @@
 
 var onRun = function(context) {
 
+    ga(context, "Type");
+
     var doc = context.document;
     var selection = context.selection;
 
@@ -25,8 +27,6 @@ var onRun = function(context) {
     if(!hasTextLayer) {
         doc.showMessage("No text layers seleted.");
     }
-
-    ga(context, "Type");
 
 };
 

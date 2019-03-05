@@ -1,6 +1,7 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
 var selectLayersByLayerStyle = function(context) {
+    ga(context, "Style");
     var document = context.document;
     var documentData = document.documentData();
     var layerStyles = NSMutableArray.alloc().init();
@@ -13,10 +14,10 @@ var selectLayersByLayerStyle = function(context) {
     } else {
         document.showMessage("No layer styles in current document.");
     }
-    ga(context, "Style");
 };
 
 var selectLayersByTextStyle = function(context) {
+    ga(context, "Style");
     var document = context.document;
     var documentData = document.documentData();
     var textStyles = NSMutableArray.alloc().init();
@@ -29,7 +30,6 @@ var selectLayersByTextStyle = function(context) {
     } else {
         document.showMessage("No text styles in current document.");
     }
-    ga(context, "Style");
 };
 
 function main(context, styles, title, message) {

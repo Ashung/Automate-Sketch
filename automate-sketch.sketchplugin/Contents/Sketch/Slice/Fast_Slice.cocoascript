@@ -142,8 +142,8 @@ var runFastSlice = function(context) {
 };
 
 var runSliceSetting = function(context) {
-    sliceSetting(context);
     ga(context, "Slice");
+    sliceSetting(context);
 };
 
 function sliceSetting(context) {
