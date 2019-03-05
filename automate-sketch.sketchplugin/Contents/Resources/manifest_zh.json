@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190304",
+  "version": "53.2.20190306",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -100,7 +100,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "选择选中对象内所有子图层",
+      "name": "基于名称选择选中对象内所有图层",
       "identifier": "select_layers_by_name",
       "script": "Layer/Select_Layers_By_Name.cocoascript",
       "icon": "icon_runner.png"
@@ -112,7 +112,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "基于名称选择选中对象内所有图层",
+      "name": "选择选中对象内所有子图层",
       "identifier": "select_all_child_layers",
       "script": "Layer/Select_All_Child_Layers.cocoascript",
       "icon": "icon_runner.png"
@@ -263,7 +263,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "清除当页切片",
+      "name": "清除当页所有切片",
       "identifier": "clear_slices",
       "script": "Slice/Clear_Slices.cocoascript",
       "icon": "icon_runner.png"
@@ -464,7 +464,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "更新记录",
+      "name": "更新记录和历史版本",
       "identifier": "change_log",
       "handler": "changelog",
       "script": "Help/help.cocoascript",
@@ -503,17 +503,9 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "在 Finder 中显示",
-      "identifier": "show_file_in_finder",
-      "handler": "showFileInFinder",
-      "script": "Development/Open_Finder_or_Terminal.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "在终端打开",
       "identifier": "open_terminal_at_file_folder",
-      "handler": "openTerminalAtFileFolder",
-      "script": "Development/Open_Finder_or_Terminal.cocoascript",
+      "script": "Development/Open_Terminal_at_File_Folder.js",
       "icon": "icon_runner.png"
     },
     {
@@ -971,12 +963,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "重命名图层为样式名",
-      "identifier": "rename_layer_to_style_name",
-      "script": "Style/Rename_Layer_to_Style_Name.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "替换库",
       "identifier": "replace_library",
       "script": "Library/Replace_Library.cocoascript",
@@ -1232,6 +1218,36 @@
       "identifier": "change_texts",
       "script": "Type/Change_Texts.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "复制 SVG 路径数据",
+      "identifier": "copy_svg_path_data",
+      "script": "Development/Copy_SVG_Path_Data.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从 SVG 代码插入图层",
+      "identifier": "insert_layers_from_svg_code",
+      "script": "Utilities/Insert_Layers_from_SVG_Code.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从 SVG 路径数据插入图层",
+      "identifier": "insert_layer_from_svg_path_data",
+      "script": "Utilities/Insert_Layer_from_SVG_Path_Data.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "启用所有覆盖",
+      "identifier": "enable_all_overrides",
+      "script": "Symbol/Disable_or_Enable_All_Overrides.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "禁用所有覆盖",
+      "identifier": "disable_all_overrides",
+      "script": "Symbol/Disable_or_Enable_All_Overrides.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1351,6 +1367,8 @@
           "-",
           "replace_override_symbol",
           "reset_overrides",
+          "enable_all_overrides",
+          "disable_all_overrides",
           "-",
           "select_all_instances_of_symbol",
           "select_all_instances_of_imported_symbol",
@@ -1415,8 +1433,6 @@
           "select_layers_by_layer_style",
           "select_layers_by_text_style",
           "select_layers_with_same_shared_style",
-          "-",
-          "rename_layer_to_style_name",
           "-",
           "paste_style_fills",
           "paste_style_borders",
@@ -1533,9 +1549,10 @@
         "items": [
           "pick_color_and_copy",
           "copy_slice_as_base64",
-          "-",
           "copy_selected_layer_name",
           "copy_objectid_or_symbolid",
+          "copy_svg_path_data",
+          "-",
           "show_layer_info",
           "-",
           "script_editor_setting",
@@ -1546,6 +1563,9 @@
       {
         "title": "实用工具",
         "items": [
+          "insert_layers_from_svg_code",
+          "insert_layer_from_svg_path_data",
+          "-",
           "export_clean_code_svg",
           "svg_export_setting",
           "-",
@@ -1553,7 +1573,6 @@
           "-",
           "convert_to_other_version",
           "-",
-          "show_file_in_finder",
           "open_terminal_at_file_folder"
         ]
       },

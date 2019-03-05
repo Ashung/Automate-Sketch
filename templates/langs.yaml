@@ -141,10 +141,10 @@ select_layers_by_type_exportable:
   - 可导出图层
 select_layers_by_name:
   - Select Layers in Selection By Name
-  - 选择选中对象内所有子图层
+  - 基于名称选择选中对象内所有图层
 select_all_child_layers:
   - Select All Child Layers
-  - 基于名称选择选中对象内所有图层
+  - 选择选中对象内所有子图层
 select_all_hidden_layers:
   - Hidden Layers
   - 隐藏图层
@@ -162,7 +162,7 @@ unfixed_layer_name:
   - 取消当页固定图层名
 clear_slices:
   - Remove All Slices
-  - 清除当页切片
+  - 清除当页所有切片
 clear_exportables:
   - Clear All Exportables
   - 清除全部可导出设置
@@ -190,9 +190,6 @@ detach_unused_symbol_master:
 remove_unused_symbols:
   - Remove Unused Symbols
   - 删除未用组件
-remove_unused_symbols_old:
-  - Remove Unused Symbols (Legacy)
-  - 删除未用组件 (旧版兼容)
 fill_color_from_global_colors:
   - Fill Color from Global Colors
   - 从全局色版快速填充
@@ -214,9 +211,6 @@ remove_hidden_layers:
 remove_all_disabled_styles:
   - Remove All Disabled Styles
   - 清除无效样式
-show_file_in_finder:
-  - Show File in Finder
-  - 在 Finder 中显示
 open_terminal_at_file_folder:
   - Open Terminal at File Folder
   - 在终端打开
@@ -224,8 +218,8 @@ web_site:
   - Web Site
   - 网站
 change_log:
-  - Change Log
-  - 更新记录
+  - Change Log and Old Versions
+  - 更新记录和历史版本
 report_issue:
   - Report Issue
   - 问题反馈
@@ -364,9 +358,6 @@ baseline:
 resize_fit_text_height:
   - Resize to Fix Text Height
   - 自适应文本高度
-reflection:
-  - Reflection
-  - 倒影
 change_text_orientation:
   - Change Text Orientation
   - 更改文本书写方向
@@ -538,9 +529,6 @@ artboard_navigator:
 create_symbols_from_selected_layers:
   - Create Symbols from Selected Layers
   - 从选中图层批量创建组件
-rename_layer_to_style_name:
-  - Rename Layer to Style Name
-  - 重命名图层为样式名
 replace_library:
   - Replace Library
   - 替换库
@@ -652,3 +640,18 @@ rename_layers:
 change_texts:
   - Change Texts
   - 更改文本
+copy_svg_path_data:
+  - Copy SVG Path Data
+  - 复制 SVG 路径数据
+insert_layer_from_svg_path_data:
+  - Insert Layer from SVG Path Data
+  - 从 SVG 路径数据插入图层
+insert_layers_from_svg_code:
+  - Insert Layers from SVG Code
+  - 从 SVG 代码插入图层
+disable_all_overrides:
+  - Disable All Overrides
+  - 禁用所有覆盖
+enable_all_overrides:
+  - Enable All Overrides
+  - 启用所有覆盖

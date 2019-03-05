@@ -425,16 +425,9 @@
             "script": "Development/Copy_Slice_As_Base64.cocoascript"
         },
         {
-            "name": "{{show_file_in_finder}}",
-            "identifier": "show_file_in_finder",
-            "handler": "showFileInFinder",
-            "script": "Development/Open_Finder_or_Terminal.cocoascript"
-        },
-        {
             "name": "{{open_terminal_at_file_folder}}",
             "identifier": "open_terminal_at_file_folder",
-            "handler": "openTerminalAtFileFolder",
-            "script": "Development/Open_Finder_or_Terminal.cocoascript"
+            "script": "Development/Open_Terminal_at_File_Folder.js"
         },
         {
             "name": "{{copy_objectid_or_symbolid}}",
@@ -818,11 +811,6 @@
             "script": "Symbol/Create_Symbols_from_Selected_Layers.cocoascript"
         },
         {
-            "name": "{{rename_layer_to_style_name}}",
-            "identifier": "rename_layer_to_style_name",
-            "script": "Style/Rename_Layer_to_Style_Name.cocoascript"
-        },
-        {
             "name": "{{replace_library}}",
             "identifier": "replace_library",
             "script": "Library/Replace_Library.cocoascript"
@@ -1040,6 +1028,31 @@
             "name": "{{change_texts}}",
             "identifier": "change_texts",
             "script": "Type/Change_Texts.js"
+        },
+        {
+            "name": "{{copy_svg_path_data}}",
+            "identifier": "copy_svg_path_data",
+            "script": "Development/Copy_SVG_Path_Data.js"
+        },
+        {
+            "name": "{{insert_layers_from_svg_code}}",
+            "identifier": "insert_layers_from_svg_code",
+            "script": "Utilities/Insert_Layers_from_SVG_Code.js"
+        },
+        {
+            "name": "{{insert_layer_from_svg_path_data}}",
+            "identifier": "insert_layer_from_svg_path_data",
+            "script": "Utilities/Insert_Layer_from_SVG_Path_Data.js"
+        },
+        {
+            "name": "{{enable_all_overrides}}",
+            "identifier": "enable_all_overrides",
+            "script": "Symbol/Disable_or_Enable_All_Overrides.js"
+        },
+        {
+            "name": "{{disable_all_overrides}}",
+            "identifier": "disable_all_overrides",
+            "script": "Symbol/Disable_or_Enable_All_Overrides.js"
         }
     ],
     "menu": {
@@ -1159,6 +1172,8 @@
                     "-",
                     "replace_override_symbol",
                     "reset_overrides",
+                    "enable_all_overrides",
+                    "disable_all_overrides",
                     "-",
                     "select_all_instances_of_symbol",
                     "select_all_instances_of_imported_symbol",
@@ -1223,8 +1238,6 @@
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
                     "select_layers_with_same_shared_style",
-                    "-",
-                    "rename_layer_to_style_name",
                     "-",
                     "paste_style_fills",
                     "paste_style_borders",
@@ -1341,9 +1354,10 @@
                 "items": [
                     "pick_color_and_copy",
                     "copy_slice_as_base64",
-                    "-",
                     "copy_selected_layer_name",
                     "copy_objectid_or_symbolid",
+                    "copy_svg_path_data",
+                    "-",
                     "show_layer_info",
                     "-",
                     "script_editor_setting",
@@ -1354,6 +1368,9 @@
             {
                 "title": "{{utilities}}",
                 "items": [
+                    "insert_layers_from_svg_code",
+                    "insert_layer_from_svg_path_data",
+                    "-",
                     "export_clean_code_svg",
                     "svg_export_setting",
                     "-",
@@ -1361,7 +1378,6 @@
                     "-",
                     "convert_to_other_version",
                     "-",
-                    "show_file_in_finder",
                     "open_terminal_at_file_folder"
                 ]
             },
