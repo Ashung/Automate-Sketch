@@ -649,9 +649,6 @@ insert_layer_from_svg_path_data:
 insert_layers_from_svg_code:
   - Insert Layers from SVG Code
   - 从 SVG 代码插入图层
-disable_all_overrides:
-  - Disable All Overrides
-  - 禁用所有覆盖
-enable_all_overrides:
-  - Enable All Overrides
-  - 启用所有覆盖
+disable_or_enable_all_overrides:
+  - Disable or Enable All Overrides
+  - 禁用或启用所有覆盖

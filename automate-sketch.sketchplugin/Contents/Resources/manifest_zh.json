@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190306",
+  "version": "53.2.20190307",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1238,14 +1238,8 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "启用所有覆盖",
-      "identifier": "enable_all_overrides",
-      "script": "Symbol/Disable_or_Enable_All_Overrides.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "禁用所有覆盖",
-      "identifier": "disable_all_overrides",
+      "name": "禁用或启用所有覆盖",
+      "identifier": "disable_or_enable_all_overrides",
       "script": "Symbol/Disable_or_Enable_All_Overrides.js",
       "icon": "icon_runner.png"
     }
@@ -1367,8 +1361,7 @@
           "-",
           "replace_override_symbol",
           "reset_overrides",
-          "enable_all_overrides",
-          "disable_all_overrides",
+          "disable_or_enable_all_overrides",
           "-",
           "select_all_instances_of_symbol",
           "select_all_instances_of_imported_symbol",
