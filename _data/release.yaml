@@ -1,4 +1,15 @@
 -
+  version: 53.2.20190307
+  description: |-
+    <ul>
+    <li>Add Copy SVG Path Data.</li>
+    <li>Add Insert Layer from SVG Path Data.</li>
+    <li>Add Insert Layers from SVG Code.</li>
+    <li>Add Disable or Enable All Overrides.</li>
+    </ul>
+  commitID: 8b81622ec8ec9404651a04722b5471d472c1acfc
+
+-
   version: 53.2.20190304
   description: |-
     <ul>
