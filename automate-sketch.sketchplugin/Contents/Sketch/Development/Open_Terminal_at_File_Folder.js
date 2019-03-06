@@ -1,17 +1,6 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
-var showFileInFinder = function(context) {
-    ga(context, "Development");
-    var doc = context.document;
-    if (!doc.fileURL()) {
-        doc.showMessage("Please save this document first.");
-    } else {
-        var filePath = doc.fileURL().path();
-        NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
-    }
-};
-
-var openTerminalAtFileFolder = function(context) {
+var onRun = function(context) {
     ga(context, "Development");
     var doc = context.document;
     if (!doc.fileURL()) {

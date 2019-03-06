@@ -91,6 +91,7 @@ Make your workflow more efficient.
 | Reset to Original Width / Height / Size                      | Reset to original width / height / Size.                     |
 | Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
+| Disable or Enable All Overrides                              | Toggle disable or enable all override for selected local symbol instances or symbol masters. |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
@@ -119,7 +120,6 @@ Make your workflow more efficient.
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
 | Select Layers with Same Style                                | Select layers in current page with same shared style of selected layer. |
-| Rename Layer to Style Name                                   | Rename selected layer to it's shared style name.             |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color / Text Font | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color                                | Fill from CSS color code.                                    |
 | Fill Color from Global (Document) Colors                     | Fill from the global (document) color fast.                  |
@@ -153,16 +153,18 @@ Make your workflow more efficient.
 | Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
 | Copy Selected Layer Name                                     | Copy the selected layer name to the clipboard.               |
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
+| Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
 | Show and Change Layer Info                                   | Show and change layer's objectID, symbolID etc.              |
 | Script Editor Setting                                        | Script editor font and font size settings.                   |
 | Edit Plugin Setting                                          | Set up external plugin editor, default editor Atom, Sublime Text, Visual Studio Code and WebStorm. |
 | Reload Plugins                                               | Reload all plugins.                                          |
 | **Utilities**                                                |                                                              |
+| Insert Layers from SVG Code                                  | Insert shape layers from SVG code.                           |
+| Insert Layer from SVG Path Data                              | Insert a shape layer from SVG path data code.                |
 | Export Clean Code SVG                                        | Export or copy selected layers to clean code SVG, it can ignore layers by name or type, and optimize with SVGO. |
 | SVG Export Setting                                           | SVG export settings.                                         |
 | Nine-Slice from Bitmap Layer                                 | Crop a bitmap layer to 9 part with resizing constraint settings. |
 | Convert Sketch File to Other Version                         | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
-| Show File in Finder                                          | Open the current document in the Finder.                     |
 | Open Terminal at File Folder                                 | Open the terminal and switch to the directory of the current document. |
 
 ## License

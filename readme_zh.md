@@ -90,12 +90,13 @@
 | Export All Artboards to HTML                                 | 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
 | Reset to Original Width / Height / Size                      | 设为原始宽度 / 高度 / 尺寸。                                 |
-| Replace Override Symbol                                      | 查找和替换选中或全文档的组件上 override 中的组件。           |
+| Replace Override Symbol                                      | 查找和替换选中或全文档的组件上覆盖中的组件。                 |
 | Reset Overrides                                              | 重置选中组件的覆盖。                                         |
+| Disable or Enable All Overrides                              | 将选中的本地组件实例或组件母版，切换禁用或启用所有覆盖。     |
 | Select All Instance of Symbol                                | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |
 | Rename Instances                                             | 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
-| Rename Instances Use Text Override                           | 以选择的文本 override 值重命名实例，如果实例仅有一个文本 override 则使用此值。 |
+| Rename Instances Use Text Override                           | 以选择的文本覆盖值重命名实例，如果实例仅有一个文本覆盖则使用此值。 |
 | Move Symbol Masters To Another Page                          | 将选中组件模版移动至其他页面。                               |
 | Create Symbols from Selected Layers                          | 从选中图层批量创建组件。                                     |
 | Selection to Symbol Master                                   | 将选中图层在原位置直接变为组件。                             |
@@ -120,7 +121,6 @@
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | 按图层样式、文本样式从当前页面或选择组内选择图层。           |
 | Select Layers with Same Style                                | 选择当前页面中与选中图层有相同共享样式的图层。               |
-| Rename Layer to Style Name                                   | 将选中图层重名为其共享样式的名称。                           |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color/ Text F0nt | 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color                                | 从 CSS 色彩代码添加填充。                                    |
 | Fill Color from Global (Document) Colors                     | 从全局 (文档) 色版快速填充。                                 |
@@ -154,16 +154,18 @@
 | Copy Slice as Base64                                         | 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Copy Selected Layer Name                                     | 复制选中的图层名到剪贴板。                                   |
 | Copy ObjectID or SymbolID                                    | 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。       |
+| Copy SVG Path Data                                           | 复制选中形状图层的 SVG 路径数据代码。                        |
 | Show and Change Layer Info                                   | 显示和修改图层的 ObjectID 或 SymbolID 等等。                 |
 | Script Editor Setting                                        | 脚本编辑器的字体与字号设置。                                 |
 | Edit Plugin Setting                                          | 设置外部插件编辑器，预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
 | Reload Plugins                                               | 重载所有插件。                                               |
 | **Utilities**                                                | **实用工具**                                                 |
+| Insert Layers from SVG Code                                  | 使用 SVG 代码插入图层。                                      |
+| Insert Layer from SVG Path Data                              | 使用 SVG 路径数据代码插入图层。                              |
 | Export Clean Code SVG                                        | 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码 (较慢)。 |
 | SVG Export Setting                                           | SVG 导出设置。                                               |
 | Nine-Slice from Bitmap Layer                                 | 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。        |
 | Convert Sketch File to Other Version                         | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
-| Show File in Finder                                          | 在 Finder 中打开当前文档。                                   |
 | Open Termianl at File Folder                                 | 打开终端，并切换到当前文档的目录。                           |
 
 ## 版权声明
