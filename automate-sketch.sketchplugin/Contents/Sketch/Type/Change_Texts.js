@@ -20,7 +20,7 @@ var onRun = function(context) {
 
     var dialog = UI.cosDialog(
         "Change Texts",
-        "Change the text value of selected text layers use custom template."
+        "Change the text value of selected text layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -53,17 +53,18 @@ var onRun = function(context) {
 
     // Templates
     var templates = [
-        { label: "Text", value: "$text", position: [0, 0] },
-        { label: "Style", value: "$style", position: [45, 0] },
-        { label: "Font", value: "$font", position: [95, 0] },
-        { label: "Size", value: "$size", position: [145, 0] },
-        { label: "Font Style", value: "$fontStyle", position: [195, 0] },
-        { label: "Artboard", value: "$artboard", position: [0, 30] },
-        { label: "Page", value: "$page", position: [75, 30] },
-        { label: "Parent", value: "$parent", position: [125, 30] },
-        { label: "Name", value: "$name", position: [185, 30] },
-        { label: "N", value: "$n", position: [240, 30] },
-        { label: "Lorem ipsum", value: "$lorem", position: [0, 60]}
+        { label: "text", value: "{{text}}", position: [0, 0] },
+        { label: "style", value: "{{style}}", position: [45, 0] },
+        { label: "font", value: "{{font}}", position: [95, 0] },
+        { label: "size", value: "{{size}}", position: [145, 0] },
+        { label: "fontStyle", value: "{{fontStyle}}", position: [195, 0] },
+        { label: "artboard", value: "{{artboard}}", position: [0, 30] },
+        { label: "page", value: "{{page}}", position: [75, 30] },
+        { label: "parent", value: "{{parent}}", position: [125, 30] },
+        { label: "name", value: "{{name}}", position: [185, 30] },
+        { label: "n", value: "{{n}}", position: [240, 30] },
+        { label: "loremIpsum", value: "{{loremIpsum}}", position: [0, 60]},
+        { label: "color", value: "{{color}}", position: [90, 60]},
     ];
 
     var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 80));
@@ -99,28 +100,41 @@ var onRun = function(context) {
         selectedTextLayers.forEach(function(layer, index) {
 
             var keywordMapping = {
-                "$text": layer.text,
-                "$style": layer.sharedStyle ? layer.sharedStyle.name : "",
-                "$font": layer.style.fontFamily,
-                "$size": layer.style.fontSize,
-                "$fontStyle": function() {
+                "{{text}}": layer.text,
+                "{{style}}": layer.sharedStyle ? layer.sharedStyle.name : "",
+                "{{font}}": layer.style.fontFamily,
+                "{{size}}": layer.style.fontSize,
+                "{{artboard}}": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
+                "{{page}}": layer.sketchObject.parentPage().name(),
+                "{{parent}}": layer.parent.name,
+                "{{name}}": layer.name,
+                "{{lorem}}": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar enim id mollis aliquam.",
+                "{{fontStyle}}": function() {
                     var fontDisplayName = layer.style.sketchObject.textStyle().attributes().NSFont.displayName();
                     var result = fontDisplayName.replace(layer.style.fontFamily, "").trim();
                     return result == "" ? "Regular" : result;
                 },
-                "$artboard": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
-                "$page": layer.sketchObject.parentPage().name(),
-                "$parent": layer.parent.name,
-                "$name": layer.name,
-                "$n": index + 1,
-                "$lorem": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar enim id mollis aliquam."
+                "{{color}}": function() {
+                    var color = layer.style.textColor;
+                    if (color.length == 9 && color.slice(-2) == "ff") {
+                        return color.slice(0, -2);
+                    } else {
+                        return color;
+                    }
+                }
             };
 
             var resultText = customTemplate;
-            var regexKeyword = RegExp("\\$\\w+", "g");
+            var regexKeyword = RegExp("{{\\w+}}", "g");
             var match;
             while (match = regexKeyword.exec(customTemplate)) {
                 var keyword = match[0];
+                if (/{{n+\d*}}/.test(keyword)) {
+                    var length = keyword.match(/n/g).length;
+                    var begin = keyword.match(/\d+/g) == null ? 1 : parseInt(keyword.match(/\d+/g)[0]);
+                    var value = formatNumber(index + begin, length);
+                    resultText = resultText.replace(match[0], value);
+                }
                 if (Object.keys(keywordMapping).includes(keyword)) {
                     var value = keywordMapping[keyword] || "";
                     resultText = resultText.replace(match[0], value);
@@ -138,3 +152,11 @@ var onRun = function(context) {
 
     }
 };
+
+function formatNumber(num, length) {
+    if (String(num).length < length) {
+        return "0".repeat(length - String(num).length) + String(num);
+    } else {
+        return String(num);
+    }
+}
