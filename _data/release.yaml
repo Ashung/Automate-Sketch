@@ -1,4 +1,14 @@
 -
+  version: 53.2.20190315
+  description: |-
+    <ul>
+    <li>Improve Rename Layers and Change Texts.</li>
+    <li>Improve Insert Layer from SVG Path Data.</li>
+    <li>Fix Disable or Enable All Overrides bug.</li>
+    </ul>
+  commitID: ecbfa5d9e4731c30b6c523a32ac9fc4b1c9ea87e
+
+-
   version: 53.2.20190307
   description: |-
     <ul>
