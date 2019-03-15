@@ -37,24 +37,11 @@ var onRun = function(context) {
 
     selectedSymbols.forEach(function(symbol) {
 
-        // All override in manage overrides panel
-        var manageOverrides = symbol.overrides;
-        symbol.overrides.forEach(function(item) {
-            if (item.sketchObject.parent()) {
-                var master = sketch.fromNative(item.sketchObject.master().newMutableCounterpart());
-                master.overrides.forEach(function(item2) {
-                    if (!item2.editable) {
-                        manageOverrides.splice(manageOverrides.indexOf(item), 1);
-                    }
-                });
-            }
-        });
-
-        isAllOverridesDisable = manageOverrides.every(function(override) {
+        isAllOverridesDisable = symbol.overrides.every(function(override) {
             return override.editable == false;
         });
 
-        manageOverrides.forEach(function(override) {
+        symbol.overrides.forEach(function(override) {
             var point = override.sketchObject.overridePoint();
             symbol.sketchObject.setOverridePoint_editable(point, isAllOverridesDisable);
         });
