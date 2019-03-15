@@ -731,6 +731,12 @@
       "icon": "icon_runner.png"
     },
     {
+      "name": "Select Layers Below",
+      "identifier": "select_layers_below",
+      "script": "Layer/Select_Layers_Below.cocoascript",
+      "icon": "icon_runner.png"
+    },
+    {
       "name": "Save Export Presets",
       "identifier": "save_export_presets",
       "handler": "saveExportPresetsToFile",
@@ -1333,6 +1339,7 @@
           "select_all_child_layers",
           "select_all_siblings_layers",
           "select_parent_groups",
+          "select_layers_below",
           "select_layers_outside_of_artboard_bounds",
           "select_reverse",
           "select_none",
