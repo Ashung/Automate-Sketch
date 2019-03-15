@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190307",
+  "version": "53.2.20190315",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1208,7 +1208,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Raname Layers",
+      "name": "Rename Layers",
       "identifier": "rename_layers",
       "script": "Layer/Rename_Layers.js",
       "icon": "icon_runner.png"
@@ -1234,7 +1234,7 @@
     {
       "name": "Insert Layer from SVG Path Data",
       "identifier": "insert_layer_from_svg_path_data",
-      "script": "Utilities/Insert_Layer_from_SVG_Path_Data.js",
+      "script": "Utilities/Insert_Layers_from_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {

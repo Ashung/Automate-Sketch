@@ -7,60 +7,56 @@ var onRun = function(context) {
     var util = require("util");
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
-    var selection = document.selectedLayers.layers;
 
-    var symbolID = [];
-    var selectedSymbol = selection.filter(function(layer) {
-        // Only local symbol instance and symbol master
-        if (
-            layer.type == "SymbolMaster" ||
-            (layer.type == "SymbolInstance" && !layer.master.sketchObject.isForeign())
-        ) {
-            return layer;
+    var symbolIDs = [];
+    var selectedSymbols = [];
+    
+    var selection = document.selectedLayers.layers;
+    // Only local symbol instance and symbol master
+    selection.filter(function(layer) {
+        if (layer.type == "SymbolMaster") {
+            selectedSymbols.push(layer);
+        } else if (layer.type == "SymbolInstance" && !layer.master.sketchObject.isForeign()) {
+            selectedSymbols.push(layer.master);
         }
-    }).map(function(layer) {
-        // Map to symbol master
-        if (layer.type == "SymbolInstance") {
-            return layer.master;
-        } else {
-            return layer;
-        }
-    }).filter(function(layer) {
-        // Remove the duplicated
-        if (!symbolID.includes(layer.id)) {
-            symbolID.push(layer.id);
+    });
+    // Remove the duplicated
+    selectedSymbols = selectedSymbols.filter(function(layer) {
+        if (!symbolIDs.includes(layer.id)) {
+            symbolIDs.push(layer.id);
             return layer;
         }
     });
 
-    if (selectedSymbol.length == 0) {
+    if (selectedSymbols.length == 0) {
         sketch.UI.message("Please select at least 1 local symbol instance or master.");
         return;
     }
 
     var isAllOverridesDisable;
 
-    selectedSymbol.forEach(function(symbol) {
+    selectedSymbols.forEach(function(symbol) {
 
-        var overridePropertyKeys = symbol.sketchObject.overrideProperies().allKeys();
-        var idsOfOverrideInManagePanel = util.toArray(overridePropertyKeys).map(function(item) {
-            return String(item);
-        });
-        
-        var overridesInManagePanel = symbol.overrides.filter(function(override) {
-            return idsOfOverrideInManagePanel.includes(override.id);
+        // All override in manage overrides panel
+        var manageOverrides = symbol.overrides;
+        symbol.overrides.forEach(function(item) {
+            if (item.sketchObject.parent()) {
+                var master = sketch.fromNative(item.sketchObject.master().newMutableCounterpart());
+                master.overrides.forEach(function(item2) {
+                    if (!item2.editable) {
+                        manageOverrides.splice(manageOverrides.indexOf(item), 1);
+                    }
+                });
+            }
         });
 
-        var overridePoints = overridesInManagePanel.map(function(override) {
-            return override.sketchObject.overridePoint();
-        });
-
-        isAllOverridesDisable = overridesInManagePanel.every(function(override) {
+        isAllOverridesDisable = manageOverrides.every(function(override) {
             return override.editable == false;
         });
 
-        overridePoints.forEach(function(override) {
-            symbol.sketchObject.setOverridePoint_editable(override, isAllOverridesDisable);
+        manageOverrides.forEach(function(override) {
+            var point = override.sketchObject.overridePoint();
+            symbol.sketchObject.setOverridePoint_editable(point, isAllOverridesDisable);
         });
 
     });
@@ -68,8 +64,8 @@ var onRun = function(context) {
     document.sketchObject.reloadInspector();
 
     var message = ((isAllOverridesDisable) ? "Enable " : "Disable ") + "all overrides for " +
-        selectedSymbol.length + " symbol master" +
-        ((selectedSymbol.length > 1) ? "s." : ".");
+        selectedSymbols.length + " symbol master" +
+        ((selectedSymbols.length > 1) ? "s." : ".");
 
     sketch.UI.message(message);
 

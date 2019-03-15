@@ -17,7 +17,7 @@ var onRun = function(context) {
 
     var dialog = UI.cosDialog(
         "Rename Layers",
-        "Rename selected layers use custom template."
+        "Rename selected layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -50,15 +50,16 @@ var onRun = function(context) {
 
     // Templates
     var templates = [
-        { label: "Type", value: "$type", position: [0, 0] },
-        { label: "Symbol", value: "$symbol", position: [50, 0] },
-        { label: "Style", value: "$style", position: [115, 0] },
-        { label: "Text", value: "$text", position: [165, 0] },
-        { label: "Name", value: "$name", position: [210, 0] },
-        { label: "N", value: "$n", position: [265, 0] },
-        { label: "Artboard", value: "$artboard", position: [0, 30] },
-        { label: "Page", value: "$page", position: [75, 30] },
-        { label: "Parent", value: "$parent", position: [130, 30] }
+        { label: "type", value: "{{type}}", position: [0, 0] },
+        { label: "symbol", value: "{{symbol}}", position: [50, 0] },
+        { label: "style", value: "{{style}}", position: [115, 0] },
+        { label: "text", value: "{{text}}", position: [165, 0] },
+        { label: "name", value: "{{name}}", position: [210, 0] },
+        { label: "n", value: "{{n}}", position: [265, 0] },
+        { label: "artboard", value: "{{artboard}}", position: [0, 30] },
+        { label: "page", value: "{{page}}", position: [75, 30] },
+        { label: "parent", value: "{{parent}}", position: [130, 30] },
+        { label: "library", value: "{{library}}", position: [190, 30] }
     ];
 
     var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -94,22 +95,37 @@ var onRun = function(context) {
         selectedLayers.forEach(function(layer, index) {
 
             var keywordMapping = {
-                "$type": layer.type,
-                "$symbol": (layer.type == "SymbolInstance") ? layer.sketchObject.symbolMaster().name() : "",
-                "$style": layer.sharedStyle ? layer.sharedStyle.name : "",
-                "$text": (layer.type == "Text") ? layer.text : "",
-                "$name": layer.name,
-                "$n": index + 1,
-                "$artboard": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
-                "$page": layer.sketchObject.parentPage().name(),
-                "$parent": layer.parent.name
+                "{{type}}": layer.type,
+                "{{symbol}}": (layer.type == "SymbolInstance") ? layer.sketchObject.symbolMaster().name() : "",
+                "{{style}}": layer.sharedStyle ? layer.sharedStyle.name : "",
+                "{{text}}": (layer.type == "Text") ? layer.text : "",
+                "{{name}}": layer.name,
+                "{{artboard}}": layer.sketchObject.parentArtboard() ? layer.sketchObject.parentArtboard().name() : "",
+                "{{page}}": layer.sketchObject.parentPage().name(),
+                "{{parent}}": layer.parent.name,
+                "{{library}}": function() {
+                    if (layer.type == "SymbolInstance" && layer.master.getLibrary()) {
+                        return layer.master.getLibrary().name;
+                    }
+                    if (layer.sharedStyle && layer.sharedStyle.getLibrary()) {
+                        return layer.sharedStyle.getLibrary().name;
+                    }
+                    return "";
+                }
             };
 
             var resultName = customTemplate;
-            var regexKeyword = RegExp("\\$\\w+", "g");
+            var regexKeyword = RegExp("{{\\w+}}", "g");
             var match;
             while (match = regexKeyword.exec(customTemplate)) {
                 var keyword = match[0];
+                if (/{{n+\d*}}/.test(keyword)) {
+                    var length = keyword.match(/n/g).length;
+                    var begin = keyword.match(/\d+/g) == null ? 1 : parseInt(keyword.match(/\d+/g)[0]);
+                    var value = formatNumber(index + begin, length);
+                    resultName = resultName.replace(match[0], value);
+                    console.log(length, begin, formatNumber(index + begin, length))
+                }
                 if (Object.keys(keywordMapping).includes(keyword)) {
                     var value = keywordMapping[keyword] || "";
                     resultName = resultName.replace(match[0], value);
@@ -126,3 +142,11 @@ var onRun = function(context) {
 
     }
 };
+
+function formatNumber(num, length) {
+    if (String(num).length < length) {
+        return "0".repeat(length - String(num).length) + String(num);
+    } else {
+        return String(num);
+    }
+}
