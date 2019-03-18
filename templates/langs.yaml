@@ -652,3 +652,9 @@ insert_layers_from_svg_code:
 disable_or_enable_all_overrides:
   - Disable or Enable All Overrides
   - 禁用或启用所有覆盖
+disable_selected_overrides:
+  - Disable Selected Overrides
+  - 禁用选中的覆盖
+select_layers_below:
+  - Select Layers Below
+  - 选择下方图层
