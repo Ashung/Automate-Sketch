@@ -14,21 +14,26 @@ var onRun = function(context) {
         return;
     }
 
-    var selectedOverrideIds = util.toArray(document._getMSDocumentData().selectedOverrides()).map(item => {
-        return String(item).substr(String(item).indexOf("#") + 1);
+    var selectedOverrideIds = {};
+    util.toArray(document._getMSDocumentData().selectedOverrides()).forEach(item => {
+        var [instanceId, overrideId] = String(item).split("#");
+        if (!selectedOverrideIds[instanceId]) {
+            selectedOverrideIds[instanceId] = [];
+        }
+        selectedOverrideIds[instanceId].push(overrideId);
     });
-    if (selectedOverrideIds.length == 0) {
-        sketch.UI.message("Please select at least 1 override.");
+    if (Object.keys(selectedOverrideIds).length == 0) {
+        sketch.UI.message("Please select at least 1 symbol instance layer.");
         return;
     }
 
     selectedSymbolInstances.forEach(instance => {
-        instance.overrides.filter(override => {
-            return override.editable && selectedOverrideIds.includes(override.id);
-        }).forEach(override => {
-            var symbolMaster = instance.sketchObject.symbolMaster();
-            var overridePoint = override.sketchObject.overridePoint();
-            symbolMaster.setOverridePoint_editable(overridePoint, false);
+        instance.overrides.forEach(override => {
+            if (selectedOverrideIds[instance.id].includes(override.id)) {
+                var symbolMaster = instance.sketchObject.symbolMaster();
+                var overridePoint = override.sketchObject.overridePoint();
+                symbolMaster.setOverridePoint_editable(overridePoint, false);
+            }
         });
     });
 
