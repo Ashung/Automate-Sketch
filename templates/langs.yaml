@@ -658,3 +658,6 @@ disable_selected_overrides:
 select_layers_below:
   - Select Layers Below
   - 选择下方图层
+reset_bounding_box:
+  - Reset Bounding Box
+  - 重设调节框

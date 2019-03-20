@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190318",
+  "version": "53.2.20190320",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1254,6 +1254,12 @@
       "identifier": "disable_selected_overrides",
       "script": "Symbol/Disable_Selected_Overrides.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "重设调节框",
+      "identifier": "reset_bounding_box",
+      "script": "Layer/Reset_Bounding_Box.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1320,6 +1326,8 @@
           "bounds_layer_for_every_selection",
           "divide_layer",
           "ungroup_shape_layer",
+          "-",
+          "reset_bounding_box",
           "-",
           "unlock_all_layers",
           "-",
