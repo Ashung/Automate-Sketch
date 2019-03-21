@@ -1,4 +1,15 @@
 -
+  version: 53.2.20190321
+  description: |-
+    <ul>
+    <li>Add Select Layers Below.</li>
+    <li>Add Disable Selected Overrides.</li>
+    <li>Add Reset Bounding Box.</li>
+    <li>Fix Disable or Enable All Overrides bug.</li>
+    </ul>
+  commitID: 563dd3c31c8cf9b21afbf18e21cc0699b853441a
+
+-
   version: 53.2.20190315
   description: |-
     <ul>
