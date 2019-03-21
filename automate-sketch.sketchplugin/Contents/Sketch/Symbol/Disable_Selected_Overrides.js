@@ -8,9 +8,11 @@ var onRun = function(context) {
     var document = sketch.getSelectedDocument();
     var selectedLayers = document.selectedLayers.layers;
 
-    var selectedSymbolInstances = selectedLayers.filter(layer => layer.type == "SymbolInstance");
+    var selectedSymbolInstances = selectedLayers.filter(layer => {
+        return layer.type == "SymbolInstance" && !layer.master.sketchObject.isForeign();
+    });
     if (selectedSymbolInstances.length == 0) {
-        sketch.UI.message("Please select at least 1 symbol instance layer.");
+        sketch.UI.message("Please select at least 1 local symbol instance layer.");
         return;
     }
 
