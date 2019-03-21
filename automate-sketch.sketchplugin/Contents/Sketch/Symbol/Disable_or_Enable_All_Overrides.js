@@ -33,11 +33,12 @@ var onRun = function(context) {
         return;
     }
 
-    var isAllOverridesDisable;
+    var disableCount = 0;
+    var enableCount = 0;
 
     selectedSymbols.forEach(function(symbol) {
 
-        isAllOverridesDisable = symbol.overrides.every(function(override) {
+        var isAllOverridesDisable = symbol.overrides.every(function(override) {
             return override.editable == false;
         });
 
@@ -46,13 +47,23 @@ var onRun = function(context) {
             symbol.sketchObject.setOverridePoint_editable(point, isAllOverridesDisable);
         });
 
+        if (isAllOverridesDisable) {
+            enableCount ++;
+        } else {
+            disableCount ++;
+        }
+
     });
 
     document.sketchObject.reloadInspector();
 
-    var message = ((isAllOverridesDisable) ? "Enable " : "Disable ") + "all overrides for " +
-        selectedSymbols.length + " symbol master" +
-        ((selectedSymbols.length > 1) ? "s." : ".");
+    var message = "";
+    if (disableCount > 0) {
+        message += "Disable all overrides for " + disableCount + " symbol master" + (disableCount > 1 ? "s" : "") + ". ";
+    }
+    if (enableCount > 0) {
+        message += "Enable all overrides for " + enableCount + " symbol master" + (enableCount > 1 ? "s" : "") + ". ";
+    }
 
     sketch.UI.message(message);
 
