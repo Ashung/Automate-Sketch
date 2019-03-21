@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190315",
+  "version": "53.2.20190321",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1242,6 +1242,24 @@
       "identifier": "disable_or_enable_all_overrides",
       "script": "Symbol/Disable_or_Enable_All_Overrides.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "选择下方图层",
+      "identifier": "select_layers_below",
+      "script": "Layer/Select_Layers_Below.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "禁用选中的覆盖",
+      "identifier": "disable_selected_overrides",
+      "script": "Symbol/Disable_Selected_Overrides.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "重设调节框",
+      "identifier": "reset_bounding_box",
+      "script": "Layer/Reset_Bounding_Box.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1309,6 +1327,8 @@
           "divide_layer",
           "ungroup_shape_layer",
           "-",
+          "reset_bounding_box",
+          "-",
           "unlock_all_layers",
           "-",
           "toggle_layer_constrain_proportions",
@@ -1333,6 +1353,7 @@
           "select_all_child_layers",
           "select_all_siblings_layers",
           "select_parent_groups",
+          "select_layers_below",
           "select_layers_outside_of_artboard_bounds",
           "select_reverse",
           "select_none",
@@ -1362,6 +1383,7 @@
           "replace_override_symbol",
           "reset_overrides",
           "disable_or_enable_all_overrides",
+          "disable_selected_overrides",
           "-",
           "select_all_instances_of_symbol",
           "select_all_instances_of_imported_symbol",

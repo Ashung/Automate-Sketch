@@ -23,6 +23,7 @@ Make your workflow more efficient.
 | Bounds Layer for Every Selection                             | Create a bounds layer from the selected layer.               |
 | Divide Layer                                                 | Split Layer.                                                 |
 | Ungroup Shape Layer                                          | Ungroup shape layer.                                         |
+| Reset Bounding Box                                           | Remove all transform for selected group and shape layers, but not change the appearance. |
 | Unlock All Layers                                            | Unlock all layers.                                           |
 | Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
 | Toggle Select Group’s Content on Click                       | Toggle "select group’s content on click" option.             |
@@ -31,6 +32,7 @@ Make your workflow more efficient.
 | Select All Child Layers                                      | Select all sub-layers.                                       |
 | Select All Siblings Layers                                   | Select all siblings layers.                                  |
 | Select Parent Groups                                         | Select parent groups.                                        |
+| Select Layers Below                                          | Select layers that in some group and position y less then selected layer. |
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Select Reverse                                               | Select reverse.                                              |
 | Select None                                                  | Select none.                                                 |
@@ -92,6 +94,7 @@ Make your workflow more efficient.
 | Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Disable or Enable All Overrides                              | Toggle disable or enable all override for selected local symbol instances or symbol masters. |
+| Disable Selected Overrides                                   | Disable selected overrides for selected local symbol instances. |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |

@@ -24,6 +24,7 @@
 | Bounds Layer for Every Selection                             | 为从选中图层创建透明边界图层。                               |
 | Divide Layer                                                 | 均分选中图层。                                               |
 | Ungroup Shape Layer                                          | 取消形状图层组，解决手动取消组出现的图层位置偏移。           |
+| Reset Bounding Box                                           | 删除选中组和形状图层的所有变形，但保存图层外观。             |
 | Unlock All Layers                                            | 解锁所有图层。                                               |
 | Toggle Layer Constrain Proportions                           | 锁定或解锁选中图层的比例约束。                               |
 | Toggle Select Group’s Content on Click                       | 点击组时选择组内容的开关。                                   |
@@ -32,6 +33,7 @@
 | Select All Child Layers                                      | 选择所有子图层。                                             |
 | Select All Siblings Layers                                   | 选择所有兄弟图层。                                           |
 | Select Parent Groups                                         | 选择所有父级图层。                                           |
+| Select Layers Below                                          | 选择同一个父级下 Y 轴小于选中图层的所有图层。                |
 | Select Layers Outside of Artboard Bounds                     | 选择并显示隐藏在画板边界外的图层。                           |
 | Select Reverse                                               | 反选。                                                       |
 | Select None                                                  | 取消选择。                                                   |
@@ -93,6 +95,7 @@
 | Replace Override Symbol                                      | 查找和替换选中或全文档的组件上覆盖中的组件。                 |
 | Reset Overrides                                              | 重置选中组件的覆盖。                                         |
 | Disable or Enable All Overrides                              | 将选中的本地组件实例或组件母版，切换禁用或启用所有覆盖。     |
+| Disable Selected Overrides                                   | 将选中的本地组件实例的选中覆盖禁用。                         |
 | Select All Instance of Symbol                                | 选择组件的实例。                                             |
 | Select All Instances of Imported symbol                      | 选择导入组件（库组件）的实例。                               |
 | Rename Instances                                             | 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
