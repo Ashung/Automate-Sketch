@@ -661,3 +661,15 @@ select_layers_below:
 reset_bounding_box:
   - Reset Bounding Box
   - 重设调节框
+quick_export_default:
+  - Quick Export (Default)
+  - 快速导出 (默认)
+quick_export_1:
+  - Quick Export (Preset 1)
+  - 快速导出 (预设 1)
+quick_export_2:
+  - Quick Export (Preset 2)
+  - 快速导出 (预设 2)
+quick_export_setting:
+  - Quick Export Setting
+  - 快速导出设置

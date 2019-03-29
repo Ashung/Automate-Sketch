@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190321",
+  "version": "53.2.20190329",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1260,6 +1260,30 @@
       "identifier": "reset_bounding_box",
       "script": "Layer/Reset_Bounding_Box.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Quick Export (Default)",
+      "identifier": "quick_export_default",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Quick Export (Preset 1)",
+      "identifier": "quick_export_1",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Quick Export (Preset 2)",
+      "identifier": "quick_export_2",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Quick Export Setting",
+      "identifier": "quick_export_setting",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1532,6 +1556,11 @@
       {
         "title": "Slice",
         "items": [
+          "quick_export_default",
+          "quick_export_1",
+          "quick_export_2",
+          "quick_export_setting",
+          "-",
           "auto_slice",
           "fast_slice",
           "slice_setting",
