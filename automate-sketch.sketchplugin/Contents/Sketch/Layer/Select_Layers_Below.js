@@ -1,6 +1,6 @@
 var onRun = function(context) {
 
-    var ga = require("../lib/Google_Analytics");
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Layer");
 
     var sketch = require("sketch");

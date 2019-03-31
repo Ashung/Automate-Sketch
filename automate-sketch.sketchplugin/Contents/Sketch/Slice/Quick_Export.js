@@ -1,10 +1,11 @@
 var onRun = function(context) {
 
-    var ga = require("../lib/Google_Analytics");
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Slice");
 
-    var ui = require("../lib/UI");
-    var preferences = require("../lib/Preferences");
+    var ui = require("../modules/UI");
+    var preferences = require("../modules/Preferences");
+    var system = require("../modules/System");
     var identifier = context.command.identifier();
     var util = require("util");
     var sketch = require("sketch");
@@ -87,22 +88,29 @@ var onRun = function(context) {
         return;
     }
 
-    // TODO: save panel
+    var destFolder = system.chooseFolder();
+    if (destFolder == null) {
+        return;
+    }
 
     selection.layers.forEach(function(layer) {
-        let destFolder = '';
-        exportLayer(layer.sketchObject, destFolder, preset);
+        exportLayer(document.sketchObject, layer.sketchObject, destFolder, preset);
     });
 
-    // TODO: open in Finder
+    system.showInFinder(destFolder);
 
-    sketch.UI.message("Export layer use \"" + preset.name() + "\" preset.");
-
-    
+    sketch.UI.message('Export layer use "' + preset.name() + '" preset.');
 
 };
 
-function exportLayer(layer, destFolder, preset) {
-    console.log(layer, preset.name());
-    // TODO: Export
+function exportLayer(document, layer, destFolder, preset) {
+    var exportRequests = MSExportRequest.exportRequestsFromLayerAncestry_exportFormats_inRect(
+        layer.ancestry(),
+        preset.exportFormats(),
+        layer.absoluteInfluenceRect()
+    );
+    exportRequests.forEach(function(exportRequest) {
+        var filePath = destFolder + "/" + exportRequest.name() + "." + exportRequest.format();
+        document.saveExportRequest_toFile(exportRequest, filePath);
+    });
 }
