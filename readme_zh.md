@@ -5,7 +5,7 @@
 
 上百个功能让您的工作更高效，推荐与 [Sketch Runner](http://sketchrunner.com/) 一起使用。
 
-如果你在使用 Sketch 中遇到繁琐问题可以在 [**此处**](https://github.com/Ashung/Automate-Sketch/issues) 提需求，通过页面下方的支付宝或微信扫码打赏者可获得免费技术支持。
+如果你在使用 Sketch 中遇到繁琐问题可以在 [**此处**](https://github.com/Ashung/Automate-Sketch/issues) 提需求，通过页面下方的支付宝或微信扫码打赏者可获得相关技术支持。
 
 ## 安装方法
 
@@ -74,6 +74,7 @@
 | Unfixed Layer Name                                           | 取消文本图层的固定图层名，让文本的图层名跟随内容。           |
 | Charater Count                                               | 字数统计。                                                   |
 | **Slice**                                                    | **切片**                                                     |
+| Quick Export                                                 | 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
 | Auto Slice                                                   | 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。     |
 | Fast slice                                                   | 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
 | Slice Setting                                                | 设置切片名称、预设和图层列表位置。                           |
@@ -170,6 +171,7 @@
 | Nine-Slice from Bitmap Layer                                 | 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。        |
 | Convert Sketch File to Other Version                         | 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本。 |
 | Open Termianl at File Folder                                 | 打开终端，并切换到当前文档的目录。                           |
+| Switch Language                                              | （Sketch 45+）切换 Sketch 界面语言，默认 Sketch 自动适应系统语言，该功能用于切换到英文版，或者支持的语言直接切换。 |
 
 ## 版权声明
 

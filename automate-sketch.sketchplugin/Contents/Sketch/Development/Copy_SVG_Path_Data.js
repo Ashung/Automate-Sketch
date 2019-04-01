@@ -1,9 +1,9 @@
 var onRun = function(context) {
 
-    var ga = require("../lib/Google_Analytics");
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Development");
 
-    var pasteboard = require("../lib/Pasteboard");
+    var pasteboard = require("../modules/Pasteboard");
 
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();

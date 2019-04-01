@@ -73,6 +73,7 @@ Make your workflow more efficient.
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
+| Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
@@ -169,6 +170,7 @@ Make your workflow more efficient.
 | Nine-Slice from Bitmap Layer                                 | Crop a bitmap layer to 9 part with resizing constraint settings. |
 | Convert Sketch File to Other Version                         | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
 | Open Terminal at File Folder                                 | Open the terminal and switch to the directory of the current document. |
+| Switch Language                                              | Switch Language for Sketch 45+.                              |
 
 ## License
 

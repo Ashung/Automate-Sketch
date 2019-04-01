@@ -68,6 +68,21 @@ function createDialog(context, type) {
             }
             stylesCopy.removeObject(style);
         }
+
+        // Style in override
+        var predicateSymbolInstance = NSPredicate.predicateWithFormat('className == "MSSymbolInstance"');
+        var symbolInstances = page.children().filteredArrayUsingPredicate(predicateSymbolInstance);
+        var loopInstances = symbolInstances.objectEnumerator();
+        var instance;
+        while (instance = loopInstances.nextObject()) {
+            MSAvailableOverride.flattenAvailableOverrides(instance.availableOverrides()).forEach(function(override) {
+                if (override.overridePoint().isStyleOverride()) {
+                    var style = styles.sharedObjectWithID(override.currentValue());
+                    stylesCopy.removeObject(style);
+                }
+            });
+        }
+
     }
 
     if (stylesCopy.count() == 0) {

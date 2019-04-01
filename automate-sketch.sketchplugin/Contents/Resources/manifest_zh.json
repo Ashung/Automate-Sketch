@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190321",
+  "version": "53.2.20190401",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1260,6 +1260,36 @@
       "identifier": "reset_bounding_box",
       "script": "Layer/Reset_Bounding_Box.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "快速导出 (默认)",
+      "identifier": "quick_export_default",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "快速导出 (预设 1)",
+      "identifier": "quick_export_1",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "快速导出 (预设 2)",
+      "identifier": "quick_export_2",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "快速导出设置",
+      "identifier": "quick_export_setting",
+      "script": "Slice/Quick_Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "切换语言",
+      "identifier": "switch_language",
+      "script": "Utilities/Switch_Language.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1532,6 +1562,11 @@
       {
         "title": "切片",
         "items": [
+          "quick_export_default",
+          "quick_export_1",
+          "quick_export_2",
+          "quick_export_setting",
+          "-",
           "auto_slice",
           "fast_slice",
           "slice_setting",
@@ -1588,7 +1623,9 @@
           "-",
           "convert_to_other_version",
           "-",
-          "open_terminal_at_file_folder"
+          "open_terminal_at_file_folder",
+          "-",
+          "switch_language"
         ]
       },
       {
