@@ -6,7 +6,7 @@
     <li>Add Switch Language for Sketch 54.</li>
     <li>Remove unused Text/Layer Styles now don't show style use in overrides. fix #161</li>
     </ul>
-  commitID: c0610daf8546813be3f6460eb561c7b419313f1c
+  commitID: dd0d2feb04a88929773c771de328fe33aa965b6e
 
 -
   version: 53.2.20190321
