@@ -1,4 +1,14 @@
 -
+  version: 53.2.20190401
+  description: |-
+    <ul>
+    <li>Add Quick Export.</li>
+    <li>Add Switch Language for Sketch 54.</li>
+    <li>Remove unused Text/Layer Styles now don't show style use in overrides. fix #161</li>
+    </ul>
+  commitID: c0610daf8546813be3f6460eb561c7b419313f1c
+
+-
   version: 53.2.20190321
   description: |-
     <ul>
