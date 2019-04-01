@@ -85,7 +85,14 @@ System.writeStringToFile = function(content, filePath) {
 };
 
 System.showInFinder = function(filePath) {
-    NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
+    var err = MOPointer.alloc().init();
+    var fileManager = NSFileManager.defaultManager();
+    var result = fileManager.attributesOfItemAtPath_error(filePath, err);
+    if (result.isDirectory()) {
+        NSWorkspace.sharedWorkspace().openFile_withApplication(filePath, "Finder");
+    } else {
+        NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
+    }
 };
 
 System.mkdir = function(filePath) {
@@ -93,5 +100,19 @@ System.mkdir = function(filePath) {
         filePath, true, nil, nil
     );
 };
+
+System.getSubFolders = function(path) {
+    var fileManager = NSFileManager.defaultManager();
+    var paths = fileManager.contentsOfDirectoryAtPath_error(path, nil);
+    var result = [];
+    for (var i = 0; i < paths.count(); i++) {
+        result.push(String(paths.objectAtIndex(i)));
+    }
+    return result;
+}
+
+System.getAppPath = function() {
+    return String(NSBundle.mainBundle().bundlePath());
+}
 
 module.exports = System;

@@ -18,6 +18,7 @@ var onRun = function(context) {
 
     var preset1Index = preferences.get(context, "quickExportPreset1") || 1;
     var preset2Index = preferences.get(context, "quickExportPreset2") || 2;
+    var isShowInFinder = preferences.get(context, "quickExportShowInFinder") || true;
 
     // Setting
     if (identifier == "quick_export_setting") {
@@ -46,6 +47,9 @@ var onRun = function(context) {
         var preset2 = ui.popupButton(exportPresetTitles, 300);
         dialog.addAccessoryView(preset2);
 
+        var showInFinder = ui.checkBox(isShowInFinder, "Show in Finder after export.");
+        dialog.addAccessoryView(showInFinder);
+
         if (preset1Index < exportPresets.count()) {
             preset1.selectItemAtIndex(preset1Index - 1);
         }
@@ -57,6 +61,7 @@ var onRun = function(context) {
         if (responseCode == 1000) {
             preferences.set(context, "quickExportPreset1", preset1.indexOfSelectedItem() + 1);
             preferences.set(context, "quickExportPreset2", preset2.indexOfSelectedItem() + 1);
+            preferences.set(context, "quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
         }
 
         return;
@@ -97,7 +102,9 @@ var onRun = function(context) {
         exportLayer(document.sketchObject, layer.sketchObject, destFolder, preset);
     });
 
-    system.showInFinder(destFolder);
+    if (isShowInFinder) {
+        system.showInFinder(destFolder);
+    }
 
     sketch.UI.message('Export layer use "' + preset.name() + '" preset.');
 

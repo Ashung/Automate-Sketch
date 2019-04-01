@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190329",
+  "version": "53.2.20190401",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1284,6 +1284,12 @@
       "identifier": "quick_export_setting",
       "script": "Slice/Quick_Export.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Switch Language",
+      "identifier": "switch_language",
+      "script": "Utilities/Switch_Language.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1617,7 +1623,9 @@
           "-",
           "convert_to_other_version",
           "-",
-          "open_terminal_at_file_folder"
+          "open_terminal_at_file_folder",
+          "-",
+          "switch_language"
         ]
       },
       {

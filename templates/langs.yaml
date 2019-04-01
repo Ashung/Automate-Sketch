@@ -673,3 +673,6 @@ quick_export_2:
 quick_export_setting:
   - Quick Export Setting
   - 快速导出设置
+switch_language:
+  - Switch Language
+  - 切换语言
