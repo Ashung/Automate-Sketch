@@ -81,6 +81,8 @@ Make your workflow more efficient.
 | Clear All Exportables                                        | Clear all Exportable settings.                               |
 | Save/Load Export Presets                                     | Save and load export presets.                                |
 | **Artboard**                                                 |                                                              |
+| Paste as Artboards                                           | Copy layers, image files or photos from iOS devices via Handoff, then paste them as artboards. |
+| Paste as Symbol Master                                       | Copy layers, image files or photos from iOS devices via Handoff, then paste them as symbol masters. |
 | Artboard Form Selection                                      | Create a new artboard from the selection object.             |
 | Artboard Form Group                                          | Create a new artboard from group.                            |
 | Artboard to Group                                            | Artboard to group.                                           |

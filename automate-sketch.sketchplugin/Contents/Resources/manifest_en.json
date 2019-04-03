@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190401",
+  "version": "53.2.20190403",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1290,6 +1290,18 @@
       "identifier": "switch_language",
       "script": "Utilities/Switch_Language.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Paste as Artboards",
+      "identifier": "paste_as_artboards",
+      "script": "Artboard/Paste_as_Artboard_or_Symbol_Master.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Paste as Symbol Masters",
+      "identifier": "paste_as_symbol_masters",
+      "script": "Artboard/Paste_as_Artboard_or_Symbol_Master.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1457,6 +1469,9 @@
       {
         "title": "Artboard",
         "items": [
+          "paste_as_artboards",
+          "paste_as_symbol_masters",
+          "-",
           "artboard_from_selection",
           "artboard_from_group",
           "artboard_to_group",

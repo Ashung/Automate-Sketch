@@ -16,9 +16,23 @@ var onRun = function(context) {
         return;
     }
 
+    var presetDefaultIndex = 0;
     var preset1Index = preferences.get(context, "quickExportPreset1") || 1;
     var preset2Index = preferences.get(context, "quickExportPreset2") || 2;
-    var isShowInFinder = preferences.get(context, "quickExportShowInFinder") || true;
+    var isShowInFinder = preferences.get(context, "quickExportShowInFinder");
+
+
+    var exportPresetsTitles = [];
+    util.toArray(exportPresets).forEach(function(item, index) {
+        if (item.shouldApplyAutomatically()) {
+            presetDefaultIndex = index;
+        }
+        var title = item.name() + (item.shouldApplyAutomatically() ? "*" : "");
+        exportPresetsTitles.push(title);
+    });
+    // util.toArray(exportPresets).map(function(item) {
+    //     return item.name() + (item.shouldApplyAutomatically() ? "*" : "");
+    // });
 
     // Setting
     if (identifier == "quick_export_setting") {
@@ -30,37 +44,33 @@ var onRun = function(context) {
 
         var dialog = ui.cosDialog(
             "Quick Export Setting",
-            'You can go to "Preferences" - "Presets" to add more export preset.'
+            'You can go to "Preferences" - "Presets" to add more export preset. The default preset end with a "*" sign.'
         );
-
-        var exportPresetTitles = util.toArray(exportPresets).slice(1).map(function(item) {
-            return item.name();
-        });
 
         var presetLabel1 = ui.textLabel("Preset 1");
         dialog.addAccessoryView(presetLabel1);
-        var preset1 = ui.popupButton(exportPresetTitles, 300);
+        var preset1 = ui.popupButton(exportPresetsTitles, 300);
         dialog.addAccessoryView(preset1);
 
         var presetLabel2 = ui.textLabel("Preset 2");
         dialog.addAccessoryView(presetLabel2);
-        var preset2 = ui.popupButton(exportPresetTitles, 300);
+        var preset2 = ui.popupButton(exportPresetsTitles, 300);
         dialog.addAccessoryView(preset2);
 
-        var showInFinder = ui.checkBox(isShowInFinder, "Show in Finder after export.");
+        var showInFinder = ui.checkBox(isShowInFinder == null ? true : isShowInFinder, "Show in Finder after export.");
         dialog.addAccessoryView(showInFinder);
 
         if (preset1Index < exportPresets.count()) {
-            preset1.selectItemAtIndex(preset1Index - 1);
+            preset1.selectItemAtIndex(preset1Index);
         }
         if (preset2Index < exportPresets.count()) {
-            preset2.selectItemAtIndex(preset2Index - 1);
+            preset2.selectItemAtIndex(preset2Index);
         }
 
         var responseCode = dialog.runModal();
         if (responseCode == 1000) {
-            preferences.set(context, "quickExportPreset1", preset1.indexOfSelectedItem() + 1);
-            preferences.set(context, "quickExportPreset2", preset2.indexOfSelectedItem() + 1);
+            preferences.set(context, "quickExportPreset1", preset1.indexOfSelectedItem());
+            preferences.set(context, "quickExportPreset2", preset2.indexOfSelectedItem());
             preferences.set(context, "quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
         }
 
@@ -73,7 +83,7 @@ var onRun = function(context) {
 
     var presetIndex;
     if (identifier == "quick_export_default") {
-        presetIndex = 0;
+        presetIndex = presetDefaultIndex;
     } else if (identifier == "quick_export_1") {
         presetIndex = preset1Index;
     } else if (identifier == "quick_export_2") {
@@ -102,7 +112,7 @@ var onRun = function(context) {
         exportLayer(document.sketchObject, layer.sketchObject, destFolder, preset);
     });
 
-    if (isShowInFinder) {
+    if (isShowInFinder == true || isShowInFinder == null) {
         system.showInFinder(destFolder);
     }
 
