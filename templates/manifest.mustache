@@ -1088,6 +1088,16 @@
             "name": "{{switch_language}}",
             "identifier": "switch_language",
             "script": "Utilities/Switch_Language.js"
+        },
+        {
+            "name": "{{paste_as_artboards}}",
+            "identifier": "paste_as_artboards",
+            "script": "Artboard/Paste_as_Artboard_or_Symbol_Master.js"
+        },
+        {
+            "name": "{{paste_as_symbol_masters}}",
+            "identifier": "paste_as_symbol_masters",
+            "script": "Artboard/Paste_as_Artboard_or_Symbol_Master.js"
         }
     ],
     "menu": {
@@ -1255,6 +1265,9 @@
             {
                 "title": "{{artboard}}",
                 "items": [
+                    "paste_as_artboards",
+                    "paste_as_symbol_masters",
+                    "-",
                     "artboard_from_selection",
                     "artboard_from_group",
                     "artboard_to_group",

@@ -676,3 +676,9 @@ quick_export_setting:
 switch_language:
   - Switch Language
   - 切换语言
+paste_as_artboards:
+  - Paste as Artboards
+  - 粘贴为画板
+paste_as_symbol_masters:
+  - Paste as Symbol Masters
+  - 粘贴为组件

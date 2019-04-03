@@ -8,7 +8,6 @@ var onRun = function(context) {
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
-    var documentData = document.documentData();
     var selection = context.selection;
     var page = document.currentPage();
 
