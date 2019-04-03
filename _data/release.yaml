@@ -1,4 +1,12 @@
 -
+  version: 53.2.20190403
+  description: |-
+    <ul>
+    <li>Add Paste as Artboards / Symbol Masters.</li>
+    <li>Fix Quick Export bug.</li>
+    </ul>
+  commitID: eb9e36e299ec5c6d36911aeac99c875d39eb361f
+-
   version: 53.2.20190401
   description: |-
     <ul>
