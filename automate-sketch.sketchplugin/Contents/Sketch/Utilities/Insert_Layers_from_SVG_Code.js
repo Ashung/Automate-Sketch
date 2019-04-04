@@ -43,9 +43,20 @@ var onRun = function(context) {
         svgLayer.setName("SVG");
 
         var layer = sketch.fromNative(svgLayer);
-        document.selectedPage.layers.push(layer);
+        if (document.selectedLayers.isEmpty) {
+            document.selectedPage.layers.push(layer);
+            document.centerOnLayer(layer);
+        } else {
+            var selectedLayer = document.selectedLayers.layers[0];
+            if (["Artboard", "Group", "SymbolMaster"].includes(selectedLayer.type)) {
+                selectedLayer.layers.push(layer);
+            } else {
+                selectedLayer.parent.layers.push(layer);
+                layer.frame.x = selectedLayer.frame.x;
+                layer.frame.y = selectedLayer.frame.y;
+            }
+        }
         document.selectedLayers = [layer];
-        document.centerOnLayer(layer);
 
     }
 
