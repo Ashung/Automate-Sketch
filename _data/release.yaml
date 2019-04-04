@@ -1,4 +1,11 @@
 -
+  version: 53.2.20190404
+  description: |-
+    <ul>
+    <li>Fix Change Local Text/Layer Style to Library Text/Layer Style will reset style overrides. #164</li>
+    </ul>
+  commitID: 0d4d89afa74e2753c4aa0f7611e6ca893f6d4b8b
+-
   version: 53.2.20190403
   description: |-
     <ul>
