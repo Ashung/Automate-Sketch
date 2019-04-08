@@ -356,7 +356,7 @@ baseline:
   - Change Baseline Offset
   - 修改基线偏移
 resize_fit_text_height:
-  - Resize to Fix Text Height
+  - Resize to Fit Text Height
   - 自适应文本高度
 change_text_orientation:
   - Change Text Orientation

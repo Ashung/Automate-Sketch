@@ -38,6 +38,11 @@ var onRun = function(context) {
 
     selectedSymbols.forEach(function(symbol) {
 
+        // Sketch 54 add allows overrides
+        if (sketch.version.sketch >= 54) {
+            symbol.sketchObject.setAllowsOverrides(true);
+        }
+
         var isAllOverridesDisable = symbol.overrides.every(function(override) {
             return override.editable == false;
         });
