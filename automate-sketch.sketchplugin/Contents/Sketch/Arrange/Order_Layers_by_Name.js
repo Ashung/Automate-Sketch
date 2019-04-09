@@ -1,25 +1,22 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Arrange");
 
     var document = context.document;
+    var currentPage = document.currentPage();
     var selection = context.selection;
-    if (selection.count() == 0) {
+
+    if (selection.count() < 2) {
         document.showMessage("Please select at least 2 layers.");
         return;
     }
 
-    var sortDescriptorByName = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
         "name", false, "localizedStandardCompare:"
     );
-    var sortDescriptorByClass = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
-        "className", false, "localizedStandardCompare:"
-    );
-
     var sortedLayers = selection.mutableCopy();
-    sortedLayers = sortedLayers.sortedArrayUsingDescriptors([sortDescriptorByClass, sortDescriptorByName]);
+    sortedLayers = sortedLayers.sortedArrayUsingDescriptors([sortDescriptor]);
 
     var tempLayer = MSLayer.alloc().init();
     selection.firstObject().parentGroup().insertLayer_beforeLayer(tempLayer, selection.firstObject());
@@ -32,4 +29,7 @@ var onRun = function(context) {
 
     tempLayer.removeFromParent();
 
+    currentPage.changeSelectionBySelectingLayers(nil);
+    currentPage.changeSelectionBySelectingLayers(sortedLayers);
+    context.selection = sortedLayers;
 };

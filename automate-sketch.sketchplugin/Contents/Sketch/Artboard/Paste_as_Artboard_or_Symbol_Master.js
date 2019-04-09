@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Layer");
+    ga(context, "Artboard");
 
     var pasteboard = require("../modules/Pasteboard");
     var util = require("util");
@@ -22,7 +22,6 @@ var onRun = function(context) {
     document.selectedLayers.clear();
 
     util.toArray(layersFromPasteboard).forEach(function(layer) {
-        console.log(layer.frame().rect().size)
         var layerSize = layer.frame().rect().size;
         var originForNewArtboard = page.sketchObject.originForNewArtboardWithSize(layerSize);
         layer.frame().setX(0);
@@ -34,11 +33,19 @@ var onRun = function(context) {
             layers: [sketch.fromNative(layer)],
             selected: true
         };
+        var artboard;
         if (identifier == "paste_as_artboards") {
-            new Artboard(properties);
+            artboard = new Artboard(properties);
         } else {
-            new SymbolMaster(properties);
+            artboard = new SymbolMaster(properties);
         }
+        artboard.sketchObject.ungroupSingleChildDescendentGroups();
+
+        // Fit artboard, when copy a SVG with stroke.
+        artboard.sketchObject.resizeToFitChildren();
+        artboard.sketchObject.frame().setX(originForNewArtboard.x);
+        artboard.sketchObject.frame().setY(originForNewArtboard.y);
+
     });
 
     context.document.contentDrawView().centerSelectionInVisibleArea();
