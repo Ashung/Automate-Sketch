@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "54.0.20190409",
+  "version": "54.0.20190410",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -689,7 +689,7 @@
     {
       "name": "Add Library Preview",
       "identifier": "add_library_preview",
-      "script": "Library/Add_Library_Preview.cocoascript",
+      "script": "Library/Add_Library_Preview.js",
       "icon": "icon_runner.png"
     },
     {
