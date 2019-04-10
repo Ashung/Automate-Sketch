@@ -45,7 +45,9 @@ var onRun = function(context) {
         if (responseCode == 1000) {
             if (sendToSymbolPage.state() == NSOnState) {
                 targetPage = documentData.symbolsPageOrCreateIfNecessary();
-                document.pageTreeLayoutDidChange();
+                if (MSApplicationMetadata.metadata().appVersion < 54) {
+                    document.pageTreeLayoutDidChange();
+                }
             }
             else {
                 targetPage = currentPage;

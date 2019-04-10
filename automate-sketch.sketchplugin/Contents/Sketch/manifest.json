@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "53.2.20190404",
+  "version": "54.0.20190410",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -197,33 +197,31 @@
     {
       "name": "Position X",
       "identifier": "order_layers_by_x",
-      "handler": "orderLayersByX",
-      "script": "Arrange/Order_Layers_by_Position_XY.cocoascript",
+      "script": "Arrange/Order_Layers_by_Position_XY.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Position Y",
       "identifier": "order_layers_by_y",
-      "handler": "orderLayersByY",
-      "script": "Arrange/Order_Layers_by_Position_XY.cocoascript",
+      "script": "Arrange/Order_Layers_by_Position_XY.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Reverse Layer Order",
       "identifier": "reverse_layer_order",
-      "script": "Arrange/Reverse_Layer_Order.cocoascript",
+      "script": "Arrange/Reverse_Layer_Order.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Name",
       "identifier": "order_layers_by_name",
-      "script": "Arrange/Order_Layers_by_Name.cocoascript",
+      "script": "Arrange/Order_Layers_by_Name.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Kind",
       "identifier": "order_layers_by_kind",
-      "script": "Arrange/Order_Layers_by_Kind.cocoascript",
+      "script": "Arrange/Order_Layers_by_Kind.js",
       "icon": "icon_runner.png"
     },
     {
@@ -605,7 +603,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Resize to Fix Text Height",
+      "name": "Resize to Fit Text Height",
       "identifier": "resize_fit_text_height",
       "script": "Type/Resize_Fit_Text_Height.cocoascript",
       "icon": "icon_runner.png"
@@ -691,7 +689,7 @@
     {
       "name": "Add Library Preview",
       "identifier": "add_library_preview",
-      "script": "Library/Add_Library_Preview.cocoascript",
+      "script": "Library/Add_Library_Preview.js",
       "icon": "icon_runner.png"
     },
     {
