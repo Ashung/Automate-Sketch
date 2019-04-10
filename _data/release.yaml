@@ -1,4 +1,16 @@
 -
+  version: 54.0.20190410
+  description: |-
+    <ul>
+    <li>Insert Layers form SVG Code can insert layer inside selected group, or some position as selected layer.</li>
+    <li>Disable or Enable All Overrides support Sketch 54 allows overrides.</li>
+    <li>Paste as Artboard/Symbol Master the artboard can match the content when copy a SVG with stroke.</li>
+    <li>Reverse Layer Order, Order Layers By Kind/Name/X/Y can reload the order of selection. #166</li>
+    <li>Fix some Sketch 45 support bugs.</li>
+    </ul>
+  commitID: 3968c2e4df6415f6c0dc69ce6f1b8330f2f96c7d
+
+-
   version: 53.2.20190404
   description: |-
     <ul>
