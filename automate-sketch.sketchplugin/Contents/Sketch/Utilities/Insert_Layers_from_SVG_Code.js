@@ -1,24 +1,23 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Utilities");
 
+    var ui = require("../modules/ui");
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var identifier = context.command.identifier();
 
-    var dialog = UI.cosDialog(
+    var dialog = ui.cosDialog(
         "Insert Layers from SVG Code"
     );
-    var input = UI.textField("", [300, 100]);
+    var input = ui.textField("", [300, 100]);
 
     if (identifier == "insert_layer_from_svg_path_data") {
-        dialog = UI.cosDialog(
+        dialog = ui.cosDialog(
             "Insert Layer from SVG Path Data"
         );
-        input = UI.textField("", [300, 50]);
+        input = ui.textField("", [300, 50]);
     }
 
     dialog.addAccessoryView(input);
@@ -45,7 +44,12 @@ var onRun = function(context) {
         var layer = sketch.fromNative(svgLayer);
         if (document.selectedLayers.isEmpty) {
             document.selectedPage.layers.push(layer);
-            document.centerOnLayer(layer);
+            // center of canvas
+            var contentDrawView = document.sketchObject.contentDrawView();
+            var midX = Math.round((contentDrawView.frame().size.width/2 - contentDrawView.horizontalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.width / 2);
+            var midY = Math.round((contentDrawView.frame().size.height/2 - contentDrawView.verticalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.height / 2);
+            layer.frame.x = midX;
+            layer.frame.y = midY;
         } else {
             var selectedLayer = document.selectedLayers.layers[0];
             if (["Artboard", "Group", "SymbolMaster"].includes(selectedLayer.type)) {

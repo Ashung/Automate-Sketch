@@ -103,6 +103,35 @@ var UI = {
         return view;
     },
 
+    numberField : function(defaultNumber, min, max, size) {
+        if (size && Array.isArray(size)) {
+            var frame = this.rect(size);
+        } else {
+            var frame = this.rect([0, 0, size || 50, 25]);
+        }
+        var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25));
+        var input = NSTextField.alloc().initWithFrame(frame);
+        var formatter = NSNumberFormatter.alloc().init().autorelease();
+        input.setStringValue(String(defaultNumber));
+        input.setFormatter(formatter);
+        var stepper = NSStepper.alloc().initWithFrame(NSMakeRect(frame.size.width + 2, 0, 16, 25));
+        stepper.setMaxValue(max);
+        stepper.setMinValue(min);
+        stepper.setValueWraps(false);
+        stepper.setAutorepeat(true);
+        stepper.setIntegerValue(defaultNumber);
+        stepper.setCOSJSTargetFunction(function(sender) {
+            var value = sender.integerValue();
+            input.setStringValue(String(value));
+        });
+        view.addSubview(input);
+        view.addSubview(stepper);
+        return {
+            view: view,
+            value: stepper.integerValue()
+        };
+    },
+
     disableTextField: function(view, bool) {
         if (bool == false) {
             view.setEditable(true);

@@ -83,11 +83,17 @@ order_layers_by:
   - Order Layers By ...
   - 调整列表顺序据对象的...
 order_layers_by_x:
-  - Position X
-  - X 坐标值
+  - Position X (Bottom-Top)
+  - X 坐标值 (从下而上)
 order_layers_by_y:
-  - Position Y
-  - Y 坐标值
+  - Position Y (Bottom-Top)
+  - Y 坐标值 (从下而上)
+order_layers_by_x_t2b:
+  - Position X (Top-Bottom)
+  - X 坐标值 (从上而下)
+order_layers_by_y_t2b:
+  - Position Y (Top-Bottom)
+  - Y 坐标值 (从上而下)
 order_layers_by_name:
   - Name
   - 名称
@@ -682,3 +688,6 @@ paste_as_artboards:
 paste_as_symbol_masters:
   - Paste as Symbol Masters
   - 粘贴为组件
+plugin_dev_setting:
+  - Plugin Dev Setting
+  - 插件开发设置

@@ -13,15 +13,25 @@ var onRun = function(context) {
         return;
     }
 
-    var sortDescriptor;
+    var key, asc;
     if (identifier == "order_layers_by_x") {
-        sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending("frame.x", true);
-    } else {
-        sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending("frame.y", true);
+        key = "frame.x";
+        asc = true;
     }
-    var sortDescriptorByName = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
-        "name", true, "localizedStandardCompare:"
-    );
+    if (identifier == "order_layers_by_x_t2b") {
+        key = "frame.x";
+        asc = false;
+    }
+    if (identifier == "order_layers_by_y") {
+        key = "frame.y";
+        asc = true;
+    }
+    if (identifier == "order_layers_by_y_t2b") {
+        key = "frame.y";
+        asc = false;
+    }
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending(key, asc);
+    var sortDescriptorByName = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", asc, "localizedStandardCompare:");
     var sortedLayers = selection.mutableCopy();
     sortedLayers = sortedLayers.sortedArrayUsingDescriptors([sortDescriptor, sortDescriptorByName]);
 

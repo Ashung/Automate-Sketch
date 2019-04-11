@@ -9,8 +9,9 @@
     "identifier": "com.ashung.hung.automate_sketch",
     "icon": "icon.png",
     "suppliesData": true,
-    "compatibleVersion": "50",
+    "compatibleVersion": "3",
     "bundleVersion": "1",
+    "scope": "application",
     "commands": [
         {
             "name": "{{fit_to_parent_width_with_margin}}",
@@ -174,6 +175,16 @@
         {
             "name": "{{order_layers_by_y}}",
             "identifier": "order_layers_by_y",
+            "script": "Arrange/Order_Layers_by_Position_XY.js"
+        },
+        {
+            "name": "{{order_layers_by_x_t2b}}",
+            "identifier": "order_layers_by_x_t2b",
+            "script": "Arrange/Order_Layers_by_Position_XY.js"
+        },
+        {
+            "name": "{{order_layers_by_y_t2b}}",
+            "identifier": "order_layers_by_y_t2b",
             "script": "Arrange/Order_Layers_by_Position_XY.js"
         },
         {
@@ -436,16 +447,6 @@
             "name": "{{reload_plugins}}",
             "identifier": "reload_plugins",
             "script": "Development/Reload_Plugins.cocoascript"
-        },
-        {
-            "name": "{{edit_plugin_setting}}",
-            "identifier": "edit_plugin_setting",
-            "script": "Development/Edit_Plugin_Setting.cocoascript"
-        },
-        {
-            "name": "{{script_editor_setting}}",
-            "identifier": "script_editor_setting",
-            "script": "Development/Script_Editor_Setting.cocoascript"
         },
         {
             "name": "{{convert_to_other_version}}",
@@ -1096,6 +1097,11 @@
             "name": "{{paste_as_symbol_masters}}",
             "identifier": "paste_as_symbol_masters",
             "script": "Artboard/Paste_as_Artboard_or_Symbol_Master.js"
+        },
+        {
+            "name": "{{plugin_dev_setting}}",
+            "identifier": "plugin_dev_setting",
+            "script": "Development/Plugin_Dev_Setting.js"
         }
     ],
     "menu": {
@@ -1121,6 +1127,8 @@
                         "items": [
                             "order_layers_by_x",
                             "order_layers_by_y",
+                            "order_layers_by_x_t2b",
+                            "order_layers_by_y_t2b",
                             "order_layers_by_name",
                             "order_layers_by_kind"
                         ]
@@ -1414,8 +1422,7 @@
                     "-",
                     "show_layer_info",
                     "-",
-                    "script_editor_setting",
-                    "edit_plugin_setting",
+                    "plugin_dev_setting",
                     "reload_plugins"
                 ]
             },
