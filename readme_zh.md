@@ -162,8 +162,7 @@
 | Copy ObjectID or SymbolID                                    | **复制对象 ID 或组件 ID** 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。 |
 | Copy SVG Path Data                                           | **复制 SVG 路径数据** 复制选中形状图层的 SVG 路径数据代码。  |
 | Show and Change Layer Info                                   | **显示和修改图层信息** 显示和修改图层的 ObjectID 或 SymbolID 等等。 |
-| Script Editor Setting                                        | **脚本编辑器设置** 设置内部脚本编辑器的字体与字号。          |
-| Edit Plugin Setting                                          | **外部插件编辑器设置** 预设编辑器 Atom、Sublime Text、Visual Studio Code 和 WebStorm。 |
+| Plugin Dev Setting                                           | **插件开发设置** 针对 Sketch 插件开发的部分环境配置。        |
 | Reload Plugins                                               | **重新载入插件** 重载所有插件。                              |
 | **Utilities**                                                | **实用工具**                                                 |
 | Insert Layers from SVG Code                                  | **从 SVG 代码插入图层** 使用 SVG 代码插入图层。              |

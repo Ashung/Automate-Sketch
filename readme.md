@@ -161,8 +161,7 @@ Make your workflow more efficient.
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
 | Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
 | Show and Change Layer Info                                   | Show and change layer's objectID, symbolID etc.              |
-| Script Editor Setting                                        | Script editor font and font size settings.                   |
-| Edit Plugin Setting                                          | Set up external plugin editor, default editor Atom, Sublime Text, Visual Studio Code and WebStorm. |
+| Plugin Dev Setting                                           | Some environment configs for Sketch plugin development.      |
 | Reload Plugins                                               | Reload all plugins.                                          |
 | **Utilities**                                                |                                                              |
 | Insert Layers from SVG Code                                  | Insert shape layers from SVG code.                           |
