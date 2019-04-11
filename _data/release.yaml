@@ -1,4 +1,14 @@
 -
+  version: 54.0.20190411
+  description: |-
+    <ul>
+    <li>Order Layer by Position X/Y support from top to bottom, or bottom to top. #169</li>
+    <li>Inset Layer from SVG Code, SVG layer can move to the center of canvas. #168</li>
+    <li>Add Plugin Dev Setting, remove Edit Plugin Setting and Script Editor Setting.</li>
+    </ul>
+  commitID: dbd7e65757ae62358e455e4a53a43132c0839ad6
+
+-
   version: 54.0.20190410
   description: |-
     <ul>
