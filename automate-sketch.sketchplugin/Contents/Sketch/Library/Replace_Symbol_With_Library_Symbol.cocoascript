@@ -141,6 +141,8 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         }
     }
 
+    // TODO: Same Name
+
     if (symbolWithSameID) {
         allSymbols.removeObject(symbolWithSameID);
         allSymbols.insertObject_atIndex(symbolWithSameID, 0);
