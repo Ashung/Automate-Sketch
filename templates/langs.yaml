@@ -398,8 +398,8 @@ select_all_instances_of_imported_symbol:
   - Select All Instances of Imported Symbol
   - 选择外部组件的所有实例
 change_symbols_to_library_symbol:
-  - Change Symbols to Library Symbol Base Symbol ID
-  - 基于 Symbol ID 将内部组件转为库组件
+  - Change All Local Symbols to Library Symbol
+  - 将内部组件转为库组件
 replace_symbol_with_library_symbol:
   - Replace Symbol With Library Symbol
   - 使用库组件替换内部组件
@@ -497,11 +497,11 @@ toggle_layer_constrain_proportions:
   - Toggle Layer Constrain Proportions
   - 图层比例限制开关
 change_local_text_style_to_library_text_style:
-  - Change Local Text Style to Library Text Style
-  - 本地文本样式转为库样式
+  - Change All Local Text Style to Library Text Style
+  - 将所有本地文本样式转为库样式
 change_local_layer_style_to_library_layer_style:
-  - Change Local Layer Style to Library Layer Style
-  - 本地图层样式转为库样式
+  - Change All Local Layer Style to Library Layer Style
+  - 将所有本地图层样式转为库样式
 check_for_library_updates:
   - Check For Library Updates
   - 检查库更新

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "54.0.20190411",
+  "version": "54.1.20190421",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -676,7 +676,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change Symbols to Library Symbol Base Symbol ID",
+      "name": "Change All Local Symbols to Library Symbol",
       "identifier": "change_symbols_to_library_symbol",
       "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript",
       "icon": "icon_runner.png"
@@ -884,13 +884,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change Local Text Style to Library Text Style",
+      "name": "Change All Local Text Style to Library Text Style",
       "identifier": "change_local_text_style_to_library_text_style",
       "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change Local Layer Style to Library Layer Style",
+      "name": "Change All Local Layer Style to Library Layer Style",
       "identifier": "change_local_layer_style_to_library_layer_style",
       "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
       "icon": "icon_runner.png"

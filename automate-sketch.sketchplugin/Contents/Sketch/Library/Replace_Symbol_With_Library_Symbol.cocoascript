@@ -131,7 +131,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
     allSymbols = allSymbols.sortedArrayUsingDescriptors([sortDescriptor]).mutableCopy();
 
     var symbolWithSameID = library.document().symbolWithID(originalSymbolID);
-
+    var symbolsWithSameName = NSMutableArray.alloc().init();
     var symbolsWithSameSize = NSMutableArray.alloc().init();
     var loopAllSymbols_1 = allSymbols.objectEnumerator();
     var symbol_1;
@@ -139,19 +139,26 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         if (NSEqualSizes(symbol_1.rect().size, symbol.rect().size)) {
             symbolsWithSameSize.addObject(symbol_1);
         }
-    }
-
-    // TODO: Same Name
-
-    if (symbolWithSameID) {
-        allSymbols.removeObject(symbolWithSameID);
-        allSymbols.insertObject_atIndex(symbolWithSameID, 0);
+        if (symbol_1.name() == symbol.name()) {
+            symbolsWithSameName.addObject(symbol_1);
+        }
     }
 
     if (symbolsWithSameSize.count() > 0) {
         allSymbols.removeObjectsInArray(symbolsWithSameSize);
         var indexes = NSIndexSet.alloc().initWithIndexesInRange(NSMakeRange(0, symbolsWithSameSize.count()));
         allSymbols.insertObjects_atIndexes(symbolsWithSameSize, indexes);
+    }
+
+    if (symbolsWithSameName.count() > 0) {
+        allSymbols.removeObjectsInArray(symbolsWithSameName);
+        var indexes = NSIndexSet.alloc().initWithIndexesInRange(NSMakeRange(0, symbolsWithSameName.count()));
+        allSymbols.insertObjects_atIndexes(symbolsWithSameName, indexes);
+    }
+
+    if (symbolWithSameID) {
+        allSymbols.removeObject(symbolWithSameID);
+        allSymbols.insertObject_atIndex(symbolWithSameID, 0);
     }
 
     var viewWidth = 500;
@@ -196,16 +203,17 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
         textLabelNote.setTextColor(NSColor.grayColor());
         textLabelNote.setBezeled(false);
         textLabelNote.setEditable(false);
-        if (symbol_2.symbolID().isEqualToString(originalSymbolID) && symbolsWithSameSize.containsObject(symbol_2)) {
-            textLabelNote.setStringValue("Same ID & Size");
-        } else {
-            if (symbol_2.symbolID().isEqualToString(originalSymbolID)) {
-                textLabelNote.setStringValue("Same ID");
-            }
-            if (symbolsWithSameSize.containsObject(symbol_2)) {
-                textLabelNote.setStringValue("Same Size");
-            }
+        var tipTexts = [];
+        if (symbol_2.symbolID().isEqualToString(originalSymbolID)) {
+            tipTexts.push("Same ID");
         }
+        if (symbolsWithSameName.containsObject(symbol_2)) {
+            tipTexts.push("Same Name");
+        }
+        if (symbolsWithSameSize.containsObject(symbol_2)) {
+            tipTexts.push("Same Size");
+        }
+        textLabelNote.setStringValue(tipTexts.join(", "));
         textLabelNote.sizeToFit();
         itemView.addSubview(textLabelNote);
 

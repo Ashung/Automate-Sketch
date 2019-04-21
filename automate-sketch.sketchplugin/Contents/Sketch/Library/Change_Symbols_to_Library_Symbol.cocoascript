@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Library");
 
+    var ui = require("../modules/UI");
+    var util = require("util");
     var document = context.document;
     var documentData = document.documentData();
 
@@ -15,19 +16,20 @@ var onRun = function(context) {
     var selection = context.selection;
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
 
     if (availableLibraries.count() == 0) {
         document.showMessage("You have no available libraries.");
         return;
     }
 
-    // All symbol master will changed
+    // All symbol master will be changed
     var symbolMastersWillChanged = NSMutableArray.alloc().init();
     if (selection.count() > 0) {
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
-
             var loopChild = layer.children().objectEnumerator();
             var child;
             while (child = loopChild.nextObject()) {
@@ -44,7 +46,6 @@ var onRun = function(context) {
                     }
                 }
             }
-
         }
     } else {
         symbolMastersWillChanged.addObjectsFromArray(documentData.localSymbols());
@@ -59,41 +60,47 @@ var onRun = function(context) {
         return;
     }
 
-    // Choose a library file
-    var selectedLibrary;
-    var dialog = COSAlertWindow.alloc().init();
+    // Dialog
+    var dialog;
     if (symbolMastersWillChanged.count() < documentData.localSymbols().count()) {
-        dialog.setMessageText("Change Selected Symbols to Library Symbol");
+        dialog = ui.cosDialog(
+            "Change Selected Symbols to Library Symbol",
+            "Change all selected local symbols to library symbol with same symbol id or name."
+        );
     } else {
-        dialog.setMessageText("Change All Symbols to Library Symbol");
+        dialog = ui.cosDialog(
+            "Change All Local Symbols to Library Symbol",
+            "Change all local symbols to library symbol with same symbol id or name."
+        );
     }
-    dialog.setInformativeText("This will change local symbol to library symbol base symbol ID.");
 
-    dialog.addTextLabelWithValue("Choose a library.");
+    // Choose a library file
+    var labelLibrary = ui.textLabel("Choose a library");
+    dialog.addAccessoryView(labelLibrary);
+    var libraryNames = util.toArray(availableLibraries).map(function(library) {
+        return library.name();
+    });
+    var selectBoxLibrary = ui.popupButton(libraryNames);
+    dialog.addAccessoryView(selectBoxLibrary);
 
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-    var loopAvailableLibraries = availableLibraries.reverseObjectEnumerator();
-    var availableLibrary;
-    while (availableLibrary = loopAvailableLibraries.nextObject()) {
-        selectBox.addItemWithTitle("");
-        selectBox.lastItem().setTitle(availableLibrary.name());
-    }
-    dialog.addAccessoryView(selectBox);
+    var labelNameOrId = ui.textLabel("Replace library symbol with same...");
+    dialog.addAccessoryView(labelNameOrId);
+    var selectBoxNameOrId = ui.popupButton(["symbol name", "symbol id"]);
+    dialog.addAccessoryView(selectBoxNameOrId);
 
-    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    checkboxSize.setButtonType(NSSwitchButton);
-    checkboxSize.setTitle("Set all instances to original size.");
-    checkboxSize.setState(NSOffState);
+    var checkboxSize = ui.checkBox(false, "Set all instances to original size.");
     dialog.addAccessoryView(checkboxSize);
 
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
-
+    var selectedLibrary;
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
-        var i = availableLibraries.count() - selectBox.indexOfSelectedItem() - 1;
-        selectedLibrary = availableLibraries.objectAtIndex(i);
+        selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
     } else {
+        return;
+    }
+
+    if (selectedLibrary.document().localSymbols().count() == 0) {
+        document.showMessage('Library "' + selectedLibrary.name() + '" not have symbols.');
         return;
     }
 
@@ -104,19 +111,27 @@ var onRun = function(context) {
     var loopSymbolMastersWillChanged = symbolMastersWillChanged.objectEnumerator();
     var symbolMaster;
     while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
-        var remoteSymbol = selectedLibrary.document().symbolWithID(symbolMaster.symbolID());
+
+        var remoteSymbol;
+        if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
+            remoteSymbol = findSymbolByName_fromLibrary(symbolMaster.name(), selectedLibrary);
+        } else {
+            remoteSymbol = findSymbolByID_fromLibrary(symbolMaster.symbolID(), selectedLibrary);
+        }
+
         if (remoteSymbol) {
 
             // Import symbol
+            var importedSymbol;
             if (MSApplicationMetadata.metadata().appVersion >= 50) {
                 var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
                     remoteSymbol, selectedLibrary
                 );
-                var importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
+                importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
                     shareableObjectReference, documentData
                 );
             } else {
-                var importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
                     remoteSymbol, selectedLibrary, documentData
                 );
             }
@@ -177,4 +192,14 @@ function instancesInDocument(document) {
         allInstances.addObjectsFromArray(instancesInPage);
     }
     return allInstances;
+}
+
+function findSymbolByID_fromLibrary(id, library) {
+    return library.document().symbolWithID(id);
+}
+
+function findSymbolByName_fromLibrary(name, library) {
+    var predicate = NSPredicate.predicateWithFormat("name == %@", name);
+    var symbols = library.document().localSymbols().filteredArrayUsingPredicate(predicate);
+    return symbols.firstObject();
 }

@@ -21,7 +21,6 @@ var onRun = function(context) {
     var preset2Index = preferences.get(context, "quickExportPreset2") || 2;
     var isShowInFinder = preferences.get(context, "quickExportShowInFinder");
 
-
     var exportPresetsTitles = [];
     util.toArray(exportPresets).forEach(function(item, index) {
         if (item.shouldApplyAutomatically()) {
@@ -30,9 +29,6 @@ var onRun = function(context) {
         var title = item.name() + (item.shouldApplyAutomatically() ? "*" : "");
         exportPresetsTitles.push(title);
     });
-    // util.toArray(exportPresets).map(function(item) {
-    //     return item.name() + (item.shouldApplyAutomatically() ? "*" : "");
-    // });
 
     // Setting
     if (identifier == "quick_export_setting") {
