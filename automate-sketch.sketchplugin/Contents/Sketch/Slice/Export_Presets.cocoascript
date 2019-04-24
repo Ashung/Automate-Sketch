@@ -1,5 +1,7 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
+// TODO: new format
+// TODO: import from sketch preset file
 var saveExportPresetsToFile = function(context) {
 
     ga(context, "Slice");

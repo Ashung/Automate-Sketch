@@ -1,10 +1,12 @@
-@import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/UI_Controls.cocoascript";
 
 var onRun = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Library");
 
+    var ui = require("../modules/UI");
+    var util = require("util");
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 51) {
         document.showMessage("😮 You have to update to Sketch 51+ to use thie feature.");
@@ -32,6 +34,8 @@ var onRun = function(context) {
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
     if (availableLibraries.count() == 0) {
         document.showMessage("You have no available libraries.");
         return;
@@ -40,16 +44,14 @@ var onRun = function(context) {
     // Dialog
     var dialog = UI.cosDialog(
         `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
-        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`,
-        ["OK", "Cancel"]
+        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`
     );
 
     var libraryLabelView = UI.textLabel("Choose A Library");
     dialog.addAccessoryView(libraryLabelView);
 
-    var libraryNames = [];
-    availableLibraries.forEach(function(library) {
-        libraryNames.push(library.name());
+    var libraryNames = util.toArray(availableLibraries).map(function(library) {
+        return library.name();
     });
     var chooseALibraryView = UI.popupButton(libraryNames, 200);
     dialog.addAccessoryView(chooseALibraryView);
@@ -94,14 +96,14 @@ var onRun = function(context) {
         var selectedLibrary = availableLibraries.objectAtIndex(chooseALibraryView.indexOfSelectedItem());
         var localStyleIDToForeignStyleMapping = {};
         selectedMatchStyles.forEach(function(matchItem) {
-            var froeignStyle;
+            var foreignStyle;
             if (styleType == "text") {
-                froeignStyle = foreignTextStyleInDocument_forSharedStyle_fromLibray(documentData, matchItem.library, selectedLibrary);
+                foreignStyle = foreignTextStyleInDocument_forSharedStyle_fromLibrary(documentData, matchItem.library, selectedLibrary);
             }
             if (styleType == "layer") {
-                froeignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibray(documentData, matchItem.library, selectedLibrary);
+                foreignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibrary(documentData, matchItem.library, selectedLibrary);
             }
-            localStyleIDToForeignStyleMapping[matchItem.local.objectID()] = froeignStyle;
+            localStyleIDToForeignStyleMapping[matchItem.local.objectID()] = foreignStyle;
         });
 
         // Find all symbol instances use selected style in override, except default value, then replace override value.
@@ -124,7 +126,7 @@ var onRun = function(context) {
                     }
                 });
             }
-        });
+        };
 
         // Change sharedObjectID
         selectedMatchStyles.forEach(function(item) {
@@ -185,6 +187,7 @@ var onRun = function(context) {
         allMatchStyles = [];
         allLocalStyle.forEach(localStyle => {
             allLibraryStyles.forEach(libraryStyle => {
+                // TODO: Same ID, Properties, Name
                 if (localStyle.value().propertiesAreEqual(libraryStyle.value())) {
                     allMatchStyles.push({
                         "local": localStyle,
@@ -367,7 +370,7 @@ function getAllLayersWithSharedObjectIDs(document, ids) {
     return layers;
 }
 
-function foreignTextStyleInDocument_forSharedStyle_fromLibray(documentData, sharedStyle, library) {
+function foreignTextStyleInDocument_forSharedStyle_fromLibrary(documentData, sharedStyle, library) {
     for (var i = 0; i < documentData.foreignTextStyles().count(); i++) {
         var foreignTextStyle = documentData.foreignTextStyles().objectAtIndex(i);
         if (String(sharedStyle.objectID()) == String(foreignTextStyle.remoteShareID())) {
@@ -379,7 +382,7 @@ function foreignTextStyleInDocument_forSharedStyle_fromLibray(documentData, shar
     return foreignTextStyle;
 }
 
-function foreignLayerStyleInDocument_forSharedStyle_fromLibray(documentData, sharedStyle, library) {
+function foreignLayerStyleInDocument_forSharedStyle_fromLibrary(documentData, sharedStyle, library) {
     for (var i = 0; i < documentData.foreignLayerStyles().count(); i++) {
         var foreignLayerStyle = documentData.foreignLayerStyles().objectAtIndex(i);
         if (String(sharedStyle.objectID()) == String(foreignLayerStyle.remoteShareID())) {
