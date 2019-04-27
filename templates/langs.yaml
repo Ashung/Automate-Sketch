@@ -691,3 +691,6 @@ paste_as_symbol_masters:
 plugin_dev_setting:
   - Plugin Dev Setting
   - 插件开发设置
+find_and_replace_symbol:
+  - Find and Replace Symbol
+  - 查找并替换组件

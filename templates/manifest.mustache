@@ -1102,6 +1102,11 @@
             "name": "{{plugin_dev_setting}}",
             "identifier": "plugin_dev_setting",
             "script": "Development/Plugin_Dev_Setting.js"
+        },
+        {
+            "name": "{{find_and_replace_symbol}}",
+            "identifier": "find_and_replace_symbol",
+            "script": "Symbol/Find_and_Replace_Symbol.js"
         }
     ],
     "menu": {
@@ -1220,6 +1225,8 @@
             {
                 "title": "{{symbol}}",
                 "items": [
+                    "find_and_replace_symbol",
+                    "-",
                     "set_to_original_width",
                     "set_to_original_height",
                     "set_to_original_size",

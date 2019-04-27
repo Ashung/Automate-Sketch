@@ -1,6 +1,6 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 
-// TODO: new format
+// TODO: support new format preset file
 // TODO: import from sketch preset file
 var saveExportPresetsToFile = function(context) {
 

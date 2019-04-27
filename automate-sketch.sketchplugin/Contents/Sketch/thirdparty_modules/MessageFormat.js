@@ -1798,7 +1798,7 @@
     });
 
     $$core$$MessageFormat.prototype.resolvedOptions = function () {
-        // TODO: Provide anything else?
+        // _TODO: Provide anything else?
         return {
             locale: this._locale
         };

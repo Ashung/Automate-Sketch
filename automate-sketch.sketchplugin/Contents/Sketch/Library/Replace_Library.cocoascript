@@ -1,3 +1,5 @@
+// TODO: support symbol and style 
+
 @import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/UI_Controls.cocoascript";
 
