@@ -1,12 +1,12 @@
 var System = {};
 // TODO: NSOKButton -> 1000
-System.chooseFile = function() {
+System.chooseFile = function(types) {
     var panel = NSOpenPanel.openPanel();
     panel.setCanChooseDirectories(false);
     panel.setCanChooseFiles(true);
     panel.setCanCreateDirectories(false);
-    panel.setAllowedFileTypes(["txt"]);
-    if (panel.runModal() == NSOKButton) {
+    panel.setAllowedFileTypes(types);
+    if (panel.runModal() == 1000) {
         return panel.URL().path();
     }
 };
@@ -16,7 +16,7 @@ System.chooseFolder = function() {
     panel.setCanChooseDirectories(true);
     panel.setCanChooseFiles(false);
     panel.setCanCreateDirectories(true);
-    if (panel.runModal() == NSOKButton) {
+    if (panel.runModal() == 1000) {
         return panel.URL().path();
     }
 };
@@ -27,7 +27,7 @@ System.savePanel = function(defaultName) {
         panel.setNameFieldStringValue(defaultName);
     }
     panel.setCanCreateDirectories(true);
-    if (panel.runModal() == NSOKButton) {
+    if (panel.runModal() == 1000) {
         return panel.URL().path();
     }
 };

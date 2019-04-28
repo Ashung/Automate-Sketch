@@ -2,16 +2,25 @@
 
 var onRun = function(context) {
 
-    var Dialog = require("../modules/Dialog");
-    var UI = require("../modules/UI");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
-var dialog = new Dialog("title", "info");
+    var dialog = new Dialog("Find and Replace Symbol", "info");
 
-console.log(context.plugin)
+    var views = [];
+    var views2 = [];
+    for (var i = 0; i < 100; i++) {
+        views.push(ui.checkBox(true, String(i)));
+        views2.push(ui.checkBox(true, "AAAA" + String(i)));
+        //views.push(ui.divider());
+    }
 
-dialog.addView(UI.textField("eeeee"));
-// 
-dialog.run()
+    var scrollView = ui.scrollView(views, 300)
+    dialog.addView(scrollView);
 
-console.log(dialog.views)
+    ui.scrollViewSetContent(scrollView, views2);
+
+    dialog.run();
+
+
 };
