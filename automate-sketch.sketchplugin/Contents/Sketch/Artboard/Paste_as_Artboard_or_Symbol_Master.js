@@ -42,7 +42,7 @@ var onRun = function(context) {
         artboard.sketchObject.ungroupSingleChildDescendentGroups();
 
         // Fit artboard, when copy a SVG with stroke.
-        // TODO: fit
+        // TODO: fit 
         artboard.sketchObject.resizeToFitChildren();
         artboard.sketchObject.frame().setX(originForNewArtboard.x);
         artboard.sketchObject.frame().setY(originForNewArtboard.y);

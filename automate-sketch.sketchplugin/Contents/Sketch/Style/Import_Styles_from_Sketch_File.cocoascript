@@ -9,6 +9,7 @@ var onRun = function(context) {
     var documentData = document.documentData();
 
     // Choose the sketch file.
+    // TODO: use system module
     var chooseFile = NSOpenPanel.openPanel();
         chooseFile.setCanChooseDirectories(false);
         chooseFile.setCanChooseFiles(true);

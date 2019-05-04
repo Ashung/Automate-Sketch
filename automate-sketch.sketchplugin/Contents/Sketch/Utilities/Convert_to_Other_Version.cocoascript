@@ -206,6 +206,7 @@ var onRun = function(context) {
     var document = context.document;
 
     // Choose a sketch file
+    // TODO: use system module
     var chooseFile = NSOpenPanel.openPanel();
         chooseFile.setMessage("Choose a Sketch file to convert.");
         chooseFile.setCanChooseDirectories(false);

@@ -1,12 +1,12 @@
 var System = {};
-// TODO: NSOKButton -> 1000
+// TODO: NSOKButton
 System.chooseFile = function(types) {
     var panel = NSOpenPanel.openPanel();
     panel.setCanChooseDirectories(false);
     panel.setCanChooseFiles(true);
     panel.setCanCreateDirectories(false);
     panel.setAllowedFileTypes(types);
-    if (panel.runModal() == 1000) {
+    if (panel.runModal() == NSModalResponseOK) {
         return panel.URL().path();
     }
 };
@@ -16,7 +16,7 @@ System.chooseFolder = function() {
     panel.setCanChooseDirectories(true);
     panel.setCanChooseFiles(false);
     panel.setCanCreateDirectories(true);
-    if (panel.runModal() == 1000) {
+    if (panel.runModal() == NSModalResponseOK) {
         return panel.URL().path();
     }
 };
@@ -27,7 +27,7 @@ System.savePanel = function(defaultName) {
         panel.setNameFieldStringValue(defaultName);
     }
     panel.setCanCreateDirectories(true);
-    if (panel.runModal() == 1000) {
+    if (panel.runModal() == NSModalResponseOK) {
         return panel.URL().path();
     }
 };
@@ -78,10 +78,20 @@ System.imagesFromChooseFolder = function() {
     }
 }
 
+System.readStringFromFile = function(filePath) {
+    var error = MOPointer.alloc().init();
+    var content = NSString.stringWithContentsOfFile_encoding_error(filePath, NSUTF8StringEncoding, error);
+    if (error.value() != null) {
+        return;
+    }
+    return String(content);
+}
+
 System.writeStringToFile = function(content, filePath) {
-    NSString.stringWithString(content).writeToFile_atomically_encoding_error_(
-        filePath, true, NSUTF8StringEncoding, nil
-    );
+    var error = MOPointer.alloc().init();
+    var string = NSString.stringWithString(content);
+    string.writeToFile_atomically_encoding_error(filePath, true, NSUTF8StringEncoding, error);
+    return error.value();
 };
 
 System.showInFinder = function(filePath) {

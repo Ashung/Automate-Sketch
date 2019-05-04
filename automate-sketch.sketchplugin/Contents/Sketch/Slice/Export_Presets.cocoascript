@@ -1,23 +1,20 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
-// TODO: support new format preset file
-// TODO: import from sketch preset file
 var saveExportPresetsToFile = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Slice");
 
-    var exportPresets = MSExportPreset.allExportPresets();
+    var util = require("util");
+    var sketch = require("sketch");
+    var system = require("../modules/System");
 
+    var exportPresets = MSExportPreset.allExportPresets();
     if (exportPresets.count() == 0) {
-        context.document.showMessage("No export presets.");
+        sketch.UI.message("No export presets.");
         return;
     };
 
     var exportPresetsJSON = [];
-
-    var loopExportPresets = exportPresets.objectEnumerator();
-    var exportPreset;
-    while (exportPreset = loopExportPresets.nextObject()) {
+    util.toArray(exportPresets).forEach(function(exportPreset) {
 
         var formats = [];
         var loopExportFormats = exportPreset.exportFormats().objectEnumerator();
@@ -42,85 +39,123 @@ var saveExportPresetsToFile = function(context) {
 
         exportPresetsJSON.push(item);
 
+    });
+
+    var filePath = system.savePanel("sketch_export_presets.json");
+    if (!filePath) return;
+
+    var writeToFile = system.writeStringToFile(JSON.stringify(exportPresetsJSON, null, 4), filePath);
+    if (writeToFile != null) {
+        sketch.UI.message("Error: " + writeToFile);
+        return;
     }
 
-    var panel = NSSavePanel.savePanel();
-    panel.setNameFieldStringValue("sketch_export_presets.json");
-    panel.setCanCreateDirectories(true);
-    if (panel.runModal() == NSOKButton) {
-        var content = NSString.stringWithString(JSON.stringify(exportPresetsJSON, null, 4));
-        var filePath = panel.URL().path();
-        var error = MOPointer.alloc().init();
-        content.writeToFile_atomically_encoding_error(filePath, true, NSUTF8StringEncoding, error);
-        if (error.value() != null) {
-            context.document.showMessage("Error: " + error.value());
-            return;
-        }
-        context.document.showMessage("Export presets saved to " + filePath);
-        NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(filePath, nil);
-    }
+    sketch.UI.message("Export presets saved to " + filePath);
 
+    system.showInFinder(filePath);
 };
 
 var loadExportPresetsFromFile = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga(context, "Slice");
 
-    var exportPresets = MSExportPreset.allExportPresets();
+    var util = require("util");
+    var sketch = require("sketch");
+    var path = require("path");
+    var system = require("../modules/System");
 
+    var exportPresets = MSExportPreset.allExportPresets();
     // Restore defaults export presets
     if (exportPresets.count() == 0) {
         exportPresets.addObjectsFromArray(MSPersistentAssetCollection.defaultExportPresets());
     }
 
-    var panel = NSOpenPanel.openPanel();
-    panel.setCanChooseDirectories(false);
-    panel.setAllowedFileTypes(["json"]);
-    if (panel.runModal() == NSOKButton) {
-        var filePath = panel.URL().path();
-        var error = MOPointer.alloc().init();
-        var content = NSString.stringWithContentsOfFile_encoding_error(filePath, NSUTF8StringEncoding, error);
+    var filePath = system.chooseFile(["json", "sketchpreset"]);
+    if (!filePath) return;
 
-        if (error.value() != null) {
-            context.document.showMessage("Error: " + error.value());
-            return;
-        }
-
-        var exportPresetsJSON = JSON.parse(String(content));
-
-        exportPresets.removeAllObjects();
-
-        for (var i = 0; i < exportPresetsJSON.length; i ++) {
-
-            var item = exportPresetsJSON[i];
-
-            var exportFormats = NSMutableArray.alloc().init();
-            for (var j = 0; j < item["exportFormats"].length; j ++) {
-                var format = item["exportFormats"][j];
-                var exportFormat = MSExportFormat.alloc().init();
-                exportFormat.setAbsoluteSize(format["absoluteSize"]);
-                exportFormat.setFileFormat(format["fileFormat"]);
-                exportFormat.setName(format["name"]);
-                exportFormat.setNamingScheme(format["namingScheme"]);
-                exportFormat.setScale(format["scale"]);
-                exportFormat.setVisibleScaleType(format["visibleScaleType"]);
-                exportFormats.addObject(exportFormat);
+    var fileType;
+    var content = system.readStringFromFile(filePath);
+    var ext = path.extname(filePath);
+    if (ext == ".json") {
+        fileType = "json"
+    }
+    if (ext == ".sketchpreset") {
+        try {
+            if (JSON.parse(content)) {
+                fileType = "json";
             }
-
-            var exportPreset = MSExportPreset.alloc().initWithName_formats(item["name"], exportFormats);
-            exportPreset.setShouldApplyAutomatically(item["shouldApplyAutomatically"]);
-            exportPresets.addObject(exportPreset);
-
+        } catch (err) {
+            fileType = "zip";
         }
-
-        // Refresh data
-        var panelController = MSPreferencesController.sharedController();
-        panelController.switchToPaneWithIdentifier(MSExportPresetsPreferencePane.identifier());
-        panelController.currentPreferencePane().tableView().reloadData();
-        panelController.window().close();
-
-        context.document.showMessage("Export presets loaded.");
-
     }
 
+    if (fileType == "json") {
+        var exportPresetsJSON = JSON.parse(content);
+        if (exportPresetsJSON instanceof Array) {
+            exportPresets.removeAllObjects();
+            exportPresetsJSON.forEach(function(item) {
+                var exportPreset = exportPresetFromJsObject(item);
+                exportPresets.addObject(exportPreset);
+            });
+        } else {
+            if (exportPresetsJSON.root.exportPresets instanceof Array) {
+                exportPresets.removeAllObjects();
+                exportPresetsJSON.root.exportPresets.forEach(function(item) {
+                    var exportPreset = exportPresetFromJsObject(item);
+                    exportPresets.addObject(exportPreset);
+                });
+            }
+        }
+    }
+
+    if (fileType == "zip") {
+        if (sketch.version.sketch >= 54) {
+            var Buffer = require("buffer").Buffer;
+            var fileBuffer = Buffer.from(NSData.dataWithContentsOfFile(filePath));
+            if (!fileBuffer || fileBuffer.length < 4) {
+                sketch.UI.message("No supported file format.");
+                return false;
+            }
+            if (fileBuffer[0] == 0x50 && fileBuffer[1] == 0x4B && fileBuffer[2] == 0x03 && fileBuffer[3] == 0x04) {
+                let nativeAssets = MSPersistentAssetCollection.assetCollectionWithURL(NSURL.fileURLWithPath(filePath));
+                exportPresets.removeAllObjects();
+                util.toArray(nativeAssets.exportPresets()).forEach(function(item) {
+                    exportPresets.addObject(item);
+                });
+            } else {
+                sketch.UI.message("No supported file format.");
+                return false;
+            }
+        } else {
+            sketch.UI.message("No supported file format.");
+            return;
+        }
+    }
+
+    // Refresh data
+    var panelController = MSPreferencesController.sharedController();
+    panelController.switchToPaneWithIdentifier(MSExportPresetsPreferencePane.identifier());
+    panelController.currentPreferencePane().tableView().reloadData();
+    panelController.window().close();
+
+    sketch.UI.message("Export presets loaded.");
+
 };
+
+function exportPresetFromJsObject(jsObject) {
+    var exportFormats = NSMutableArray.alloc().init();
+    jsObject.exportFormats.forEach(function(format) {
+        var exportFormat = MSExportFormat.alloc().init();
+        exportFormat.setAbsoluteSize(format["absoluteSize"]);
+        exportFormat.setFileFormat(format["fileFormat"]);
+        exportFormat.setName(format["name"]);
+        exportFormat.setNamingScheme(format["namingScheme"]);
+        exportFormat.setScale(format["scale"]);
+        exportFormat.setVisibleScaleType(format["visibleScaleType"]);
+        exportFormats.addObject(exportFormat);
+    });
+    var exportPreset = MSExportPreset.alloc().initWithName_formats(jsObject["name"], exportFormats);
+    exportPreset.setShouldApplyAutomatically(jsObject["shouldApplyAutomatically"]);
+    return exportPreset;
+}

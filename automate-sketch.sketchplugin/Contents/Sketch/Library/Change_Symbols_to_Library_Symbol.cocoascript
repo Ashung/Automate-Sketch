@@ -88,7 +88,7 @@ var onRun = function(context) {
     var selectBoxNameOrId = ui.popupButton(["symbol name", "symbol id"]);
     dialog.addAccessoryView(selectBoxNameOrId);
 
-    // TODO: add symbol previews
+    // TODO: Add symbol previews
 
     var checkboxSize = ui.checkBox(false, "Set all instances to original size.");
     dialog.addAccessoryView(checkboxSize);

@@ -31,7 +31,7 @@ dialog.prototype.run = function() {
     alert.setMessageText(this.message);
     alert.setInformativeText(this.info);
     // Icon
-    var icon = NSImage.imageNamed("plugins")
+    var icon = NSImage.imageNamed("plugins");
     if (__command.pluginBundle() && __command.pluginBundle().alertIcon()) {
         icon = __command.pluginBundle().alertIcon();
     }
