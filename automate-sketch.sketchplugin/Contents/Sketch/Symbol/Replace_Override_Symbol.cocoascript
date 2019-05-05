@@ -1,6 +1,6 @@
 @import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/UI_Controls.cocoascript";
-
+// TODO: All dialog icon
 var onRun = function(context) {
 
     ga(context, "Symbol");

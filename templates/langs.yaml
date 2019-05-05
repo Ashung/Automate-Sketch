@@ -322,9 +322,6 @@ edit_plugin_setting:
 script_editor_setting:
   - Script Editor Setting
   - 脚本编辑器设置
-convert_to_other_version:
-  - Convert Sketch File to Other Version
-  - 转换 Sketch 文件至其他版本
 paste_and_replace:
   - Paste and Replace
   - 粘贴并替换

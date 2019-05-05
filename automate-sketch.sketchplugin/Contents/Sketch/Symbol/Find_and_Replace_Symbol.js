@@ -15,12 +15,11 @@ var onRun = function(context) {
         //views.push(ui.divider());
     }
 
-    var scrollView = ui.scrollView(views, 300)
+    var scrollView = ui.scrollView(views, 400);
     dialog.addView(scrollView);
 
-    ui.scrollViewSetContent(scrollView, views2);
+    // ui.scrollViewSetContent(scrollView, views2);
 
     dialog.run();
-
 
 };

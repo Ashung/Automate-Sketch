@@ -22,14 +22,20 @@ var onRun = function(context) {
     document.selectedLayers.clear();
 
     util.toArray(layersFromPasteboard).forEach(function(layer) {
-        var layerSize = layer.frame().rect().size;
-        var originForNewArtboard = page.sketchObject.originForNewArtboardWithSize(layerSize);
-        layer.frame().setX(0);
-        layer.frame().setY(0);
+        var layerInfluenceRect = layer.absoluteInfluenceRect();
+        var layerRect = layer.rect();
+        var originForNewArtboard = page.sketchObject.originForNewArtboardWithSize(layerInfluenceRect.size);
+        layer.frame().setX(Math.round(layerRect.origin.x) - layerInfluenceRect.origin.x);
+        layer.frame().setY(Math.round(layerRect.origin.y) - layerInfluenceRect.origin.y);
         var properties = {
             name: layer.name(),
             parent: page,
-            frame: new Rectangle(originForNewArtboard.x, originForNewArtboard.y, layerSize.width, layerSize.height),
+            frame: new Rectangle(
+                originForNewArtboard.x,
+                originForNewArtboard.y,
+                layerInfluenceRect.size.width,
+                layerInfluenceRect.size.height
+            ),
             layers: [sketch.fromNative(layer)],
             selected: true
         };
@@ -40,13 +46,6 @@ var onRun = function(context) {
             artboard = new SymbolMaster(properties);
         }
         artboard.sketchObject.ungroupSingleChildDescendentGroups();
-
-        // Fit artboard, when copy a SVG with stroke.
-        // TODO: fit 
-        artboard.sketchObject.resizeToFitChildren();
-        artboard.sketchObject.frame().setX(originForNewArtboard.x);
-        artboard.sketchObject.frame().setY(originForNewArtboard.y);
-
     });
 
     context.document.contentDrawView().centerSelectionInVisibleArea();
