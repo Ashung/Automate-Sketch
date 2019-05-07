@@ -17,7 +17,7 @@ var onRun = function(context) {
         // Deselect all layers
         deselectAllLayers(page);
 
-        // Reselect layers
+        // Select layers
         var loop = layers.objectEnumerator();
         var layer;
         while (layer = loop.nextObject()) {
@@ -51,7 +51,7 @@ function selectLayer(layer) {
         }
     } else {
         layer.select_byExtendingSelection(true, true);
-        if (!layer.selectedInLayerList()) {
+        if (!layer.isSelected()) {
             deselectAllChildAndSelf(layer, true);
             layer.select_byExtendingSelection(true, true);
         }
