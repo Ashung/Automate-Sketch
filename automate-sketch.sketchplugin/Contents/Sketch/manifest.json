@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "54.1.20190427",
+  "version": "54.1.20190513",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -532,12 +532,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Convert Sketch File to Other Version",
-      "identifier": "convert_to_other_version",
-      "script": "Utilities/Convert_to_Other_Version.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "Paste and Replace",
       "identifier": "paste_and_replace",
       "script": "Layer/Paste_and_Replace.cocoascript",
@@ -676,7 +670,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change All Local Symbols to Library Symbol",
+      "name": "Change Local Symbols to Library Symbol",
       "identifier": "change_symbols_to_library_symbol",
       "script": "Library/Change_Symbols_to_Library_Symbol.cocoascript",
       "icon": "icon_runner.png"
@@ -1649,8 +1643,6 @@
           "svg_export_setting",
           "-",
           "nine_slice_from_bitmap_layer",
-          "-",
-          "convert_to_other_version",
           "-",
           "open_terminal_at_file_folder",
           "-",

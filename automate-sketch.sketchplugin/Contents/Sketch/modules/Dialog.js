@@ -1,10 +1,10 @@
 /**
  * @param  {String} message
  * @param  {String} info
- * @param  {Array} buttons Optional, array with 1..3 strings, default is ["OK", "Cancel"].
  * @param  {Number} width Optional default is 300.
+ * @param  {Array} buttons Optional, array with 1..3 strings, default is ["OK", "Cancel"].
  */
-function dialog (message, info, buttons, width) {
+function dialog (message, info, width, buttons) {
     this.views = [];
     this.message = message || "Message Text";
     this.info = info || "Informative Text";
@@ -298,14 +298,15 @@ ui.scrollView = function(subviews, size) {
     contentView.setFlipped(true);
     var height = 0;
     subviews.forEach(function(subview) {
+        subview.setFlipped(true);
         var currentFrame = subview.bounds();
         currentFrame.origin.y = height;
         height += currentFrame.size.height + 1;
         subview.setFrame(currentFrame);
+        var divider = ui.divider([0, currentFrame.size.height - 1, frame.size.width, 1]);
+        subview.addSubview(divider);
         contentView.setFrame(NSMakeRect(0, 0, frame.size.width, height));
         contentView.addSubview(subview);
-        var divider = ui.divider([0, height - 1, frame.size.width, 1]);
-        contentView.addSubview(divider);
     });
     view.setDocumentView(contentView);
     return view;
@@ -355,6 +356,39 @@ ui.colorPicker = function(size, hexColor) {
         var color = NSColor.blackColor();
     }
     view.setColor(color);
+    return view;
+}
+
+/**
+ * @param  {NSImage} nsImage
+ * @param  {Array|Number} size Optional
+ * @return  {NSImageView}
+ */
+ui.image = function(nsImage, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || 100 , size || 100]);
+    }
+    var view = NSImageView.alloc().initWithFrame(frame);
+    view.setImage(nsImage);
+    return view;
+}
+
+/**
+ * @param  {Array|Number} size Optional
+ * @return  {NSView}
+ */
+ui.view = function(size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, this.width , size || 100]);
+    }
+    var view = NSView.alloc().initWithFrame(frame);
+    view.setFlipped(true);
     return view;
 }
 

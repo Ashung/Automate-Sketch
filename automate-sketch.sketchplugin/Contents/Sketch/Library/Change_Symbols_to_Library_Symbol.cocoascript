@@ -3,184 +3,205 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga(context, "Library");
 
-    var ui = require("../modules/UI");
+    var sketch = require("sketch");
+    var toast = sketch.UI.message;
+    // var libraries = require("sketch/dom").getLibraries();
     var util = require("util");
-    var document = context.document;
-    var documentData = document.documentData();
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var preview = require("../modules/Preview");
 
-    if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update to Sketch 47+ to use this feature.");
+    if (sketch.version.sketch < 47) {
+        toast("😮 You have to update to Sketch 47+ to use this feature.");
         return;
     }
 
-    var selection = context.selection;
+    var document = context.document;
+    var documentData = document.documentData();
+    var localSymbols = documentData.localSymbols();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    localSymbols = localSymbols.sortedArrayUsingDescriptors([sortDescriptor]);
+
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
-    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
     availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
 
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have no available libraries.");
+        toast("You have no available libraries.");
         return;
     }
 
-    // All symbol master will be changed
-    var symbolMastersWillChanged = NSMutableArray.alloc().init();
-    if (selection.count() > 0) {
-        var loopSelection = selection.objectEnumerator();
-        var layer;
-        while (layer = loopSelection.nextObject()) {
-            var loopChild = layer.children().objectEnumerator();
-            var child;
-            while (child = loopChild.nextObject()) {
-                if (child.class() == "MSSymbolInstance") {
-                    if (!child.symbolMaster().isForeign()) {
-                        if (!symbolMastersWillChanged.containsObject(child.symbolMaster())) {
-                            symbolMastersWillChanged.addObject(child.symbolMaster());
-                        }
-                    }
-                }
-                if (child.class() == "MSSymbolMaster") {
-                    if (!symbolMastersWillChanged.containsObject(child)) {
-                        symbolMastersWillChanged.addObject(child);
-                    }
-                }
+    if (localSymbols.count() == 0) {
+        toast("Current document has no local symbols.");
+        return;
+    }
+
+    var dialog = new Dialog(
+        "Change Local Symbols to Library Symbol",
+        "Change local symbols to library symbol with same symbol id or name.",
+        400
+    );
+
+    // List all local symbols
+    var symbolMastersWillChanged = localSymbols.mutableCopy();
+    var selectedItemsCount = symbolMastersWillChanged.count();
+
+    var labelSymbols = ui.textLabel("Local Symbols");
+    dialog.addView(labelSymbols);
+
+    var selectAllSymbol = ui.checkBox(true, "Select / Deselect all symbols.");
+    selectAllSymbol.setAllowsMixedState(true);
+    dialog.addView(selectAllSymbol);
+
+    var views = [];
+    util.toArray(localSymbols).forEach(function(symbol) {
+        var wrapper = ui.view([400, 70]);
+        var imageSymbol = ui.image(preview.symbol(symbol, 50), [30, 10, 50, 50]);
+        var checkBoxSymbol = ui.checkBox(true, "                   " + symbol.name(), [5, 10, 380, 50]);
+        wrapper.addSubview(imageSymbol);
+        wrapper.addSubview(checkBoxSymbol);
+        views.push(wrapper);
+        checkBoxSymbol.setCOSJSTargetFunction(function(sender) {
+            if (sender.state() == NSOffState) {
+                selectedItemsCount --;
+                symbolMastersWillChanged.removeObject(symbol);
             }
-        }
-    } else {
-        symbolMastersWillChanged.addObjectsFromArray(documentData.localSymbols());
-    }
+            if (sender.state() == NSOnState) {
+                selectedItemsCount ++;
+                symbolMastersWillChanged.addObject(symbol);
+            }
+            if (selectedItemsCount == localSymbols.count()) {
+                selectAllSymbol.setState(NSOnState);
+            } else if (selectedItemsCount == 0) {
+                selectAllSymbol.setState(NSOffState);
+            } else {
+                selectAllSymbol.setState(NSMixedState);
+            }
+        });
+    });
+    var scrollView = ui.scrollView(views, [400, 300]);
+    dialog.addView(scrollView);
 
-    if (symbolMastersWillChanged.count() == 0) {
-        if (selection.count() > 0) {
-            document.showMessage("You have not selected any symbol.");
+    selectAllSymbol.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState || sender.state() == NSMixedState) {
+            sender.setState(NSOnState);
+            selectedItemsCount = localSymbols.count();
+            symbolMastersWillChanged = localSymbols.mutableCopy();
+            scrollView.documentView().subviews().forEach(function(view) {
+                view.subviews().objectAtIndex(1).setState(NSOnState);
+            });
         } else {
-            document.showMessage("Current document has no symbols.");
+            selectedItemsCount = 0;
+            symbolMastersWillChanged.removeAllObjects();
+            scrollView.documentView().subviews().forEach(function(view) {
+                view.subviews().objectAtIndex(1).setState(NSOffState);
+            });
         }
-        return;
-    }
-
-    // Dialog
-    var dialog;
-    if (symbolMastersWillChanged.count() < documentData.localSymbols().count()) {
-        dialog = ui.cosDialog(
-            "Change Selected Symbols to Library Symbol",
-            "Change all selected local symbols to library symbol with same symbol id or name."
-        );
-    } else {
-        dialog = ui.cosDialog(
-            "Change All Local Symbols to Library Symbol",
-            "Change all local symbols to library symbol with same symbol id or name."
-        );
-    }
+    });
 
     // Choose a library file
     var labelLibrary = ui.textLabel("Choose a library");
-    dialog.addAccessoryView(labelLibrary);
+    dialog.addView(labelLibrary);
     var libraryNames = util.toArray(availableLibraries).map(function(library) {
         return library.name();
     });
     var selectBoxLibrary = ui.popupButton(libraryNames);
-    dialog.addAccessoryView(selectBoxLibrary);
-
+    dialog.addView(selectBoxLibrary);
+    
+    // Choose id or name
     var labelNameOrId = ui.textLabel("Replace library symbol with same...");
-    dialog.addAccessoryView(labelNameOrId);
+    dialog.addView(labelNameOrId);
     var selectBoxNameOrId = ui.popupButton(["symbol name", "symbol id"]);
-    dialog.addAccessoryView(selectBoxNameOrId);
-
-    // TODO: Add symbol previews
+    dialog.addView(selectBoxNameOrId);
 
     var checkboxSize = ui.checkBox(false, "Set all instances to original size.");
-    dialog.addAccessoryView(checkboxSize);
+    dialog.addView(checkboxSize);
 
-    var selectedLibrary;
-    var responseCode = dialog.runModal();
-    if (responseCode == 1000) {
-        selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
-    } else {
-        return;
-    }
+    var dialogRun = dialog.run();
+    if (dialogRun.responseCode == 1000) {
 
-    if (selectedLibrary.document().localSymbols().count() == 0) {
-        document.showMessage('Library "' + selectedLibrary.name() + '" not have symbols.');
-        return;
-    }
-
-    // Import symbol from library
-    var countSymbol = 0;
-    var countInstance = 0;
-    var symbolIDMap = NSMutableDictionary.alloc().init();
-    var loopSymbolMastersWillChanged = symbolMastersWillChanged.objectEnumerator();
-    var symbolMaster;
-    while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
-
-        var remoteSymbol;
-        if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
-            remoteSymbol = findSymbolByName_fromLibrary(symbolMaster.name(), selectedLibrary);
-        } else {
-            remoteSymbol = findSymbolByID_fromLibrary(symbolMaster.symbolID(), selectedLibrary);
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+        if (selectedLibrary.document().localSymbols().count() == 0) {
+            toast('Library "' + selectedLibrary.name() + '" not have symbols.');
+            return;
         }
 
-        if (remoteSymbol) {
+        // Import symbol from library
+        var countSymbol = 0;
+        var countInstance = 0;
+        var symbolIDMap = NSMutableDictionary.alloc().init();
+        var loopSymbolMastersWillChanged = symbolMastersWillChanged.objectEnumerator();
+        var symbolMaster;
+        while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
 
-            // Import symbol
-            var importedSymbol;
-            if (MSApplicationMetadata.metadata().appVersion >= 50) {
-                var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
-                    remoteSymbol, selectedLibrary
-                );
-                importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
-                    shareableObjectReference, documentData
-                );
+            var remoteSymbol;
+            if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
+                remoteSymbol = findSymbolByName_fromLibrary(symbolMaster.name(), selectedLibrary);
             } else {
-                importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
-                    remoteSymbol, selectedLibrary, documentData
-                );
+                remoteSymbol = findSymbolByID_fromLibrary(symbolMaster.symbolID(), selectedLibrary);
             }
 
-            // Replace all instances of symbolMaster
-            var instancesWillReplaced = symbolMaster.allInstances();
-            var loopInstancesWillReplaced = instancesWillReplaced.objectEnumerator();
-            var instanceWillReplaced;
-            while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
-                instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
-                instanceWillReplaced.setName(instanceWillReplaced.symbolMaster().name());
-                if (checkboxSize.state()) {
-                    instanceWillReplaced.resetSizeToMaster();
+            if (remoteSymbol) {
+
+                // Import symbol
+                var importedSymbol;
+                if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                    var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
+                        remoteSymbol, selectedLibrary
+                    );
+                    importedSymbol = assetLibraryController.importShareableObjectReference_intoDocument(
+                        shareableObjectReference, documentData
+                    );
+                } else {
+                    importedSymbol = assetLibraryController.importForeignSymbol_fromLibrary_intoDocument(
+                        remoteSymbol, selectedLibrary, documentData
+                    );
                 }
-                countInstance ++;
+
+                // Replace all instances of symbolMaster
+                var instancesWillReplaced = symbolMaster.allInstances();
+                var loopInstancesWillReplaced = instancesWillReplaced.objectEnumerator();
+                var instanceWillReplaced;
+                while (instanceWillReplaced = loopInstancesWillReplaced.nextObject()) {
+                    instanceWillReplaced.changeInstanceToSymbol(importedSymbol.symbolMaster());
+                    instanceWillReplaced.setName(instanceWillReplaced.symbolMaster().name());
+                    if (checkboxSize.state()) {
+                        instanceWillReplaced.resetSizeToMaster();
+                    }
+                    countInstance ++;
+                }
+
+                // Delete symbolMaster
+                symbolMaster.removeFromParent();
+                countSymbol ++;
+
+                // Symbol ID map
+                symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), symbolMaster.symbolID());
+
             }
-
-            // Delete symbolMaster
-            symbolMaster.removeFromParent();
-            countSymbol ++;
-
-            // Symbol ID map
-            symbolIDMap.setObject_forKey(importedSymbol.symbolMaster().symbolID(), symbolMaster.symbolID());
-
         }
-    }
 
-    // Change overrides mapping
-    if (countInstance > 0) {
-        var instancesInCurrentDocument = instancesInDocument(document);
-        var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
-        var instance;
-        while (instance = loopInstancesInCurrentDocument.nextObject()) {
-            instance.updateOverridesWithObjectIDMap(symbolIDMap);
+        // Change overrides mapping
+        if (countInstance > 0) {
+            var instancesInCurrentDocument = instancesInDocument(document);
+            var loopInstancesInCurrentDocument = instancesInCurrentDocument.objectEnumerator();
+            var instance;
+            while (instance = loopInstancesInCurrentDocument.nextObject()) {
+                instance.updateOverridesWithObjectIDMap(symbolIDMap);
+            }
+            document.reloadInspector();
         }
-        document.reloadInspector();
-    }
 
-    var message;
-    if (countSymbol > 1) {
-        message = countSymbol + " symbol masters changed to library symbol.";
-    } else if (countSymbol == 1) {
-        message = "1 symbol master changed to library symbol.";
-    } else {
-        message = "No symbol masters changed to library symbol.";
-    }
-    document.showMessage(message);
+        var message;
+        if (countSymbol > 1) {
+            message = countSymbol + " symbol masters changed to library symbol.";
+        } else if (countSymbol == 1) {
+            message = "1 symbol master changed to library symbol.";
+        } else {
+            message = "No symbol masters changed to library symbol.";
+        }
+        document.showMessage(message);
+    };
 
 };
 

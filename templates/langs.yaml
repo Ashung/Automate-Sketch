@@ -395,7 +395,7 @@ select_all_instances_of_imported_symbol:
   - Select All Instances of Imported Symbol
   - 选择外部组件的所有实例
 change_symbols_to_library_symbol:
-  - Change All Local Symbols to Library Symbol
+  - Change Local Symbols to Library Symbol
   - 将内部组件转为库组件
 replace_symbol_with_library_symbol:
   - Replace Symbol With Library Symbol
