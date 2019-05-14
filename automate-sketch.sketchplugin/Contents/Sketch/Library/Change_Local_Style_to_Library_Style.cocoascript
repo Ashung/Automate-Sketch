@@ -5,14 +5,20 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga(context, "Library");
 
-    var ui = require("../modules/UI");
+    var sketch = require("sketch");
+    var toast = sketch.UI.message;
     var util = require("util");
-    var document = context.document;
-    if (MSApplicationMetadata.metadata().appVersion < 51) {
-        document.showMessage("😮 You have to update to Sketch 51+ to use thie feature.");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var preview = require("../modules/Preview");
+    // var document = sketch.getSelectedDocument();
+
+    if (sketch.version.sketch < 51) {
+        toast("😮 You have to update to Sketch 51+ to use thie feature.");
         return;
     }
 
+    var document = context.document;
     var documentData = document.documentData();
     var allLocalTextStyles = documentData.layerTextStyles().objects();
     var allLocalLayerStyles = documentData.layerStyles().objects();
@@ -28,18 +34,139 @@ var onRun = function(context) {
         styleType = "layer";
     }
     if (allLocalStyle.count() == 0) {
-        document.showMessage(`No ${styleType} styles in current document.`);
+        toast(`No ${styleType} styles in current document.`);
         return;
     }
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    allLocalStyle = allLocalStyle.sortedArrayUsingDescriptors([sortDescriptor]);
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
-    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
     availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
     if (availableLibraries.count() == 0) {
-        document.showMessage("You have no available libraries.");
+        toast("You have no available libraries.");
         return;
     }
+
+    var dialog = new Dialog(
+        `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
+        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`,
+        400
+    );
+
+    // Choose a library
+    var libraryLabelView = ui.textLabel("Choose A Library");
+    dialog.addView(libraryLabelView);
+
+    var libraryNames = util.toArray(availableLibraries).map(function(library) {
+        return library.name();
+    });
+    var chooseALibraryView = ui.popupButton(libraryNames, 200);
+    dialog.addView(chooseALibraryView);
+
+    // Choose name, properties, id
+    var labelChangeType = ui.textLabel("Replace library style with same...");
+    dialog.addView(labelChangeType);
+    var selectBoxChangeType = ui.popupButton(["Name", "Properties", "ID"], 200);
+    dialog.addView(selectBoxChangeType);
+
+    // List all style
+    var stylesWillChanged = allLocalStyle.mutableCopy();
+    var selectedItemsCount = stylesWillChanged.count();
+
+    var selectAllStyles = ui.checkBox(true, "Select / Deselect all styles.");
+    selectAllStyles.setAllowsMixedState(true);
+    dialog.addView(selectAllStyles);
+
+    var views = [];
+    util.toArray(allLocalStyle).forEach(function(style) {
+        var wrapper = ui.view([400, 50]);
+        var checkBoxStyle;
+        var imageStyle;
+        if (styleType == "text") {
+            checkBoxStyle = ui.checkBox(true, " ", [5, 10, 30, 30]);
+            imageStyle = ui.imageButton(preview.textStyle(style), [30, 10, 360, 30]);
+        } else {
+            checkBoxStyle = ui.checkBox(true, "            " + style.name(), [5, 10, 380, 30]);
+            imageStyle = ui.imageButton(preview.layerStyle(style), [30, 10, 30, 30]);
+        }
+        // TODO: add status view
+        var status = ui.circle("#000000", [380, 21, 8, 8]);
+
+
+        // Red Green None
+        wrapper.addSubview(checkBoxStyle);
+        wrapper.addSubview(imageStyle);
+
+        wrapper.addSubview(status);
+        views.push(wrapper);
+
+        checkBoxStyle.setCOSJSTargetFunction(function(sender) {
+            if (sender.state() == NSOffState) {
+                selectedItemsCount --;
+                stylesWillChanged.removeObject(style);
+            }
+            if (sender.state() == NSOnState) {
+                selectedItemsCount ++;
+                stylesWillChanged.addObject(style);
+            }
+            if (selectedItemsCount == allLocalStyle.count()) {
+                selectAllStyles.setState(NSOnState);
+            } else if (selectedItemsCount == 0) {
+                selectAllStyles.setState(NSOffState);
+            } else {
+                selectAllStyles.setState(NSMixedState);
+            }
+        });
+        imageStyle.setCOSJSTargetFunction(function(sender) {
+            var checkBox = sender.superview().subviews().firstObject();
+            checkBox.setState(checkBox.state() == NSOnState ? NSOffState : NSOnState);
+            if (checkBox.state() == NSOffState) {
+                selectedItemsCount --;
+                stylesWillChanged.removeObject(style);
+            }
+            if (checkBox.state() == NSOnState) {
+                selectedItemsCount ++;
+                stylesWillChanged.addObject(style);
+            }
+            if (selectedItemsCount == allLocalStyle.count()) {
+                selectAllStyles.setState(NSOnState);
+            } else if (selectedItemsCount == 0) {
+                selectAllStyles.setState(NSOffState);
+            } else {
+                selectAllStyles.setState(NSMixedState);
+            }
+        });
+    });
+    var scrollView = ui.scrollView(views, [400, 300]);
+    dialog.addView(scrollView);
+
+    selectAllStyles.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState || sender.state() == NSMixedState) {
+            sender.setState(NSOnState);
+            selectedItemsCount = allLocalStyle.count();
+            stylesWillChanged = allLocalStyle.mutableCopy();
+            scrollView.documentView().subviews().forEach(function(view) {
+                view.subviews().objectAtIndex(0).setState(NSOnState);
+            });
+        } else {
+            selectedItemsCount = 0;
+            stylesWillChanged.removeAllObjects();
+            scrollView.documentView().subviews().forEach(function(view) {
+                view.subviews().objectAtIndex(0).setState(NSOffState);
+            });
+        }
+    });
+
+    // Reset style
+    var resetStyleView = ui.checkBox(false, `Reset all ${styleType} styles.`);
+    dialog.addView(resetStyleView);
+
+    dialog.run();
+
+
+
+    return;
 
     // Dialog
     var dialog = UI.cosDialog(

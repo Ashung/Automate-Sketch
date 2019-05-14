@@ -4,7 +4,8 @@ var onRun = function(context) {
     ga(context, "Utilities");
 
     var sketch = require("sketch");
-    var ui = require("../modules/UI");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var system = require("../modules/System");
 
     if (sketch.version.sketch < 54) {
@@ -35,19 +36,19 @@ var onRun = function(context) {
         languageTitles.push(title);
     });
 
-    var dialog = ui.cosDialog(
+    var dialog = new Dialog(
         "Switch Language",
         "You need to restart Sketch app to apply changed."
     );
 
     var changeLanguage = ui.popupButton(languageTitles, 300);
-    dialog.addAccessoryView(changeLanguage);
+    dialog.addView(changeLanguage);
     changeLanguage.selectItemAtIndex(sketchLanguageIndex);
 
     // defaults delete com.bohemiancoding.sketch3 AppleLanguages 
     // defaults write com.bohemiancoding.sketch3 AppleLanguages '("en")'  
-    var responseCode = dialog.runModal();
-    if (responseCode == 1000) {
+    var runModal = dialog.run();
+    if (runModal.responseCode == 1000) {
         var selectedLanguage = sketchSupportLanguages[changeLanguage.indexOfSelectedItem()];
         if (selectedLanguage != sketchLanguage) {
             userDefaults.setObject_forKey([selectedLanguage], "AppleLanguages");

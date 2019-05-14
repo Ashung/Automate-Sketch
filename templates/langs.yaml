@@ -494,11 +494,11 @@ toggle_layer_constrain_proportions:
   - Toggle Layer Constrain Proportions
   - 图层比例限制开关
 change_local_text_style_to_library_text_style:
-  - Change All Local Text Style to Library Text Style
-  - 将所有本地文本样式转为库样式
+  - Change Local Text Style to Library Text Style
+  - 将本地文本样式转为库样式
 change_local_layer_style_to_library_layer_style:
-  - Change All Local Layer Style to Library Layer Style
-  - 将所有本地图层样式转为库样式
+  - Change Local Layer Style to Library Layer Style
+  - 将本地图层样式转为库样式
 check_for_library_updates:
   - Check For Library Updates
   - 检查库更新
@@ -691,3 +691,6 @@ plugin_dev_setting:
 find_and_replace_symbol:
   - Find and Replace Symbol
   - 查找并替换组件
+add_colors_or_gradients_from_selected_layers_to_document:
+  - Add Colors or Gradients from Selected to Document
+  - 将选中图层的颜色或渐变添加至文档

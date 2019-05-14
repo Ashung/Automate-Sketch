@@ -330,7 +330,7 @@
         {
             "name": "{{replace_pages_from_sketch_file}}",
             "identifier": "replace_pages_from_sketch_file",
-            "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript"
+            "script": "Symbol/Replace_Pages_from_Sketch_File.js"
         },
         {
             "name": "{{add_solid_fill_from_css_color}}",
@@ -357,17 +357,17 @@
         {
             "name": "{{import_document_assets_from_sketch_file}}",
             "identifier": "import_document_assets_from_sketch_file",
-            "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript"
+            "script": "Style/Import_Document_Assets_From_Sketch_File.js"
         },
         {
             "name": "{{import_text_styles_from_sketch_file}}",
             "identifier": "import_text_styles_from_sketch_file",
-            "script": "Style/Import_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Styles_from_Sketch_File.js"
         },
         {
             "name": "{{import_layer_styles_from_sketch_file}}",
             "identifier": "import_layer_styles_from_sketch_file",
-            "script": "Style/Import_Styles_from_Sketch_File.cocoascript"
+            "script": "Style/Import_Styles_from_Sketch_File.js"
         },
         {
             "name": "{{create_color_guide}}",
@@ -1102,6 +1102,11 @@
             "name": "{{find_and_replace_symbol}}",
             "identifier": "find_and_replace_symbol",
             "script": "Symbol/Find_and_Replace_Symbol.js"
+        },
+        {
+            "name": "{{add_colors_or_gradients_from_selected_layers_to_document}}",
+            "identifier": "add_colors_or_gradients_from_selected_layers_to_document",
+            "script": "Style/Add_Colors_or_Gradients_from_Selected_Layers_to_Document.js"
         }
     ],
     "menu": {
@@ -1320,6 +1325,7 @@
                     "create_style_guide",
                     "create_typography_guide",
                     "-",
+                    "add_colors_or_gradients_from_selected_layers_to_document",
                     "import_document_assets_from_sketch_file",
                     "import_text_styles_from_sketch_file",
                     "import_layer_styles_from_sketch_file"

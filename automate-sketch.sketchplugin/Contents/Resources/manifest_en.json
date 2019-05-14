@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "54.1.20190513",
+  "version": "54.1.20190514",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -390,7 +390,7 @@
     {
       "name": "Replace Pages with Same Name From Sketch File",
       "identifier": "replace_pages_from_sketch_file",
-      "script": "Symbol/Replace_Pages_from_Sketch_File.cocoascript",
+      "script": "Symbol/Replace_Pages_from_Sketch_File.js",
       "icon": "icon_runner.png"
     },
     {
@@ -422,19 +422,19 @@
     {
       "name": "Import Document Assets from Sketch File",
       "identifier": "import_document_assets_from_sketch_file",
-      "script": "Style/Import_Document_Assets_From_Sketch_File.cocoascript",
+      "script": "Style/Import_Document_Assets_From_Sketch_File.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Import Text Styles from Sketch File",
       "identifier": "import_text_styles_from_sketch_file",
-      "script": "Style/Import_Styles_from_Sketch_File.cocoascript",
+      "script": "Style/Import_Styles_from_Sketch_File.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Import Layer Styles from Sketch File",
       "identifier": "import_layer_styles_from_sketch_file",
-      "script": "Style/Import_Styles_from_Sketch_File.cocoascript",
+      "script": "Style/Import_Styles_from_Sketch_File.js",
       "icon": "icon_runner.png"
     },
     {
@@ -878,13 +878,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change All Local Text Style to Library Text Style",
+      "name": "Change Local Text Style to Library Text Style",
       "identifier": "change_local_text_style_to_library_text_style",
       "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change All Local Layer Style to Library Layer Style",
+      "name": "Change Local Layer Style to Library Layer Style",
       "identifier": "change_local_layer_style_to_library_layer_style",
       "script": "Library/Change_Local_Style_to_Library_Style.cocoascript",
       "icon": "icon_runner.png"
@@ -1307,6 +1307,12 @@
       "identifier": "find_and_replace_symbol",
       "script": "Symbol/Find_and_Replace_Symbol.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Add Colors or Gradients from Selected to Document",
+      "identifier": "add_colors_or_gradients_from_selected_layers_to_document",
+      "script": "Style/Add_Colors_or_Gradients_from_Selected_Layers_to_Document.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1525,6 +1531,7 @@
           "create_style_guide",
           "create_typography_guide",
           "-",
+          "add_colors_or_gradients_from_selected_layers_to_document",
           "import_document_assets_from_sketch_file",
           "import_text_styles_from_sketch_file",
           "import_layer_styles_from_sketch_file"

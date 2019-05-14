@@ -5,7 +5,6 @@ var onRun = function(context) {
 
     var sketch = require("sketch");
     var toast = sketch.UI.message;
-    // var libraries = require("sketch/dom").getLibraries();
     var util = require("util");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;

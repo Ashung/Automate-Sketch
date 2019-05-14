@@ -7,7 +7,7 @@
 function dialog (message, info, width, buttons) {
     this.views = [];
     this.message = message || "Message Text";
-    this.info = info || "Informative Text";
+    this.info = info;
     this.width = width || 300;
     if (buttons instanceof Array && buttons.length > 0) {
         this.buttons = buttons;
@@ -29,7 +29,9 @@ dialog.prototype.addView = function(view) {
 dialog.prototype.run = function() {
     var alert = NSAlert.alloc().init();
     alert.setMessageText(this.message);
-    alert.setInformativeText(this.info);
+    if (this.info) {
+        alert.setInformativeText(this.info);
+    }
     // Icon
     var icon = NSImage.imageNamed("plugins");
     if (__command.pluginBundle() && __command.pluginBundle().alertIcon()) {
@@ -373,6 +375,31 @@ ui.image = function(nsImage, size) {
     }
     var view = NSImageView.alloc().initWithFrame(frame);
     view.setImage(nsImage);
+    view.setImageAlignment(NSImageAlignLeft);
+    return view;
+}
+
+/**
+ * @param  {NSImage} nsImage
+ * @param  {Array|Number} size Optional
+ * @return  {NSButton}
+ */
+ui.imageButton = function(nsImage, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || 100 , size || 100]);
+    }
+    var view = NSButton.alloc().initWithFrame(frame);
+    view.setTitle("");
+    view.setImage(nsImage);
+    view.setAlternateImage(nsImage);
+    view.setBordered(false);
+    view.setButtonType(NSMomentaryChangeButton);
+    view.setBezelStyle(nil);
+    view.setImagePosition(NSImageLeft);
+    view.setImageScaling(NSImageScaleProportionallyDown);
     return view;
 }
 
@@ -389,6 +416,26 @@ ui.view = function(size) {
     }
     var view = NSView.alloc().initWithFrame(frame);
     view.setFlipped(true);
+    return view;
+}
+
+/**
+ * @param  {String} color #[0-9A-F]{3,8}
+ * @param  {Array|Number} size Optional
+ * @return  {NSView}
+ */
+ui.circle = function(color, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || 10 , size || 10]);
+    }
+    var view = NSView.alloc().initWithFrame(frame);
+    view.setWantsLayer(true);
+    var nsColor = color ? MSImmutableColor.colorWithSVGString(color).NSColorWithColorSpace(nil) : NSColor.blackColor();
+    view.setBackgroundColor(nsColor);
+    view.layer().setCornerRadius(Math.min(frame.size.width, frame.size.height) / 2);
     return view;
 }
 
