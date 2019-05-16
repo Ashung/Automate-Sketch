@@ -1,5 +1,3 @@
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -11,7 +9,10 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var preview = require("../modules/Preview");
-    // var document = sketch.getSelectedDocument();
+
+    var greenColor = NSColor.colorWithRed_green_blue_alpha(0, 0.8, 0.3, 1);
+    var redColor = NSColor.colorWithRed_green_blue_alpha(0.8, 0.1, 0.1, 1);
+    var noColor = NSColor.colorWithRed_green_blue_alpha(0, 0, 0, 0);
 
     if (sketch.version.sketch < 51) {
         toast("😮 You have to update to Sketch 51+ to use thie feature.");
@@ -50,7 +51,9 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
-        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`,
+        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.` +
+        "\n\nGreen • : Have match style in current library, and same properties." +
+        "\nRed • : Have match style in current library, but different properties.",
         400
     );
 
@@ -61,8 +64,8 @@ var onRun = function(context) {
     var libraryNames = util.toArray(availableLibraries).map(function(library) {
         return library.name();
     });
-    var chooseALibraryView = ui.popupButton(libraryNames, 200);
-    dialog.addView(chooseALibraryView);
+    var selectBoxLibrary = ui.popupButton(libraryNames, 200);
+    dialog.addView(selectBoxLibrary);
 
     // Choose name, properties, id
     var labelChangeType = ui.textLabel("Replace library style with same...");
@@ -78,6 +81,7 @@ var onRun = function(context) {
     selectAllStyles.setAllowsMixedState(true);
     dialog.addView(selectAllStyles);
 
+    var allMatchStyles = [];
     var views = [];
     util.toArray(allLocalStyle).forEach(function(style) {
         var wrapper = ui.view([400, 50]);
@@ -90,14 +94,35 @@ var onRun = function(context) {
             checkBoxStyle = ui.checkBox(true, "            " + style.name(), [5, 10, 380, 30]);
             imageStyle = ui.imageButton(preview.layerStyle(style), [30, 10, 30, 30]);
         }
-        // TODO: add status view
-        var status = ui.circle("#000000", [380, 21, 8, 8]);
 
+        // Add status view
+        var status = ui.circle("#00000000", [380, 21, 8, 8]);
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+        var matchLibraryStyle;
+        if (selectBoxChangeType.indexOfSelectedItem() == 0) {
+            matchLibraryStyle = findStyleWithName_fromLibrary_type(style.name(), selectedLibrary, styleType);
+        }
+        if (selectBoxChangeType.indexOfSelectedItem() == 1) {
+            matchLibraryStyle = findSameStyle_fromLibrary_type(style, selectedLibrary, styleType);
+        }
+        if (selectBoxChangeType.indexOfSelectedItem() == 2) {
+            matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
+        }
+        // TODO : id: style
+        allMatchStyles.push({
+            localStyle: style,
+            libraryStyle: matchLibraryStyle
+        });
+        if (matchLibraryStyle) {
+            if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
+                status.setBackgroundColor(greenColor);
+            } else {
+                status.setBackgroundColor(redColor);
+            }
+        }
 
-        // Red Green None
         wrapper.addSubview(checkBoxStyle);
         wrapper.addSubview(imageStyle);
-
         wrapper.addSubview(status);
         views.push(wrapper);
 
@@ -141,6 +166,11 @@ var onRun = function(context) {
     var scrollView = ui.scrollView(views, [400, 300]);
     dialog.addView(scrollView);
 
+    // Reset style
+    var resetStyleView = ui.checkBox(false, `Reset all ${styleType} styles.`);
+    dialog.addView(resetStyleView);
+
+    // Actions
     selectAllStyles.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOnState || sender.state() == NSMixedState) {
             sender.setState(NSOnState);
@@ -157,51 +187,78 @@ var onRun = function(context) {
             });
         }
     });
+    
+    selectBoxLibrary.setCOSJSTargetFunction(function(sender) {
+        allMatchStyles = [];
+        var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
+        util.toArray(allLocalStyle).forEach(function(style, index) {
+            var matchLibraryStyle;
+            if (selectBoxChangeType.indexOfSelectedItem() == 0) {
+                matchLibraryStyle = findStyleWithName_fromLibrary_type(style.name(), selectedLibrary, styleType);
+            }
+            if (selectBoxChangeType.indexOfSelectedItem() == 1) {
+                matchLibraryStyle = findSameStyle_fromLibrary_type(style, selectedLibrary, styleType);
+            }
+            if (selectBoxChangeType.indexOfSelectedItem() == 2) {
+                matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
+            }
+            allMatchStyles.push({
+                localStyle: style,
+                libraryStyle: matchLibraryStyle
+            });
+            var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
+            if (matchLibraryStyle) {
+                if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
+                    status.setBackgroundColor(greenColor);
+                } else {
+                    status.setBackgroundColor(redColor);
+                }
+            } else {
+                status.setBackgroundColor(noColor);
+            }
+        });
+    });
 
-    // Reset style
-    var resetStyleView = ui.checkBox(false, `Reset all ${styleType} styles.`);
-    dialog.addView(resetStyleView);
+    selectBoxChangeType.setCOSJSTargetFunction(function(sender) {
+        allMatchStyles = [];
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+        util.toArray(allLocalStyle).forEach(function(style, index) {
+            var matchLibraryStyle;
+            if (sender.indexOfSelectedItem() == 0) {
+                matchLibraryStyle = findStyleWithName_fromLibrary_type(style.name(), selectedLibrary, styleType);
+            }
+            if (sender.indexOfSelectedItem() == 1) {
+                matchLibraryStyle = findSameStyle_fromLibrary_type(style, selectedLibrary, styleType);
+            }
+            if (sender.indexOfSelectedItem() == 2) {
+                matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
+            }
+            allMatchStyles.push({
+                localStyle: style,
+                libraryStyle: matchLibraryStyle
+            });
+            var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
+            if (matchLibraryStyle) {
+                if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
+                    status.setBackgroundColor(greenColor);
+                } else {
+                    status.setBackgroundColor(redColor);
+                }
+            } else {
+                status.setBackgroundColor(noColor);
+            }
+        });
+    });
 
-    dialog.run();
+    var runModal = dialog.run();
+    if (runModal.responseCode == 1000) {
 
+    }
 
 
     return;
 
-    // Dialog
-    var dialog = UI.cosDialog(
-        `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
-        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.`
-    );
-
-    var libraryLabelView = UI.textLabel("Choose A Library");
-    dialog.addAccessoryView(libraryLabelView);
-
-    var libraryNames = util.toArray(availableLibraries).map(function(library) {
-        return library.name();
-    });
-    var chooseALibraryView = UI.popupButton(libraryNames, 200);
-    dialog.addAccessoryView(chooseALibraryView);
-
-    var scrollView = UI.scrollView(260);
-    dialog.addAccessoryView(scrollView);
-
-    var selectAllView = UI.checkBox(NSOnState, "Select / Deselect All.");
-    selectAllView.setAllowsMixedState(true);
-    dialog.addAccessoryView(selectAllView);
-
-    var resetStyleView = UI.checkBox(NSOffState, `Reset all ${styleType} styles.`);
-    dialog.addAccessoryView(resetStyleView);
-
-    // Init
-    var allMatchStyles = [];
-    loadData(availableLibraries.firstObject());
-
-    // Action
-    chooseALibraryView.setCOSJSTargetFunction(function(sender) {
-        var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
-        loadData(selectedLibrary);
-    });
+    // TODO: xxxxx
 
     // Run
     var responseCode = dialog.runModal();
@@ -220,7 +277,7 @@ var onRun = function(context) {
         });
 
         // Add library style to foreign style
-        var selectedLibrary = availableLibraries.objectAtIndex(chooseALibraryView.indexOfSelectedItem());
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         var localStyleIDToForeignStyleMapping = {};
         selectedMatchStyles.forEach(function(matchItem) {
             var foreignStyle;
@@ -523,4 +580,43 @@ function foreignLayerStyleInDocument_forSharedStyle_fromLibrary(documentData, sh
 
 function capitalize(str) {
     return str[0].toUpperCase() + str.slice(1);
+}
+
+function findSameStyle_fromLibrary_type(style, library, styleType) {
+    var allLibraryStyles = stylesFromLibrary(library, styleType);
+    var result = [];
+    allLibraryStyles.forEach(libraryStyle => {
+        if (style.value().propertiesAreEqual(libraryStyle.value())) {
+            result.push(libraryStyle);
+        }
+    });
+    return result.length > 0 ? result[0] : null;
+}
+
+function findStyleWithName_fromLibrary_type(name, library, styleType) {
+    var allLibraryStyles = stylesFromLibrary(library, styleType);
+    var predicate = NSPredicate.predicateWithFormat("name == %@", name);
+    var result = allLibraryStyles.filteredArrayUsingPredicate(predicate);
+    return result.firstObject();
+}
+
+function findStyleWithID_fromLibrary_type(id, library, styleType) {
+    var allLibraryStyles = stylesFromLibrary(library, styleType);
+    var predicate = NSPredicate.predicateWithFormat("objectID == %@", id);
+    var result = allLibraryStyles.filteredArrayUsingPredicate(predicate);
+    return result.firstObject();
+}
+
+function stylesFromLibrary(library, styleType) {
+    var libraryDocumentData = library.document();
+    var allLibraryTextStyles = libraryDocumentData.layerTextStyles().objects();
+    var allLibraryLayerStyles = libraryDocumentData.layerStyles().objects();
+    var allLibraryStyles;
+    if (styleType == "text") {
+        allLibraryStyles = allLibraryTextStyles;
+    }
+    if (styleType == "layer") {
+        allLibraryStyles = allLibraryLayerStyles;
+    }
+    return allLibraryStyles;
 }

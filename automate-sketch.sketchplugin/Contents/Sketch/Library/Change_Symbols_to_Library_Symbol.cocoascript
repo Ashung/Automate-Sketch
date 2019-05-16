@@ -10,6 +10,10 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var preview = require("../modules/Preview");
 
+    var greenColor = NSColor.colorWithRed_green_blue_alpha(0, 0.8, 0.3, 1);
+    var redColor = NSColor.colorWithRed_green_blue_alpha(0.8, 0.1, 0.1, 1);
+    var noColor = NSColor.colorWithRed_green_blue_alpha(0, 0, 0, 0);
+
     if (sketch.version.sketch < 47) {
         toast("😮 You have to update to Sketch 47+ to use this feature.");
         return;
@@ -41,9 +45,25 @@ var onRun = function(context) {
         400
     );
 
+    // Choose a library file
+    var labelLibrary = ui.textLabel("Choose a library");
+    dialog.addView(labelLibrary);
+    var libraryNames = util.toArray(availableLibraries).map(function(library) {
+        return library.name();
+    });
+    var selectBoxLibrary = ui.popupButton(libraryNames, 200);
+    dialog.addView(selectBoxLibrary);
+    
+    // Choose id or name
+    var labelNameOrId = ui.textLabel("Replace library symbol with same...");
+    dialog.addView(labelNameOrId);
+    var selectBoxNameOrId = ui.popupButton(["Name", "ID"], 200);
+    dialog.addView(selectBoxNameOrId);
+
     // List all local symbols
     var symbolMastersWillChanged = localSymbols.mutableCopy();
     var selectedItemsCount = symbolMastersWillChanged.count();
+    var symbolMasterToLibraryDict = {};
 
     var labelSymbols = ui.textLabel("Local Symbols");
     dialog.addView(labelSymbols);
@@ -55,11 +75,28 @@ var onRun = function(context) {
     var views = [];
     util.toArray(localSymbols).forEach(function(symbol) {
         var wrapper = ui.view([400, 70]);
-        var imageSymbol = ui.image(preview.symbol(symbol, 50), [30, 10, 50, 50]);
+        var imageSymbol = ui.imageButton(preview.symbol(symbol, 50), [30, 10, 50, 50]);
         var checkBoxSymbol = ui.checkBox(true, "                   " + symbol.name(), [5, 10, 380, 50]);
-        wrapper.addSubview(imageSymbol);
+        
+        // Add status view
+        var status = ui.circle("#00000000", [380, 31, 8, 8]);
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+        var matchLibrarySymbol;
+        if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
+            matchLibrarySymbol = findSymbolByName_fromLibrary(symbol.name(), selectedLibrary);
+        } else {
+            matchLibrarySymbol = findSymbolByID_fromLibrary(symbol.symbolID(), selectedLibrary);
+        }
+        symbolMasterToLibraryDict["" + symbol.symbolID()] = matchLibrarySymbol;
+        if (matchLibrarySymbol) {
+            status.setBackgroundColor(greenColor);
+        }
+        
         wrapper.addSubview(checkBoxSymbol);
+        wrapper.addSubview(imageSymbol);
+        wrapper.addSubview(status);
         views.push(wrapper);
+
         checkBoxSymbol.setCOSJSTargetFunction(function(sender) {
             if (sender.state() == NSOffState) {
                 selectedItemsCount --;
@@ -77,47 +114,54 @@ var onRun = function(context) {
                 selectAllSymbol.setState(NSMixedState);
             }
         });
+        imageSymbol.setCOSJSTargetFunction(function(sender) {
+            var checkBox = sender.superview().subviews().firstObject();
+            checkBox.setState(checkBox.state() == NSOnState ? NSOffState : NSOnState);
+            if (checkBox.state() == NSOffState) {
+                selectedItemsCount --;
+                symbolMastersWillChanged.removeObject(symbol);
+            }
+            if (checkBox.state() == NSOnState) {
+                selectedItemsCount ++;
+                symbolMastersWillChanged.addObject(symbol);
+            }
+            if (selectedItemsCount == localSymbols.count()) {
+                selectAllSymbol.setState(NSOnState);
+            } else if (selectedItemsCount == 0) {
+                selectAllSymbol.setState(NSOffState);
+            } else {
+                selectAllSymbol.setState(NSMixedState);
+            }
+        });
     });
     var scrollView = ui.scrollView(views, [400, 300]);
     dialog.addView(scrollView);
 
+    // Reset to original size
+    var checkboxSize = ui.checkBox(false, "Set all instances to original size.");
+    dialog.addView(checkboxSize);
+
+    // Actions
     selectAllSymbol.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOnState || sender.state() == NSMixedState) {
             sender.setState(NSOnState);
             selectedItemsCount = localSymbols.count();
             symbolMastersWillChanged = localSymbols.mutableCopy();
             scrollView.documentView().subviews().forEach(function(view) {
-                view.subviews().objectAtIndex(1).setState(NSOnState);
+                view.subviews().objectAtIndex(0).setState(NSOnState);
             });
         } else {
             selectedItemsCount = 0;
             symbolMastersWillChanged.removeAllObjects();
             scrollView.documentView().subviews().forEach(function(view) {
-                view.subviews().objectAtIndex(1).setState(NSOffState);
+                view.subviews().objectAtIndex(0).setState(NSOffState);
             });
         }
     });
+    // TODO: dddd
 
-    // Choose a library file
-    var labelLibrary = ui.textLabel("Choose a library");
-    dialog.addView(labelLibrary);
-    var libraryNames = util.toArray(availableLibraries).map(function(library) {
-        return library.name();
-    });
-    var selectBoxLibrary = ui.popupButton(libraryNames);
-    dialog.addView(selectBoxLibrary);
-    
-    // Choose id or name
-    var labelNameOrId = ui.textLabel("Replace library symbol with same...");
-    dialog.addView(labelNameOrId);
-    var selectBoxNameOrId = ui.popupButton(["symbol name", "symbol id"]);
-    dialog.addView(selectBoxNameOrId);
-
-    var checkboxSize = ui.checkBox(false, "Set all instances to original size.");
-    dialog.addView(checkboxSize);
-
-    var dialogRun = dialog.run();
-    if (dialogRun.responseCode == 1000) {
+    var runModal = dialog.run();
+    if (runModal.responseCode == 1000) {
 
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         if (selectedLibrary.document().localSymbols().count() == 0) {
@@ -133,6 +177,7 @@ var onRun = function(context) {
         var symbolMaster;
         while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
 
+            // TODO: remoteSymbol symbolMasterToLibraryDict
             var remoteSymbol;
             if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
                 remoteSymbol = findSymbolByName_fromLibrary(symbolMaster.name(), selectedLibrary);
@@ -225,3 +270,7 @@ function findSymbolByName_fromLibrary(name, library) {
     var symbols = library.document().localSymbols().filteredArrayUsingPredicate(predicate);
     return symbols.firstObject();
 }
+
+// function diffSymbols(symbol1, symbol2) {
+//     return symbol1.treeAsDictionary().layers.propertiesAreEqual(symbol2.treeAsDictionary().layers);
+// }
