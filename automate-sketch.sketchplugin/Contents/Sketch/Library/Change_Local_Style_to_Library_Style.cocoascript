@@ -76,12 +76,12 @@ var onRun = function(context) {
     // List all style
     var stylesWillChanged = allLocalStyle.mutableCopy();
     var selectedItemsCount = stylesWillChanged.count();
+    var styleToLibraryDict = {};
 
     var selectAllStyles = ui.checkBox(true, "Select / Deselect all styles.");
     selectAllStyles.setAllowsMixedState(true);
     dialog.addView(selectAllStyles);
 
-    var allMatchStyles = [];
     var views = [];
     util.toArray(allLocalStyle).forEach(function(style) {
         var wrapper = ui.view([400, 50]);
@@ -108,12 +108,8 @@ var onRun = function(context) {
         if (selectBoxChangeType.indexOfSelectedItem() == 2) {
             matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
         }
-        // TODO : id: style
-        allMatchStyles.push({
-            localStyle: style,
-            libraryStyle: matchLibraryStyle
-        });
         if (matchLibraryStyle) {
+            styleToLibraryDict["" + style.objectID()] = matchLibraryStyle;
             if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
                 status.setBackgroundColor(greenColor);
             } else {
@@ -189,7 +185,7 @@ var onRun = function(context) {
     });
     
     selectBoxLibrary.setCOSJSTargetFunction(function(sender) {
-        allMatchStyles = [];
+        styleToLibraryDict = {};
         var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
         util.toArray(allLocalStyle).forEach(function(style, index) {
             var matchLibraryStyle;
@@ -202,12 +198,9 @@ var onRun = function(context) {
             if (selectBoxChangeType.indexOfSelectedItem() == 2) {
                 matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
             }
-            allMatchStyles.push({
-                localStyle: style,
-                libraryStyle: matchLibraryStyle
-            });
             var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
             if (matchLibraryStyle) {
+                styleToLibraryDict["" + style.objectID()] = matchLibraryStyle;
                 if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
                     status.setBackgroundColor(greenColor);
                 } else {
@@ -220,7 +213,7 @@ var onRun = function(context) {
     });
 
     selectBoxChangeType.setCOSJSTargetFunction(function(sender) {
-        allMatchStyles = [];
+        styleToLibraryDict = {};
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         util.toArray(allLocalStyle).forEach(function(style, index) {
             var matchLibraryStyle;
@@ -233,12 +226,9 @@ var onRun = function(context) {
             if (sender.indexOfSelectedItem() == 2) {
                 matchLibraryStyle = findStyleWithID_fromLibrary_type(style.objectID(), selectedLibrary, styleType);
             }
-            allMatchStyles.push({
-                localStyle: style,
-                libraryStyle: matchLibraryStyle
-            });
             var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
             if (matchLibraryStyle) {
+                styleToLibraryDict["" + style.objectID()] = matchLibraryStyle;
                 if (style.value().propertiesAreEqual(matchLibraryStyle.value())) {
                     status.setBackgroundColor(greenColor);
                 } else {
@@ -252,6 +242,16 @@ var onRun = function(context) {
 
     var runModal = dialog.run();
     if (runModal.responseCode == 1000) {
+
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+
+        if (Object.keys(styleToLibraryDict).length == 0) {
+            toast('Library "' + selectedLibrary.name() + '" not have match styles.');
+            return;
+        }
+
+
+
 
     }
 

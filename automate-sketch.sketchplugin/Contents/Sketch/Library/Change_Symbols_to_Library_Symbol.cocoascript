@@ -87,11 +87,15 @@ var onRun = function(context) {
         } else {
             matchLibrarySymbol = findSymbolByID_fromLibrary(symbol.symbolID(), selectedLibrary);
         }
-        symbolMasterToLibraryDict["" + symbol.symbolID()] = matchLibrarySymbol;
         if (matchLibrarySymbol) {
-            status.setBackgroundColor(greenColor);
+            symbolMasterToLibraryDict["" + symbol.symbolID()] = matchLibrarySymbol;
+            if (diffSymbols(symbol, matchLibrarySymbol)) {
+                status.setBackgroundColor(greenColor);
+            } else {
+                status.setBackgroundColor(redColor);
+            }
         }
-        
+
         wrapper.addSubview(checkBoxSymbol);
         wrapper.addSubview(imageSymbol);
         wrapper.addSubview(status);
@@ -158,14 +162,63 @@ var onRun = function(context) {
             });
         }
     });
-    // TODO: dddd
 
+    selectBoxLibrary.setCOSJSTargetFunction(function(sender) {
+        symbolMasterToLibraryDict = {};
+        var selectedLibrary = availableLibraries.objectAtIndex(sender.indexOfSelectedItem());
+        util.toArray(localSymbols).forEach(function(symbol, index) {
+            var matchLibrarySymbol;
+            if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
+                matchLibrarySymbol = findSymbolByName_fromLibrary(symbol.name(), selectedLibrary);
+            } else {
+                matchLibrarySymbol = findSymbolByID_fromLibrary(symbol.symbolID(), selectedLibrary);
+            }
+            var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
+            if (matchLibrarySymbol) {
+                symbolMasterToLibraryDict["" + symbol.symbolID()] = matchLibrarySymbol;
+                if (diffSymbols(symbol, matchLibrarySymbol)) {
+                    status.setBackgroundColor(greenColor);
+                } else {
+                    status.setBackgroundColor(redColor);
+                }
+            } else {
+                status.setBackgroundColor(noColor);
+            }
+        });
+    });
+
+    selectBoxNameOrId.setCOSJSTargetFunction(function(sender) {
+        symbolMasterToLibraryDict = {};
+        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
+        util.toArray(localSymbols).forEach(function(symbol, index) {
+            var matchLibrarySymbol;
+            if (sender.indexOfSelectedItem() == 0) {
+                matchLibrarySymbol = findSymbolByName_fromLibrary(symbol.name(), selectedLibrary);
+            } else {
+                matchLibrarySymbol = findSymbolByID_fromLibrary(symbol.symbolID(), selectedLibrary);
+            }
+            var status = scrollView.documentView().subviews().objectAtIndex(index).subviews().objectAtIndex(2);
+            if (matchLibrarySymbol) {
+                symbolMasterToLibraryDict["" + symbol.symbolID()] = matchLibrarySymbol;
+                if (diffSymbols(symbol, matchLibrarySymbol)) {
+                    status.setBackgroundColor(greenColor);
+                } else {
+                    status.setBackgroundColor(redColor);
+                }
+            } else {
+                status.setBackgroundColor(noColor);
+            }
+        });
+    });
+
+    // Run
     var runModal = dialog.run();
     if (runModal.responseCode == 1000) {
 
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
-        if (selectedLibrary.document().localSymbols().count() == 0) {
-            toast('Library "' + selectedLibrary.name() + '" not have symbols.');
+
+        if (Object.keys(symbolMasterToLibraryDict).length == 0) {
+            toast('Library "' + selectedLibrary.name() + '" not have match symbols.');
             return;
         }
 
@@ -177,14 +230,7 @@ var onRun = function(context) {
         var symbolMaster;
         while (symbolMaster = loopSymbolMastersWillChanged.nextObject()) {
 
-            // TODO: remoteSymbol symbolMasterToLibraryDict
-            var remoteSymbol;
-            if (selectBoxNameOrId.indexOfSelectedItem() == 0) {
-                remoteSymbol = findSymbolByName_fromLibrary(symbolMaster.name(), selectedLibrary);
-            } else {
-                remoteSymbol = findSymbolByID_fromLibrary(symbolMaster.symbolID(), selectedLibrary);
-            }
-
+            var remoteSymbol = symbolMasterToLibraryDict["" + symbolMaster.symbolID()];
             if (remoteSymbol) {
 
                 // Import symbol
@@ -244,7 +290,7 @@ var onRun = function(context) {
         } else {
             message = "No symbol masters changed to library symbol.";
         }
-        document.showMessage(message);
+        toast(message);
     };
 
 };
@@ -271,6 +317,16 @@ function findSymbolByName_fromLibrary(name, library) {
     return symbols.firstObject();
 }
 
-// function diffSymbols(symbol1, symbol2) {
-//     return symbol1.treeAsDictionary().layers.propertiesAreEqual(symbol2.treeAsDictionary().layers);
-// }
+function diffSymbols(symbol1, symbol2) {
+    if (symbol1.layers().count() == symbol2.layers().count()) {
+        var diff = [];
+        symbol1.layers().forEach(function(layer, index) {
+            diff.push(layer.propertiesAreEqual_forPurpose(symbol2.layers().objectAtIndex(index), 1));
+        });
+        return diff.every(function(item) {
+            return item == true;
+        });
+    } else {
+        return false;
+    }
+}
