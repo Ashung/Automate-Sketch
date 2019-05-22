@@ -18,9 +18,9 @@ var onRun = function(context) {
     }
 
     var presetDefaultIndex = 0;
-    var preset1Index = preferences.get(context, "quickExportPreset1") || 1;
-    var preset2Index = preferences.get(context, "quickExportPreset2") || 2;
-    var isShowInFinder = preferences.get(context, "quickExportShowInFinder");
+    var preset1Index = preferences.get("quickExportPreset1") || 1;
+    var preset2Index = preferences.get("quickExportPreset2") || 2;
+    var isShowInFinder = preferences.get("quickExportShowInFinder");
 
     var exportPresetsTitles = [];
     util.toArray(exportPresets).forEach(function(item, index) {
@@ -66,9 +66,9 @@ var onRun = function(context) {
 
         var runModal = dialog.run();
         if (runModal.responseCode == 1000) {
-            preferences.set(context, "quickExportPreset1", preset1.indexOfSelectedItem());
-            preferences.set(context, "quickExportPreset2", preset2.indexOfSelectedItem());
-            preferences.set(context, "quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
+            preferences.set("quickExportPreset1", preset1.indexOfSelectedItem());
+            preferences.set("quickExportPreset2", preset2.indexOfSelectedItem());
+            preferences.set("quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
         }
 
         return;
