@@ -1,9 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
 
     var document = context.document;
     var selection = context.selection;
@@ -71,13 +69,15 @@ var onRun = function(context) {
     });
 
     // Add new layer
-    var newTextLayer = MSTextLayer.alloc().initWithFrame(CGRectMake(Math.round(left), Math.round(top), 10, 10));
+    var newTextLayer = MSTextLayer.alloc().initWithFrame(CGRectMake(0, 0, 10, 10));
     newTextLayer.setStringValue(text);
     newTextLayer.setName(text.substr(0, 20));
     newTextLayer.setStyle(rows[0][0].style());
     newTextLayer.adjustFrameToFit();
     rows[0][0].parentGroup().addLayer(newTextLayer);
     newTextLayer.select_byExtendingSelection(true, true);
+    newTextLayer.frame().setX(Math.round(left));
+    newTextLayer.frame().setY(Math.round(top));
 
     // Remove old layers
     selectedTextLayers.forEach(function(item) {

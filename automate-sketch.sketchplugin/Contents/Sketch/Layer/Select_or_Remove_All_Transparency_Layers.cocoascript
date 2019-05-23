@@ -1,9 +1,9 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var removeTransparencyLayersHandler = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
+
+    var Sketch = require("../modules/Sketch");
 
     var document = context.document;
     var page = document.currentPage();
@@ -43,7 +43,7 @@ var removeTransparencyLayersHandler = function(context) {
 
 var selectTransparencyLayersHandler = function(context) {
 
-    ga(context, "Layer");
+    ga("Layer");
 
     var document = context.document;
     var page = document.currentPage();

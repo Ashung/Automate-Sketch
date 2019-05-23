@@ -1,10 +1,11 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var document = context.document;
     var selection = context.selection;
 
@@ -14,23 +15,18 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Fit to Parent with Margin");
-    dialog.setInformativeText(
+    var dialog = new Dialog(
+        "Fit to Parent with Margin",
         'Input CSS margins like "all", "TB LR", "T LR B" or "T R B L", ' +
-        'use "x", "*" or "-" to keep a original margin.');
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+        'use "x", "*" or "-" to keep a original margin.'
+    );
 
-    var defaultUserInput = getPreferences(context, "fitToParentMargins") || "0";
-    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-    textField.setStringValue(defaultUserInput);
-    dialog.addAccessoryView(textField);
+    var defaultUserInput = preferences.get("fitToParentMargins") || "0";
+    var textField = ui.textField(defaultUserInput);
+    dialog.addView(textField);
+    dialog.self.window().setInitialFirstResponder(textField);
 
-    dialog.alert().window().setInitialFirstResponder(textField);
-
-    // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var userInput = textField.stringValue();
@@ -67,7 +63,7 @@ var onRun = function(context) {
             return;
         }
 
-        setPreferences(context, "fitToParentMargins", userInput.toString());
+        preferences.set("fitToParentMargins", userInput.toString());
 
         var loopSelection = selection.objectEnumerator();
         var layer;

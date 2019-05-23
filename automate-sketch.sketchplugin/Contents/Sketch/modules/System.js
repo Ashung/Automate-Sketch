@@ -1,5 +1,5 @@
 var System = {};
-// TODO: NSOKButton
+
 System.chooseFile = function(types) {
     var panel = NSOpenPanel.openPanel();
     panel.setCanChooseDirectories(false);
@@ -61,7 +61,7 @@ System.imagesFromFolder = function(path) {
 };
 
 System.textsFromChooseFile = function() {
-    var textFile = System.chooseFile();
+    var textFile = System.chooseFile(["text", "txt"]);
     if (textFile == nil) {
         return [];
     } else {

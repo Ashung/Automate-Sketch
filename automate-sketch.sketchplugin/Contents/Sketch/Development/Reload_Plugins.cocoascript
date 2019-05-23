@@ -1,6 +1,5 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
-    ga(context, "Development");
+    var ga = require("../modules/Google_Analytics");
+    ga("Development");
     AppController.sharedInstance().pluginManager().reloadPlugins();
 };

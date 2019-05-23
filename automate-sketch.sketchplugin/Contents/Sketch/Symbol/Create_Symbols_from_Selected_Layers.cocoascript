@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Symbol");
+    var ga = require("../modules/Google_Analytics");
+    ga("Symbol");
+
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     var selection = context.selection;
@@ -33,15 +34,15 @@ var onRun = function(context) {
     var symbolPage = documentData.symbolsPage();
     var targetPage;
     if (currentPage != symbolPage) {
-        var dialog = UI.cosDialog(
+        var dialog = new Dialog(
             "Create Symbols from Selected Layers"
         );
 
         var symbolPageName = symbolPage ? symbolPage.name() : "Symbols";
-        var sendToSymbolPage = UI.checkBox(true, `Send Symbols to "${symbolPageName}" page.`);
-        dialog.addAccessoryView(sendToSymbolPage);
+        var sendToSymbolPage = ui.checkBox(true, `Send Symbols to "${symbolPageName}" page.`);
+        dialog.addView(sendToSymbolPage);
 
-        var responseCode = dialog.runModal();
+        var responseCode = dialog.run();
         if (responseCode == 1000) {
             if (sendToSymbolPage.state() == NSOnState) {
                 targetPage = documentData.symbolsPageOrCreateIfNecessary();

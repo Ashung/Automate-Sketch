@@ -1,9 +1,9 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
+
+    var preferences = require("../modules/Preferences");
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
@@ -37,14 +37,14 @@ var onRun = function(context) {
 
     dialog.addTextLabelWithValue("Palette Size:");
     var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-    textField.setStringValue(getPreferences(context, "paletteSize") || "");
+    textField.setStringValue(preferences.get("paletteSize") || "");
     textField.setPlaceholderString("Input the format like \"100\" or \"100x50\"");
     dialog.addAccessoryView(textField);
 
     dialog.addTextLabelWithValue("Color Format:");
     var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
     selectBox.addItemsWithObjectValues(colorFormats);
-    selectBox.selectItemAtIndex(parseInt(getPreferences(context, "colorFormat")) || 0);
+    selectBox.selectItemAtIndex(parseInt(preferences.get("colorFormat")) || 0);
     dialog.addAccessoryView(selectBox);
 
     dialog.addButtonWithTitle("OK");
@@ -81,10 +81,10 @@ var onRun = function(context) {
             paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
             paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
         }
-        setPreferences(context, "paletteSize", userInputString.toString());
+        preferences.set("paletteSize", userInputString.toString());
 
         var colorFormatIndex = selectBox.indexOfSelectedItem();
-        setPreferences(context, "colorFormat", colorFormatIndex);
+        preferences.set("colorFormat", colorFormatIndex);
 
         var paletteGroupLayers = [];
 

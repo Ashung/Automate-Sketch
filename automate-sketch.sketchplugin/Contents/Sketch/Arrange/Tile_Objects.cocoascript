@@ -1,6 +1,3 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var tileLayersByPositionY = function(context) {
     tileLayer(context, "posy");
 };
@@ -19,8 +16,12 @@ var tileLayersVerticallyByIndex = function(context) {
 
 var customTileLayers = function(context) {
 
-    ga(context, "Arrange");
+    var ga = require("../modules/Google_Analytics");
+    ga("Arrange");
 
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var document = context.document;
     var selection = context.selection;
 
@@ -30,20 +31,20 @@ var customTileLayers = function(context) {
     }
 
     // Get last user input
-    var defaultMarginX = getPreferences(context, "tileObjectMarginX") || 20,
-        defaultMarginY = getPreferences(context, "tileObjectMarginY") || 20,
-        defaultColums = getPreferences(context, "tileObjectColumns") || 10;
+    var defaultMarginX = preferences.get("tileObjectMarginX") || 20,
+        defaultMarginY = preferences.get("tileObjectMarginY") || 20,
+        defaultColums = preferences.get("tileObjectColumns") || 10;
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Tile Objects");
-    dialog.setInformativeText("Tile objects with grid or any orientations.");
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(
+        "Tile Objects",
+        "Tile objects with grid or any orientations."
+    );
 
-    dialog.addTextLabelWithValue("How to tile...");
-    var selectTileType = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    selectTileType.addItemsWithTitles([
+    var labelView1 = ui.textLabel("How to tile...");
+    dialog.addView(labelView1);
+
+    var selectTileType = ui.popupButton([
         "🔣 Grid",
         "➡️ Left to Right",
         "⬇️ Top to Bottom",
@@ -54,29 +55,28 @@ var customTileLayers = function(context) {
         "↗️ BottomLeft to TopRight",
         "↙️ TopRight to BottomLeft"
     ]);
-    dialog.addAccessoryView(selectTileType);
+    dialog.addView(selectTileType);
 
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
     var inputColumns = andInputGroup(view, 0, 80, "Columns", defaultColums);
     var inputMarginX = andInputGroup(view, 100, 80, "Margin X", defaultMarginX);
     var inputMarginY = andInputGroup(view, 200, 80, "Margin Y", defaultMarginY);
-    dialog.addAccessoryView(view);
+    dialog.addView(view);
 
-    var checkboxOrderByName = checkboxView("Order by name.");
-    checkboxOrderByName.setState(NSOffState);
-    dialog.addAccessoryView(checkboxOrderByName);
+    var checkboxOrderByName = ui.checkBox(false, "Order by name.");
+    dialog.addView(checkboxOrderByName);
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var columns = parseInt(inputColumns.stringValue()) > 0 ? parseInt(inputColumns.stringValue()) : defaultColums,
             marginX = parseInt(inputMarginX.stringValue()) >= 0 ? parseInt(inputMarginX.stringValue()) : defaultMarginX,
             marginY = parseInt(inputMarginY.stringValue()) >= 0 ? parseInt(inputMarginY.stringValue()) : defaultMarginY;
 
-        setPreferences(context, "tileObjectColumns", columns);
-        setPreferences(context, "tileObjectMarginX", marginX);
-        setPreferences(context, "tileObjectMarginY", marginY);
+        preferences.set("tileObjectColumns", columns);
+        preferences.set("tileObjectMarginX", marginX);
+        preferences.set("tileObjectMarginY", marginY);
 
         var layers = selection.mutableCopy();
         if (checkboxOrderByName.state()) {
@@ -202,7 +202,9 @@ var customTileLayers = function(context) {
 };
 
 function tileLayer(context, orientation) {
-    ga(context, "Arrange");
+
+    var ga = require("../modules/Google_Analytics");
+    ga("Arrange");
 
     var version = parseFloat(require("sketch").version.sketch);
     var UI = require("sketch/ui");
@@ -212,7 +214,7 @@ function tileLayer(context, orientation) {
         doc.showMessage("Please select more than 2 layers.");
     } else {
 
-        var defaultGap = getPreferences(context, "gap") || "0";
+        var defaultGap = preferences.get("gap") || "0";
         var gap;
         if (version >= 53) {
             UI.getInputFromUser(
@@ -232,7 +234,7 @@ function tileLayer(context, orientation) {
         if (!gap) return;
 
         gap = parseInt(gap);
-        setPreferences(context, "gap", gap);
+        preferences.set("gap", gap);
 
         // Tile by position x/y
         if (orientation == "posx" || orientation == "posy") {
@@ -311,27 +313,15 @@ function tileLayer(context, orientation) {
 };
 
 function andInputGroup(view, x, width, label, defaultString) {
-    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 25, width, 25));
-    labelView.setDrawsBackground("NO");
-    labelView.setEditable("NO");
-    labelView.setBezeled("NO");
-    labelView.setStringValue(label);
+    var ui = require("../modules/Dialog").ui;
+    var labelView = ui.textLabel(label, [x, 25, width, 25]);
     view.addSubview(labelView);
-    var inputView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 0, width, 25));
-    inputView.setStringValue(defaultString);
+    var inputView = ui.textField(defaultString, [x, 0, width, 25])
     var formatter = NSNumberFormatter.alloc().init().autorelease();
     formatter.setNumberStyle(NSNumberFormatterNoStyle);
     inputView.setFormatter(formatter);
     view.addSubview(inputView);
     return inputView;
-}
-
-function checkboxView(text) {
-    var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25));
-    checkbox.setButtonType(NSSwitchButton);
-    checkbox.setTitle(text);
-    checkbox.setState(NSOnState);
-    return checkbox;
 }
 
 function getRectFromLayers(layers) {

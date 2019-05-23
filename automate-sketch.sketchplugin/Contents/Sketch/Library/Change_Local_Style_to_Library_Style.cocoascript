@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Library");
+    ga("Library");
 
     var sketch = require("sketch");
     var toast = sketch.UI.message;
@@ -240,8 +240,8 @@ var onRun = function(context) {
         });
     });
 
-    var runModal = dialog.run();
-    if (runModal.responseCode == 1000) {
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
 
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
 
@@ -250,45 +250,23 @@ var onRun = function(context) {
             return;
         }
 
-
-
-
-    }
-
-
-    return;
-
-    // TODO: xxxxx
-
-    // Run
-    var responseCode = dialog.runModal();
-    if (responseCode == 1000) {
-
-        if (allMatchStyles.length == 0) {
-            return;
-        }
-
-        // Filter selected styles
-        var selectedMatchStyles = [];
-        scrollView.documentView().subviews().forEach(function(view, index) {
-            if (view.subviews().firstObject().state() == NSOnState) {
-                selectedMatchStyles.push(allMatchStyles[index]);
-            }
-        });
-
         // Add library style to foreign style
-        var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         var localStyleIDToForeignStyleMapping = {};
-        selectedMatchStyles.forEach(function(matchItem) {
-            var foreignStyle;
-            if (styleType == "text") {
-                foreignStyle = foreignTextStyleInDocument_forSharedStyle_fromLibrary(documentData, matchItem.library, selectedLibrary);
+        var loopStylesWillChanged = stylesWillChanged.objectEnumerator();
+        var style;
+        while (style = loopStylesWillChanged.nextObject()) {
+            var sharedStyle = styleToLibraryDict["" + style.objectID()];
+            if (sharedStyle) {
+                var foreignStyle;
+                if (styleType == "text") {
+                    foreignStyle = foreignTextStyleInDocument_forSharedStyle_fromLibrary(documentData, sharedStyle, selectedLibrary);
+                }
+                if (styleType == "layer") {
+                    foreignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibrary(documentData, sharedStyle, selectedLibrary);
+                }
+                localStyleIDToForeignStyleMapping[style.objectID()] = foreignStyle;
             }
-            if (styleType == "layer") {
-                foreignStyle = foreignLayerStyleInDocument_forSharedStyle_fromLibrary(documentData, matchItem.library, selectedLibrary);
-            }
-            localStyleIDToForeignStyleMapping[matchItem.local.objectID()] = foreignStyle;
-        });
+        }
 
         // Find all symbol instances use selected style in override, except default value, then replace override value.
         var loopPages = document.pages().objectEnumerator();
@@ -313,246 +291,56 @@ var onRun = function(context) {
         };
 
         // Change sharedObjectID
-        selectedMatchStyles.forEach(function(item) {
-            item.local.allLayersInstances().forEach(function(layer) {
-                if (MSApplicationMetadata.metadata().appVersion >= 52) {
-                    var localStyleID = layer.sharedStyleID();
-                    if (resetStyleView.state() == NSOffState) {
-                        layer.setSharedStyleID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+        stylesWillChanged.forEach(function(item) {
+            var sharedStyle = styleToLibraryDict["" + item.objectID()];
+            if (sharedStyle) {
+                item.allLayersInstances().forEach(function(layer) {
+                    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                        var localStyleID = layer.sharedStyleID();
+                        if (resetStyleView.state() == NSOffState) {
+                            layer.setSharedStyleID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+                        }
+                        // Reset Text/Layer Style
+                        else {
+                            layer.setSharedStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle());
+                        }
+                    } else {
+                        var localStyleID = layer.style().sharedObjectID();
+                        if (resetStyleView.state() == NSOffState) {
+                            layer.style().setSharedObjectID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
+                        }
+                        // Reset Text/Layer Style
+                        else {
+                            layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance());
+                        }
                     }
-                    // Reset Text/Layer Style
-                    else {
-                        layer.setSharedStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle());
-                    }
-                } else {
-                    var localStyleID = layer.style().sharedObjectID();
-                    if (resetStyleView.state() == NSOffState) {
-                        layer.style().setSharedObjectID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());
-                    }
-                    // Reset Text/Layer Style
-                    else {
-                        layer.setStyle(localStyleIDToForeignStyleMapping[localStyleID].localSharedStyle().newInstance());
-                    }
-                }
-            });
+                });
+            }
         });
 
         // Remove local style
-        selectedMatchStyles.forEach(function(matchItem) {
-            var sharedObjectContainer;
-            if (styleType == "text") {
-                sharedObjectContainer = documentData.layerTextStyles();
+        var count = 0;
+        stylesWillChanged.forEach(function(item) {
+            var sharedStyle = styleToLibraryDict["" + item.objectID()];
+            if (sharedStyle) {
+                var sharedObjectContainer;
+                if (styleType == "text") {
+                    sharedObjectContainer = documentData.layerTextStyles();
+                }
+                if (styleType == "layer") {
+                    sharedObjectContainer = documentData.layerStyles();
+                }
+                sharedObjectContainer.removeSharedObject(item);
+                count ++;
             }
-            if (styleType == "layer") {
-                sharedObjectContainer = documentData.layerStyles();
-            }
-            sharedObjectContainer.removeSharedObject(matchItem.local);
         });
 
-        document.showMessage(
-            `Change ${selectedMatchStyles.length} local ${styleType} style${selectedMatchStyles.length > 1 ? "s" : ""} to library style.`
+        toast(
+            `Change ${count} local ${styleType} style${count > 1 ? "s" : ""} to library style.`
         );
-
-    }
-
-    function loadData(library) {
-
-        var libraryDocumentData = library.document();
-        var allLibraryTextStyles = libraryDocumentData.layerTextStyles().objects();
-        var allLibraryLayerStyles = libraryDocumentData.layerStyles().objects();
-        var allLibraryStyles;
-        if (styleType == "text") {
-            allLibraryStyles = allLibraryTextStyles;
-        }
-        if (styleType == "layer") {
-            allLibraryStyles = allLibraryLayerStyles;
-        }
-
-        allMatchStyles = [];
-        allLocalStyle.forEach(localStyle => {
-            allLibraryStyles.forEach(libraryStyle => {
-                // TODO: Same ID, Properties, Name
-                if (localStyle.value().propertiesAreEqual(libraryStyle.value())) {
-                    allMatchStyles.push({
-                        "local": localStyle,
-                        "library": libraryStyle
-                    });
-                }
-            });
-        });
-
-        if (allMatchStyles.length == 0) {
-            var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 260));
-            contentView.setFlipped(true);
-            var noStyleTipView = UI.textLabel(`No matching ${styleType} styles in this library.`, [0, 120, 300, 30]);
-            noStyleTipView.setTextColor(NSColor.grayColor());
-            noStyleTipView.setAlignment(NSCenterTextAlignment);
-            contentView.addSubview(noStyleTipView);
-            scrollView.setDocumentView(contentView);
-            selectAllView.setState(NSOffState);
-            selectAllView.setEnabled(false);
-            return;
-        }
-
-        selectAllView.setState(NSOnState);
-        selectAllView.setEnabled(true);
-
-        var itemHeight;
-        if (styleType == "text") { itemHeight = 80; }
-        if (styleType == "layer") { itemHeight = 40; }
-        var itemsCount = allMatchStyles.length;
-        var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight));
-        contentView.setFlipped(true);
-
-        var selectedItemsCount = allMatchStyles.length;
-        allMatchStyles.forEach(function(item, index) {
-            var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
-            itemView.setFlipped(true);
-
-            var checkbox = UI.checkBox(NSOnState, "", [10, 0, 300, itemHeight]);
-            itemView.addSubview(checkbox);
-            checkbox.setCOSJSTargetFunction(function(sender) {
-                if (sender.state() == NSOffState) {
-                    selectedItemsCount --;
-                }
-                if (sender.state() == NSOnState) {
-                    selectedItemsCount ++;
-                }
-                if (selectedItemsCount == allMatchStyles.length) {
-                    selectAllView.setState(NSOnState);
-                } else if (selectedItemsCount == 0) {
-                    selectAllView.setState(NSOffState);
-                } else {
-                    selectAllView.setState(NSMixedState);
-                }
-            });
-            selectAllView.setCOSJSTargetFunction(function(sender) {
-                if (sender.state() == NSOnState || sender.state() == NSMixedState) {
-                    sender.setState(NSOnState);
-                    selectedItemsCount = allMatchStyles.length;
-                    scrollView.documentView().subviews().forEach(function(view) {
-                        view.subviews().firstObject().setState(NSOnState);
-                    });
-                } else {
-                    selectedItemsCount = 0;
-                    scrollView.documentView().subviews().forEach(function(view) {
-                        view.subviews().firstObject().setState(NSOffState);
-                    });
-                }
-            });
-
-            if (styleType == "text") {
-                // Preview image
-                var textStyleTempLayer = MSTextLayer.alloc().init();
-                textStyleTempLayer.setStringValue(item.local.name());
-                textStyleTempLayer.setStyle(item.local.style());
-                var textLayerWidth = textStyleTempLayer.frame().width();
-                var textLayerHeight = textStyleTempLayer.frame().height();
-                var textStyleTempArtboard = MSArtboardGroup.alloc().init();
-                textStyleTempArtboard.frame().setWidth(textLayerWidth);
-                textStyleTempArtboard.frame().setHeight(textLayerHeight);
-                textStyleTempLayer.moveToLayer_beforeLayer(textStyleTempArtboard, nil);
-                var layerAncestry = textStyleTempArtboard.ancestry();
-                var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                    layerAncestry, CGSizeMake(textLayerWidth * 2, textLayerHeight * 2), NSColorSpace.sRGBColorSpace(), false
-                );
-                if (textLayerWidth <= 260 || textLayerHeight <= 40) {
-                    var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 5, textLayerWidth, textLayerHeight));
-                } else {
-                    var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 5, 260, 40));
-                }
-                imageView.setImage(previewImage);
-                imageView.setWantsLayer(true);
-                // Add gray background color to white font
-                var textColor = MSColor.alloc().initWithImmutableObject(textStyleTempLayer.textColor());
-                if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
-                    imageView.setBackgroundColor(NSColor.grayColor());
-                }
-                itemView.addSubview(imageView);
-
-                var descText = item.local.style().textStyle().treeAsDictionary().NSFont.name + " — " +
-                    item.local.style().textStyle().treeAsDictionary().NSFont.attributes.NSFontSizeAttribute + "px";
-                var descView = UI.textLabel(descText, [35, 40, 260, 16]);
-                descView.setWantsLayer(true);
-                descView.setTextColor(NSColor.grayColor());
-                itemView.addSubview(descView);
-
-                var foreignStyleName = item.library.name();
-                var nameView = UI.textLabel(foreignStyleName, [35, 56, 260, 16]);
-                nameView.setWantsLayer(true);
-                itemView.addSubview(nameView);
-            }
-
-            if (styleType == "layer") {
-                // Preview image
-                var layerStyleTempLayer = MSArtboardGroup.alloc().init();
-                layerStyleTempLayer.frame().setWidth(40);
-                layerStyleTempLayer.frame().setHeight(40);
-                var rectangle = MSRectangleShape.alloc().init();
-                rectangle.setRect(CGRectMake(8, 8, 24, 24));
-                var previewLayer;
-                if (MSApplicationMetadata.metadata().appVersion >= 52) {
-                    previewLayer = rectangle;
-                } else {
-                    previewLayer = MSShapeGroup.shapeWithPath(rectangle);
-                }
-                previewLayer.setStyle(item.local.style());
-                layerStyleTempLayer.addLayer(previewLayer);
-                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 40, 40));
-                var layerAncestry = layerStyleTempLayer.ancestry();
-                var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                    layerAncestry, CGSizeMake(80, 80), NSColorSpace.sRGBColorSpace(), false
-                );
-                imageView.setImage(previewImage);
-                itemView.addSubview(imageView);
-
-                var styleName = item.local.name();
-                var styleNameParts = styleName.split(/\s*\/\s*/);
-                var nameView1 = UI.textLabel(styleNameParts.slice(-1).join(""), [80, 5, 260, 16]);
-                var nameView2 = UI.textLabel(styleNameParts.slice(0, -1).join("/"), [80, 20, 260, 16]);
-                nameView2.setTextColor(NSColor.grayColor());
-                itemView.addSubview(nameView1);
-                itemView.addSubview(nameView2);
-            }
-
-            var divider = UI.divider([0, itemHeight - 1, 300, 1]);
-            itemView.addSubview(divider);
-
-            contentView.addSubview(itemView);
-        });
-        scrollView.setDocumentView(contentView);
     }
 
 };
-
-function getAllLayersWithSharedObjectIDs(document, ids) {
-    var layers = NSMutableArray.alloc().init();
-    var idArray = NSArray.arrayWithArray(ids);
-    var loopPages = document.pages().objectEnumerator();
-    var page;
-    while (page = loopPages.nextObject()) {
-        var predicateSupportType = NSPredicate.predicateWithFormat(
-            "className IN %@",
-            ["MSShapeGroup", "MSTextLayer", "MSLayerGroup", "MSBitmapLayer", "MSOvalShape", "MSRectangleShape", "MSShapePathLayer", "MSTriangleShape", "MSStarShape", "MSPolygonShape"]
-        );
-        var predicateSharedStyle;
-        if (MSApplicationMetadata.metadata().appVersion >= 52) {
-            predicateSharedStyle = NSPredicate.predicateWithFormat(
-                "sharedStyleID IN %@",
-                idArray
-            );
-        } else {
-            predicateSharedStyle = NSPredicate.predicateWithFormat(
-                "style.sharedObjectID IN %@",
-                idArray
-            );
-        }
-        var layersCanApplyStyleInPage = page.children().filteredArrayUsingPredicate(predicateSupportType);
-        var layersWithSharedStyleInPage = layersCanApplyStyleInPage.filteredArrayUsingPredicate(predicateSharedStyle);
-        layers.addObjectsFromArray(layersWithSharedStyleInPage);
-    }
-    return layers;
-}
 
 function foreignTextStyleInDocument_forSharedStyle_fromLibrary(documentData, sharedStyle, library) {
     for (var i = 0; i < documentData.foreignTextStyles().count(); i++) {

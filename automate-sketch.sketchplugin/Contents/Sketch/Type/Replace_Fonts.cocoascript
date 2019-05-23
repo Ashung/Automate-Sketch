@@ -1,12 +1,10 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
 
     var doc = context.document;
-
+    var preferences = require("../modules/Preferences");
     var fontUsedInDocument = NSMutableArray.alloc().init();
 
     iterateDocument(doc, function(layer) {
@@ -39,7 +37,7 @@ var onRun = function(context) {
         alert.addTextLabelWithValue("Replace with:");
 
         var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue(getPreferences(context, "replaceFont") || "");
+        textField.setStringValue(preferences.get("replaceFont") || "");
         textField.setPlaceholderString("Type the PostScript name of the font.");
         alert.addAccessoryView(textField);
 
@@ -74,7 +72,7 @@ var onRun = function(context) {
                 }
             });
 
-            setPreferences(context, "replaceFont", replaceFont);
+            preferences.set("replaceFont", replaceFont);
 
             doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 

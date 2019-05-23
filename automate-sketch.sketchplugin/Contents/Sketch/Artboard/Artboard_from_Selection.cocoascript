@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Artboard");
+    var ga = require("../modules/Google_Analytics");
+    ga("Artboard");
 
     var doc = context.document;
     var selection = context.selection;

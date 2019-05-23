@@ -1,8 +1,6 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var fillColorFromGlobalColors = function(context) {
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
 
     var globalColors;
     if (MSApplicationMetadata.metadata().appVersion >= 53) {
@@ -18,7 +16,8 @@ var fillColorFromGlobalColors = function(context) {
 };
 
 var fillColorFromDocumentColors = function(context) {
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
     var documentColors;
     if (MSApplicationMetadata.metadata().appVersion >= 53) {
         documentColors = NSMutableArray.alloc().init();
@@ -33,6 +32,8 @@ var fillColorFromDocumentColors = function(context) {
 
 function fillColorFromColors(context, colors, alertMessage) {
     var doc = context.document;
+
+    var Sketch = require("../modules/Sketch");
 
     if (colors.count() == 0) {
         doc.showMessage(alertMessage);
@@ -68,6 +69,7 @@ function fillColorFromColors(context, colors, alertMessage) {
 }
 
 function getFillColor(layer) {
+    var Sketch = require("../modules/Sketch");
     if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0) {
@@ -86,6 +88,7 @@ function getFillColor(layer) {
 }
 
 function setFillColor(layer, color) {
+    var Sketch = require("../modules/Sketch");
     if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0 && fills.lastObject().fillType() == 0) {

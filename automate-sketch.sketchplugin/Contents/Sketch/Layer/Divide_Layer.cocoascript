@@ -1,11 +1,12 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
 
 var onRun = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
+    var preferences = require("../modules/Preferences");
+    var Sketch = require("../modules/Sketch");
+    var sketchUI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
 
@@ -16,14 +17,22 @@ var onRun = function(context) {
     var layer = selection.firstObject();
     if (Sketch.isShapeLayer(layer)) {
         // \d+x\d+
-        var userInputString = doc.askForUserInput_initialValue(
-            "Input 2x2, 2x1 or 1x2.",
-            getPreferences(context, "divide") || "2x1"
+        var userInputString;
+        sketchUI.getInputFromUser(
+            "Divide Layer",
+            {
+                initialValue: preferences.get("divide") || "2x1",
+                description: "Input 2x2, 2x1 or 1x2."
+            },
+            function (err, value) {
+                if (err) return;
+                userInputString = value;
+            }
         );
 
         if (userInputString) {
 
-            setPreferences(context, "divide", userInputString.toString());
+            preferences.set("divide", userInputString.toString());
 
             if (/^\d+x\d+$/.test(userInputString) && eval(userInputString.replace("x", "*")) > 1) {
 

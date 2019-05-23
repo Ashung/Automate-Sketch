@@ -1,10 +1,11 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-@import "../Libraries/Preferences.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
+
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     var page = document.currentPage();
@@ -17,19 +18,19 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Create Style Guide",
         "Create style guide from layer style in document. Input the format for Palette Size like \"100\" or \"100x50\"."
     );
 
-    var label = UI.textLabel("Palette Size");
-    dialog.addAccessoryView(label);
-    var defaultPaletteSize = getPreferences(context, "paletteSize") || "100x100"
-    var paletteSize = UI.textField(defaultPaletteSize);
-    dialog.addAccessoryView(paletteSize);
+    var label = ui.textLabel("Palette Size");
+    dialog.addView(label);
+    var defaultPaletteSize = preferences.get("paletteSize") || "100x100"
+    var paletteSize = ui.textField(defaultPaletteSize);
+    dialog.addView(paletteSize);
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var palettePositionX,
@@ -52,7 +53,7 @@ var onRun = function(context) {
             paletteWidth = parseInt(/(\d+)/.exec(userInputString)[1]);
             paletteHeight = parseInt(/x(\d+)/i.exec(userInputString)[1]);
         }
-        setPreferences(context, "paletteSize", userInputString.toString());
+        preferences.set("paletteSize", userInputString.toString());
 
         if (MSApplicationMetadata.metadata().appVersion >= 49) {
             point = page.originForNewArtboardWithSize(CGSizeMake(paletteWidth, paletteHeight));

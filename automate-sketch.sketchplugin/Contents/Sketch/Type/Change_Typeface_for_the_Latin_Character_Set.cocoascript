@@ -1,9 +1,9 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
+
+    var preferences = require("../modules/Preferences");
 
     var doc = context.document;
     var selection = context.selection;
@@ -34,7 +34,7 @@ var onRun = function(context) {
 
         if(hasTextLayer == true) {
             var accessory = NSTextField.alloc().initWithFrame(NSMakeRect(0,0,250,24));
-            accessory.setStringValue(getPreferences(context, "defaultLatinFont") || "");
+            accessory.setStringValue(preferences.get("defaultLatinFont") || "");
             var alert = NSAlert.alloc().init();
                 alert.setMessageText(dialog.title);
                 alert.setInformativeText(dialog.message);
@@ -63,7 +63,7 @@ var onRun = function(context) {
                         }
                     }
 
-                    setPreferences(context, "defaultLatinFont", postScriptName);
+                    preferences.set("defaultLatinFont", postScriptName);
 
                 } else {
                     doc.showMessage("Please enter the PostScript name.");

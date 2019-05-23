@@ -1,7 +1,5 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/System.cocoascript";
-
 var DataSupplier = require("sketch/data-supplier");
+var System = require("../modules/System");
 
 var onStartup = function() {
     DataSupplier.registerDataSupplier("public.text", "Text From File", "SupplyTextFromFile");
@@ -15,7 +13,8 @@ var onShutdown = function() {
 };
 
 var onSupplyTextFromFile = function(context) {
-    ga(context, "Data");
+    var ga = require("../modules/Google_Analytics");
+    ga("Data");
     var texts = System.textsFromChooseFile();
     if (texts.length > 0) {
         supplyOrderedData(context, texts);
@@ -23,7 +22,8 @@ var onSupplyTextFromFile = function(context) {
 };
 
 var onSupplyImageFromFolder = function(context) {
-    ga(context, "Data");
+    var ga = require("../modules/Google_Analytics");
+    ga("Data");
     var images = System.imagesFromChooseFolder();
     if (images.length > 0) {
         supplyOrderedData(context, images);
@@ -31,7 +31,8 @@ var onSupplyImageFromFolder = function(context) {
 };
 
 var onSupplyRandomTextFromFile = function(context) {
-    ga(context, "Data");
+    var ga = require("../modules/Google_Analytics");
+    ga("Data");
     var texts = System.textsFromChooseFile();
     if (texts.length > 0) {
         supplyRandomData(context, texts);
@@ -39,7 +40,8 @@ var onSupplyRandomTextFromFile = function(context) {
 };
 
 var onSupplyRandomImageFromFolder = function(context) {
-    ga(context, "Data");
+    var ga = require("../modules/Google_Analytics");
+    ga("Data");
     var images = System.imagesFromChooseFolder();
     if (images.length > 0) {
         supplyRandomData(context, images);

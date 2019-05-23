@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var copyGuide = function(context) {
 
-    ga(context, "Guide");
+    var ga = require("../modules/Google_Analytics");
+    ga("Guide");
 
     var document = context.document;
     var selection = context.selection;
@@ -31,7 +30,7 @@ var copyGuide = function(context) {
 
 var pasteGuide = function(context) {
 
-    ga(context, "Guide");
+    ga("Guide");
 
     var document = context.document;
     var selection = context.selection;

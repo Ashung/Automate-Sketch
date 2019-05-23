@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var copyGrid = function(context) {
 
-    ga(context, "Guide");
+    var ga = require("../modules/Google_Analytics");
+    ga("Guide");
 
     var document = context.document;
     var selection = context.selection;
@@ -36,7 +35,7 @@ var copyGrid = function(context) {
 
 var pasteGrid = function(context) {
 
-    ga(context, "Guide");
+    ga("Guide");
 
     var document = context.document;
     var selection = context.selection;

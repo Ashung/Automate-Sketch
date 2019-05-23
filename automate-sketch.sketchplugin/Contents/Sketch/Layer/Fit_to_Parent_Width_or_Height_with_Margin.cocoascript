@@ -1,10 +1,10 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var fitToParentHeightWithMargin = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
     
+    var preferences = require("../modules/Preferences");
+    var sketchUI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
 
@@ -13,12 +13,23 @@ var fitToParentHeightWithMargin = function(context) {
         return;
     }
 
-    var defaultUserInput = getPreferences(context, "margin") || "0";
+    var defaultUserInput = preferences.get("margin") || "0";
 
-    var userInput = doc.askForUserInput_initialValue("Margins: \"<top & bottom>\" or \"<top> <bottom>\". ", defaultUserInput);
+    var userInput;
+    sketchUI.getInputFromUser(
+        "Fit to Parent Height with Margin",
+        {
+            initialValue: defaultUserInput,
+            description: 'Margins: "<top & bottom>" or "<top> <bottom>". '
+        },
+        function (err, value) {
+            if (err) return;
+            userInput = value;
+        }
+    );
 
     if (userInput) {
-        setPreferences(context, "margin", userInput.toString());
+        preferences.set("margin", userInput.toString());
 
         var marginTop = marginBottom = 0;
 
@@ -44,8 +55,11 @@ var fitToParentHeightWithMargin = function(context) {
 
 var fitToParentWidthWithMargin = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
+    var preferences = require("../modules/Preferences");
+    var sketchUI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
 
@@ -54,12 +68,23 @@ var fitToParentWidthWithMargin = function(context) {
         return;
     }
 
-    var defaultUserInput = getPreferences(context, "margin") || "0";
+    var defaultUserInput = preferences.get("margin") || "0";
 
-    var userInput = doc.askForUserInput_initialValue("Margins: \"<left & right>\" or \"<left> <right>\". ", defaultUserInput);
+    var userInput;
+    sketchUI.getInputFromUser(
+        "Fit to Parent Width with Margin",
+        {
+            initialValue: defaultUserInput,
+            description: 'Margins: "<left & right>" or "<left> <right>". '
+        },
+        function (err, value) {
+            if (err) return;
+            userInput = value;
+        }
+    );
 
     if (userInput) {
-        setPreferences(context, "margin", userInput.toString());
+        preferences.set("margin", userInput.toString());
 
         var marginLeft = marginRight = 0;
 

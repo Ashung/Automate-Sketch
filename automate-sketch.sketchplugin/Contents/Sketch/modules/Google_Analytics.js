@@ -1,18 +1,19 @@
-module.exports = function(context, eventCategory) {
+module.exports = function(eventCategory) {
 
-    var identifier = context.plugin.identifier();
+    var Dialog = require("../modules/Dialog").dialog;
+
+    var identifier = __command.pluginBundle().identifier();
     var userDefaults = NSUserDefaults.standardUserDefaults();
     var useGoogleAnalytics = userDefaults.objectForKey(identifier + ".useGoogleAnalytics");
 
     if (useGoogleAnalytics == null) {
-        var dialog = NSAlert.alloc().init();
-        var icon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon.png"));
-        dialog.setIcon(icon);
-        dialog.setMessageText("Warning");
-        dialog.setInformativeText("Automate Sketch use Google Analytics for tacking data. You can press \"Disagree\" to disable tacking.");
-        dialog.addButtonWithTitle("Agree");
-        dialog.addButtonWithTitle("Disagree");
-        var responseCode = dialog.runModal();
+        var dialog = new Dialog(
+            "Warning",
+            "Automate Sketch use Google Analytics for tacking data. You can press \"Disagree\" to disable tacking.",
+            300,
+            ["Agree", "Disagree"]
+        );
+        var responseCode = dialog.run();
         // Agree
         if (responseCode == 1000) {
             userDefaults.setObject_forKey(true, identifier + ".useGoogleAnalytics");
@@ -37,9 +38,9 @@ module.exports = function(context, eventCategory) {
             userDefaults.synchronize();
         }
 
-        var appName = encodeURI(context.plugin.name()),
-            appId = context.plugin.identifier(),
-            appVersion = context.plugin.version();
+        var appName = encodeURI(__command.pluginBundle().name()),
+            appId = identifier,
+            appVersion = __command.pluginBundle().version();
 
         var url = "https://www.google-analytics.com/collect?v=1";
         // Tracking ID
@@ -64,7 +65,7 @@ module.exports = function(context, eventCategory) {
         url += "&ec=" + encodeURI(eventCategory);
         // Event action
         // url += "&ea=" + encodeURI(eventAction);
-        url += "&ea=" + encodeURI(context.command.identifier());
+        url += "&ea=" + encodeURI(identifier);
         // Event label
         // if (eventLabel) {
         //     url += "&el=" + encodeURI(eventLabel);

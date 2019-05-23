@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
 
     var document = context.document;
     var currentPage = document.currentPage();

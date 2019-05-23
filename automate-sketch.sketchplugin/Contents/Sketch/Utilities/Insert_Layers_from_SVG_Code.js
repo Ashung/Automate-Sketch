@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Utilities");
+    ga("Utilities");
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
@@ -23,8 +23,8 @@ var onRun = function(context) {
 
     dialog.addView(input);
 
-    var runModal = dialog.run();
-    if (runModal.responseCode == 1000) {
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
 
         if (!input.stringValue()) {
             return;

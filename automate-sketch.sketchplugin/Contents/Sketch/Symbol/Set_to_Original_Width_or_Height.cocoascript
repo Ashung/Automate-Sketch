@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Symbol");
+    var ga = require("../modules/Google_Analytics");
+    ga("Symbol");
 
     var doc = context.document;
     var selection = context.selection;

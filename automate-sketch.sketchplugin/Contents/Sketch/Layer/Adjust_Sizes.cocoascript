@@ -1,5 +1,3 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var smallIncreaseWidthFromRight = function(context) {
     runActionForSelection(context, function(layer) {
         adjustWidthFromRight(layer, nudgeDistanceSmall());
@@ -99,7 +97,8 @@ var largeDecreaseHeightFromCenter = function(context) {
 
 
 function runActionForSelection(context, action) {
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {

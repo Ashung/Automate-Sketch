@@ -1,13 +1,14 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-@import "../Libraries/Run_Command.cocoascript";
 @import "../Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
 
 var onRun = function(context) {
 
-    ga(context, "Utilities");
+    var ga = require("../modules/Google_Analytics");
+    ga("Utilities");
 
+    var runCommand = require("../modules/Run_Command");
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var document = context.document;
     var selection = context.selection;
 
@@ -17,21 +18,22 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Export Clean Code SVG",
         "Export clean code SVG files from symbol masters, groups, without making a copy and remove layers.",
+        300,
         ["Save", "Cancel"]
     );
 
     if (selection.count() == 1) {
-        dialog.addButtonWithTitle("Copy");
+        dialog.buttons.push("Copy");
     }
 
-    var optionsBasic = UI.groupLabel("Basic Options");
-    dialog.addAccessoryView(optionsBasic);
+    var optionsBasic = ui.groupLabel("Basic Options");
+    dialog.addView(optionsBasic);
 
-    var fileNameLabel = UI.textLabel("Change layer names to ...");
-    dialog.addAccessoryView(fileNameLabel);
+    var fileNameLabel = ui.textLabel("Change layer names to ...");
+    dialog.addView(fileNameLabel);
 
     var fileNameTypes = [
         "group/name.svg",
@@ -41,73 +43,73 @@ var onRun = function(context) {
     if (selection.count() == 1) {
         fileNameTypes.shift();
     }
-    var nameType = UI.popupButton(fileNameTypes, 200);
-    dialog.addAccessoryView(nameType);
+    var nameType = ui.popupButton(fileNameTypes, 200);
+    dialog.addView(nameType);
 
-    var divider1 = UI.divider(300);
-    dialog.addAccessoryView(divider1);
+    var divider1 = ui.divider(300);
+    dialog.addView(divider1);
 
-    var ignoreBitmap = UI.checkBox(true, "Ignore bitmap and image fill layers.");
-    dialog.addAccessoryView(ignoreBitmap);
+    var ignoreBitmap = ui.checkBox(true, "Ignore bitmap and image fill layers.");
+    dialog.addView(ignoreBitmap);
 
-    var ignoreText = UI.checkBox(true, "Ignore text layers.");
-    dialog.addAccessoryView(ignoreText);
+    var ignoreText = ui.checkBox(true, "Ignore text layers.");
+    dialog.addView(ignoreText);
 
-    var ignoreSymbol = UI.checkBox(true, "Ignore symbol instances.");
-    dialog.addAccessoryView(ignoreSymbol);
+    var ignoreSymbol = ui.checkBox(true, "Ignore symbol instances.");
+    dialog.addView(ignoreSymbol);
 
-    var ignoreTransparency = UI.checkBox(true, "Ignore transparency layers except mask.");
-    dialog.addAccessoryView(ignoreTransparency);
+    var ignoreTransparency = ui.checkBox(true, "Ignore transparency layers except mask.");
+    dialog.addView(ignoreTransparency);
 
-    var ignoreMask = UI.checkBox(true, "Release clipping mask.");
-    dialog.addAccessoryView(ignoreMask);
+    var ignoreMask = ui.checkBox(true, "Release clipping mask.");
+    dialog.addView(ignoreMask);
 
-    var divider2 = UI.divider(300);
-    dialog.addAccessoryView(divider2);
+    var divider2 = ui.divider(300);
+    dialog.addView(divider2);
 
-    var ignoreLayerName = UI.checkBox(false, "Ignore layer with following names.");
-    dialog.addAccessoryView(ignoreLayerName);
+    var ignoreLayerName = ui.checkBox(false, "Ignore layer with following names.");
+    dialog.addView(ignoreLayerName);
 
-    var defaultIgnoreLayerName = getPreferences(context, "ignoreLayerName") || "#,bounds,tint,color"
-    var ignoreLayerNames = UI.textField(defaultIgnoreLayerName);
-    UI.disableTextField(ignoreLayerNames);
-    dialog.addAccessoryView(ignoreLayerNames);
+    var defaultIgnoreLayerName = preferences.get("ignoreLayerName") || "#,bounds,tint,color"
+    var ignoreLayerNames = ui.textField(defaultIgnoreLayerName);
+    ui.disableTextField(ignoreLayerNames);
+    dialog.addView(ignoreLayerNames);
 
-    var tempGap = UI.gap();
-    dialog.addAccessoryView(tempGap);
+    var tempGap = ui.gap();
+    dialog.addView(tempGap);
 
-    var optionsAdvanced = UI.groupLabel("Advanced Options");
-    dialog.addAccessoryView(optionsAdvanced);
+    var optionsAdvanced = ui.groupLabel("Advanced Options");
+    dialog.addView(optionsAdvanced);
 
-    var ignoreGroup = UI.checkBox(false, "Ungroup all layer group inside.");
-    dialog.addAccessoryView(ignoreGroup);
+    var ignoreGroup = ui.checkBox(false, "Ungroup all layer group inside.");
+    dialog.addView(ignoreGroup);
 
-    var flattenAllLayer = UI.checkBox(false, "Flatten all layers.");
-    dialog.addAccessoryView(flattenAllLayer);
+    var flattenAllLayer = ui.checkBox(false, "Flatten all layers.");
+    dialog.addView(flattenAllLayer);
 
-    var changeFillRule = UI.checkBox(false, "Change path fill rule to Non-Zero.");
-    dialog.addAccessoryView(changeFillRule);
+    var changeFillRule = ui.checkBox(false, "Change path fill rule to Non-Zero.");
+    dialog.addView(changeFillRule);
 
     var colorView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    var changeColor = UI.checkBox(false, "Change path fill / border color to ...");
+    var changeColor = ui.checkBox(false, "Change path fill / border color to ...");
     colorView.addSubview(changeColor);
-    var colorPicker = UI.colorPicker([240, 0, 40, 20]);
+    var colorPicker = ui.colorPicker([240, 0, 40, 20]);
     colorView.addSubview(colorPicker);
-    dialog.addAccessoryView(colorView);
+    dialog.addView(colorView);
 
-    var useSVGO = UI.checkBox(false, "Optimizing SVG code with SVGO (slowly).");
-    dialog.addAccessoryView(useSVGO);
+    var useSVGO = ui.checkBox(false, "Optimizing SVG code with SVGO (slowly).");
+    dialog.addView(useSVGO);
 
     ignoreLayerName.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOnState) {
-            UI.disableTextField(ignoreLayerNames, false);
+            ui.disableTextField(ignoreLayerNames, false);
         } else {
-            UI.disableTextField(ignoreLayerNames, true);
+            ui.disableTextField(ignoreLayerNames, true);
         }
     });
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000 || responseCode == 1002) {
 
         if (useSVGO.state() == NSOnState) {
@@ -127,7 +129,7 @@ var onRun = function(context) {
         var ignoreLayerNamesArray = [];
         if (ignoreLayerName.state() == NSOnState) {
             ignoreLayerNamesArray = ignoreLayerNames.stringValue().split(/\s*,\s*/);
-            setPreferences(context, "ignoreLayerName", ignoreLayerNamesArray.toString());
+            preferences.set("ignoreLayerName", ignoreLayerNamesArray.toString());
         }
 
         var savePanel;
@@ -147,7 +149,7 @@ var onRun = function(context) {
                 savePanel.setCanChooseFiles(false);
                 savePanel.setCanCreateDirectories(true);
             }
-            if (savePanel.runModal() == NSOKButton) {
+            if (savePanel.runModal() == NSModalResponseOK) {
                 savePath = savePanel.URL().path();
             }
         }
@@ -284,28 +286,6 @@ var onRun = function(context) {
                 pboard.clearContents();
                 pboard.setString_forType_(svgCode, NSStringPboardType);
             }
-
-            // if (responseCode == 1000) {
-
-            //     var savePanel;
-            //     var savePath;
-            //     if (selection.count() == 1) {
-            //         var fileName = fixedLayerName(selection.firstObject().name(), nameType.indexOfSelectedItem() + 1);
-            //         savePanel = NSSavePanel.savePanel();
-            //         savePanel.setTitle("Save as SVG");
-            //         savePanel.setShowsTagField(false);
-            //         savePanel.setNameFieldStringValue(fileName);
-            //         savePanel.setCanCreateDirectories(true);
-            //     } else {
-            //         savePanel = NSOpenPanel.openPanel();
-            //         savePanel.setMessage("Export selected layers as SVG");
-            //         savePanel.setCanChooseDirectories(true);
-            //         savePanel.setCanChooseFiles(false);
-            //         savePanel.setCanCreateDirectories(true);
-            //     }
-            //     if (savePanel.runModal() == NSOKButton) {
-            //         savePath = savePanel.URL().path();
-            //     }
 
             if (savePath) {
                 var svgPath;

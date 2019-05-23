@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Style");
+    ga("Style");
 
     var system = require("../modules/System");
     var document = context.document;

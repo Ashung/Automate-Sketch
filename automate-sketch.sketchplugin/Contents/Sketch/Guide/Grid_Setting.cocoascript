@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Guide");
+    var ga = require("../modules/Google_Analytics");
+    ga("Guide");
+
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     var selection = context.selection;
@@ -15,9 +16,10 @@ var onRun = function(context) {
         return;
     }
 
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Grid Preset",
         "Choose the grid setting preset for selected artboards.",
+        300,
         ["Close"]
     );
 
@@ -66,8 +68,8 @@ var onRun = function(context) {
     var presetTitles = presets.map(function(item){
         return item.title;
     });
-    var preset = UI.popupButton(presetTitles);
-    dialog.addAccessoryView(preset);
+    var preset = ui.popupButton(presetTitles, 200);
+    dialog.addView(preset);
 
     var gridSize = presets[0].gridSize;
     var thickGridTimes = presets[0].thickGridTimes;
@@ -80,7 +82,7 @@ var onRun = function(context) {
         setGrid(selectedArtboards, gridSize, thickGridTimes)
     });
 
-    dialog.runModal();
+    dialog.run();
 
 };
 

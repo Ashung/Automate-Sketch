@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Help");
+    var ga = require("../modules/Google_Analytics");
+    ga("Help");
 
     var manifestFilePath = context.plugin.url().path() + "/Contents/Sketch/manifest.json";
 

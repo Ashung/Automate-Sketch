@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Development");
+    ga("Development");
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
@@ -49,8 +49,8 @@ var onRun = function(context) {
     var scriptEditorFontSizeSetting = ui.numberField(scriptEditorFontSize, 10, 20);
     dialog.addView(scriptEditorFontSizeSetting.view);
 
-    var runModal = dialog.run();
-    if (runModal.responseCode == 1000) {
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
         if (disableAutomaticSafeModeSetting.state() == NSOffState) {
             userDefaults.removeObjectForKey("disableAutomaticSafeMode");
         } else {

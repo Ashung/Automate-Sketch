@@ -1,12 +1,9 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Layer");
-
-    // var sketch = require("sketch");
+    ga("Layer");
 
     var toast = require("sketch").UI.message;
-    var document = require("sketch/dom").getSelectedDocument();
     var util = require("util");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
@@ -64,8 +61,8 @@ var onRun = function(context) {
     layerTypeView.selectItemAtIndex(defaultSelectLayersType);
     dialog.addView(layerTypeView);
 
-    var runModal = dialog.run();
-    if (runModal.responseCode == 1000) {
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
 
         // Save preferences
         preferences.set("selectLayersByName", userInputStringView.stringValue());
@@ -76,10 +73,11 @@ var onRun = function(context) {
         preferences.set("selectLayersType", layerTypeView.indexOfSelectedItem());
 
         // Filter layers
+        var currentPage = context.document.currentPage();
         var layers = NSMutableArray.alloc().init();
         if (layersFromView.indexOfSelectedItem() == 0) {
-            layers.addObjectsFromArray(context.document.currentPage().children());
-            layers.removeObject(context.document.currentPage());
+            layers.addObjectsFromArray(currentPage.children());
+            layers.removeObject(currentPage);
         } else if (layersFromView.indexOfSelectedItem() == 1) {
             layers.addObjectsFromArray(context.selection);
         } else if (layersFromView.indexOfSelectedItem() == 2) {
@@ -134,18 +132,25 @@ var onRun = function(context) {
             : regExpPrefix + escapeRegExp(userInputStringView.stringValue()) + regExpSuffix;
 
         // log(layers)
+        var matchLayers = [];
         util.toArray(layers).forEach(function(layer) {
             var regExp = new RegExp(regExpPattern, rexExpFlag);
-            console.log(layer.name(), regExp.test(layer.name()));
+            // console.log(layer.name(), regExp.test(layer.name()));
+            if (regExp.test(layer.name())) {
+                // child.select_byExtendingSelection(true, true);
+                matchLayers.push(layer);
+            }
         });
 
-        // TODO: Select layers
-        // context.selection.forEach(layer => {
-        //     var regExp = new RegExp("^\\w+$", "gi");
-        //     console.log(layer.name(), regExp.toString(), regExp.test(layer.name()))
-        // })
-    }
+        if (matchLayers.length == 0) {
+            toast("Not any layer.");
+            return;
+        }
 
+        currentPage.changeSelectionBySelectingLayers(matchLayers);
+        toast("Select " + matchLayers.length + " layer.");
+
+    }
 };
 
 function toRegExp(string) {
@@ -154,92 +159,4 @@ function toRegExp(string) {
 
 function escapeRegExp(string) {
     return String(string).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
-}
-
-function selectLayerByNameWithSelection(context, page, selection, userInputString, regexp, filterType) {
-
-    var doc = context.document;
-    var totalCount = 0;
-
-    // Fix Sketch 45
-    var page = doc.currentPage();
-    if (page.deselectAllLayers) {
-        page.deselectAllLayers();
-    } else {
-        page.changeSelectionBySelectingLayers(nil);
-    }
-
-    if (selection.count() == 0) {
-        selectLayerByName(page, userInputString, regexp, filterType, function(count){
-            totalCount = count;
-        });
-    } else {
-        var loopSelection = selection.objectEnumerator();
-        var layer;
-        while (layer = loopSelection.nextObject()) {
-            selectLayerByName(layer, userInputString, regexp, filterType, function(count) {
-                totalCount += count;
-            });
-        }
-    }
-
-    if (totalCount == 0) {
-        doc.showMessage("No layer found.");
-    } else if (totalCount == 1) {
-        doc.showMessage("Select 1 layer.");
-    } else {
-        doc.showMessage("Select " + totalCount + " layers.");
-    }
-}
-
-function selectLayerByName(parent, name, regexp, filterType, callback) {
-
-    var count = 0;
-    var loop = parent.children().objectEnumerator();
-    var child;
-    while (child = loop.nextObject()) {
-
-        var nameMatch = false,
-            typeMatch = false;
-
-        if (regexp) {
-            if (RegExp(name).test(child.name())) {
-                nameMatch = true;
-            }
-        } else {
-            if (child.name().isEqualToString(name)) {
-                nameMatch = true;
-            }
-        }
-
-        if (nameMatch) {
-            if (
-                (filterType == 0) ||
-                (filterType == 1 && child.class() == "MSArtboardGroup") ||
-                (filterType == 1 && child.class() == "MSSymbolMaster") ||
-                (filterType == 2 && child.class() == "MSSymbolInstance") ||
-                (filterType == 3 && child.class() == "MSBitmapLayer") ||
-                (filterType == 4 && child.class() == "MSTextLayer") ||
-                (filterType == 5 && Sketch.isShapeLayer(child)) ||
-                (filterType == 6 && child.class() == "MSSliceLayer") ||
-                (filterType == 7 && child.class() == "MSLayerGroup")
-            ) {
-                typeMatch = true;
-            }
-
-            if (typeMatch) {
-                // Fix Sketch 45
-                if (MSApplicationMetadata.metadata().appVersion < 45) {
-                    child.select_byExpandingSelection(true, true);
-                } else {
-                    child.select_byExtendingSelection(true, true);
-                }
-                count ++;
-            }
-        }
-    }
-
-    if (callback && typeof(callback) == "function") {
-        callback(count);
-    }
 }

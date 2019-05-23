@@ -1,10 +1,10 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
+
+    var preferences = require("../modules/Preferences");
+    var Sketch = require("../modules/Sketch");
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
@@ -65,7 +65,7 @@ var onRun = function(context) {
                     group.moveToLayer_beforeLayer(parentGroup, oldLayer);
                     
                     // Position
-                    if (getPreferences(context, "pasteAndReplaceLayerPosition") == "1") {
+                    if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
                         group.frame().setMidX(Math.round(oldLayer.frame().midX()));
                         group.frame().setMidY(Math.round(oldLayer.frame().midY()));
                     } else {

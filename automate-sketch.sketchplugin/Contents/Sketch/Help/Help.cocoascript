@@ -1,22 +1,24 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var reportIssue = function(context) {
-    ga(context, "Help");
+    var ga = require("../modules/Google_Analytics");
+    ga("Help");
     openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/issues/");
 };
 
 var website = function(context) {
-    ga(context, "Help");
+    var ga = require("../modules/Google_Analytics");
+    ga("Help");
     openUrlInBrowser("https://github.com/Ashung/Automate-Sketch/");
 };
 
 var changelog = function(context) {
-    ga(context, "Help");
+    var ga = require("../modules/Google_Analytics");
+    ga("Help");
     openUrlInBrowser("http://ashung.github.io/Automate-Sketch/");
 };
 
 var donate = function() {
-    ga(context, "Help");
+    var ga = require("../modules/Google_Analytics");
+    ga("Help");
     openUrlInBrowser("https://ashung.github.io/donate.html?ref=automate-sketch");
 };
 

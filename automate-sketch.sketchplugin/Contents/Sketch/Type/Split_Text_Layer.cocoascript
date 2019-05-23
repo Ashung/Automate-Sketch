@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
+
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     var selection = context.selection;
@@ -15,19 +16,19 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Split Text Layer",
         "Split selected text layers to multiple layer, use new line and separator."
     );
 
-    var splitSpace = UI.checkBox(true, 'Split blank space, "a b c".');
-    dialog.addAccessoryView(splitSpace);
+    var splitSpace = ui.checkBox(true, 'Split blank space, "a b c".');
+    dialog.addView(splitSpace);
 
-    var splitComma = UI.checkBox(false, 'Split comma, "a, b, c".');
-    dialog.addAccessoryView(splitComma);
+    var splitComma = ui.checkBox(false, 'Split comma, "a, b, c".');
+    dialog.addView(splitComma);
 
-    var splitLine = UI.checkBox(false, 'Split vertical line. "a | b | c"');
-    dialog.addAccessoryView(splitLine);
+    var splitLine = ui.checkBox(false, 'Split vertical line. "a | b | c"');
+    dialog.addView(splitLine);
 
     splitSpace.setCOSJSTargetFunction(function(sender) {
         unCheckedAllViews(dialog.accessoryView().subviews());
@@ -43,7 +44,7 @@ var onRun = function(context) {
     });
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var separator = " ";
@@ -87,7 +88,7 @@ var onRun = function(context) {
                         if (textColumns.length == 0) {
                             rectColumn.origin.x = newLineTextLayer.frame().x();
                         }
-
+                        // TODO: text position
                         textForNewColumn = textForNewColumn.trim();
                         if (textForNewColumn != "") {
                             var newColumnTextLayer = MSTextLayer.alloc().initWithFrame(rectColumn);

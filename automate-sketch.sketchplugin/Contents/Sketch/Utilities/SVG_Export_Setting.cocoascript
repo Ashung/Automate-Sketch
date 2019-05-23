@@ -1,39 +1,35 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Utilities");
+    var ga = require("../modules/Google_Analytics");
+    ga("Utilities");
 
     var userDefaults = NSUserDefaults.standardUserDefaults();
 
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("SVG Export Setting");
-    dialog.setInformativeText("The setting for Sketch to export SVG files.")
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
-    var svgExportCompact = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    svgExportCompact.setButtonType(NSSwitchButton);
-    svgExportCompact.setTitle("Disable add metadata to SVG.");
+    var dialog = new Dialog(
+        "SVG Export Setting",
+        "The setting for Sketch to export SVG files."
+    );
+
+    var svgExportCompact = ui.checkBox(true, "Disable add metadata to SVG.");
     if (userDefaults.boolForKey("svgExportCompact")) {
         svgExportCompact.setState(NSOnState);
     } else {
         svgExportCompact.setState(NSOffState);
     }
-    dialog.addAccessoryView(svgExportCompact);
+    dialog.addView(svgExportCompact);
 
-    var svgExportSkipAssignIdToLayerName = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 40));
-    svgExportSkipAssignIdToLayerName.setButtonType(NSSwitchButton);
-    svgExportSkipAssignIdToLayerName.setTitle("Disable use the name of the layer for the id field \nof the layer in SVG.");
+    var svgExportSkipAssignIdToLayerName = ui.checkBox(true, "Disable use the name of the layer for the id field \nof the layer in SVG.", [300, 40]);
     if (userDefaults.boolForKey("svgExportSkipAssignIdToLayerName")) {
         svgExportSkipAssignIdToLayerName.setState(NSOnState);
     } else {
         svgExportSkipAssignIdToLayerName.setState(NSOffState);
     }
-    dialog.addAccessoryView(svgExportSkipAssignIdToLayerName);
+    dialog.addView(svgExportSkipAssignIdToLayerName);
 
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
-
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var _svgExportCompact = svgExportCompact.state(),

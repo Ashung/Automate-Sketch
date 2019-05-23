@@ -1,11 +1,11 @@
 // TODO: New Feature: from: Library, to: Library, apply to: Symbol, Text Style, Layer Style,  
 
-@import "../Libraries/Google_Analytics.cocoascript";
 @import "../Libraries/UI_Controls.cocoascript";
 
 var onRun = function(context) {
 
-    ga(context, "Library");
+    var ga = require("../modules/Google_Analytics");
+    ga("Library");
 
     var document = context.document;
     var documentData = document.documentData();

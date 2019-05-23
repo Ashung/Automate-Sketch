@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Layer");
+    ga("Layer");
 
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();

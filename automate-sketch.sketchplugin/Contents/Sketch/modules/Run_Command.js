@@ -1,5 +1,4 @@
-
-function runCommand(command, args, callback) {
+module.exports = function(command, args, callback) {
     var task = NSTask.alloc().init();
     var pipe = NSPipe.pipe();
     var errPipe = NSPipe.pipe();

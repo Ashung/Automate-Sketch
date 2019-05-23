@@ -1,10 +1,9 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/System.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Data");
+    var ga = require("../modules/Google_Analytics");
+    ga("Data");
 
+    var System = require("../modules/System");
     var document = context.document;
     var selection = context.selection;
 

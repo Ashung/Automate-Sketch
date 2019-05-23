@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Slice");
+    var ga = require("../modules/Google_Analytics");
+    ga("Slice");
 
     var doc = context.document;
 

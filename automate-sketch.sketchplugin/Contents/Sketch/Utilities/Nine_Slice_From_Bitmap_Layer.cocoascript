@@ -1,9 +1,9 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Utilities");
+    var ga = require("../modules/Google_Analytics");
+    ga("Utilities");
+
+    var Dialog = require("../modules/Dialog").dialog;
 
     var document = context.document;
     var selection = context.selection;
@@ -26,7 +26,7 @@ var onRun = function(context) {
     var layerScale = layerWidth / imageWidth;
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Nine-Slice from Bitmap Layer",
         "Crop bitmap layer to 9 part with resizing constraint settings."
     );
@@ -69,17 +69,17 @@ var onRun = function(context) {
     imageWrapper.addSubview(lineRight);
     imageWrapper.addSubview(lineTop);
     imageWrapper.addSubview(lineBottom);
-    dialog.addAccessoryView(imageWrapper);
+    dialog.addView(imageWrapper);
 
     // Slidebars
     var slideBarLeft = sliderBarView("Left: " + Math.round(imageWidth / 3), imageWidth, Math.round(imageWidth / 3));
     var slideBarRight = sliderBarView("Right: " + Math.round(imageWidth / 3 * 2), imageWidth, Math.round(imageWidth / 3 * 2));
     var slideBarTop = sliderBarView("Top: " + Math.round(imageHeight / 3), imageHeight, Math.round(imageHeight / 3));
     var slideBarBottom = sliderBarView("Bottom: " + Math.round(imageHeight / 3 * 2), imageHeight, Math.round(imageHeight / 3 * 2));
-    dialog.addAccessoryView(slideBarLeft.container);
-    dialog.addAccessoryView(slideBarRight.container);
-    dialog.addAccessoryView(slideBarTop.container);
-    dialog.addAccessoryView(slideBarBottom.container);
+    dialog.addView(slideBarLeft.container);
+    dialog.addView(slideBarRight.container);
+    dialog.addView(slideBarTop.container);
+    dialog.addView(slideBarBottom.container);
 
     slideBarLeft.slider.setCOSJSTargetFunction(function(sender) {
         restrictValue(sender, 0, slideBarRight.slider.intValue());
@@ -102,7 +102,7 @@ var onRun = function(context) {
         lineBottom.setFrameOrigin(CGPointMake(0, Math.round(sender.intValue() * thumbScale)));
     });
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         //     L   R      resizingConstraint

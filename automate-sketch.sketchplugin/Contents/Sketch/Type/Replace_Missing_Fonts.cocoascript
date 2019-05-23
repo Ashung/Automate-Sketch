@@ -1,93 +1,100 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
 
     var doc = context.document;
+    var preferences = require("../modules/Preferences");
 
     if (!doc.fileURL()) {
         doc.showMessage("This document has no missing fonts.");
         return;
     }
 
-    var currentFileURL = doc.fileURL();
-    var currentFile = MSDocumentFile.alloc().initWithFileURL(currentFileURL);
-        currentFile.open(nil);
+    // TODO: get missing fonts.
+    var currentFileURL = doc.fileURL().path();
+    var currentFile = MSDocumentReader.readerForDocumentAtURL(doc.fileURL());
     var missingFonts = currentFile.missingFonts();
 
-    if (missingFonts.count() > 0) {
+    // currentFile.unarchiver();
+    console.log(currentFile.previewImage())
+    console.log(currentFile.metadata())
+    console.log(missingFonts)
 
-        // Dialog
-        var alert = COSAlertWindow.new();
-        alert.setMessageText("Replace Missing Fonts.");
-        alert.setInformativeText("Tips: You can find the PostScript name of the font from \"Font Book\" app.")
+    return;
 
-        alert.addTextLabelWithValue("Choose a missing font:");
+    if (missingFonts.count() == 0) {
+        doc.showMessage("This document doesn't have any missing fonts.");
+        return;
+    }
 
-        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-        selectBox.addItemsWithObjectValues(missingFonts);
-        selectBox.selectItemAtIndex(0);
-        alert.addAccessoryView(selectBox);
+    // Dialog
+    var alert = COSAlertWindow.new();
+    alert.setMessageText("Replace Missing Fonts.");
+    alert.setInformativeText("Tips: You can find the PostScript name of the font from \"Font Book\" app.")
 
-        alert.addTextLabelWithValue("Replace with:");
+    alert.addTextLabelWithValue("Choose a missing font:");
 
-        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue(getPreferences(context, "replaceFont") || "");
-        textField.setPlaceholderString("Type the PostScript name of the font.");
-        alert.addAccessoryView(textField);
+    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
+    selectBox.addItemsWithObjectValues(missingFonts);
+    selectBox.selectItemAtIndex(0);
+    alert.addAccessoryView(selectBox);
 
-        alert.addButtonWithTitle("OK");
-        alert.addButtonWithTitle("Cancel");
+    alert.addTextLabelWithValue("Replace with:");
 
-        var responseCode = alert.runModal();
-        if (responseCode == 1000) {
-            var selectedMissingFont = missingFonts.objectAtIndex(selectBox.indexOfSelectedItem());
-            var replaceFont = textField.stringValue();
+    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    textField.setStringValue(preferences.get("replaceFont") || "");
+    textField.setPlaceholderString("Type the PostScript name of the font.");
+    alert.addAccessoryView(textField);
 
-            // Font no specified.
-            if (replaceFont == "") {
-                showAlert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
-                return;
-            }
+    alert.addButtonWithTitle("OK");
+    alert.addButtonWithTitle("Cancel");
 
-            // Font not found.
-            var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
-            if (!allSystemFonts.containsObject(replaceFont)) {
-                showAlert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
-                return;
-            }
+    var responseCode = alert.runModal();
+    if (responseCode == 1000) {
+        var selectedMissingFont = missingFonts.objectAtIndex(selectBox.indexOfSelectedItem());
+        var replaceFont = textField.stringValue();
 
-            var pages = doc.pages();
-            var loopPages = pages.objectEnumerator();
-            var page;
-            while (page = loopPages.nextObject()) {
-                var children = page.children();
-                var loopChildren = children.objectEnumerator();
-                var layer;
-                while (layer = loopChildren.nextObject()) {
-                    if (layer.class() == "MSTextLayer") {
-                        var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
-                        if (fontsUsedInTextLayer.containsObject(selectedMissingFont)) {
-                            layer.setFontPostscriptName(replaceFont);
-                        }
+        // Font no specified.
+        if (replaceFont == "") {
+            showAlert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
+            return;
+        }
+
+        // Font not found.
+        var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
+        if (!allSystemFonts.containsObject(replaceFont)) {
+            showAlert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
+            return;
+        }
+
+        var pages = doc.pages();
+        var loopPages = pages.objectEnumerator();
+        var page;
+        while (page = loopPages.nextObject()) {
+            var children = page.children();
+            var loopChildren = children.objectEnumerator();
+            var layer;
+            while (layer = loopChildren.nextObject()) {
+                if (layer.class() == "MSTextLayer") {
+                    var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
+                    if (fontsUsedInTextLayer.containsObject(selectedMissingFont)) {
+                        layer.setFontPostscriptName(replaceFont);
                     }
                 }
             }
-
-            setPreferences(context, "replaceFont", replaceFont);
-
-            // Save
-            doc.saveDocument(nil);
-
-            doc.showMessage('Complete replace "' + selectedMissingFont + '" with ' + '"' + replaceFont + '".');
-
         }
 
-    } else {
-        doc.showMessage("This document doesn't have any missing fonts.");
+        preferences.set("replaceFont", replaceFont);
+
+        // Save
+        doc.saveDocument(nil);
+
+        doc.showMessage('Complete replace "' + selectedMissingFont + '" with ' + '"' + replaceFont + '".');
+
     }
+
+    
 
 }
 

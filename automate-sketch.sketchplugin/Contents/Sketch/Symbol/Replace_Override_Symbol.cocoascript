@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-// TODO: All dialog icon
 var onRun = function(context) {
 
-    ga(context, "Symbol");
+    var ga = require("../modules/Google_Analytics");
+    ga("Symbol");
+
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 53) {
@@ -60,15 +61,16 @@ var onRun = function(context) {
     // log(uniqueOverrideValues)
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Replace Override Symbol",
         dialogMessage,
+        300,
         ["Replace", "Cancel"]
     );
 
     // Find
-    var findLabel = UI.textLabel("Find");
-    dialog.addAccessoryView(findLabel);
+    var findLabel = ui.textLabel("Find");
+    dialog.addView(findLabel);
 
     var overrideSymbolsButton = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
     uniqueOverrideValues.forEach(function(symbolID) {
@@ -79,18 +81,19 @@ var onRun = function(context) {
             title = symbolMaster.foreignObject().sourceLibraryName() + " ▶︎ " + symbolMaster.name();
         }
         menuItem.setTitle(title);
+        //TODO: symbolMasterThumb
         var menuImage = symbolMasterThumb(symbolMaster);
         menuItem.setImage(menuImage);
         overrideSymbolsButton.menu().addItem(menuItem);
     });
-    dialog.addAccessoryView(overrideSymbolsButton);
+    dialog.addView(overrideSymbolsButton);
 
     // Replace
-    var replaceLabel = UI.textLabel("Replace to");
-    dialog.addAccessoryView(replaceLabel);
+    var replaceLabel = ui.textLabel("Replace to");
+    dialog.addView(replaceLabel);
 
     var replaceOverrideButton = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    dialog.addAccessoryView(replaceOverrideButton);
+    dialog.addView(replaceOverrideButton);
 
     // Replace symbols
     var currentOverrideSymbolID = uniqueOverrideValues.objectAtIndex(overrideSymbolsButton.indexOfSelectedItem());
@@ -105,7 +108,7 @@ var onRun = function(context) {
         loadReplaceSymbols(replaceOverrideButton, replaceSymbols);
     });
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
         var loopOverridePoints = changeableOverridePoints.objectEnumerator();
         var item;

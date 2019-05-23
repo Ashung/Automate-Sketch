@@ -1,9 +1,9 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
+
+    var Sketch = require("../modules/Sketch");
 
     var doc = context.document;
     var selection = context.selection;

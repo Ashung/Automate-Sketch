@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Development");
+    ga("Development");
 
     var pasteboard = require("../modules/Pasteboard");
 

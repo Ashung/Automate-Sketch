@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Utilities");
+    ga("Utilities");
 
     var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
@@ -47,8 +47,8 @@ var onRun = function(context) {
 
     // defaults delete com.bohemiancoding.sketch3 AppleLanguages 
     // defaults write com.bohemiancoding.sketch3 AppleLanguages '("en")'  
-    var runModal = dialog.run();
-    if (runModal.responseCode == 1000) {
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
         var selectedLanguage = sketchSupportLanguages[changeLanguage.indexOfSelectedItem()];
         if (selectedLanguage != sketchLanguage) {
             userDefaults.setObject_forKey([selectedLanguage], "AppleLanguages");

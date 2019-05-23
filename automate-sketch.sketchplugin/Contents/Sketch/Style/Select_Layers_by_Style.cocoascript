@@ -1,7 +1,6 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var selectLayersByLayerStyle = function(context) {
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
     var document = context.document;
     var documentData = document.documentData();
     var layerStyles = NSMutableArray.alloc().init();
@@ -17,7 +16,8 @@ var selectLayersByLayerStyle = function(context) {
 };
 
 var selectLayersByTextStyle = function(context) {
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
     var document = context.document;
     var documentData = document.documentData();
     var textStyles = NSMutableArray.alloc().init();

@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var createLinkLayer = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
     var document = context.document;
     var documentData = document.documentData();
@@ -47,7 +46,7 @@ var createLinkLayer = function(context) {
 
 var syncLinkLayers = function(context) {
 
-    ga(context, "Layer");
+    ga("Layer");
 
     var document = context.document;
     var documentData = document.documentData();

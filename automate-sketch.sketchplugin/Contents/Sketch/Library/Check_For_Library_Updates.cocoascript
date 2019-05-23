@@ -1,6 +1,5 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
-    ga(context, "Library");
+    var ga = require("../modules/Google_Analytics");
+    ga("Library");
     AppController.sharedInstance().checkForAssetLibraryUpdates();
 };

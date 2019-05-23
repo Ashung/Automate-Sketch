@@ -1,9 +1,9 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Symbol");
+    var ga = require("../modules/Google_Analytics");
+    ga("Symbol");
+
+    var preferences = require("../modules/Preferences");
 
     var document = context.document;
     var selection = context.selection;
@@ -76,7 +76,7 @@ function renameInstances(context, instances, title, message) {
     var labelCustomName = labelView("Custom name");
     views.addObject(labelCustomName);
 
-    var inputCustomName = textFieldView(getPreferences(context, "customInstanceName") || "");
+    var inputCustomName = textFieldView(preferences.get("customInstanceName") || "");
     textFieldEditable(inputCustomName, false);
     views.addObject(inputCustomName);
 
@@ -109,7 +109,7 @@ function renameInstances(context, instances, title, message) {
     var responseCode = dialog.runModal();
     if (responseCode == 1000) {
 
-        setPreferences(context, "customInstanceName", inputCustomName.stringValue());
+        preferences.set("customInstanceName", inputCustomName.stringValue());
 
         var loopInstances = instances.objectEnumerator();
         var instance;

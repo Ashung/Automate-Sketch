@@ -1,6 +1,3 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var colorKeywords = {
     "black": "#000000",
     "silver": "#c0c0c0",
@@ -152,7 +149,11 @@ var colorKeywords = {
 
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
+
+    var Sketch = require("../modules/Sketch");
+    var sketchUI = require("sketch/ui");
 
     var doc = context.document;
     var selection = context.selection;
@@ -183,8 +184,19 @@ var onRun = function(context) {
 
         var defaultRandomColor = randomColors[Math.round(Math.random() * (randomColors.length - 1))];
 
-        var cssCode = doc.askForUserInput_initialValue("hex, rgb, rgba, hsl, hsla, keywords", defaultRandomColor);
-            cssCode = cssCode.replace(/\s+/g, "").toLowerCase();
+        var cssCode;
+        sketchUI.getInputFromUser(
+            "Add Solid Fill from CSS Color",
+            {
+                initialValue: defaultRandomColor,
+                description: "hex, rgb, rgba, hsl, hsla, keywords"
+            },
+            function (err, value) {
+                if (err) return;
+                cssCode = value;
+            }
+        );
+        cssCode = cssCode.replace(/\s+/g, "").toLowerCase();
 
         switch (true) {
             // #rrggbb

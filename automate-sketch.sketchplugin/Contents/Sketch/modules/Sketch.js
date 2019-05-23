@@ -34,3 +34,5 @@ Sketch.isTextLayer = function(layer) {
 Sketch.isLayerGroup = function(layer) {
     return layer.class() == "MSLayerGroup";
 };
+
+module.exports = Sketch;

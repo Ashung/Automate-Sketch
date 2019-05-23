@@ -1,19 +1,20 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Artboard");
+    var ga = require("../modules/Google_Analytics");
+    ga("Artboard");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var system = require("../modules/System");
     var doc = context.document;
 
     if (doc.artboards().count() > 0) {
 
         // Dialog
-        var dialog = COSAlertWindow.alloc().init();
-        dialog.setMessageText("Export All Artboards to HTML");
-        dialog.setInformativeText("Choose the image format.\nArtboards beginning with \".\" will be ignored.");
-        dialog.addButtonWithTitle("OK");
-        dialog.addButtonWithTitle("Cancel");
+        var dialog = new Dialog(
+            "Export All Artboards to HTML",
+            "Choose the image format.\nArtboards beginning with \".\" will be ignored."
+        );
 
         // Radio buttons
         var buttonFormat = NSButtonCell.alloc().init();
@@ -29,18 +30,13 @@ var onRun = function(context) {
         var cells = matrixFormat.cells();
             cells.objectAtIndex(0).setTitle("PNG, recommend for UI desigin.");
             cells.objectAtIndex(1).setTitle("SVG, recommend for icon design.");
-        dialog.setAccessoryView(matrixFormat);
+        dialog.setView(matrixFormat);
 
-        var responseCode = dialog.runModal();
+        var responseCode = dialog.run();
         if (responseCode == 1000) {
 
-            var savePanel = NSOpenPanel.openPanel();
-            savePanel.setMessage("Export All Artboards to ...");
-            savePanel.setCanChooseDirectories(true);
-            savePanel.setCanChooseFiles(false);
-            savePanel.setCanCreateDirectories(true);
-
-            if (savePanel.runModal() == NSOKButton) {
+            var savePath = system.chooseFolder();
+            if (savePath) {
 
                 var htmlTemplatePath = context.plugin.urlForResourceNamed("Export_All_Artboards_to_HTML.html").path();
                 var htmlTemplate = NSString.stringWithContentsOfFile_encoding_error_(
@@ -62,8 +58,8 @@ var onRun = function(context) {
                         var imageFormat = "png";
                 }
 
-                var assetsPath = savePanel.URL().path() + "/assets";
-                var htmlPath = savePanel.URL().path() + "/index.html";
+                var assetsPath = savePath + "/assets";
+                var htmlPath = savePath + "/index.html";
                 // Remove "assets" folder
                 if (NSFileManager.defaultManager().fileExistsAtPath_(assetsPath)) {
                     NSFileManager.defaultManager().removeItemAtPath_error_(assetsPath, nil);
@@ -91,7 +87,7 @@ var onRun = function(context) {
                             exportRequest.setBackgroundColor(artboard.backgroundColor());
                         }
 
-                        doc.saveExportRequest_toFile(exportRequest, savePanel.URL().path() + "/assets/" + name + "." + imageFormat);
+                        doc.saveExportRequest_toFile(exportRequest, savePath + "/assets/" + name + "." + imageFormat);
 
                         // HTML
                         var imgWidth = artboard.frame().width();
@@ -108,7 +104,7 @@ var onRun = function(context) {
                     htmlPath, true, NSUTF8StringEncoding, null
                 );
 
-                NSWorkspace.sharedWorkspace().selectFile_inFileViewerRootedAtPath(savePanel.URL().path(), nil);
+                system.showInFinder(savePath);
             }
         }
 

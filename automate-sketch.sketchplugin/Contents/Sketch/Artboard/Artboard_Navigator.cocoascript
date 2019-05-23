@@ -1,9 +1,10 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Artboard");
+    var ga = require("../modules/Google_Analytics");
+    ga("Artboard");
+
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     var currentPage = document.currentPage();
@@ -16,30 +17,31 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Artboard Navigator",
         "Click the title to select and show the artboard, click the edit icon to rename artboard.",
+        300,
         ["Close"]
     );
 
     if (allPages.count() > 1) {
-        var pageLabelView = UI.textLabel("Choose Page");
-        dialog.addAccessoryView(pageLabelView);
+        var pageLabelView = ui.textLabel("Choose Page");
+        dialog.addView(pageLabelView);
 
         var pageNames = [];
         allPages.forEach(function(page) {
             pageNames.push(page.name());
         });
-        var choosePageView = UI.popupButton(pageNames, 200);
-        dialog.addAccessoryView(choosePageView);
+        var choosePageView = ui.popupButton(pageNames, 200);
+        dialog.addView(choosePageView);
 
         if (allPages.containsObject(currentPage)) {
             choosePageView.selectItemAtIndex(allPages.indexOfObject(currentPage));
         }
     }
 
-    var scrollView = UI.scrollView(260);
-    dialog.addAccessoryView(scrollView);
+    var scrollView = ui.scrollView([], 260);
+    dialog.addView(scrollView);
 
     // Init
     if (allPages.containsObject(currentPage)) {
@@ -58,11 +60,13 @@ var onRun = function(context) {
     }
 
     // Run
-    dialog.runModal();
+    dialog.run();
 
 };
 
 function loadData(context, scrollView, page) {
+    var sketch = require("sketch");
+    var ui = require("../modules/Dialog").ui;
     var artboards = page.artboards().reverseObjectEnumerator().allObjects().mutableCopy();
     var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
         "name", true, "localizedStandardCompare:"
@@ -107,14 +111,16 @@ function loadData(context, scrollView, page) {
         itemView.addSubview(renameButton);
 
         renameButton.setCOSJSTargetFunction(function(sender) {
-            var newName = context.document.askForUserInput_initialValue("Rename Artboard", item.name());
-            if (newName) {
-                item.setName(newName);
+            sketch.UI.getInputFromUser("Rename Artboard", { initialValue: item.name() }, function(err, value) {
+                if (err) {
+                    return;
+                }
+                item.setName(value);
                 loadData(context, scrollView, page);
-            }
+            });
         });
 
-        var divider = UI.divider([0, itemHeight - 1, 300, 1]);
+        var divider = ui.divider([0, itemHeight - 1, 300, 1]);
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);

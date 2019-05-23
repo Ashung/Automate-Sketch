@@ -1,9 +1,13 @@
 @import "Fast_Slice.cocoascript";
+@import "../Libraries/UI_Controls.cocoascript";
+
 
 var onRun = function(context) {
 
-    ga(context, "Slice");
+    var ga = require("../modules/Google_Analytics");
+    ga("Slice");
 
+    var preferences = require("../modules/Preferences");
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {
@@ -15,12 +19,13 @@ var onRun = function(context) {
     var exportPresets = MSExportPreset.allExportPresets();
 
     // Preferences
-    var defaultUserInput = getPreferences(context, "sliceSize") || "0";
-    var defaultExportPresetIndex = getPreferences(context, "sliceExportPresetIndex") || 0;
-    var sliceNameFormat = getPreferences(context, "sliceNameFormat") || 0;
-    var renameSliceLayer = getPreferences(context, "renameSliceLayer") || false;
+    var defaultUserInput = preferences.get("sliceSize") || "0";
+    var defaultExportPresetIndex = preferences.get("sliceExportPresetIndex") || 0;
+    var sliceNameFormat = preferences.get("sliceNameFormat") || 0;
+    var renameSliceLayer = preferences.get("renameSliceLayer") || false;
 
     // Dialog
+    // TODO: xxx
     var dialog = UI.cosDialog(
         "Auto Slice",
         "Input the size like 24, 24x24 or 0, use 0 means to fit the layer size."
@@ -40,6 +45,7 @@ var onRun = function(context) {
 
     dialog.addAccessoryView(view);
     dialog.alert().window().setInitialFirstResponder(textField);
+    console.log(dialog.alert())
 
     var renameSliceCheckbox = UI.checkBox(renameSliceLayer, "Rename slice layer to url-friendly format.")
     dialog.addAccessoryView(renameSliceCheckbox);
@@ -49,13 +55,13 @@ var onRun = function(context) {
     if (responseCode == 1000) {
 
         var userInputString = textField.stringValue();
-        setPreferences(context, "sliceSize", userInputString);
+        preferences.set("sliceSize", userInputString);
 
         var exportPresetIndex = selectBox.indexOfSelectedItem();
-        setPreferences(context, "sliceExportPresetIndex", exportPresetIndex);
+        preferences.set("sliceExportPresetIndex", exportPresetIndex);
 
         var renameSliceBoolean = renameSliceCheckbox.state() == NSOnState ? true : false;
-        setPreferences(context, "renameSliceLayer", renameSliceBoolean);
+        preferences.set("renameSliceLayer", renameSliceBoolean);
 
         // Add Slice
         var loopSelection = selection.objectEnumerator();
@@ -103,9 +109,9 @@ var onRun = function(context) {
 
             // layer order
             if (
-                getPreferences(context, "sliceLayerOrder") == null ||
-                getPreferences(context, "sliceLayerOrder") == "0" ||
-                getPreferences(context, "sliceLayerOrder") == "1"
+                preferences.get("sliceLayerOrder") == null ||
+                preferences.get("sliceLayerOrder") == "0" ||
+                preferences.get("sliceLayerOrder") == "1"
             ) {
                 if (
                     layer.class() == "MSLayerGroup" ||
@@ -115,13 +121,13 @@ var onRun = function(context) {
                     if (layer.class() == "MSLayerGroup") {
                         slice.exportOptions().setLayerOptions(2);
                     }
-                    if (getPreferences(context, "sliceLayerOrder") == "1") {
+                    if (preferences.get("sliceLayerOrder") == "1") {
                         slice.moveToLayer_beforeLayer(layer, nil);
                     } else {
                         slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
                     }
                 } else {
-                    if (getPreferences(context, "sliceLayerOrder") == "1") {
+                    if (preferences.get("sliceLayerOrder") == "1") {
                         var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
                         var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
                         slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);

@@ -1,6 +1,3 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Sketch.cocoascript";
-
 var selectAllGroupsInSelection = function(context) {
     selectLayersInSelectionByType(context, "group");
 };
@@ -27,7 +24,10 @@ var selectAllSlicesInSelection = function(context) {
 
 var selectAllExportableInSelection = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
+
+    var Sketch = require("../modules/Sketch");
 
     var doc = context.document;
     var page = doc.currentPage();
@@ -89,7 +89,8 @@ var selectAllExportableInSelection = function(context) {
 };
 
 function selectLayersInSelectionByType(context, type) {
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
     var doc = context.document;
     var page = doc.currentPage();

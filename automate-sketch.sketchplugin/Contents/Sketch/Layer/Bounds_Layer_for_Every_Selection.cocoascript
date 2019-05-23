@@ -1,17 +1,16 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Layer");
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
 
+    var preferences = require("../modules/Preferences");
     var boundsLayerName = "#";
 
     var doc = context.document;
     var selection = context.selection;
     if (selection.count() > 0) {
 
-        var defaultUserInputString = getPreferences(context, "boundsSize") || "0";
+        var defaultUserInputString = preferences.get("boundsSize") || "0";
 
         // \d+, \d+x\d+
         var userInputString;
@@ -40,7 +39,7 @@ var onRun = function(context) {
                 return;
             }
 
-            setPreferences(context, "boundsSize", userInputString.toString());
+            preferences.set("boundsSize", userInputString.toString());
 
             var loop = selection.objectEnumerator();
             while (layer = loop.nextObject()) {

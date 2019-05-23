@@ -1,9 +1,9 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Style");
+    var ga = require("../modules/Google_Analytics");
+    ga("Style");
+
+    var preferences = require("../modules/Preferences");
     
     var document = context.document;
     var textStyles = document.documentData().layerTextStyles().sharedStyles();
@@ -19,7 +19,7 @@ var onRun = function(context) {
 
     dialog.addTextLabelWithValue("Preview Text:");
     var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-    textField.setStringValue(getPreferences(context, "previewText") || "");
+    textField.setStringValue(preferences.get("previewText") || "");
     dialog.addAccessoryView(textField);
 
     dialog.addButtonWithTitle("OK");
@@ -47,7 +47,7 @@ var onRun = function(context) {
             textFontName = "HelveticaNeue";
 
         var previewText = textField.stringValue();
-        setPreferences(context, "previewText", previewText);
+        preferences.set("previewText", previewText);
 
         var typographyGroupLayers = [];
 

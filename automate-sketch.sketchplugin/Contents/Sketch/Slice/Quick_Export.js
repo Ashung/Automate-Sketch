@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Slice");
+    ga("Slice");
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
@@ -64,8 +64,8 @@ var onRun = function(context) {
             preset2.selectItemAtIndex(preset2Index);
         }
 
-        var runModal = dialog.run();
-        if (runModal.responseCode == 1000) {
+        var responseCode = dialog.run();
+        if (responseCode == 1000) {
             preferences.set("quickExportPreset1", preset1.indexOfSelectedItem());
             preferences.set("quickExportPreset2", preset2.indexOfSelectedItem());
             preferences.set("quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);

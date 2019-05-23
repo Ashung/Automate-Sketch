@@ -1,36 +1,34 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Arrange");
+    var ga = require("../modules/Google_Analytics");
+    ga("Arrange");
 
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
     var doc = context.document;
     var selection = context.selection;
 
     if (selection.count() > 1) {
 
         // Get last user input
-        var defaultGapX = getPreferences(context, "arrangeObjectGapX") || 100,
-            defaultGapY = getPreferences(context, "arrangeObjectGapY") || 100;
+        var defaultGapX = preferences.get("arrangeObjectGapX") || 100,
+            defaultGapY = preferences.get("arrangeObjectGapY") || 100;
 
         var defaultSnapDistance = getMinHeightFromLayers(selection);
 
         // Dialog
-        var dialog = COSAlertWindow.alloc().init();
-        dialog.setMessageText("Arrange Objects");
-        dialog.setInformativeText("Arrange selected layers or artboards.");
+        var dialog = new Dialog(
+            "Arrange Objects",
+            "Arrange selected layers or artboards."
+        );
 
         var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
         var inputGapX = andInputGroup(view, 0, 60, 40, "Gap X", defaultGapX);
         var inputGapY = andInputGroup(view, 60, 60, 40, "Gap Y", defaultGapY);
         var inputSnapDistance = andInputGroup(view, 120, 100, 50, "Snap Distance", defaultSnapDistance);
+        dialog.addView(view);
 
-        dialog.addAccessoryView(view);
-        dialog.addButtonWithTitle("OK");
-        dialog.addButtonWithTitle("Cancel");
-
-        var responseCode = dialog.runModal();
+        var responseCode = dialog.run();
         if (responseCode == 1000) {
 
             var gapX = parseInt(inputGapX.stringValue()),
@@ -38,8 +36,8 @@ var onRun = function(context) {
                 snapDistance = parseInt(inputSnapDistance.stringValue());
 
             // Save user input
-            setPreferences(context, "arrangeObjectGapX", gapX);
-            setPreferences(context, "arrangeObjectGapY", gapY);
+            preferences.set("arrangeObjectGapX", gapX);
+            preferences.set("arrangeObjectGapY", gapY);
 
             var origin = getRectFromLayers(selection);
             var globalLeft = Math.round(origin.x()),
@@ -67,22 +65,14 @@ var onRun = function(context) {
 };
 
 function andInputGroup(view, x, width, length, label, defaultString) {
-    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 25, width, 25));
-    labelView.setDrawsBackground("NO");
-    labelView.setEditable("NO");
-    labelView.setBezeled("NO");
-    labelView.setStringValue(label);
+    var ui = require("../modules/Dialog").ui;
+    var labelView = ui.textLabel(label, [x, 25, width, 25]);
     view.addSubview(labelView);
-
-    var inputView = NSTextField.alloc().initWithFrame(NSMakeRect(x, 0, length, 25));
-    inputView.setStringValue(defaultString);
-
+    var inputView = ui.textField(defaultString, [x, 0, length, 25])
     var formatter = NSNumberFormatter.alloc().init().autorelease();
     formatter.setNumberStyle(NSNumberFormatterNoStyle);
     inputView.setFormatter(formatter);
-
     view.addSubview(inputView);
-
     return inputView;
 }
 

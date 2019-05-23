@@ -1,9 +1,9 @@
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Library");
+    var ga = require("../modules/Google_Analytics");
+    ga("Library");
+    
+    var preferences = require("../modules/Preferences");
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
@@ -70,13 +70,13 @@ var onRun = function(context) {
     filterView.setCOSJSTargetFunction(function(sender) {
         if (sender.indexOfSelectedItem() == 1) {
             loadData(scrollView, allImportedSymbolsMissLibrary);
-            setPreferences(context, "importedSymbolsLinkManageFilter", "1");
+            preferences.set("importedSymbolsLinkManageFilter", "1");
         } else if (sender.indexOfSelectedItem() == 2) {
             loadData(scrollView, allImportedSymbolsNotFound);
-            setPreferences(context, "importedSymbolsLinkManageFilter", "2");
+            preferences.set("importedSymbolsLinkManageFilter", "2");
         } else {
             loadData(scrollView, allImportedSymbols);
-            setPreferences(context, "importedSymbolsLinkManageFilter", "0");
+            preferences.set("importedSymbolsLinkManageFilter", "0");
         }
     });
 
@@ -85,7 +85,7 @@ var onRun = function(context) {
     scrollView.setBorderType(NSBezelBorder);
     accessoryView.addSubview(scrollView);
 
-    var defaultFilterIndex = getPreferences(context, "importedSymbolsLinkManageFilter") || "0";
+    var defaultFilterIndex = preferences.get("importedSymbolsLinkManageFilter") || "0";
     if (defaultFilterIndex == "0") {
         filterView.selectItemAtIndex(0);
         loadData(scrollView, allImportedSymbols);

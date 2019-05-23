@@ -14,19 +14,6 @@ function dialog (message, info, width, buttons) {
     } else {
         this.buttons = ["OK", "Cancel"];
     }
-}
-
-/**
- * @param  {NSView} view
- */
-dialog.prototype.addView = function(view) {
-    this.views.push(view);
-}
-
-/**
- * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
- */
-dialog.prototype.run = function() {
     var alert = NSAlert.alloc().init();
     alert.setMessageText(this.message);
     if (this.info) {
@@ -41,7 +28,20 @@ dialog.prototype.run = function() {
     this.buttons.forEach(function(button) {
         alert.addButtonWithTitle(button);
     });
-    // layout
+    this.self = alert;
+}
+
+/**
+ * @param  {NSView} view
+ */
+dialog.prototype.addView = function(view) {
+    this.views.push(view);
+}
+
+/**
+ * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
+ */
+dialog.prototype.run = function() {
     var height = 0;
     var supView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, this.width, 1));
     supView.setFlipped(true);
@@ -55,13 +55,8 @@ dialog.prototype.run = function() {
     var viewFrame = supView.frame();
     viewFrame.size.height = height;
     supView.setFrame(viewFrame);
-    alert.setAccessoryView(supView);
-
-    var responseCode = alert.runModal();
-    return {
-        responseCode: Number(responseCode),
-        self: alert
-    }
+    this.self.setAccessoryView(supView);
+    return this.self.runModal();
 }
 
 dialog.prototype.close = function() {
