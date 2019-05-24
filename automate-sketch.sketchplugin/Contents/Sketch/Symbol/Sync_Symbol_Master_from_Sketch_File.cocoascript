@@ -3,6 +3,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var system = require("../modules/System");
     var document = context.document;
     var documentData = document.documentData();
@@ -38,14 +40,7 @@ var onRun = function(context) {
         if (!originalSymbol) {
             differentSymbols.addObject(symbol);
         } else {
-            if (
-                !originalSymbol.treeAsDictionary().layers.propertiesAreEqual(symbol.treeAsDictionary().layers) ||
-                !originalSymbol.treeAsDictionary().backgroundColor.propertiesAreEqual(symbol.treeAsDictionary().backgroundColor) ||
-                !originalSymbol.treeAsDictionary().exportOptions.propertiesAreEqual(symbol.treeAsDictionary().exportOptions) ||
-                !originalSymbol.treeAsDictionary().horizontalRulerData.propertiesAreEqual(symbol.treeAsDictionary().horizontalRulerData) ||
-                !originalSymbol.treeAsDictionary().style.propertiesAreEqual(symbol.treeAsDictionary().style) ||
-                !originalSymbol.treeAsDictionary().verticalRulerData.propertiesAreEqual(symbol.treeAsDictionary().verticalRulerData)
-            ) {
+            if (!diffSymbols(symbol, originalSymbol)) {
                 differentSymbols.addObject(symbol);
             }
         }
@@ -59,42 +54,32 @@ var onRun = function(context) {
     var viewWidth = 400;
     var rowHeight = 200;
 
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Sync Symbol Master from Sketch File");
-    dialog.setInformativeText("Replace symbol masters from file based on symbolID, and import new symbol masters.");
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
-
-    var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 400));
-    accessoryView.setFlipped(true);
+    var dialog = new Dialog(
+        "Sync Symbol Master from Sketch File",
+        "Replace symbol masters from file based on symbolID, and import new symbol masters.",
+        viewWidth
+    );
 
     var selectedSymbolCount = differentSymbols.count();
-    var selectAll = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, 20));
-    selectAll.setButtonType(NSSwitchButton);
+
+    var selectAll = ui.checkBox(true, "Select / Deselect all symbol masters.");
     selectAll.setAllowsMixedState(true);
-    selectAll.setTitle("Select / Deselect all symbol masters.");
-    selectAll.setState(NSOnState);
-    accessoryView.addSubview(selectAll);
+    dialog.addView(selectAll);
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 30, viewWidth, 370));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    accessoryView.addSubview(scrollView);
+    var scrollView = ui.scrollView([], [viewWidth, 370]);
+    dialog.addView(scrollView);
 
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, differentSymbols.count() * rowHeight));
-    contentView.setFlipped(true);
+    var contentView = ui.view([0, 0, viewWidth, differentSymbols.count() * rowHeight]);
     scrollView.setDocumentView(contentView);
 
     // Symbol list
     differentSymbols.forEach(function(symbol, i) {
 
         // List
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight * i, viewWidth, rowHeight));
-        itemView.setFlipped(true);
+        var itemView = ui.view([0, rowHeight * i, viewWidth, rowHeight]);
 
         // Checkbox
-        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 10, viewWidth - 20, 20));
-        checkbox.setButtonType(NSSwitchButton);
+        var checkbox = ui.checkBox(true, title, [10, 10, viewWidth - 20, 20]);
         var originalSymbol = documentData.symbolWithID(symbol.symbolID());
         var originalSymbolName = originalSymbol ? originalSymbol.name() : "";
         var newSymbolName = symbol.name();
@@ -102,8 +87,6 @@ var onRun = function(context) {
         if (originalSymbol && String(originalSymbolName) != String(newSymbolName)) {
             title = originalSymbolName + " ➝ " + newSymbolName;
         }
-        checkbox.setTitle(title);
-        checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
 
         checkbox.setCOSJSTargetFunction(function(sender) {
@@ -162,10 +145,8 @@ var onRun = function(context) {
         }
     });
 
-    dialog.setAccessoryView(accessoryView);
-
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var newSymbolMastersWillAddToDocument = NSMutableArray.alloc().init();
@@ -251,4 +232,18 @@ function symbolThumbView(context, symbol, x, y, imageWidth, imageHeight, label) 
     imageViewWrap.addSubview(imageView);
     imageViewWrap.addSubview(textLableView);
     return imageViewWrap;
+}
+
+function diffSymbols(symbol1, symbol2) {
+    if (symbol1.layers().count() == symbol2.layers().count()) {
+        var diff = [];
+        symbol1.layers().forEach(function(layer, index) {
+            diff.push(layer.propertiesAreEqual_forPurpose(symbol2.layers().objectAtIndex(index), 1));
+        });
+        return diff.every(function(item) {
+            return item == true;
+        });
+    } else {
+        return false;
+    }
 }

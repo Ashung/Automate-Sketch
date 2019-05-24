@@ -146,8 +146,8 @@ select_layers_by_type_exportable:
   - Exportable Layers
   - 可导出图层
 select_layers_by_name:
-  - Select Layers in Selection By Name
-  - 基于名称选择选中对象内所有图层
+  - Select Layers By Name
+  - 基于名称选择图层
 select_all_child_layers:
   - Select All Child Layers
   - 选择选中对象内所有子图层
@@ -253,9 +253,6 @@ set_to_original_size:
 export_all_symbols_as_png:
   - Export All Symbols As PNG
   - 将所有组件导出为 PNG
-replace_missing_fonts:
-  - Replace Missing Fonts
-  - 替换缺失字体
 replace_fonts:
   - Replace Fonts
   - 替换字体
@@ -355,9 +352,6 @@ arrange_objects:
 select_parent_groups:
   - Select Parent Groups
   - 选择父级
-baseline:
-  - Change Baseline Offset
-  - 修改基线偏移
 resize_fit_text_height:
   - Resize to Fit Text Height
   - 自适应文本高度
@@ -430,9 +424,6 @@ load_export_presets:
 create_library_symbol:
   - Create Library Symbol
   - 创建库组件
-move_symbols_to_page:
-  - Move Symbol Masters To Another Page
-  - 移动组件模版至另一页
 remove_transparency_layers:
   - Remove Transparency Layers
   - 删除透明图层

@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var util = require("util");
     var document = context.document;
     var documentData = document.documentData();
 
@@ -14,6 +17,8 @@ var onRun = function(context) {
     var selection = context.selection;
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
 
     if (documentData.localSymbols().count() == 0) {
         document.showMessage("Current document has no local symbols.");
@@ -34,7 +39,7 @@ var onRun = function(context) {
     var loopSelection = selection.objectEnumerator();
     var layer;
     while (layer = loopSelection.nextObject()) {
-        if (layer.class() == "MSSymbolInstance")) {
+        if (layer.class() == "MSSymbolInstance") {
             if (!layer.symbolMaster().isForeign()) {
                 selectedSymbol = layer.symbolMaster();
                 break;
@@ -52,67 +57,39 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Replace Symbol With Library Symbol");
-    dialog.setInformativeText(
-        "You currently selected the symbol master named \"" + selectedSymbol.name() +"\"."
+    var dialog = new Dialog(
+        "Replace Symbol With Library Symbol",
+        "You currently selected the symbol master named \"" + selectedSymbol.name() +"\".",
+        500,
+        ["Cancel"]
     );
 
-    var accessoryView = NSView.alloc().init();
-    accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, 500, 500));
+    dialog.addLabel("Choose A Library:");
 
-    var labelView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 500, 20));
-    labelView.setStringValue("Choose A Library:");
-    labelView.setFont(NSFont.boldSystemFontOfSize(12));
-    labelView.setBezeled(false);
-    labelView.setDrawsBackground(false);
-    labelView.setEditable(false);
-    labelView.setSelectable(false);
-    accessoryView.addSubview(labelView);
+    var availableLibraryNames = util.toArray(availableLibraries).map(function(item) {
+        return item.name();
+    });
+    var selectBox = ui.popupButton(availableLibraryNames);
+    dialog.addView(selectBox);
 
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 20, 200, 30));
-    var loopAvailableLibraries = availableLibraries.reverseObjectEnumerator();
-    var availableLibrary;
-    while (availableLibrary = loopAvailableLibraries.nextObject()) {
-        selectBox.addItemWithTitle("");
-        selectBox.lastItem().setTitle(availableLibrary.name());
-    }
-    accessoryView.addSubview(selectBox);
+    dialog.addLabel("All Symbols:");
 
-    var labelView2 = NSTextField.alloc().initWithFrame(NSMakeRect(0, 50, 500, 20));
-    labelView2.setStringValue("All Symbols:");
-    labelView2.setFont(NSFont.boldSystemFontOfSize(12));
-    labelView2.setBezeled(false);
-    labelView2.setDrawsBackground(false);
-    labelView2.setEditable(false);
-    labelView2.setSelectable(false);
-    accessoryView.addSubview(labelView2);
+    var scrollView = ui.scrollView([], [500, 400]);
+    dialog.addView(scrollView);
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 70, 500, 400));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    accessoryView.addSubview(scrollView);
+    var checkboxSize = ui.checkBox(false, "After replace with library symbols, set all instances to original size.");
+    dialog.addView(checkboxSize);
 
-    var checkboxSize = NSButton.alloc().initWithFrame(NSMakeRect(0, 480, 500, 20));
-    checkboxSize.setButtonType(NSSwitchButton);
-    checkboxSize.setTitle("After replace with library symbols, set all instances to original size.");
-    checkboxSize.setState(NSOffState);
-    accessoryView.addSubview(checkboxSize);
-
-    dialog.setAccessoryView(accessoryView);
-
-    var selectedLibrary = availableLibraries.lastObject();
+    var selectedLibrary = availableLibraries.firstObject();
     reloadSymbolData(context, scrollView, selectedSymbol, selectedLibrary, checkboxSize);
 
     selectBox.setCOSJSTargetFunction(function(sender) {
-        var i = availableLibraries.count() - sender.indexOfSelectedItem() - 1;
+        var i = sender.indexOfSelectedItem();
         var selectedLibrary = availableLibraries.objectAtIndex(i);
         reloadSymbolData(context, scrollView, selectedSymbol, selectedLibrary, checkboxSize);
     });
 
-    dialog.addButtonWithTitle("Cancel");
-    dialog.runModal();
+    dialog.run();
 
 };
 
@@ -305,17 +282,6 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
     view.setDocumentView(contentView);
 
-}
-
-function createLabelNote(rect, text) {
-    var textLabelNote = NSTextField.alloc().initWithFrame(rect);
-    textLabelNote.setStringValue(text);
-    textLabelNote.setFont(NSFont.systemFontOfSize(10));
-    textLabelNote.setTextColor(NSColor.redColor());
-    textLabelNote.setBezeled(false);
-    textLabelNote.setEditable(false);
-    textLabelNote.sizeToFit();
-    return textLabelNote;
 }
 
 function instancesInDocument(document) {

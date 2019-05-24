@@ -4,6 +4,8 @@ var onRun = function(context) {
     ga("Style");
 
     var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
@@ -21,6 +23,7 @@ var onRun = function(context) {
 
     var colorFormats = [
         "HEX, #FFFFFF (alpha:100%)",
+        "HEX 8, #FFFFFFFF",
         "RGB, r:255 g:255 b:255 (a:100%)",
         "CSS RGB, rgb(255, 255, 255)",
         "CSS RGBA, rgba(255, 255, 255, 1)",
@@ -31,26 +34,24 @@ var onRun = function(context) {
     ];
 
     // Dialog
-    var dialog = COSAlertWindow.new();
-    dialog.setMessageText("Create Color Guide");
-    dialog.setInformativeText("Create color guide from document colors.")
+    var dialog = new Dialog(
+        "Create Color Guide",
+        "Create color guide from document colors."
+    );
 
-    dialog.addTextLabelWithValue("Palette Size:");
-    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-    textField.setStringValue(preferences.get("paletteSize") || "");
+    dialog.addLabel("Palette Size:");
+
+    var textField = ui.textField(preferences.get("paletteSize") || "");
     textField.setPlaceholderString("Input the format like \"100\" or \"100x50\"");
-    dialog.addAccessoryView(textField);
+    dialog.addView(textField);
 
-    dialog.addTextLabelWithValue("Color Format:");
-    var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-    selectBox.addItemsWithObjectValues(colorFormats);
+    dialog.addLabel("Color Format:");
+
+    var selectBox = ui.popupButton(colorFormats);
     selectBox.selectItemAtIndex(parseInt(preferences.get("colorFormat")) || 0);
-    dialog.addAccessoryView(selectBox);
+    dialog.addView(selectBox);
 
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
-
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var page = document.currentPage();
@@ -147,24 +148,27 @@ var onRun = function(context) {
                     stringValue = MSColorToHEX(mscolor);
                     break;
                 case 1:
-                    stringValue = MSColorToRGB(mscolor);
+                    stringValue = MSColorToHEX8(mscolor);
                     break;
                 case 2:
-                    stringValue = MSColorToCSSRGB(mscolor);
+                    stringValue = MSColorToRGB(mscolor);
                     break;
                 case 3:
-                    stringValue = MSColorToCSSRGBA(mscolor);
+                    stringValue = MSColorToCSSRGB(mscolor);
                     break;
                 case 4:
-                    stringValue = MSColorToCSSHSL(mscolor);
+                    stringValue = MSColorToCSSRGBA(mscolor);
                     break;
                 case 5:
-                    stringValue = MSColorToCSSHSLA(mscolor);
+                    stringValue = MSColorToCSSHSL(mscolor);
                     break;
                 case 6:
-                    stringValue = MSColorToAndroid(mscolor);
+                    stringValue = MSColorToCSSHSLA(mscolor);
                     break;
                 case 7:
+                    stringValue = MSColorToAndroid(mscolor);
+                    break;
+                case 8:
                     stringValue = MSColorToNSColor(mscolor);
                     break;
                 default:
@@ -213,6 +217,10 @@ function centerRect_byLayers(document, layers) {
 function MSColorToHEX(mscolor) {
     var alpha = mscolor.alpha() < 1 ? " (alpha:" + Math.round(mscolor.alpha() * 100) + "%)" : "";
     return "#" + mscolor.immutableModelObject().hexValue() + alpha;
+}
+
+function MSColorToHEX8(mscolor) {
+    return "#" + mscolor.immutableModelObject().hexValue() + Math.round(mscolor.alpha() * 255).toString(16).toUpperCase();
 }
 
 function MSColorToRGB(mscolor) {

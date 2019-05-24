@@ -4,6 +4,8 @@ var onRun = function(context) {
     ga("Style");
 
     var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     
     var document = context.document;
     var textStyles = document.documentData().layerTextStyles().sharedStyles();
@@ -13,19 +15,17 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = COSAlertWindow.new();
-    dialog.setMessageText("Create Typography Guide");
-    dialog.setInformativeText("Create typography guide from document text styles. \n\nIf your want to use style name as preview text, leave the option blank.")
+    var dialog = new Dialog(
+        "Create Typography Guide",
+        "Create typography guide from document text styles. \n\nIf your want to use style name as preview text, leave the option blank."
+    );
 
-    dialog.addTextLabelWithValue("Preview Text:");
-    var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-    textField.setStringValue(preferences.get("previewText") || "");
-    dialog.addAccessoryView(textField);
+    dialog.addLabel("Preview Text:");
 
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var textField = ui.textField(preferences.get("previewText") || "");
+    dialog.addView(textField);
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var page = document.currentPage();

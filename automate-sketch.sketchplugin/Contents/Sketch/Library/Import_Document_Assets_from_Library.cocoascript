@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var util = require("util");
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
@@ -11,6 +14,8 @@ var onRun = function(context) {
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
 
     if (availableLibraries.count() == 0) {
         document.showMessage("You have no available libraries.");
@@ -18,33 +23,30 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Import Document Assets from Library");
-    dialog.setInformativeText("You can import colors, gradients, images from any library.");
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(
+        "Import Document Assets from Library",
+        "You can import colors, gradients, images from any library."
+    );
 
-    dialog.addTextLabelWithValue("Choose a library.");
-    var selectBox = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-    var loopAvailableLibraries = availableLibraries.objectEnumerator();
-    var availableLibrary;
-    while (availableLibrary = loopAvailableLibraries.nextObject()) {
-        selectBox.addItemWithTitle("");
-        selectBox.lastItem().setTitle(availableLibrary.name());
-    }
-    dialog.addAccessoryView(selectBox);
+    dialog.addLabel("Choose a library.");
 
-    var checkboxColors = checkboxView("Import colors.");
-    dialog.addAccessoryView(checkboxColors);
+    var availableLibraryNames = util.toArray(availableLibraries).map(function(item) {
+        return item.name();
+    });
+    var selectBox = ui.popupButton(availableLibraryNames);
+    dialog.addView(selectBox);
 
-    var checkboxGradients = checkboxView("Import gradients.");
-    dialog.addAccessoryView(checkboxGradients);
+    var checkboxColors = ui.checkBox(true, "Import colors.");
+    dialog.addView(checkboxColors);
 
-    var checkboxImages = checkboxView("Import images.");
-    dialog.addAccessoryView(checkboxImages);
+    var checkboxGradients = ui.checkBox(true, "Import gradients.");
+    dialog.addView(checkboxGradients);
+
+    var checkboxImages = ui.checkBox(true, "Import images.");
+    dialog.addView(checkboxImages);
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var assets = document.documentData().assets();
@@ -106,11 +108,3 @@ var onRun = function(context) {
     }
 
 };
-
-function checkboxView(text) {
-    var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    checkbox.setButtonType(NSSwitchButton);
-    checkbox.setTitle(text);
-    checkbox.setState(NSOnState);
-    return checkbox;
-}

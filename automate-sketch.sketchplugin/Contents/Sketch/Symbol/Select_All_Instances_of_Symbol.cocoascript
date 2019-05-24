@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var doc = context.document;
     var selection = context.selection;
@@ -55,26 +58,25 @@ var onRun = function(context) {
         }
 
         // Dialog
-        var alert = NSAlert.alloc().init();
-        alert.setMessageText("Select All Instances of Symbol");
-        alert.setInformativeText("Pages that contain instance of \"" + currentSymbolMaster.name() + "\".\nClick OK to select all instances in page.")
-        alert.addButtonWithTitle("OK");
-        alert.addButtonWithTitle("Cancel");
-        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 260, 28));
-        selectBox.addItemsWithObjectValues(pagesName);
-        selectBox.selectItemAtIndex(0);
-        alert.setAccessoryView(selectBox);
-        var responseCode = alert.runModal();
-        var selectPage = selectBox.indexOfSelectedItem();
+        var dialog = new Dialog(
+            "Select All Instances of Symbol",
+            "Pages that contain instance of \"" + currentSymbolMaster.name() + "\".\nClick OK to select all instances in page."
+        );
 
+        dialog.addLabel("Choose a page");
+
+        var selectBox = ui.popupButton(pagesName);
+        dialog.addView(selectBox);
+
+        var responseCode = dialog.run();
         if (responseCode == 1000) {
 
             // go to selected page
+            var selectPage = selectBox.indexOfSelectedItem();
             var currentPage = pagesHasInstances[selectPage];
             doc.setCurrentPage(currentPage);
 
             // Select all instances
-
             // Fix Sketch 45
             if (currentPage.deselectAllLayers) {
                 currentPage.deselectAllLayers();

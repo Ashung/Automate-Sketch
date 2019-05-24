@@ -75,12 +75,10 @@ function loadData(context, scrollView, page) {
 
     var itemsCount = artboards.count();
     var itemHeight = 40;
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight + 10));
-    contentView.setFlipped(true);
+    var contentView = ui.view([0, 0, 300, itemsCount * itemHeight + 10]);
 
     artboards.forEach(function(item, index) {
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
-        itemView.setFlipped(true);
+        var itemView = ui.view([0, itemHeight * index, 300, itemHeight]);
 
         var iconView = NSImageView.alloc().initWithFrame(NSMakeRect(4, 12, 16, 16));
         var icon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_artboard.png"));
@@ -102,12 +100,9 @@ function loadData(context, scrollView, page) {
             showArtboard(context, item);
         });
 
-        var renameButton = NSButton.alloc().initWithFrame(NSMakeRect(300 - itemHeight, 0, itemHeight, itemHeight));
-        renameButton.setBezelStyle(nil);
-        renameButton.setBordered("NO");
         var editicon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_edit.png"));
         editicon.setSize(CGSizeMake(16, 16));
-        renameButton.setImage(editicon);
+        var renameButton = ui.imageButton(editicon, [300 - itemHeight, 0, itemHeight, itemHeight]);
         itemView.addSubview(renameButton);
 
         renameButton.setCOSJSTargetFunction(function(sender) {

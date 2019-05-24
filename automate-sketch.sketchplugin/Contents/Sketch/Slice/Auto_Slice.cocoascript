@@ -8,6 +8,9 @@ var onRun = function(context) {
     ga("Slice");
 
     var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var document = context.document;
     var selection = context.selection;
     if (selection.count() == 0) {
@@ -25,33 +28,31 @@ var onRun = function(context) {
     var renameSliceLayer = preferences.get("renameSliceLayer") || false;
 
     // Dialog
-    // TODO: xxx
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Auto Slice",
         "Input the size like 24, 24x24 or 0, use 0 means to fit the layer size."
     );
 
-    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
+    var view = ui.view([300, 24]);
 
-    var textField = UI.textField(defaultUserInput, [0, 0, 170, 24]);
+    var textField = ui.textField(defaultUserInput, [0, 0, 170, 24]);
     view.addSubview(textField);
 
     var exportPresetTitles = exportPresets.slice().map(function(item) {
-        return item.name()
+        return item.name();
     });
-    var selectBox = UI.popupButton(exportPresetTitles, [180, 0, 120, 24]);
+    var selectBox = ui.popupButton(exportPresetTitles, [180, 0, 120, 24]);
     selectBox.selectItemAtIndex(defaultExportPresetIndex);
     view.addSubview(selectBox);
 
-    dialog.addAccessoryView(view);
-    dialog.alert().window().setInitialFirstResponder(textField);
-    console.log(dialog.alert())
+    dialog.addView(view);
+    dialog.self.window().setInitialFirstResponder(textField);
 
-    var renameSliceCheckbox = UI.checkBox(renameSliceLayer, "Rename slice layer to url-friendly format.")
-    dialog.addAccessoryView(renameSliceCheckbox);
+    var renameSliceCheckbox = ui.checkBox(renameSliceLayer, "Rename slice layer to url-friendly format.")
+    dialog.addView(renameSliceCheckbox);
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var userInputString = textField.stringValue();

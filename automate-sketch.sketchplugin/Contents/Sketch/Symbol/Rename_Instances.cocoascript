@@ -3,8 +3,6 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
-    var preferences = require("../modules/Preferences");
-
     var document = context.document;
     var selection = context.selection;
     var symbolInstancesInSelection = getSymbolInstancesInSelection(selection);
@@ -21,7 +19,7 @@ var onRun = function(context) {
         while (page = loopPages.nextObject()) {
             instances.addObjectsFromArray(page.allSymbolInstancesInChildren().allObjects());
         }
-        renameInstances(context, instances, "Rename All Instances", "Change the name for all sysmbol instances.");
+        renameInstances(instances, "Rename All Instances", "Change the name for all symbol instances.");
     }
 
     // Rename all selected instances
@@ -30,7 +28,7 @@ var onRun = function(context) {
         symbolInstancesInSelection.count() >= symbolMastersInSelection.count()
     ) {
         var instances = symbolInstancesInSelection;
-        renameInstances(context, instances, "Rename Instances", "Change the name for all selected sysmbol instances.");
+        renameInstances(instances, "Rename Instances", "Change the name for all selected symbol instances.");
     }
 
     // Rename all instances of selected symbol master
@@ -44,69 +42,47 @@ var onRun = function(context) {
         while (symbolMaster = loopSymbolMasterInSelection.nextObject()) {
             instances.addObjectsFromArray(symbolMaster.allInstances());
         }
-        renameInstances(context, instances, "Rename Instances of Symbol Master", "Change the name for all sysmbol instances of selected symbol masters.");
+        renameInstances(instances, "Rename Instances of Symbol Master", "Change the name for all sysmbol instances of selected symbol masters.");
     }
 
 };
 
-function renameInstances(context, instances, title, message) {
+function renameInstances(instances, title, message) {
+
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     // Dialog
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText(title);
-    dialog.setInformativeText(message);
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(title, message);
 
-    // Views
-    var views = NSMutableArray.alloc().init();
+    dialog.addLabel("Change the name to...");
 
-    var labelNameType = labelView("Change the name to...");
-    views.addObject(labelNameType);
-
-    var buttonNameType = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    buttonNameType.addItemsWithTitles([
+    var buttonNameType = ui.popupButton([
         "Original name of symbol master.",
         "Base name of symbol master.",
         "1st group name of symbol master.",
         "2nd group name of symbol master.",
         "Custom name."
     ]);
-    views.addObject(buttonNameType);
+    dialog.addView(buttonNameType);
+    
+    dialog.addLabel("Custom name");
 
-    var labelCustomName = labelView("Custom name");
-    views.addObject(labelCustomName);
-
-    var inputCustomName = textFieldView(preferences.get("customInstanceName") || "");
-    textFieldEditable(inputCustomName, false);
-    views.addObject(inputCustomName);
+    var inputCustomName = ui.textField(preferences.get("customInstanceName") || "");
+    ui.disableTextField(inputCustomName, true);
+    dialog.addView(inputCustomName);
 
     buttonNameType.setCOSJSTargetFunction(function(sender) {
         if (sender.indexOfSelectedItem() == sender.itemArray().count() - 1) {
-            textFieldEditable(inputCustomName, true);
+            ui.disableTextField(inputCustomName, false);
         } else {
-            textFieldEditable(inputCustomName, false);
+            ui.disableTextField(inputCustomName, true);
         }
     });
 
-    // Layout
-    var wrapViewHeight = 0;
-    var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 0));
-    accessoryView.setFlipped(true);
-    views.forEach(function(view) {
-        var currentFrame = view.bounds();
-        currentFrame.origin.y = wrapViewHeight + 8;
-        wrapViewHeight += currentFrame.size.height + 8;
-        view.setFrame(currentFrame);
-        accessoryView.addSubview(view);
-    });
-
-    var viewFrame = accessoryView.frame();
-    viewFrame.size.height = wrapViewHeight;
-    accessoryView.setFrame(viewFrame);
-    dialog.setAccessoryView(accessoryView);
-
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         preferences.set("customInstanceName", inputCustomName.stringValue());
@@ -158,33 +134,4 @@ function getSymbolInstancesInSelection(selection) {
 function getSymbolMastersInSelection(selection) {
     var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolMaster");
     return selection.filteredArrayUsingPredicate(predicate);
-}
-
-function labelView(text) {
-    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 16)));
-    textView.setStringValue(text);
-    textView.setFont(NSFont.boldSystemFontOfSize(12));
-    textView.setTextColor(NSColor.blackColor());
-    textView.setBezeled(false);
-    textView.setDrawsBackground(false);
-    textView.setEditable(false);
-    textView.setSelectable(false);
-    return textView;
-}
-
-function textFieldView(text) {
-    var textView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 25)));
-    textView.setStringValue(text);
-    textView.setFont(NSFont.systemFontOfSize(12));
-    return textView;
-}
-
-function textFieldEditable(view, bool) {
-    if (bool) {
-        view.setEditable(true);
-        view.setTextColor(NSColor.blackColor());
-    } else {
-        view.setEditable(false);
-        view.setTextColor(NSColor.grayColor());
-    }
 }

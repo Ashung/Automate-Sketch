@@ -3,6 +3,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var document = context.document;
     var selection = context.selection;
 
@@ -15,22 +17,23 @@ var onRun = function(context) {
 
     // Dialog
     var dialogWidth = 400;
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Show Layer Info");
-    dialog.setInformativeText("You current select layer \"" + layer.name() + "\". You can change ID to a new one or input a ID.");
-    dialog.addButtonWithTitle("Save");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(
+        "Show and Change Layer Info",
+        "You current select layer \"" + layer.name() + "\". You can change ID to a new one or input a ID.",
+        400,
+        ["Save", "Cancel"]
+    );
 
     // Views
-    var views = NSMutableArray.alloc().init();
+    var views = [];
 
     var labelClass = labelView("layer.className()");
-    views.addObject(labelClass);
+    views.push(labelClass);
     var textFieldClass = textFieldView(layer.class(), false);
-    views.addObject(textFieldClass);
+    views.push(textFieldClass);
 
     var labelObjectID = labelView("layer.objectID()");
-    views.addObject(labelObjectID);
+    views.push(labelObjectID);
     var groupObjectID = NSView.alloc().initWithFrame(NSMakeRect(0, 0, dialogWidth, 25));
     groupObjectID.setFlipped(true);
     var textFieldObjectID = textFieldView(layer.objectID());
@@ -39,7 +42,7 @@ var onRun = function(context) {
     buttonCopyObjectID.setBezelStyle(NSRoundedBezelStyle);
     buttonCopyObjectID.setTitle("Copy");
     buttonCopyObjectID.setCOSJSTargetFunction(function(sender) {
-        copyToPasteboard(context, textFieldObjectID.stringValue());
+        copyToPasteboard(textFieldObjectID.stringValue());
     });
     groupObjectID.addSubview(buttonCopyObjectID);
     var buttonChangeObjectID = NSButton.alloc().initWithFrame(NSMakeRect(325, 0, 80, 28));
@@ -49,12 +52,12 @@ var onRun = function(context) {
         textFieldObjectID.setStringValue(NSUUID.UUID().UUIDString());
     });
     groupObjectID.addSubview(buttonChangeObjectID);
-    views.addObject(groupObjectID);
+    views.push(groupObjectID);
 
     if (layer.class() == "MSSymbolInstance") {
         if (layer.symbolMaster().isForeign()) {
             var labelRemoteSymbolID = labelView("layer.symbolMaster().foreignObject().remoteSymbolID()");
-            views.addObject(labelRemoteSymbolID);
+            views.push(labelRemoteSymbolID);
             var groupRemoteSymbolID = NSView.alloc().initWithFrame(NSMakeRect(0, 0, dialogWidth, 25));
             groupRemoteSymbolID.setFlipped(true);
             var textFieldRemoteSymbolID = textFieldView(layer.symbolMaster().foreignObject().remoteSymbolID());
@@ -63,7 +66,7 @@ var onRun = function(context) {
             buttonCopyRemoteSymbolID.setBezelStyle(NSRoundedBezelStyle);
             buttonCopyRemoteSymbolID.setTitle("Copy");
             buttonCopyRemoteSymbolID.setCOSJSTargetFunction(function(sender) {
-                copyToPasteboard(context, textFieldRemoteSymbolID.stringValue());
+                copyToPasteboard(textFieldRemoteSymbolID.stringValue());
             });
             groupRemoteSymbolID.addSubview(buttonCopyRemoteSymbolID);
             var buttonChangeRemoteSymbolID = NSButton.alloc().initWithFrame(NSMakeRect(325, 0, 80, 28));
@@ -73,10 +76,10 @@ var onRun = function(context) {
                 textFieldRemoteSymbolID.setStringValue(NSUUID.UUID().UUIDString());
             });
             groupRemoteSymbolID.addSubview(buttonChangeRemoteSymbolID);
-            views.addObject(groupRemoteSymbolID);
+            views.push(groupRemoteSymbolID);
 
             var labelLibraryID = labelView("layer.symbolMaster().foreignObject().libraryID()");
-            views.addObject(labelLibraryID);
+            views.push(labelLibraryID);
             var groupLibraryID = NSView.alloc().initWithFrame(NSMakeRect(0, 0, dialogWidth, 25));
             groupLibraryID.setFlipped(true);
             var textFieldLibraryID = textFieldView(layer.symbolMaster().foreignObject().libraryID());
@@ -85,7 +88,7 @@ var onRun = function(context) {
             buttonCopyLibraryID.setBezelStyle(NSRoundedBezelStyle);
             buttonCopyLibraryID.setTitle("Copy");
             buttonCopyLibraryID.setCOSJSTargetFunction(function(sender) {
-                copyToPasteboard(context, textFieldLibraryID.stringValue());
+                copyToPasteboard(textFieldLibraryID.stringValue());
             });
             groupLibraryID.addSubview(buttonCopyLibraryID);
             var buttonChangeLibraryID = NSButton.alloc().initWithFrame(NSMakeRect(325, 0, 80, 28));
@@ -95,16 +98,16 @@ var onRun = function(context) {
                 textFieldLibraryID.setStringValue(NSUUID.UUID().UUIDString());
             });
             groupLibraryID.addSubview(buttonChangeLibraryID);
-            views.addObject(groupLibraryID);
+            views.push(groupLibraryID);
         }
     }
 
     if (layer.class() == "MSSymbolInstance" || layer.class() == "MSSymbolMaster") {
         var labelTips = labelView("DANGER AREA");
         labelTips.setTextColor(NSColor.redColor());
-        views.addObject(labelTips);
+        views.push(labelTips);
         var labelSymbolID = labelView("layer.symbolID()");
-        views.addObject(labelSymbolID);
+        views.push(labelSymbolID);
         var groupSymbolID = NSView.alloc().initWithFrame(NSMakeRect(0, 0, dialogWidth, 25));
         groupSymbolID.setFlipped(true);
         var textFieldSymbolID = textFieldView(layer.symbolID());
@@ -113,7 +116,7 @@ var onRun = function(context) {
         buttonCopySymbolID.setBezelStyle(NSRoundedBezelStyle);
         buttonCopySymbolID.setTitle("Copy");
         buttonCopySymbolID.setCOSJSTargetFunction(function(sender) {
-            copyToPasteboard(context, textFieldSymbolID.stringValue());
+            copyToPasteboard(textFieldSymbolID.stringValue());
         });
         groupSymbolID.addSubview(buttonCopySymbolID);
         var buttonChangeSymbolID = NSButton.alloc().initWithFrame(NSMakeRect(325, 0, 80, 28));
@@ -123,28 +126,12 @@ var onRun = function(context) {
             textFieldSymbolID.setStringValue(NSUUID.UUID().UUIDString());
         });
         groupSymbolID.addSubview(buttonChangeSymbolID);
-        views.addObject(groupSymbolID);
+        views.push(groupSymbolID);
     }
 
-    // Layout
-    var wrapViewHeight = 0;
-    var accessoryView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, dialogWidth, 0));
-    accessoryView.setFlipped(true);
-    views.forEach(function(view) {
-        var currentFrame = view.bounds();
-        currentFrame.origin.y = wrapViewHeight + 8;
-        wrapViewHeight += currentFrame.size.height + 8;
-        view.setFrame(currentFrame);
-        accessoryView.addSubview(view);
-    });
-
-    var viewFrame = accessoryView.frame();
-    viewFrame.size.height = wrapViewHeight;
-    accessoryView.setFrame(viewFrame);
-    dialog.setAccessoryView(accessoryView);
-
+    dialog.views = views;
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
         var idRegExp = new RegExp("[A-F0-9]{8}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{4}-[A-F0-9]{12}");
 
@@ -195,9 +182,9 @@ function textFieldView(text, editable) {
     return textView;
 }
 
-function copyToPasteboard(context, cotentString) {
-    var pboard = NSPasteboard.generalPasteboard();
-    pboard.clearContents();
-    pboard.setString_forType_(cotentString, NSStringPboardType);
-    context.document.showMessage("ID \"" + cotentString + "\" copied.");
+function copyToPasteboard(content) {
+    var ui = require("sketch/ui");
+    var pasteboard = require("../modules/Pasteboard");
+    pasteboard.pbcopy(content);
+    ui.message("ID \"" + content + "\" copied.");
 }

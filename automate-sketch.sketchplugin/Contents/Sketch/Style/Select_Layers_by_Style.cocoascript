@@ -34,6 +34,10 @@ var selectLayersByTextStyle = function(context) {
 
 function main(context, styles, title, message) {
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var util = require("util");
+
     // Order style
     var orderedStyles = NSMutableArray.alloc().init();
     var loopStyles = styles.objectEnumerator();
@@ -41,7 +45,6 @@ function main(context, styles, title, message) {
     while (style = loopStyles.nextObject()) {
         var name, type;
         if (style.class() == "MSSharedStyle") {
-            log(style)
             name = style.name();
             if (style.style().hasTextStyle()) {
                 type = "text";
@@ -70,24 +73,18 @@ function main(context, styles, title, message) {
     orderedStyles = orderedStyles.sortedArrayUsingDescriptors([sortDescriptor]);
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText(title);
-    dialog.setInformativeText(message);
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(title, message);
 
-    dialog.addTextLabelWithValue("Choose Style:");
-    var styleListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    var loopOrderedStyles = orderedStyles.objectEnumerator();
-    var orderedStyle;
-    while (orderedStyle = loopOrderedStyles.nextObject()) {
-        styleListView.addItemWithTitle("");
-        styleListView.lastItem().setTitle(orderedStyle.name);
-    }
-    dialog.addAccessoryView(styleListView);
+    dialog.addLabel("Choose Style:");
+
+    var orderedStyleNames = util.toArray(orderedStyles).map(function(item) {
+        return item.name;
+    });
+    var styleListView = ui.popupButton(orderedStyleNames);
+    dialog.addView(styleListView);
 
     // Run
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var document = context.document;

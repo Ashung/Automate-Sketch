@@ -4,6 +4,8 @@ var onRun = function(context) {
     ga("Library");
     
     var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
@@ -20,6 +22,8 @@ var onRun = function(context) {
 
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    availableLibraries = availableLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
     if (availableLibraries.count() == 0) {
         document.showMessage("You have no available libraries.");
         return;
@@ -50,22 +54,19 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Imported Symbols Link Manage");
-    dialog.setInformativeText("Link imported symbols to another library, or fix the 'Library not found' error.");
-    dialog.addButtonWithTitle("Close");
+    var dialog = new Dialog(
+        "Imported Symbols Link Manage",
+        "Link imported symbols to another library, or fix the 'Library not found' error.",
+        500,
+        ["Close"]
+    );
 
-    var accessoryView = NSView.alloc().init();
-    accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, 500, 430));
-
-    var filterView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
-    filterView.addItemsWithTitles([
+    var filterView = ui.popupButton([
         "Show all symbols.",
         "Show only symbols that library file is not found.",
         "Show only symbols that symbol is not found in library."
     ]);
-    accessoryView.addSubview(filterView);
+    dialog.addView(filterView);
 
     filterView.setCOSJSTargetFunction(function(sender) {
         if (sender.indexOfSelectedItem() == 1) {
@@ -80,10 +81,8 @@ var onRun = function(context) {
         }
     });
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 30, 500, 400));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    accessoryView.addSubview(scrollView);
+    var scrollView = ui.scrollView([], [500, 400]);
+    dialog.addView(scrollView);
 
     var defaultFilterIndex = preferences.get("importedSymbolsLinkManageFilter") || "0";
     if (defaultFilterIndex == "0") {
@@ -97,17 +96,19 @@ var onRun = function(context) {
         loadData(scrollView, allImportedSymbolsNotFound);
     }
 
-    dialog.setAccessoryView(accessoryView);
-    dialog.runModal();
+    dialog.run();
 
 };
 
 function loadData(scrollView, symbols) {
 
+    var ui = require("../modules/Dialog").ui;
+    var preview = require("../modules/Preview");
+
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var availableLibraries = assetLibraryController.availableLibraries();
 
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 500, symbols.count() * 60 + 10));
+    var contentView = ui.view([0, 0, 500, symbols.count() * 60 + 10]);
     contentView.setFlipped(true);
 
     var loopImportedSymbols = symbols.objectEnumerator();
@@ -123,44 +124,30 @@ function loadData(scrollView, symbols) {
         var sourceLibraryName = importedSymbol.sourceLibraryName();
 
         // List
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, 60 * i, 500, 60));
+        var itemView = ui.view([0, 60 * i, 500, 60]);
         itemView.setFlipped(true);
 
         // 0: Index symbols
-        var indexView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
-        indexView.setStringValue(i);
+        var indexView = ui.textLabel(i, [0, 0, 0, 0]);
         itemView.addSubview(indexView);
 
         // Tips
-        var tipView = NSTextField.alloc().initWithFrame(NSMakeRect(370, 42, 120, 30));
-        tipView.setStringValue("");
+        var tipView = ui.textLabel("", [370, 42, 120, 30]);
         tipView.setFont(NSFont.systemFontOfSize(10));
         tipView.setTextColor(NSColor.redColor());
-        tipView.setBezeled(false);
-        tipView.setEditable(false);
         itemView.addSubview(tipView);
 
         // Preview image
-        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(10, 10, 40, 40));
-        var layerAncestry = importedSymbol.symbolMaster().ancestry();;
-        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(80, 80), NSColorSpace.sRGBColorSpace(), false
-        );
-        imageView.setImage(symbolPreviewImage);
+        var symbolPreviewImage = preview.symbol(importedSymbol.symbolMaster(), 40);
+        var imageView = ui.image(symbolPreviewImage, [10, 10, 40, 40]);
         itemView.addSubview(imageView);
 
         // Title
-        var titleView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 10, 300, 20));
-        titleView.setStringValue(importedSymbol.symbolMaster().name());
-        titleView.setBezeled(false);
-        titleView.setEditable(false);
+        var titleView = ui.textLabel(importedSymbol.symbolMaster().name(), [60, 10, 300, 20]);
         itemView.addSubview(titleView);
 
         // Library name
-        var libraryNameView = NSTextField.alloc().initWithFrame(NSMakeRect(60, 30, 300, 20));
-        libraryNameView.setStringValue(libraryForSymbol ? libraryForSymbol.name() : sourceLibraryName);
-        libraryNameView.setBezeled(false);
-        libraryNameView.setEditable(false);
+        var libraryNameView = ui.textLabel(libraryForSymbol ? libraryForSymbol.name() : sourceLibraryName, [60, 30, 300, 20]);
         libraryNameView.setTextColor(NSColor.grayColor());
         itemView.addSubview(libraryNameView);
 
@@ -177,7 +164,7 @@ function loadData(scrollView, symbols) {
         }
 
         // Library list
-        var libraryListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(370, 15, 120, 30));
+        var libraryListView = ui.popupButton([], [370, 15, 120, 30]);
         if (!libraryForSymbol) {
             libraryListView.addItemWithTitle("");
             libraryListView.lastItem().setTitle(sourceLibraryName);
@@ -252,9 +239,7 @@ function loadData(scrollView, symbols) {
         });
 
         // Divider
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, 60 - 1, 500, 1));
-        divider.setWantsLayer(true);
-        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        var divider = ui.divider([0, 60 - 1, 500, 1]);
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);

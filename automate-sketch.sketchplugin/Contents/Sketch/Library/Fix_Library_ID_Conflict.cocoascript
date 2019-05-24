@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var document = context.document;
 
     if (MSApplicationMetadata.metadata().appVersion < 48) {
@@ -29,22 +32,17 @@ var onRun = function(context) {
         previewImageWidth = 100,
         previewImageHeight = 80;
 
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Fix Library ID Conflict");
-    dialog.setInformativeText("Change the library ID, will cause symbol's auto update to break.");
-    dialog.addButtonWithTitle("Cancel");
+    var dialog = new Dialog(
+        "Fix Library ID Conflict",
+        "Change the library ID, will cause symbol's auto update to break.",
+        viewWidth,
+        ["Cancel"]
+    );
 
-    var accessoryView = NSView.alloc().init();
-    accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+    var scrollView = ui.scrollView([], [0, 0, viewWidth, viewHeight]);
+    dialog.addView(scrollView);
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    accessoryView.addSubview(scrollView);
-
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, libraries.count() * (previewImageHeight + padding * 2) + 10));
-    contentView.setFlipped(true);
+    var contentView = ui.view([0, 0, viewWidth, libraries.count() * (previewImageHeight + padding * 2) + 10]);
 
     var loopLibraries = libraries.objectEnumerator();
     var library;
@@ -53,13 +51,11 @@ var onRun = function(context) {
 
         // List
         var itemHeight = previewImageHeight + padding * 2;
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * i, viewWidth, itemHeight));
-        itemView.setFlipped(true);
+        var itemView = ui.view([0, itemHeight * i, viewWidth, itemHeight]);
 
         // Library full path
         var libraryPath = library.locationOnDisk().path();
-        var fullPathView = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 0, 0));
-        fullPathView.setStringValue(libraryPath);
+        var fullPathView = ui.textLabel(libraryPath, [0, 0, 0, 0]);
         itemView.addSubview(fullPathView);
 
         var libraryInAppBundle = false;
@@ -175,8 +171,7 @@ var onRun = function(context) {
 
     scrollView.setDocumentView(contentView);
 
-    dialog.setAccessoryView(accessoryView);
-    dialog.runModal();
+    dialog.run();
 
 };
 

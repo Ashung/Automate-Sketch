@@ -5,6 +5,9 @@ var onRun = function(context) {
 
     var doc = context.document;
     var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var alert = require("sketch/ui").alert;
     var fontUsedInDocument = NSMutableArray.alloc().init();
 
     iterateDocument(doc, function(layer) {
@@ -20,66 +23,62 @@ var onRun = function(context) {
         }
     });
 
-    if (fontUsedInDocument.count() > 0) {
-
-        // Dialog
-        var alert = COSAlertWindow.new();
-        alert.setMessageText("Replace Fonts.");
-        alert.setInformativeText("Tips: You can find the PostScript name of the font from \"Font Book\" app.")
-
-        alert.addTextLabelWithValue("Choose a font used in current document:");
-
-        var selectBox = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 300, 28));
-        selectBox.addItemsWithObjectValues(fontUsedInDocument);
-        selectBox.selectItemAtIndex(0);
-        alert.addAccessoryView(selectBox);
-
-        alert.addTextLabelWithValue("Replace with:");
-
-        var textField = NSTextField.alloc().initWithFrame(NSMakeRect(0, 0, 300, 24));
-        textField.setStringValue(preferences.get("replaceFont") || "");
-        textField.setPlaceholderString("Type the PostScript name of the font.");
-        alert.addAccessoryView(textField);
-
-        alert.addButtonWithTitle("OK");
-        alert.addButtonWithTitle("Cancel");
-
-        var responseCode = alert.runModal();
-        if (responseCode == 1000) {
-
-            var selectedFont = fontUsedInDocument.objectAtIndex(selectBox.indexOfSelectedItem());
-            var replaceFont = textField.stringValue();
-
-            // Font no specified.
-            if (replaceFont == "") {
-                showAlert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
-                return;
-            }
-
-            // Font not found.
-            var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
-            if (allSystemFonts.indexOfObject(replaceFont) == 9.223372036854776e+18) {
-                showAlert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
-                return;
-            }
-
-            iterateDocument(doc, function(layer) {
-                if (layer.class() == "MSTextLayer") {
-                    var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
-                    if (fontsUsedInTextLayer.containsObject(selectedFont)) {
-                        layer.setFontPostscriptName(replaceFont);
-                    }
-                }
-            });
-
-            preferences.set("replaceFont", replaceFont);
-
-            doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
-
-        }
-    } else {
+    if (fontUsedInDocument.count() == 0) {
         doc.showMessage("This document has no text layers.");
+        return;
     }
+
+    // Dialog
+    var dialog = new Dialog(
+        "Replace Fonts.",
+        "Tips: You can find the PostScript name of the font from \"Font Book\" app."
+    );
+
+    dialog.addLabel("Choose a font used in current document:");
+
+    var selectBox = ui.popupButton(fontUsedInDocument);
+    dialog.addView(selectBox);
+
+    dialog.addLabel("Replace with:");
+
+    var textField = ui.textField(preferences.get("replaceFont") || "");
+    textField.setPlaceholderString("Type the PostScript name of the font.");
+    dialog.addView(textField);
+
+    var responseCode = dialog.run();
+    if (responseCode == 1000) {
+
+        var selectedFont = fontUsedInDocument.objectAtIndex(selectBox.indexOfSelectedItem());
+        var replaceFont = textField.stringValue();
+
+        // Font no specified.
+        if (replaceFont == "") {
+            alert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
+            return;
+        }
+
+        // Font not found.
+        var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
+        if (allSystemFonts.indexOfObject(replaceFont) == 9.223372036854776e+18) {
+            alert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
+            return;
+        }
+
+        iterateDocument(doc, function(layer) {
+            if (layer.class() == "MSTextLayer") {
+                var fontsUsedInTextLayer = layer.attributedString().fontNames().allObjects();
+                if (fontsUsedInTextLayer.containsObject(selectedFont)) {
+                    layer.setFontPostscriptName(replaceFont);
+                }
+            }
+        });
+
+        preferences.set("replaceFont", replaceFont);
+
+        doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
+
+    }
+    
 };
 
 function iterateDocument(doc, func) {
@@ -94,9 +93,4 @@ function iterateDocument(doc, func) {
             func(layer);
         }
     }
-}
-
-function showAlert(title, message) {
-    var app = NSApplication.sharedApplication();
-    app.displayDialog_withTitle(message, title);
 }

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "54.1.20190514",
+  "version": "55.20190524",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -101,7 +101,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "基于名称选择选中对象内所有图层",
+      "name": "基于名称选择图层",
       "identifier": "select_layers_by_name",
       "script": "Layer/Select_Layers_By_Name.cocoascript",
       "icon": "icon_runner.png"
@@ -259,12 +259,6 @@
       "name": "取消当页固定图层名",
       "identifier": "unfixed_layer_name",
       "script": "Type/Unfixed_Layer_Name.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "替换缺失字体",
-      "identifier": "replace_missing_fonts",
-      "script": "Type/Replace_Missing_Fonts.cocoascript",
       "icon": "icon_runner.png"
     },
     {
@@ -592,12 +586,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "修改基线偏移",
-      "identifier": "baseline",
-      "script": "Type/Baseline.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "自适应文本高度",
       "identifier": "resize_fit_text_height",
       "script": "Type/Resize_Fit_Text_Height.cocoascript",
@@ -735,12 +723,6 @@
       "identifier": "load_export_presets",
       "handler": "loadExportPresetsFromFile",
       "script": "Slice/Export_Presets.cocoascript",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "移动组件模版至另一页",
-      "identifier": "move_symbols_to_page",
-      "script": "Symbol/Move_Symbols_To_Page.cocoascript",
       "icon": "icon_runner.png"
     },
     {
@@ -1450,7 +1432,6 @@
           "create_symbols_from_selected_layers",
           "selection_to_symbol_master",
           "-",
-          "move_symbols_to_page",
           "detach_unused_symbol_master",
           "remove_unused_symbols",
           "-",
@@ -1573,14 +1554,12 @@
           "combine_text_layer",
           "-",
           "capitalize",
-          "baseline",
           "-",
           "change_text_orientation",
           "change_typeface_for_the_latin_character_set",
           "add_space_between_cjk_and_western_character",
           "-",
           "replace_fonts",
-          "replace_missing_fonts",
           "-",
           "resize_fit_text_height",
           "toggle_text_auto_and_fixed",

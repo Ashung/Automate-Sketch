@@ -1,68 +1,3 @@
-/**
- * @param  {String} message
- * @param  {String} info
- * @param  {Number} width Optional default is 300.
- * @param  {Array} buttons Optional, array with 1..3 strings, default is ["OK", "Cancel"].
- */
-function dialog (message, info, width, buttons) {
-    this.views = [];
-    this.message = message || "Message Text";
-    this.info = info;
-    this.width = width || 300;
-    if (buttons instanceof Array && buttons.length > 0) {
-        this.buttons = buttons;
-    } else {
-        this.buttons = ["OK", "Cancel"];
-    }
-    var alert = NSAlert.alloc().init();
-    alert.setMessageText(this.message);
-    if (this.info) {
-        alert.setInformativeText(this.info);
-    }
-    // Icon
-    var icon = NSImage.imageNamed("plugins");
-    if (__command.pluginBundle() && __command.pluginBundle().alertIcon()) {
-        icon = __command.pluginBundle().alertIcon();
-    }
-    alert.setIcon(icon);
-    this.buttons.forEach(function(button) {
-        alert.addButtonWithTitle(button);
-    });
-    this.self = alert;
-}
-
-/**
- * @param  {NSView} view
- */
-dialog.prototype.addView = function(view) {
-    this.views.push(view);
-}
-
-/**
- * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
- */
-dialog.prototype.run = function() {
-    var height = 0;
-    var supView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, this.width, 1));
-    supView.setFlipped(true);
-    this.views.forEach(function(view) {
-        var currentFrame = view.bounds();
-        currentFrame.origin.y = height;
-        height += currentFrame.size.height + 8;
-        view.setFrame(currentFrame);
-        supView.addSubview(view);
-    });
-    var viewFrame = supView.frame();
-    viewFrame.size.height = height;
-    supView.setFrame(viewFrame);
-    this.self.setAccessoryView(supView);
-    return this.self.runModal();
-}
-
-dialog.prototype.close = function() {
-    NSApp.stopModal();
-}
-
 var ui = {};
 
 ui.width = 300;
@@ -230,7 +165,7 @@ ui.checkBox = function(status, title, size) {
 },
 
 /**
- * @param  {Array} items [NSView]
+ * @param  {Array} items [String]
  * @param  {Array|Number} size Optional
  * @return  {NSPopUpButton}
  */
@@ -247,6 +182,18 @@ ui.popupButton = function(items, size) {
         view.lastItem().setTitle(item);
     });
     return view;
+}
+
+/**
+ * @param  {Array} items [String]
+ * @param  {NSView} view NSPopUpButton
+ */
+ui.setItems_forPopupButton = function(items, view) {
+    view.removeAllItems();
+    items.forEach(function(item) {
+        view.addItemWithTitle("");
+        view.lastItem().setTitle(item);
+    });
 }
 
 /**
@@ -399,6 +346,24 @@ ui.imageButton = function(nsImage, size) {
 }
 
 /**
+ * @param  {NSImage} text
+ * @param  {Array|Number} size Optional
+ * @return  {NSButton}
+ */
+ui.button = function(text, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size, 24]);
+    }
+    var view = NSButton.alloc().initWithFrame(frame);
+    view.setBezelStyle(NSRoundedBezelStyle);
+    view.setTitle(text);
+    return view;
+}
+
+/**
  * @param  {Array|Number} size Optional
  * @return  {NSView}
  */
@@ -432,6 +397,79 @@ ui.circle = function(color, size) {
     view.setBackgroundColor(nsColor);
     view.layer().setCornerRadius(Math.min(frame.size.width, frame.size.height) / 2);
     return view;
+}
+
+/**
+ * @param  {String} message
+ * @param  {String} info
+ * @param  {Number} width Optional default is 300.
+ * @param  {Array} buttons Optional, array with 1..3 strings, default is ["OK", "Cancel"].
+ */
+function dialog (message, info, width, buttons) {
+    this.views = [];
+    this.message = message || "Message Text";
+    this.info = info;
+    this.width = width || 300;
+    if (buttons instanceof Array && buttons.length > 0) {
+        this.buttons = buttons;
+    } else {
+        this.buttons = ["OK", "Cancel"];
+    }
+    var alert = NSAlert.alloc().init();
+    alert.setMessageText(this.message);
+    if (this.info) {
+        alert.setInformativeText(this.info);
+    }
+    // Icon
+    var icon = NSImage.imageNamed("plugins");
+    if (__command.pluginBundle() && __command.pluginBundle().alertIcon()) {
+        icon = __command.pluginBundle().alertIcon();
+    }
+    alert.setIcon(icon);
+    this.buttons.forEach(function(button) {
+        alert.addButtonWithTitle(button);
+    });
+    this.self = alert;
+}
+
+/**
+ * @param  {NSView} view
+ */
+dialog.prototype.addView = function(view) {
+    this.views.push(view);
+}
+
+/**
+ * @param  {String} text
+ */
+dialog.prototype.addLabel = function(text) {
+    var view = ui.textLabel(text, this.width);
+    this.views.push(view);
+}
+
+/**
+ * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
+ */
+dialog.prototype.run = function() {
+    var height = 0;
+    var supView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, this.width, 1));
+    supView.setFlipped(true);
+    this.views.forEach(function(view) {
+        var currentFrame = view.bounds();
+        currentFrame.origin.y = height;
+        height += currentFrame.size.height + 8;
+        view.setFrame(currentFrame);
+        supView.addSubview(view);
+    });
+    var viewFrame = supView.frame();
+    viewFrame.size.height = height;
+    supView.setFrame(viewFrame);
+    this.self.setAccessoryView(supView);
+    return this.self.runModal();
+}
+
+dialog.prototype.close = function() {
+    NSApp.stopModal();
 }
 
 module.exports.dialog = dialog;

@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Help");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var manifestFilePath = context.plugin.url().path() + "/Contents/Sketch/manifest.json";
 
     var supportLanguages = {
@@ -16,20 +19,16 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var accessory = NSComboBox.alloc().initWithFrame(NSMakeRect(0, 0, 240, 28));
-    accessory.addItemsWithObjectValues(supportLanguagesValues);
-    accessory.selectItemAtIndex(0);
-    var alert = NSAlert.alloc().init();
-    alert.setMessageText("Change Menu Language");
-    alert.addButtonWithTitle("OK");
-    alert.addButtonWithTitle("Cancel");
-    alert.setAccessoryView(accessory);
+    var dialog = new Dialog("Change Menu Language");
+
+    var languagesView = ui.popupButton(supportLanguagesValues);
+    dialog.addView(languagesView);
 
     // Click OK button
-    var responseCode = alert.runModal();
-    var languageIndex = accessory.indexOfSelectedItem();
-    var languageFileURL = context.plugin.urlForResourceNamed("manifest_" + supportLanguagesKeys[languageIndex] + ".json");
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
+        var languageIndex = languagesView.indexOfSelectedItem();
+        var languageFileURL = context.plugin.urlForResourceNamed("manifest_" + supportLanguagesKeys[languageIndex] + ".json");
         if (languageFileURL) {
             var languageFilePath = languageFileURL.path();
             // Remove manifest.json
@@ -43,10 +42,10 @@ var onRun = function(context) {
             // Reload Plugin
             AppController.sharedInstance().pluginManager().reloadPlugins();
         } else {
-            var app = NSApplication.sharedApplication();
-            app.displayDialog_withTitle_(
-                "Language file \"" + context.plugin.url().path() + "/Contents/Resources/manifest_" + supportLanguagesKeys[languageIndex] + ".json\" does not existed.",
-                "Language file not found."
+            var alert = require("sketch/ui").alert;
+            alert(
+                "Language file not found.",
+                "Language file \"" + context.plugin.url().path() + "/Contents/Resources/manifest_" + supportLanguagesKeys[languageIndex] + ".json\" does not existed."
             );
         }
 

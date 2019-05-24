@@ -5,7 +5,7 @@
  */
 module.exports.symbol = function(symbolMaster, size) {
     size = size || Math.max(symbolMaster.frame().width(), symbolMaster.frame().height());
-    return artboardPreviewGenerator(symbolMaster, size * 2, size * 2);
+    return artboardPreviewGenerator(symbolMaster, size, size);
 }
 
 /**

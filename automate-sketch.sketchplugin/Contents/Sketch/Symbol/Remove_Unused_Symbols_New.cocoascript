@@ -3,6 +3,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var document = context.document;
     var documentData = document.documentData();
 
@@ -23,29 +26,21 @@ var onRun = function(context) {
         viewHeight = 400,
         rowHeight = 50;
 
-    var dialog = NSAlert.alloc().init();
-    dialog.setMessageText("Remove Unused Symbols");
-    dialog.setInformativeText("Check the symbol to remove it.");
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
 
-    var accessoryView = NSView.alloc().init();
-    accessoryView.setFlipped(true);
-    accessoryView.setFrame(NSMakeRect(0, 0, viewWidth, viewHeight));
+    var dialog = new Dialog(
+        "Remove Unused Symbols",
+        "Check the symbol to remove it.",
+        350
+    );
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, viewHeight - 30));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    accessoryView.addSubview(scrollView);
+    var scrollView = ui.scrollView([], [350, 400]);
+    dialog.addView(scrollView);
 
-    var selectAll = NSButton.alloc().initWithFrame(NSMakeRect(0, 380, viewWidth, 20));
-    selectAll.setButtonType(NSSwitchButton);
+    var selectAll = ui.checkBox(true, "Select / Deselect All Unused Symbols.");
     selectAll.setAllowsMixedState(true);
-    selectAll.setTitle(" Select / Deselect All Unused Symbols.");
-    selectAll.setState(NSOnState);
-    accessoryView.addSubview(selectAll);
+    dialog.addView(selectAll);
 
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, viewWidth, unusedSymbols.count() * rowHeight + 10));
+    var contentView = ui.view([viewWidth, unusedSymbols.count() * rowHeight + 10]);
     contentView.setFlipped(true);
     scrollView.setDocumentView(contentView);
 
@@ -58,15 +53,11 @@ var onRun = function(context) {
     while (unusedSymbol = loopUnusedSymbols.nextObject()) {
 
         // List
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight * i, viewWidth, rowHeight));
+        var itemView = ui.view([0, rowHeight * i, viewWidth, rowHeight]);
         itemView.setFlipped(true);
 
         // Checkbox
-        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, (rowHeight - 30) / 2, viewWidth - 10, 30));
-        checkbox.setButtonType(NSSwitchButton);
-        var title = "                " + unusedSymbol.name();
-        checkbox.setTitle(title);
-        checkbox.setState(NSOnState);
+        var checkbox = ui.checkBox(true, "                " + unusedSymbol.name(), [10, (rowHeight - 30) / 2, viewWidth - 10, 30]);
         itemView.addSubview(checkbox);
 
         checkbox.setCOSJSTargetFunction(function(sender) {
@@ -146,9 +137,7 @@ var onRun = function(context) {
         }
     });
 
-    dialog.setAccessoryView(accessoryView);
-
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var count = 0;

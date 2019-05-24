@@ -32,6 +32,9 @@ var onRun = function(context) {
 
 function createDialog(context, type) {
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+
     var document = context.document;
     var documentData = document.documentData();
     var styles = (type == 0) ? documentData.layerStyles() : documentData.layerTextStyles();
@@ -89,22 +92,19 @@ function createDialog(context, type) {
         return;
     }
 
-    var dialog = COSAlertWindow.alloc().init();
+    // Dialog
     var title = (type == 0) ? "Remove Unused Layer Styles" : "Remove Unused Text Styles";
-    dialog.setMessageText(title);
-    dialog.setInformativeText("You can remove unused styles from list. Uncheck styles to keep them.");
+    var dialog = new Dialog(
+        title,
+        "You can remove unused styles from list, deselect styles to keep them."
+    );
 
-    var selectAllView = NSButton.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    selectAllView.setButtonType(NSSwitchButton);
+    var selectAllView = ui.checkBox(true, "Select / Deselect All.");
     selectAllView.setAllowsMixedState(true);
-    selectAllView.setTitle(" Select / Deselect All.");
-    selectAllView.setState(NSOnState);
-    dialog.addAccessoryView(selectAllView);
+    dialog.addView(selectAllView);
 
-    var scrollView = NSScrollView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 300));
-    scrollView.setHasVerticalScroller(true);
-    scrollView.setBorderType(NSBezelBorder);
-    dialog.addAccessoryView(scrollView);
+    var scrollView = ui.scrollView([], 300);
+    dialog.addView(scrollView);
 
     var checked = stylesCopy.count();
     var unChecked = 0;
@@ -141,10 +141,7 @@ function createDialog(context, type) {
         }
     });
 
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
-
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
         var subViews = contentView.subviews();
         var loopSubViews = subViews.objectEnumerator();

@@ -1,192 +1,321 @@
 // TODO: New Feature: from: Library, to: Library, apply to: Symbol, Text Style, Layer Style,  
 
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var util = require("util");
+    var toast = require("sketch/ui").message;
+
     var document = context.document;
     var documentData = document.documentData();
 
+    // Libraries
     var assetLibraryController = AppController.sharedInstance().librariesController();
     var allLibraries = assetLibraryController.libraries();
+    var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector("name", true, "localizedStandardCompare:");
+    allLibraries = allLibraries.sortedArrayUsingDescriptors([sortDescriptor]);
+
     if (allLibraries.count() == 0) {
-        document.showMessage('These are no libraries in "Preferences" - "Libraries".');
+        toast('These are no libraries in "Preferences" - "Libraries".')
         return;
     }
 
-    var foreignSymbols = documentData.foreignSymbols();
-    if (foreignSymbols.count() == 0) {
-        document.showMessage("Current document is not using any libraries.");
-        return;
-    }
-
-    var allLibraryNames = ["No change"];
-    allLibraries.forEach(function(library) {
-        allLibraryNames.push(library.name() + " (" + library.libraryID() + ")");
+    var allLibrariesNames = util.toArray(allLibraries).map(function(item) {
+        return item.name() + (item.status() == 1 ? " (Disabled)" : "");
     });
 
-    var librariesUsedInDocument = {};
-    foreignSymbols.forEach(function(symbol) {
-        var libraryId = symbol.libraryID();
-        var libraryForSymbol;
-        if (MSApplicationMetadata.metadata().appVersion >= 49) {
-            libraryForSymbol = assetLibraryController.libraryForShareableObject(symbol.symbolMaster());
-        } else {
-            libraryForSymbol = assetLibraryController.libraryForSymbol(symbol.symbolMaster());
+    // All libraries of imported symbols
+    var librariesOfImportedSymbol = [];
+    var libraryNamesOfImportedSymbol = [];
+    var importedSymbols = documentData.foreignSymbols();
+    importedSymbols.forEach(function(symbol) {
+        var libraryOfSymbol = assetLibraryController.libraryForShareableObject(symbol.symbolMaster());
+        if (libraryOfSymbol && !librariesOfImportedSymbol.includes(libraryOfSymbol)) {
+            librariesOfImportedSymbol.push(libraryOfSymbol);
+            libraryNamesOfImportedSymbol.push(libraryOfSymbol.name());
         }
-        if (libraryForSymbol) {
-            if (!librariesUsedInDocument[libraryId]) {
-                var libraryInfo = {
-                    library: libraryForSymbol,
-                    name: libraryForSymbol.name(),
-                    id: libraryId,
-                    status: "Working",
-                    symbolCount: 1
-                };
-                if (libraryForSymbol.enabled() == false) {
-                    libraryInfo.status = "Library Disabled";
-                }
-                librariesUsedInDocument[libraryId] = libraryInfo;
-            }
-            else {
-                librariesUsedInDocument[libraryId]["symbolCount"] ++;
-            }
+    });
+
+    // All libraries of imported text style
+    var librariesOfImportedTextStyle = [];
+    var libraryNamesOfImportedTextStyle = [];
+    var importedTextStyle = documentData.foreignTextStyles();
+    importedTextStyle.forEach(function(style) {
+        var libraryOfTextStyle = assetLibraryController.libraryForShareableObject(style.localSharedStyle());
+        if (libraryOfTextStyle && !librariesOfImportedTextStyle.includes(libraryOfTextStyle)) {
+            librariesOfImportedTextStyle.push(libraryOfTextStyle);
+            libraryNamesOfImportedTextStyle.push(libraryOfTextStyle.name());
         }
-        else {
-            if (!librariesUsedInDocument[libraryId]) {
-                librariesUsedInDocument[libraryId] = {
-                    name: symbol.sourceLibraryName(),
-                    id: libraryId,
-                    status: "Library Missed",
-                    symbolCount: 1
-                };
-            }
-            else {
-                librariesUsedInDocument[libraryId]["symbolCount"] ++;
-            }
+    });
+
+    // All libraries of imported layer style
+    var librariesOfImportedLayerStyle = [];
+    var libraryNamesOfImportedLayerStyle = [];
+    var importedLayerStyle = documentData.foreignLayerStyles();
+    importedLayerStyle.forEach(function(style) {
+        var libraryOfLayerStyle = assetLibraryController.libraryForShareableObject(style.localSharedStyle());
+        if (libraryOfLayerStyle && !librariesOfImportedLayerStyle.includes(libraryOfLayerStyle)) {
+            librariesOfImportedLayerStyle.push(libraryOfLayerStyle);
+            libraryNamesOfImportedLayerStyle.push(libraryOfLayerStyle.name());
         }
     });
 
     // Dialog
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Replace Library",
-        "Relink or enable a library to fix a unavailable library."
+        "Change the library of imported symbols, styles to anther library."
     );
 
-    var scrollView = UI.scrollView(300);
-    dialog.addAccessoryView(scrollView);
+    dialog.addLabel("Apply to");
 
-    var ignoreNotFoundSymbol = UI.checkBox(true, "If not same symbol in library. Don't replace.");
-    dialog.addAccessoryView(ignoreNotFoundSymbol);
+    var applyToView = ui.popupButton([
+        "Imported Symbols",
+        "Imported Text Styles",
+        "Imported Layer Styles"
+    ]);
+    dialog.addView(applyToView);
 
-    loadData();
+    dialog.addLabel("Libraries of Imported Objects");
 
-    function loadData() {
-        var data = Object.values(librariesUsedInDocument);
-        var itemsCount = data.length;
-        var itemHeight = 135;
-        var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight + 10));
-        contentView.setFlipped(true);
+    var librariesUsedView = ui.popupButton(libraryNamesOfImportedSymbol);
+    dialog.addView(librariesUsedView);
 
-        data.forEach(function(item, index) {
-            var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
-            itemView.setFlipped(true);
+    dialog.addLabel("Replace to Library");
 
-            var libraryNameLabel = UI.textLabel(item.name, [5, 10, 300, 20]);
-            libraryNameLabel.setFont(NSFont.boldSystemFontOfSize(12));
-            itemView.addSubview(libraryNameLabel);
+    var libraryReplaceView = ui.popupButton(allLibrariesNames);
+    dialog.addView(libraryReplaceView);
 
-            var libraryIdLabel = UI.textLabel(item.id, [5, 30, 300, 20]);
-            libraryIdLabel.setFont(NSFont.monospacedDigitSystemFontOfSize_weight(12, NSFontWeightRegular));
-            libraryIdLabel.setTextColor(NSColor.grayColor());
-            itemView.addSubview(libraryIdLabel);
+    // Actions
+    applyToView.setCOSJSTargetFunction(function(sender) {
+        var selectedIndex = sender.indexOfSelectedItem();
+        if (selectedIndex == 0) {
+            ui.setItems_forPopupButton(libraryNamesOfImportedSymbol, librariesUsedView);
+        }
+        if (selectedIndex == 1) {
+            ui.setItems_forPopupButton(libraryNamesOfImportedTextStyle, librariesUsedView);
+        }
+        if (selectedIndex == 2) {
+            ui.setItems_forPopupButton(libraryNamesOfImportedLayerStyle, librariesUsedView);
+        }
+    });
 
-            var infoText = `${item.symbolCount} symbol${item.symbolCount > 1 ? "s" : ""}  |  ${item.status}`;
-            var libraryCountLabel = UI.textLabel(infoText, [5, 50, 300, 20]);
-            itemView.addSubview(libraryCountLabel);
-
-            var replaceLabel = UI.textLabel("Replace with another library:", [5, 80, 300, 20]);
-            itemView.addSubview(replaceLabel);
-
-            var replaceButton = UI.popupButton(allLibraryNames, [5, 100, 200, 25]);
-            itemView.addSubview(replaceButton);
-
-            replaceButton.setCOSJSTargetFunction(function(sender) {
-                var indexOfSelectedItem = sender.indexOfSelectedItem();
-                if (indexOfSelectedItem > 0) {
-                    var targetLibrary = allLibraries.objectAtIndex(indexOfSelectedItem - 1);
-                    librariesUsedInDocument[item.id]["targetLibrary"] = targetLibrary;
-                    librariesUsedInDocument[item.id]["targetLibraryId"] = targetLibrary.libraryID();
-                    librariesUsedInDocument[item.id]["targetLibraryName"] = targetLibrary.name();
-                }
-            });
-
-            var divider = UI.divider([0, itemHeight - 1, 300, 1]);
-            itemView.addSubview(divider);
-
-            contentView.addSubview(itemView);
-        });
-        scrollView.setDocumentView(contentView);
-    }
-
-    var responseCode = dialog.runModal();
+    // Run
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
-        var enabledLibraryCount = 0;
-        var replacedLibraries = [];
-        var symbolCount = 0;
 
-        foreignSymbols.forEach(function(symbol) {
-            var libraryId = symbol.libraryID();
-            var info = librariesUsedInDocument[libraryId];
-            if (info.targetLibrary) {
-                if (info.id == info.targetLibraryId) {
-                    if (info.status == "Library Disabled") {
-                        info.library.setEnabled(true);
-                        enabledLibraryCount ++;
-                    }
-                }
-                else {
-                    var doReplaceLibrary = false;
-                    if (ignoreNotFoundSymbol.state() == NSOnState) {
-                        var symbolInLibrary = symbol.masterFromLibrary(info.targetLibrary);
-                        if (symbolInLibrary) {
-                            doReplaceLibrary = true;
-                        }
-                    }
-                    else {
-                        doReplaceLibrary = true;
-                    }
-                    if (doReplaceLibrary) {
-                        symbol.setLibraryID(info.targetLibraryId);
-                        symbol.setSourceLibraryName(info.targetLibraryName);
-                        if (replacedLibraries.indexOf(info.targetLibraryId) == -1) {
-                            replacedLibraries.push(info.targetLibraryId);
-                        }
-                        symbolCount ++;
-                    }
-                }
-            }
-        });
-
-        var replacedLibraryCount = replacedLibraries.length;
-        var msg1 = `${enabledLibraryCount} ${enabledLibraryCount > 1 ? "liraries" : "lirary"}`;
-        var msg2 = `${replacedLibraryCount} ${replacedLibraryCount > 1 ? "liraries" : "lirary"}`;
-        var msg3 = `${symbolCount} ${symbolCount > 1 ? "symbols" : "symbol"}`;
-        if (enabledLibraryCount > 0 && replacedLibraryCount == 0) {
-            document.showMessage(`Enabled ${msg1}.`);
-        }
-        if (enabledLibraryCount > 0 && replacedLibraryCount > 0) {
-            document.showMessage(`Enabled ${msg1}, repalce ${msg2} with ${msg3}.`);
-        }
-        if (enabledLibraryCount == 0 && replacedLibraryCount > 0) {
-            document.showMessage(`Repalce ${msg2} with ${msg3}.`);
-        }
-        if (enabledLibraryCount == 0 && replacedLibraryCount == 0) {
-            document.showMessage(`No replace any library.`);
+        if (librariesUsedView.numberOfItems() == 0) {
+            toast("Not any imported object.");
+            return;
         }
 
+        var toLibrary = allLibraries.objectAtIndex(libraryReplaceView.indexOfSelectedItem());
+        var fromLibrary;
+        if (applyToView.indexOfSelectedItem() == 0) {
+            fromLibrary = librariesOfImportedSymbol[librariesUsedView.indexOfSelectedItem()];
+
+
+
+
+
+
+        } else if (applyToView.indexOfSelectedItem() == 1) {
+            fromLibrary = librariesOfImportedTextStyle[librariesUsedView.indexOfSelectedItem()];
+
+
+
+            
+        } else if (applyToView.indexOfSelectedItem() == 2) {
+            fromLibrary = librariesOfImportedLayerStyle[librariesUsedView.indexOfSelectedItem()];
+
+
+
+        }
+
+        
     }
+
 };
+
+    // return;
+    // if (allLibraries.count() == 0) {
+    //     document.showMessage('These are no libraries in "Preferences" - "Libraries".');
+    //     return;
+    // }
+
+    // var foreignSymbols = documentData.foreignSymbols();
+    // if (foreignSymbols.count() == 0) {
+    //     document.showMessage("Current document is not using any libraries.");
+    //     return;
+    // }
+
+    // var allLibraryNames = ["No change"];
+    // allLibraries.forEach(function(library) {
+    //     allLibraryNames.push(library.name() + " (" + library.libraryID() + ")");
+    // });
+
+    // var librariesUsedInDocument = {};
+    // foreignSymbols.forEach(function(symbol) {
+    //     var libraryId = symbol.libraryID();
+    //     var libraryForSymbol;
+    //     if (MSApplicationMetadata.metadata().appVersion >= 49) {
+    //         libraryForSymbol = assetLibraryController.libraryForShareableObject(symbol.symbolMaster());
+    //     } else {
+    //         libraryForSymbol = assetLibraryController.libraryForSymbol(symbol.symbolMaster());
+    //     }
+    //     if (libraryForSymbol) {
+    //         if (!librariesUsedInDocument[libraryId]) {
+    //             var libraryInfo = {
+    //                 library: libraryForSymbol,
+    //                 name: libraryForSymbol.name(),
+    //                 id: libraryId,
+    //                 status: "Working",
+    //                 symbolCount: 1
+    //             };
+    //             if (libraryForSymbol.enabled() == false) {
+    //                 libraryInfo.status = "Library Disabled";
+    //             }
+    //             librariesUsedInDocument[libraryId] = libraryInfo;
+    //         }
+    //         else {
+    //             librariesUsedInDocument[libraryId]["symbolCount"] ++;
+    //         }
+    //     }
+    //     else {
+    //         if (!librariesUsedInDocument[libraryId]) {
+    //             librariesUsedInDocument[libraryId] = {
+    //                 name: symbol.sourceLibraryName(),
+    //                 id: libraryId,
+    //                 status: "Library Missed",
+    //                 symbolCount: 1
+    //             };
+    //         }
+    //         else {
+    //             librariesUsedInDocument[libraryId]["symbolCount"] ++;
+    //         }
+    //     }
+    // });
+
+    // // Dialog
+    // var dialog = UI.cosDialog(
+    //     "Replace Library",
+    //     "Relink or enable a library to fix a unavailable library."
+    // );
+
+    // var scrollView = UI.scrollView(300);
+    // dialog.addAccessoryView(scrollView);
+
+    // var ignoreNotFoundSymbol = UI.checkBox(true, "If not same symbol in library. Don't replace.");
+    // dialog.addAccessoryView(ignoreNotFoundSymbol);
+
+    // loadData();
+
+    // function loadData() {
+    //     var data = Object.values(librariesUsedInDocument);
+    //     var itemsCount = data.length;
+    //     var itemHeight = 135;
+    //     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight + 10));
+    //     contentView.setFlipped(true);
+
+    //     data.forEach(function(item, index) {
+    //         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
+    //         itemView.setFlipped(true);
+
+    //         var libraryNameLabel = UI.textLabel(item.name, [5, 10, 300, 20]);
+    //         libraryNameLabel.setFont(NSFont.boldSystemFontOfSize(12));
+    //         itemView.addSubview(libraryNameLabel);
+
+    //         var libraryIdLabel = UI.textLabel(item.id, [5, 30, 300, 20]);
+    //         libraryIdLabel.setFont(NSFont.monospacedDigitSystemFontOfSize_weight(12, NSFontWeightRegular));
+    //         libraryIdLabel.setTextColor(NSColor.grayColor());
+    //         itemView.addSubview(libraryIdLabel);
+
+    //         var infoText = `${item.symbolCount} symbol${item.symbolCount > 1 ? "s" : ""}  |  ${item.status}`;
+    //         var libraryCountLabel = UI.textLabel(infoText, [5, 50, 300, 20]);
+    //         itemView.addSubview(libraryCountLabel);
+
+    //         var replaceLabel = UI.textLabel("Replace with another library:", [5, 80, 300, 20]);
+    //         itemView.addSubview(replaceLabel);
+
+    //         var replaceButton = UI.popupButton(allLibraryNames, [5, 100, 200, 25]);
+    //         itemView.addSubview(replaceButton);
+
+    //         replaceButton.setCOSJSTargetFunction(function(sender) {
+    //             var indexOfSelectedItem = sender.indexOfSelectedItem();
+    //             if (indexOfSelectedItem > 0) {
+    //                 var targetLibrary = allLibraries.objectAtIndex(indexOfSelectedItem - 1);
+    //                 librariesUsedInDocument[item.id]["targetLibrary"] = targetLibrary;
+    //                 librariesUsedInDocument[item.id]["targetLibraryId"] = targetLibrary.libraryID();
+    //                 librariesUsedInDocument[item.id]["targetLibraryName"] = targetLibrary.name();
+    //             }
+    //         });
+
+    //         var divider = UI.divider([0, itemHeight - 1, 300, 1]);
+    //         itemView.addSubview(divider);
+
+    //         contentView.addSubview(itemView);
+    //     });
+    //     scrollView.setDocumentView(contentView);
+    // }
+
+    // var responseCode = dialog.runModal();
+    // if (responseCode == 1000) {
+    //     var enabledLibraryCount = 0;
+    //     var replacedLibraries = [];
+    //     var symbolCount = 0;
+
+    //     foreignSymbols.forEach(function(symbol) {
+    //         var libraryId = symbol.libraryID();
+    //         var info = librariesUsedInDocument[libraryId];
+    //         if (info.targetLibrary) {
+    //             if (info.id == info.targetLibraryId) {
+    //                 if (info.status == "Library Disabled") {
+    //                     info.library.setEnabled(true);
+    //                     enabledLibraryCount ++;
+    //                 }
+    //             }
+    //             else {
+    //                 var doReplaceLibrary = false;
+    //                 if (ignoreNotFoundSymbol.state() == NSOnState) {
+    //                     var symbolInLibrary = symbol.masterFromLibrary(info.targetLibrary);
+    //                     if (symbolInLibrary) {
+    //                         doReplaceLibrary = true;
+    //                     }
+    //                 }
+    //                 else {
+    //                     doReplaceLibrary = true;
+    //                 }
+    //                 if (doReplaceLibrary) {
+    //                     symbol.setLibraryID(info.targetLibraryId);
+    //                     symbol.setSourceLibraryName(info.targetLibraryName);
+    //                     if (replacedLibraries.indexOf(info.targetLibraryId) == -1) {
+    //                         replacedLibraries.push(info.targetLibraryId);
+    //                     }
+    //                     symbolCount ++;
+    //                 }
+    //             }
+    //         }
+    //     });
+
+    //     var replacedLibraryCount = replacedLibraries.length;
+    //     var msg1 = `${enabledLibraryCount} ${enabledLibraryCount > 1 ? "liraries" : "lirary"}`;
+    //     var msg2 = `${replacedLibraryCount} ${replacedLibraryCount > 1 ? "liraries" : "lirary"}`;
+    //     var msg3 = `${symbolCount} ${symbolCount > 1 ? "symbols" : "symbol"}`;
+    //     if (enabledLibraryCount > 0 && replacedLibraryCount == 0) {
+    //         document.showMessage(`Enabled ${msg1}.`);
+    //     }
+    //     if (enabledLibraryCount > 0 && replacedLibraryCount > 0) {
+    //         document.showMessage(`Enabled ${msg1}, repalce ${msg2} with ${msg3}.`);
+    //     }
+    //     if (enabledLibraryCount == 0 && replacedLibraryCount > 0) {
+    //         document.showMessage(`Repalce ${msg2} with ${msg3}.`);
+    //     }
+    //     if (enabledLibraryCount == 0 && replacedLibraryCount == 0) {
+    //         document.showMessage(`No replace any library.`);
+    //     }
+
+    // }
+
