@@ -1,5 +1,3 @@
-// TODO: New Feature: from: Library, to: Library, apply to: Symbol, Text Style, Layer Style,  
-
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -112,210 +110,36 @@ var onRun = function(context) {
             return;
         }
 
+        var librariesUsedViewIndex = librariesUsedView.indexOfSelectedItem();
         var toLibrary = allLibraries.objectAtIndex(libraryReplaceView.indexOfSelectedItem());
         var fromLibrary;
+
+        // Symbol
         if (applyToView.indexOfSelectedItem() == 0) {
-            fromLibrary = librariesOfImportedSymbol[librariesUsedView.indexOfSelectedItem()];
-
-
-
-
-
-
+            fromLibrary = librariesOfImportedSymbol[librariesUsedViewIndex];
+            importedSymbols.forEach(function(symbol) {
+                symbol.setLibraryID(toLibrary.libraryID());
+                symbol.setSourceLibraryName(toLibrary.name());
+            });
+            toast(`Replace ${importedSymbols.count()} symbol` + (importedSymbols.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
+        // Text style
         } else if (applyToView.indexOfSelectedItem() == 1) {
-            fromLibrary = librariesOfImportedTextStyle[librariesUsedView.indexOfSelectedItem()];
-
-
-
-            
+            fromLibrary = librariesOfImportedTextStyle[librariesUsedViewIndex];
+            importedTextStyle.forEach(function(style) {
+                style.setLibraryID(toLibrary.libraryID());
+                style.setSourceLibraryName(toLibrary.name());
+            });
+            toast(`Replace ${importedTextStyle.count()} text style` + (importedTextStyle.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
+        // Layer style
         } else if (applyToView.indexOfSelectedItem() == 2) {
-            fromLibrary = librariesOfImportedLayerStyle[librariesUsedView.indexOfSelectedItem()];
-
-
-
+            fromLibrary = librariesOfImportedLayerStyle[librariesUsedViewIndex];
+            importedLayerStyle.forEach(function(style) {
+                style.setLibraryID(toLibrary.libraryID());
+                style.setSourceLibraryName(toLibrary.name());
+            });
+            toast(`Replace ${importedLayerStyle.count()} layer style` + (importedLayerStyle.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         }
 
-        
     }
 
 };
-
-    // return;
-    // if (allLibraries.count() == 0) {
-    //     document.showMessage('These are no libraries in "Preferences" - "Libraries".');
-    //     return;
-    // }
-
-    // var foreignSymbols = documentData.foreignSymbols();
-    // if (foreignSymbols.count() == 0) {
-    //     document.showMessage("Current document is not using any libraries.");
-    //     return;
-    // }
-
-    // var allLibraryNames = ["No change"];
-    // allLibraries.forEach(function(library) {
-    //     allLibraryNames.push(library.name() + " (" + library.libraryID() + ")");
-    // });
-
-    // var librariesUsedInDocument = {};
-    // foreignSymbols.forEach(function(symbol) {
-    //     var libraryId = symbol.libraryID();
-    //     var libraryForSymbol;
-    //     if (MSApplicationMetadata.metadata().appVersion >= 49) {
-    //         libraryForSymbol = assetLibraryController.libraryForShareableObject(symbol.symbolMaster());
-    //     } else {
-    //         libraryForSymbol = assetLibraryController.libraryForSymbol(symbol.symbolMaster());
-    //     }
-    //     if (libraryForSymbol) {
-    //         if (!librariesUsedInDocument[libraryId]) {
-    //             var libraryInfo = {
-    //                 library: libraryForSymbol,
-    //                 name: libraryForSymbol.name(),
-    //                 id: libraryId,
-    //                 status: "Working",
-    //                 symbolCount: 1
-    //             };
-    //             if (libraryForSymbol.enabled() == false) {
-    //                 libraryInfo.status = "Library Disabled";
-    //             }
-    //             librariesUsedInDocument[libraryId] = libraryInfo;
-    //         }
-    //         else {
-    //             librariesUsedInDocument[libraryId]["symbolCount"] ++;
-    //         }
-    //     }
-    //     else {
-    //         if (!librariesUsedInDocument[libraryId]) {
-    //             librariesUsedInDocument[libraryId] = {
-    //                 name: symbol.sourceLibraryName(),
-    //                 id: libraryId,
-    //                 status: "Library Missed",
-    //                 symbolCount: 1
-    //             };
-    //         }
-    //         else {
-    //             librariesUsedInDocument[libraryId]["symbolCount"] ++;
-    //         }
-    //     }
-    // });
-
-    // // Dialog
-    // var dialog = UI.cosDialog(
-    //     "Replace Library",
-    //     "Relink or enable a library to fix a unavailable library."
-    // );
-
-    // var scrollView = UI.scrollView(300);
-    // dialog.addAccessoryView(scrollView);
-
-    // var ignoreNotFoundSymbol = UI.checkBox(true, "If not same symbol in library. Don't replace.");
-    // dialog.addAccessoryView(ignoreNotFoundSymbol);
-
-    // loadData();
-
-    // function loadData() {
-    //     var data = Object.values(librariesUsedInDocument);
-    //     var itemsCount = data.length;
-    //     var itemHeight = 135;
-    //     var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, itemsCount * itemHeight + 10));
-    //     contentView.setFlipped(true);
-
-    //     data.forEach(function(item, index) {
-    //         var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
-    //         itemView.setFlipped(true);
-
-    //         var libraryNameLabel = UI.textLabel(item.name, [5, 10, 300, 20]);
-    //         libraryNameLabel.setFont(NSFont.boldSystemFontOfSize(12));
-    //         itemView.addSubview(libraryNameLabel);
-
-    //         var libraryIdLabel = UI.textLabel(item.id, [5, 30, 300, 20]);
-    //         libraryIdLabel.setFont(NSFont.monospacedDigitSystemFontOfSize_weight(12, NSFontWeightRegular));
-    //         libraryIdLabel.setTextColor(NSColor.grayColor());
-    //         itemView.addSubview(libraryIdLabel);
-
-    //         var infoText = `${item.symbolCount} symbol${item.symbolCount > 1 ? "s" : ""}  |  ${item.status}`;
-    //         var libraryCountLabel = UI.textLabel(infoText, [5, 50, 300, 20]);
-    //         itemView.addSubview(libraryCountLabel);
-
-    //         var replaceLabel = UI.textLabel("Replace with another library:", [5, 80, 300, 20]);
-    //         itemView.addSubview(replaceLabel);
-
-    //         var replaceButton = UI.popupButton(allLibraryNames, [5, 100, 200, 25]);
-    //         itemView.addSubview(replaceButton);
-
-    //         replaceButton.setCOSJSTargetFunction(function(sender) {
-    //             var indexOfSelectedItem = sender.indexOfSelectedItem();
-    //             if (indexOfSelectedItem > 0) {
-    //                 var targetLibrary = allLibraries.objectAtIndex(indexOfSelectedItem - 1);
-    //                 librariesUsedInDocument[item.id]["targetLibrary"] = targetLibrary;
-    //                 librariesUsedInDocument[item.id]["targetLibraryId"] = targetLibrary.libraryID();
-    //                 librariesUsedInDocument[item.id]["targetLibraryName"] = targetLibrary.name();
-    //             }
-    //         });
-
-    //         var divider = UI.divider([0, itemHeight - 1, 300, 1]);
-    //         itemView.addSubview(divider);
-
-    //         contentView.addSubview(itemView);
-    //     });
-    //     scrollView.setDocumentView(contentView);
-    // }
-
-    // var responseCode = dialog.runModal();
-    // if (responseCode == 1000) {
-    //     var enabledLibraryCount = 0;
-    //     var replacedLibraries = [];
-    //     var symbolCount = 0;
-
-    //     foreignSymbols.forEach(function(symbol) {
-    //         var libraryId = symbol.libraryID();
-    //         var info = librariesUsedInDocument[libraryId];
-    //         if (info.targetLibrary) {
-    //             if (info.id == info.targetLibraryId) {
-    //                 if (info.status == "Library Disabled") {
-    //                     info.library.setEnabled(true);
-    //                     enabledLibraryCount ++;
-    //                 }
-    //             }
-    //             else {
-    //                 var doReplaceLibrary = false;
-    //                 if (ignoreNotFoundSymbol.state() == NSOnState) {
-    //                     var symbolInLibrary = symbol.masterFromLibrary(info.targetLibrary);
-    //                     if (symbolInLibrary) {
-    //                         doReplaceLibrary = true;
-    //                     }
-    //                 }
-    //                 else {
-    //                     doReplaceLibrary = true;
-    //                 }
-    //                 if (doReplaceLibrary) {
-    //                     symbol.setLibraryID(info.targetLibraryId);
-    //                     symbol.setSourceLibraryName(info.targetLibraryName);
-    //                     if (replacedLibraries.indexOf(info.targetLibraryId) == -1) {
-    //                         replacedLibraries.push(info.targetLibraryId);
-    //                     }
-    //                     symbolCount ++;
-    //                 }
-    //             }
-    //         }
-    //     });
-
-    //     var replacedLibraryCount = replacedLibraries.length;
-    //     var msg1 = `${enabledLibraryCount} ${enabledLibraryCount > 1 ? "liraries" : "lirary"}`;
-    //     var msg2 = `${replacedLibraryCount} ${replacedLibraryCount > 1 ? "liraries" : "lirary"}`;
-    //     var msg3 = `${symbolCount} ${symbolCount > 1 ? "symbols" : "symbol"}`;
-    //     if (enabledLibraryCount > 0 && replacedLibraryCount == 0) {
-    //         document.showMessage(`Enabled ${msg1}.`);
-    //     }
-    //     if (enabledLibraryCount > 0 && replacedLibraryCount > 0) {
-    //         document.showMessage(`Enabled ${msg1}, repalce ${msg2} with ${msg3}.`);
-    //     }
-    //     if (enabledLibraryCount == 0 && replacedLibraryCount > 0) {
-    //         document.showMessage(`Repalce ${msg2} with ${msg3}.`);
-    //     }
-    //     if (enabledLibraryCount == 0 && replacedLibraryCount == 0) {
-    //         document.showMessage(`No replace any library.`);
-    //     }
-
-    // }
-

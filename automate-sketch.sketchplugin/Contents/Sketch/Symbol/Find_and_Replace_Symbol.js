@@ -5,20 +5,33 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
+    var toast = require("sketch/ui").message;
+    var sketch = require("sketch/dom");
+    var document = sketch.getSelectedDocument();
+
+    
+    // Get all symbols
+    var symbols = document.getSymbols();
+    if (symbols.length == 0) {
+        toast("Document have not any symbols.");
+        return;
+    }
+    var allSymbolsNames = symbols.map(function(symbol) {
+        return symbol.name;
+    });
+
+
     var dialog = new Dialog("Find and Replace Symbol", "info");
 
-    var views = [];
-    var views2 = [];
-    for (var i = 0; i < 100; i++) {
-        views.push(ui.checkBox(true, String(i)));
-        views2.push(ui.checkBox(true, "AAAA" + String(i)));
-        //views.push(ui.divider());
-    }
+    dialog.addLabel("Find");
 
-    var scrollView = ui.scrollView(views, [0, 0, 400, 400]);
-    dialog.addView(scrollView);
+    
+    var findSymbolView = ui.popupButton(allSymbolsNames);
+    dialog.addView(findSymbolView);
 
-    // ui.scrollViewSetContent(scrollView, views2);
+    dialog.addLabel("Replace");
+
+
 
     dialog.run();
 
