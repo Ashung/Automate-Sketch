@@ -90,12 +90,31 @@ ui.textField = function(text, size) {
 
 /**
  * @param  {Number} defaultNumber
+ * @param  {Array|Number} size Optional
+ * @return  {NSTextField}
+ */
+ui.numberField = function(defaultNumber, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || ui.width, 24]);
+    }
+    var view = NSTextField.alloc().initWithFrame(frame);
+    var formatter = NSNumberFormatter.alloc().init().autorelease();
+    view.setFormatter(formatter);
+    view.setStringValue(defaultNumber);
+    return view;
+}
+
+/**
+ * @param  {Number} defaultNumber
  * @param  {Number} min Optional default is 0.
  * @param  {Number} max Optional default is 100.
  * @param  {Array|Number} size Optional
  * @return  {Object} { view: NSTextField, value: Number}
  */
-ui.numberField = function(defaultNumber, min, max, size) {
+ui.numberStepper = function(defaultNumber, min, max, size) {
     min = min || 0;
     max = max || 100;
     var frame;

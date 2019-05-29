@@ -46,7 +46,7 @@ var onRun = function(context) {
     dialog.addView(label6);
 
     var scriptEditorFontSize = userDefaults.objectForKey("scriptEditorFontSize") || "12";
-    var scriptEditorFontSizeSetting = ui.numberField(scriptEditorFontSize, 10, 20);
+    var scriptEditorFontSizeSetting = ui.numberStepper(scriptEditorFontSize, 10, 20);
     dialog.addView(scriptEditorFontSizeSetting.view);
 
     var responseCode = dialog.run();

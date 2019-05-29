@@ -1,4 +1,4 @@
-@import "../Layer/Select_or_Remove_All_Transparency_Layers.cocoascript"
+@import "../Layer/Select_or_Remove_All_Transparency_Layers.js"
 
 var onRun = function(context) {
 

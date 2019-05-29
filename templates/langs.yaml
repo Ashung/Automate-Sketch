@@ -382,9 +382,6 @@ paste_text_color:
 paste_text_font:
   - Paste Text Font
   - 粘贴文本字体
-ungroup_shape_layer:
-  - Ungroup Shape Layer
-  - 取消形状图层组
 select_all_instances_of_imported_symbol:
   - Select All Instances of Imported Symbol
   - 选择外部组件的所有实例
@@ -685,3 +682,6 @@ find_and_replace_symbol:
 add_colors_or_gradients_from_selected_layers_to_document:
   - Add Colors or Gradients from Selected to Document
   - 将选中图层的颜色或渐变添加至文档
+find_and_replace_layer_name:
+  - Find and Replace Layer Name
+  - 查找和替换图层名

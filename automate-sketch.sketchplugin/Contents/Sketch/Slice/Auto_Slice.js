@@ -1,6 +1,4 @@
-@import "Fast_Slice.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
+@import "Fast_Slice.js";
 
 var onRun = function(context) {
 
