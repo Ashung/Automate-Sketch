@@ -131,13 +131,10 @@ var onRun = function(context) {
             ? regExpPrefix + toRegExp(userInputStringView.stringValue()) + regExpSuffix
             : regExpPrefix + escapeRegExp(userInputStringView.stringValue()) + regExpSuffix;
 
-        // log(layers)
         var matchLayers = [];
         util.toArray(layers).forEach(function(layer) {
             var regExp = new RegExp(regExpPattern, rexExpFlag);
-            // console.log(layer.name(), regExp.test(layer.name()));
             if (regExp.test(layer.name())) {
-                // child.select_byExtendingSelection(true, true);
                 matchLayers.push(layer);
             }
         });

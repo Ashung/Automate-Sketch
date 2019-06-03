@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "55.0.20190529",
+  "version": "55.1.20190603",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -643,12 +643,6 @@
       "name": "粘贴文本字体",
       "identifier": "paste_text_font",
       "script": "Style/Paste_Style_Part.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "取消形状图层组",
-      "identifier": "ungroup_shape_layer",
-      "script": "Layer/Ungroup_Shape_Layer.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1368,7 +1362,6 @@
           "-",
           "bounds_layer_for_every_selection",
           "divide_layer",
-          "ungroup_shape_layer",
           "-",
           "reset_bounding_box",
           "-",

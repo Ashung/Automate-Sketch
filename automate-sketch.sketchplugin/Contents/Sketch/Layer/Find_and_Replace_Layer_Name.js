@@ -67,22 +67,47 @@ var onRun = function(context) {
         if (layersFromView.indexOfSelectedItem() == 0) {
             layers.addObjectsFromArray(currentPage.children());
             layers.removeObject(currentPage);
-
         } else if (layersFromView.indexOfSelectedItem() == 1) {
             layers.addObjectsFromArray(context.selection);
-
         } else if (layersFromView.indexOfSelectedItem() == 2) {
             context.selection.forEach(function(item) {
                 var _layer = item.children();
                 _layer.removeObject(item);
                 layers.addObjectsFromArray(_layer);
             });
-            
         }
 
+        if (layers.count() == 0) {
+            toast("Not any layer.");
+        }
 
+        var rexExpFlag = Boolean(matchCaseView.state()) ? "g" : "gi";
+        var regExpPrefix = Boolean(matchWholeWordView.state()) ? "^" : "";
+        var regExpSuffix = Boolean(matchWholeWordView.state()) ? "$" : "";
+        var regExpPattern = Boolean(regExpView.state())
+            ? regExpPrefix + toRegExp(findView.stringValue()) + regExpSuffix
+            : regExpPrefix + escapeRegExp(findView.stringValue()) + regExpSuffix;
+        var replaceString = replaceView.stringValue();
 
+        var count = 0;
+        util.toArray(layers).forEach(function(layer) {
+            var regExp = new RegExp(regExpPattern, rexExpFlag);
+            if (regExp.test(layer.name())) {
+                count ++;
+                var newName = layer.name().replace(regExp, replaceString);
+                layer.setName(newName);
+            }
+        });
 
+        toast("Rename " + count + " layer" + (count > 1 ? "s" : "") + ".");
 
     }
 };
+
+function toRegExp(string) {
+    return String(string).replace(/\\/g,"\\");
+}
+
+function escapeRegExp(string) {
+    return String(string).replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
