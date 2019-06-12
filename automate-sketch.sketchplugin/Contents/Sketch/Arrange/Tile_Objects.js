@@ -206,6 +206,8 @@ function tileLayer(context, orientation) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 
+    var preferences = require("../modules/Preferences");
+
     var version = parseFloat(require("sketch").version.sketch);
     var UI = require("sketch/ui");
     var doc = context.document;
