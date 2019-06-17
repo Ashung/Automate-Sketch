@@ -1,4 +1,24 @@
 -
+  version: 55.2.20190617
+  description: |-
+    <ul>
+    <li>Add Add Colors or Gradients from Selected Layers to Document.</li>
+    <li>Add Find and Replace Layer Name.</li>
+    <li>Add Reset Style.</li>
+    <li>Add Update Style.</li>
+    <li>Change Locals Symbols to Library Symbol support replace with same id and name.</li>
+    <li>Improved Replace Library.</li>
+    <li>Improved Select layers by name.</li>
+    <li>Fix inset svg center in canvas.</li>
+    <li>Fix Paste as artboard or symbol fit to content.</li>
+    <li>Fix Select Parent Groups.</li>
+    <li>Remove Move Symbols to Page.</li>
+    <li>Remove Baseline.</li>
+    <li>Remove Replace Missing Fonts.</li>
+    </ul>
+  commitID: 00907980ebc4eaef9a5354ebf2db85a290e7bf0a
+
+-
   version: 54.0.20190411
   description: |-
     <ul>
