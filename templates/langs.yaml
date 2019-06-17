@@ -676,12 +676,21 @@ paste_as_symbol_masters:
 plugin_dev_setting:
   - Plugin Dev Setting
   - 插件开发设置
-find_and_replace_symbol:
-  - Find and Replace Symbol
-  - 查找并替换组件
 add_colors_or_gradients_from_selected_layers_to_document:
   - Add Colors or Gradients from Selected to Document
   - 将选中图层的颜色或渐变添加至文档
 find_and_replace_layer_name:
   - Find and Replace Layer Name
   - 查找和替换图层名
+reset_style:
+  - Reset Style
+  - 重置样式
+update_style:
+  - Update Style
+  - 更新样式
+find_and_replace_layer_style:
+  - Find and Replace Layer Style
+  - 查找并替换图层样式
+find_and_replace_text_style:
+  - Find and Replace Text Style
+  - 查找并替换文本样式

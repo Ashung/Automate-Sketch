@@ -1079,11 +1079,6 @@
             "script": "Development/Plugin_Dev_Setting.js"
         },
         {
-            "name": "{{find_and_replace_symbol}}",
-            "identifier": "find_and_replace_symbol",
-            "script": "Symbol/Find_and_Replace_Symbol.js"
-        },
-        {
             "name": "{{add_colors_or_gradients_from_selected_layers_to_document}}",
             "identifier": "add_colors_or_gradients_from_selected_layers_to_document",
             "script": "Style/Add_Colors_or_Gradients_from_Selected_Layers_to_Document.js"
@@ -1092,6 +1087,26 @@
             "name": "{{find_and_replace_layer_name}}",
             "identifier": "find_and_replace_layer_name",
             "script": "Layer/Find_and_Replace_Layer_Name.js"
+        },
+        {
+            "name": "{{reset_style}}",
+            "identifier": "reset_style",
+            "script": "Style/Reset_Style.js"
+        },
+        {
+            "name": "{{update_style}}",
+            "identifier": "update_style",
+            "script": "Style/Update_Style.js"
+        },
+        {
+            "name": "{{find_and_replace_text_style}}",
+            "identifier": "find_and_replace_text_style",
+            "script": "Style/Find_and_Replace_Style.js"
+        },
+        {
+            "name": "{{find_and_replace_layer_style}}",
+            "identifier": "find_and_replace_layer_style",
+            "script": "Style/Find_and_Replace_Style.js"
         }
     ],
     "menu": {
@@ -1210,8 +1225,6 @@
             {
                 "title": "{{symbol}}",
                 "items": [
-                    "find_and_replace_symbol",
-                    "-",
                     "set_to_original_width",
                     "set_to_original_height",
                     "set_to_original_size",
@@ -1283,6 +1296,9 @@
             {
                 "title": "{{style}}",
                 "items": [
+                    "find_and_replace_layer_style",
+                    "find_and_replace_text_style",
+                    "-",
                     "select_layers_by_layer_style",
                     "select_layers_by_text_style",
                     "select_layers_with_same_shared_style",
@@ -1304,6 +1320,9 @@
                     "remove_all_disabled_styles",
                     "remove_unused_layer_styles",
                     "remove_unused_text_styles",
+                    "-",
+                    "reset_style",
+                    "update_style",
                     "-",
                     "create_color_guide",
                     "create_style_guide",
