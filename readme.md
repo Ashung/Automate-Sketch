@@ -28,7 +28,7 @@ Make your workflow more efficient.
 | Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
 | Toggle Select Group’s Content on Click                       | Toggle "select group’s content on click" option.             |
 | Select All Layers In Selection By Type                       | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
-| Select All Layers In Selection By Name                       | Select all layers match by layer name.                       |
+| Select Layers By Name                                        | Select all layers match by layer name.                       |
 | Select All Child Layers                                      | Select all sub-layers.                                       |
 | Select All Siblings Layers                                   | Select all siblings layers.                                  |
 | Select Parent Groups                                         | Select parent groups.                                        |
@@ -38,12 +38,13 @@ Make your workflow more efficient.
 | Select None                                                  | Select none.                                                 |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
-| Rename Layers                                                | Rename selected layers use custom template.                  |
-| Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
 | Remove Empty Groups                                          | Remove empty group.                                          |
 | Remove Hidden Layers                                         | Remove hidden layers.                                        |
 | Remove Transparency Layers                                   | Remove transparency layers.                                  |
+| Rename Layers                                                | Rename selected layers use custom template.                  |
+| Find and Replace Layer Name                                  | Find and replace layer name.                                 |
+| Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
 | **Arrange**                                                  |                                                              |
 | Change Places Between Two Layers                             | Change two objects positions based on midpoint or coordinate origin. |
@@ -62,12 +63,10 @@ Make your workflow more efficient.
 | Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
 | Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |
-| Change Baseline offset                                       | Change Baseline Offset for selected range of text layer.     |
 | Change Text Orientation                                      | Change Text Orientation for CJK text layout.                 |
 | Change Typeface for Latin Character                          | Change the typeface for latin-character in the text layer.   |
 | Add Space Between CJK and Latin Character                    | Add space between Chinese and Western.                       |
 | Replace Fonts                                                | Replace Fonts.                                               |
-| Replace Missing Fonts                                        | Replace missing fonts.                                       |
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
 | Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
@@ -102,7 +101,6 @@ Make your workflow more efficient.
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
 | Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
-| Move Symbol Masters To Another Page                          | Move selected symbol masters to anthoer page.                |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
@@ -113,7 +111,7 @@ Make your workflow more efficient.
 | **Library**                                                  |                                                              |
 | Fix Library ID Conflict                                      | Fix library file with same document ID.                      |
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
-| Replace Library                                              | Swap all foreign symbols from one library to another.        |
+| Replace Library                                              | Swap all foreign symbols, styles from one library to another. |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change symbols to Library Symbol Base Symbol ID              | Change the selected/all symbols to library symbol base on symbol ID. |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
@@ -132,9 +130,12 @@ Make your workflow more efficient.
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
 | Remove All Disabled Styles                                   | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
+| Reset Style                                                  | Reset style for selected layers.                             |
+| Update Style                                                 | Update or unlink and update for selected layers.             |
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
+| Add Colors or Gradients from Selected Layers to Document     | Create document colors or gradients from selected layers.    |
 | Import Document Assets from Sketch File                      | Import resources (colors, gradients, and patterns) from Sketch files. |
 | Import Text Styles from Sketch File                          | Import text styles from Sketch files.                        |
 | Import Layer Styles from Sketch File                         | Import a layer style from Sketch file.                       |

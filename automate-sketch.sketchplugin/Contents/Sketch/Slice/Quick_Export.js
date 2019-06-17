@@ -1,9 +1,10 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Slice");
+    ga("Slice");
 
-    var ui = require("../modules/UI");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var preferences = require("../modules/Preferences");
     var system = require("../modules/System");
     var identifier = context.command.identifier();
@@ -17,10 +18,9 @@ var onRun = function(context) {
     }
 
     var presetDefaultIndex = 0;
-    var preset1Index = preferences.get(context, "quickExportPreset1") || 1;
-    var preset2Index = preferences.get(context, "quickExportPreset2") || 2;
-    var isShowInFinder = preferences.get(context, "quickExportShowInFinder");
-
+    var preset1Index = preferences.get("quickExportPreset1") || 1;
+    var preset2Index = preferences.get("quickExportPreset2") || 2;
+    var isShowInFinder = preferences.get("quickExportShowInFinder");
 
     var exportPresetsTitles = [];
     util.toArray(exportPresets).forEach(function(item, index) {
@@ -30,9 +30,6 @@ var onRun = function(context) {
         var title = item.name() + (item.shouldApplyAutomatically() ? "*" : "");
         exportPresetsTitles.push(title);
     });
-    // util.toArray(exportPresets).map(function(item) {
-    //     return item.name() + (item.shouldApplyAutomatically() ? "*" : "");
-    // });
 
     // Setting
     if (identifier == "quick_export_setting") {
@@ -42,23 +39,23 @@ var onRun = function(context) {
             return;
         }
 
-        var dialog = ui.cosDialog(
+        var dialog = new Dialog(
             "Quick Export Setting",
             'You can go to "Preferences" - "Presets" to add more export preset. The default preset end with a "*" sign.'
         );
 
         var presetLabel1 = ui.textLabel("Preset 1");
-        dialog.addAccessoryView(presetLabel1);
+        dialog.addView(presetLabel1);
         var preset1 = ui.popupButton(exportPresetsTitles, 300);
-        dialog.addAccessoryView(preset1);
+        dialog.addView(preset1);
 
         var presetLabel2 = ui.textLabel("Preset 2");
-        dialog.addAccessoryView(presetLabel2);
+        dialog.addView(presetLabel2);
         var preset2 = ui.popupButton(exportPresetsTitles, 300);
-        dialog.addAccessoryView(preset2);
+        dialog.addView(preset2);
 
         var showInFinder = ui.checkBox(isShowInFinder == null ? true : isShowInFinder, "Show in Finder after export.");
-        dialog.addAccessoryView(showInFinder);
+        dialog.addView(showInFinder);
 
         if (preset1Index < exportPresets.count()) {
             preset1.selectItemAtIndex(preset1Index);
@@ -67,11 +64,11 @@ var onRun = function(context) {
             preset2.selectItemAtIndex(preset2Index);
         }
 
-        var responseCode = dialog.runModal();
+        var responseCode = dialog.run();
         if (responseCode == 1000) {
-            preferences.set(context, "quickExportPreset1", preset1.indexOfSelectedItem());
-            preferences.set(context, "quickExportPreset2", preset2.indexOfSelectedItem());
-            preferences.set(context, "quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
+            preferences.set("quickExportPreset1", preset1.indexOfSelectedItem());
+            preferences.set("quickExportPreset2", preset2.indexOfSelectedItem());
+            preferences.set("quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
         }
 
         return;

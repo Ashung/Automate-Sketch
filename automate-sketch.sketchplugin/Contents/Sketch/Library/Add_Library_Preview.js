@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Library");
+    ga("Library");
 
     var sketch = require("sketch");
     var Page = require('sketch/dom').Page;

@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Guide");
+    var ga = require("../modules/Google_Analytics");
+    ga("Guide");
 
     var util = require("util");
     var identifier = context.command.identifier();

@@ -1,28 +1,29 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Utilities");
+    ga("Utilities");
 
-    var ui = require("../modules/ui");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var identifier = context.command.identifier();
 
-    var dialog = ui.cosDialog(
+    var dialog = new Dialog(
         "Insert Layers from SVG Code"
     );
     var input = ui.textField("", [300, 100]);
 
     if (identifier == "insert_layer_from_svg_path_data") {
-        dialog = ui.cosDialog(
+        dialog = new Dialog(
             "Insert Layer from SVG Path Data"
         );
         input = ui.textField("", [300, 50]);
     }
 
-    dialog.addAccessoryView(input);
+    dialog.addView(input);
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         if (!input.stringValue()) {
@@ -48,8 +49,8 @@ var onRun = function(context) {
             var contentDrawView = document.sketchObject.contentDrawView();
             var midX = Math.round((contentDrawView.frame().size.width/2 - contentDrawView.horizontalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.width / 2);
             var midY = Math.round((contentDrawView.frame().size.height/2 - contentDrawView.verticalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.height / 2);
-            layer.frame.x = midX;
-            layer.frame.y = midY;
+            layer.sketchObject.absoluteRect().setRulerX(midX);
+            layer.sketchObject.absoluteRect().setRulerY(midY);
         } else {
             var selectedLayer = document.selectedLayers.layers[0];
             if (["Artboard", "Group", "SymbolMaster"].includes(selectedLayer.type)) {

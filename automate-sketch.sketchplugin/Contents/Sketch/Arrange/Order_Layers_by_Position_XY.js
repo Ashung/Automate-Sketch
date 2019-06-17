@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga(context, "Arrange");
+    ga("Arrange");
 
     var document = context.document;
     var selection = context.selection;

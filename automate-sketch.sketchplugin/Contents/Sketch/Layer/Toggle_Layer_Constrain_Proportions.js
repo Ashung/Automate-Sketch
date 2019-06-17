@@ -1,0 +1,36 @@
+var onRun = function(context) {
+
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
+
+    var document = context.document;
+    var selection = context.selection;
+
+    if (selection.count() == 0) {
+        document.showMessage("Please select at least 1 layer.");
+        return;
+    }
+
+    var lockConstrainProportionsLayerCount = 0;
+    selection.forEach(function(layer){
+        if (layer.constrainProportions()) {
+            lockConstrainProportionsLayerCount ++;
+        }
+    });
+
+    var doLock = lockConstrainProportionsLayerCount < selection.count() / 2;
+
+    if (doLock) {
+        selection.forEach(function(layer){
+            layer.setConstrainProportions(true);
+        });
+        document.showMessage("Layer constrain proportions set to LOCK");
+    }
+    else {
+        selection.forEach(function(layer){
+            layer.setConstrainProportions(false);
+        });
+        document.showMessage("Layer constrain proportions set to UNLOCK");
+    }
+
+};

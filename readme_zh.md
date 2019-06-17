@@ -29,7 +29,7 @@
 | Toggle Layer Constrain Proportions                           | **图层比例限制开关** 锁定或解锁选中图层的比例约束。          |
 | Toggle Select Group’s Content on Click                       | **点击时选择组内容开关**                                     |
 | Select All Layers In Selection By Type                       | **基于类型选择选中对象内所有图层** 根据类型（组、文本、形状、位图、组件、切片、可导出图层、隐藏图层）选择图层。 |
-| Select All Layers In Selection By Name                       | **基于名称选择选中对象内所有图层**                           |
+| Select Layers By Name                                        | **基于名称选择图层**                                         |
 | Select All Child Layers                                      | **选择选中对象内所有子图层**                                 |
 | Select All Siblings Layers                                   | **选择所有兄弟图层**                                         |
 | Select Parent Groups                                         | **选择父级**                                                 |
@@ -39,12 +39,13 @@
 | Select None                                                  | **取消选择**                                                 |
 | Paste and Replace                                            | **粘贴并替换** 将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Paste and Replace Setting                                    | **粘贴并替换设置** 设置新图层的位置，默认原点对齐或居中对齐。 |
-| Rename Layers                                                | **重命名图层** 使用自定义模版变量修改选中的图层名。          |
-| Clear Layer Name                                             | **清理图层名** 删除图层名后的 copy。                         |
 | Remove Redundant Groups                                      | **删除不必要的嵌套组** 自动删除多余的嵌套组。                |
 | Remove Empty Groups                                          | **清除空图层组**                                             |
 | Remove Hidden Layers                                         | **清除隐藏图层**                                             |
 | Remove Transparency Layers                                   | **删除透明图层** 删除完全透明的图层。                        |
+| Rename Layers                                                | **重命名图层** 使用自定义模版变量修改选中的图层名。          |
+| Find and Replace Layer Name                                  | **查找和替换图层名**                                         |
+| Clear Layer Name                                             | **清理图层名** 删除图层名后的 copy。                         |
 | Create / Sync Link Layer                                     | **创建/同步引用图层** 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
 | **Arrange**                                                  | **排列**                                                     |
 | Change Places Between Two Layers                             | **两对象互换位置** 根据中点或坐标原点，两个对象交换位置。    |
@@ -63,12 +64,10 @@
 | Split Text Layer                                             | **拆分文本图层** 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
 | Combine Text Layers                                          | **合并文本图层** 合并选中文本图层。                          |
 | Capitalize                                                   | **首字大写**                                                 |
-| Change Baseline offset                                       | **修改基线偏移** 调整选中文本的基线偏移。（暂时在 48+ 版本不可用） |
 | Change Text Orientation                                      | **更改文本书写方向** 切换竖排或横排。                        |
 | Change Typeface for Latin Character                          | **更改西文字体** 更改文本图层中西文的字体。                  |
 | Add Space Between CJK and Latin Character                    | **中西文字体间增加空格** 文本图层中西文间增加空格。          |
 | Replace Fonts                                                | **替换字体**                                                 |
-| Replace Missing Fonts                                        | **替换缺失字体**                                             |
 | Resize to Fit Text Height                                    | **自适应文本高度**                                           |
 | Toggle Auto and Fixed                                        | **切换自动和固定** 切换选中文本图层的宽度自动和固定。        |
 | Unfixed Layer Name                                           | **取消当页固定图层名** 取消文本图层的固定图层名，让文本的图层名跟随内容。 |
@@ -103,7 +102,6 @@
 | Select All Instances of Imported symbol                      | **选择外部组件的所有实例** 选择导入组件（库组件）的实例。    |
 | Rename Instances                                             | **重命名实例** 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
 | Rename Instances Use Text Override                           | **使用文本覆盖值重命名实例** 以选择的文本覆盖值重命名实例，如果实例仅有一个文本覆盖则使用此值。 |
-| Move Symbol Masters To Another Page                          | **移动组件模版至另一页** 将选中组件模版移动至其他页面。      |
 | Create Symbols from Selected Layers                          | **从选中图层批量创建组件**                                   |
 | Selection to Symbol Master                                   | **将选中图层直接变为组件** 将选中图层在原位置直接变为组件。  |
 | Detach Unused Symbol Master                                  | **将选中的未用组件转为组**                                   |
@@ -114,7 +112,7 @@
 | **Library**                                                  | **库**                                                       |
 | Fix Library ID Conflict                                      | **解决库 ID 冲突** 库中存在同 ID 的文件，会导致同 ID 的库影响组件的更新。 |
 | Imported Symbols Link Manage                                 | **库组件链接管理** 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
-| Replace Library                                              | **替换库** 将所有库组件从一个库替换链接到另一个库。          |
+| Replace Library                                              | **替换库** 将所有库组件、样式从一个库替换链接到另一个库。    |
 | Replace Symbol With Library Symbol                           | **使用库组件替换内部组件** 将选中组件替换为任意的库组件。    |
 | Change symbols to Library Symbol Base Symbol ID              | **基于 Symbol ID 将内部组件转为库组件** 根据组件 ID，将选中或全部组件转为库组件。 |
 | Change Local Text Style to Library Text Style                | **本地文本样式转为库样式** 将本地文本样式转为指定库中的相同样式。 |
@@ -133,9 +131,12 @@
 | Swap Fill and Border                                         | **互换填充和描边**                                           |
 | Remove All Disabled Styles                                   | **清除无效样式** 删除当前页所有图层中禁用样式。              |
 | Remove Unused Layer / Text Styles                            | **删除未使用图层样式/文本样式** 删除文档中未使用的图层样式或文本样式。 |
+| Reset Style                                                  | **重置样式** 重置选中图层的样式。                            |
+| Update Style                                                 | **更新样式**  更新选中图层的样式，库样式会自动更新至本地样式。 |
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |
 | Create Typography Guide                                      | **创建字体指南** 从文本样式创建字体样式指南。                |
+| Add Colors or Gradients from Selected Layers to Document     | **将选中图层的颜色或渐变添加至文档**                         |
 | Import Document Assets from Sketch File                      | **从 Sketch 文档导入资源** 导入色彩、渐变及图案。            |
 | Import Text Styles from Sketch File                          | **从 Sketch 文档导入文本样式**                               |
 | Import Layer Styles from Sketch File                         | **从 Sketch 文档导入图层样式**                               |

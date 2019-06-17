@@ -1,5 +1,5 @@
-module.exports.get = function (context, key) {
-    var identifier = context.plugin.identifier();
+module.exports.get = function (key) {
+    var identifier = __command.pluginBundle().identifier();
     var userDefaults = NSUserDefaults.standardUserDefaults();
     if (!userDefaults.dictionaryForKey(identifier)) {
         var defaultPreferences = NSMutableDictionary.alloc().init();
@@ -9,8 +9,8 @@ module.exports.get = function (context, key) {
     return userDefaults.dictionaryForKey(identifier).objectForKey(key);
 }
 
-module.exports.set = function (context, key, value) {
-    var identifier = context.plugin.identifier();
+module.exports.set = function (key, value) {
+    var identifier = __command.pluginBundle().identifier();
     var userDefaults = NSUserDefaults.standardUserDefaults();
     if (!userDefaults.dictionaryForKey(identifier)) {
         var preferences = NSMutableDictionary.alloc().init();

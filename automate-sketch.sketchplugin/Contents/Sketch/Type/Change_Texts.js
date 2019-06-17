@@ -1,13 +1,13 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/Preferences.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Type");
+    var ga = require("../modules/Google_Analytics");
+    ga("Type");
 
     var util = require("util");
     var sketch = require("sketch");
+    var preferences = require("../modules/Preferences");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
     var selectedTextLayers = selectedLayers.filter(function(layer) {
         return layer.type == "Text";
@@ -18,7 +18,8 @@ var onRun = function(context) {
         return;
     }
 
-    var dialog = UI.cosDialog(
+    // Dialog
+    var dialog = new Dialog(
         "Change Texts",
         "Change the text value of selected text layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010."
     );
@@ -26,30 +27,30 @@ var onRun = function(context) {
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
     layoutView.setFlipped(true);
 
-    var labelView1 = UI.textLabel("Text", [0, 0, 230, 20]);
+    var labelView1 = ui.textLabel("Text", [0, 0, 230, 20]);
     layoutView.addSubview(labelView1);
 
-    var nameView = UI.textField("", [0, 20, 230, 24]);
+    var nameView = ui.textField("", [0, 20, 230, 24]);
     layoutView.addSubview(nameView);
 
-    var labelView2 = UI.textLabel("History", [240, 0, 60, 20]);
+    var labelView2 = ui.textLabel("History", [240, 0, 60, 20]);
     layoutView.addSubview(labelView2);
 
     var histories = [];
     var maxHistory = 10;
-    if (getPreferences(context, "changeTextHistories")) {
-        histories = util.toArray(getPreferences(context, "changeTextHistories"));
+    if (preferences.get("changeTextHistories")) {
+        histories = util.toArray(preferences.get("changeTextHistories"));
         nameView.setStringValue(histories[histories.length - 1]);
     }
 
-    var historyView = UI.popupButton(histories.slice().reverse(), [240, 20, 60, 24]);
+    var historyView = ui.popupButton(histories.slice().reverse(), [240, 20, 60, 24]);
     layoutView.addSubview(historyView);
 
     historyView.setCOSJSTargetFunction(function(sender) {
         nameView.setStringValue(sender.titleOfSelectedItem());
     });
 
-    dialog.addAccessoryView(layoutView);
+    dialog.addView(layoutView);
 
     // Templates
     var templates = [
@@ -83,9 +84,9 @@ var onRun = function(context) {
         buttonsView.addSubview(button);
     });
 
-    dialog.addAccessoryView(buttonsView);
+    dialog.addView(buttonsView);
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         var customTemplate = String(nameView.stringValue());
@@ -95,7 +96,7 @@ var onRun = function(context) {
         });
         histories.splice(0, histories.length - maxHistory);
 
-        setPreferences(context, "changeTextHistories", histories);
+        preferences.set("changeTextHistories", histories);
 
         selectedTextLayers.forEach(function(layer, index) {
 
