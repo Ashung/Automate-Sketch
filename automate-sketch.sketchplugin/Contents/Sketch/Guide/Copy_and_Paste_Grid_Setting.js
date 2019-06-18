@@ -35,6 +35,7 @@ var copyGrid = function(context) {
 
 var pasteGrid = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga("Guide");
 
     var document = context.document;

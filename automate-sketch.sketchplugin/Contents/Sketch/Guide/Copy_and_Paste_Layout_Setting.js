@@ -35,6 +35,7 @@ var copyLayout = function(context) {
 
 var pasteLayout = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga("Guide");
 
     var document = context.document;

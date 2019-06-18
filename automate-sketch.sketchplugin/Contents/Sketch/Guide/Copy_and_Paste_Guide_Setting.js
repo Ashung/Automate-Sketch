@@ -30,6 +30,7 @@ var copyGuide = function(context) {
 
 var pasteGuide = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga("Guide");
 
     var document = context.document;
