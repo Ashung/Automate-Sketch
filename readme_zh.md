@@ -89,6 +89,7 @@
 | Select Parent Artboard                                       | **选择父级画板** 选择选中图层的父级画板。                    |
 | Artboard Navigator                                           | **画板导航** 快速转到任何页面的画板，同时支持修改画板命名。  |
 | Resize to Fix Height                                         | **调整画板以适配高度**                                       |
+| Toggle Adjust Content on Resize                              | **开关根据尺寸适配内容** 开启或关闭选中画板或组件母版的“根据尺寸适配内容”设置。 |
 | Move Artboards to Bottom of Anther                           | **移动画板至另一画板下方** 移动画板或组件模版至另一画板下方。 |
 | Export All Artboards                                         | **导出所有画板** 将所有画板导出为 PNG 或 SVG，可设置缩放比例。 |
 | Export All Artboards to HTML                                 | **将所有画板导出为 HTML** 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |

@@ -88,6 +88,7 @@ Make your workflow more efficient.
 | Select Parent Artboard                                       | Select parent artboard for selected layers.                  |
 | Artboard Navigator                                           | Quickly go to artboard and rename it.                        |
 | Resize to Fix Height                                         | Adjusts the artboard to fit the height.                      |
+| Toggle Adjust Content on Resize                              | Turn on/off for all selected artboard and symbol master.     |
 | Move Artboards to Bottom of Anther                           | Move artboards or symbol masters to the bottom of another one. |
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |

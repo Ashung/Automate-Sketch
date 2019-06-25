@@ -14,7 +14,14 @@ var onRun = function(context) {
         if (artboard) {
             var rectOfChildLayers = getRectFromLayers(artboard);
             var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
-            artboard.frame().setHeight(height);
+            // Adjust content on resize
+            if (artboard.resizesContent()) {
+                artboard.setResizesContent(false);
+                artboard.frame().setHeight(height);
+                artboard.setResizesContent(true);
+            } else {
+                artboard.frame().setHeight(height);
+            }
         } else {
             doc.showMessage('"' + layer.name() + '" is not an artboard or not inside an artboard.');
         }
