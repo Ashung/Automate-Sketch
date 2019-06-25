@@ -65,7 +65,7 @@ module.exports = function(eventCategory) {
         url += "&ec=" + encodeURI(eventCategory);
         // Event action
         // url += "&ea=" + encodeURI(eventAction);
-        url += "&ea=" + encodeURI(identifier);
+        url += "&ea=" + encodeURI(__command.identifier());
         // Event label
         // if (eventLabel) {
         //     url += "&el=" + encodeURI(eventLabel);
