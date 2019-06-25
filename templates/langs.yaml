@@ -694,3 +694,6 @@ find_and_replace_layer_style:
 find_and_replace_text_style:
   - Find and Replace Text Style
   - 查找并替换文本样式
+toggle_adjust_content_on_resize:
+  - Toggle Adjust Content on Resize
+  - 开关根据尺寸适配内容

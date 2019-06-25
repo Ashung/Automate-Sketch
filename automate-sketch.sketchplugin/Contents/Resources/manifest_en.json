@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "55.2.20190618",
+  "version": "55.2.20190625",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1303,15 +1303,9 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Find and Replace Text Style",
-      "identifier": "find_and_replace_text_style",
-      "script": "Style/Find_and_Replace_Style.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Find and Replace Layer Style",
-      "identifier": "find_and_replace_layer_style",
-      "script": "Style/Find_and_Replace_Style.js",
+      "name": "Toggle Adjust Content on Resize",
+      "identifier": "toggle_adjust_content_on_resize",
+      "script": "Artboard/Toggle_Adjust_Content_on_Resize.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1492,6 +1486,7 @@
           "artboard_navigator",
           "-",
           "resize_to_fit_height",
+          "toggle_adjust_content_on_resize",
           "-",
           "move_artboards_to_bottom_of_another",
           "-",
