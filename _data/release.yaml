@@ -1,4 +1,13 @@
 -
+  version: 55.2.20190625
+  description: |-
+    <ul>
+    <li>Add Toggle Adjust Content on Resize.</li>
+    <li>Fix Artboard - Resize to Fix Height bug.</li>
+    </ul>
+  commitID: 201cf623d51518ccf28544f2d3232e9f2b7b42db
+
+-
   version: 55.2.20190618
   description: |-
     <ul>
