@@ -697,3 +697,15 @@ find_and_replace_text_style:
 toggle_adjust_content_on_resize:
   - Toggle Adjust Content on Resize
   - 开关根据尺寸适配内容
+truncate_text_not:
+  - Not Truncate Text
+  - 文字无截断
+truncate_text_at_start:
+  - Truncate Text at Start
+  - 文字起始处截断
+truncate_text_at_middle:
+  - Truncate Text at Middle
+  - 文字中间截断
+truncate_text_at_end:
+  - Truncate Text at End
+  - 文字结束处截断
