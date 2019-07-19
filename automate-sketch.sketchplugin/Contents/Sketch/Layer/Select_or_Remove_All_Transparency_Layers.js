@@ -43,6 +43,7 @@ var removeTransparencyLayersHandler = function(context) {
 
 var selectTransparencyLayersHandler = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
     var document = context.document;

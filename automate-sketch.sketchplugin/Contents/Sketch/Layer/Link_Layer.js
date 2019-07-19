@@ -46,6 +46,7 @@ var createLinkLayer = function(context) {
 
 var syncLinkLayers = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
     var document = context.document;
