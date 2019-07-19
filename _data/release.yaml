@@ -1,4 +1,14 @@
 -
+  version: 55.2.20190719
+  description: |-
+    <ul>
+    <li>Fix Link / Sync Layer bug #184</li>
+    <li>Fix Select or Remove All Transparency Layers bug.</li>
+    <li>Fix Change Places move layer to top. #183</li>
+    </ul>
+  commitID: 34845cb9634fad52d87e5c01dc946d53492d644d
+
+-
   version: 55.2.20190625
   description: |-
     <ul>
