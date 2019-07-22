@@ -9,7 +9,7 @@ module.exports = function(eventCategory) {
     if (useGoogleAnalytics == null) {
         var dialog = new Dialog(
             "Warning",
-            "Automate Sketch use Google Analytics for tacking data. You can press \"Disagree\" to disable tacking.",
+            "Automate Sketch use Google Analytics for tracking data. You can press \"Disagree\" to disable tracking.",
             300,
             ["Agree", "Disagree"]
         );
