@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "55.2.20190719",
+  "version": "55.2.20190723",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1521,9 +1521,6 @@
       {
         "title": "Style",
         "items": [
-          "find_and_replace_layer_style",
-          "find_and_replace_text_style",
-          "-",
           "select_layers_by_layer_style",
           "select_layers_by_text_style",
           "select_layers_with_same_shared_style",
