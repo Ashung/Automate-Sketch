@@ -33,7 +33,7 @@ var customTileLayers = function(context) {
     // Get last user input
     var defaultMarginX = preferences.get("tileObjectMarginX") || 20,
         defaultMarginY = preferences.get("tileObjectMarginY") || 20,
-        defaultColums = preferences.get("tileObjectColumns") || 10;
+        defaultColumns = preferences.get("tileObjectColumns") || 10;
 
     // Dialog
     var dialog = new Dialog(
@@ -58,7 +58,7 @@ var customTileLayers = function(context) {
     dialog.addView(selectTileType);
 
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
-    var inputColumns = andInputGroup(view, 0, 80, "Columns", defaultColums);
+    var inputColumns = andInputGroup(view, 0, 80, "Columns", defaultColumns);
     var inputMarginX = andInputGroup(view, 100, 80, "Margin X", defaultMarginX);
     var inputMarginY = andInputGroup(view, 200, 80, "Margin Y", defaultMarginY);
     dialog.addView(view);
@@ -70,7 +70,7 @@ var customTileLayers = function(context) {
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        var columns = parseInt(inputColumns.stringValue()) > 0 ? parseInt(inputColumns.stringValue()) : defaultColums,
+        var columns = parseInt(inputColumns.stringValue()) > 0 ? parseInt(inputColumns.stringValue()) : defaultColumns,
             marginX = parseInt(inputMarginX.stringValue()) >= 0 ? parseInt(inputMarginX.stringValue()) : defaultMarginX,
             marginY = parseInt(inputMarginY.stringValue()) >= 0 ? parseInt(inputMarginY.stringValue()) : defaultMarginY;
 

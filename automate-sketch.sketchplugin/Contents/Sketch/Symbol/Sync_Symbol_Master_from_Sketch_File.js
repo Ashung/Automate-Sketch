@@ -79,7 +79,6 @@ var onRun = function(context) {
         var itemView = ui.view([0, rowHeight * i, viewWidth, rowHeight]);
 
         // Checkbox
-        var checkbox = ui.checkBox(true, title, [10, 10, viewWidth - 20, 20]);
         var originalSymbol = documentData.symbolWithID(symbol.symbolID());
         var originalSymbolName = originalSymbol ? originalSymbol.name() : "";
         var newSymbolName = symbol.name();
@@ -87,6 +86,7 @@ var onRun = function(context) {
         if (originalSymbol && String(originalSymbolName) != String(newSymbolName)) {
             title = originalSymbolName + " ➝ " + newSymbolName;
         }
+        var checkbox = ui.checkBox(true, title, [10, 10, viewWidth - 20, 20]);
         itemView.addSubview(checkbox);
 
         checkbox.setCOSJSTargetFunction(function(sender) {

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "55.2.20190719",
+  "version": "55.2.20190723",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1307,6 +1307,30 @@
       "identifier": "toggle_adjust_content_on_resize",
       "script": "Artboard/Toggle_Adjust_Content_on_Resize.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Not Truncate Text",
+      "identifier": "truncate_text_not",
+      "script": "Type/Truncate_Text.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Truncate Text at Start",
+      "identifier": "truncate_text_at_start",
+      "script": "Type/Truncate_Text.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Truncate Text at Middle",
+      "identifier": "truncate_text_at_middle",
+      "script": "Type/Truncate_Text.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Truncate Text at End",
+      "identifier": "truncate_text_at_end",
+      "script": "Type/Truncate_Text.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1497,9 +1521,6 @@
       {
         "title": "Style",
         "items": [
-          "find_and_replace_layer_style",
-          "find_and_replace_text_style",
-          "-",
           "select_layers_by_layer_style",
           "select_layers_by_text_style",
           "select_layers_with_same_shared_style",
@@ -1566,6 +1587,11 @@
           "increase_horizontally_scale",
           "decrease_horizontally_scale",
           "reset_horizontally_scale",
+          "-",
+          "truncate_text_not",
+          "truncate_text_at_start",
+          "truncate_text_at_middle",
+          "truncate_text_at_end",
           "-",
           "split_text_layer",
           "combine_text_layer",

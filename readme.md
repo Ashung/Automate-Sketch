@@ -60,6 +60,8 @@ Make your workflow more efficient.
 | Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
 | Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
 | Increase / Decrease / Reset Horizontally Scale               | Increase, decrease and reset horizontally scale for all selected text layers. |
+| Not Truncate Text                                            | Remove the truncate text setting.                            |
+| Truncate Text at Start / Middle / End                        | Add a ellipsis at the start / middle / end of text, when text is overflow the layer bound. |
 | Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
 | Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |

@@ -61,6 +61,8 @@
 | Increase / Decrease Line Height                              | **增加/减小行高** 根据 "Preferences" - "Canvas" - "Nudging" 的值，增加或减小选中文本图层的行高。 |
 | Increase / Decrease Letter Spacing                           | **增加/减小字间距** 增加或减小选中文本图层的字间距，与 Sketch 内置功能一致增加或减小 0.38。 |
 | Increase / Decrease / Reset Horizontally Scale               | **增加/减小/重置水平拉伸** 增加、减小或重置选中文本图层的水平拉伸，功能类似 Photoshop 的字体拉伸。 |
+| Not Truncate Text                                            | **文字无截断** 取消文字截断的设置，恢复文本图层默认外观。    |
+| Truncate Text at Start / Middle / End                        | **文字起始处 / 中间 / 结束处截断** 当文字超出图层边界时在，起始处、中间或结束处显示省略号。 |
 | Split Text Layer                                             | **拆分文本图层** 将选中文本图层按换行或空格，逗号等特殊分隔符，拆分为多个图层。 |
 | Combine Text Layers                                          | **合并文本图层** 合并选中文本图层。                          |
 | Capitalize                                                   | **首字大写**                                                 |

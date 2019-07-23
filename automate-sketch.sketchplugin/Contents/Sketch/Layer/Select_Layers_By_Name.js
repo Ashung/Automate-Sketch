@@ -61,6 +61,8 @@ var onRun = function(context) {
     layerTypeView.selectItemAtIndex(defaultSelectLayersType);
     dialog.addView(layerTypeView);
 
+    dialog.self.window().setInitialFirstResponder(userInputStringView);
+
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
