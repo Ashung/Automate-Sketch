@@ -1,4 +1,14 @@
 -
+  version: 55.2.20190723
+  description: |-
+    <ul>
+    <li>Fix Truncate Text.</li>
+    <li>Fix Sync Symbol Master from Sketch File base Symbol Id not work. #190</li>
+    <li>Fix some text field focus issues #188</li>
+    </ul>
+  commitID: 7be9bad1774242b90305ab23472cde7ac371ed01
+
+-
   version: 55.2.20190719
   description: |-
     <ul>
