@@ -18,16 +18,16 @@ var onRun = function(context) {
     }
 
     // Dialog
+    var buttons = ["Save", "Cancel"];
+    if (selection.count() == 1) {
+        buttons.push("Copy");
+    }
     var dialog = new Dialog(
         "Export Clean Code SVG",
         "Export clean code SVG files from symbol masters, groups, without making a copy and remove layers.",
         300,
-        ["Save", "Cancel"]
+        buttons
     );
-
-    if (selection.count() == 1) {
-        dialog.buttons.push("Copy");
-    }
 
     var optionsBasic = ui.groupLabel("Basic Options");
     dialog.addView(optionsBasic);
@@ -170,16 +170,16 @@ var onRun = function(context) {
                 }
             }
 
-            var childrens = layerCopy.children();
-            childrens.removeObject(layerCopy);
+            var children = layerCopy.children();
+            children.removeObject(layerCopy);
             var predicate = NSPredicate.predicateWithFormat(
                 'className == "MSShapeGroup" || className == "MSBitmapLayer" || className == "MSLayerGroup" || className == "MSTextLayer" || className == "MSSymbolInstance"'
             );
-            var childrens = childrens.filteredArrayUsingPredicate(predicate);
+            var children = children.filteredArrayUsingPredicate(predicate);
 
-            var loopChildrens = childrens.objectEnumerator();
+            var loopChildren = children.objectEnumerator();
             var children;
-            while (children = loopChildrens.nextObject()) {
+            while (children = loopChildren.nextObject()) {
 
                 // Basic Options
                 if (
