@@ -59,7 +59,8 @@ var onRun = function(context) {
         { label: "artboard", value: "{{artboard}}", position: [0, 30] },
         { label: "page", value: "{{page}}", position: [75, 30] },
         { label: "parent", value: "{{parent}}", position: [130, 30] },
-        { label: "library", value: "{{library}}", position: [190, 30] }
+        { label: "library", value: "{{library}}", position: [190, 30] },
+        { label: "N", value: "{{N}}", position: [250, 30] },
     ];
 
     var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -126,7 +127,12 @@ var onRun = function(context) {
                     var begin = keyword.match(/\d+/g) == null ? 1 : parseInt(keyword.match(/\d+/g)[0]);
                     var value = formatNumber(index + begin, length);
                     resultName = resultName.replace(match[0], value);
-                    console.log(length, begin, formatNumber(index + begin, length))
+                }
+                if (/{{N+\d*}}/.test(keyword)) {
+                    var length = keyword.match(/N/g).length;
+                    var begin = keyword.match(/\d+/g) == null ? selectedLayers.length : parseInt(keyword.match(/\d+/g)[0]);
+                    var value = formatNumber(begin - index, length);
+                    resultName = resultName.replace(match[0], value);
                 }
                 if (Object.keys(keywordMapping).includes(keyword)) {
                     var value = keywordMapping[keyword] || "";

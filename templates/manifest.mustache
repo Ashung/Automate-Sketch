@@ -205,27 +205,27 @@
         {
             "name": "{{capitalize}}",
             "identifier": "capitalize",
-            "script": "Type/Capitalize.js"
+            "script": "Text/Capitalize.js"
         },
         {
             "name": "{{change_typeface_for_the_latin_character_set}}",
             "identifier": "change_typeface_for_the_latin_character_set",
-            "script": "Type/Change_Typeface_for_the_Latin_Character_Set.js"
+            "script": "Text/Change_Typeface_for_the_Latin_Character_Set.js"
         },
         {
             "name": "{{add_space_between_cjk_and_western_character}}",
             "identifier": "add_space_between_cjk_and_western_character",
-            "script": "Type/Add_Space_Between_CJK_and_Western_Character.js"
+            "script": "Text/Add_Space_Between_CJK_and_Western_Character.js"
         },
         {
             "name": "{{unfixed_layer_name}}",
             "identifier": "unfixed_layer_name",
-            "script": "Type/Unfixed_Layer_Name.js"
+            "script": "Text/Unfixed_Layer_Name.js"
         },
         {
             "name": "{{replace_fonts}}",
             "identifier": "replace_fonts",
-            "script": "Type/Replace_Fonts.js"
+            "script": "Text/Replace_Fonts.js"
         },
         {
             "name": "{{clear_slices}}",
@@ -497,12 +497,12 @@
         {
             "name": "{{resize_fit_text_height}}",
             "identifier": "resize_fit_text_height",
-            "script": "Type/Resize_Fit_Text_Height.js"
+            "script": "Text/Resize_Fit_Text_Height.js"
         },
         {
             "name": "{{change_text_orientation}}",
             "identifier": "change_text_orientation",
-            "script": "Type/Change_Text_Orientation.js"
+            "script": "Text/Change_Text_Orientation.js"
         },
         {
             "name": "{{paste_style_fills}}",
@@ -680,12 +680,12 @@
         {
             "name": "{{split_text_layer}}",
             "identifier": "split_text_layer",
-            "script": "Type/Split_Text_Layer.js"
+            "script": "Text/Split_Text_Layer.js"
         },
         {
             "name": "{{combine_text_layer}}",
             "identifier": "combine_text_layer",
-            "script": "Type/Combine_Text_Layer.js"
+            "script": "Text/Combine_Text_Layer.js"
         },
         {
             "name": "{{select_layers_outside_of_artboard_bounds}}",
@@ -737,37 +737,37 @@
         {
             "name": "{{increase_line_height}}",
             "identifier": "increase_line_height",
-            "script": "Type/Line_Height.js"
+            "script": "Text/Line_Height.js"
         },
         {
             "name": "{{decrease_line_height}}",
             "identifier": "decrease_line_height",
-            "script": "Type/Line_Height.js"
+            "script": "Text/Line_Height.js"
         },
         {
             "name": "{{increase_letter_spacing}}",
             "identifier": "increase_letter_spacing",
-            "script": "Type/Letter_Spacing.js"
+            "script": "Text/Letter_Spacing.js"
         },
         {
             "name": "{{decrease_letter_spacing}}",
             "identifier": "decrease_letter_spacing",
-            "script": "Type/Letter_Spacing.js"
+            "script": "Text/Letter_Spacing.js"
         },
         {
             "name": "{{increase_horizontally_scale}}",
             "identifier": "increase_horizontally_scale",
-            "script": "Type/Horizontally_Scale.js"
+            "script": "Text/Horizontally_Scale.js"
         },
         {
             "name": "{{decrease_horizontally_scale}}",
             "identifier": "decrease_horizontally_scale",
-            "script": "Type/Horizontally_Scale.js"
+            "script": "Text/Horizontally_Scale.js"
         },
         {
             "name": "{{reset_horizontally_scale}}",
             "identifier": "reset_horizontally_scale",
-            "script": "Type/Horizontally_Scale.js"
+            "script": "Text/Horizontally_Scale.js"
         },
         {
             "name": "{{select_parent_artboard}}",
@@ -923,7 +923,7 @@
         {
             "name": "{{toggle_text_auto_and_fixed}}",
             "identifier": "toggle_text_auto_and_fixed",
-            "script": "Type/Toggle_Text_Auto_And_Fixed.js"
+            "script": "Text/Toggle_Text_Auto_And_Fixed.js"
         },
         {
             "script": "Data/Supply_Data.js",
@@ -951,7 +951,7 @@
         {
             "name": "{{character_count}}",
             "identifier": "character_count",
-            "script": "Type/Character_Count.js"
+            "script": "Text/Character_Count.js"
         },
         {
             "name": "{{create_style_guide}}",
@@ -1001,7 +1001,7 @@
         {
             "name": "{{change_texts}}",
             "identifier": "change_texts",
-            "script": "Type/Change_Texts.js"
+            "script": "Text/Change_Texts.js"
         },
         {
             "name": "{{copy_svg_path_data}}",
@@ -1106,22 +1106,27 @@
         {
             "name": "{{truncate_text_not}}",
             "identifier": "truncate_text_not",
-            "script": "Type/Truncate_Text.js"
+            "script": "Text/Truncate_Text.js"
         },
         {
             "name": "{{truncate_text_at_start}}",
             "identifier": "truncate_text_at_start",
-            "script": "Type/Truncate_Text.js"
+            "script": "Text/Truncate_Text.js"
         },
         {
             "name": "{{truncate_text_at_middle}}",
             "identifier": "truncate_text_at_middle",
-            "script": "Type/Truncate_Text.js"
+            "script": "Text/Truncate_Text.js"
         },
         {
             "name": "{{truncate_text_at_end}}",
             "identifier": "truncate_text_at_end",
-            "script": "Type/Truncate_Text.js"
+            "script": "Text/Truncate_Text.js"
+        },
+        {
+            "name": "{{paste_as_alphabetical_order_text}}",
+            "identifier": "paste_as_alphabetical_order_text",
+            "script": "Text/Paste_as_Alphabetical_Order_Text.js"
         }
     ],
     "menu": {
@@ -1367,9 +1372,10 @@
                 ]
             },
             {
-                "title": "{{type}}",
+                "title": "{{text}}",
                 "items": [
                     "change_texts",
+                    "paste_as_alphabetical_order_text",
                     "-",
                     "increase_line_height",
                     "decrease_line_height",

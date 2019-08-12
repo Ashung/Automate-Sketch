@@ -5,6 +5,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Utilities");
 
+    var type = require("../modules/Type");
+
     var runCommand = require("../modules/Run_Command");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
@@ -171,10 +173,20 @@ var onRun = function(context) {
             }
 
             var children = layerCopy.children();
-            children.removeObject(layerCopy);
-            var predicate = NSPredicate.predicateWithFormat(
-                'className == "MSShapeGroup" || className == "MSBitmapLayer" || className == "MSLayerGroup" || className == "MSTextLayer" || className == "MSSymbolInstance"'
+            var predicate = NSPredicate.predicateWithFormat('\
+                className == "MSShapeGroup" || \
+                className == "MSBitmapLayer" || \
+                className == "MSLayerGroup" || \
+                className == "MSTextLayer" || \
+                className == "MSSymbolInstance" ||\
+                className == "MSRectangleShape" || \
+                className == "MSOvalShape" || \
+                className== "MSShapePathLayer" || \
+                className == "MSTriangleShape" || \
+                className == "MSStarShape" || \
+                className == "MSPolygonShape"'
             );
+            var predicate = NSPredicate.predicateWithFormat('className == "MSRectangleShape"')
             var children = children.filteredArrayUsingPredicate(predicate);
 
             var loopChildren = children.objectEnumerator();
@@ -183,16 +195,16 @@ var onRun = function(context) {
 
                 // Basic Options
                 if (
-                    (ignoreBitmap.state() == NSOnState && children.class() == "MSBitmapLayer") ||
-                    (ignoreText.state() == NSOnState && children.class() == "MSTextLayer") ||
-                    (ignoreSymbol.state() == NSOnState && children.class() == "MSSymbolInstance") ||
+                    (ignoreBitmap.state() == NSOnState && type.isBitmap(children)) ||
+                    (ignoreText.state() == NSOnState && type.isText(children)) ||
+                    (ignoreSymbol.state() == NSOnState && type.isSymbolInstance(children)) ||
                     (ignoreTransparency.state() == NSOnState && layerIsTransparency(children) && !children.hasClippingMask()) ||
                     (ignoreLayerName.state() == NSOnState && ignoreLayerNamesArray.indexOf(children.name()) >= 0)
                 ) {
                     children.removeFromParent();
                 }
 
-                if (ignoreBitmap.state() == NSOnState && children.class() == "MSShapeGroup") {
+                if (ignoreBitmap.state() == NSOnState && type.isShape(children)) {
                     if (children.style().enabledFills().count() > 0) {
                         if (
                             children.style().enabledFills().lastObject().fillType() == 4 ||
@@ -213,7 +225,7 @@ var onRun = function(context) {
                 }
 
                 // Advanced Options
-                if (changeFillRule.state() == NSOnState && children.class() == "MSShapeGroup") {
+                if (changeFillRule.state() == NSOnState && type.isShape(children)) {
                     if (MSApplicationMetadata.metadata().appVersion >= 51) {
                         children.style().setWindingRule(0);
                     }
@@ -222,13 +234,13 @@ var onRun = function(context) {
                     }
                 }
 
-                if (flattenAllLayer.state() == NSOnState && children.class() == "MSShapeGroup") {
+                if (flattenAllLayer.state() == NSOnState && type.isShape(children)) {
                     if (children.canFlatten()) {
                         children.flatten();
                     }
                 }
 
-                if (changeColor.state() == NSOnState && children.class() == "MSShapeGroup") {
+                if (changeColor.state() == NSOnState && type.isShape(children)) {
                     var color = colorPicker.color();
                     if (children.style().enabledFills().count() > 0) {
                         children.style().enabledFills().lastObject().setColor(MSColor.colorWithNSColor(color));

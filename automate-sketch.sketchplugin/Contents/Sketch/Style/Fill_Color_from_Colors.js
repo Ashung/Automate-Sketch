@@ -33,7 +33,7 @@ var fillColorFromDocumentColors = function(context) {
 function fillColorFromColors(context, colors, alertMessage) {
     var doc = context.document;
 
-    var Sketch = require("../modules/Sketch");
+    var type = require("../modules/Type");
 
     if (colors.count() == 0) {
         doc.showMessage(alertMessage);
@@ -50,9 +50,9 @@ function fillColorFromColors(context, colors, alertMessage) {
     for (var i = 0; i < selection.count(); i++) {
         var layer = selection.objectAtIndex(i);
         if (
-            Sketch.isShapeLayer(layer) ||
-            layer.class() == "MSTextLayer" ||
-            layer.class() == "MSBitmapLayer"
+            type.isShape(layer) ||
+            type.isText(layer) ||
+            type.isBitmap(layer)
         ) {
             var index = colors.indexOfObject(getFillColor(layer));
             if (index == 9.223372036854776e+18 || index == colors.count() - 1) {
@@ -69,8 +69,8 @@ function fillColorFromColors(context, colors, alertMessage) {
 }
 
 function getFillColor(layer) {
-    var Sketch = require("../modules/Sketch");
-    if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
+    var type = require("../modules/Type");
+    if (type.isShape(layer) || type.isBitmap(layer)) {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0) {
             if (fills.lastObject().fillType() == 0) {
@@ -82,14 +82,14 @@ function getFillColor(layer) {
             return null;
         }
     }
-    if (layer.class() == "MSTextLayer") {
+    if (type.isText(layer)) {
         return layer.textColor();
     }
 }
 
 function setFillColor(layer, color) {
-    var Sketch = require("../modules/Sketch");
-    if (Sketch.isShapeLayer(layer) || layer.class() == "MSBitmapLayer") {
+    var type = require("../modules/Type");
+    if (type.isShape(layer) || type.isBitmap(layer)) {
         var fills = layer.style().enabledFills();
         if (fills.count() > 0 && fills.lastObject().fillType() == 0) {
             fills.lastObject().setColor(color);
@@ -99,7 +99,7 @@ function setFillColor(layer, color) {
             fills.lastObject().setColor(color);
         }
     }
-    if (layer.class() == "MSTextLayer") {
+    if (type.isText(layer)) {
         layer.changeTextColorTo(color.NSColorWithColorSpace(nil));
     }
 }

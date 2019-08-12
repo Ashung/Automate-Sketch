@@ -10,7 +10,7 @@ layer:
 arrange:
   - Arrange
   - 排列
-type:
+text:
   - Text
   - 文本
 slice:
@@ -709,3 +709,6 @@ truncate_text_at_middle:
 truncate_text_at_end:
   - Truncate Text at End
   - 文字结束处截断
+paste_as_alphabetical_order_text:
+  - Paste as Alphabetical Order Text
+  - 粘贴为按字母排序文本

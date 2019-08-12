@@ -5,7 +5,7 @@ var onRun = function(context) {
     ga("Layer");
 
     var preferences = require("../modules/Preferences");
-    var Sketch = require("../modules/Sketch");
+    var type = require("../modules/Type");
     var sketchUI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
@@ -15,7 +15,7 @@ var onRun = function(context) {
     }
 
     var layer = selection.firstObject();
-    if (Sketch.isShapeLayer(layer)) {
+    if (type.isShape(layer)) {
         // \d+x\d+
         var userInputString;
         sketchUI.getInputFromUser(

@@ -3,7 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
-    var Sketch = require("../modules/Sketch");
+    var type = require("../modules/Type");
 
     var doc = context.document;
     var selection = context.selection;
@@ -42,9 +42,9 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            Sketch.isShapeLayer(layer) ||
-                            layer.class() == "MSTextLayer" ||
-                            layer.class() == "MSBitmapLayer"
+                            type.isShape(layer) ||
+                            type.isText(layer) ||
+                            type.isBitmap(layer)
                         ) {
                             var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setFills(style.fills());
@@ -64,9 +64,9 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            Sketch.isShapeLayer(layer) ||
-                            layer.class() == "MSTextLayer" ||
-                            layer.class() == "MSBitmapLayer"
+                            type.isShape(layer) ||
+                            type.isText(layer) ||
+                            type.isBitmap(layer)
                         ) {
                             var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setBorders(style.borders());
@@ -86,11 +86,11 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            Sketch.isShapeLayer(layer) ||
-                            layer.class() == "MSTextLayer" ||
-                            layer.class() == "MSBitmapLayer" ||
-                            layer.class() == "MSSymbolInstance" ||
-                            layer.class() == "MSLayerGroup"
+                            type.isShape(layer) ||
+                            type.isText(layer) ||
+                            type.isBitmap(layer) ||
+                            type.isSymbolInstance(layer) ||
+                            type.isGroup(layer)
                         ) {
                             var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setShadows(style.shadows());
@@ -110,9 +110,9 @@ var onRun = function(context) {
                     var layer;
                     while (layer = loopSelection.nextObject()) {
                         if (
-                            Sketch.isShapeLayer(layer) ||
-                            layer.class() == "MSTextLayer" ||
-                            layer.class() == "MSBitmapLayer"
+                            type.isShape(layer) ||
+                            type.isText(layer) ||
+                            type.isBitmap(layer)
                         ) {
                             var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                             layer.style().setInnerShadows(style.innerShadows());
@@ -147,7 +147,7 @@ var onRun = function(context) {
                         }
                         // Text and bitmap layer can not apply background blur.
                         else if (
-                            (layer.class() == "MSTextLayer" || layer.class() == "MSBitmapLayer") &&
+                            (type.isText(layer) || type.isBitmap(layer)) &&
                             blurType != 3
                         ) {
                             var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
@@ -182,7 +182,7 @@ var onRun = function(context) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
-                        if (layer.class() == "MSTextLayer") {
+                        if (type.isText(layer)) {
                             var textStyle = MSTextStyle.alloc().initWithImmutableModelObject(decoded.textStyle());
                             var textColor = layer.textColor();
                             layer.style().setTextStyle(textStyle);
@@ -198,7 +198,7 @@ var onRun = function(context) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
-                        if (layer.class() == "MSTextLayer") {
+                        if (type.isText(layer)) {
                             var textColor = decoded.textStyle().attributes().objectForKey("MSAttributedStringColorAttribute").newMutableCounterpart();
                             layer.setTextColor(textColor);
                         }
@@ -212,7 +212,7 @@ var onRun = function(context) {
                     var loopSelection = selection.objectEnumerator();
                     var layer;
                     while (layer = loopSelection.nextObject()) {
-                        if (layer.class() == "MSTextLayer") {
+                        if (type.isText(layer)) {
                             var textStyle = MSTextStyle.alloc().initWithImmutableModelObject(decoded.textStyle());
                             var font = textStyle.fontPostscriptName();
                             layer.setFontPostscriptName(font);

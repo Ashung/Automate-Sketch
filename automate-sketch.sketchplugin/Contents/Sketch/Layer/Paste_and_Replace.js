@@ -4,7 +4,7 @@ var onRun = function(context) {
     ga("Layer");
 
     var preferences = require("../modules/Preferences");
-    var Sketch = require("../modules/Sketch");
+    var type = require("../modules/Type");
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
@@ -77,7 +77,7 @@ var onRun = function(context) {
                     if (
                         oldLayer.hasClippingMask() &&
                         pasteboardLayers.layers().layers().count() == 1 &&
-                        Sketch.isShapeLayer(group.layers().firstObject())
+                        type.isShape(group.layers().firstObject())
                     ) {
                         group.layers().firstObject().setHasClippingMask(true);
                     }
