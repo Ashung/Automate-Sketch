@@ -21,7 +21,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = new Dialog(
         "Change Texts",
-        "Change the text value of selected text layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010."
+        "Change the text value of selected text layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010. {{N}} for desc order."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -66,6 +66,7 @@ var onRun = function(context) {
         { label: "n", value: "{{n}}", position: [240, 30] },
         { label: "loremIpsum", value: "{{loremIpsum}}", position: [0, 60]},
         { label: "color", value: "{{color}}", position: [90, 60]},
+        { label: "N", value: "{{N}}", position: [140, 60] }
     ];
 
     var buttonsView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 80));
@@ -134,6 +135,12 @@ var onRun = function(context) {
                     var length = keyword.match(/n/g).length;
                     var begin = keyword.match(/\d+/g) == null ? 1 : parseInt(keyword.match(/\d+/g)[0]);
                     var value = formatNumber(index + begin, length);
+                    resultText = resultText.replace(match[0], value);
+                }
+                if (/{{N+\d*}}/.test(keyword)) {
+                    var length = keyword.match(/N/g).length;
+                    var begin = keyword.match(/\d+/g) == null ? selectedLayers.length : parseInt(keyword.match(/\d+/g)[0]);
+                    var value = formatNumber(begin - index, length);
                     resultText = resultText.replace(match[0], value);
                 }
                 if (Object.keys(keywordMapping).includes(keyword)) {

@@ -35,6 +35,8 @@ var onRun = function(context) {
             default:
                 paragraphStyle.setLineBreakMode(null);
         }
-        msLayer.addAttribute_value(NSParagraphStyleAttributeName, paragraphStyle)
+        paragraphStyle.setAllowsDefaultTighteningForTruncation(false);
+        paragraphStyle.setTighteningFactorForTruncation(0);
+        msLayer.addAttribute_value(NSParagraphStyleAttributeName, paragraphStyle);
     });
 };

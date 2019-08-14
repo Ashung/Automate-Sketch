@@ -17,7 +17,7 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         "Rename Layers",
-        "Rename selected layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010."
+        "Rename selected layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010. {{N}} for desc order."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));

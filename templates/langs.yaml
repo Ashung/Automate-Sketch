@@ -712,3 +712,6 @@ truncate_text_at_end:
 paste_as_alphabetical_order_text:
   - Paste as Alphabetical Order Text
   - 粘贴为按字母排序文本
+remove_hotspot_in_selected_artboards:
+  - Remove Hotspot in Selected Artboards
+  - 删除选中画板内所有热区
