@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "56.3.20190812",
+  "version": "57.1.20190816",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1337,6 +1337,18 @@
       "identifier": "paste_as_alphabetical_order_text",
       "script": "Text/Paste_as_Alphabetical_Order_Text.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "删除选中画板内所有热区",
+      "identifier": "remove_hotspot_in_selected_artboards",
+      "script": "Prototyping/Remove_Hotspot_in_Selected_Artboards.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "交换宽与高",
+      "identifier": "swap_width_and_height",
+      "script": "Layer/Swap_Width_and_Height.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1379,6 +1391,7 @@
           "fit_to_parent_with_margin",
           "fit_to_parent_width_with_margin",
           "fit_to_parent_height_with_margin",
+          "swap_width_and_height",
           {
             "title": "调整尺寸",
             "items": [

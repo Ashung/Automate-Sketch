@@ -715,3 +715,6 @@ paste_as_alphabetical_order_text:
 remove_hotspot_in_selected_artboards:
   - Remove Hotspot in Selected Artboards
   - 删除选中画板内所有热区
+swap_width_and_height:
+  - Swap Width and Height
+  - 交换宽与高
