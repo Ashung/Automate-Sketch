@@ -1664,7 +1664,8 @@
         "items": [
           "bring_all_hotspot_to_front",
           "reset_flow",
-          "remove_all_hotspot"
+          "remove_all_hotspot",
+          "remove_hotspot_in_selected_artboards"
         ]
       },
       {
