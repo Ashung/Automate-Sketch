@@ -1,4 +1,19 @@
 -
+  version: 57.1.20190816
+  description: |-
+    <ul>
+    <li>Add Paste as Alphabetical Order Text. #180</li>
+    <li>Add Swap Width and Height.</li>
+    <li>Add Remove Hotspot in Selected Artboards.</li>
+    <li>Fix Export Clean Code SVG bug. #192</li>
+    <li>Fix Export All Symbols to PNG bug. #196</li>
+    <li>Rename Layer support desc options. #195</li>
+    <li>Change Texts support desc options.</li>
+    <li>Fix Truncate Text kerning bug. #193 #198</li>
+    </ul>
+  commitID: 3dc6a58a5f49c1ad320497276f86d7b1950324ef
+
+-
   version: 55.2.20190723
   description: |-
     <ul>
