@@ -20,6 +20,7 @@
 | **Layer**                                                    | **图层**                                                     |
 | Fix to Parent with Margin                                    | **带边距适配父级** 让选中图层适配父级的宽度和高度，可设置边距。 |
 | Fix to Parent Width (Height) with Margin                     | **带边距适配父级宽（高）** 功能同上。                        |
+| Swap Width and Height                                        | **交换宽与高**                                               |
 | Adjust Sizes                                                 | **调整尺寸** 基于图层右侧、底部或中心，根据 "Preferences" - "Canvas" - "Nudging" 处设置的值微调图层宽或高。 |
 | Bounds Layer for Every Selection                             | **为选中对象增加边界层** 为从选中图层创建透明边界图层。      |
 | Divide Layer                                                 | **均分图层** 均分选中图层。                                  |
@@ -58,6 +59,7 @@
 | Collapse All Groups and Fit Canvas                           | **缩收所有组并显示全部** 在每个页面运行 “Collapse All Groups” 和 “Fit Canvas”。 |
 | **Text**                                                     | **文本**                                                     |
 | Change Texts                                                 | **更改文本** 使用自定义模版变量更改选择文本图层的内容。      |
+| Paste as Alphabetical Order Text                             | **粘贴为按字母排序文本** 复制段落文本之后对剪贴板文本自动排序。 |
 | Increase / Decrease Line Height                              | **增加/减小行高** 根据 "Preferences" - "Canvas" - "Nudging" 的值，增加或减小选中文本图层的行高。 |
 | Increase / Decrease Letter Spacing                           | **增加/减小字间距** 增加或减小选中文本图层的字间距，与 Sketch 内置功能一致增加或减小 0.38。 |
 | Increase / Decrease / Reset Horizontally Scale               | **增加/减小/重置水平拉伸** 增加、减小或重置选中文本图层的水平拉伸，功能类似 Photoshop 的字体拉伸。 |
@@ -159,6 +161,7 @@
 | Bring All Hotspot to Front                                   | **置顶所有热区**                                             |
 | Reset Flow                                                   | **重置链接** 重置 flow 设置。                                |
 | Remove All Hotspot                                           | **删除所有热区** 删除所有热区图层和设置。                    |
+| Remove Hotspot in Selected Artboards                         | **删除选中画板内所有热区** 删除选中画板和组件内的所有热区。  |
 | **Development**                                              | **开发**                                                     |
 | Pick Color and Copy the HEX Code                             | **屏幕取色并复制色彩代码** 从屏幕取色并负责色彩的十六进制值。 |
 | Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |

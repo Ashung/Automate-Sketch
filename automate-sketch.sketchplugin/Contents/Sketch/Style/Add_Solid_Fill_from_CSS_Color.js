@@ -152,7 +152,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
-    var Sketch = require("../modules/Sketch");
+    var type = require("../modules/Type");
     var sketchUI = require("sketch/ui");
 
     var doc = context.document;
@@ -271,8 +271,8 @@ var onRun = function(context) {
         while (layer = loopSelection.nextObject()) {
 
             if (
-                Sketch.isShapeLayer(layer) ||
-                layer.class() == "MSBitmapLayer"
+                type.isShape(layer) ||
+                type.isBitmap(layer)
             ) {
                 if (layer.style().enabledFills().count() == 0) {
                     var fill = layer.style().addStylePartOfType(0); // fill
@@ -281,7 +281,7 @@ var onRun = function(context) {
                 layer.style().enabledFills().lastObject().setColor(color);
             }
 
-            if (layer.class() == "MSTextLayer") {
+            if (type.isText(layer)) {
                 layer.changeTextColorTo(color.NSColorWithColorSpace(nil));
             }
 

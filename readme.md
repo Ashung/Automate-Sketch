@@ -19,6 +19,7 @@ Make your workflow more efficient.
 | **Layer**                                                    |                                                              |
 | Fix to Parent with Margin                                    | Fix the width and height of the parent, and set the margins. |
 | Fix to Parent Width (Height) with Margin                     | Fix the width or height of the parent, and set the margins.  |
+| Swap Width and Height                                        | Swap width and height for all selected layers.               |
 | Adjust Sizes                                                 | Increase/decrease width/height for selected layers from right/bottom/center origin, the increase/decrease value can be changed in "Preferences" - "Nudging". |
 | Bounds Layer for Every Selection                             | Create a bounds layer from the selected layer.               |
 | Divide Layer                                                 | Split Layer.                                                 |
@@ -57,6 +58,7 @@ Make your workflow more efficient.
 | Collapse All Groups and Fit Canvas                           | Run "Collapse All Groups" and "Fit Canvas" for all pages.    |
 | **Text**                                                     |                                                              |
 | Change Texts                                                 | Change text of selected layers use custom template.          |
+| Paste as Alphabetical Order Text                             | Copy texts and paste as alphabetical order.                  |
 | Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
 | Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
 | Increase / Decrease / Reset Horizontally Scale               | Increase, decrease and reset horizontally scale for all selected text layers. |
@@ -158,6 +160,7 @@ Make your workflow more efficient.
 | Bring All Hotspot to Front                                   | Bring all hotspot layer to front.                            |
 | Reset Flow                                                   | Reset flow.                                                  |
 | Remove All Hotspot                                           | Remove all hotspot layer.                                    |
+| Remove Hotspot in Selected Artboards                         | Remove hotspot in selected artboards or symbol masters.      |
 | **Development**                                              |                                                              |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
 | Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |

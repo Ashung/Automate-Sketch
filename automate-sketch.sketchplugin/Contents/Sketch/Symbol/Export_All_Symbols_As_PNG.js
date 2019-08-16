@@ -19,13 +19,13 @@ var onRun = function(context) {
         var symbol;
         while (symbol = loopAllSymbols.nextObject()) {
             var fileName = symbol.parentPage().name() + "/" + symbol.name();
-            var fileNameParts = fileName.split("/"));
+            var fileNameParts = fileName.split("/");
             fileNameParts = fileNameParts.map(function(item) {
                 return item.trim().replace(/^\./, "_")
                     .replace(/[`~!@#$%^&*+=:;,<>?|(){}\[\]\\]/g, "")
                     .trim();
             });
-            fileName = fileNameParts.join("/");
+            fileName = fileNameParts.join("/") + ".png";
             document.saveArtboardOrSlice_toFile(symbol, path + "/" + fileName);
         }
 

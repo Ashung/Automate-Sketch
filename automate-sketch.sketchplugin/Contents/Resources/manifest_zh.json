@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "55.2.20190723",
+  "version": "57.1.20190816",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -240,31 +240,31 @@
     {
       "name": "首字大写",
       "identifier": "capitalize",
-      "script": "Type/Capitalize.js",
+      "script": "Text/Capitalize.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "更改西文字体",
       "identifier": "change_typeface_for_the_latin_character_set",
-      "script": "Type/Change_Typeface_for_the_Latin_Character_Set.js",
+      "script": "Text/Change_Typeface_for_the_Latin_Character_Set.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "中西文字体间增加空格",
       "identifier": "add_space_between_cjk_and_western_character",
-      "script": "Type/Add_Space_Between_CJK_and_Western_Character.js",
+      "script": "Text/Add_Space_Between_CJK_and_Western_Character.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "取消当页固定图层名",
       "identifier": "unfixed_layer_name",
-      "script": "Type/Unfixed_Layer_Name.js",
+      "script": "Text/Unfixed_Layer_Name.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "替换字体",
       "identifier": "replace_fonts",
-      "script": "Type/Replace_Fonts.js",
+      "script": "Text/Replace_Fonts.js",
       "icon": "icon_runner.png"
     },
     {
@@ -588,13 +588,13 @@
     {
       "name": "自适应文本高度",
       "identifier": "resize_fit_text_height",
-      "script": "Type/Resize_Fit_Text_Height.js",
+      "script": "Text/Resize_Fit_Text_Height.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "更改文本书写方向",
       "identifier": "change_text_orientation",
-      "script": "Type/Change_Text_Orientation.js",
+      "script": "Text/Change_Text_Orientation.js",
       "icon": "icon_runner.png"
     },
     {
@@ -806,13 +806,13 @@
     {
       "name": "拆分文本图层",
       "identifier": "split_text_layer",
-      "script": "Type/Split_Text_Layer.js",
+      "script": "Text/Split_Text_Layer.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "合并文本图层",
       "identifier": "combine_text_layer",
-      "script": "Type/Combine_Text_Layer.js",
+      "script": "Text/Combine_Text_Layer.js",
       "icon": "icon_runner.png"
     },
     {
@@ -874,43 +874,43 @@
     {
       "name": "增加行高",
       "identifier": "increase_line_height",
-      "script": "Type/Line_Height.js",
+      "script": "Text/Line_Height.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "减小行高",
       "identifier": "decrease_line_height",
-      "script": "Type/Line_Height.js",
+      "script": "Text/Line_Height.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "增加字间距",
       "identifier": "increase_letter_spacing",
-      "script": "Type/Letter_Spacing.js",
+      "script": "Text/Letter_Spacing.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "减小字间距",
       "identifier": "decrease_letter_spacing",
-      "script": "Type/Letter_Spacing.js",
+      "script": "Text/Letter_Spacing.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "增加水平拉伸",
       "identifier": "increase_horizontally_scale",
-      "script": "Type/Horizontally_Scale.js",
+      "script": "Text/Horizontally_Scale.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "减小水平拉伸",
       "identifier": "decrease_horizontally_scale",
-      "script": "Type/Horizontally_Scale.js",
+      "script": "Text/Horizontally_Scale.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "重置水平拉伸",
       "identifier": "reset_horizontally_scale",
-      "script": "Type/Horizontally_Scale.js",
+      "script": "Text/Horizontally_Scale.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1094,7 +1094,7 @@
     {
       "name": "切换自动和固定",
       "identifier": "toggle_text_auto_and_fixed",
-      "script": "Type/Toggle_Text_Auto_And_Fixed.js",
+      "script": "Text/Toggle_Text_Auto_And_Fixed.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1125,7 +1125,7 @@
     {
       "name": "字符统计",
       "identifier": "character_count",
-      "script": "Type/Character_Count.js",
+      "script": "Text/Character_Count.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1185,7 +1185,7 @@
     {
       "name": "更改文本",
       "identifier": "change_texts",
-      "script": "Type/Change_Texts.js",
+      "script": "Text/Change_Texts.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1311,25 +1311,43 @@
     {
       "name": "文字无截断",
       "identifier": "truncate_text_not",
-      "script": "Type/Truncate_Text.js",
+      "script": "Text/Truncate_Text.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "文字起始处截断",
       "identifier": "truncate_text_at_start",
-      "script": "Type/Truncate_Text.js",
+      "script": "Text/Truncate_Text.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "文字中间截断",
       "identifier": "truncate_text_at_middle",
-      "script": "Type/Truncate_Text.js",
+      "script": "Text/Truncate_Text.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "文字结束处截断",
       "identifier": "truncate_text_at_end",
-      "script": "Type/Truncate_Text.js",
+      "script": "Text/Truncate_Text.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "粘贴为按字母排序文本",
+      "identifier": "paste_as_alphabetical_order_text",
+      "script": "Text/Paste_as_Alphabetical_Order_Text.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "删除选中画板内所有热区",
+      "identifier": "remove_hotspot_in_selected_artboards",
+      "script": "Prototyping/Remove_Hotspot_in_Selected_Artboards.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "交换宽与高",
+      "identifier": "swap_width_and_height",
+      "script": "Layer/Swap_Width_and_Height.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1373,6 +1391,7 @@
           "fit_to_parent_with_margin",
           "fit_to_parent_width_with_margin",
           "fit_to_parent_height_with_margin",
+          "swap_width_and_height",
           {
             "title": "调整尺寸",
             "items": [
@@ -1579,6 +1598,7 @@
         "title": "文本",
         "items": [
           "change_texts",
+          "paste_as_alphabetical_order_text",
           "-",
           "increase_line_height",
           "decrease_line_height",
@@ -1644,7 +1664,8 @@
         "items": [
           "bring_all_hotspot_to_front",
           "reset_flow",
-          "remove_all_hotspot"
+          "remove_all_hotspot",
+          "remove_hotspot_in_selected_artboards"
         ]
       },
       {

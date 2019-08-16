@@ -27,8 +27,6 @@ var selectAllExportableInSelection = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
-    var Sketch = require("../modules/Sketch");
-
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -130,6 +128,8 @@ function selectLayersInSelectionByType(context, type) {
 
 function selectLayersInParent_byType(parent, type, callback) {
 
+    var type = require("../modules/Type");
+
     var appVersion = MSApplicationMetadata.metadata().appVersion;
 
     var count = 0;
@@ -168,16 +168,16 @@ function selectLayersInParent_byType(parent, type, callback) {
                 }
             }
         } else {
-            var loopChildrens = parent.children().objectEnumerator();
+            var loopChildren = parent.children().objectEnumerator();
             var layer;
-            while (layer = loopChildrens.nextObject()) {
+            while (layer = loopChildren.nextObject()) {
                 
                 if (
-                    (type == "text" && layer.class() == "MSTextLayer") ||
-                    (type == "shape" && Sketch.isShapeLayer(layer)) ||
-                    (type == "image" && layer.class() == "MSBitmapLayer") ||
-                    (type == "slice" && layer.class() == "MSSliceLayer") ||
-                    (type == "symbol instance" && layer.class() == "MSSymbolInstance")
+                    (type == "text" && type.isText(layer)) ||
+                    (type == "shape" && type.isShape(layer)) ||
+                    (type == "image" && type.isBitmap(layer)) ||
+                    (type == "slice" && type.isSlice(layer)) ||
+                    (type == "symbol instance" && type.isSymbolInstance(layer))
                 ) {
                     // Fix Sketch 45
                     if (appVersion < 45) {

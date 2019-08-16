@@ -3,8 +3,6 @@ var removeTransparencyLayersHandler = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
-    var Sketch = require("../modules/Sketch");
-
     var document = context.document;
     var page = document.currentPage();
     var selection = context.selection;
@@ -135,13 +133,15 @@ function layerIsGroup(layer) {
 
 function layerIsTransparency(layer) {
 
+    var type = require("../modules/Type");
+
     if (layer.isKindOfClass(MSStyledLayer)) {
         if (layer.style().contextSettings().opacity() == 0) {
             return true;
         }
     }
 
-    if (Sketch.isShapeLayer(layer)) {
+    if (type.isShape(layer)) {
         if (
             checkingFills(layer) &&
             checkingBorders(layer) &&
@@ -152,7 +152,7 @@ function layerIsTransparency(layer) {
         }
     }
 
-    if (layer.class() == "MSTextLayer") {
+    if (type.isText(layer)) {
         if (layer.style().enabledFills().count() == 0) {
             if (
                 layer.textColor().alpha() == 0 &&
