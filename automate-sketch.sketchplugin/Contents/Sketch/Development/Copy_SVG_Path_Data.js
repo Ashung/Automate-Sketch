@@ -1,11 +1,11 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Development");
+    var ga = require("../modules/Google_Analytics");
+    ga("Development");
+
+    var pasteboard = require("../modules/Pasteboard");
 
     var sketch = require("sketch");
-    var pasteboard = require("../Libraries/Pasteboard.js");
     var document = sketch.getSelectedDocument();
     var selection = document.selectedLayers.layers;
     var layer = selection[0];

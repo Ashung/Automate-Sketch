@@ -1,7 +1,6 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
-    ga(context, "Development");
+    var ga = require("../modules/Google_Analytics");
+    ga("Development");
     var doc = context.document;
     if (!doc.fileURL()) {
         NSWorkspace.sharedWorkspace().openFile_withApplication_(nil, "Terminal");

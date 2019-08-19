@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Symbol");
+    var ga = require("../modules/Google_Analytics");
+    ga("Symbol");
 
     var util = require("util");
     var sketch = require("sketch");
@@ -33,39 +32,42 @@ var onRun = function(context) {
         return;
     }
 
-    var isAllOverridesDisable;
+    var disableCount = 0;
+    var enableCount = 0;
 
     selectedSymbols.forEach(function(symbol) {
 
-        // All override in manage overrides panel
-        var manageOverrides = symbol.overrides;
-        symbol.overrides.forEach(function(item) {
-            if (item.sketchObject.parent()) {
-                var master = sketch.fromNative(item.sketchObject.master().newMutableCounterpart());
-                master.overrides.forEach(function(item2) {
-                    if (!item2.editable) {
-                        manageOverrides.splice(manageOverrides.indexOf(item), 1);
-                    }
-                });
-            }
-        });
+        // Sketch 54 add allows overrides
+        if (sketch.version.sketch >= 54) {
+            symbol.sketchObject.setAllowsOverrides(true);
+        }
 
-        isAllOverridesDisable = manageOverrides.every(function(override) {
+        var isAllOverridesDisable = symbol.overrides.every(function(override) {
             return override.editable == false;
         });
 
-        manageOverrides.forEach(function(override) {
+        symbol.overrides.forEach(function(override) {
             var point = override.sketchObject.overridePoint();
             symbol.sketchObject.setOverridePoint_editable(point, isAllOverridesDisable);
         });
+
+        if (isAllOverridesDisable) {
+            enableCount ++;
+        } else {
+            disableCount ++;
+        }
 
     });
 
     document.sketchObject.reloadInspector();
 
-    var message = ((isAllOverridesDisable) ? "Enable " : "Disable ") + "all overrides for " +
-        selectedSymbols.length + " symbol master" +
-        ((selectedSymbols.length > 1) ? "s." : ".");
+    var message = "";
+    if (disableCount > 0) {
+        message += "Disable all overrides for " + disableCount + " symbol master" + (disableCount > 1 ? "s" : "") + ". ";
+    }
+    if (enableCount > 0) {
+        message += "Enable all overrides for " + enableCount + " symbol master" + (enableCount > 1 ? "s" : "") + ". ";
+    }
 
     sketch.UI.message(message);
 

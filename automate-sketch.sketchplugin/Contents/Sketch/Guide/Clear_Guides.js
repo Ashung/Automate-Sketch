@@ -1,0 +1,44 @@
+var onRun = function(context) {
+
+    var ga = require("../modules/Google_Analytics");
+    ga("Guide");
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    if (selection.count() > 0) {
+        var loop = selection.objectEnumerator();
+        while (select = loop.nextObject()) {
+            if (select.class() == "MSArtboardGroup" || select.class() == "MSSymbolMaster") {
+                page.setCurrentArtboard(select);
+                clear_guides(select);
+            }
+        }
+    } else {
+        if (page.artboards().count() == 0) {
+            clear_guides(page);
+        } else {
+            var loopArtboards = page.artboards().objectEnumerator();
+            while (artboard = loopArtboards.nextObject()) {
+                clear_guides(artboard);
+            }
+        }
+    }
+
+};
+
+function clear_guides(target) {
+    var horRulerData = target.horizontalRulerData();
+    var verRulerData = target.verticalRulerData();
+    var horGuides = horRulerData.numberOfGuides();
+    var verGuides = verRulerData.numberOfGuides();
+    // Clear All Horizontal Guides
+    for(var x = 0; x < horGuides; x++) {
+        horRulerData.removeGuideAtIndex(0);
+    }
+    // Clear All Vertical Guides
+    for(var y = 0; y < verGuides; y++) {
+        verRulerData.removeGuideAtIndex(0);
+    }
+}

@@ -1,8 +1,7 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Arrange");
+    var ga = require("../modules/Google_Analytics");
+    ga("Arrange");
 
     var document = require("sketch/dom").getSelectedDocument();
     var currentPage = document.selectedPage;

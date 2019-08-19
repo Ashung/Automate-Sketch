@@ -1,29 +1,29 @@
-@import "../Libraries/Google_Analytics.cocoascript";
-@import "../Libraries/UI_Controls.cocoascript";
-
 var onRun = function(context) {
 
-    ga(context, "Utilities");
+    var ga = require("../modules/Google_Analytics");
+    ga("Utilities");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var identifier = context.command.identifier();
 
-    var dialog = UI.cosDialog(
+    var dialog = new Dialog(
         "Insert Layers from SVG Code"
     );
-    var input = UI.textField("", [300, 100]);
+    var input = ui.textField("", [300, 100]);
 
     if (identifier == "insert_layer_from_svg_path_data") {
-        dialog = UI.cosDialog(
+        dialog = new Dialog(
             "Insert Layer from SVG Path Data"
         );
-        input = UI.textField("", [300, 50]);
+        input = ui.textField("", [300, 50]);
     }
 
-    dialog.addAccessoryView(input);
+    dialog.addView(input);
 
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         if (!input.stringValue()) {
@@ -43,9 +43,25 @@ var onRun = function(context) {
         svgLayer.setName("SVG");
 
         var layer = sketch.fromNative(svgLayer);
-        document.selectedPage.layers.push(layer);
+        if (document.selectedLayers.isEmpty) {
+            document.selectedPage.layers.push(layer);
+            // center of canvas
+            var contentDrawView = document.sketchObject.contentDrawView();
+            var midX = Math.round((contentDrawView.frame().size.width/2 - contentDrawView.horizontalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.width / 2);
+            var midY = Math.round((contentDrawView.frame().size.height/2 - contentDrawView.verticalRuler().baseLine())/contentDrawView.zoomValue() - layer.frame.height / 2);
+            layer.sketchObject.absoluteRect().setRulerX(midX);
+            layer.sketchObject.absoluteRect().setRulerY(midY);
+        } else {
+            var selectedLayer = document.selectedLayers.layers[0];
+            if (["Artboard", "Group", "SymbolMaster"].includes(selectedLayer.type)) {
+                selectedLayer.layers.push(layer);
+            } else {
+                selectedLayer.parent.layers.push(layer);
+                layer.frame.x = selectedLayer.frame.x;
+                layer.frame.y = selectedLayer.frame.y;
+            }
+        }
         document.selectedLayers = [layer];
-        document.centerOnLayer(layer);
 
     }
 

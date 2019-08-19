@@ -19,29 +19,33 @@ Make your workflow more efficient.
 | **Layer**                                                    |                                                              |
 | Fix to Parent with Margin                                    | Fix the width and height of the parent, and set the margins. |
 | Fix to Parent Width (Height) with Margin                     | Fix the width or height of the parent, and set the margins.  |
+| Swap Width and Height                                        | Swap width and height for all selected layers.               |
 | Adjust Sizes                                                 | Increase/decrease width/height for selected layers from right/bottom/center origin, the increase/decrease value can be changed in "Preferences" - "Nudging". |
 | Bounds Layer for Every Selection                             | Create a bounds layer from the selected layer.               |
 | Divide Layer                                                 | Split Layer.                                                 |
 | Ungroup Shape Layer                                          | Ungroup shape layer.                                         |
+| Reset Bounding Box                                           | Remove all transform for selected group and shape layers, but not change the appearance. |
 | Unlock All Layers                                            | Unlock all layers.                                           |
 | Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
 | Toggle Select Group’s Content on Click                       | Toggle "select group’s content on click" option.             |
 | Select All Layers In Selection By Type                       | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
-| Select All Layers In Selection By Name                       | Select all layers match by layer name.                       |
+| Select Layers By Name                                        | Select all layers match by layer name.                       |
 | Select All Child Layers                                      | Select all sub-layers.                                       |
 | Select All Siblings Layers                                   | Select all siblings layers.                                  |
 | Select Parent Groups                                         | Select parent groups.                                        |
+| Select Layers Below                                          | Select layers that in some group and position y less then selected layer. |
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Select Reverse                                               | Select reverse.                                              |
 | Select None                                                  | Select none.                                                 |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
-| Rename Layers                                                | Rename selected layers use custom template.                  |
-| Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
 | Remove Empty Groups                                          | Remove empty group.                                          |
 | Remove Hidden Layers                                         | Remove hidden layers.                                        |
 | Remove Transparency Layers                                   | Remove transparency layers.                                  |
+| Rename Layers                                                | Rename selected layers use custom template.                  |
+| Find and Replace Layer Name                                  | Find and replace layer name.                                 |
+| Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
 | Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
 | **Arrange**                                                  |                                                              |
 | Change Places Between Two Layers                             | Change two objects positions based on midpoint or coordinate origin. |
@@ -54,23 +58,25 @@ Make your workflow more efficient.
 | Collapse All Groups and Fit Canvas                           | Run "Collapse All Groups" and "Fit Canvas" for all pages.    |
 | **Text**                                                     |                                                              |
 | Change Texts                                                 | Change text of selected layers use custom template.          |
+| Paste as Alphabetical Order Text                             | Copy texts and paste as alphabetical order.                  |
 | Increase / Decrease Line Height                              | Increase and decrease line height for all selected text layers.  Plus or minus half of the value that you move objects while using Shift-Arrow key, you can change the value in Preferences - Canvas - Nudging. |
 | Increase / Decrease Letter Spacing                           | Increase and decrease 0.38 letter spacing for all selected text layers. |
 | Increase / Decrease / Reset Horizontally Scale               | Increase, decrease and reset horizontally scale for all selected text layers. |
+| Not Truncate Text                                            | Remove the truncate text setting.                            |
+| Truncate Text at Start / Middle / End                        | Add a ellipsis at the start / middle / end of text, when text is overflow the layer bound. |
 | Split Text Layer                                             | Split selected text layers to multiple layer, use new line and a separator. |
 | Combine Text Layers                                          | Combine selected layers to one layer.                        |
 | Capitalize                                                   | Capitalize.                                                  |
-| Change Baseline offset                                       | Change Baseline Offset for selected range of text layer.     |
 | Change Text Orientation                                      | Change Text Orientation for CJK text layout.                 |
 | Change Typeface for Latin Character                          | Change the typeface for latin-character in the text layer.   |
 | Add Space Between CJK and Latin Character                    | Add space between Chinese and Western.                       |
 | Replace Fonts                                                | Replace Fonts.                                               |
-| Replace Missing Fonts                                        | Replace missing fonts.                                       |
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
 | Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
 | Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
+| Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
@@ -78,12 +84,15 @@ Make your workflow more efficient.
 | Clear All Exportables                                        | Clear all Exportable settings.                               |
 | Save/Load Export Presets                                     | Save and load export presets.                                |
 | **Artboard**                                                 |                                                              |
+| Paste as Artboards                                           | Copy layers, image files or photos from iOS devices via Handoff, then paste them as artboards. |
+| Paste as Symbol Master                                       | Copy layers, image files or photos from iOS devices via Handoff, then paste them as symbol masters. |
 | Artboard Form Selection                                      | Create a new artboard from the selection object.             |
 | Artboard Form Group                                          | Create a new artboard from group.                            |
 | Artboard to Group                                            | Artboard to group.                                           |
 | Select Parent Artboard                                       | Select parent artboard for selected layers.                  |
 | Artboard Navigator                                           | Quickly go to artboard and rename it.                        |
 | Resize to Fix Height                                         | Adjusts the artboard to fit the height.                      |
+| Toggle Adjust Content on Resize                              | Turn on/off for all selected artboard and symbol master.     |
 | Move Artboards to Bottom of Anther                           | Move artboards or symbol masters to the bottom of another one. |
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
@@ -92,11 +101,11 @@ Make your workflow more efficient.
 | Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Disable or Enable All Overrides                              | Toggle disable or enable all override for selected local symbol instances or symbol masters. |
+| Disable Selected Overrides                                   | Disable selected overrides for selected local symbol instances. |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
 | Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
 | Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
-| Move Symbol Masters To Another Page                          | Move selected symbol masters to anthoer page.                |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
@@ -107,7 +116,7 @@ Make your workflow more efficient.
 | **Library**                                                  |                                                              |
 | Fix Library ID Conflict                                      | Fix library file with same document ID.                      |
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
-| Replace Library                                              | Swap all foreign symbols from one library to another.        |
+| Replace Library                                              | Swap all foreign symbols, styles from one library to another. |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change symbols to Library Symbol Base Symbol ID              | Change the selected/all symbols to library symbol base on symbol ID. |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
@@ -126,9 +135,12 @@ Make your workflow more efficient.
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
 | Remove All Disabled Styles                                   | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
+| Reset Style                                                  | Reset style for selected layers.                             |
+| Update Style                                                 | Update or unlink and update for selected layers.             |
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
+| Add Colors or Gradients from Selected Layers to Document     | Create document colors or gradients from selected layers.    |
 | Import Document Assets from Sketch File                      | Import resources (colors, gradients, and patterns) from Sketch files. |
 | Import Text Styles from Sketch File                          | Import text styles from Sketch files.                        |
 | Import Layer Styles from Sketch File                         | Import a layer style from Sketch file.                       |
@@ -148,6 +160,7 @@ Make your workflow more efficient.
 | Bring All Hotspot to Front                                   | Bring all hotspot layer to front.                            |
 | Reset Flow                                                   | Reset flow.                                                  |
 | Remove All Hotspot                                           | Remove all hotspot layer.                                    |
+| Remove Hotspot in Selected Artboards                         | Remove hotspot in selected artboards or symbol masters.      |
 | **Development**                                              |                                                              |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
 | Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
@@ -155,8 +168,7 @@ Make your workflow more efficient.
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
 | Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
 | Show and Change Layer Info                                   | Show and change layer's objectID, symbolID etc.              |
-| Script Editor Setting                                        | Script editor font and font size settings.                   |
-| Edit Plugin Setting                                          | Set up external plugin editor, default editor Atom, Sublime Text, Visual Studio Code and WebStorm. |
+| Plugin Dev Setting                                           | Some environment configs for Sketch plugin development.      |
 | Reload Plugins                                               | Reload all plugins.                                          |
 | **Utilities**                                                |                                                              |
 | Insert Layers from SVG Code                                  | Insert shape layers from SVG code.                           |
@@ -166,6 +178,7 @@ Make your workflow more efficient.
 | Nine-Slice from Bitmap Layer                                 | Crop a bitmap layer to 9 part with resizing constraint settings. |
 | Convert Sketch File to Other Version                         | Go to Sketch File for any later version of 43, you can open a high version file or go to a lower version. |
 | Open Terminal at File Folder                                 | Open the terminal and switch to the directory of the current document. |
+| Switch Language                                              | Switch Language for Sketch 45+.                              |
 
 ## License
 
