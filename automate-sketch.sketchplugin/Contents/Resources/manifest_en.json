@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "57.1.20190816",
+  "version": "57.1.20190902",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -312,6 +312,12 @@
     {
       "name": "Resize to Fit Height",
       "identifier": "resize_to_fit_height",
+      "script": "Artboard/Resize_to_Fit_Height.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Resize to Fit Width",
+      "identifier": "resize_to_fit_width",
       "script": "Artboard/Resize_to_Fit_Height.js",
       "icon": "icon_runner.png"
     },
@@ -1528,6 +1534,7 @@
           "select_parent_artboard",
           "artboard_navigator",
           "-",
+          "resize_to_fit_width",
           "resize_to_fit_height",
           "toggle_adjust_content_on_resize",
           "-",

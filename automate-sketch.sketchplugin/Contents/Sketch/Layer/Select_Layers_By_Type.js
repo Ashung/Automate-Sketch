@@ -128,7 +128,7 @@ function selectLayersInSelectionByType(context, type) {
 
 function selectLayersInParent_byType(parent, type, callback) {
 
-    var type = require("../modules/Type");
+    var layerType = require("../modules/Type");
 
     var appVersion = MSApplicationMetadata.metadata().appVersion;
 
@@ -139,9 +139,9 @@ function selectLayersInParent_byType(parent, type, callback) {
     ) {
 
         if (type == "group") {
-            var loopLayes = parent.layers().objectEnumerator();
+            var loopLayers = parent.layers().objectEnumerator();
             var layer;
-            while (layer = loopLayes.nextObject()) {
+            while (layer = loopLayers.nextObject()) {
                 if (layer.class() == "MSLayerGroup") {
                     // Fix Sketch 45
                     if (appVersion < 45) {
@@ -152,9 +152,9 @@ function selectLayersInParent_byType(parent, type, callback) {
                     count ++;
                 }
                 if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
-                    var loopLayesInArtboard = layer.layers().objectEnumerator();
+                    var loopLayersInArtboard = layer.layers().objectEnumerator();
                     var layerInArtboard;
-                    while (layerInArtboard = loopLayesInArtboard.nextObject()) {
+                    while (layerInArtboard = loopLayersInArtboard.nextObject()) {
                         if (layerInArtboard.class() == "MSLayerGroup") {
                             // Fix Sketch 45
                             if (appVersion < 45) {
@@ -171,14 +171,14 @@ function selectLayersInParent_byType(parent, type, callback) {
             var loopChildren = parent.children().objectEnumerator();
             var layer;
             while (layer = loopChildren.nextObject()) {
-                
                 if (
-                    (type == "text" && type.isText(layer)) ||
-                    (type == "shape" && type.isShape(layer)) ||
-                    (type == "image" && type.isBitmap(layer)) ||
-                    (type == "slice" && type.isSlice(layer)) ||
-                    (type == "symbol instance" && type.isSymbolInstance(layer))
+                    (type == "text" && layerType.isText(layer)) ||
+                    (type == "shape" && layerType.isShape(layer)) ||
+                    (type == "image" && layerType.isBitmap(layer)) ||
+                    (type == "slice" && layerType.isSlice(layer)) ||
+                    (type == "symbol instance" && layerType.isSymbolInstance(layer))
                 ) {
+                    
                     // Fix Sketch 45
                     if (appVersion < 45) {
                         layer.select_byExpandingSelection(true, true);

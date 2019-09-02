@@ -262,6 +262,9 @@ create_link_layer:
 sync_link_layers:
   - Sync Link Layers
   - 同步引用图层
+resize_to_fit_width:
+  - Resize to Fit Width
+  - 调整画板以适配宽度
 resize_to_fit_height:
   - Resize to Fit Height
   - 调整画板以适配高度

@@ -17,7 +17,7 @@ var onRun = function(context) {
     
     selection.clear();
 
-    var belowLayers = parent.layers.filter(layer => layer.frame.y > bottom);
+    var belowLayers = parent.layers.filter(layer => layer.frame.y >= bottom);
     document.selectedLayers = belowLayers;
 
 };
