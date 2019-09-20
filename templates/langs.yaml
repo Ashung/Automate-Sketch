@@ -721,3 +721,6 @@ remove_hotspot_in_selected_artboards:
 swap_width_and_height:
   - Swap Width and Height
   - 交换宽与高
+resize_with_ratio:
+  - Resize With Ratio
+  - 按比例更改尺寸

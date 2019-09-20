@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "57.1.20190902",
+  "version": "58.0.20190919",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1355,6 +1355,12 @@
       "identifier": "swap_width_and_height",
       "script": "Layer/Swap_Width_and_Height.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Resize With Ratio",
+      "identifier": "resize_with_ratio",
+      "script": "Layer/Resize_With_Ratio.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1398,6 +1404,7 @@
           "fit_to_parent_width_with_margin",
           "fit_to_parent_height_with_margin",
           "swap_width_and_height",
+          "resize_with_ratio",
           {
             "title": "Adjust Sizes",
             "items": [

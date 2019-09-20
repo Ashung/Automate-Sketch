@@ -77,14 +77,16 @@ var onRun = function(context) {
     uniqueOverrideValues.forEach(function(symbolID) {
         var menuItem = NSMenuItem.alloc().init();
         var symbolMaster = documentData.symbolWithID(symbolID);
-        var title = symbolMaster.name();
-        if (symbolMaster.isForeign()) {
-            title = symbolMaster.foreignObject().sourceLibraryName() + " ▶︎ " + symbolMaster.name();
+        if (symbolMaster) {
+            var title = symbolMaster.name();
+            if (symbolMaster.isForeign()) {
+                title = symbolMaster.foreignObject().sourceLibraryName() + " ▶︎ " + symbolMaster.name();
+            }
+            menuItem.setTitle(title);
+            var menuImage = preview.symbol(symbolMaster, 20);
+            menuItem.setImage(menuImage);
+            overrideSymbolsButton.menu().addItem(menuItem);
         }
-        menuItem.setTitle(title);
-        var menuImage = preview.symbol(symbolMaster, 20);
-        menuItem.setImage(menuImage);
-        overrideSymbolsButton.menu().addItem(menuItem);
     });
     dialog.addView(overrideSymbolsButton);
 
