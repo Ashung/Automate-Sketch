@@ -1,4 +1,16 @@
 -
+  version: 58.0.20190923
+  description: |-
+    <ul>
+    <li>Add Layer - Resize with Ratio.</li>
+    <li>Add Artboard - Move to Page.</li>
+    <li>Add Artboard - Resize to Fit Width.</li>
+    <li>Fix select layer by type #209 #204 #199.</li>
+    <li>Clear layer name support Chinese.</li>
+    </ul>
+  commitID: 028f50c753f8133efc728e443cb0f2fec27f2159
+
+-
   version: 57.1.20190816
   description: |-
     <ul>
