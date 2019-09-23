@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Artboard");
 
+    var identifier = __command.identifier();
     var doc = context.document;
     var selection = context.selection;
     var loopSelection = selection.objectEnumerator();
@@ -13,14 +14,25 @@ var onRun = function(context) {
 
         if (artboard) {
             var rectOfChildLayers = getRectFromLayers(artboard);
+            var width = Math.ceil(rectOfChildLayers.x() + rectOfChildLayers.width());
             var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
             // Adjust content on resize
             if (artboard.resizesContent()) {
                 artboard.setResizesContent(false);
-                artboard.frame().setHeight(height);
+                if (identifier == "resize_to_fit_width") {
+                    artboard.frame().setWidth(width);
+                }
+                if (identifier == "resize_to_fit_height") {
+                    artboard.frame().setHeight(height);
+                }
                 artboard.setResizesContent(true);
             } else {
-                artboard.frame().setHeight(height);
+                if (identifier == "resize_to_fit_width") {
+                    artboard.frame().setWidth(width);
+                }
+                if (identifier == "resize_to_fit_height") {
+                    artboard.frame().setHeight(height);
+                }
             }
         } else {
             doc.showMessage('"' + layer.name() + '" is not an artboard or not inside an artboard.');

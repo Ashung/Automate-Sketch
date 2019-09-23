@@ -21,6 +21,7 @@
 | Fix to Parent with Margin                                    | **带边距适配父级** 让选中图层适配父级的宽度和高度，可设置边距。 |
 | Fix to Parent Width (Height) with Margin                     | **带边距适配父级宽（高）** 功能同上。                        |
 | Swap Width and Height                                        | **交换宽与高**                                               |
+| Resize With Ratio                                            | **按比例更改尺寸**                                           |
 | Adjust Sizes                                                 | **调整尺寸** 基于图层右侧、底部或中心，根据 "Preferences" - "Canvas" - "Nudging" 处设置的值微调图层宽或高。 |
 | Bounds Layer for Every Selection                             | **为选中对象增加边界层** 为从选中图层创建透明边界图层。      |
 | Divide Layer                                                 | **均分图层** 均分选中图层。                                  |
@@ -92,9 +93,10 @@
 | Artboard to Group                                            | **画板转为组**                                               |
 | Select Parent Artboard                                       | **选择父级画板** 选择选中图层的父级画板。                    |
 | Artboard Navigator                                           | **画板导航** 快速转到任何页面的画板，同时支持修改画板命名。  |
-| Resize to Fix Height                                         | **调整画板以适配高度**                                       |
+| Resize to Fix Height / Width                                 | **调整画板以适配高度/宽度**                                  |
 | Toggle Adjust Content on Resize                              | **开关根据尺寸适配内容** 开启或关闭选中画板或组件母版的“根据尺寸适配内容”设置。 |
 | Move Artboards to Bottom of Anther                           | **移动画板至另一画板下方** 移动画板或组件模版至另一画板下方。 |
+| Move to Page                                                 | **移动到页面**                                               |
 | Export All Artboards                                         | **导出所有画板** 将所有画板导出为 PNG 或 SVG，可设置缩放比例。 |
 | Export All Artboards to HTML                                 | **将所有画板导出为 HTML** 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |

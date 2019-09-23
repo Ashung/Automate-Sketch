@@ -20,6 +20,7 @@ Make your workflow more efficient.
 | Fix to Parent with Margin                                    | Fix the width and height of the parent, and set the margins. |
 | Fix to Parent Width (Height) with Margin                     | Fix the width or height of the parent, and set the margins.  |
 | Swap Width and Height                                        | Swap width and height for all selected layers.               |
+| Resize With Ratio                                            | Resize selected layers with an aspect ratio.                 |
 | Adjust Sizes                                                 | Increase/decrease width/height for selected layers from right/bottom/center origin, the increase/decrease value can be changed in "Preferences" - "Nudging". |
 | Bounds Layer for Every Selection                             | Create a bounds layer from the selected layer.               |
 | Divide Layer                                                 | Split Layer.                                                 |
@@ -91,9 +92,10 @@ Make your workflow more efficient.
 | Artboard to Group                                            | Artboard to group.                                           |
 | Select Parent Artboard                                       | Select parent artboard for selected layers.                  |
 | Artboard Navigator                                           | Quickly go to artboard and rename it.                        |
-| Resize to Fix Height                                         | Adjusts the artboard to fit the height.                      |
+| Resize to Fix Height / Width                                 | Adjusts the artboard to fit the height or width.             |
 | Toggle Adjust Content on Resize                              | Turn on/off for all selected artboard and symbol master.     |
-| Move Artboards to Bottom of Anther                           | Move artboards or symbol masters to the bottom of another one. |
+| Move Artboards to Bottom of Anther                           | Move selected artboards or symbol masters to the bottom of another one. |
+| Move to Page                                                 | Move selected artboards or symbol masters to another page.   |
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                                                   |                                                              |

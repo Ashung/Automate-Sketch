@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "57.1.20190816",
+  "version": "58.0.20190923",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -312,6 +312,12 @@
     {
       "name": "调整画板以适配高度",
       "identifier": "resize_to_fit_height",
+      "script": "Artboard/Resize_to_Fit_Height.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "调整画板以适配宽度",
+      "identifier": "resize_to_fit_width",
       "script": "Artboard/Resize_to_Fit_Height.js",
       "icon": "icon_runner.png"
     },
@@ -1349,6 +1355,18 @@
       "identifier": "swap_width_and_height",
       "script": "Layer/Swap_Width_and_Height.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "按比例更改尺寸",
+      "identifier": "resize_with_ratio",
+      "script": "Layer/Resize_With_Ratio.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "移动到页面",
+      "identifier": "move_to_page",
+      "script": "Artboard/Move_To_Page.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1392,6 +1410,7 @@
           "fit_to_parent_width_with_margin",
           "fit_to_parent_height_with_margin",
           "swap_width_and_height",
+          "resize_with_ratio",
           {
             "title": "调整尺寸",
             "items": [
@@ -1528,10 +1547,12 @@
           "select_parent_artboard",
           "artboard_navigator",
           "-",
+          "resize_to_fit_width",
           "resize_to_fit_height",
           "toggle_adjust_content_on_resize",
           "-",
           "move_artboards_to_bottom_of_another",
+          "move_to_page",
           "-",
           "export_all_artboards",
           "export_all_artboards_to_html"

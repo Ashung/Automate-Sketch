@@ -46,7 +46,15 @@ function clearLayerName(arg_layer, callback) {
         arg_layer.setName(newLayerName);
         count ++;
     }
-    if(/^(Rectangle|Oval|Star|Polygon|Triangle)( \d+)/i.test(arg_layer.name())) {
+    if(/备份( \d+)?$/gi.test(arg_layer.name())) {
+        var newLayerName = arg_layer.name().replace(/ 备份( \d+)?/gi, '');
+        arg_layer.setName(newLayerName);
+        count ++;
+    }
+    if(
+        /^(Rectangle|Oval|Star|Polygon|Triangle|Line|Path)( \d+)/i.test(arg_layer.name()) ||
+        /^(矩形|椭圆形|星形|多边形|三角形|直线|路径)( \d+)/i.test(arg_layer.name())
+    ) {
         var newLayerName = arg_layer.name().replace(/( \d+)$/i, '');
         arg_layer.setName(newLayerName);
         count ++;
