@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "58.0.20190919",
+  "version": "58.0.20190923",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1361,6 +1361,12 @@
       "identifier": "resize_with_ratio",
       "script": "Layer/Resize_With_Ratio.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Move to Page",
+      "identifier": "move_to_page",
+      "script": "Artboard/Move_To_Page.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1546,6 +1552,7 @@
           "toggle_adjust_content_on_resize",
           "-",
           "move_artboards_to_bottom_of_another",
+          "move_to_page",
           "-",
           "export_all_artboards",
           "export_all_artboards_to_html"

@@ -1,93 +1,76 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga("Symbol");
+    ga("Artboard");
 
-    var document = context.document;
-    var selection = context.selection;
+    var sketch = require("sketch");
+    
+    var document = sketch.getSelectedDocument();
+    var originalPage = document.selectedPage;
+    var selectedLayers = document.selectedLayers;
 
-    var originalPage = document.currentPage();
-
-    if (selection.count() == 0) {
-        document.showMessage("Please select at least 1 symbol master.");
-        return;
-    }
-
-    var symbolMasters = symbolMasterInSelection(selection);
-    if (symbolMasters.count() == 0) {
-        document.showMessage("There are no symbol masters in your selection.");
+    var selectedArtboards = selectedLayers.layers.filter(function(layer) {
+        return layer.type == "Artboard" || layer.type == "SymbolMaster";
+    });
+    if (selectedArtboards.length == 0) {
+        sketch.UI.message("Please select at least 1 artboard or symbol master.");
         return;
     }
 
     // Dialog
-    var dialog = COSAlertWindow.alloc().init();
-    dialog.setMessageText("Move Symbol Masters To Another Page");
-    dialog.setInformativeText("Move selected symbol masters to another page.");
-    dialog.addButtonWithTitle("OK");
-    dialog.addButtonWithTitle("Cancel");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
+    var dialog = new Dialog(
+        "Move to Page",
+        "Move selected artboards or symbol masters to another page."
+    );
 
-    dialog.addTextLabelWithValue("Choose Page:");
+    dialog.addLabel("Choose a page:");
+    var pages = document.pages.filter(function(page) {
+        return page.id != document.selectedPage.id;
+    });
+    var pageList = pages.map(function(page) {
+        return page.name;
+    });
+    pageList.push("New Page");
+    var pageListView = ui.popupButton(pageList);
+    dialog.addView(pageListView);
 
-    var pageList = document.pages().mutableCopy();
-    pageList.removeObject(originalPage);
+    var jumpToPageView = ui.checkBox(false, "Jump to target page.");
+    dialog.addView(jumpToPageView);
 
-    var pageListView = NSPopUpButton.alloc().initWithFrame(NSMakeRect(0, 0, 200, 30));
-    pageListView.addItemWithTitle("New Blank Page");
-    var loopPageList = pageList.objectEnumerator();
-    var page;
-    while (page = loopPageList.nextObject()) {
-        pageListView.addItemWithTitle("");
-        pageListView.lastItem().setTitle(page.name());
-    }
-    dialog.addAccessoryView(pageListView);
-
-    var responseCode = dialog.runModal();
+    var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        if (pageListView.indexOfSelectedItem() == 0) {
-            var targetPage = document.addBlankPage();
-            document.setCurrentPage(originalPage);
+        var selectedIndex = pageListView.indexOfSelectedItem();
+        var targetPage;
+        if (selectedIndex < pages.length) {
+            targetPage = pages[selectedIndex];
         } else {
-            var targetPage = pageList.objectAtIndex(pageListView.indexOfSelectedItem() - 1);
+            var Page = require("sketch/dom").Page;
+            targetPage = new Page({
+                name: document._getMSDocumentData().nameForNewPage(),
+                parent: document,
+                selected: false
+            });
         }
 
-        var loopSymbolMasters = symbolMasters.objectEnumerator();
-        var symbolMaster;
-        while (symbolMaster = loopSymbolMasters.nextObject()) {
-
-            var artboardPosition;
-            if (MSApplicationMetadata.metadata().appVersion >= 49) {
-                artboardPosition = targetPage.originForNewArtboardWithSize(symbolMaster.rect().size);
-            } else {
-                artboardPosition = targetPage.originForNewArtboard();
-            }
-
+        selectedArtboards.forEach(function(artboard) {
+            var artboardPosition = targetPage.sketchObject.originForNewArtboardWithSize(artboard.sketchObject.rect().size);
             var positionX = artboardPosition.x;
             var positionY = artboardPosition.y;
+            targetPage.layers.push(artboard);
+            artboard.frame.x = positionX;
+            artboard.frame.y = positionY;
+        });
 
-            targetPage.addLayer(symbolMaster);
-            originalPage.removeLayer(symbolMaster);
-
-            symbolMaster.frame().setX(positionX);
-            symbolMaster.frame().setY(positionY);
-
+        if (jumpToPageView.state() == NSOnState) {
+            document.selectedPage = targetPage;
+        } else {
+            document.selectedPage = originalPage;
         }
 
-        document.setCurrentPage(targetPage);
-
-        // Center layers
-        var rects = symbolMasters.slice().map(function(item) {
-            return MSRect.alloc().initWithRect(item.absoluteRect().rect());
-        });
-        var rect = MSRect.rectWithUnionOfRects(rects).rect();
-        document.contentDrawView().centerRect_animated(rect, true);
+        sketch.UI.message(`Move ${selectedArtboards.length} artboard${selectedArtboards.length > 1 ? 's' : ''} to page "${targetPage.name}"`);
 
     }
-
 };
-
-function symbolMasterInSelection(selection) {
-    var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolMaster");
-    var symbolMasters = selection.filteredArrayUsingPredicate(predicate);
-    return symbolMasters;
-}

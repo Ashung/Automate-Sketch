@@ -16,7 +16,6 @@ var onRun = function(context) {
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
-    var util = require("util");
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var selectedLayers = document.selectedLayers;

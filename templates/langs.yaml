@@ -724,3 +724,6 @@ swap_width_and_height:
 resize_with_ratio:
   - Resize With Ratio
   - 按比例更改尺寸
+move_to_page:
+  - Move to Page
+  - 移动到页面
