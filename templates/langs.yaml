@@ -727,3 +727,18 @@ resize_with_ratio:
 move_to_page:
   - Move to Page
   - 移动到页面
+copy_svg_code:
+  - Copy SVG Code
+  - 拷贝 SVG 代码
+insert_symbols_from_library:
+  - Insert Symbols From Library
+  - 从库插入组件
+insert_symbols:
+  - Insert Symbols
+  - 插入组件
+find_and_replace_layer_style_override:
+  - Find and Replace Layer Style Override
+  - 查找和替换图层样式覆盖
+find_and_replace_text_style_override:
+  - Find and Replace Text Style Override
+  - 查找和替换文本样式覆盖

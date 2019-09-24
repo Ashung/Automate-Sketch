@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "58.0.20190923",
+  "version": "58.0.20190924",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1367,6 +1367,36 @@
       "identifier": "move_to_page",
       "script": "Artboard/Move_To_Page.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "拷贝 SVG 代码",
+      "identifier": "copy_svg_code",
+      "script": "Slice/Copy_SVG_Code.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从库插入组件",
+      "identifier": "insert_symbols_from_library",
+      "script": "Library/Insert_Symbols_From_Library.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "插入组件",
+      "identifier": "insert_symbols",
+      "script": "Symbol/Insert_Symbols.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "查找和替换图层样式覆盖",
+      "identifier": "find_and_replace_layer_style_override",
+      "script": "Style/Find_and_Replace_Style_Override.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "查找和替换文本样式覆盖",
+      "identifier": "find_and_replace_text_style_override",
+      "script": "Style/Find_and_Replace_Style_Override.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1509,6 +1539,8 @@
           "-",
           "export_all_symbols_as_png",
           "-",
+          "insert_symbols",
+          "-",
           "sync_symbol_master_from_sketch_file",
           "replace_pages_from_sketch_file"
         ]
@@ -1529,6 +1561,8 @@
           "import_document_assets_from_library",
           "-",
           "add_library_preview",
+          "-",
+          "insert_symbols_from_library",
           "-",
           "update_selected_library_symbol",
           "check_for_library_updates"
@@ -1585,6 +1619,9 @@
           "-",
           "reset_style",
           "update_style",
+          "-",
+          "find_and_replace_layer_style_override",
+          "find_and_replace_text_style_override",
           "-",
           "create_color_guide",
           "create_style_guide",
@@ -1661,6 +1698,9 @@
           "quick_export_2",
           "quick_export_setting",
           "-",
+          "copy_svg_code",
+          "copy_slice_as_base64",
+          "-",
           "auto_slice",
           "fast_slice",
           "slice_setting",
@@ -1693,7 +1733,6 @@
         "title": "开发",
         "items": [
           "pick_color_and_copy",
-          "copy_slice_as_base64",
           "copy_selected_layer_name",
           "copy_objectid_or_symbolid",
           "copy_svg_path_data",
