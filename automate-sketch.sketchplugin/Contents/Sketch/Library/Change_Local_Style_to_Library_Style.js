@@ -15,7 +15,7 @@ var onRun = function(context) {
     var noColor = NSColor.colorWithRed_green_blue_alpha(0, 0, 0, 0);
 
     if (sketch.version.sketch < 51) {
-        toast("😮 You have to update to Sketch 51+ to use thie feature.");
+        toast("😮 You have to update to Sketch 51+ to use this feature.");
         return;
     }
 
@@ -92,7 +92,7 @@ var onRun = function(context) {
             imageStyle = ui.imageButton(preview.textStyle(style), [30, 10, 360, 30]);
         } else {
             checkBoxStyle = ui.checkBox(true, "            " + style.name(), [5, 10, 380, 30]);
-            imageStyle = ui.imageButton(preview.layerStyle(style), [30, 10, 30, 30]);
+            imageStyle = ui.imageButton(preview.layerStyle(style, 48), [30, 10, 30, 30]);
         }
 
         // Add status view
