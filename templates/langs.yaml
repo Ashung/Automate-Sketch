@@ -730,6 +730,9 @@ move_to_page:
 copy_svg_code:
   - Copy SVG Code
   - 拷贝 SVG 代码
+copy_svg_code_url_encoded:
+  - Copy SVG Code (URL-encoded)
+  - 拷贝 SVG 代码 (URL-encoded)
 insert_symbols_from_library:
   - Insert Symbols From Library
   - 从库插入组件
