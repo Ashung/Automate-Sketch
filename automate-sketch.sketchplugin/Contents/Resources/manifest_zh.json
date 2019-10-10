@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "58.0.20190927",
+  "version": "58.0.20191010",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1403,6 +1403,18 @@
       "identifier": "find_and_replace_text_style_override",
       "script": "Style/Find_and_Replace_Style_Override.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "增大字重",
+      "identifier": "increase_font_weight",
+      "script": "Text/Change_Font_Weight.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "减小字重",
+      "identifier": "decrease_font_weight",
+      "script": "Text/Change_Font_Weight.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1685,6 +1697,9 @@
           "change_text_orientation",
           "change_typeface_for_the_latin_character_set",
           "add_space_between_cjk_and_western_character",
+          "-",
+          "increase_font_weight",
+          "decrease_font_weight",
           "-",
           "replace_fonts",
           "-",

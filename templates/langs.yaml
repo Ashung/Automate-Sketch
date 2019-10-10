@@ -745,3 +745,9 @@ find_and_replace_layer_style_override:
 find_and_replace_text_style_override:
   - Find and Replace Text Style Override
   - 查找和替换文本样式覆盖
+increase_font_weight:
+  - Increase Font Weight
+  - 增大字重
+decrease_font_weight:
+  - Decrease Font Weight
+  - 减小字重
