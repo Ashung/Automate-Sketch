@@ -61,17 +61,19 @@ module.exports.textStyle = function(textStyle) {
 
 /**
  * @param  {MSShareStyle} layerStyle
+ * @param  {Number} size Optional
  * @return  {NSImage}
  */
-module.exports.layerStyle = function(layerStyle) {
+module.exports.layerStyle = function(layerStyle, size) {
+    size = size || 24;
     var rectangle = MSRectangleShape.alloc().init();
-    rectangle.setRect(CGRectMake(2, 2, 20, 20));
+    rectangle.setRect(CGRectMake(2, 2, size - 4, size - 4));
     rectangle.setStyle(layerStyle.style());
     rectangle.points().forEach(function(curvePoint) {
         curvePoint.setCornerRadius(2);
     });
-    var artboard = artboardWithLayer(24, 24, rectangle);
-    return artboardPreviewGenerator(artboard, 48, 48);
+    var artboard = artboardWithLayer(size, size, rectangle);
+    return artboardPreviewGenerator(artboard, size, size);
 }
 
 /**

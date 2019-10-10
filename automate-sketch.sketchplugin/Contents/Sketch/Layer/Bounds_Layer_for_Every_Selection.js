@@ -137,16 +137,23 @@ var onRun = function(context) {
                         layer.frame().maxX() - Math.floor(layer.frame().maxX()) != 0 ||
                         layer.frame().maxY() - Math.floor(layer.frame().maxY()) != 0
                     ) {
-                        var childs = MSLayerArray.arrayWithLayers(layer.containedLayers());
+                        var children = MSLayerArray.arrayWithLayers(layer.containedLayers());
                         var name = layer.name();
                         layer.ungroup();
                         var newGroup;
                         if (MSApplicationMetadata.metadata().appVersion >= 52) {
-                            newGroup = MSLayerGroup.groupWithLayers(childs);
+                            newGroup = MSLayerGroup.groupWithLayers(children);
                         } else {
-                            newGroup = MSLayerGroup.groupFromLayers(childs);
+                            newGroup = MSLayerGroup.groupFromLayers(children);
                         }
                         newGroup.setName(name);
+                    }
+                }
+                if (layer.parentGroup().class() == "MSLayerGroup") {
+                    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                        layer.parentGroup().fixGeometryWithOptions(1);
+                    } else {
+                        layer.parentGroup().resizeToFitChildrenWithOption(1);
                     }
                 }
 

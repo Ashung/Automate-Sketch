@@ -72,6 +72,7 @@
 | Change Text Orientation                                      | **更改文本书写方向** 切换竖排或横排。                        |
 | Change Typeface for Latin Character                          | **更改西文字体** 更改文本图层中西文的字体。                  |
 | Add Space Between CJK and Latin Character                    | **中西文字体间增加空格** 文本图层中西文间增加空格。          |
+| Increase/Decrease Font Weight                                | **增大/减小字重**                                            |
 | Replace Fonts                                                | **替换字体**                                                 |
 | Resize to Fit Text Height                                    | **自适应文本高度**                                           |
 | Toggle Auto and Fixed                                        | **切换自动和固定** 切换选中文本图层的宽度自动和固定。        |
@@ -79,6 +80,9 @@
 | Charater Count                                               | **字符统计**                                                 |
 | **Slice**                                                    | **切片**                                                     |
 | Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
+| Copy SVG Code                                                | **拷贝 SVG 代码** 从选中的切片图层拷贝 SVG 代码。            |
+| Copy SVG Code (URL-encoded)                                  | **拷贝 SVG 代码 (URL-encoded)** 从选中的切片图层拷贝用于 CSS 背景的 URL-encoded SVG 代码。 |
+| Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Auto Slice                                                   | **自动切片** 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。 |
 | Fast slice                                                   | **快速切片** 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
 | Slice Setting                                                | **切片设置** 设置切片名称、预设和图层列表位置。              |
@@ -96,7 +100,7 @@
 | Resize to Fix Height / Width                                 | **调整画板以适配高度/宽度**                                  |
 | Toggle Adjust Content on Resize                              | **开关根据尺寸适配内容** 开启或关闭选中画板或组件母版的“根据尺寸适配内容”设置。 |
 | Move Artboards to Bottom of Anther                           | **移动画板至另一画板下方** 移动画板或组件模版至另一画板下方。 |
-| Move to Page                                                 | **移动到页面**                                               |
+| Move to Page                                                 | **移动到页面** 将选中画报或组件移动到其他页面。              |
 | Export All Artboards                                         | **导出所有画板** 将所有画板导出为 PNG 或 SVG，可设置缩放比例。 |
 | Export All Artboards to HTML                                 | **将所有画板导出为 HTML** 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
@@ -114,6 +118,7 @@
 | Detach Unused Symbol Master                                  | **将选中的未用组件转为组**                                   |
 | Remove Unused Symbols                                        | **删除未用组件** 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
 | Export All Symbols As PNG                                    | **将所有组件导出为 PNG** 按照 "页面/组件" 规则，将所有组件导出为 PNG。 |
+| Insert Symbols                                               | **插入组件** 插入于用户输入名称匹配的组件。                  |
 | Sync Symbol Master from Sketch File                          | **基于 Symbol ID 从 Sketch 文档同步组件模版** 根据 Symbol ID，从 Sketch 文件更新组件。 |
 | Replace Pages from Sketch File                               | **从 Sketch 文档替换同名页面** 强制从 Sketch 文件替换同名页面，通过修改页面名称，可以导入包含组件的页面。 |
 | **Library**                                                  | **库**                                                       |
@@ -127,6 +132,7 @@
 | Import Document Assets from Library                          | **从库导入文档资源** 从库导入色彩、渐变和图案填充等文档资源， |
 | Import Styles from Library                                   | **从库导入样式** 从库导入图层样式和文本样式。                |
 | Add Library Preview                                          | **添加库预览图** 增加一个画板用于库的预览图。                |
+| Insert Symbols From Library                                  | **从库插入组件** 从选择的库中插入于用户输入名称匹配的组件。  |
 | Update Selected Library Symbol                               | **更新选中的库组件** 只更新选中的库组件。                    |
 | Check For Library Updates                                    | **检查库更新**                                               |
 | **Styles**                                                   | **样式**                                                     |
@@ -140,6 +146,7 @@
 | Remove Unused Layer / Text Styles                            | **删除未使用图层样式/文本样式** 删除文档中未使用的图层样式或文本样式。 |
 | Reset Style                                                  | **重置样式** 重置选中图层的样式。                            |
 | Update Style                                                 | **更新样式**  更新选中图层的样式，库样式会自动更新至本地样式。 |
+| Find and Replace Layer/Text Style Override.                  | **查找和替换图层/文本样式覆盖** 在当前页面、文档或选中图层中查找和替换图层/文本样式覆盖。 |
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |
 | Create Typography Guide                                      | **创建字体指南** 从文本样式创建字体样式指南。                |
@@ -166,7 +173,6 @@
 | Remove Hotspot in Selected Artboards                         | **删除选中画板内所有热区** 删除选中画板和组件内的所有热区。  |
 | **Development**                                              | **开发**                                                     |
 | Pick Color and Copy the HEX Code                             | **屏幕取色并复制色彩代码** 从屏幕取色并负责色彩的十六进制值。 |
-| Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Copy Selected Layer Name                                     | **复制选中图层的名称** 复制选中的图层名到剪贴板。            |
 | Copy ObjectID or SymbolID                                    | **复制对象 ID 或组件 ID** 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。 |
 | Copy SVG Path Data                                           | **复制 SVG 路径数据** 复制选中形状图层的 SVG 路径数据代码。  |

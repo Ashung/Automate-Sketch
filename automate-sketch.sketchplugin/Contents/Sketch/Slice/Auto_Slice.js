@@ -63,6 +63,7 @@ var onRun = function(context) {
         preferences.set("renameSliceLayer", renameSliceBoolean);
 
         // Add Slice
+        var allSlices = [];
         var loopSelection = selection.objectEnumerator();
         var layer;
         while (layer = loopSelection.nextObject()) {
@@ -87,7 +88,8 @@ var onRun = function(context) {
                 midY = layer.frame().midY();
 
             var slice = MSSliceLayer.sliceLayerFromLayer(layer);
-
+            allSlices.push(slice);
+            
             var msRect = MSRect.rectWithUnionOfRects([
                 MSRect.alloc().initWithRect(slice.absoluteRect().rect()),
                 MSRect.alloc().initWithRect(layer.absoluteRect().rect())
@@ -172,6 +174,8 @@ var onRun = function(context) {
 
             slice.exportOptions().setExportFormats(exportPresets.objectAtIndex(exportPresetIndex).exportFormats());
         }
+
+        document.currentPage().changeSelectionBySelectingLayers(allSlices);
 
         document.reloadInspector();
 

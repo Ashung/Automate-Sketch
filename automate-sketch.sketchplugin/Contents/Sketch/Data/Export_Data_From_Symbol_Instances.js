@@ -12,7 +12,7 @@ var onRun = function(context) {
         document.showMessage("Please select at least 1 symbol instance layer.");
     }
 
-    // Grap data
+    // get data
     var overrideData = {};
     var loopSymbolInstances = symbolInstances.objectEnumerator();
     var instance;

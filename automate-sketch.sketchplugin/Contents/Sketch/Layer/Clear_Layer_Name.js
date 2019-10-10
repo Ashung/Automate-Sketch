@@ -47,7 +47,7 @@ function clearLayerName(arg_layer, callback) {
         count ++;
     }
     if(/备份( \d+)?$/gi.test(arg_layer.name())) {
-        var newLayerName = arg_layer.name().replace(/ 备份( \d+)?/gi, '');
+        var newLayerName = arg_layer.name().replace(/(\s)?备份( \d+)?/gi, '');
         arg_layer.setName(newLayerName);
         count ++;
     }

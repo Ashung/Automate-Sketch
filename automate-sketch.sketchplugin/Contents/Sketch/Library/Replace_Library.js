@@ -116,28 +116,40 @@ var onRun = function(context) {
 
         // Symbol
         if (applyToView.indexOfSelectedItem() == 0) {
+            var count = 0;
             fromLibrary = librariesOfImportedSymbol[librariesUsedViewIndex];
             importedSymbols.forEach(function(symbol) {
-                symbol.setLibraryID(toLibrary.libraryID());
-                symbol.setSourceLibraryName(toLibrary.name());
+                if (symbol.libraryID() == fromLibrary.libraryID() && symbol.sourceLibraryName() == fromLibrary.name()) {
+                    symbol.setLibraryID(toLibrary.libraryID());
+                    symbol.setSourceLibraryName(toLibrary.name());
+                    count ++;
+                }
             });
-            toast(`Replace ${importedSymbols.count()} symbol` + (importedSymbols.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
+            toast(`Replace ${count} symbol` + (count > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         // Text style
         } else if (applyToView.indexOfSelectedItem() == 1) {
+            var count = 0;
             fromLibrary = librariesOfImportedTextStyle[librariesUsedViewIndex];
             importedTextStyle.forEach(function(style) {
-                style.setLibraryID(toLibrary.libraryID());
-                style.setSourceLibraryName(toLibrary.name());
+                if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {
+                    style.setLibraryID(toLibrary.libraryID());
+                    style.setSourceLibraryName(toLibrary.name());
+                    count ++;
+                }
             });
-            toast(`Replace ${importedTextStyle.count()} text style` + (importedTextStyle.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
+            toast(`Replace ${count} text style` + (count > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         // Layer style
         } else if (applyToView.indexOfSelectedItem() == 2) {
+            var count = 0;
             fromLibrary = librariesOfImportedLayerStyle[librariesUsedViewIndex];
             importedLayerStyle.forEach(function(style) {
-                style.setLibraryID(toLibrary.libraryID());
-                style.setSourceLibraryName(toLibrary.name());
+                if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {
+                    style.setLibraryID(toLibrary.libraryID());
+                    style.setSourceLibraryName(toLibrary.name());
+                    count ++;
+                }
             });
-            toast(`Replace ${importedLayerStyle.count()} layer style` + (importedLayerStyle.count() > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
+            toast(`Replace ${count} layer style` + (count > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         }
 
     }

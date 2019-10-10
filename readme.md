@@ -71,6 +71,7 @@ Make your workflow more efficient.
 | Change Text Orientation                                      | Change Text Orientation for CJK text layout.                 |
 | Change Typeface for Latin Character                          | Change the typeface for latin-character in the text layer.   |
 | Add Space Between CJK and Latin Character                    | Add space between Chinese and Western.                       |
+| Increase/Decrease Font Weight                                | Increase or decrease font weight for selected layers.        |
 | Replace Fonts                                                | Replace Fonts.                                               |
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
 | Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
@@ -78,6 +79,9 @@ Make your workflow more efficient.
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
 | Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
+| Copy SVG Code                                                | Copy SVG Code from selected slice layer.                     |
+| Copy SVG Code (URL-encoded)                                  | Copy URL-encoded SVG Code from selected slice layer for CSS background image. |
+| Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
@@ -113,6 +117,7 @@ Make your workflow more efficient.
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
 | Remove Unused Symbols                                        | Remove unused symbols, for Sketch 48+, with symbol preview.  |
 | Export all Symbols As PNG                                    | Export all symbols as PNG according to the "Page / symbol" rule. |
+| Insert Symbols                                               | Insert local symbols that name match the regular expression. |
 | Sync Symbol Master from Sketch File                          | Synchronize symbols from Sketch files base on symbol ID.     |
 | Replace Pages from Sketch File                               | Forcing the replacement of the same name from the Sketch file, you can import the page containing the symbol by modifying the page name. |
 | **Library**                                                  |                                                              |
@@ -126,6 +131,7 @@ Make your workflow more efficient.
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
 | Import Styles from Library                                   | Import text styles and layer styles from any library.        |
 | Add Library Preview                                          | Add a artboard for library preview image.                    |
+| Insert Symbols From Library                                  | Insert symbol that name match the regular expression from the choose library. |
 | Update Selected Library Symbol                               | Only update the selected library symbols.                    |
 | Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
@@ -139,6 +145,7 @@ Make your workflow more efficient.
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
 | Reset Style                                                  | Reset style for selected layers.                             |
 | Update Style                                                 | Update or unlink and update for selected layers.             |
+| Find and Replace Layer/Text Style Override.                  | Find and replace layer or text style override in current page, document or selected layers. |
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
@@ -165,7 +172,6 @@ Make your workflow more efficient.
 | Remove Hotspot in Selected Artboards                         | Remove hotspot in selected artboards or symbol masters.      |
 | **Development**                                              |                                                              |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
-| Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
 | Copy Selected Layer Name                                     | Copy the selected layer name to the clipboard.               |
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
 | Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
