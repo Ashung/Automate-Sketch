@@ -1,4 +1,19 @@
 -
+  version: 58.0.20191010
+  description: |-
+    <ul>
+    <li>Add Library - Insert Symbols From Library.</li>
+    <li>Add Symbol - Insert Symbols.</li>
+    <li>Add Slice - Copy SVG Code.</li>
+    <li>Add Style - Find and Replace Layer/Text Style Override. #106</li>
+    <li>Add Slice - Copy SVG Code (URL-encoded).</li>
+    <li>Add Increase/Decrease Font Weight. Fix #203</li>
+    <li>Fixed Replace Library bug. #211</li>
+    <li>Fixed Clear Layer Name Chinese support.</li>
+    </ul>
+  commitID: 5e3f135ac6411fc4c20991f45947d0a6dfc23473
+
+-
   version: 58.0.20190923
   description: |-
     <ul>
