@@ -41,7 +41,7 @@ var onRun = function(context) {
     );
 
     var textField = ui.textField(preferences.get("defaultLatinFont") || "");
-    dialog.self.window().setInitialFirstResponder(textField);
+    dialog.focus(textField);
     dialog.addView(textField);
 
     var responseCode = dialog.run();

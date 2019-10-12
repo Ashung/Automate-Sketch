@@ -216,6 +216,23 @@ ui.setItems_forPopupButton = function(items, view) {
 }
 
 /**
+ * @param  {Array} items [String]
+ * @param  {Array|Number} size Optional
+ * @return  {NSComboBox}
+ */
+ui.select = function(items, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || ui.width, 30]);
+    }
+    var view = NSComboBox.alloc().initWithFrame(frame);
+    view.addItemsWithObjectValues(items);
+    return view;
+}
+
+/**
  * @param  {Array|Number} size Optional
  * @return  {NSView}
  */
@@ -489,6 +506,21 @@ dialog.prototype.run = function() {
 
 dialog.prototype.close = function() {
     NSApp.stopModal();
+}
+
+dialog.prototype.setKeyOrder = function(views) {
+    for (var i = 0; i < views.length; i++) {
+        var current = views[i];
+        var next = views[i + 1] || views[0];
+        if (next) {
+            current.setNextKeyView(next);
+        }
+    }
+    this.self.window().setInitialFirstResponder(views[0]);
+}
+
+dialog.prototype.focus = function(view) {
+    this.self.window().setInitialFirstResponder(view);
 }
 
 module.exports.dialog = dialog;

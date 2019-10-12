@@ -73,6 +73,8 @@ var onRun = function(context) {
             }
         });
 
+        // TODO: font picker
+
         preferences.set("replaceFont", replaceFont);
 
         doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');

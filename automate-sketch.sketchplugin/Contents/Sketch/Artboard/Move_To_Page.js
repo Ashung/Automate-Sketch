@@ -4,7 +4,8 @@ var onRun = function(context) {
     ga("Artboard");
 
     var sketch = require("sketch");
-    
+    var zoom = require("../modules/Zoom");
+    var preferences = require("../modules/Preferences");
     var document = sketch.getSelectedDocument();
     var originalPage = document.selectedPage;
     var selectedLayers = document.selectedLayers;
@@ -36,11 +37,14 @@ var onRun = function(context) {
     var pageListView = ui.popupButton(pageList);
     dialog.addView(pageListView);
 
-    var jumpToPageView = ui.checkBox(false, "Jump to target page.");
+    var jumpToPage = preferences.get("jumpToPage") || false;
+    var jumpToPageView = ui.checkBox(jumpToPage, "Jump to target page.");
     dialog.addView(jumpToPageView);
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
+
+        preferences.set("jumpToPage", Boolean(jumpToPageView.state()));
 
         var selectedIndex = pageListView.indexOfSelectedItem();
         var targetPage;
@@ -66,6 +70,8 @@ var onRun = function(context) {
 
         if (jumpToPageView.state() == NSOnState) {
             document.selectedPage = targetPage;
+            document.selectedLayers.layers = selectedArtboards;
+            zoom.toSelection();
         } else {
             document.selectedPage = originalPage;
         }

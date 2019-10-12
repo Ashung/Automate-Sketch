@@ -50,6 +50,9 @@ var onRun = function(context) {
     var regExpView = ui.checkBox(nameRegExp, "Use Regular Expression");
     dialog.addView(regExpView);
 
+    dialog.setKeyOrder([findView, replaceView]);
+    dialog.focus(findView);
+
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 

@@ -28,6 +28,8 @@ var onRun = function(context) {
         var inputSnapDistance = andInputGroup(view, 120, 100, 50, "Snap Distance", defaultSnapDistance);
         dialog.addView(view);
 
+        dialog.setKeyOrder([inputGapX, inputGapY, inputSnapDistance]);
+
         var responseCode = dialog.run();
         if (responseCode == 1000) {
 

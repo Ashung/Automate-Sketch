@@ -66,6 +66,7 @@ var onRun = function(context) {
 
 function loadData(context, scrollView, page) {
     var sketch = require("sketch");
+    var zoom = require("../modules/Zoom");
     var ui = require("../modules/Dialog").ui;
     var artboards = page.artboards().reverseObjectEnumerator().allObjects().mutableCopy();
     var sortDescriptor = NSSortDescriptor.sortDescriptorWithKey_ascending_selector(
@@ -97,12 +98,14 @@ function loadData(context, scrollView, page) {
         itemView.addSubview(nameButton);
 
         nameButton.setCOSJSTargetFunction(function(sender) {
-            showArtboard(context, item);
+            var currentPage = context.document.currentPage();
+            currentPage.changeSelectionBySelectingLayers([item]);
+            zoom.toSelection();
         });
 
-        var editicon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_edit.png"));
-        editicon.setSize(CGSizeMake(16, 16));
-        var renameButton = ui.imageButton(editicon, [300 - itemHeight, 0, itemHeight, itemHeight]);
+        var editIcon = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("icon_edit.png"));
+        editIcon.setSize(CGSizeMake(16, 16));
+        var renameButton = ui.imageButton(editIcon, [300 - itemHeight, 0, itemHeight, itemHeight]);
         itemView.addSubview(renameButton);
 
         renameButton.setCOSJSTargetFunction(function(sender) {
@@ -121,19 +124,6 @@ function loadData(context, scrollView, page) {
         contentView.addSubview(itemView);
     });
     scrollView.setDocumentView(contentView);
-}
-
-function showArtboard(context, artboard) {
-    var document = context.document;
-    var currentPage = document.currentPage();
-    currentPage.changeSelectionBySelectingLayers([artboard]);
-    document.contentDrawView().centerSelectionInVisibleArea();
-    var rect = artboard.frame().rect();
-    rect.origin.x -= 25;
-    rect.origin.y -= 25;
-    rect.size.width += 50;
-    rect.size.height += 50;
-    document.contentDrawView().zoomToFitRect(rect);
 }
 
 function getAllPagesHaveArtboards(document) {

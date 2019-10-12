@@ -66,6 +66,8 @@ var customTileLayers = function(context) {
     var checkboxOrderByName = ui.checkBox(false, "Order by name.");
     dialog.addView(checkboxOrderByName);
 
+    dialog.setKeyOrder([inputColumns, inputMarginX, inputMarginY]);
+
     // Run
     var responseCode = dialog.run();
     if (responseCode == 1000) {
