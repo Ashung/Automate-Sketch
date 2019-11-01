@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "58.0.20191010",
+  "version": "59.1.20191101",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1415,6 +1415,12 @@
       "identifier": "decrease_font_weight",
       "script": "Text/Change_Font_Weight.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "快捷键管理器",
+      "identifier": "shortcuts_manager",
+      "script": "Utilities/Shortcuts_Manager.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1768,6 +1774,8 @@
       {
         "title": "实用工具",
         "items": [
+          "shortcuts_manager",
+          "-",
           "insert_layers_from_svg_code",
           "insert_layer_from_svg_path_data",
           "-",

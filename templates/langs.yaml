@@ -751,3 +751,6 @@ increase_font_weight:
 decrease_font_weight:
   - Decrease Font Weight
   - 减小字重
+shortcuts_manager:
+  - Shortcuts Manager
+  - 快捷键管理器
