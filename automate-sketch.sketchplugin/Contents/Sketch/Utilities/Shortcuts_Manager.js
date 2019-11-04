@@ -11,16 +11,18 @@ var onRun = function(context) {
 
 
     var userDefaults = NSUserDefaults.standardUserDefaults();
+    var shortcuts = userDefaults.dictionaryForKey("NSUserKeyEquivalents");
+    var shortcutMenuTitles;
+    if (shortcuts) {
+        shortcutMenuTitles = util.toArray(shortcuts.allKeys()).map(function(item) {
+            return String(item).split("\u001b").splice(3).join("->");
+        });
+    }
 
-
-    log(userDefaults.dictionaryForKey("NSUserKeyEquivalents"));
-
-
-    var commands = __command.pluginBundle().commands(); //.allValues()
-
+    var commands = __command.pluginBundle().commands();
     var manifest = require("../manifest.json");
+    var pluginMenu = "";
     var pluginName = manifest.menu.title;
-    var menus = [];
     var commandViews = [];
 
     // TODO: 
@@ -36,12 +38,27 @@ var onRun = function(context) {
             }
             if (item != "-" && typeof item == "string") {
                 var command = commands.valueForKey(item);
-                menus.push(groupTitle + "->" + command.name());
-                commandViews.push(ui.textLabel(groupTitle + "->" + command.name(), [500, 50]));
+                var itemView = ui.view([500, 40]);
+                var itemLabel = groupTitle + "->" + command.name();
+                var labelView = ui.textLabel(itemLabel, [10, 10, 400, 20]);
+                var shortcutView = ui.textField("", [400, 10, 80, 20]);
+                itemView.addSubview(labelView);
+                itemView.addSubview(shortcutView);
+                if (shortcuts && shortcutMenuTitles.includes(itemLabel)) {
+                    var shortcutKeys = shortcuts.allValues().objectAtIndex(shortcutMenuTitles.indexOf(itemLabel));
+                    log(shortcutKeys);
+                    if (shortcutKeys) {
+                        shortcutView.setStringValue(shortcutKeys);
+                    }
+                }
+                
+
+                commandViews.push(itemView);
             }
         });
     }
 
+    log(shortcutMenuTitles);
     // log(commands);
 
 
@@ -56,7 +73,7 @@ var onRun = function(context) {
     //     });
     // });
 
-    log(menus);
+    // log(menus);
     // menus.forEach(menu => {
     //     
     // })
@@ -74,16 +91,12 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         "Shortcuts Manager",
-        "xxxxx",
+        "Command: @\nAlt/Option: ~\nControl: ^\nShift: $",
         500,
         ["Close"]
     );
 
-    
-
-
-
-    var scrollView = ui.scrollView(commandViews, [500, 200]);
+    var scrollView = ui.scrollView(commandViews, [500, 400]);
     dialog.addView(scrollView);
 
     var responseCode = dialog.run();
