@@ -112,7 +112,7 @@ ui.numberField = function(defaultNumber, size) {
  * @param  {Number} min Optional default is 0.
  * @param  {Number} max Optional default is 100.
  * @param  {Array|Number} size Optional
- * @return  {Object} { view: NSTextField, value: Number}
+ * @return  {Object} { view: NSTextField, stepper: NSStepper}
  */
 ui.numberStepper = function(defaultNumber, min, max, size) {
     min = min || 0;
@@ -142,7 +142,7 @@ ui.numberStepper = function(defaultNumber, min, max, size) {
     view.addSubview(stepper);
     return {
         view: view,
-        value: stepper.integerValue()
+        stepper: stepper
     };
 };
 

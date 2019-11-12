@@ -12,7 +12,7 @@ var onRun = function(context) {
     });
 
     if (selectedTextLayers.length == 0) {
-        sketch.UI.showMessage("Please select at least 1 text layer.");
+        sketch.UI.message("Please select at least 1 text layer.");
         return;
     }
 

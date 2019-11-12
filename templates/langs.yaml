@@ -754,3 +754,6 @@ decrease_font_weight:
 shortcuts_manager:
   - Shortcuts Manager
   - 快捷键管理器
+change_layer_blend_mode:
+  - Change Layer Blend Mode
+  - 修改图层混合模式

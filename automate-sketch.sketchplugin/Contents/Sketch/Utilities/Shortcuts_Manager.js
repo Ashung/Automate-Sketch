@@ -8,8 +8,6 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
 
-
-
     var userDefaults = NSUserDefaults.standardUserDefaults();
     var shortcuts = userDefaults.dictionaryForKey("NSUserKeyEquivalents");
     var shortcutMenuTitles;
@@ -93,7 +91,7 @@ var onRun = function(context) {
         "Shortcuts Manager",
         "Command: @\nAlt/Option: ~\nControl: ^\nShift: $",
         500,
-        ["Close"]
+        ["Save"]
     );
 
     var scrollView = ui.scrollView(commandViews, [500, 400]);

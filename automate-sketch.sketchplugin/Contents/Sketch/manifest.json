@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "59.1.20191101",
+  "version": "59.1.20191112",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1421,6 +1421,12 @@
       "identifier": "shortcuts_manager",
       "script": "Utilities/Shortcuts_Manager.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Layer Blend Mode",
+      "identifier": "change_layer_blend_mode",
+      "script": "Style/Change_Layer_Blend_Mode.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1646,6 +1652,8 @@
           "-",
           "find_and_replace_layer_style_override",
           "find_and_replace_text_style_override",
+          "-",
+          "change_layer_blend_mode",
           "-",
           "create_color_guide",
           "create_style_guide",
