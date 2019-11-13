@@ -757,3 +757,6 @@ shortcuts_manager:
 change_layer_blend_mode:
   - Change Layer Blend Mode
   - 修改图层混合模式
+detach_all_symbols:
+  - Detach All Symbols in Page or Artboard
+  - 分离页面或画板内所有组件

@@ -1,6 +1,6 @@
 var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
-    ga("Utilities");
+    ga("Style");
 
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();

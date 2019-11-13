@@ -142,11 +142,12 @@ var onRun = function(context) {
 function getPasteboardLayers(context) {
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
+    var pasteboardLayers;
     if (MSApplicationMetadata.metadata().appVersion >= 48) {
         var document = context.document;
-        var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(pasteboard, document.colorSpace(), nil);
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(pasteboard, document.colorSpace(), nil);
     } else {
-        var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
     }
     return pasteboardLayers;
 }

@@ -4,10 +4,9 @@ var onRun = function(context) {
     ga("Type");
 
     var doc = context.document;
-    var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
-    var alert = require("sketch/ui").alert;
+    var util = require("util");
     var fontUsedInDocument = NSMutableArray.alloc().init();
 
     iterateDocument(doc, function(layer) {
@@ -30,39 +29,32 @@ var onRun = function(context) {
 
     // Dialog
     var dialog = new Dialog(
-        "Replace Fonts.",
-        "Tips: You can find the PostScript name of the font from \"Font Book\" app."
+        "Replace Fonts."
     );
 
     dialog.addLabel("Choose a font used in current document:");
 
-    var selectBox = ui.popupButton(fontUsedInDocument);
-    dialog.addView(selectBox);
+    var findFontView = ui.popupButton(fontUsedInDocument);
+    dialog.addView(findFontView);
 
     dialog.addLabel("Replace with:");
 
-    var textField = ui.textField(preferences.get("replaceFont") || "");
-    textField.setPlaceholderString("Type the PostScript name of the font.");
-    dialog.addView(textField);
+    var availableFontFamilies = NSFontManager.sharedFontManager().availableFontFamilies();
+    var replaceFontView = ui.popupButton(availableFontFamilies);
+    dialog.addView(replaceFontView);
+
+    var replaceFontStyleView = ui.popupButton(getStylesFromFamilyName(availableFontFamilies.firstObject()));
+    dialog.addView(replaceFontStyleView);
+
+    replaceFontView.setCOSJSTargetFunction(function(sender) {
+        ui.setItems_forPopupButton(getStylesFromFamilyName(sender.titleOfSelectedItem()), replaceFontStyleView);
+    });
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        var selectedFont = fontUsedInDocument.objectAtIndex(selectBox.indexOfSelectedItem());
-        var replaceFont = textField.stringValue();
-
-        // Font no specified.
-        if (replaceFont == "") {
-            alert("Font Not Specified.", "Pleace input the PostScript of font you want to replace with.");
-            return;
-        }
-
-        // Font not found.
-        var allSystemFonts = NSFontManager.sharedFontManager().availableFonts();
-        if (allSystemFonts.indexOfObject(replaceFont) == 9.223372036854776e+18) {
-            alert("Font Not Found.", "The font \"" + replaceFont + "\" can't found in system installed fonts.");
-            return;
-        }
+        var selectedFont = fontUsedInDocument.objectAtIndex(findFontView.indexOfSelectedItem());
+        var replaceFont = getPostscriptNameFromFamilyNameAndStyle(replaceFontView.titleOfSelectedItem(), replaceFontStyleView.titleOfSelectedItem());
 
         iterateDocument(doc, function(layer) {
             if (layer.class() == "MSTextLayer") {
@@ -73,15 +65,29 @@ var onRun = function(context) {
             }
         });
 
-        // TODO: font picker
-
-        preferences.set("replaceFont", replaceFont);
-
         doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
     }
     
 };
+
+function getStylesFromFamilyName(name) {
+    var util = require("util");
+    var availableMembers = NSFontManager.sharedFontManager().availableMembersOfFontFamily(name);
+    var styles = util.toArray(availableMembers).map(function(item) {
+        return item[1];
+    });
+    return styles;
+}
+
+function getPostscriptNameFromFamilyNameAndStyle(familyName, style) {
+    var util = require("util");
+    var availableMembers = NSFontManager.sharedFontManager().availableMembersOfFontFamily(familyName);
+    var font = util.toArray(availableMembers).find(function(item) {
+        return item[1] == style;
+    });
+    return font[0];
+}
 
 function iterateDocument(doc, func) {
     var pages = doc.pages();

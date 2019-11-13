@@ -23,7 +23,7 @@ var onRun = function(context) {
     var pluginName = manifest.menu.title;
     var commandViews = [];
 
-    // TODO: 
+    // TODO: Shortcuts
     loopMenus(manifest.menu.items, "");
     
     function loopMenus(items, groupTitle) {
@@ -49,8 +49,6 @@ var onRun = function(context) {
                         shortcutView.setStringValue(shortcutKeys);
                     }
                 }
-                
-
                 commandViews.push(itemView);
             }
         });
@@ -89,7 +87,10 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         "Shortcuts Manager",
-        "Command: @\nAlt/Option: ~\nControl: ^\nShift: $",
+        "DO NOT USE the modifier key name and symbol in shortcut input, use the meta-key in the list below, for example \"@$t\" is equal to \"cmd+shift+t\".\n\n" +
+        "Command (⌘): @          Alt/Option (⌥): ~          Control (⌃): ^          Shift (⇧): $\n" +
+        "Delete: \\u007f           Tab: \\u0009           Return: \\u000d           Space: \\u0020\n" +
+        "←: \\u001c            →: \\u001d            ↑: \\u001e            ↓: \\u001f", 
         500,
         ["Save"]
     );

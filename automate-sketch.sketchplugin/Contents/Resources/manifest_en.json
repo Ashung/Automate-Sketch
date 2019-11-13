@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "59.1.20191112",
+  "version": "60.0.20191113",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1427,6 +1427,12 @@
       "identifier": "change_layer_blend_mode",
       "script": "Style/Change_Layer_Blend_Mode.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Detach All Symbols in Page or Artboard",
+      "identifier": "detach_all_symbols",
+      "script": "Symbol/Detach_All_Symbols.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1564,6 +1570,7 @@
           "create_symbols_from_selected_layers",
           "selection_to_symbol_master",
           "-",
+          "detach_all_symbols",
           "detach_unused_symbol_master",
           "remove_unused_symbols",
           "-",
