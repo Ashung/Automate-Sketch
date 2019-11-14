@@ -760,3 +760,12 @@ change_layer_blend_mode:
 detach_all_symbols:
   - Detach All Symbols in Page or Artboard
   - 分离页面或画板内所有组件
+copy_as_png:
+  - Copy as PNG
+  - 拷贝 PNG
+copy_as_png_2x:
+  - Copy as PNG @2x
+  - 拷贝 2 倍 PNG 
+copy_as_svg:
+  - Copy as SVG
+  - 拷贝 SVG

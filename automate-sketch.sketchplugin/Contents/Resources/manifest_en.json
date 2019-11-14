@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "60.0.20191113",
+  "version": "60.0.20191114",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1433,6 +1433,24 @@
       "identifier": "detach_all_symbols",
       "script": "Symbol/Detach_All_Symbols.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as PNG",
+      "identifier": "copy_as_png",
+      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as PNG @2x",
+      "identifier": "copy_as_png_2x",
+      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as SVG",
+      "identifier": "copy_as_svg",
+      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1545,6 +1563,10 @@
           "rename_layers",
           "find_and_replace_layer_name",
           "clear_layer_name",
+          "-",
+          "copy_as_png",
+          "copy_as_png_2x",
+          "copy_as_svg",
           "-",
           "create_link_layer",
           "sync_link_layers"
