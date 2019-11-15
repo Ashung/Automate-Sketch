@@ -3,42 +3,26 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Guide");
 
-    var doc = context.document;
-    var page = doc.currentPage();
-    var selection = context.selection;
+    var sketch = require("sketch");
+    var document = sketch.getSelectedDocument();
+    var selectedLayers = document.selectedLayers.layers;
+    var util = require("util");
 
-    if (selection.count() > 0) {
-        var loop = selection.objectEnumerator();
-        while (select = loop.nextObject()) {
-            if (select.class() == "MSArtboardGroup" || select.class() == "MSSymbolMaster") {
-                page.setCurrentArtboard(select);
-                clear_guides(select);
-            }
-        }
+    if (selectedLayers.length == 0) {
+        var page = document.selectedPage.sketchObject;
+        clearGuides(page);
+        var artboards = util.toArray(page.artboards());
+        artboards.forEach(function(artboard) {
+            clearGuides(artboard);
+        });
     } else {
-        if (page.artboards().count() == 0) {
-            clear_guides(page);
-        } else {
-            var loopArtboards = page.artboards().objectEnumerator();
-            while (artboard = loopArtboards.nextObject()) {
-                clear_guides(artboard);
-            }
-        }
+        selectedLayers.forEach(function(layer) {
+            clearGuides(layer.parent.sketchObject);
+        });
     }
-
 };
 
-function clear_guides(target) {
-    var horRulerData = target.horizontalRulerData();
-    var verRulerData = target.verticalRulerData();
-    var horGuides = horRulerData.numberOfGuides();
-    var verGuides = verRulerData.numberOfGuides();
-    // Clear All Horizontal Guides
-    for(var x = 0; x < horGuides; x++) {
-        horRulerData.removeGuideAtIndex(0);
-    }
-    // Clear All Vertical Guides
-    for(var y = 0; y < verGuides; y++) {
-        verRulerData.removeGuideAtIndex(0);
-    }
+function clearGuides(target) {
+    target.horizontalRulerData().removeAllGuides();
+    target.verticalRulerData().removeAllGuides();
 }

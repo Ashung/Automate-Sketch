@@ -769,3 +769,6 @@ copy_as_png_2x:
 copy_as_svg:
   - Copy as SVG
   - 拷贝 SVG
+new_guides_from_layer:
+  - New Guides From Layer
+  - 从图层创建辅助线
