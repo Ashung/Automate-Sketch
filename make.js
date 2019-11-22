@@ -4,12 +4,8 @@ var fs = require("fs");
 var yaml = require("js-yaml");
 var Mustache = require("mustache");
 var sketchVersion = process.argv[2];
-if (!sketchVersion) {
-    console.error("Need Sketch version. npm run make -- 53.2 ");
-    return;
-} else {
-    sketchVersion = sketchVersion + "." + getDateString();
-}
+
+sketchVersion = Number(sketchVersion).toFixed(1) + "." + getDateString();
 
 var template = fs.readFileSync("templates/manifest.mustache", "utf8");
 var features = 0;

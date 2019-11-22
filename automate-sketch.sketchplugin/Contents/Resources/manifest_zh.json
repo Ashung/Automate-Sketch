@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "60.0.20191115",
+  "version": "60.1.20191122",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1457,6 +1457,18 @@
       "identifier": "new_guides_from_layer",
       "script": "Guide/New_Guides_From_Layer.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "缩小实例以适配内容",
+      "identifier": "shrink_instance_to_fit_content",
+      "script": "Symbol/Shrink_Instance_to_Fit_Content.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "更新选中的覆盖组件",
+      "identifier": "update_selected_symbol_overrides",
+      "script": "Library/Update_Selected_Symbol_Overrides.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1584,6 +1596,7 @@
           "set_to_original_width",
           "set_to_original_height",
           "set_to_original_size",
+          "shrink_instance_to_fit_content",
           "-",
           "replace_override_symbol",
           "reset_overrides",
@@ -1630,6 +1643,7 @@
           "insert_symbols_from_library",
           "-",
           "update_selected_library_symbol",
+          "update_selected_symbol_overrides",
           "check_for_library_updates"
         ]
       },

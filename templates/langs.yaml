@@ -20,7 +20,7 @@ artboard:
   - Artboard
   - 画板
 symbol:
-  - Symbοl
+  - Symbol
   - 组件
 library:
   - Library
@@ -772,3 +772,10 @@ copy_as_svg:
 new_guides_from_layer:
   - New Guides From Layer
   - 从图层创建辅助线
+shrink_instance_to_fit_content:
+  - Shrink Instance to Fit Content
+  - 缩小实例以适配内容
+update_selected_symbol_overrides:
+  - Update Selected Symbol Overrides
+  - 更新选中的覆盖组件
+  

@@ -15,17 +15,11 @@ var onRun = function(context) {
         return;
     }
 
-    var librarySymbols = selectedSymbolInstances.filter(function(layer) {
-        return layer.master.getLibrary() ? true : false;
-    });
-    var librarySymbolsIds = librarySymbols.map(function(symbol) {
-        return symbol.id;
-    });
-
-    // library symbols inside symbol
+    var librarySymbols = [];
+    var librarySymbolsIds = [];
     selectedSymbolInstances.forEach(function(layer) {
         var symbols = layer.overrides.filter(function(override) {
-            return override.symbolOverride == 1;
+            return override.selected && override.symbolOverride;
         }).map(function(override) {
             return document.getSymbolMasterWithID(override.value);
         }).filter(function(symbol) {
@@ -40,7 +34,7 @@ var onRun = function(context) {
     });
 
     if (librarySymbols.length == 0) {
-        sketch.UI.message("Please select at least 1 library symbol or symbol instance include library symbol.");
+        sketch.UI.message("Please select at least 1 library symbol override.");
         return;
     }
 
@@ -54,6 +48,6 @@ var onRun = function(context) {
 
     AppController.sharedInstance().refreshDocumentWindowBadges();
 
-    sketch.UI.message("Sync " + count + " library symbol" + (count > 1 ? "s" : "") + ".");
+    sketch.UI.message("Sync " + count + " library symbol override" + (count > 1 ? "s" : "") + ".");
 
 };

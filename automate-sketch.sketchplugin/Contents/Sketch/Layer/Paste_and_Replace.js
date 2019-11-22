@@ -137,7 +137,7 @@ var onRun = function(context) {
         document.showMessage("Clipboard is empty.");
     }
 
-}
+};
 
 function getPasteboardLayers(context) {
     var pasteboard = NSPasteboard.generalPasteboard();

@@ -88,7 +88,6 @@ var onRun = function(context) {
                         if (textColumns.length == 0) {
                             rectColumn.origin.x = newLineTextLayer.frame().x();
                         }
-                        // TODO: text position
                         textForNewColumn = textForNewColumn.trim();
                         if (textForNewColumn != "") {
                             var newColumnTextLayer = MSTextLayer.alloc().initWithFrame(rectColumn);
