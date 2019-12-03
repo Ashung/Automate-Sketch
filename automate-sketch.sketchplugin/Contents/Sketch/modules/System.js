@@ -67,7 +67,7 @@ System.textsFromChooseFile = function() {
     } else {
         return System.textsFromFile(textFile);
     }
-}
+};
 
 System.imagesFromChooseFolder = function() {
     var imageFolder = System.chooseFolder();
@@ -76,7 +76,7 @@ System.imagesFromChooseFolder = function() {
     } else {
         return System.imagesFromFolder(imageFolder);
     }
-}
+};
 
 System.readStringFromFile = function(filePath) {
     var error = MOPointer.alloc().init();
@@ -85,7 +85,7 @@ System.readStringFromFile = function(filePath) {
         return;
     }
     return String(content);
-}
+};
 
 System.writeStringToFile = function(content, filePath) {
     var error = MOPointer.alloc().init();
@@ -119,10 +119,10 @@ System.getSubFolders = function(path) {
         result.push(String(paths.objectAtIndex(i)));
     }
     return result;
-}
+};
 
 System.getAppPath = function() {
     return String(NSBundle.mainBundle().bundlePath());
-}
+};
 
 module.exports = System;

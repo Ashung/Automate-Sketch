@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "60.1.20191122",
+  "version": "60.1.20191202",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1369,15 +1369,15 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Copy SVG Code",
+      "name": "Copy Slice as SVG Code",
       "identifier": "copy_svg_code",
-      "script": "Slice/Copy_SVG_Code.js",
+      "script": "Development/Copy_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Copy SVG Code (URL-encoded)",
       "identifier": "copy_svg_code_url_encoded",
-      "script": "Slice/Copy_SVG_Code.js",
+      "script": "Development/Copy_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1437,19 +1437,19 @@
     {
       "name": "Copy as PNG",
       "identifier": "copy_as_png",
-      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Copy as PNG @2x",
       "identifier": "copy_as_png_2x",
-      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Copy as SVG",
       "identifier": "copy_as_svg",
-      "script": "Layer/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1468,6 +1468,12 @@
       "name": "Update Selected Symbol Overrides",
       "identifier": "update_selected_symbol_overrides",
       "script": "Library/Update_Selected_Symbol_Overrides.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Export Artboard to ICNS File",
+      "identifier": "export_artboard_to_icns_file",
+      "script": "Development/Export_Artboard_to_Icns_File.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1581,10 +1587,6 @@
           "rename_layers",
           "find_and_replace_layer_name",
           "clear_layer_name",
-          "-",
-          "copy_as_png",
-          "copy_as_png_2x",
-          "copy_as_svg",
           "-",
           "create_link_layer",
           "sync_link_layers"
@@ -1783,10 +1785,6 @@
           "quick_export_2",
           "quick_export_setting",
           "-",
-          "copy_svg_code",
-          "copy_svg_code_url_encoded",
-          "copy_slice_as_base64",
-          "-",
           "auto_slice",
           "fast_slice",
           "slice_setting",
@@ -1818,10 +1816,20 @@
       {
         "title": "Development",
         "items": [
+          "copy_as_png",
+          "copy_as_png_2x",
+          "copy_as_svg",
+          "copy_svg_path_data",
+          "-",
+          "copy_svg_code",
+          "copy_svg_code_url_encoded",
+          "copy_slice_as_base64",
+          "-",
+          "export_artboard_to_icns_file",
+          "-",
           "pick_color_and_copy",
           "copy_selected_layer_name",
           "copy_objectid_or_symbolid",
-          "copy_svg_path_data",
           "-",
           "show_layer_info",
           "-",

@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga("Layer");
+    ga("Development");
 
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
@@ -21,21 +21,24 @@ var onRun = function(context) {
         trimmed: false,
         output: false
     };
-    var buffer = sketch.export(layer, option);
-
+    
+    var buffer;
     if (identifier == "copy_as_png") {
+        buffer = sketch.export(layer, option);
         pasteboard.setImage(buffer.toNSData());
         sketch.UI.message("PNG copied.");
     }
 
     if (identifier == "copy_as_png") {
         option.scales = "2";
+        buffer = sketch.export(layer, option);
         pasteboard.setImage(buffer.toNSData());
         sketch.UI.message("PNG @2x copied.");
     }
 
     if (identifier == "copy_as_svg") {
         option.formats = "svg";
+        buffer = sketch.export(layer, option);
         pasteboard.setText(buffer.toString());
         sketch.UI.message("SVG copied.");
     }

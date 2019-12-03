@@ -728,11 +728,11 @@ move_to_page:
   - Move to Page
   - 移动到页面
 copy_svg_code:
-  - Copy SVG Code
-  - 拷贝 SVG 代码
+  - Copy Slice as SVG Code
+  - 拷贝切片的 SVG 代码
 copy_svg_code_url_encoded:
   - Copy SVG Code (URL-encoded)
-  - 拷贝 SVG 代码 (URL-encoded)
+  - 拷贝切片的 SVG 代码 (URL-encoded)
 insert_symbols_from_library:
   - Insert Symbols From Library
   - 从库插入组件
@@ -778,4 +778,6 @@ shrink_instance_to_fit_content:
 update_selected_symbol_overrides:
   - Update Selected Symbol Overrides
   - 更新选中的覆盖组件
-  
+export_artboard_to_icns_file:
+  - Export Artboard to ICNS File
+  - 画板导出为 ICNS 文件

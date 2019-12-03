@@ -1156,12 +1156,12 @@
         {
             "name": "{{copy_svg_code}}",
             "identifier": "copy_svg_code",
-            "script": "Slice/Copy_SVG_Code.js"
+            "script": "Development/Copy_SVG_Code.js"
         },
         {
             "name": "{{copy_svg_code_url_encoded}}",
             "identifier": "copy_svg_code_url_encoded",
-            "script": "Slice/Copy_SVG_Code.js"
+            "script": "Development/Copy_SVG_Code.js"
         },
         {
             "name": "{{insert_symbols_from_library}}",
@@ -1211,17 +1211,17 @@
         {
             "name": "{{copy_as_png}}",
             "identifier": "copy_as_png",
-            "script": "Layer/Copy_as_PNG_or_SVG.js"
+            "script": "Development/Copy_as_PNG_or_SVG.js"
         },
         {
             "name": "{{copy_as_png_2x}}",
             "identifier": "copy_as_png_2x",
-            "script": "Layer/Copy_as_PNG_or_SVG.js"
+            "script": "Development/Copy_as_PNG_or_SVG.js"
         },
         {
             "name": "{{copy_as_svg}}",
             "identifier": "copy_as_svg",
-            "script": "Layer/Copy_as_PNG_or_SVG.js"
+            "script": "Development/Copy_as_PNG_or_SVG.js"
         },
         {
             "name": "{{new_guides_from_layer}}",
@@ -1237,6 +1237,11 @@
             "name": "{{update_selected_symbol_overrides}}",
             "identifier": "update_selected_symbol_overrides",
             "script": "Library/Update_Selected_Symbol_Overrides.js"
+        },
+        {
+            "name": "{{export_artboard_to_icns_file}}",
+            "identifier": "export_artboard_to_icns_file",
+            "script": "Development/Export_Artboard_to_Icns_File.js"
         }
     ],
     "menu": {
@@ -1349,10 +1354,6 @@
                     "rename_layers",
                     "find_and_replace_layer_name",
                     "clear_layer_name",
-                    "-",
-                    "copy_as_png",
-                    "copy_as_png_2x",
-                    "copy_as_svg",
                     "-",
                     "create_link_layer",
                     "sync_link_layers"
@@ -1551,10 +1552,6 @@
                     "quick_export_2",
                     "quick_export_setting",
                     "-",
-                    "copy_svg_code",
-                    "copy_svg_code_url_encoded",
-                    "copy_slice_as_base64",
-                    "-",
                     "auto_slice",
                     "fast_slice",
                     "slice_setting",
@@ -1586,10 +1583,20 @@
             {
                 "title": "{{development}}",
                 "items": [
+                    "copy_as_png",
+                    "copy_as_png_2x",
+                    "copy_as_svg",
+                    "copy_svg_path_data",
+                    "-",
+                    "copy_svg_code",
+                    "copy_svg_code_url_encoded",
+                    "copy_slice_as_base64",
+                    "-",
+                    "export_artboard_to_icns_file",
+                    "-",
                     "pick_color_and_copy",
                     "copy_selected_layer_name",
                     "copy_objectid_or_symbolid",
-                    "copy_svg_path_data",
                     "-",
                     "show_layer_info",
                     "-",
