@@ -1,5 +1,8 @@
 var onRun = function(context) {
 
+    var ga = require("../modules/Google_Analytics");
+    ga("Development");
+
     var system = require("../modules/System");
     var runCommand = require("../modules/Run_Command");
     var sketch = require("sketch");
@@ -42,13 +45,11 @@ var onRun = function(context) {
         var filePath = destFolder + "/icon.iconset/icon_" + option.name + ".png";
         document.sketchObject.saveExportRequest_toFile(exportRequest, filePath);
     });
-
-
+    
     runCommand(
         "/bin/bash",
         ["-l", "-c", '/usr/bin/iconutil -c icns "' + destFolder + '/icon.iconset"']
     );
-
 
 };
 

@@ -781,3 +781,12 @@ update_selected_symbol_overrides:
 export_artboard_to_icns_file:
   - Export Artboard to ICNS File
   - 画板导出为 ICNS 文件
+toggle_mask_for_selected_layers:
+  - Toggle Mask for Selected Layers
+  - 选中图层设置或取消蒙版
+reset_all_layer_styles:
+  - Reset All Layer Styles
+  - 重置所有图层样式
+reset_all_text_styles:
+  - Reset All Text Styles
+  - 重置所有文本样式

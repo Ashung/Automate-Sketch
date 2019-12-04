@@ -6,6 +6,7 @@ var onRun = function(context) {
     var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
+    var pasteboard = require("../modules/Pasteboard");
     var util = require("util");
 
     var userDefaults = NSUserDefaults.standardUserDefaults();
@@ -19,11 +20,11 @@ var onRun = function(context) {
 
     var commands = __command.pluginBundle().commands();
     var manifest = require("../manifest.json");
-    var pluginMenu = "";
+    var sketchLanguage = String(userDefaults.objectForKey("AppleLanguages").firstObject());
+    var pluginMenu = sketchLanguage == "en" ? "Plugins" : "插件";
     var pluginName = manifest.menu.title;
     var commandViews = [];
 
-    // TODO: Shortcuts
     loopMenus(manifest.menu.items, "");
     
     function loopMenus(items, groupTitle) {
@@ -38,13 +39,19 @@ var onRun = function(context) {
                 var command = commands.valueForKey(item);
                 var itemView = ui.view([500, 40]);
                 var itemLabel = groupTitle + "->" + command.name();
-                var labelView = ui.textLabel(itemLabel, [10, 10, 400, 20]);
+                var labelView = ui.button(itemLabel, [10, 10, 400, 20]);
+                labelView.setBordered("NO");
+                labelView.sizeToFit();
+                labelView.setCOSJSTargetFunction(function(sender) {
+                    var menu = pluginMenu + "->" + pluginName + "->" + sender.title();
+                    pasteboard.pbcopy(menu);
+                    sketch.UI.message('"' + menu + '" copied.');
+                });
                 var shortcutView = ui.textField("", [400, 10, 80, 20]);
                 itemView.addSubview(labelView);
                 itemView.addSubview(shortcutView);
                 if (shortcuts && shortcutMenuTitles.includes(itemLabel)) {
                     var shortcutKeys = shortcuts.allValues().objectAtIndex(shortcutMenuTitles.indexOf(itemLabel));
-                    log(shortcutKeys);
                     if (shortcutKeys) {
                         shortcutView.setStringValue(shortcutKeys);
                     }
@@ -54,45 +61,15 @@ var onRun = function(context) {
         });
     }
 
-    log(shortcutMenuTitles);
-    // log(commands);
-
-
-    // manifest.menu.items.forEach(function(group) {
-    //     // log(group)
-    //     group.items.forEach(function(item) {
-    //         if (group.title != "Help" || group.title != "帮助") {
-    //             if (item != "-") {
-    //                 menus.push(group.title + "->" + item);
-    //             }
-    //         }
-    //     });
-    // });
-
-    // log(menus);
-    // menus.forEach(menu => {
-    //     
-    // })
-
-
-    
-    // log(commands);
-    // util.toArray(commands).forEach(item => {
-    //     log(item.name());
-    //     log(item.shortcut());
-    // });
-
-
-// .allKeys().firstObject().toString()
-
     var dialog = new Dialog(
         "Shortcuts Manager",
+        "This setting is same as System Preferences - Keyboard - Shortcuts, but you need to restart Sketch to apply settings. If you don't want to restart Sketch, click the plugin menus in the list to copy the menu title string, then go to System Preferences - Keyboard - Shortcuts to add a shortcut." +
         "DO NOT USE the modifier key name and symbol in shortcut input, use the meta-key in the list below, for example \"@$t\" is equal to \"cmd+shift+t\".\n\n" +
         "Command (⌘): @          Alt/Option (⌥): ~          Control (⌃): ^          Shift (⇧): $\n" +
         "Delete: \\u007f           Tab: \\u0009           Return: \\u000d           Space: \\u0020\n" +
         "←: \\u001c            →: \\u001d            ↑: \\u001e            ↓: \\u001f", 
         500,
-        ["Save"]
+        ["Save", "Cancel"]
     );
 
     var scrollView = ui.scrollView(commandViews, [500, 400]);
@@ -100,10 +77,15 @@ var onRun = function(context) {
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
-
-
-
+        var shortcutsCopy = shortcuts.mutableCopy();
+        commandViews.forEach(function(item) {
+            var key = ["", pluginMenu, pluginName].concat(item.subviews().objectAtIndex(0).stringValue().split("->")).join("\u001b");
+            var value = item.subviews().objectAtIndex(1).stringValue();
+            if (value != "") {
+                shortcutsCopy.setValue_forKey(value, key);
+            }
+            userDefaults.setObject_forKey(shortcutsCopy, "NSUserKeyEquivalents");
+        });
+        userDefaults.synchronize();
     }
-
-
 };

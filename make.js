@@ -31,8 +31,6 @@ Object.keys(data).forEach(key => {
             commands.forEach(function(command) {
                 if (command.name) {
                     command["icon"] = "icon_runner.png";
-                    // TODO: add description for sketch runner
-                    // https://docs.sketchrunner.com/developers
                 }
             });
             manifest = JSON.stringify(manifestJSON, null, 2);

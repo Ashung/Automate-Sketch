@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "60.1.20191202",
+  "version": "61.0.20191204",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1297,12 +1297,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Reset Style",
-      "identifier": "reset_style",
-      "script": "Style/Reset_Style.js",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "Update Style",
       "identifier": "update_style",
       "script": "Style/Update_Style.js",
@@ -1475,6 +1469,30 @@
       "identifier": "export_artboard_to_icns_file",
       "script": "Development/Export_Artboard_to_Icns_File.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Toggle Mask for Selected Layers",
+      "identifier": "toggle_mask_for_selected_layers",
+      "script": "Layer/Toggle_Mask_for_Selected_Layers.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset Style",
+      "identifier": "reset_style",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset All Layer Styles",
+      "identifier": "reset_all_layer_styles",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset All Text Styles",
+      "identifier": "reset_all_text_styles",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1588,6 +1606,8 @@
           "find_and_replace_layer_name",
           "clear_layer_name",
           "-",
+          "toggle_mask_for_selected_layers",
+          "-",
           "create_link_layer",
           "sync_link_layers"
         ]
@@ -1700,6 +1720,8 @@
           "-",
           "reset_style",
           "update_style",
+          "reset_all_layer_styles",
+          "reset_all_text_styles",
           "-",
           "find_and_replace_layer_style_override",
           "find_and_replace_text_style_override",

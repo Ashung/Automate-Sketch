@@ -1094,11 +1094,6 @@
             "script": "Layer/Find_and_Replace_Layer_Name.js"
         },
         {
-            "name": "{{reset_style}}",
-            "identifier": "reset_style",
-            "script": "Style/Reset_Style.js"
-        },
-        {
             "name": "{{update_style}}",
             "identifier": "update_style",
             "script": "Style/Update_Style.js"
@@ -1242,6 +1237,26 @@
             "name": "{{export_artboard_to_icns_file}}",
             "identifier": "export_artboard_to_icns_file",
             "script": "Development/Export_Artboard_to_Icns_File.js"
+        },
+        {
+            "name": "{{toggle_mask_for_selected_layers}}",
+            "identifier": "toggle_mask_for_selected_layers",
+            "script": "Layer/Toggle_Mask_for_Selected_Layers.js"
+        },
+        {
+            "name": "{{reset_style}}",
+            "identifier": "reset_style",
+            "script": "Style/Reset_Style.js"
+        },
+        {
+            "name": "{{reset_all_layer_styles}}",
+            "identifier": "reset_all_layer_styles",
+            "script": "Style/Reset_Style.js"
+        },
+        {
+            "name": "{{reset_all_text_styles}}",
+            "identifier": "reset_all_text_styles",
+            "script": "Style/Reset_Style.js"
         }
     ],
     "menu": {
@@ -1355,6 +1370,8 @@
                     "find_and_replace_layer_name",
                     "clear_layer_name",
                     "-",
+                    "toggle_mask_for_selected_layers",
+                    "-",
                     "create_link_layer",
                     "sync_link_layers"
                 ]
@@ -1467,6 +1484,8 @@
                     "-",
                     "reset_style",
                     "update_style",
+                    "reset_all_layer_styles",
+                    "reset_all_text_styles",
                     "-",
                     "find_and_replace_layer_style_override",
                     "find_and_replace_text_style_override",

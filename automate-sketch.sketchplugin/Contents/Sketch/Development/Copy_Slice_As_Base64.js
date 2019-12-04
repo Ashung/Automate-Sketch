@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Development");
 
+    var pasteboard = require("../modules/Pasteboard");
     var doc = context.document;
     var selection = context.selection;
 
@@ -37,9 +38,7 @@ var onRun = function(context) {
         }
 
         // Paste board
-        var pboard = NSPasteboard.generalPasteboard();
-        pboard.clearContents();
-        pboard.setString_forType_(base64Code, NSStringPboardType);
+        pasteboard.pbcopy(base64Code);
 
         doc.showMessage("The base64 code \"" + base64Preview + "\" of slice copied.");
 

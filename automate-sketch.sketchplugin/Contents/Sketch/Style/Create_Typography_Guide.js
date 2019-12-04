@@ -6,11 +6,13 @@ var onRun = function(context) {
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
-    
-    var document = context.document;
-    var textStyles = document.documentData().layerTextStyles().sharedStyles();
-    if (textStyles.count() == 0) {
-        document.showMessage("No text styles in current document.");
+
+    var sketch = require("sketch");
+    var document = sketch.getSelectedDocument();
+    var textStyles = document.sharedTextStyles;
+
+    if (textStyles.length == 0) {
+        sketch.UI.message("No text styles in current document.");
         return;
     }
 
@@ -28,7 +30,7 @@ var onRun = function(context) {
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        var page = document.currentPage();
+        var page = document.sketchObject.currentPage();
 
         var point;
         if (MSApplicationMetadata.metadata().appVersion >= 49) {
@@ -51,9 +53,8 @@ var onRun = function(context) {
 
         var typographyGroupLayers = [];
 
-        var loopTextStyles = textStyles.objectEnumerator();
-        var textStyle;
-        while (textStyle = loopTextStyles.nextObject()) {
+        textStyles.forEach(function(item) {
+            var textStyle = item.sketchObject;
 
             // Add layer group
             var typographyGroup = MSLayerGroup.alloc().init();
@@ -100,26 +101,23 @@ var onRun = function(context) {
 
             typographyGroupLayers.push(typographyGroup);
 
-        }
+        });
 
-        centerRect_byLayers(document, typographyGroupLayers);
+        centerRect_byLayers(document.sketchObject, typographyGroupLayers);
 
     }
 
 };
 
 function centerRect_byLayers(document, layers) {
-
     var rects = layers.map(function(item) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
     var rect = MSRect.rectWithUnionOfRects(rects).rect();
-
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     if (appVersion >= 48) {
         document.contentDrawView().centerRect_animated(rect, true);
     } else {
         document.currentView().centerRect_animated(rect, true);
     }
-
 }

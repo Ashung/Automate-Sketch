@@ -1,1 +1,0 @@
-// TODO: "Mask" for multiple selected layers
