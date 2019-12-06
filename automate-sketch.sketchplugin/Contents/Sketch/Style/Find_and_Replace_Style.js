@@ -9,47 +9,41 @@ var onRun = function(context) {
     var document = sketch.getSelectedDocument();
     var identifier = __command.identifier();
 
-    var styles = [];
-    if (identifier == "find_and_replace_layer_style_override") {
-        styles = document.sharedLayerStyles;
+    var styles;
+    var localStyles;
+    if (identifier == "find_and_replace_layer_style") {
+        styles = document.sharedLayerStyles.filter(function(style) {
+            return style.getAllInstancesLayers().length > 0;
+        });
+        localStyles = document.sharedLayerStyles.filter(function(style) {
+            return !style.getLibrary();
+        });
     } else {
-        styles = document.sharedTextStyles;
+        styles = document.sharedTextStyles.filter(function(style) {
+            return style.getAllInstancesLayers().length > 0;
+        });
+        localStyles = document.sharedTextStyles.filter(function(style) {
+            return !style.getLibrary();
+        });
     }
     if (styles.length == 0) {
         sketch.UI.message("This document have not any style.");
         return;
     }
 
-    var idsOfUniqueStyle = [];
-    var uniqueStyles = [];
-    var localStyles = [];
-    styles.forEach(function(style) {
-        var styleID;
-        if (style.id.match(/\[(.*)\]/)) {
-            styleID = style.id.match(/\[(.*)\]/)[1];
-        } else {
-            styleID = (style.id);
-            localStyles.push(style);
-        }
-        if (!idsOfUniqueStyle.includes(styleID)) {
-            idsOfUniqueStyle.push(styleID);
-            uniqueStyles.push(style);
-        }
-    });
-
     // Dialog
     var dialogTitle;
-    if (identifier == "find_and_replace_layer_style_override") {
-        dialogTitle = "Find and Replace Layer Style Override";
+    if (identifier == "find_and_replace_layer_style") {
+        dialogTitle = "Find and Replace Layer Style";
     } else {
-        dialogTitle = "Find and Replace Text Style Override";
+        dialogTitle = "Find and Replace Text Style";
     }
     var dialog = new Dialog(dialogTitle, "");
 
     // Find
-    dialog.addLabel("Find a style override in this document:");
+    dialog.addLabel("Find a style in this document:");
     var findStyleView = ui.popupButton([]);
-    loadSelectMenuData(findStyleView, uniqueStyles);
+    loadSelectMenuData(findStyleView, styles);
     dialog.addView(findStyleView);
 
     // Library
@@ -78,7 +72,7 @@ var onRun = function(context) {
         loadSelectMenuData(targetStyleView, localStyles);
     } else {
         selectedLibrary = enabledLibraries[0];
-        if (identifier == "find_and_replace_layer_style_override") {
+        if (identifier == "find_and_replace_layer_style") {
             styleReferences = selectedLibrary.getImportableLayerStyleReferencesForDocument(document);
         } else {
             styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
@@ -93,7 +87,7 @@ var onRun = function(context) {
             selectedLibrary = undefined;
         } else {
             selectedLibrary = enabledLibraries[selectedIndex];
-            if (identifier == "find_and_replace_layer_style_override") {
+            if (identifier == "find_and_replace_layer_style") {
                 styleReferences = selectedLibrary.getImportableLayerStyleReferencesForDocument(document);
             } else {
                 styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
@@ -103,7 +97,7 @@ var onRun = function(context) {
     });
 
     // Filter
-    dialog.addLabel("Only find style override in:");
+    dialog.addLabel("Only find style in:");
     var filterView = ui.popupButton([
         "Selected layers",
         "Child layers of selected layer",
@@ -115,59 +109,45 @@ var onRun = function(context) {
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        var findStyle = uniqueStyles[findStyleView.indexOfSelectedItem()];
-        var findStyleId = (findStyle.id);
-        if (findStyleId.match(/\[(.*)\]/)) {
-            findStyleId = findStyleId.match(/\[(.*)\]/)[1];
-        }
+        var findStyle = styles[findStyleView.indexOfSelectedItem()];
 
-        var targetStyleId;
+        var targetStyle;
         if (selectedLibrary) {
             var styleReference = styleReferences[targetStyleView.indexOfSelectedItem()];
-            var sharedStyle = styleReference.import();
-            targetStyleId = (sharedStyle.id);
+            targetStyle = styleReference.import();
         } else {
-            var targetStyle = localStyles[targetStyleView.indexOfSelectedItem()];
-            targetStyleId = (targetStyle.id);
+            targetStyle = localStyles[targetStyleView.indexOfSelectedItem()];
         }
 
-        var allInstances;
+        var allInstancesLayers = findStyle.getAllInstancesLayers();
         var filterIndex = filterView.indexOfSelectedItem();
         if (filterIndex == 0) {
-            allInstances = document.selectedLayers.layers.filter(function(layer) {
-                return layer.type == "SymbolInstance";
+            allInstancesLayers = allInstancesLayers.filter(function(layer) {
+                return layer.selected == true;
             });
         } else if (filterIndex == 1) {
-            allInstances = instancesInSelectedLayers(document);
+            allInstancesLayers = allInstancesLayers.filter(function(layer) {
+                return layer.parent.selected == true;
+            });
         } else if (filterIndex == 2) {
-            allInstances = instancesInCurrentPage(document);
-        } else {
-            allInstances = instancesInDocument(document);
+            allInstancesLayers = allInstancesLayers.filter(function(layer) {
+                return layer.sketchObject.parentPage() == document.selectedPage.sketchObject;
+            });
         }
 
-        if (allInstances.length == 0) {
-            sketch.UI.message("No symbol instance in " + '"' + filterView.titleOfSelectedItem() + '".')
+        if (allInstancesLayers.length == 0) {
+            sketch.UI.message("No style layer in " + '"' + filterView.titleOfSelectedItem() + '".');
             return;
         }
 
-        var count = 0;
-        allInstances.forEach(function(instance) {
-            instance.overrides.forEach(function(override) {
-                if (override.property == "layerStyle" && identifier == "find_and_replace_layer_style_override") {
-                    override.value = targetStyleId;
-                    count ++;
-                }
-                if (override.property == "textStyle" && identifier == "find_and_replace_text_style_override") {
-                    override.value = targetStyleId;
-                    count ++;
-                }
-            });
+        allInstancesLayers.forEach(function(layer) {
+            layer.style = targetStyle.style;
+            layer.sharedStyleId = (targetStyle.id);
         });
 
-        sketch.UI.message(`${count} ${count > 1 ? "overrides" : "override"} named "${findStyleView.titleOfSelectedItem()}" have replace to "${targetStyleView.titleOfSelectedItem()}"`);
-
+        var count = allInstancesLayers.length;
+        sketch.UI.message(`${count} ${count > 1 ? "layers" : "layer"} with style "${findStyle.name}" have replace to style "${targetStyle.name}"`);
     }
-
 };
 
 function loadSelectMenuData(popupButton, styles) {
@@ -190,6 +170,7 @@ function loadSelectMenuData(popupButton, styles) {
                 menuImage = preview.textStyleSmall(style.sketchObject);
             }
             menuItem.setImage(menuImage);
+            menuTitle += " (" + style.getAllInstancesLayers().length + ")";
         }
         if (style.type == "ImportableObject") {
             menuTitle = style.name;
@@ -204,42 +185,5 @@ function loadSelectMenuData(popupButton, styles) {
         }
         menuItem.setTitle(menuTitle);
         popupButton.menu().addItem(menuItem);
-    });
-}
-
-function instancesInSelectedLayers(document) {
-    var util = require("util");
-    var sketch = require("sketch");
-    var instances = [];
-    var predicateSymbolInstance = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
-    document.selectedLayers.layers.forEach(function(layer) {
-        instances = instances.concat(util.toArray(layer.sketchObject.children().filteredArrayUsingPredicate(predicateSymbolInstance)));
-    });
-    return instances.map(function(item) {
-        return sketch.fromNative(item);
-    });
-}
-
-function instancesInCurrentPage(document) {
-    var util = require("util");
-    var sketch = require("sketch");
-    var currentPage = document.selectedPage;
-    var predicateSymbolInstance = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
-    var instances = currentPage.sketchObject.children().filteredArrayUsingPredicate(predicateSymbolInstance);
-    return util.toArray(instances).map(function(item) {
-        return sketch.fromNative(item);
-    });
-}
-
-function instancesInDocument(document) {
-    var util = require("util");
-    var sketch = require("sketch");
-    var instances = [];
-    var predicateSymbolInstance = NSPredicate.predicateWithFormat("className == %@", "MSSymbolInstance");
-    document.pages.forEach(function(page) {
-        instances = instances.concat(util.toArray(page.sketchObject.children().filteredArrayUsingPredicate(predicateSymbolInstance)));
-    });
-    return instances.map(function(item) {
-        return sketch.fromNative(item);
     });
 }

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "61.0.20191204",
+  "version": "61.0.20191206",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1493,6 +1493,30 @@
       "identifier": "reset_all_text_styles",
       "script": "Style/Reset_Style.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "查找和替换图层样式",
+      "identifier": "find_and_replace_layer_style",
+      "script": "Style/Find_and_Replace_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "查找和替换文本样式",
+      "identifier": "find_and_replace_text_style",
+      "script": "Style/Find_and_Replace_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "合并同名图层样式",
+      "identifier": "merge_layer_styles_with_same_name",
+      "script": "Style/Merge_Styles_with_Same_Name.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "合并同名文本样式",
+      "identifier": "merge_text_styles_with_same_name",
+      "script": "Style/Merge_Styles_with_Same_Name.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1723,8 +1747,12 @@
           "reset_all_layer_styles",
           "reset_all_text_styles",
           "-",
+          "find_and_replace_layer_style",
+          "find_and_replace_text_style",
           "find_and_replace_layer_style_override",
           "find_and_replace_text_style_override",
+          "merge_layer_styles_with_same_name",
+          "merge_text_styles_with_same_name",
           "-",
           "change_layer_blend_mode",
           "-",
