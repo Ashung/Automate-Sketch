@@ -9,27 +9,48 @@ var onRun = function(context) {
     var document = sketch.getSelectedDocument();
     var identifier = __command.identifier();
 
-    var styles;
-    var localStyles;
+    var idsOfUniqueStyle = [];
+    var allStyles;
+    var styles = [];
+    var localStyles = [];
     if (identifier == "find_and_replace_layer_style") {
-        styles = document.sharedLayerStyles.filter(function(style) {
-            return style.getAllInstancesLayers().length > 0;
-        });
-        localStyles = document.sharedLayerStyles.filter(function(style) {
-            return !style.getLibrary();
-        });
+        allStyles = document.sharedLayerStyles;
     } else {
-        styles = document.sharedTextStyles.filter(function(style) {
-            return style.getAllInstancesLayers().length > 0;
-        });
-        localStyles = document.sharedTextStyles.filter(function(style) {
-            return !style.getLibrary();
-        });
+        allStyles = document.sharedTextStyles;
     }
+    allStyles.forEach(function(style) {
+        var styleID = getStyleId(style.id);
+        if (styleID == style.id) {
+            localStyles.push(style);
+        }
+        if (!idsOfUniqueStyle.includes(styleID)) {
+            idsOfUniqueStyle.push(styleID);
+            styles.push(style);
+        }
+    });
     if (styles.length == 0) {
         sketch.UI.message("This document have not any style.");
         return;
     }
+
+    // Style use in override
+    var stylesInOverride = {};
+    sketch.find("SymbolInstance").forEach(function(instance) {
+        instance.overrides.filter(function(override) {
+            if (identifier == "find_and_replace_layer_style") {
+                return override.property == "layerStyle";
+            } else {
+                return override.property == "textStyle";
+            }
+        }).forEach(function(override) {
+            var styleID = getStyleId(override.value);
+            if (Object.keys(stylesInOverride).includes(styleID)) {
+                stylesInOverride[styleID] += 1;
+            } else {
+                stylesInOverride[styleID] = 1;
+            }
+        });
+    });
 
     // Dialog
     var dialogTitle;
@@ -38,12 +59,12 @@ var onRun = function(context) {
     } else {
         dialogTitle = "Find and Replace Text Style";
     }
-    var dialog = new Dialog(dialogTitle, "");
+    var dialog = new Dialog(dialogTitle, "Note: Library ▶︎ Style (layer count, override count).");
 
     // Find
     dialog.addLabel("Find a style in this document:");
     var findStyleView = ui.popupButton([]);
-    loadSelectMenuData(findStyleView, styles);
+    loadSelectMenuData(findStyleView, styles, stylesInOverride);
     dialog.addView(findStyleView);
 
     // Library
@@ -69,7 +90,7 @@ var onRun = function(context) {
     var selectedLibrary;
     var styleReferences;
     if (enabledLibraries.length == 0) {
-        loadSelectMenuData(targetStyleView, localStyles);
+        loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
     } else {
         selectedLibrary = enabledLibraries[0];
         if (identifier == "find_and_replace_layer_style") {
@@ -77,13 +98,13 @@ var onRun = function(context) {
         } else {
             styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
         }
-        loadSelectMenuData(targetStyleView, styleReferences);
+        loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
     }
 
     libraryView.setCOSJSTargetFunction(function(sender) {
         var selectedIndex = sender.indexOfSelectedItem();
         if (selectedIndex == enabledLibraries.length) {
-            loadSelectMenuData(targetStyleView, localStyles);
+            loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
             selectedLibrary = undefined;
         } else {
             selectedLibrary = enabledLibraries[selectedIndex];
@@ -92,7 +113,7 @@ var onRun = function(context) {
             } else {
                 styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
             }
-            loadSelectMenuData(targetStyleView, styleReferences);
+            loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
         }
     });
 
@@ -110,6 +131,7 @@ var onRun = function(context) {
     if (responseCode == 1000) {
 
         var findStyle = styles[findStyleView.indexOfSelectedItem()];
+        var findStyleId = getStyleId(findStyle.id);
 
         var targetStyle;
         if (selectedLibrary) {
@@ -120,23 +142,47 @@ var onRun = function(context) {
         }
 
         var allInstancesLayers = findStyle.getAllInstancesLayers();
+        var allSymbolInstances = [];
+        sketch.find("SymbolInstance").forEach(function(instance) {
+            instance.overrides.filter(function(override) {
+                if (identifier == "find_and_replace_layer_style") {
+                    return override.property == "layerStyle";
+                } else {
+                    return override.property == "textStyle";
+                }
+            }).forEach(function(override) {
+                if (getStyleId(override.value) == findStyleId) {
+                    allSymbolInstances.push(instance);
+                }
+            });
+        });
+
         var filterIndex = filterView.indexOfSelectedItem();
         if (filterIndex == 0) {
             allInstancesLayers = allInstancesLayers.filter(function(layer) {
+                return layer.selected == true;
+            });
+            allSymbolInstances = allSymbolInstances.filter(function(layer) {
                 return layer.selected == true;
             });
         } else if (filterIndex == 1) {
             allInstancesLayers = allInstancesLayers.filter(function(layer) {
                 return layer.parent.selected == true;
             });
+            allSymbolInstances = allSymbolInstances.filter(function(layer) {
+                return layer.parent.selected == true;
+            });
         } else if (filterIndex == 2) {
             allInstancesLayers = allInstancesLayers.filter(function(layer) {
                 return layer.sketchObject.parentPage() == document.selectedPage.sketchObject;
             });
+            allSymbolInstances = allSymbolInstances.filter(function(layer) {
+                return layer.sketchObject.parentPage() == document.selectedPage.sketchObject;
+            });
         }
 
-        if (allInstancesLayers.length == 0) {
-            sketch.UI.message("No style layer in " + '"' + filterView.titleOfSelectedItem() + '".');
+        if (allInstancesLayers.length == 0 && allSymbolInstances.length == 0) {
+            sketch.UI.message("No layer and override use " + '"' + filterView.titleOfSelectedItem() + '".');
             return;
         }
 
@@ -145,12 +191,27 @@ var onRun = function(context) {
             layer.sharedStyleId = (targetStyle.id);
         });
 
-        var count = allInstancesLayers.length;
-        sketch.UI.message(`${count} ${count > 1 ? "layers" : "layer"} with style "${findStyle.name}" have replace to style "${targetStyle.name}"`);
+        allSymbolInstances.forEach(function(instance) {
+            instance.overrides.filter(function(override) {
+                if (identifier == "find_and_replace_layer_style") {
+                    return override.property == "layerStyle";
+                } else {
+                    return override.property == "textStyle";
+                }
+            }).forEach(function(override) {
+                if (getStyleId(override.value) == findStyleId) {
+                    override.value = (targetStyle.id);
+                }
+            });
+        });
+
+        var layerCount = allInstancesLayers.length;
+        var overrideCount = stylesInOverride[findStyleId];
+        sketch.UI.message(`${layerCount} ${layerCount > 1 ? "layers" : "layer"} and ${overrideCount} ${overrideCount > 1 ? "overrides" : "override"} with style "${findStyle.name}" have replace to style "${targetStyle.name}"`);
     }
 };
 
-function loadSelectMenuData(popupButton, styles) {
+function loadSelectMenuData(popupButton, styles, stylesInOverride) {
     var preview = require("../modules/Preview");
     popupButton.removeAllItems();
     styles.forEach(function(style) {
@@ -170,7 +231,9 @@ function loadSelectMenuData(popupButton, styles) {
                 menuImage = preview.textStyleSmall(style.sketchObject);
             }
             menuItem.setImage(menuImage);
-            menuTitle += " (" + style.getAllInstancesLayers().length + ")";
+            var styleID = getStyleId(style.id);
+            var countOverride = stylesInOverride[styleID] || 0;
+            menuTitle += " (" + style.getAllInstancesLayers().length + ", " + countOverride + ")";
         }
         if (style.type == "ImportableObject") {
             menuTitle = style.name;
@@ -186,4 +249,12 @@ function loadSelectMenuData(popupButton, styles) {
         menuItem.setTitle(menuTitle);
         popupButton.menu().addItem(menuItem);
     });
+}
+
+function getStyleId(styleId) {
+    if (styleId.match(/\[(.*)\]/)) {
+        return styleId.match(/\[(.*)\]/)[1];
+    } else {
+        return styleId;
+    }
 }

@@ -733,12 +733,6 @@ insert_symbols_from_library:
 insert_symbols:
   - Insert Symbols
   - 插入组件
-find_and_replace_layer_style_override:
-  - Find and Replace Layer Style Override
-  - 查找和替换图层样式覆盖
-find_and_replace_text_style_override:
-  - Find and Replace Text Style Override
-  - 查找和替换文本样式覆盖
 increase_font_weight:
   - Increase Font Weight
   - 增大字重
