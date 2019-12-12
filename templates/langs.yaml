@@ -790,3 +790,9 @@ merge_layer_styles_with_same_name:
 merge_text_styles_with_same_name:
   - Merge Text Styles with Same Name
   - 合并同名文本样式
+new_guide:
+  - New Guide
+  - 新建辅助线
+new_guide_layout:
+  - New Guide Layout
+  - 新建辅助线布局

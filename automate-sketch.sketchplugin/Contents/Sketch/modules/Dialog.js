@@ -103,7 +103,7 @@ ui.numberField = function(defaultNumber, size) {
     var view = NSTextField.alloc().initWithFrame(frame);
     var formatter = NSNumberFormatter.alloc().init().autorelease();
     view.setFormatter(formatter);
-    view.setStringValue(defaultNumber);
+    view.setStringValue(String(defaultNumber));
     return view;
 };
 
@@ -393,7 +393,7 @@ ui.button = function(text, size) {
     if (size && Array.isArray(size)) {
         frame = this.rect(size);
     } else {
-        frame = this.rect([0, 0, size, 24]);
+        frame = this.rect([0, 0, size || 100, 24]);
     }
     var view = NSButton.alloc().initWithFrame(frame);
     view.setBezelStyle(NSRoundedBezelStyle);

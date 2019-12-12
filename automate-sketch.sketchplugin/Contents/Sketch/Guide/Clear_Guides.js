@@ -17,7 +17,11 @@ var onRun = function(context) {
         });
     } else {
         selectedLayers.forEach(function(layer) {
-            clearGuides(layer.parent.sketchObject);
+            if (layer.type == "Artboard" || layer.type == "SymbolMaster") {
+                clearGuides(layer.sketchObject);
+            } else {
+                clearGuides(layer.sketchObject.parentArtboard());
+            }
         });
     }
 };
