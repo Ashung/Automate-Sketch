@@ -23,6 +23,8 @@ var onRun = function(context) {
 
     dialog.addView(input);
 
+    dialog.focus(input);
+
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 

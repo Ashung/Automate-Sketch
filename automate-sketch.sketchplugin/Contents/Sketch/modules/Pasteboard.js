@@ -22,4 +22,14 @@ module.exports.textsFromPasteboard = function() {
     var text = NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding);
     var texts = text.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet());
     return texts;
-}
+};
+
+module.exports.setImage = function(nsData) {
+    pasteboard.clearContents();
+    pasteboard.setData_forType(nsData, NSPasteboardTypePNG);
+};
+
+module.exports.setText = function(text) {
+    pasteboard.clearContents();
+    pasteboard.setString_forType(text, NSPasteboardTypeString);
+};

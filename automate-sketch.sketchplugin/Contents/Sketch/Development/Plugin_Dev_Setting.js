@@ -81,12 +81,13 @@ var onRun = function(context) {
         } else {
             userDefaults.setObject_forKey(scriptEditorFontSetting.stringValue(), "scriptEditorFont");
         }
-        if (scriptEditorFontSizeSetting.value == 12) {
+
+        if (scriptEditorFontSizeSetting.stepper.integerValue() == 12) {
             userDefaults.removeObjectForKey("scriptEditorFontSize");
         } else {
-            userDefaults.setObject_forKey(scriptEditorFontSizeSetting.value, "scriptEditorFontSize");
+            userDefaults.setObject_forKey(scriptEditorFontSizeSetting.stepper.integerValue(), "scriptEditorFontSize");
         }
         userDefaults.synchronize();
-        // AppController.sharedInstance().pluginManager().reloadPlugins();
+
     }
 };

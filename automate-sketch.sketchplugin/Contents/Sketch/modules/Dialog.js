@@ -25,7 +25,7 @@ ui.rect = function(size) {
     } else {
         return NSMakeRect(0, 0, ui.width, 24);
     }
-}
+};
 
 /**
  * @param  {String} text
@@ -48,7 +48,7 @@ ui.groupLabel = function(text, size) {
     view.setEditable(false);
     view.setSelectable(false);
     return view;
-}
+};
 
 /**
  * @param  {String} text
@@ -69,7 +69,7 @@ ui.textLabel = function(text, size) {
     view.setEditable(false);
     view.setSelectable(false);
     return view;
-}
+};
 
 /**
  * @param  {String} text
@@ -86,7 +86,7 @@ ui.textField = function(text, size) {
     var view = NSTextField.alloc().initWithFrame(frame);
     view.setStringValue(text);
     return view;
-}
+};
 
 /**
  * @param  {Number} defaultNumber
@@ -103,16 +103,16 @@ ui.numberField = function(defaultNumber, size) {
     var view = NSTextField.alloc().initWithFrame(frame);
     var formatter = NSNumberFormatter.alloc().init().autorelease();
     view.setFormatter(formatter);
-    view.setStringValue(defaultNumber);
+    view.setStringValue(String(defaultNumber));
     return view;
-}
+};
 
 /**
  * @param  {Number} defaultNumber
  * @param  {Number} min Optional default is 0.
  * @param  {Number} max Optional default is 100.
  * @param  {Array|Number} size Optional
- * @return  {Object} { view: NSTextField, value: Number}
+ * @return  {Object} { view: NSTextField, stepper: NSStepper}
  */
 ui.numberStepper = function(defaultNumber, min, max, size) {
     min = min || 0;
@@ -142,9 +142,10 @@ ui.numberStepper = function(defaultNumber, min, max, size) {
     view.addSubview(stepper);
     return {
         view: view,
-        value: stepper.integerValue()
+        stepper: stepper
     };
-}
+};
+
 /**
  * @param  {NSTextField} view
  * @param  {Boolean} bool
@@ -157,7 +158,7 @@ ui.disableTextField = function(view, bool) {
         view.setEditable(false);
         view.setTextColor(NSColor.grayColor());
     }
-}
+};
 
 /**
  * @param  {Boolean} status
@@ -181,7 +182,7 @@ ui.checkBox = function(status, title, size) {
         view.setState(NSOffState);
     }
     return view;
-},
+};
 
 /**
  * @param  {Array} items [String]
@@ -201,7 +202,7 @@ ui.popupButton = function(items, size) {
         view.lastItem().setTitle(item);
     });
     return view;
-}
+};
 
 /**
  * @param  {Array} items [String]
@@ -213,7 +214,24 @@ ui.setItems_forPopupButton = function(items, view) {
         view.addItemWithTitle("");
         view.lastItem().setTitle(item);
     });
-}
+};
+
+/**
+ * @param  {Array} items [String]
+ * @param  {Array|Number} size Optional
+ * @return  {NSComboBox}
+ */
+ui.select = function(items, size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || ui.width, 30]);
+    }
+    var view = NSComboBox.alloc().initWithFrame(frame);
+    view.addItemsWithObjectValues(items);
+    return view;
+};
 
 /**
  * @param  {Array|Number} size Optional
@@ -230,7 +248,7 @@ ui.divider = function(size) {
     view.setWantsLayer(true);
     view.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
     return view;
-}
+};
 
 /**
  * @param  {Number} length Optional
@@ -240,7 +258,7 @@ ui.gap = function(length) {
     length = length || 1;
     var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, ui.width, length * 8));
     return view;
-}
+};
 
 /**
  * @param  {Array} subviews [NSView]
@@ -273,7 +291,7 @@ ui.scrollView = function(subviews, size) {
     });
     view.setDocumentView(contentView);
     return view;
-}
+};
 
 /**
  * @param  {NSScrollView} scrollView
@@ -295,7 +313,7 @@ ui.scrollViewSetContent = function(scrollView, subviews) {
         contentView.addSubview(divider);
     });
     scrollView.setDocumentView(contentView);
-}
+};
 
 /**
  * @param  {Array|Number} size Optional
@@ -310,17 +328,18 @@ ui.colorPicker = function(size, hexColor) {
         frame = this.rect([0, 0, size || 40, 24]);
     }
     var view = NSColorWell.alloc().initWithFrame(frame);
+    var color;
     if (hexColor) {
         var r = parseInt(hexColor.substr(1,2), 16) / 255;
         var g = parseInt(hexColor.substr(3,2), 16) / 255;
         var b = parseInt(hexColor.substr(5,2), 16) / 255;
-        var color = NSColor.colorWithRed_green_blue_alpha(r, g, b, 1);
+        color = NSColor.colorWithRed_green_blue_alpha(r, g, b, 1);
     } else {
-        var color = NSColor.blackColor();
+        color = NSColor.blackColor();
     }
     view.setColor(color);
     return view;
-}
+};
 
 /**
  * @param  {NSImage} nsImage
@@ -338,7 +357,7 @@ ui.image = function(nsImage, size) {
     view.setImage(nsImage);
     view.setImageAlignment(NSImageAlignLeft);
     return view;
-}
+};
 
 /**
  * @param  {NSImage} nsImage
@@ -362,7 +381,7 @@ ui.imageButton = function(nsImage, size) {
     view.setImagePosition(NSImageLeft);
     view.setImageScaling(NSImageScaleProportionallyDown);
     return view;
-}
+};
 
 /**
  * @param  {NSImage} text
@@ -374,13 +393,13 @@ ui.button = function(text, size) {
     if (size && Array.isArray(size)) {
         frame = this.rect(size);
     } else {
-        frame = this.rect([0, 0, size, 24]);
+        frame = this.rect([0, 0, size || 100, 24]);
     }
     var view = NSButton.alloc().initWithFrame(frame);
     view.setBezelStyle(NSRoundedBezelStyle);
     view.setTitle(text);
     return view;
-}
+};
 
 /**
  * @param  {Array|Number} size Optional
@@ -396,7 +415,7 @@ ui.view = function(size) {
     var view = NSView.alloc().initWithFrame(frame);
     view.setFlipped(true);
     return view;
-}
+};
 
 /**
  * @param  {String} color #[0-9A-F]{3,8}
@@ -416,7 +435,7 @@ ui.circle = function(color, size) {
     view.setBackgroundColor(nsColor);
     view.layer().setCornerRadius(Math.min(frame.size.width, frame.size.height) / 2);
     return view;
-}
+};
 
 /**
  * @param  {String} message
@@ -456,7 +475,7 @@ function dialog (message, info, width, buttons) {
  */
 dialog.prototype.addView = function(view) {
     this.views.push(view);
-}
+};
 
 /**
  * @param  {String} text
@@ -464,7 +483,7 @@ dialog.prototype.addView = function(view) {
 dialog.prototype.addLabel = function(text) {
     var view = ui.textLabel(text, this.width);
     this.views.push(view);
-}
+};
 
 /**
  * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
@@ -485,11 +504,26 @@ dialog.prototype.run = function() {
     supView.setFrame(viewFrame);
     this.self.setAccessoryView(supView);
     return this.self.runModal();
-}
+};
 
 dialog.prototype.close = function() {
     NSApp.stopModal();
-}
+};
+
+dialog.prototype.setKeyOrder = function(views) {
+    for (var i = 0; i < views.length; i++) {
+        var current = views[i];
+        var next = views[i + 1] || views[0];
+        if (next) {
+            current.setNextKeyView(next);
+        }
+    }
+    this.self.window().setInitialFirstResponder(views[0]);
+};
+
+dialog.prototype.focus = function(view) {
+    this.self.window().setInitialFirstResponder(view);
+};
 
 module.exports.dialog = dialog;
 module.exports.ui = ui;

@@ -44,7 +44,7 @@ var onRun = function(context) {
     view.addSubview(selectBox);
 
     dialog.addView(view);
-    dialog.self.window().setInitialFirstResponder(textField);
+    dialog.focus(textField);
 
     var renameSliceCheckbox = ui.checkBox(renameSliceLayer, "Rename slice layer to url-friendly format.")
     dialog.addView(renameSliceCheckbox);

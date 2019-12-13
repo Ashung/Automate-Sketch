@@ -48,7 +48,7 @@ var onRun = function(context) {
             availableMembers.forEach(function(item) {
                 var weightName = item[1].replace(/\s/g, '').toLowerCase();
                 var weight = 5;
-                for (key in order) {
+                for (var key in order) {
                     if (weightName.indexOf(key) >= 0) {
                         weight = order[key];
                     }

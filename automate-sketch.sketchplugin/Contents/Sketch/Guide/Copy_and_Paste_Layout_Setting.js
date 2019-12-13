@@ -101,8 +101,7 @@ function applyLayoutToLayer(layoutSetting, layer) {
     layout.setGutterHeight(layoutSetting.gutterHeight);
     layout.setRowHeightMultiplication(layoutSetting.rowHeightMultiplication);
     layout.setDrawHorizontalLines(layoutSetting.drawHorizontalLines);
-
-    layout.setIsEnabled(layoutSetting.isEnabled);
+    layout.setIsEnabled(true);
 
     layer.setLayout(layout);
 }

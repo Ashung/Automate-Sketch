@@ -7,6 +7,7 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
+    var zoom = require("../modules/Zoom");
     var doc = context.document;
     var selection = context.selection;
     var page = doc.currentPage();
@@ -54,7 +55,7 @@ var onRun = function(context) {
     selectBox.setCOSJSTargetFunction(function(sender) {
         var target = artboards.objectAtIndex(sender.indexOfSelectedItem());
         selectLayer(target, false);
-        centerSelection(doc);
+        zoom.toSelection();
     });
 
     var labelView2 = ui.textLabel("Space Between 2 Artboards:");
@@ -100,16 +101,7 @@ function selectLayers(context, layers) {
     var layer;
     while (layer = loopLayers.nextObject()) {
         selectLayer(layer, true);
-        centerSelection(doc);
-    }
-}
-
-function centerSelection(document) {
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
-    if (appVersion >= 48) {
-        document.contentDrawView().centerSelectionInVisibleArea();
-    } else {
-        document.currentView().centerSelectionInVisibleArea();
+        zoom.toSelection();
     }
 }
 

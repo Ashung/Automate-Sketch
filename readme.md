@@ -47,6 +47,7 @@ Make your workflow more efficient.
 | Rename Layers                                                | Rename selected layers use custom template.                  |
 | Find and Replace Layer Name                                  | Find and replace layer name.                                 |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
+| Toggle Mask for Selected Layers                              | Toggle mask or unmask for selected layers.                   |
 | Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
 | **Arrange**                                                  |                                                              |
 | Change Places Between Two Layers                             | Change two objects positions based on midpoint or coordinate origin. |
@@ -79,9 +80,6 @@ Make your workflow more efficient.
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
 | Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
-| Copy SVG Code                                                | Copy SVG Code from selected slice layer.                     |
-| Copy SVG Code (URL-encoded)                                  | Copy URL-encoded SVG Code from selected slice layer for CSS background image. |
-| Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
@@ -104,6 +102,7 @@ Make your workflow more efficient.
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                                                   |                                                              |
 | Reset to Original Width / Height / Size                      | Reset to original width / height / Size.                     |
+| Shrink Instance to Fit Content                               | Shrink Instance to Fit Content.                              |
 | Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Disable or Enable All Overrides                              | Toggle disable or enable all override for selected local symbol instances or symbol masters. |
@@ -114,6 +113,7 @@ Make your workflow more efficient.
 | Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
+| Detach All Symbols in Page or Artboard                       | Detach all symbol instances in current page or artboard.     |
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
 | Remove Unused Symbols                                        | Remove unused symbols, for Sketch 48+, with symbol preview.  |
 | Export all Symbols As PNG                                    | Export all symbols as PNG according to the "Page / symbol" rule. |
@@ -133,6 +133,7 @@ Make your workflow more efficient.
 | Add Library Preview                                          | Add a artboard for library preview image.                    |
 | Insert Symbols From Library                                  | Insert symbol that name match the regular expression from the choose library. |
 | Update Selected Library Symbol                               | Only update the selected library symbols.                    |
+| Update Selected Symbol Overrides                             | Update selected symbol overrides.                            |
 | Check For Library Updates                                    | Check for library updates.                                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
@@ -145,7 +146,10 @@ Make your workflow more efficient.
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
 | Reset Style                                                  | Reset style for selected layers.                             |
 | Update Style                                                 | Update or unlink and update for selected layers.             |
-| Find and Replace Layer/Text Style Override.                  | Find and replace layer or text style override in current page, document or selected layers. |
+| Reset All Layer / Text Styles                                | Reset all layer or text styles in document.                  |
+| Find and Replace Layer/Text Style                            | Find and replace layer or text style (include overrides) in current page, document or selected layers. |
+| Merge Layer/Text Style with Same Name                        | Merge styles with same name.                                 |
+| Change Layer Blend Mode                                      | Change blend mode for selected layers.                       |
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
@@ -159,6 +163,9 @@ Make your workflow more efficient.
 | Hide or Show All Grid/Layout                                 | Hide or show all grid or layout of artboard.                 |
 | Copy Grid/Layout/Guide                                       | Copy the grid/layout/guide from seleted artboard.            |
 | Paste Grid/Layout/Guide                                      | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
+| New Guide                                                    | Create new guides.                                           |
+| New Guide Layout                                             | Create a guide layout.                                       |
+| New Guides From Layer                                        | Create guides base selected layers.                          |
 | **Data**                                                     |                                                              |
 | Export Data From Text Layers                                 | Export text file from the content of selected text layers.   |
 | Export Image From Layers                                     | Export images from selected bitmap or image-fill layers.     |
@@ -171,14 +178,20 @@ Make your workflow more efficient.
 | Remove All Hotspot                                           | Remove all hotspot layer.                                    |
 | Remove Hotspot in Selected Artboards                         | Remove hotspot in selected artboards or symbol masters.      |
 | **Development**                                              |                                                              |
+| Copy as PNG, PNG @2x, SVG                                    | Copy seleceted layer as png, 2x png, svg.                    |
+| Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
+| Copy Slice as SVG Code                                       | Copy SVG Code from selected slice layer.                     |
+| Copy SVG Code (URL-encoded)                                  | Copy URL-encoded SVG Code from selected slice layer for CSS background image. |
+| Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
+| Export Artboard to ICNS File                                 | Export selected artboard to icns file.                       |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
 | Copy Selected Layer Name                                     | Copy the selected layer name to the clipboard.               |
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
-| Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
 | Show and Change Layer Info                                   | Show and change layer's objectID, symbolID etc.              |
 | Plugin Dev Setting                                           | Some environment configs for Sketch plugin development.      |
 | Reload Plugins                                               | Reload all plugins.                                          |
 | **Utilities**                                                |                                                              |
+| Shortcuts Manager                                            | A shortcuts manager.                                         |
 | Insert Layers from SVG Code                                  | Insert shape layers from SVG code.                           |
 | Insert Layer from SVG Path Data                              | Insert a shape layer from SVG path data code.                |
 | Export Clean Code SVG                                        | Export or copy selected layers to clean code SVG, it can ignore layers by name or type, and optimize with SVGO. |

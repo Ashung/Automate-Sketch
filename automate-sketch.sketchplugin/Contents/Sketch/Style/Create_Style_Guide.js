@@ -7,13 +7,13 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
-    var document = context.document;
-    var page = document.currentPage();
-    var documentData = document.documentData();
-    var styles = documentData.layerStyles().sharedStyles();
+    var sketch = require("sketch");
+    var document = sketch.getSelectedDocument();
+    var styles = document.sharedLayerStyles;
+    var page = document.selectedPage.sketchObject;
 
-    if (styles.count() == 0) {
-        document.showMessage("Document has no layer styles.");
+    if (styles.length == 0) {
+        sketch.UI.message("Document has no layer styles.");
         return;
     }
 
@@ -64,9 +64,9 @@ var onRun = function(context) {
         palettePositionY = point.y;
 
         var paletteGroupLayers = [];
-        var loopStyles = styles.objectEnumerator();
-        var style;
-        while (style = loopStyles.nextObject()) {
+
+        styles.forEach(function(item) {
+            var style = item.sketchObject;
 
             // Add layer group
             var paletteGroup = MSLayerGroup.alloc().init();
@@ -107,26 +107,23 @@ var onRun = function(context) {
 
             paletteGroupLayers.push(paletteGroup);
 
-        }
+        });
 
-        centerRect_byLayers(document, paletteGroupLayers);
+        centerRect_byLayers(document.sketchObject, paletteGroupLayers);
 
     }
 
 };
 
 function centerRect_byLayers(document, layers) {
-
     var rects = layers.map(function(item) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
     var rect = MSRect.rectWithUnionOfRects(rects).rect();
-
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     if (appVersion >= 48) {
         document.contentDrawView().centerRect_animated(rect, true);
     } else {
         document.currentView().centerRect_animated(rect, true);
     }
-
 }

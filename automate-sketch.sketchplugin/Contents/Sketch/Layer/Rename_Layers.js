@@ -81,7 +81,7 @@ var onRun = function(context) {
 
     dialog.addView(buttonsView);
 
-    dialog.self.window().setInitialFirstResponder(nameView);
+    dialog.focus(nameView);
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {

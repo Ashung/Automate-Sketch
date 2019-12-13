@@ -12,10 +12,11 @@ module.exports.get = function (key) {
 module.exports.set = function (key, value) {
     var identifier = __command.pluginBundle().identifier();
     var userDefaults = NSUserDefaults.standardUserDefaults();
+    var preferences;
     if (!userDefaults.dictionaryForKey(identifier)) {
-        var preferences = NSMutableDictionary.alloc().init();
+        preferences = NSMutableDictionary.alloc().init();
     } else {
-        var preferences = NSMutableDictionary.dictionaryWithDictionary(userDefaults.dictionaryForKey(identifier));
+        preferences = NSMutableDictionary.dictionaryWithDictionary(userDefaults.dictionaryForKey(identifier));
     }
     preferences.setObject_forKey(value, key);
     userDefaults.setObject_forKey(preferences, identifier);

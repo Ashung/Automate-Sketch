@@ -24,7 +24,7 @@ var onRun = function(context) {
     var defaultUserInput = preferences.get("fitToParentMargins") || "0";
     var textField = ui.textField(defaultUserInput);
     dialog.addView(textField);
-    dialog.self.window().setInitialFirstResponder(textField);
+    dialog.focus(textField);
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {

@@ -27,4 +27,4 @@ module.exports = function(command, args, callback) {
             NSString.alloc().initWithData_encoding_(data, NSUTF8StringEncoding)
         );
     }
-}
+};

@@ -3,12 +3,11 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
-    var util = require("util");
     var sketch = require("sketch");
     var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
 
     if (selectedLayers.length == 0) {
-        sketch.UI.showMessage("Please select at least 1 layer.")
+        sketch.UI.message("Please select at least 1 layer.")
         return;
     }
 

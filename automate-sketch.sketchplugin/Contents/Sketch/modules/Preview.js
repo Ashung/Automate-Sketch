@@ -6,7 +6,7 @@
 module.exports.symbol = function(symbolMaster, size) {
     size = size || Math.max(symbolMaster.frame().width(), symbolMaster.frame().height());
     return artboardPreviewGenerator(symbolMaster, size, size);
-}
+};
 
 /**
  * @param  {MSArtboard} artboard
@@ -15,7 +15,7 @@ module.exports.symbol = function(symbolMaster, size) {
  */
 module.exports.artboard = function(artboard, size) {
     return this.symbol(artboard, size);
-}
+};
 
 /**
  * @param  {MSAssetLibrary} library
@@ -27,7 +27,7 @@ module.exports.library = function(library) {
         return documentReader.libraryPreviewImage();
     }
     return NSImage.imageNamed("prefs_remotelibrary_placeholder");
-}
+};
 
 /**
  * @param  {MSDocument} document
@@ -38,7 +38,7 @@ module.exports.document = function(document) {
     if (documentReader.containsPreviewImage()) {
         return documentReader.previewImage();
     }
-}
+};
 
 /**
  * @param  {MSShareStyle} textStyle
@@ -57,7 +57,33 @@ module.exports.textStyle = function(textStyle) {
         artboard.setBackgroundColor(MSColor.colorWithRed_green_blue_alpha(0.67, 0.67, 0.67, 1));
     }
     return artboardPreviewGenerator(artboard, width * 2, height * 2);
-}
+};
+
+/**
+ * @param  {MSShareStyle} textStyle
+ * @return  {NSImage}
+ */
+module.exports.textStyleSmall = function(textStyle) {
+    var textLayer = MSTextLayer.alloc().init();
+    textLayer.setStringValue("Aa");
+    textLayer.setStyle(textStyle.style());
+    var fontSize = textStyle.style().textStyle().encodedAttributes().MSAttributedStringFontAttribute.objectForKey(NSFontSizeAttribute);
+    if (fontSize > 18) {
+        textLayer.setFontSize(18);
+    }
+    var artboard = artboardWithLayer(24, 24, textLayer);
+    textLayer.frame().setMidX(12);
+    textLayer.frame().setMidY(12);
+    var textColor = MSColor.alloc().initWithImmutableObject(textLayer.textColor());
+    if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
+        var rectangle = MSRectangleShape.shapeWithRect_fillColor(CGRectMake(0, 0, 24, 24), MSColor.colorWithRed_green_blue_alpha(0.67, 0.67, 0.67, 1));
+        rectangle.points().forEach(function(curvePoint) {
+            curvePoint.setCornerRadius(2);
+        });
+        artboard.insertLayer_beforeLayer(rectangle, textLayer);
+    }
+    return artboardPreviewGenerator(artboard, 24, 24);
+};
 
 /**
  * @param  {MSShareStyle} layerStyle
@@ -74,7 +100,7 @@ module.exports.layerStyle = function(layerStyle, size) {
     });
     var artboard = artboardWithLayer(size, size, rectangle);
     return artboardPreviewGenerator(artboard, size, size);
-}
+};
 
 /**
  * @param  {MSColor} color
@@ -82,7 +108,7 @@ module.exports.layerStyle = function(layerStyle, size) {
  */
 module.exports.color = function(color) {
     return previewFill(0, color);
-}
+};
 
 /**
  * @param  {MSGradient} gradient
@@ -90,7 +116,7 @@ module.exports.color = function(color) {
  */
 module.exports.gradient = function(gradient) {
     return previewFill(1, gradient);
-}
+};
 
 function previewFill(fillType, fillContent) {
     var oval = MSOvalShape.alloc().init();

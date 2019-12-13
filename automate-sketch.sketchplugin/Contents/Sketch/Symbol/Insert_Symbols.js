@@ -32,6 +32,8 @@ var onRun = function(context) {
     var matchCaseView = ui.checkBox(nameMatchCase, "Match Case");
     dialog.addView(matchCaseView);
 
+    dialog.focus(regExpView);
+
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 

@@ -6,6 +6,7 @@ var onRun = function(context) {
     var pasteboard = require("../modules/Pasteboard");
     var util = require("util");
     var sketch = require("sketch");
+    var zoom = require("../modules/Zoom");
     var Artboard = require("sketch/dom").Artboard;
     var SymbolMaster = require("sketch/dom").SymbolMaster;
     var Rectangle = require('sketch/dom').Rectangle;
@@ -48,6 +49,6 @@ var onRun = function(context) {
         artboard.sketchObject.ungroupSingleChildDescendentGroups();
     });
 
-    context.document.contentDrawView().centerSelectionInVisibleArea();
+    zoom.toSelection();
 
 };

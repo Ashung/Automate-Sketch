@@ -48,6 +48,7 @@
 | Rename Layers                                                | **重命名图层** 使用自定义模版变量修改选中的图层名。          |
 | Find and Replace Layer Name                                  | **查找和替换图层名**                                         |
 | Clear Layer Name                                             | **清理图层名** 删除图层名后的 copy。                         |
+| Toggle Mask for Selected Layers                              | **选中图层设置或取消蒙版**                                   |
 | Create / Sync Link Layer                                     | **创建/同步引用图层** 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
 | **Arrange**                                                  | **排列**                                                     |
 | Change Places Between Two Layers                             | **两对象互换位置** 根据中点或坐标原点，两个对象交换位置。    |
@@ -80,9 +81,6 @@
 | Charater Count                                               | **字符统计**                                                 |
 | **Slice**                                                    | **切片**                                                     |
 | Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
-| Copy SVG Code                                                | **拷贝 SVG 代码** 从选中的切片图层拷贝 SVG 代码。            |
-| Copy SVG Code (URL-encoded)                                  | **拷贝 SVG 代码 (URL-encoded)** 从选中的切片图层拷贝用于 CSS 背景的 URL-encoded SVG 代码。 |
-| Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
 | Auto Slice                                                   | **自动切片** 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。 |
 | Fast slice                                                   | **快速切片** 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
 | Slice Setting                                                | **切片设置** 设置切片名称、预设和图层列表位置。              |
@@ -105,6 +103,7 @@
 | Export All Artboards to HTML                                 | **将所有画板导出为 HTML** 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
 | Reset to Original Width / Height / Size                      | **重置为原始宽度/高度/尺寸**                                 |
+| Shrink Instance to Fit Content                               | **缩小实例以适配内容**                                       |
 | Replace Override Symbol                                      | **替换覆盖组件** 查找和替换选中或全文档的组件上覆盖中的组件。 |
 | Reset Overrides                                              | **重置覆盖** 重置选中组件的覆盖。                            |
 | Disable or Enable All Overrides                              | **禁用或启用所有覆盖** 将选中的本地组件实例或组件母版，切换禁用或启用所有覆盖。 |
@@ -115,6 +114,7 @@
 | Rename Instances Use Text Override                           | **使用文本覆盖值重命名实例** 以选择的文本覆盖值重命名实例，如果实例仅有一个文本覆盖则使用此值。 |
 | Create Symbols from Selected Layers                          | **从选中图层批量创建组件**                                   |
 | Selection to Symbol Master                                   | **将选中图层直接变为组件** 将选中图层在原位置直接变为组件。  |
+| Detach All Symbols in Page or Artboard                       | **分离页面或画板内所有组件**                                 |
 | Detach Unused Symbol Master                                  | **将选中的未用组件转为组**                                   |
 | Remove Unused Symbols                                        | **删除未用组件** 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
 | Export All Symbols As PNG                                    | **将所有组件导出为 PNG** 按照 "页面/组件" 规则，将所有组件导出为 PNG。 |
@@ -134,6 +134,7 @@
 | Add Library Preview                                          | **添加库预览图** 增加一个画板用于库的预览图。                |
 | Insert Symbols From Library                                  | **从库插入组件** 从选择的库中插入于用户输入名称匹配的组件。  |
 | Update Selected Library Symbol                               | **更新选中的库组件** 只更新选中的库组件。                    |
+| Update Selected Symbol Overrides                             | **更新选中的覆盖组件**                                       |
 | Check For Library Updates                                    | **检查库更新**                                               |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | **按图层/文本样式选择图层** 按图层样式、文本样式从当前页面或选择组内选择图层。 |
@@ -146,7 +147,10 @@
 | Remove Unused Layer / Text Styles                            | **删除未使用图层样式/文本样式** 删除文档中未使用的图层样式或文本样式。 |
 | Reset Style                                                  | **重置样式** 重置选中图层的样式。                            |
 | Update Style                                                 | **更新样式**  更新选中图层的样式，库样式会自动更新至本地样式。 |
-| Find and Replace Layer/Text Style Override.                  | **查找和替换图层/文本样式覆盖** 在当前页面、文档或选中图层中查找和替换图层/文本样式覆盖。 |
+| Reset All Layer / Text Styles                                | **重置所有图层/文本样式**                                    |
+| Find and Replace Layer/Text Style                            | **查找和替换图层/文本样式** 在当前页面、文档或选中图层中查找和替换图层/文本样式(包括样式覆盖)。 |
+| Merge Layer/Text Style with Same Name                        | **合并同名图层样式**, **合并同名文本样式**                   |
+| Change Layer Blend Mode                                      | **修改图层混合模式**                                         |
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |
 | Create Typography Guide                                      | **创建字体指南** 从文本样式创建字体样式指南。                |
@@ -160,6 +164,9 @@
 | Hide or Show All Grid/Layout                                 | **显示或隐藏所有网格/布局** 隐藏或显示所有画板的网格或布局。 |
 | Copy Grid/Layout/Guide                                       | **复制网格/布局/辅助线** 复制选中画板的网格、布局或辅助线信息。 |
 | Paste Grid/Layout/Guide                                      | **粘贴网格/布局/辅助线** 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
+| New Guide                                                    | **新建辅助线**                                               |
+| New Guide Layout                                             | **新建辅助线布局**                                           |
+| New Guides From Layer                                        | **从图层创建辅助线**                                         |
 | **Data**                                                     | **数据**                                                     |
 | Export Data From Text Layers                                 | **从文本图层导出数据** 将选中的文本图层内容导出到 TXT 文件。 |
 | Export Image From Layers                                     | **从图层导出图片** 导出选中的位图或位图填充图层内的图片。    |
@@ -172,14 +179,20 @@
 | Remove All Hotspot                                           | **删除所有热区** 删除所有热区图层和设置。                    |
 | Remove Hotspot in Selected Artboards                         | **删除选中画板内所有热区** 删除选中画板和组件内的所有热区。  |
 | **Development**                                              | **开发**                                                     |
+| Copy as PNG, PNG @2x, SVG                                    | **拷贝 PNG** , **拷贝 2 倍 PNG**, **拷贝 SVG**               |
+| Copy SVG Path Data                                           | **复制 SVG 路径数据** 复制选中形状图层的 SVG 路径数据代码。  |
+| Copy Slice as SVG Code                                       | **拷贝 SVG 代码** 从选中的切片图层拷贝 SVG 代码。            |
+| Copy SVG Code (URL-encoded)                                  | **拷贝 SVG 代码 (URL-encoded)** 从选中的切片图层拷贝用于 CSS 背景的 URL-encoded SVG 代码。 |
+| Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
+| Export Artboard to ICNS File                                 | **画板导出为 ICNS 文件**                                     |
 | Pick Color and Copy the HEX Code                             | **屏幕取色并复制色彩代码** 从屏幕取色并负责色彩的十六进制值。 |
 | Copy Selected Layer Name                                     | **复制选中图层的名称** 复制选中的图层名到剪贴板。            |
 | Copy ObjectID or SymbolID                                    | **复制对象 ID 或组件 ID** 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。 |
-| Copy SVG Path Data                                           | **复制 SVG 路径数据** 复制选中形状图层的 SVG 路径数据代码。  |
 | Show and Change Layer Info                                   | **显示和修改图层信息** 显示和修改图层的 ObjectID 或 SymbolID 等等。 |
 | Plugin Dev Setting                                           | **插件开发设置** 针对 Sketch 插件开发的部分环境配置。        |
 | Reload Plugins                                               | **重新载入插件** 重载所有插件。                              |
 | **Utilities**                                                | **实用工具**                                                 |
+| Shortcuts Manager                                            | **快捷键管理器**                                             |
 | Insert Layers from SVG Code                                  | **从 SVG 代码插入图层** 使用 SVG 代码插入图层。              |
 | Insert Layer from SVG Path Data                              | **从 SVG 路径数据插入图层** 使用 SVG 路径数据代码插入图层。  |
 | Export Clean Code SVG                                        | **导出代码整洁的 SVG** 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码 (较慢)。 |

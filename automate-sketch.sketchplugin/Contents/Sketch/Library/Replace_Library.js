@@ -115,8 +115,9 @@ var onRun = function(context) {
         var fromLibrary;
 
         // Symbol
+        var count;
         if (applyToView.indexOfSelectedItem() == 0) {
-            var count = 0;
+            count = 0;
             fromLibrary = librariesOfImportedSymbol[librariesUsedViewIndex];
             importedSymbols.forEach(function(symbol) {
                 if (symbol.libraryID() == fromLibrary.libraryID() && symbol.sourceLibraryName() == fromLibrary.name()) {
@@ -128,7 +129,7 @@ var onRun = function(context) {
             toast(`Replace ${count} symbol` + (count > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         // Text style
         } else if (applyToView.indexOfSelectedItem() == 1) {
-            var count = 0;
+            count = 0;
             fromLibrary = librariesOfImportedTextStyle[librariesUsedViewIndex];
             importedTextStyle.forEach(function(style) {
                 if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {
@@ -140,7 +141,7 @@ var onRun = function(context) {
             toast(`Replace ${count} text style` + (count > 1 ? "s" : "") + ` from "${fromLibrary.name()}" to "${toLibrary.name()}".`);
         // Layer style
         } else if (applyToView.indexOfSelectedItem() == 2) {
-            var count = 0;
+            count = 0;
             fromLibrary = librariesOfImportedLayerStyle[librariesUsedViewIndex];
             importedLayerStyle.forEach(function(style) {
                 if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {

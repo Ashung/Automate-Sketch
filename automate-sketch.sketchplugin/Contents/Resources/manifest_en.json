@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "58.0.20191010",
+  "version": "61.0.20191213",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1297,12 +1297,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Reset Style",
-      "identifier": "reset_style",
-      "script": "Style/Reset_Style.js",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "Update Style",
       "identifier": "update_style",
       "script": "Style/Update_Style.js",
@@ -1369,15 +1363,15 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Copy SVG Code",
+      "name": "Copy Slice as SVG Code",
       "identifier": "copy_svg_code",
-      "script": "Slice/Copy_SVG_Code.js",
+      "script": "Development/Copy_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Copy SVG Code (URL-encoded)",
       "identifier": "copy_svg_code_url_encoded",
-      "script": "Slice/Copy_SVG_Code.js",
+      "script": "Development/Copy_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1393,18 +1387,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Find and Replace Layer Style Override",
-      "identifier": "find_and_replace_layer_style_override",
-      "script": "Style/Find_and_Replace_Style_Override.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Find and Replace Text Style Override",
-      "identifier": "find_and_replace_text_style_override",
-      "script": "Style/Find_and_Replace_Style_Override.js",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "Increase Font Weight",
       "identifier": "increase_font_weight",
       "script": "Text/Change_Font_Weight.js",
@@ -1414,6 +1396,126 @@
       "name": "Decrease Font Weight",
       "identifier": "decrease_font_weight",
       "script": "Text/Change_Font_Weight.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Shortcuts Manager",
+      "identifier": "shortcuts_manager",
+      "script": "Utilities/Shortcuts_Manager.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Layer Blend Mode",
+      "identifier": "change_layer_blend_mode",
+      "script": "Style/Change_Layer_Blend_Mode.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Detach All Symbols in Page or Artboard",
+      "identifier": "detach_all_symbols",
+      "script": "Symbol/Detach_All_Symbols.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as PNG",
+      "identifier": "copy_as_png",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as PNG @2x",
+      "identifier": "copy_as_png_2x",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy as SVG",
+      "identifier": "copy_as_svg",
+      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "New Guides From Layer",
+      "identifier": "new_guides_from_layer",
+      "script": "Guide/New_Guides_From_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Shrink Instance to Fit Content",
+      "identifier": "shrink_instance_to_fit_content",
+      "script": "Symbol/Shrink_Instance_to_Fit_Content.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Update Selected Symbol Overrides",
+      "identifier": "update_selected_symbol_overrides",
+      "script": "Library/Update_Selected_Symbol_Overrides.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Export Artboard to ICNS File",
+      "identifier": "export_artboard_to_icns_file",
+      "script": "Development/Export_Artboard_to_Icns_File.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Toggle Mask for Selected Layers",
+      "identifier": "toggle_mask_for_selected_layers",
+      "script": "Layer/Toggle_Mask_for_Selected_Layers.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset Style",
+      "identifier": "reset_style",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset All Layer Styles",
+      "identifier": "reset_all_layer_styles",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Reset All Text Styles",
+      "identifier": "reset_all_text_styles",
+      "script": "Style/Reset_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Find and Replace Layer Style",
+      "identifier": "find_and_replace_layer_style",
+      "script": "Style/Find_and_Replace_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Find and Replace Text Style",
+      "identifier": "find_and_replace_text_style",
+      "script": "Style/Find_and_Replace_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Merge Layer Styles with Same Name",
+      "identifier": "merge_layer_styles_with_same_name",
+      "script": "Style/Merge_Styles_with_Same_Name.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Merge Text Styles with Same Name",
+      "identifier": "merge_text_styles_with_same_name",
+      "script": "Style/Merge_Styles_with_Same_Name.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "New Guide",
+      "identifier": "new_guide",
+      "script": "Guide/New_Guide.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "New Guide Layout",
+      "identifier": "new_guide_layout",
+      "script": "Guide/New_Guide_Layout.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1528,16 +1630,19 @@
           "find_and_replace_layer_name",
           "clear_layer_name",
           "-",
+          "toggle_mask_for_selected_layers",
+          "-",
           "create_link_layer",
           "sync_link_layers"
         ]
       },
       {
-        "title": "Symbοl",
+        "title": "Symbol",
         "items": [
           "set_to_original_width",
           "set_to_original_height",
           "set_to_original_size",
+          "shrink_instance_to_fit_content",
           "-",
           "replace_override_symbol",
           "reset_overrides",
@@ -1552,6 +1657,7 @@
           "create_symbols_from_selected_layers",
           "selection_to_symbol_master",
           "-",
+          "detach_all_symbols",
           "detach_unused_symbol_master",
           "remove_unused_symbols",
           "-",
@@ -1583,6 +1689,7 @@
           "insert_symbols_from_library",
           "-",
           "update_selected_library_symbol",
+          "update_selected_symbol_overrides",
           "check_for_library_updates"
         ]
       },
@@ -1637,9 +1744,15 @@
           "-",
           "reset_style",
           "update_style",
+          "reset_all_layer_styles",
+          "reset_all_text_styles",
           "-",
-          "find_and_replace_layer_style_override",
-          "find_and_replace_text_style_override",
+          "find_and_replace_layer_style",
+          "find_and_replace_text_style",
+          "merge_layer_styles_with_same_name",
+          "merge_text_styles_with_same_name",
+          "-",
+          "change_layer_blend_mode",
           "-",
           "create_color_guide",
           "create_style_guide",
@@ -1665,6 +1778,9 @@
           "copy_guide_setting",
           "paste_guide_setting",
           "clear_guides",
+          "new_guide",
+          "new_guide_layout",
+          "new_guides_from_layer",
           "-",
           "hide_or_show_all_grid",
           "hide_or_show_all_layout"
@@ -1719,10 +1835,6 @@
           "quick_export_2",
           "quick_export_setting",
           "-",
-          "copy_svg_code",
-          "copy_svg_code_url_encoded",
-          "copy_slice_as_base64",
-          "-",
           "auto_slice",
           "fast_slice",
           "slice_setting",
@@ -1754,10 +1866,20 @@
       {
         "title": "Development",
         "items": [
+          "copy_as_png",
+          "copy_as_png_2x",
+          "copy_as_svg",
+          "copy_svg_path_data",
+          "-",
+          "copy_svg_code",
+          "copy_svg_code_url_encoded",
+          "copy_slice_as_base64",
+          "-",
+          "export_artboard_to_icns_file",
+          "-",
           "pick_color_and_copy",
           "copy_selected_layer_name",
           "copy_objectid_or_symbolid",
-          "copy_svg_path_data",
           "-",
           "show_layer_info",
           "-",
@@ -1768,6 +1890,8 @@
       {
         "title": "Utilities",
         "items": [
+          "shortcuts_manager",
+          "-",
           "insert_layers_from_svg_code",
           "insert_layer_from_svg_path_data",
           "-",
