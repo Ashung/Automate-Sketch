@@ -1,4 +1,30 @@
 -
+  version: 61.0.20191213
+  description: |-
+    <ul>
+    <li>Add Find and Replace Style. close #106</li>
+    <li>Add Merge Style with Same Name. close #178</li>
+    <li>Add Change Layer Blend Mode. close #219</li>
+    <li>Add Detach All Symbols in Page or Artboard.</li>
+    <li>Add Copy as PNG, PNG @2x, SVG.</li>
+    <li>Add New Guide. close #223</li>
+    <li>Add New Guide Layout. close #223</li>
+    <li>Add New Guides From Layer. close #223</li>
+    <li>Add Update Selected Symbol Overrides.  close #215</li>
+    <li>Add Shrink Instance to Fit Content. close #207</li>
+    <li>Add Export Artboard to ICNS File.</li>
+    <li>Add Toggle Mask for Selected Layers. close #214</li>
+    <li>Add Shortcuts Manager.</li>
+    <li>Add Reset All Layer / Text Styles. close #205</li>
+    <li>Tab key support to some dialogs. close #212</li>
+    <li>Create Style / Typography Guide now support imported library style. close #225</li>
+    <li>Update Selected Library Symbol now aslo update nested symbol.</li>
+    <li>Fix Clear Guides bug.</li>
+    <li>Replace Fonts support font picker.</li>
+  </ul>
+  commitID: 367a81737fe1b981426b87d847cb7243a2abf97b
+
+-
   version: 58.0.20191010
   description: |-
     <ul>
