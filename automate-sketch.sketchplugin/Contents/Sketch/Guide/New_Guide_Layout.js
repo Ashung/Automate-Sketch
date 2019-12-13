@@ -20,16 +20,16 @@ var onRun = function(context) {
 
     var dialog = new Dialog("New Guide Layout");
 
-    var columnsCheckbox = ui.checkBox(true, "Columns");
+    var columnsCheckbox = ui.checkBox(preferences.get("guideLayoutColumns") || true, "Columns");
     dialog.addView(columnsCheckbox);
 
     var columnsViews = ui.view([0, 0, 300, 50]);
     var columnNumberLabel = ui.textLabel("Number", [0, 0, 50, 25]);
-    var columnNumberView = ui.numberStepper(8, 1, 100, [0, 20, 90, 25]);
+    var columnNumberView = ui.numberStepper(preferences.get("guideLayoutColumnNumber") || 8, 1, 100, [0, 20, 90, 25]);
     var columnWidthLabel = ui.textLabel("Width", [100, 0, 50, 25]);
-    var columnWidthView = ui.numberField(0, [100, 20, 80, 25]);
+    var columnWidthView = ui.numberField(preferences.get("guideLayoutColumnWidth") || 0, [100, 20, 80, 25]);
     var columnGutterLabel = ui.textLabel("Gutter", [200, 0, 50, 25]);
-    var columnGutterView = ui.numberField(8, [200, 20, 80, 25]);
+    var columnGutterView = ui.numberField(preferences.get("guideLayoutColumnGutter") || 8, [200, 20, 80, 25]);
     columnsViews.addSubview(columnNumberLabel);
     columnsViews.addSubview(columnNumberView.view);
     columnsViews.addSubview(columnWidthLabel);
@@ -38,22 +38,22 @@ var onRun = function(context) {
     columnsViews.addSubview(columnGutterView);
     dialog.addView(columnsViews);
 
-    var centerHorizontalCheckbox = ui.checkBox(false, "Center Horizontal Guides.");
+    var centerHorizontalCheckbox = ui.checkBox(preferences.get("guideLayoutColumnCenter") || false, "Center Horizontal Guides.");
     dialog.addView(centerHorizontalCheckbox);
 
     var div1 = ui.divider();
     dialog.addView(div1);
 
-    var rowsCheckbox = ui.checkBox(false, "Rows");
+    var rowsCheckbox = ui.checkBox(preferences.get("guideLayoutRows") || false, "Rows");
     dialog.addView(rowsCheckbox);
 
     var rowsViews = ui.view([0, 0, 300, 50]);
     var rowNumberLabel = ui.textLabel("Number", [0, 0, 50, 25]);
-    var rowNumberView = ui.numberStepper(8, 1, 100, [0, 20, 90, 25]);
+    var rowNumberView = ui.numberStepper(preferences.get("guideLayoutRowNumber") || 8, 1, 100, [0, 20, 90, 25]);
     var rowWidthLabel = ui.textLabel("Height", [100, 0, 50, 25]);
-    var rowWidthView = ui.numberField(0, [100, 20, 80, 25]);
+    var rowWidthView = ui.numberField(preferences.get("guideLayoutRowWidth") || 0, [100, 20, 80, 25]);
     var rowGutterLabel = ui.textLabel("Gutter", [200, 0, 50, 25]);
-    var rowGutterView = ui.numberField(8, [200, 20, 80, 25]);
+    var rowGutterView = ui.numberField(preferences.get("guideLayoutRowGutter") || 8, [200, 20, 80, 25]);
     rowsViews.addSubview(rowNumberLabel);
     rowsViews.addSubview(rowNumberView.view);
     rowsViews.addSubview(rowWidthLabel);
@@ -62,13 +62,13 @@ var onRun = function(context) {
     rowsViews.addSubview(rowGutterView);
     dialog.addView(rowsViews);
 
-    var centerVerticalCheckbox = ui.checkBox(false, "Center Vertical Guides.");
+    var centerVerticalCheckbox = ui.checkBox(preferences.get("guideLayoutRowCenter") || false, "Center Vertical Guides.");
     dialog.addView(centerVerticalCheckbox);
 
     var div2 = ui.divider();
     dialog.addView(div2);
 
-    var marginCheckbox = ui.checkBox(false, "Margin");
+    var marginCheckbox = ui.checkBox(preferences.get("guideLayoutMargin") || false, "Margin");
     dialog.addView(marginCheckbox);
 
     var marginViews = ui.view([0, 0, 300, 50]);
@@ -76,10 +76,10 @@ var onRun = function(context) {
     var marginBottomLabel = ui.textLabel("Bottom", [75, 0, 65, 25]);
     var marginLeftLabel = ui.textLabel("Left", [150, 0, 65, 25]);
     var marginRightLabel = ui.textLabel("Right", [225, 0, 65, 25]);
-    var marginTopView = ui.numberField(0, [0, 20, 65, 25]);
-    var marginBottomView = ui.numberField(0, [75, 20, 65, 25]);
-    var marginLeftView = ui.numberField(0, [150, 20, 65, 25]);
-    var marginRightView = ui.numberField(0, [225, 20, 65, 25]);
+    var marginTopView = ui.numberField(preferences.get("guideLayoutMarginTop") || 0, [0, 20, 65, 25]);
+    var marginBottomView = ui.numberField(preferences.get("guideLayoutMarginBottom") || 0, [75, 20, 65, 25]);
+    var marginLeftView = ui.numberField(preferences.get("guideLayoutMarginLeft") || 0, [150, 20, 65, 25]);
+    var marginRightView = ui.numberField(preferences.get("guideLayoutMarginRight") || 0, [225, 20, 65, 25]);
     marginViews.addSubview(marginTopLabel);
     marginViews.addSubview(marginBottomLabel);
     marginViews.addSubview(marginLeftLabel);
@@ -99,7 +99,51 @@ var onRun = function(context) {
     var artboard = selectedArtboard;
     var nativeArtboard = selectedArtboard.sketchObject;
 
+    var originalGuides = [
+        nativeArtboard.horizontalRulerData().guides(),
+        nativeArtboard.verticalRulerData().guides()
+    ];
+
+    showRuler(document.sketchObject);
+
     refreshButton.setCOSJSTargetFunction(function(sender) {
+        drawGuides();
+    });
+
+    drawGuides();
+
+    var responseCode = dialog.run();
+    if (responseCode == 1000 || responseCode == 1001) {
+
+        drawGuides();
+
+        preferences.set("guideLayoutColumns", columnsCheckbox.state() == NSOnState ? true : false);
+        preferences.set("guideLayoutColumnNumber", columnNumberView.stepper.integerValue());
+        preferences.set("guideLayoutColumnWidth", parseInt(columnWidthView.stringValue()));
+        preferences.set("guideLayoutColumnGutter", parseInt(columnGutterView.stringValue()));
+        preferences.set("guideLayoutColumnCenter", centerHorizontalCheckbox.state() == NSOnState ? true : false);
+
+        preferences.set("guideLayoutRows", rowsCheckbox.state() == NSOnState ? true : false);
+        preferences.set("guideLayoutRowNumber", rowNumberView.stepper.integerValue());
+        preferences.set("guideLayoutRowWidth", parseInt(rowWidthView.stringValue()));
+        preferences.set("guideLayoutRowGutter", parseInt(rowGutterView.stringValue()));
+        preferences.set("guideLayoutRowCenter", centerVerticalCheckbox.state() == NSOnState ? true : false);
+
+        preferences.set("guideLayoutMarginTop", parseInt(marginTopView.stringValue()));
+        preferences.set("guideLayoutMarginBottom", parseInt(marginBottomView.stringValue()));
+        preferences.set("guideLayoutMarginLeft", parseInt(marginLeftView.stringValue()));
+        preferences.set("guideLayoutMarginRight", parseInt(marginRightView.stringValue()));
+
+    }
+
+    if (responseCode == 1001) {
+        removeGuides(nativeArtboard);
+
+        nativeArtboard.horizontalRulerData().setGuides(originalGuides[0]);
+        nativeArtboard.verticalRulerData().setGuides(originalGuides[1]);
+    }
+
+    function drawGuides() {
         removeGuides(nativeArtboard);
         var values1 = getGuideValues(
             artboard.frame.width,
@@ -121,30 +165,15 @@ var onRun = function(context) {
             marginCheckbox.state() == NSOnState ? parseInt(marginBottomView.stringValue()) : 0,
             centerVerticalCheckbox.state() == NSOnState ? true : false
         );
-
         if (columnsCheckbox.state() == NSOnState) {
             addGuides(nativeArtboard, 0, values1);
         }
         if (rowsCheckbox.state() == NSOnState) {
             addGuides(nativeArtboard, 1, values2);
         }
-    });
-
-    var responseCode = dialog.run();
-    if (responseCode == 1000) {
-
-        // preferences.set("newGuidePosition", positionView.stringValue());
-
-        // var orientation = orientationView.indexOfSelectedItem();
-        // var positions = positionView.stringValue().split(/\,\s?/);
-        // positions.forEach(function(position) {
-        //     addGuide(position, orientation);
-        // });
-
     }
 
 };
-
 
 function getGuideValues(total, count, width, gutter, margin, margin1, margin2, center) {
     var values = [];
@@ -183,12 +212,19 @@ function addGuides(artboard, orientation, values) {
     } else {
         rulerData = artboard.verticalRulerData();
     }
-    values.forEach(function(value) {
-        rulerData.addGuideWithValue(value);
-    });
+    rulerData.setGuides(values);
 }
 
 function removeGuides(artboard) {
     artboard.horizontalRulerData().removeAllGuides();
     artboard.verticalRulerData().removeAllGuides();
+}
+
+function showRuler(document) {
+    if (!document.isRulersVisible()) {
+        var toggleRulersAction = document.actionsController().actionForID("MSToggleRulersAction");
+        if(toggleRulersAction.validate()) {
+            toggleRulersAction.performAction(nil);
+        }
+    }
 }

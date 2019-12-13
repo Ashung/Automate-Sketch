@@ -8,6 +8,8 @@ var onRun = function(context) {
     var selectedLayers = document.selectedLayers.layers;
     var util = require("util");
 
+    showRuler(document.sketchObject);
+
     if (selectedLayers.length == 0) {
         var page = document.selectedPage.sketchObject;
         clearGuides(page);
@@ -29,4 +31,13 @@ var onRun = function(context) {
 function clearGuides(target) {
     target.horizontalRulerData().removeAllGuides();
     target.verticalRulerData().removeAllGuides();
+}
+
+function showRuler(document) {
+    if (!document.isRulersVisible()) {
+        var toggleRulersAction = document.actionsController().actionForID("MSToggleRulersAction");
+        if(toggleRulersAction.validate()) {
+            toggleRulersAction.performAction(nil);
+        }
+    }
 }

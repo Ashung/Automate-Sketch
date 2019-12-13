@@ -33,6 +33,8 @@ var onRun = function(context) {
 
         preferences.set("newGuidePosition", positionView.stringValue());
 
+        showRuler(document.sketchObject);
+
         var orientation = orientationView.indexOfSelectedItem();
         var positions = positionView.stringValue().split(/\,\s?/);
         positions.forEach(function(position) {
@@ -60,3 +62,12 @@ var onRun = function(context) {
     }
 
 };
+
+function showRuler(document) {
+    if (!document.isRulersVisible()) {
+        var toggleRulersAction = document.actionsController().actionForID("MSToggleRulersAction");
+        if(toggleRulersAction.validate()) {
+            toggleRulersAction.performAction(nil);
+        }
+    }
+}

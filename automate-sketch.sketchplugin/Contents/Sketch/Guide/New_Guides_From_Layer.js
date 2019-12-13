@@ -13,6 +13,8 @@ var onRun = function(context) {
         return;
     }
 
+    showRuler(document.sketchObject);
+
     selectedLayers.forEach(function(layer) {
         var rect = layer.sketchObject.frameForTransforms();
         var x = Math.floor(rect.origin.x),
@@ -39,3 +41,12 @@ var onRun = function(context) {
 
     });
 };
+
+function showRuler(document) {
+    if (!document.isRulersVisible()) {
+        var toggleRulersAction = document.actionsController().actionForID("MSToggleRulersAction");
+        if(toggleRulersAction.validate()) {
+            toggleRulersAction.performAction(nil);
+        }
+    }
+}
