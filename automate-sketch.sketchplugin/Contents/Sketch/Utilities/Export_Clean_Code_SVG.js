@@ -1,4 +1,4 @@
-@import "../Layer/Select_or_Remove_All_Transparency_Layers.js"
+@import "../Layer/Select_or_Remove_All_Transparency_Layers.js";
 
 var onRun = function(context) {
 
@@ -6,6 +6,8 @@ var onRun = function(context) {
     ga("Utilities");
 
     var type = require("../modules/Type");
+    var svgConfig = require('../../../../svgConfig.json');
+    var svgPrefs = svgConfig.svgPreferences;
 
     var runCommand = require("../modules/Run_Command");
     var preferences = require("../modules/Preferences");
@@ -34,10 +36,11 @@ var onRun = function(context) {
     var optionsBasic = ui.groupLabel("Basic Options");
     dialog.addView(optionsBasic);
 
-    var fileNameLabel = ui.textLabel("Change layer names to ...");
+    var fileNameLabel = ui.textLabel("Change export file path to ...");
     dialog.addView(fileNameLabel);
 
-    var fileNameTypes = [
+    var fileNameTypesDefault = svgPrefs.hasOwnProperty('fileNamePaths') && svgPrefs.fileNamePaths;
+    var fileNameTypes = fileNameTypesDefault || [
         "group/name.svg",
         "group_name.svg",
         "name.svg"
@@ -51,29 +54,35 @@ var onRun = function(context) {
     var divider1 = ui.divider(300);
     dialog.addView(divider1);
 
-    var ignoreBitmap = ui.checkBox(true, "Ignore bitmap and image fill layers.");
+    var ignoreBitmapDefault = svgPrefs.hasOwnProperty('ignoreBitmap') ? svgPrefs.ignoreBitmap : true;
+    var ignoreBitmap = ui.checkBox(ignoreBitmapDefault, "Ignore bitmap and image fill layers.");
     dialog.addView(ignoreBitmap);
 
-    var ignoreText = ui.checkBox(true, "Ignore text layers.");
+    var ignoreTextDefault = svgPrefs.hasOwnProperty('ignoreText') ? svgPrefs.ignoreText : true;
+    var ignoreText = ui.checkBox(ignoreTextDefault, "Ignore text layers.");
     dialog.addView(ignoreText);
 
-    var ignoreSymbol = ui.checkBox(true, "Ignore symbol instances.");
+    var ignoreSymbolDefault = svgPrefs.hasOwnProperty('ignoreSymbol') ? svgPrefs.ignoreSymbol : true;
+    var ignoreSymbol = ui.checkBox(ignoreSymbolDefault, "Ignore symbol instances.");
     dialog.addView(ignoreSymbol);
 
-    var ignoreTransparency = ui.checkBox(true, "Ignore transparency layers except mask.");
+    var ignoreTransparencyDefault = svgPrefs.hasOwnProperty('ignoreTransparency') ? svgPrefs.ignoreTransparency : true;
+    var ignoreTransparency = ui.checkBox(ignoreTransparencyDefault, "Ignore transparency layers except mask.");
     dialog.addView(ignoreTransparency);
 
-    var ignoreMask = ui.checkBox(true, "Release clipping mask.");
+    var ignoreMaskDefault = svgPrefs.hasOwnProperty('ignoreMask') ? svgPrefs.ignoreMask : true;
+    var ignoreMask = ui.checkBox(ignoreMaskDefault, "Release clipping mask.");
     dialog.addView(ignoreMask);
 
     var divider2 = ui.divider(300);
     dialog.addView(divider2);
 
-    var ignoreLayerName = ui.checkBox(false, "Ignore layer with following names.");
+    var ignoreLayerNameDefault = svgPrefs.hasOwnProperty('ignoreLayerNames') ? typeof svgPrefs.ignoreLayerNames === "string" : false;
+    var ignoreLayerName = ui.checkBox(ignoreLayerNameDefault, "Ignore layer with following names.");
     dialog.addView(ignoreLayerName);
 
-    var defaultIgnoreLayerName = preferences.get("ignoreLayerName") || "#,bounds,tint,color"
-    var ignoreLayerNames = ui.textField(defaultIgnoreLayerName);
+    var ignoreLayerNamesDefault = preferences.get("ignoreLayerNames") || svgPrefs.hasOwnProperty('ignoreLayerNames') ? svgPrefs.ignoreLayerNames : "#,bounds,tint,color";
+    var ignoreLayerNames = ui.textField(ignoreLayerNamesDefault);
     ui.disableTextField(ignoreLayerNames);
     dialog.addView(ignoreLayerNames);
 
@@ -83,23 +92,29 @@ var onRun = function(context) {
     var optionsAdvanced = ui.groupLabel("Advanced Options");
     dialog.addView(optionsAdvanced);
 
-    var ignoreGroup = ui.checkBox(false, "Ungroup all layer group inside.");
+    var ignoreGroupDefault = svgPrefs.hasOwnProperty('ignoreGroup') ? svgPrefs.ignoreGroup : false;
+    var ignoreGroup = ui.checkBox(ignoreGroupDefault, "Ungroup all layer group inside.");
     dialog.addView(ignoreGroup);
 
-    var flattenAllLayer = ui.checkBox(false, "Flatten all layers.");
+    var flattenAllLayerDefault = svgPrefs.hasOwnProperty('flattenAllLayer') ? svgPrefs.flattenAllLayer : false;
+    var flattenAllLayer = ui.checkBox(flattenAllLayerDefault, "Flatten all layers.");
     dialog.addView(flattenAllLayer);
 
-    var changeFillRule = ui.checkBox(false, "Change path fill rule to Non-Zero.");
+    var changeFillRuleDefault = svgPrefs.hasOwnProperty('changeFillRule') ? svgPrefs.changeFillRule : false;
+    var changeFillRule = ui.checkBox(changeFillRuleDefault, "Change path fill rule to Non-Zero.");
     dialog.addView(changeFillRule);
 
     var colorView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
-    var changeColor = ui.checkBox(false, "Change path fill / border color to ...");
+    var colorPickerDefault = svgPrefs.hasOwnProperty('changeColor') ? svgPrefs.changeColor.substr(0, 1) === '#' : false;
+    var changeColor = ui.checkBox(colorPickerDefault, "Change path fill / border color to ...");
     colorView.addSubview(changeColor);
-    var colorPicker = ui.colorPicker([240, 0, 40, 20]);
+    var colorPickerDefaultValue = svgPrefs.hasOwnProperty('changeColor') ? svgPrefs.changeColor : '#000000';
+    var colorPicker = ui.colorPicker([240, 0, 40, 20], colorPickerDefaultValue);
     colorView.addSubview(colorPicker);
     dialog.addView(colorView);
 
-    var useSVGO = ui.checkBox(false, "Optimizing SVG code with SVGO (slowly).");
+    var useSVGODefault = svgPrefs.hasOwnProperty('useSVGO') ? svgPrefs.useSVGO : false;
+    var useSVGO = ui.checkBox(useSVGODefault, "Optimizing SVG code with SVGO (slowly).");
     dialog.addView(useSVGO);
 
     ignoreLayerName.setCOSJSTargetFunction(function(sender) {
@@ -266,21 +281,16 @@ var onRun = function(context) {
 
             if (useSVGO.state() == NSOnState) {
 
-                var config = {
-                    plugins: [
-                        { cleanupListOfValues: { floatPrecision: 2, leadingZero: false } },
-                        { cleanupNumericValues: { floatPrecision: 2, leadingZero: false } },
-                        { convertPathData: { floatPrecision: 2, leadingZero: false } },
-                        { convertColors: { shorthex: false, shortname: false } },
-                        { convertShapeToPath: { convertArcs: true } },
-                        { removeRasterImages: true },
-                        { removeScriptElement: true },
-                        { removeViewBox: false }
-                    ]
-                };
+                var args = svgConfig.svgoArgs;
+                var plugins =  svgConfig.svgoPlugins;
+
+                args.push(
+                    "--config='" + JSON.stringify({ plugins: plugins }) + "'"
+                );
+
                 runCommand(
                     "/bin/bash",
-                    ["-l", "-c", svgo + " --config='" + JSON.stringify(config) + "' -s '" + svgCode + "'"],
+                    ["-l", "-c", svgo + " " + args.join(' ') + " -s '" + svgCode + "'"],
                     function(status, msg) {
                         if (status && msg != "") {
                             svgCode = msg;
@@ -319,7 +329,7 @@ var onRun = function(context) {
                 exportedSVGFiles.addObject(NSURL.fileURLWithPath(svgPath));
             }
         }
-        
+
         if (exportedSVGFiles.count() > 0) {
             NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
         }
