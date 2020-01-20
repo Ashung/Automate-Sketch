@@ -22,6 +22,12 @@ var onRun = function(context) {
         "Create typography guide from document text styles. \n\nIf your want to use style name as preview text, leave the option blank."
     );
 
+    dialog.addLabel("Choose Text Styles for Guide:");
+
+    var styleGroups = ["All"];
+    var styleGroupsView = ui.popupButton(styleGroups);
+    
+
     dialog.addLabel("Preview Text:");
 
     var textField = ui.textField(preferences.get("previewText") || "");
