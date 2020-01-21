@@ -217,6 +217,22 @@ ui.setItems_forPopupButton = function(items, view) {
 };
 
 /**
+ * @param  {Array} title [String]
+ * @param  {NSView} view NSPopUpButton
+ */
+ui.selectItemWithTitle_forPopupButton = function(title, view) {
+    view.selectItemWithTitle(title);
+}
+
+/**
+ * @param  {Array} index [Number]
+ * @param  {NSView} view NSPopUpButton
+ */
+ui.selectItemAtIndex_forPopupButton = function(index, view) {
+    view.selectItemAtIndex(index);
+}
+
+/**
  * @param  {Array} items [String]
  * @param  {Array|Number} size Optional
  * @return  {NSComboBox}

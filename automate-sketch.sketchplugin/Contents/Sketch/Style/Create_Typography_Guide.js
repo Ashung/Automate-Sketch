@@ -24,9 +24,20 @@ var onRun = function(context) {
 
     dialog.addLabel("Choose Text Styles for Guide:");
 
-    var styleGroups = ["All"];
+    var styleGroups = [];
+    textStyles.forEach(function(item) {
+        var nameParts = item.name.split(/(\/)/);
+        if (nameParts.length > 1) {
+            if (!styleGroups.includes(nameParts[0])) {
+                styleGroups.push(nameParts[0]);
+            }
+        }
+    });
+    styleGroups.sort();
+    styleGroups.unshift("All Styles in this Document");
+
     var styleGroupsView = ui.popupButton(styleGroups);
-    
+    dialog.addView(styleGroupsView);
 
     dialog.addLabel("Preview Text:");
 
@@ -47,7 +58,7 @@ var onRun = function(context) {
 
         var typographyPositionX = point.x,
             typographyPositionY = point.y,
-            spaceBetweenTypographys = 32,
+            spaceBetweenTypographies = 32,
             spaceBetweenTypographyAndText = 8,
             textHeight = 16,
             textFontSize = 14,
@@ -59,7 +70,16 @@ var onRun = function(context) {
 
         var typographyGroupLayers = [];
 
-        textStyles.forEach(function(item) {
+        for (var i = 0; i < textStyles.length; i++) {
+
+            var item = textStyles[i]
+            if (styleGroupsView.indexOfSelectedItem() > 0) {
+                var nameParts = item.name.split(/(\/)/);
+                if (nameParts[0] != styleGroupsView.titleOfSelectedItem()) {
+                    continue;
+                }
+            }
+
             var textStyle = item.sketchObject;
 
             // Add layer group
@@ -103,11 +123,11 @@ var onRun = function(context) {
             } else {
                 typographyGroup.resizeToFitChildrenWithOption(1);
             }
-            typographyPositionY = typographyPositionY + spaceBetweenTypographys + typographyGroup.frame().height();
+            typographyPositionY = typographyPositionY + spaceBetweenTypographies + typographyGroup.frame().height();
 
             typographyGroupLayers.push(typographyGroup);
 
-        });
+        };
 
         centerRect_byLayers(document.sketchObject, typographyGroupLayers);
 

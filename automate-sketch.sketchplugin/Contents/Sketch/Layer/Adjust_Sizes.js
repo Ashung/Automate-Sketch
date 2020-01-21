@@ -12,13 +12,13 @@ var largeIncreaseWidthFromRight = function(context) {
 
 var smallIncreaseWidthFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustWidthFromCenter(layer, nudgeDistanceSmall());
+        adjustWidthFromCenter(layer, nudgeDistanceSmall() * 2);
     });
 };
 
 var largeIncreaseWidthFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustWidthFromCenter(layer, nudgeDistanceBig());
+        adjustWidthFromCenter(layer, nudgeDistanceBig() * 2);
     });
 };
 
@@ -36,13 +36,13 @@ var largeIncreaseHeightFromBottom = function(context) {
 
 var smallIncreaseHeightFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustHeightFromCenter(layer, nudgeDistanceSmall());
+        adjustHeightFromCenter(layer, nudgeDistanceSmall() * 2);
     });
 };
 
 var largeIncreaseHeightFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustHeightFromCenter(layer, nudgeDistanceBig());
+        adjustHeightFromCenter(layer, nudgeDistanceBig() * 2);
     });
 };
 
@@ -61,13 +61,13 @@ var largeDecreaseWidthFromRight = function(context) {
 
 var smallDecreaseWidthFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustWidthFromCenter(layer, nudgeDistanceSmall() * -1);
+        adjustWidthFromCenter(layer, nudgeDistanceSmall() * -2);
     });
 };
 
 var largeDecreaseWidthFromCenter = function(context) {
     runActionForSelection(context, function(layer) {
-        adjustWidthFromCenter(layer, nudgeDistanceBig() * -1);
+        adjustWidthFromCenter(layer, nudgeDistanceBig() * -2);
     });
 };
 
