@@ -1,672 +1,596 @@
 -
+  version: 62.0.20200202
+  description:
+    - "Add Find and Replace Symbol. fix #238"
+    - Add Select Same Instances in Current Page.
+    - Merge Style with Same Name only work for local styles.
+    - "Rewrite Select All Instances of Symbol, now support imported symbol and fast. fix #232"
+    - Remove Replace Override Symbol, use Find and Replace Symbol instead.
+    - Remove Select All Instances of Imported Symbol.
+    - "Ability to configure SVGO settings, fix #235 "
+    - "Resize from center, fix #231"
+    - "Select an individual Text Style for Create Typography Guide fix #230"
+  commitID: dacb7a55f6d7db438d6508efe3ca0393b83bbf76
+
+-
   version: 61.0.20191213
-  description: |-
-    <ul>
-    <li>Add Find and Replace Style. close #106</li>
-    <li>Add Merge Style with Same Name. close #178</li>
-    <li>Add Change Layer Blend Mode. close #219</li>
-    <li>Add Detach All Symbols in Page or Artboard.</li>
-    <li>Add Copy as PNG, PNG @2x, SVG.</li>
-    <li>Add New Guide. close #223</li>
-    <li>Add New Guide Layout. close #223</li>
-    <li>Add New Guides From Layer. close #223</li>
-    <li>Add Update Selected Symbol Overrides.  close #215</li>
-    <li>Add Shrink Instance to Fit Content. close #207</li>
-    <li>Add Export Artboard to ICNS File.</li>
-    <li>Add Toggle Mask for Selected Layers. close #214</li>
-    <li>Add Shortcuts Manager.</li>
-    <li>Add Reset All Layer / Text Styles. close #205</li>
-    <li>Tab key support to some dialogs. close #212</li>
-    <li>Create Style / Typography Guide now support imported library style. close #225</li>
-    <li>Update Selected Library Symbol now aslo update nested symbol.</li>
-    <li>Fix Clear Guides bug.</li>
-    <li>Replace Fonts support font picker.</li>
-    </ul>
+  description:
+    - "Add Find and Replace Style. close #106"
+    - "Add Merge Style with Same Name. close #178"
+    - "Add Change Layer Blend Mode. close #219"
+    - Add Detach All Symbols in Page or Artboard.
+    - Add Copy as PNG, PNG @2x, SVG.
+    - "Add New Guide. close #223"
+    - "Add New Guide Layout. close #223"
+    - "Add New Guides From Layer. close #223"
+    - "Add Update Selected Symbol Overrides.  close #215"
+    - "Add Shrink Instance to Fit Content. close #207"
+    - Add Export Artboard to ICNS File.
+    - "Add Toggle Mask for Selected Layers. close #214"
+    - Add Shortcuts Manager.
+    - "Add Reset All Layer / Text Styles. close #205"
+    - "Tab key support to some dialogs. close #212"
+    - "Create Style / Typography Guide now support imported library style. close #225"
+    - Update Selected Library Symbol now aslo update nested symbol.
+    - Fix Clear Guides bug.
+    - Replace Fonts support font picker.
   commitID: 367a81737fe1b981426b87d847cb7243a2abf97b
 
 -
   version: 58.0.20191010
-  description: |-
-    <ul>
-    <li>Add Library - Insert Symbols From Library.</li>
-    <li>Add Symbol - Insert Symbols.</li>
-    <li>Add Slice - Copy SVG Code.</li>
-    <li>Add Style - Find and Replace Layer/Text Style Override. #106</li>
-    <li>Add Slice - Copy SVG Code (URL-encoded).</li>
-    <li>Add Increase/Decrease Font Weight. Fix #203</li>
-    <li>Fixed Replace Library bug. #211</li>
-    <li>Fixed Clear Layer Name Chinese support.</li>
-    </ul>
+  description:
+    - Add Library - Insert Symbols From Library.
+    - Add Symbol - Insert Symbols.
+    - Add Slice - Copy SVG Code.
+    - "Add Style - Find and Replace Layer/Text Style Override. #106"
+    - Add Slice - Copy SVG Code (URL-encoded).
+    - "Add Increase/Decrease Font Weight. Fix #203"
+    - "Fixed Replace Library bug. #211"
+    - Fixed Clear Layer Name Chinese support.
   commitID: 5e3f135ac6411fc4c20991f45947d0a6dfc23473
 
 -
   version: 58.0.20190923
-  description: |-
-    <ul>
-    <li>Add Layer - Resize with Ratio.</li>
-    <li>Add Artboard - Move to Page.</li>
-    <li>Add Artboard - Resize to Fit Width.</li>
-    <li>Fix select layer by type #209 #204 #199.</li>
-    <li>Clear layer name support Chinese.</li>
-    </ul>
+  description:
+    - Add Layer - Resize with Ratio.
+    - Add Artboard - Move to Page.
+    - Add Artboard - Resize to Fit Width.
+    - "Fix select layer by type #209 #204 #199."
+    - Clear layer name support Chinese.
   commitID: 028f50c753f8133efc728e443cb0f2fec27f2159
 
 -
   version: 57.1.20190816
-  description: |-
-    <ul>
-    <li>Add Paste as Alphabetical Order Text. #180</li>
-    <li>Add Swap Width and Height.</li>
-    <li>Add Remove Hotspot in Selected Artboards.</li>
-    <li>Fix Export Clean Code SVG bug. #192</li>
-    <li>Fix Export All Symbols to PNG bug. #196</li>
-    <li>Rename Layer support desc options. #195</li>
-    <li>Change Texts support desc options.</li>
-    <li>Fix Truncate Text kerning bug. #193 #198</li>
-    </ul>
+  description:
+    - "Add Paste as Alphabetical Order Text. #180"
+    - Add Swap Width and Height.
+    - Add Remove Hotspot in Selected Artboards.
+    - "Fix Export Clean Code SVG bug. #192"
+    - "Fix Export All Symbols to PNG bug. #196"
+    - "Rename Layer support desc options. #195"
+    - Change Texts support desc options.
+    - "Fix Truncate Text kerning bug. #193 #198"
   commitID: 3dc6a58a5f49c1ad320497276f86d7b1950324ef
 
 -
   version: 55.2.20190723
-  description: |-
-    <ul>
-    <li>Fix Truncate Text.</li>
-    <li>Fix Sync Symbol Master from Sketch File base Symbol Id not work. #190</li>
-    <li>Fix some text field focus issues #188</li>
-    </ul>
+  description:
+    - Fix Truncate Text.
+    - "Fix Sync Symbol Master from Sketch File base Symbol Id not work. #190"
+    - "Fix some text field focus issues #188"
   commitID: 7be9bad1774242b90305ab23472cde7ac371ed01
 
 -
   version: 55.2.20190719
-  description: |-
-    <ul>
-    <li>Fix Link / Sync Layer bug #184</li>
-    <li>Fix Select or Remove All Transparency Layers bug.</li>
-    <li>Fix Change Places move layer to top. #183</li>
-    </ul>
+  description:
+    - "Fix Link / Sync Layer bug #184"
+    - Fix Select or Remove All Transparency Layers bug.
+    - "Fix Change Places move layer to top. #183"
   commitID: 34845cb9634fad52d87e5c01dc946d53492d644d
 
 -
   version: 55.2.20190625
-  description: |-
-    <ul>
-    <li>Add Toggle Adjust Content on Resize.</li>
-    <li>Fix Artboard - Resize to Fix Height bug.</li>
-    </ul>
+  description:
+    - Add Toggle Adjust Content on Resize.
+    - Fix Artboard - Resize to Fix Height bug.
   commitID: 201cf623d51518ccf28544f2d3232e9f2b7b42db
 
 -
   version: 55.2.20190618
-  description: |-
-    <ul>
-    <li>Fix Copy and paste grid, guide, layout.</li>
-    </ul>
+  description:
+    - Fix Copy and paste grid, guide, layout.
   commitID: f76ef8c6098bc1d96efc563455ed2254c995ff09
 
 -
   version: 55.2.20190617
-  description: |-
-    <ul>
-    <li>Add Add Colors or Gradients from Selected Layers to Document.</li>
-    <li>Add Find and Replace Layer Name.</li>
-    <li>Add Reset Style.</li>
-    <li>Add Update Style.</li>
-    <li>Change Locals Symbols to Library Symbol support replace with same id and name.</li>
-    <li>Improved Replace Library.</li>
-    <li>Improved Select layers by name.</li>
-    <li>Fix inset svg center in canvas.</li>
-    <li>Fix Paste as artboard or symbol fit to content.</li>
-    <li>Fix Select Parent Groups.</li>
-    <li>Remove Move Symbols to Page.</li>
-    <li>Remove Baseline.</li>
-    <li>Remove Replace Missing Fonts.</li>
-    </ul>
+  description:
+    - Add Add Colors or Gradients from Selected Layers to Document.
+    - Add Find and Replace Layer Name.
+    - Add Reset Style.
+    - Add Update Style.
+    - Change Locals Symbols to Library Symbol support replace with same id and name.
+    - Improved Replace Library.
+    - Improved Select layers by name.
+    - Fix inset svg center in canvas.
+    - Fix Paste as artboard or symbol fit to content.
+    - Fix Select Parent Groups.
+    - Remove Move Symbols to Page.
+    - Remove Baseline.
+    - Remove Replace Missing Fonts.
   commitID: 00907980ebc4eaef9a5354ebf2db85a290e7bf0a
 
 -
   version: 54.0.20190411
-  description: |-
-    <ul>
-    <li>Order Layer by Position X/Y support from top to bottom, or bottom to top. #169</li>
-    <li>Inset Layer from SVG Code, SVG layer can move to the center of canvas. #168</li>
-    <li>Add Plugin Dev Setting, remove Edit Plugin Setting and Script Editor Setting.</li>
-    </ul>
+  description:
+    - "Order Layer by Position X/Y support from top to bottom, or bottom to top. #169"
+    - "Inset Layer from SVG Code, SVG layer can move to the center of canvas. #168"
+    - Add Plugin Dev Setting, remove Edit Plugin Setting and Script Editor Setting.
   commitID: dbd7e65757ae62358e455e4a53a43132c0839ad6
 
 -
   version: 54.0.20190410
-  description: |-
-    <ul>
-    <li>Insert Layers form SVG Code can insert layer inside selected group, or some position as selected layer.</li>
-    <li>Disable or Enable All Overrides support Sketch 54 allows overrides.</li>
-    <li>Paste as Artboard/Symbol Master the artboard can match the content when copy a SVG with stroke.</li>
-    <li>Reverse Layer Order, Order Layers By Kind/Name/X/Y can reload the order of selection. #166</li>
-    <li>Fix some Sketch 45 support bugs.</li>
-    </ul>
+  description:
+    - Insert Layers form SVG Code can insert layer inside selected group, or some position as selected layer.
+    - Disable or Enable All Overrides support Sketch 54 allows overrides.
+    - Paste as Artboard/Symbol Master the artboard can match the content when copy a SVG with stroke.
+    - "Reverse Layer Order, Order Layers By Kind/Name/X/Y can reload the order of selection. #166"
+    - Fix some Sketch 45 support bugs.
   commitID: 3968c2e4df6415f6c0dc69ce6f1b8330f2f96c7d
 
 -
   version: 53.2.20190404
-  description: |-
-    <ul>
-    <li>Fix Change Local Text/Layer Style to Library Text/Layer Style will reset style overrides. #164</li>
-    </ul>
+  description:
+    - "Fix Change Local Text/Layer Style to Library Text/Layer Style will reset style overrides. #164"
   commitID: 0d4d89afa74e2753c4aa0f7611e6ca893f6d4b8b
 -
   version: 53.2.20190403
-  description: |-
-    <ul>
-    <li>Add Paste as Artboards / Symbol Masters.</li>
-    <li>Fix Quick Export bug.</li>
-    </ul>
+  description:
+    - Add Paste as Artboards / Symbol Masters.
+    - Fix Quick Export bug.
   commitID: eb9e36e299ec5c6d36911aeac99c875d39eb361f
 -
   version: 53.2.20190401
-  description: |-
-    <ul>
-    <li>Add Quick Export.</li>
-    <li>Add Switch Language for Sketch 54.</li>
-    <li>Remove unused Text/Layer Styles now don't show style use in overrides. fix #161</li>
-    </ul>
+  description:
+    - Add Quick Export.
+    - Add Switch Language for Sketch 54.
+    - "Remove unused Text/Layer Styles now don't show style use in overrides. fix #161"
   commitID: dd0d2feb04a88929773c771de328fe33aa965b6e
 
 -
   version: 53.2.20190321
-  description: |-
-    <ul>
-    <li>Add Select Layers Below.</li>
-    <li>Add Disable Selected Overrides.</li>
-    <li>Add Reset Bounding Box.</li>
-    <li>Fix Disable or Enable All Overrides bug.</li>
-    </ul>
+  description:
+    - Add Select Layers Below.
+    - Add Disable Selected Overrides.
+    - Add Reset Bounding Box.
+    - Fix Disable or Enable All Overrides bug.
   commitID: 563dd3c31c8cf9b21afbf18e21cc0699b853441a
 
 -
   version: 53.2.20190315
-  description: |-
-    <ul>
-    <li>Improve Rename Layers and Change Texts.</li>
-    <li>Improve Insert Layer from SVG Path Data.</li>
-    <li>Fix Disable or Enable All Overrides bug.</li>
-    </ul>
+  description:
+    - Improve Rename Layers and Change Texts.
+    - Improve Insert Layer from SVG Path Data.
+    - Fix Disable or Enable All Overrides bug.
   commitID: ecbfa5d9e4731c30b6c523a32ac9fc4b1c9ea87e
 
 -
   version: 53.2.20190307
-  description: |-
-    <ul>
-    <li>Add Copy SVG Path Data.</li>
-    <li>Add Insert Layer from SVG Path Data.</li>
-    <li>Add Insert Layers from SVG Code.</li>
-    <li>Add Disable or Enable All Overrides.</li>
-    </ul>
+  description:
+    - Add Copy SVG Path Data.
+    - Add Insert Layer from SVG Path Data.
+    - Add Insert Layers from SVG Code.
+    - Add Disable or Enable All Overrides.
   commitID: 8b81622ec8ec9404651a04722b5471d472c1acfc
 
 -
   version: 53.2.20190304
-  description: |-
-    <ul>
-    <li>Redesign Hide or Show All Grid/Layout. Fix #151</li>
-    <li>Add Change Texts. Fix #149, Fix #150</li>
-    <li>Add Rename Layers.</li>
-    <li>Add Chinese language. Fix #152</li>
-    </ul>
+  description:
+    - "Redesign Hide or Show All Grid/Layout. Fix #151"
+    - "Add Change Texts. Fix #149, Fix #150"
+    - Add Rename Layers.
+    - "Add Chinese language. Fix #152"
   commitID: 654c714547191875401a0340e159f45512c06be6
 
 -
   version: 53.2.20190227
-  description: |-
-    <ul>
-    <li>Add Rename Instances Use Text Override. #143</li>
-    <li>Fix Replace Override Symbol. #144 </li>
-    <li>Fix Remove All Disabled Styles. #145 </li>
-    <li>Add Collapse All Groups and Fit Canvas. #148</li>
-    <li>Fix Fill Color From Colors.</li>
-    <li>Fix Import Document Assets from Sketch File.</li>
-    <li>Remove hide/show all grid/layout</li>
-    <li>Add Disable Google Analytics. Fix #142</li>
-    <li>Remove languages.</li>
-    </ul>
+  description:
+    - "Add Rename Instances Use Text Override. #143"
+    - "Fix Replace Override Symbol. #144 "
+    - "Fix Remove All Disabled Styles. #145 "
+    - "Add Collapse All Groups and Fit Canvas. #148"
+    - Fix Fill Color From Colors.
+    - Fix Import Document Assets from Sketch File.
+    - Remove hide/show all grid/layout
+    - "Add Disable Google Analytics. Fix #142"
+    - Remove languages.
   commitID: 225189727fe4ed434a0503a0873207d575a81246
 
 -
   version: 53.0.20190213
-  description: |-
-    <ul>
-    <li>Add Select None. #137 </li>
-    <li>Imported Symbols Link Manage add symbol not found filter. #138 </li>
-    <li>Fix Change Places bug. #135 </li>
-    <li>Fix Tile Objects text field focus. #141 </li>
-    </ul>
+  description:
+    - "Add Select None. #137 "
+    - "Imported Symbols Link Manage add symbol not found filter. #138 "
+    - "Fix Change Places bug. #135 "
+    - "Fix Tile Objects text field focus. #141 "
   commitID: 66afc9772c9db505c87f74e4dd383b5afd3ad580
 
 -
   version: 52.6.20190130
-  description: |-
-    <ul>
-    <li>Fix paste text color bug. #136 </li>
-    <li>Add Update Selected Library Symbol. #134 </li>
-    </ul>
+  description:
+    - "Fix paste text color bug. #136 "
+    - "Add Update Selected Library Symbol. #134 "
   commitID: 0646d54a2a0a62e0403977742be81aa123529f46
 
 -
   version: 52.6.20190121
-  description: |-
-    <ul>
-    <li>Fixed increase/decrease line height bug. #127 </li>
-    <li>Create Color/Typography Guide now link to existing style. fix #128 </li>
-    <li>Add Create Style Guide. fix #129</li>
-    <li>Fix Sync Symbol Master from Sketch File bug.</li>
-    <li>Sync Link Lyaer does not reset symbol to original size.</li>
-    <li>Add Sketch Runner icon.</li>
-    <li>Hide All Grid/Layout can show or hide grid/layout. fix #131</li>
-    <li>Convert artboard to symbols now keep background setting.</li>
-    <li>Change Places now support layers in different artboard.</li>
-    </ul>
+  description:
+    - "Fixed increase/decrease line height bug. #127 "
+    - "Create Color/Typography Guide now link to existing style. fix #128 "
+    - "Add Create Style Guide. fix #129"
+    - Fix Sync Symbol Master from Sketch File bug.
+    - Sync Link Lyaer does not reset symbol to original size.
+    - Add Sketch Runner icon.
+    - "Hide All Grid/Layout can show or hide grid/layout. fix #131"
+    - Convert artboard to symbols now keep background setting.
+    - Change Places now support layers in different artboard.
   commitID: 1b5423f5278ea1391378987ccb52a4497ee59dce
 
 -
   version: 52.5.20181213
-  description: |-
-    <ul>
-    <li>Symbol list in Replace Symbol With Library Symbol now sorted like Finder.</li>
-    <li>Fix bug when Export Clean Code SVG opening export window for each selection. #123</li>
-    </ul>
+  description:
+    - Symbol list in Replace Symbol With Library Symbol now sorted like Finder.
+    - "Fix bug when Export Clean Code SVG opening export window for each selection. #123"
   commitID: 7bc528d17284a4dddd6bb0570ee3fdb858654eb3
 
 -
   version: 52.4.20181123
-  description: |-
-    <ul>
-    <li>Add Remove All Hotspot.</li>
-    <li>Add Reset Flow.</li>
-    <li>Add Charater Count.</li>
-    </ul>
+  description:
+    - Add Remove All Hotspot.
+    - Add Reset Flow.
+    - Add Charater Count.
   commitID: b3f9307f97eb0e2c4b35c97eb5304916e85a39b0
 
 -
   version: 52.2.20181108
-  description: |-
-    <ul>
-    <li>Improved Grid Setting.</li>
-    <li>Add Paste Text Font.</li>
-    <li>Add Toggle Auto and Fixed for text layer.</li>
-    <li>Fixed Artboard Navigator crash.</li>
-    </ul>
+  description:
+    - Improved Grid Setting.
+    - Add Paste Text Font.
+    - Add Toggle Auto and Fixed for text layer.
+    - Fixed Artboard Navigator crash.
   commitID: e278786bce253c5f44e6ac2cea4f67ffcd9487a4
 
 -
   version: 52.2.20181025
-  description: |-
-    <ul>
-    <li>Select layer by style now have a orderd style list.</li>
-    <li>Supply images from floder now same order as Finder.</li>
-    <li>Add Select layers with same style.</li>
-    <li>Add Paste and Replace Setting.</li>
-    <li>Auto Slice add layer rename.</li>
-    <li>Auto Slice and Fast Slice now can change the slice layer order.</li>
-    <li>Fix Pick Color And Copy Sketch 52 bug.#112</li>
-    </ul>
+  description:
+    - Select layer by style now have a orderd style list.
+    - Supply images from floder now same order as Finder.
+    - Add Select layers with same style.
+    - Add Paste and Replace Setting.
+    - Auto Slice add layer rename.
+    - Auto Slice and Fast Slice now can change the slice layer order.
+    - Fix Pick Color And Copy Sketch 52 bug.#112
   commitID: 415c6bf91fd3f118166ddcb64d3603cecf582dc0
 
 -
   version: 52.2.20181012
-  description: |-
-    <ul>
-    <li>Add Supply data from text file or image folder.</li>
-    <li>Add Export Data From Text Layers.</li>
-    <li>Add Export Image From Layers.</li>
-    <li>Add Export Data From Symbol Instances.</li>
-    <li>Fixed some Sketch 52.x issues. </li>
-    </ul>
+  description:
+    - Add Supply data from text file or image folder.
+    - Add Export Data From Text Layers.
+    - Add Export Image From Layers.
+    - Add Export Data From Symbol Instances.
+    - Fixed some Sketch 52.x issues. 
   commitID: 46b75098ed2b3216a3a1af7c882a876aca5dd6a0
 
 -
   version: 52.1.20181008
-  description: |-
-    <ul>
-    <li>Fixed some Sketch 52 issues. </li>
-    </ul>
+  description:
+    - Fixed some Sketch 52 issues. 
   commitID: b655bc40f3c879c15fdf52d003177a631f3e5589
 
 -
   version: 51.3.20180920
-  description: |-
-    <ul>
-    <li>Fixed Pick color and copy bug. #101</li>
-    <li>Add Replace Override Symbol. #100</li>
-    </ul>
+  description:
+    - "Fixed Pick color and copy bug. #101"
+    - "Add Replace Override Symbol. #100"
   commitID: 41b69f58fd7de50796a5d924d5ade1497e75b639
 
 -
   version: 51.2.20180910
-  description: |-
-    <ul>
-    <li>Fix Export All Symbols As PNG not work bug. #99</li>
-    <li>Order layers by name/kind now sort layers like Finder do.</li>
-    </ul>
+  description:
+    - "Fix Export All Symbols As PNG not work bug. #99"
+    - Order layers by name/kind now sort layers like Finder do.
   commitID: d18bf6d9dbc3e0d0cf9a87823f0a0acd27426397
 
 -
   version: 51.2.20180831
-  description: |-
-    <ul>
-    <li>Add Set to Original Size.</li>
-    <li>Add Adjust Sizes.</li>
-    <li>Add Toggle Select Ground's content on Click.</li>
-    </ul>
+  description:
+    - Add Set to Original Size.
+    - Add Adjust Sizes.
+    - Add Toggle Select Ground's content on Click.
   commitID: ea482117de0ef206fcde879cd077feb2e8fe0b1c
 
 -
   version: 51.2.20180814
-  description: |-
-    <ul>
-    <li>Add Rename Layer to Style Name.</li>
-    <li>Add Replace Library.</li>
-    </ul>
+  description:
+    - Add Rename Layer to Style Name.
+    - Add Replace Library.
   commitID: 7fcb0cd9b50cb26b98360f366dd97b125188a948
 
 -
   version: 51.2.20180808
-  description: |-
-    <ul>
-    <li>Add Create Symbols from Selected Layers.</li>
-    </ul>
+  description:
+    - Add Create Symbols from Selected Layers.
   commitID: 63a27d5c1312da4c811a7469d81f8ea73ba7e4f8
 
 -
   version: 51.2.20180806
-  description: |-
-    <ul>
-    <li>Add Select Parent Artboard.</li>
-    <li>Add Artboard Navigator.</li>
-    <li>Export Clean Code SVG add flatten all layer option.</li>
-    <li>Fix Export Clean Code SVG copy code and ignore mask buges.</li>
-    </ul>
+  description:
+    - Add Select Parent Artboard.
+    - Add Artboard Navigator.
+    - Export Clean Code SVG add flatten all layer option.
+    - Fix Export Clean Code SVG copy code and ignore mask buges.
   commitID: a728f8d045bab44d1dcc951d7e531c195ca1c8bc
 
 -
   version: 51.1.20180720
-  description: |-
-    <ul>
-    <li>Add Increase / Decrease Line Height.</li>
-    <li>Add Increase / Decrease Letter Spacing.</li>
-    <li>Add Increase / Decrease / Reset Horizontally Scale.</li>
-    <li>Fix #90 Select Layers in Selection By Name bug.</li>
-    </ul>
+  description:
+    - Add Increase / Decrease Line Height.
+    - Add Increase / Decrease Letter Spacing.
+    - Add Increase / Decrease / Reset Horizontally Scale.
+    - "Fix #90 Select Layers in Selection By Name bug."
   commitID: 50abef508af3d0546d71852d4b450c49b4458b47
 
 -
   version: 51.1.20180717
-  description: |-
-    <ul>
-    <li>Add Change Local Style to Library Style.</li>
-    <li>Add Check For Library Updates.</li>
-    <li>Select Layers by Style now support foreign style in Sketch 51.</li>
-    </ul>
+  description:
+    - Add Change Local Style to Library Style.
+    - Add Check For Library Updates.
+    - Select Layers by Style now support foreign style in Sketch 51.
   commitID: ba05807c28f90c633372262f6cd961d7b150ccfe
 
 -
   version: 51.0.20180710
-  description: |-
-    <ul>
-    <li>Add Toggle Layer Constrain Proportions.</li>
-    <li>Export Clean SVG Code now support Sketch 51.</li>
-    </ul>
+  description:
+    - Add Toggle Layer Constrain Proportions.
+    - Export Clean SVG Code now support Sketch 51.
   commitID: d87542769e9db8536538443cc2328c4022f939a5
 
 -
   version: 50.2.20180706
-  description: |-
-    <ul>
-    <li>Select all child layer support shape ground.</li>
-    <li>Select slice after run fast slice.</li>
-    </ul>
+  description:
+    - Select all child layer support shape ground.
+    - Select slice after run fast slice.
   commitID: 739078c8e99416c5926d7287ecd2a0a09786c803
 
 -
   version: 50.2.20180622
-  description: |-
-    <ul>
-    <li>Fixed Fast Slice bugs.</li>
-    </ul>
+  description:
+    - Fixed Fast Slice bugs.
   commitID: bc98a87341ead48001f80cfef0f6bb23c07f57fa
 
 -
   version: 50.2.20180621
-  description: |-
-    <ul>
-    <li>Add Select Reverse.</li>
-    <li>Add Nine-Slice from Bitmap Layer.</li>
-    <li>Add Fast slice #79.</li>
-    <li>Fixed Create Link Layer not working no Sketch 49 #81.</li>
-    <li>Fixed Fit ot Parent without select a layer.</li>
-    </ul>
+  description:
+    - Add Select Reverse.
+    - Add Nine-Slice from Bitmap Layer.
+    - "Add Fast slice #79."
+    - "Fixed Create Link Layer not working no Sketch 49 #81."
+    - Fixed Fit ot Parent without select a layer.
   commitID: 98a738e77d1d5f3e6b58805a7ab5206484cc5c70
 
 -
   version: 50.2.20180612
-  description: |-
-    <ul>
-    <li>Add Select Layers Outside of Artboard Bounds #76.</li>
-    <li>Add split and combine text #73.</li>
-    <li>Feature Enhancement: Change Symbols to Library Symbol Base Symbol ID (keep size) #74.</li>
-    <li>Feature Enhancement: Sync Symbol Masters from Sketch File now can choose which symbol to update, like library symbol update.</li>
-    <li>Change "Remove redundant groups" to remove also groups that only contain one single layer.</li>
-    </ul>
+  description:
+    - "Add Select Layers Outside of Artboard Bounds #76."
+    - "Add split and combine text #73."
+    - "Enhancement Change Symbols to Library Symbol Base Symbol ID (keep size) #74."
+    - "Enhancement Sync Symbol Masters from Sketch File now can choose which symbol to update, like library symbol update."
+    - Change "Remove redundant groups" to remove also groups that only contain one single layer.
   commitID: 5a1e6c48cb7966fdb35f3d5f9edf9b1f333a2831
 
 -
   version: 50.2.20180529
-  description: |-
-    <ul>
-    <li>Fix Styles are not saved after import #72</li>
-    </ul>
+  description:
+    - "Fix Styles are not saved after import #72"
   commitID: f10a958c1f837ec0d97802fed69c9770ea80a1c8
 
 -
   version: 50.2.20180523
-  description: |-
-    <ul>
-    <li>Add Export Clean Code SVG.</li>
-    <li>Fix link layer create reduplicated symbol.</li>
-    <li>Paste and Replace now support mask layer.</li>
-    <li>Fit to parent with margin now support use "x *".</li>
-    <li>Imported symbols link manage add a filter.</li>
-    </ul>
+  description:
+    - Add Export Clean Code SVG.
+    - Fix link layer create reduplicated symbol.
+    - Paste and Replace now support mask layer.
+    - Fit to parent with margin now support use "x *".
+    - Imported symbols link manage add a filter.
   commitID: 04121921b59894f582bf851c095626e87002308f
 
 -
   version: 50.0.20180510
-  description: |-
-    <ul>
-    <li>Add Link Layer, remove include layer.</li>
-    <li>Fix sketch 50 bugs.</li>
-    </ul>
+  description:
+    - Add Link Layer, remove include layer.
+    - Fix sketch 50 bugs.
   commitID: 22704cf7e1970726dbf79efb3d0559c5e468ea0b
 
 -
   version: 49.3.20180425
-  description: |-
-    <ul>
-    <li>Add select layers by layer or text style.</li>
-    <li>Add Paste Text Style, Paste Text Color.</li>
-    <li>Rename Instances now can rename all instance in page, or by selected symbol master.</li>
-    <li>Preview images now support retina.</li>
-    <li>Fix tile objects marginX/Y 0 bug.</li>
-    <li>Fix select parent groups bug.</li>
-    <li>Fix pick color and copy bug.</li>
-    </ul>
+  description:
+    - Add select layers by layer or text style.
+    - Add Paste Text Style, Paste Text Color.
+    - Rename Instances now can rename all instance in page, or by selected symbol master.
+    - Preview images now support retina.
+    - Fix tile objects marginX/Y 0 bug.
+    - Fix select parent groups bug.
+    - Fix pick color and copy bug.
   commitID: 943c0217f25e0f2977be4701f34d190f761163ac
 
 -
   version: 49.3.20180410
-  description: |-
-    <ul>
-    <li>Add Import Document Assets from Library.</li>
-    <li>Add Import Styles from Library.</li>
-    <li>Add Tile objects.</li>
-    <li>Fix Rename Instances bug.</li>
-    </ul>
+  description:
+    - Add Import Document Assets from Library.
+    - Add Import Styles from Library.
+    - Add Tile objects.
+    - Fix Rename Instances bug.
   commitID: c71aa50584ba9e3431d83d055a1ed3ae3439c74e
 
 -
   version: 49.2.20180329
-  description: |-
-    <ul>
-    <li>Add new Rename instances.</li>
-    <li>Add Show and Change Layer Info.</li>
-    <li>Fix bugs, resize layer group to fix children.</li>
-    </ul>
+  description:
+    - Add new Rename instances.
+    - Add Show and Change Layer Info.
+    - Fix bugs, resize layer group to fix children.
   commitID: 3def79ac4c70500e828f0520815448327e50c336
 
 -
   version: 49.0.20180301
-  description: |-
-    <ul>
-    <li>Add Reset Overrides.</li>
-    <li>Selection to artboard or symbol will remove the group layer.</li>
-    <li>Selection to symbol now support artboard.</li>
-    <li>Fix Replace Symbol With Library Symbol reduplicated symbol bug.</li>
-    <li>Fix some Sketch 49 compatibility.</li>
-    </ul>
+  description:
+    - Add Reset Overrides.
+    - Selection to artboard or symbol will remove the group layer.
+    - Selection to symbol now support artboard.
+    - Fix Replace Symbol With Library Symbol reduplicated symbol bug.
+    - Fix some Sketch 49 compatibility.
   commitID: 8484f13830f373f2732ffa7c2f772daac219460a
 
 -
   version: 48.2.20180222
-  description: |-
-    <ul>
-    <li>Add Remove / Select Transparency Layers.</li>
-    <li>Add Pick Color and Copy the HEX Code.</li>
-    <li>Fix #51 Sketch Runner can't show symbol menu.</li>
-    <li>Fix auto slice bugs.</li>
-    <li>Fix select all instances of imported symbol bugs.</li>
-    </ul>
+  description:
+    - Add Remove / Select Transparency Layers.
+    - Add Pick Color and Copy the HEX Code.
+    - "Fix #51 Sketch Runner can't show symbol menu."
+    - Fix auto slice bugs.
+    - Fix select all instances of imported symbol bugs.
   commitID: 884c49630726f6d154d53cfd306f3dd4e98bcc68
 
 -
   version: 48.2.20180123
-  description: |-
-    <ul>
-    <li>Add Move symbol master to another page.</li>
-    <li>Add preview and select all for remove unused styles.</li>
-    <li>Add preview and select all for Remove Unused Symbols.</li>
-    <li>Fix Export All Artboards bug.</li>
-    <li>Center layers after create color/typography guide.</li>
-    </ul>
+  description:
+    - Add Move symbol master to another page.
+    - Add preview and select all for remove unused styles.
+    - Add preview and select all for Remove Unused Symbols.
+    - Fix Export All Artboards bug.
+    - Center layers after create color/typography guide.
   commitID: b5bf2a3ef5d3f2b31c7fa83ed5bd246f4a07de02
 
 -
   version: 48.2.20180104
-  description: |-
-      <ul><li>Add Fix Library ID Conflict.</li><li>Add Imported Symbols Link Manage.</li><li>Add new Remove Unused Symbols for Sketch 48.</li><li>Add Auto Slice.</li><li>Add Select All Siblings Layers.</li><li>Add Save/Load Export Presets.</li><li>Change Select Layers By Name.</li><li>Fix Include Layers bugs.</li></ul>
+  description:
+    - Add Fix Library ID Conflict.
+    - Add Imported Symbols Link Manage.
+    - Add new Remove Unused Symbols for Sketch 48.
+    - Add Auto Slice.- Add Select All Siblings Layers.
+    - Add Save/Load Export Presets.
+    - Change Select Layers By Name.
+    - Fix Include Layers bugs.
   commitID: 49eda844dde1892096f2c35e083f2595fca0a750
 
--
-  version: 48.1.20171211
-  description: |-
-      <ul><li>Fix Paste & replace broken in Sketch v48.</li></ul>
-  commitID: 20a2e5522cc3523bde816d3078dcfe60ad3a9610
-
--
-  version: 48.0.20171207
-  description: |-
-      <ul><li>Add Library Preview.</li><li>Improved Export All Artboards.</li><li>Improved Move Artboards to Bottom of Anther.</li><li>Fix Sketch 48 support.</li></ul>
-  commitID: 626d51307dedd4d2606fc3013041b95e7e6a87ab
-
--
-  title: 47.1.20171127 (for Sketch 47)
-  version: 47.1.20171127
-  description: |-
-      <ul><li>Add Remove Unused Styles.</li><li>Add Replace Symbol With Library Symbol.</li><li>Add Fix to Parent with Margin.</li><li>Select Layers by Name add layer type supported.</li><li>Fix bugs</li></ul>
-  commitID: f2df2848e25fdd39639a5a353747289ec4507028
-
--
-  version: 47.1.20171025
-  description: |-
-      <ul><li>Add select all instances of imported symbol.</li><li>Add change symbols to library symbol.</li><li>Fix paste inner shadow bug.</li></ul>
-  commitID: 44b45228a5930940c7adcd553189216610184b65
-
--
-  title: 47.0.20171011
-  description: |-
-    <ul><li>Add Ungroup Shape Layer.</li><li>Remove Unused Symbols now support Sketch 47 foreign symbols.</li></ul>
-  version: 47.0.20171011
-  commitID: 4d5c5c6801f615d419dc798d575c4308774314f6
-
--
-  title: 46.2.20170930  (for Sketch 46)
-  description: |-
-    <ul><li>Add Paste Fills/Borders/Shadows/Iinner Shadows/Blur.</li></ul>
-  version: 46.2.20170930
-  commitID: f08db1747a36ead3e58cb975a59c05c03d0d707c
-
--
-  title: 46.2.20170901
-  description: |-
-    <ul><li>Fix bugs.</li></ul>
-  version: 46.2.20170901
-  commitID: ddc17804439ad8b2aa1f1fbe08de3d8eb9e05dbb
-
--
-  title: 46.1.20170814
-  description: |-
-    <ul><li>Fix "Select All Child Layers" bug.</li><li>Add "Select Parent Groups".</li></ul>
-  version: 46.1.20170814
-  commitID: 5d691a94f218e59ced90683c0ddfc81120189f59
+# -
+#   version: 48.1.20171211
+#   description:
+#     - Fix Paste & replace broken in Sketch v48.
+#   commitID: 20a2e5522cc3523bde816d3078dcfe60ad3a9610
 
 # -
-#   title: v46.1.20170811
-#   description: |-
-#     <ul><li>Fix "Paste and Replace" bug.</li><li>Add "Arrange Objects".</li></ul>
+#   version: 48.0.20171207
+#   description:
+#     - Add Library Preview.
+#     - Improved Export All Artboards.
+#     - Improved Move Artboards to Bottom of Anther.
+#     - Fix Sketch 48 support.
+#   commitID: 626d51307dedd4d2606fc3013041b95e7e6a87ab
+
+# -
+#   version: 47.1.20171127
+#   description:
+#     - Add Remove Unused Styles.
+#     - Add Replace Symbol With Library Symbol.
+#     - Add Fix to Parent with Margin.
+#     - Select Layers by Name add layer type supported.
+#     - Fix bugs
+#   commitID: f2df2848e25fdd39639a5a353747289ec4507028
+
+# -
+#   version: 47.1.20171025
+#   description:
+#     - Add select all instances of imported symbol.
+#     - Add change symbols to library symbol.
+#     - Fix paste inner shadow bug.
+#   commitID: 44b45228a5930940c7adcd553189216610184b65
+
+# -
+#   version: 47.0.20171011
+#   description:
+#     - Add Ungroup Shape Layer.
+#     - Remove Unused Symbols now support Sketch 47 foreign symbols.
+#   commitID: 4d5c5c6801f615d419dc798d575c4308774314f6
+
+# -
+#   version: 46.2.20170930
+#   description:
+#     - Add Paste Fills/Borders/Shadows/Iinner Shadows/Blur.
+#   commitID: f08db1747a36ead3e58cb975a59c05c03d0d707c
+
+# -
+#   version: 46.2.20170901
+#   description:
+#     - Fix bugs.
+#   commitID: ddc17804439ad8b2aa1f1fbe08de3d8eb9e05dbb
+
+# -
+#   version: 46.1.20170814
+#   description:
+#     - Fix "Select All Child Layers" bug.
+#     - Add "Select Parent Groups".
+#   commitID: 5d691a94f218e59ced90683c0ddfc81120189f59
+
+# -
 #   version: 46.1.20170811
+#   description:
+#     - Fix "Paste and Replace" bug.
+#     - Add "Arrange Objects".
 #   commitID: 9580b981d2028851840f3cad7ef6a65804a1475d
-#
+
 # -
-#   title: v46.1.20170810
-#   description: |-
-#     <ul><li>Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.</li></ul>
 #   version: 46.1.20170810
+#   description:
+#     - Improvement "Paste and Replace", now can use for replace Artboard and Symbol Master between two files.
 #   commitID: 30eba8a875b0f2563ad86aa75d25faf3e194102c
-#
+
 # -
-#   title: v2.0.20170808
-#   description: |-
-#     <ul><li>Support Sketch 46.</li></ul>
 #   version: 2.0.20170808
+#   description:
+#     - Support Sketch 46.
 #   commitID: 23338d927eb75c29ca608781f0a28caa971db8d6
-#
+
 # -
-#   title: v2.0.20170727
-#   description: |-
-#     <ul><li>Add Swap Fill and Border.</li><li>Add Hide All Grid/Layout.</li><li>Add copy/paste grid/layout/guide.</li><li>Improvement Paste and Replace.</li></ul>
 #   version: 2.0.20170727
+#   description:
+#     - Add Swap Fill and Border.
+#     - Add Hide All Grid/Layout.
+#     - Add copy/paste grid/layout/guide.
+#     - Improvement Paste and Replace.
 #   commitID: 0663b6897d99c37e10ad0af9e566ba1ba215373d
-#
+
 # -
-#   title: v2.0.20170720
-#   description: |-
-#     <ul><li>Fix select layers by group</li></ul>
 #   version: 2.0.20170720
+#   description:
+#     - Fix select layers by group
 #   commitID: 6320f2548a315299eef9b53993da5481fbf1d1f1
-#
+
 # -
-#   title: v2.0.20170711
-#   description: |-
-#     <ul><li>Add "Paste and Replace".</li><li>Add "Convert Sketch File to Other Version".</li></ul>
 #   version: 2.0.20170711
+#   description:
+#     - Add "Paste and Replace".
+#     - Add "Convert Sketch File to Other Version".
 #   commitID: 9262998cf80bc1d6b3f442aa9684ea662605c681
-#
+
 # -
-#   title: v2.0.20170706
-#   description: |-
-#     <ul><li>Fix Sketch 45 support.</li><li>Add some plugin development features.</li></ul>
 #   version: 2.0.20170706
+#   description:
+#     - Fix Sketch 45 support.
+#     - Add some plugin development features.
 #   commitID: 5aea2a1d7197462fe9444d0e19dcf90e361f7183
-#
+
 # -
-#   title: v2.0.20170629
-#   description: |-
-#     <ul><li>Support Sketch 45.</li></ul>
 #   version: 2.0.20170629
+#   description:
+#     - Support Sketch 45.
 #   commitID: 8e89102ff1cdbe79d9b182f83f8870b20fec16ac

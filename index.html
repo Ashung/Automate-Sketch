@@ -55,17 +55,23 @@
 </header>
 <section>
     <h3>Change Logs</h3>
-    <ul class="changelogs">
+    <dl id="changeLogs" class="changelogs">
     {% for item in site.data.release %}
-        <li>
-            <a href="https://github.com/Ashung/Automate-Sketch/archive/{{ item.commitID }}.zip"><strong>
+        <dt>
+            Version:
+            <a href="https://github.com/Ashung/Automate-Sketch/archive/{{ item.commitID }}.zip">
                 {% if item.title %}{{ item.title }}{% else %}{{ item.version }}{% endif %}
-            </strong></a>
-            {{ item.description }}
-        </li>
+            </a>
+        </dt>
+        <dd>
+            <ul>
+                {% for text in item.description %}
+                <li>{{ text }}</li>
+                {% endfor %}
+            </ul>
+        </dd>
     {% endfor %}
-    </ul>
-
+    </dl>
 </section>
 <footer>
     <div class="diver">&nbsp;</div>
@@ -79,5 +85,15 @@
     </div>
     <a class="ribbon" href="https://github.com/Ashung/Automate-Sketch/">Fork me on GitHub</a>
 </footer>
+<script>
+const changeLogs = document.getElementById('changeLogs').getElementsByTagName('li');
+for (let i = 0; i < changeLogs.length; i++) {
+    const issuesRegexp = /\#(\d+)/;
+    const text = changeLogs[i].textContent;
+    if (issuesRegexp.test(text)) {
+        changeLogs[i].innerHTML = text.replace(issuesRegexp, `<a href="https://github.com/Ashung/Automate-Sketch/issues/$1">#$1</a>`)
+    }
+}
+</script>
 </body>
 </html>

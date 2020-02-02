@@ -149,14 +149,17 @@ section {
 }
 
 .changelogs {
+    dt {
+        font-weight: bolder;
+    }
+    dd {
+        margin: 10px 0;
+    }
     li {
-        margin-bottom: 10px;
-        li {
-            color: $text_color_gray;
-            list-style: disc;
-            margin-left: 1.5em;
-            margin-bottom: 0;
-        }
+        color: $text_color_gray;
+        list-style: disc;
+        margin-left: 1.5em;
+        margin-bottom: 0;
     }
 }
 
