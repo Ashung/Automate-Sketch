@@ -103,12 +103,12 @@ Make your workflow more efficient.
 | **Symbol**                                                   |                                                              |
 | Reset to Original Width / Height / Size                      | Reset to original width / height / Size.                     |
 | Shrink Instance to Fit Content                               | Shrink Instance to Fit Content.                              |
-| Replace Override Symbol                                      | Find and replace override symbol for selected or all symbol instances in document. |
+| Find and Replace Symbol                                      | Find and replace symbol layer and override.                  |
 | Reset Overrides                                              | Reset symbol overrides in selection.                         |
 | Disable or Enable All Overrides                              | Toggle disable or enable all override for selected local symbol instances or symbol masters. |
 | Disable Selected Overrides                                   | Disable selected overrides for selected local symbol instances. |
 | Select All Instance of Symbol                                | Select all instances of the symbol.                          |
-| Select All Instances of Imported symbol                      | Select all instances of imported symbol (library symbol).    |
+| Select Same Instances in Current Page                        | Select all instances of selected symbol in current page.     |
 | Rename Instances                                             | Rename all instances,  rename selection instances, rename instance by symbol master. |
 | Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
@@ -148,7 +148,7 @@ Make your workflow more efficient.
 | Update Style                                                 | Update or unlink and update for selected layers.             |
 | Reset All Layer / Text Styles                                | Reset all layer or text styles in document.                  |
 | Find and Replace Layer/Text Style                            | Find and replace layer or text style (include overrides) in current page, document or selected layers. |
-| Merge Layer/Text Style with Same Name                        | Merge styles with same name.                                 |
+| Merge Local Layer/Text Style with Same Name                  | Merge local styles with same name.                           |
 | Change Layer Blend Mode                                      | Change blend mode for selected layers.                       |
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |

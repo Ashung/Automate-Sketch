@@ -1,4 +1,4 @@
-@import "../Layer/Select_or_Remove_All_Transparency_Layers.js"
+@import "../Layer/Select_or_Remove_All_Transparency_Layers.js";
 
 var onRun = function(context) {
 
@@ -6,11 +6,14 @@ var onRun = function(context) {
     ga("Utilities");
 
     var type = require("../modules/Type");
+    var svgConfigPath = context.plugin.urlForResourceNamed("svgo_config.json").path();
 
     var runCommand = require("../modules/Run_Command");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
+    var system = require("../modules/System");
+    var pasteboard = require("../modules/Pasteboard");
     var document = context.document;
     var selection = context.selection;
 
@@ -34,7 +37,7 @@ var onRun = function(context) {
     var optionsBasic = ui.groupLabel("Basic Options");
     dialog.addView(optionsBasic);
 
-    var fileNameLabel = ui.textLabel("Change layer names to ...");
+    var fileNameLabel = ui.textLabel("Change export file path to ...");
     dialog.addView(fileNameLabel);
 
     var fileNameTypes = [
@@ -45,62 +48,91 @@ var onRun = function(context) {
     if (selection.count() == 1) {
         fileNameTypes.shift();
     }
+
     var nameType = ui.popupButton(fileNameTypes, 200);
+    ui.selectItemWithTitle_forPopupButton(preferences.get("exportSVGFileNameType") || fileNameTypes[0], nameType);
     dialog.addView(nameType);
 
     var divider1 = ui.divider(300);
     dialog.addView(divider1);
 
     var ignoreBitmap = ui.checkBox(true, "Ignore bitmap and image fill layers.");
+    ignoreBitmap.setState(preferences.get("exportSVGIgnoreBitmap") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreBitmap);
 
     var ignoreText = ui.checkBox(true, "Ignore text layers.");
+    ignoreText.setState(preferences.get("exportSVGIgnoreText") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreText);
 
     var ignoreSymbol = ui.checkBox(true, "Ignore symbol instances.");
+    ignoreSymbol.setState(preferences.get("exportSVGIgnoreSymbol") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreSymbol);
 
     var ignoreTransparency = ui.checkBox(true, "Ignore transparency layers except mask.");
+    ignoreTransparency.setState(preferences.get("exportSVGIgnoreTransparency") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreTransparency);
 
     var ignoreMask = ui.checkBox(true, "Release clipping mask.");
+    ignoreMask.setState(preferences.get("exportSVGIgnoreMask") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreMask);
 
     var divider2 = ui.divider(300);
     dialog.addView(divider2);
 
     var ignoreLayerName = ui.checkBox(false, "Ignore layer with following names.");
+    ignoreLayerName.setState(preferences.get("exportSVGIgnoreLayerName") == true ? NSOnState : NSOffState);
     dialog.addView(ignoreLayerName);
 
-    var defaultIgnoreLayerName = preferences.get("ignoreLayerName") || "#,bounds,tint,color"
+    var defaultIgnoreLayerName = preferences.get("ignoreLayerName") || "#";
     var ignoreLayerNames = ui.textField(defaultIgnoreLayerName);
     ui.disableTextField(ignoreLayerNames);
     dialog.addView(ignoreLayerNames);
 
-    var tempGap = ui.gap();
-    dialog.addView(tempGap);
-
     var optionsAdvanced = ui.groupLabel("Advanced Options");
     dialog.addView(optionsAdvanced);
 
-    var ignoreGroup = ui.checkBox(false, "Ungroup all layer group inside.");
-    dialog.addView(ignoreGroup);
+    var ungroup = ui.checkBox(false, "Ungroup all layer group inside.");
+    ungroup.setState(preferences.get("exportSVGUngroup") == true ? NSOnState : NSOffState);
+    dialog.addView(ungroup);
 
     var flattenAllLayer = ui.checkBox(false, "Flatten all layers.");
+    flattenAllLayer.setState(preferences.get("exportSVGFlatten") == true ? NSOnState : NSOffState);
     dialog.addView(flattenAllLayer);
 
     var changeFillRule = ui.checkBox(false, "Change path fill rule to Non-Zero.");
+    changeFillRule.setState(preferences.get("exportSVGFillRule") == true ? NSOnState : NSOffState);
     dialog.addView(changeFillRule);
 
     var colorView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 20));
     var changeColor = ui.checkBox(false, "Change path fill / border color to ...");
+    changeColor.setState(preferences.get("exportSVGChangeColor") == true ? NSOnState : NSOffState);
     colorView.addSubview(changeColor);
     var colorPicker = ui.colorPicker([240, 0, 40, 20]);
+    var defaultColorValue = preferences.get("exportSVGFillColor") || "#000000";
+    colorPicker.setColor(hexValueToNSColor(defaultColorValue));
     colorView.addSubview(colorPicker);
     dialog.addView(colorView);
 
     var useSVGO = ui.checkBox(false, "Optimizing SVG code with SVGO (slowly).");
+    useSVGO.setState(preferences.get("exportSVGOptimise") == true ? NSOnState : NSOffState);
     dialog.addView(useSVGO);
+
+    dialog.addLabel("Choose a JSON for SVGO config. (Optional)");
+    var customSVGOConfigFileView = ui.view([0, 0, 300, 25]);
+    var customSVGOConfigFileText = ui.textField("", [0, 0, 210, 25]);
+    var customSVGOConfigFilePath = preferences.get("exportSVGConfigFilePath");
+    if (customSVGOConfigFilePath) {
+        if (system.fileExists(customSVGOConfigFilePath)) {
+            customSVGOConfigFileText.setStringValue(customSVGOConfigFilePath);
+        }
+    }
+    ui.disableTextField(customSVGOConfigFileText);
+
+    var customSVGOConfigFileButton = ui.button("Choose", [220, 0, 80, 25]);
+    customSVGOConfigFileButton.setEnabled(preferences.get("exportSVGOptimise") == true ? true : false);
+    customSVGOConfigFileView.addSubview(customSVGOConfigFileText);
+    customSVGOConfigFileView.addSubview(customSVGOConfigFileButton);
+    dialog.addView(customSVGOConfigFileView);
 
     ignoreLayerName.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOnState) {
@@ -110,8 +142,43 @@ var onRun = function(context) {
         }
     });
 
+    useSVGO.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOnState) {
+            customSVGOConfigFileButton.setEnabled(true);
+        } else {
+            customSVGOConfigFileButton.setEnabled(false);
+        }
+    });
+
+    customSVGOConfigFileButton.setCOSJSTargetFunction(function(sender) {
+        var filePath = system.chooseFile(["json"]);
+        if (filePath) {
+            customSVGOConfigFileText.setStringValue(filePath);
+            svgConfigPath = filePath;
+        }
+    });
+
     // Run
     var responseCode = dialog.run();
+
+    if (responseCode) {
+        preferences.set("exportSVGFileNameType", nameType.titleOfSelectedItem())
+        preferences.set("exportSVGIgnoreBitmap", ignoreBitmap.state() == NSOnState ? true : false);
+        preferences.set("exportSVGIgnoreText", ignoreText.state() == NSOnState ? true : false);
+        preferences.set("exportSVGIgnoreSymbol", ignoreSymbol.state() == NSOnState ? true : false);
+        preferences.set("exportSVGIgnoreTransparency", ignoreTransparency.state() == NSOnState ? true : false);
+        preferences.set("exportSVGIgnoreMask", ignoreMask.state() == NSOnState ? true : false);
+        preferences.set("exportSVGIgnoreLayerName", ignoreLayerName.state() == NSOnState ? true : false);
+        preferences.set("ignoreLayerName", ignoreLayerNames.stringValue());
+        preferences.set("exportSVGUngroup", ungroup.state() == NSOnState ? true : false);
+        preferences.set("exportSVGFlatten", flattenAllLayer.state() == NSOnState ? true : false);
+        preferences.set("exportSVGFillRule", changeFillRule.state() == NSOnState ? true : false);
+        preferences.set("exportSVGChangeColor", changeColor.state() == NSOnState ? true : false);
+        preferences.set("exportSVGFillColor", nsColorToHexValue(colorPicker.color()));
+        preferences.set("exportSVGOptimise", useSVGO.state() == NSOnState ? true : false);
+        preferences.set("exportSVGConfigFilePath", customSVGOConfigFileText.stringValue());
+    }
+
     if (responseCode == 1000 || responseCode == 1002) {
 
         if (useSVGO.state() == NSOnState) {
@@ -131,7 +198,6 @@ var onRun = function(context) {
         var ignoreLayerNamesArray = [];
         if (ignoreLayerName.state() == NSOnState) {
             ignoreLayerNamesArray = ignoreLayerNames.stringValue().split(/\s*,\s*/);
-            preferences.set("ignoreLayerName", ignoreLayerNamesArray.toString());
         }
 
         var savePanel;
@@ -163,7 +229,7 @@ var onRun = function(context) {
 
             var layerCopy = layer.duplicate();
 
-            if (ignoreGroup.state() == NSOnState) {
+            if (ungroup.state() == NSOnState) {
                 var groupsInChild = layerCopy.children().filteredArrayUsingPredicate(NSPredicate.predicateWithFormat('className == "MSLayerGroup"'));
                 var loopGroups = groupsInChild.reverseObjectEnumerator();
                 var group;
@@ -266,18 +332,7 @@ var onRun = function(context) {
 
             if (useSVGO.state() == NSOnState) {
 
-                var config = {
-                    plugins: [
-                        { cleanupListOfValues: { floatPrecision: 2, leadingZero: false } },
-                        { cleanupNumericValues: { floatPrecision: 2, leadingZero: false } },
-                        { convertPathData: { floatPrecision: 2, leadingZero: false } },
-                        { convertColors: { shorthex: false, shortname: false } },
-                        { convertShapeToPath: { convertArcs: true } },
-                        { removeRasterImages: true },
-                        { removeScriptElement: true },
-                        { removeViewBox: false }
-                    ]
-                };
+                var config = require(svgConfigPath);
                 runCommand(
                     "/bin/bash",
                     ["-l", "-c", svgo + " --config='" + JSON.stringify(config) + "' -s '" + svgCode + "'"],
@@ -294,9 +349,7 @@ var onRun = function(context) {
             layerCopy.removeFromParent();
 
             if (responseCode == 1002 && selection.count() == 1) {
-                var pboard = NSPasteboard.generalPasteboard();
-                pboard.clearContents();
-                pboard.setString_forType_(svgCode, NSStringPboardType);
+                pasteboard.pbcopy(svgCode);
             }
 
             if (savePath) {
@@ -319,7 +372,7 @@ var onRun = function(context) {
                 exportedSVGFiles.addObject(NSURL.fileURLWithPath(svgPath));
             }
         }
-        
+
         if (exportedSVGFiles.count() > 0) {
             NSWorkspace.sharedWorkspace().activateFileViewerSelectingURLs(exportedSVGFiles);
         }
@@ -342,17 +395,34 @@ function writeContentToFile(filePath, content) {
     );
 }
 
-function fixedLayerName(layername, type) {
+function fixedLayerName(layerName, type) {
     var result;
     if (!type || type == 0) {
-        result = layername.replace(/\s*\/\s*/g, "/").trim();
+        result = layerName.replace(/\s*\/\s*/g, "/").trim();
     }
     if (type == 1) {
-        result = layername.replace(/\s*\/\s*/g, "_").trim();
+        result = layerName.replace(/\s*\/\s*/g, "_").trim();
     }
     if (type == 2) {
-        result = layername.replace(/.*(\/)/, "").trim();
+        result = layerName.replace(/.*(\/)/, "").trim();
     }
     result = result.replace(/\s+/g, "_").toLowerCase();
     return result;
+}
+
+function hexValueToNSColor(hexValue) {
+    return MSImmutableColor.colorWithSVGString(hexValue).NSColorWithColorSpace(nil);
+}
+
+function nsColorToHexValue(nsColor) {
+    var msColor = MSColor.colorWithNSColor(nsColor);
+    var hexValue = "#" + msColor.immutableModelObject().hexValue();
+    if (msColor.alpha() != 1) {
+        var alphaHex = Math.round(msColor.alpha() * 255).toString(16);
+        if (alphaHex.length == 1) {
+            alphaHex = "0" + alphaHex;
+        }
+        hexValue += alphaHex;
+    }
+    return hexValue;
 }

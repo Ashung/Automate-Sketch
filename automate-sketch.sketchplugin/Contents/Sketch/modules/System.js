@@ -125,4 +125,8 @@ System.getAppPath = function() {
     return String(NSBundle.mainBundle().bundlePath());
 };
 
+System.fileExists = function(path) {
+    return NSFileManager.defaultManager().fileExistsAtPath(path);
+}
+
 module.exports = System;

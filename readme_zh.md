@@ -46,7 +46,7 @@
 | Remove Hidden Layers                                         | **清除隐藏图层**                                             |
 | Remove Transparency Layers                                   | **删除透明图层** 删除完全透明的图层。                        |
 | Rename Layers                                                | **重命名图层** 使用自定义模版变量修改选中的图层名。          |
-| Find and Replace Layer Name                                  | **查找和替换图层名**                                         |
+| Find and Replace Layer Name                                  | **查找并替换图层名**                                         |
 | Clear Layer Name                                             | **清理图层名** 删除图层名后的 copy。                         |
 | Toggle Mask for Selected Layers                              | **选中图层设置或取消蒙版**                                   |
 | Create / Sync Link Layer                                     | **创建/同步引用图层** 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
@@ -104,12 +104,12 @@
 | **Symbol**                                                   | **组件**                                                     |
 | Reset to Original Width / Height / Size                      | **重置为原始宽度/高度/尺寸**                                 |
 | Shrink Instance to Fit Content                               | **缩小实例以适配内容**                                       |
-| Replace Override Symbol                                      | **替换覆盖组件** 查找和替换选中或全文档的组件上覆盖中的组件。 |
+| Find and Replace Symbol                                      | **查找并替换组件**                                           |
 | Reset Overrides                                              | **重置覆盖** 重置选中组件的覆盖。                            |
 | Disable or Enable All Overrides                              | **禁用或启用所有覆盖** 将选中的本地组件实例或组件母版，切换禁用或启用所有覆盖。 |
 | Disable Selected Overrides                                   | **禁用选中的覆盖** 将选中的本地组件实例的选中覆盖禁用。      |
 | Select All Instance of Symbol                                | **选择组件的所有实例**                                       |
-| Select All Instances of Imported symbol                      | **选择外部组件的所有实例** 选择导入组件（库组件）的实例。    |
+| Select Same Instances in Current Page                        | **选择页面内相同组件**                                       |
 | Rename Instances                                             | **重命名实例** 修改选择的实例名称，修改所有实例名称，修改按选中的组件母版的实例名称。 |
 | Rename Instances Use Text Override                           | **使用文本覆盖值重命名实例** 以选择的文本覆盖值重命名实例，如果实例仅有一个文本覆盖则使用此值。 |
 | Create Symbols from Selected Layers                          | **从选中图层批量创建组件**                                   |
@@ -148,8 +148,8 @@
 | Reset Style                                                  | **重置样式** 重置选中图层的样式。                            |
 | Update Style                                                 | **更新样式**  更新选中图层的样式，库样式会自动更新至本地样式。 |
 | Reset All Layer / Text Styles                                | **重置所有图层/文本样式**                                    |
-| Find and Replace Layer/Text Style                            | **查找和替换图层/文本样式** 在当前页面、文档或选中图层中查找和替换图层/文本样式(包括样式覆盖)。 |
-| Merge Layer/Text Style with Same Name                        | **合并同名图层样式**, **合并同名文本样式**                   |
+| Find and Replace Layer/Text Style                            | **查找并替换图层/文本样式** 在当前页面、文档或选中图层中查找并替换图层/文本样式(包括样式覆盖)。 |
+| Merge Local Layer/Text Style with Same Name                  | **合并本地同名图层/文本样式**                                |
 | Change Layer Blend Mode                                      | **修改图层混合模式**                                         |
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |

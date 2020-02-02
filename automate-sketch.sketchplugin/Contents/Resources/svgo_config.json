@@ -1,0 +1,14 @@
+{
+    "multipass": true,
+    "pretty": true,
+    "plugins": [
+        { "cleanupListOfValues": { "floatPrecision": 2, "leadingZero": false } },
+        { "cleanupNumericValues": { "floatPrecision": 2, "leadingZero": false } },
+        { "convertPathData": { "floatPrecision": 2, "leadingZero": false } },
+        { "convertColors": { "shorthex": false, "shortname": false } },
+        { "convertShapeToPath": { "convertArcs": true } },
+        { "removeRasterImages": true },
+        { "removeScriptElement": true },
+        { "removeViewBox": false }
+    ]
+}
