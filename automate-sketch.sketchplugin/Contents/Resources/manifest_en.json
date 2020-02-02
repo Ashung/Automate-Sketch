@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "61.2.20200121",
+  "version": "62.0.20200202",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -652,12 +652,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Select All Instances of Imported Symbol",
-      "identifier": "select_all_instances_of_imported_symbol",
-      "script": "Symbol/Select_All_Instances_of_Imported_Symbol.js",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "Change Local Symbols to Library Symbol",
       "identifier": "change_symbols_to_library_symbol",
       "script": "Library/Change_Symbols_to_Library_Symbol.js",
@@ -1059,12 +1053,6 @@
       "identifier": "large_decrease_height_from_center",
       "handler": "largeDecreaseHeightFromCenter",
       "script": "Layer/Adjust_Sizes.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Replace Override Symbol",
-      "identifier": "replace_override_symbol",
-      "script": "Symbol/Replace_Override_Symbol.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1495,13 +1483,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Merge Layer Styles with Same Name",
+      "name": "Merge Local Layer Styles with Same Name",
       "identifier": "merge_layer_styles_with_same_name",
       "script": "Style/Merge_Styles_with_Same_Name.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Merge Text Styles with Same Name",
+      "name": "Merge Local Text Styles with Same Name",
       "identifier": "merge_text_styles_with_same_name",
       "script": "Style/Merge_Styles_with_Same_Name.js",
       "icon": "icon_runner.png"
@@ -1516,6 +1504,18 @@
       "name": "New Guide Layout",
       "identifier": "new_guide_layout",
       "script": "Guide/New_Guide_Layout.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Select Same Instances in current Page",
+      "identifier": "select_same_instances_in_current_page",
+      "script": "Symbol/Select_Same_Instances_in_Current_Page.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Find and Replace Symbol",
+      "identifier": "find_and_replace_symbol",
+      "script": "Symbol/Find_and_Replace_Symbol.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1644,13 +1644,14 @@
           "set_to_original_size",
           "shrink_instance_to_fit_content",
           "-",
-          "replace_override_symbol",
+          "find_and_replace_symbol",
+          "-",
           "reset_overrides",
           "disable_or_enable_all_overrides",
           "disable_selected_overrides",
           "-",
           "select_all_instances_of_symbol",
-          "select_all_instances_of_imported_symbol",
+          "select_same_instances_in_current_page",
           "rename_instances",
           "rename_instances_use_text_override",
           "-",

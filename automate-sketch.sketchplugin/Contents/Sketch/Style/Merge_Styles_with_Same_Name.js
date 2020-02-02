@@ -16,8 +16,14 @@ var onRun = function(context) {
     } else {
         styles = document.sharedTextStyles;
     }
+
+    // Local styles
+    styles = styles.filter(function(style) {
+        return !style.getLibrary();
+    });
+
     if (styles.length == 0) {
-        sketch.UI.message("This document have not any style.");
+        sketch.UI.message("This document have not any local style.");
         return;
     }
 
@@ -42,7 +48,7 @@ var onRun = function(context) {
     }
 
     if (stylesWithSameName.length == 0) {
-        sketch.UI.message("This document have not any style with same name.");
+        sketch.UI.message("This document have not any local style with same name.");
         return;
     }
 
@@ -50,9 +56,9 @@ var onRun = function(context) {
     var dialogTitle;
     var dialogDescription = "Select a style to replace other styles with same name.";
     if (identifier == "merge_layer_styles_with_same_name") {
-        dialogTitle = "Merge Layer Styles with Same Name";
+        dialogTitle = "Merge Local Layer Styles with Same Name";
     } else {
-        dialogTitle = "Merge Text Styles with Same Name";
+        dialogTitle = "Merge Local Text Styles with Same Name";
     }
     var dialog = new Dialog(dialogTitle, dialogDescription, 400, ["Cancel"]);
 

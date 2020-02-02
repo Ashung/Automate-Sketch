@@ -24,4 +24,6 @@ module.exports.toSelection = function() {
     var rect = MSRect.rectWithUnionOfRects(rects);
     var newRect = CGRectMake(rect.x() - 25,rect.y() - 25, rect.width() + 50, rect.height() + 50);
     contentDrawView.zoomToFitRect(newRect);
+
+    // NSApp.sendAction_to_from("zoomToSelection:", nil, context.document);
 }
