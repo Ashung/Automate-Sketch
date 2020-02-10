@@ -8,9 +8,14 @@ var onRun = function(context) {
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var selection = document.selectedLayers.layers;
-    var layer = selection[0];
 
-    if (!layer && !["Shape", "ShapePath"].includes(layer.type)) {
+    if (selection.length != 1) {
+        sketch.UI.message("Please select 1 shape layer.");
+        return;
+    }
+
+    var layer = selection[0];
+    if (!["Shape", "ShapePath"].includes(layer.type)) {
         sketch.UI.message("Please select 1 shape layer.");
         return;
     }

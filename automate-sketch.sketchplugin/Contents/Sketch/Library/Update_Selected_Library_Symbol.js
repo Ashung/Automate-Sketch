@@ -46,7 +46,7 @@ var onRun = function(context) {
 
     var count = 0;
     librarySymbols.forEach(function(layer) {
-        var success = layer.syncWithLibrary();
+        var success = layer.master.syncWithLibrary();
         if (success) {
             count ++;
         }
