@@ -29,7 +29,7 @@ var onRun = function(context) {
         sketch.UI.message("PNG copied.");
     }
 
-    if (identifier == "copy_as_png") {
+    if (identifier == "copy_as_png_2x") {
         option.scales = "2";
         buffer = sketch.export(layer, option);
         pasteboard.setImage(buffer.toNSData());
