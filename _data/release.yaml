@@ -1,4 +1,13 @@
 -
+  version: 62.0.20200210
+  description:
+    - "Fix Update Selected Library Symbol. #242"
+    - "Fix Update Selected Symbol Overrides. #242"
+    - Fix Copy as PNG 2X.
+    - Fix Copy SVG Path Data.
+  commitID: 5eeb8bf26fad2dcf85d5b08877c570f7787908c3
+
+-
   version: 62.0.20200202
   description:
     - "Add Find and Replace Symbol. fix #238"
