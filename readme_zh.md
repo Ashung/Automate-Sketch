@@ -136,6 +136,7 @@
 | Update Selected Library Symbol                               | **更新选中的库组件** 只更新选中的库组件。                    |
 | Update Selected Symbol Overrides                             | **更新选中的覆盖组件**                                       |
 | Check For Library Updates                                    | **检查库更新**                                               |
+| Update Imported Objects from Library                         | **从库更新导入对象** 更新某一个库的组件或样式。              |
 | **Styles**                                                   | **样式**                                                     |
 | Select Layer by Layer / Text Style                           | **按图层/文本样式选择图层** 按图层样式、文本样式从当前页面或选择组内选择图层。 |
 | Select Layers with Same Style                                | **相同共享样式选择的图层** 选择当前页面中与选中图层有相同共享样式的图层。 |

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "62.0.20200210",
+  "version": "62.0.20200211",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1517,6 +1517,12 @@
       "identifier": "find_and_replace_symbol",
       "script": "Symbol/Find_and_Replace_Symbol.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Update Imported Objects from Library",
+      "identifier": "update_imported_objects_from_library",
+      "script": "Library/Update_Imported_Objects_from_Library.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1691,7 +1697,8 @@
           "-",
           "update_selected_library_symbol",
           "update_selected_symbol_overrides",
-          "check_for_library_updates"
+          "check_for_library_updates",
+          "update_imported_objects_from_library"
         ]
       },
       {

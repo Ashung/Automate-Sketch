@@ -120,7 +120,7 @@ var onRun = function(context) {
             count = 0;
             fromLibrary = librariesOfImportedSymbol[librariesUsedViewIndex];
             importedSymbols.forEach(function(symbol) {
-                if (symbol.libraryID() == fromLibrary.libraryID() && symbol.sourceLibraryName() == fromLibrary.name()) {
+                if (String(symbol.libraryID()) == String(fromLibrary.libraryID()) && String(symbol.sourceLibraryName()) == String(fromLibrary.name())) {
                     symbol.setLibraryID(toLibrary.libraryID());
                     symbol.setSourceLibraryName(toLibrary.name());
                     count ++;
@@ -132,7 +132,7 @@ var onRun = function(context) {
             count = 0;
             fromLibrary = librariesOfImportedTextStyle[librariesUsedViewIndex];
             importedTextStyle.forEach(function(style) {
-                if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {
+                if (String(style.libraryID()) == String(fromLibrary.libraryID()) && String(style.sourceLibraryName()) == String(fromLibrary.name())) {
                     style.setLibraryID(toLibrary.libraryID());
                     style.setSourceLibraryName(toLibrary.name());
                     count ++;
@@ -144,7 +144,7 @@ var onRun = function(context) {
             count = 0;
             fromLibrary = librariesOfImportedLayerStyle[librariesUsedViewIndex];
             importedLayerStyle.forEach(function(style) {
-                if (style.libraryID() == fromLibrary.libraryID() && style.sourceLibraryName() == fromLibrary.name()) {
+                if (String(style.libraryID()) == String(fromLibrary.libraryID()) && String(style.sourceLibraryName()) == String(fromLibrary.name())) {
                     style.setLibraryID(toLibrary.libraryID());
                     style.setSourceLibraryName(toLibrary.name());
                     count ++;

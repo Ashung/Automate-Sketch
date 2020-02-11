@@ -135,6 +135,7 @@ Make your workflow more efficient.
 | Update Selected Library Symbol                               | Only update the selected library symbols.                    |
 | Update Selected Symbol Overrides                             | Update selected symbol overrides.                            |
 | Check For Library Updates                                    | Check for library updates.                                   |
+| Update Imported Objects from Library                         | Sync library symbols, styles in a library.                   |
 | **Styles**                                                   |                                                              |
 | Select Layer by Layer / Text Style                           | Select layer by layer or text style in curret page, selected layer groups. |
 | Select Layers with Same Style                                | Select layers in current page with same shared style of selected layer. |

@@ -17,7 +17,7 @@ var onRun = function(context) {
     var artboard = new Artboard({
         name: "Library Preview",
         parent: page,
-        frame: new Rectangle(0, 0, 200, 160),
+        frame: new Rectangle(0, 0, 200, 200),
         background: {
             enabled: true,
             includeInExport: true,
