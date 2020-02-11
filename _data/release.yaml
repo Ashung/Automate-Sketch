@@ -1,4 +1,12 @@
 -
+  version: 62.0.20200211
+  description:
+    - Add Update Imported Objects from Library. #222
+    - Fix Add Library Preview. #244
+    - Fix Replace Library bug. #213 #224
+  commitID: 06338669c20304c6531960a0509b9d2771aefb6f
+
+-
   version: 62.0.20200210
   description:
     - "Fix Update Selected Library Symbol. #242"
