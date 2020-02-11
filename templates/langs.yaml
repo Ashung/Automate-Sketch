@@ -796,3 +796,6 @@ new_guide_layout:
 find_and_replace_symbol:
   - Find and Replace Symbol
   - 查找并替换组件
+update_imported_objects_from_library:
+  - Update Imported Objects from Library
+  - 从库更新导入对象
