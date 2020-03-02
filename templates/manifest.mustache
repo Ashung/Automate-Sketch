@@ -218,6 +218,11 @@
             "script": "Text/Add_Space_Between_CJK_and_Western_Character.js"
         },
         {
+            "name": "{{fixed_layer_name}}",
+            "identifier": "fixed_layer_name",
+            "script": "Text/Unfixed_Layer_Name.js"
+        },
+        {
             "name": "{{unfixed_layer_name}}",
             "identifier": "unfixed_layer_name",
             "script": "Text/Unfixed_Layer_Name.js"
@@ -1282,6 +1287,11 @@
             "name": "{{update_imported_objects_from_library}}",
             "identifier": "update_imported_objects_from_library",
             "script": "Library/Update_Imported_Objects_from_Library.js"
+        },
+        {
+            "name": "{{change_document_id}}",
+            "identifier": "change_document_id",
+            "script": "Development/Change_Document_ID.js"
         }
     ],
     "menu": {
@@ -1509,8 +1519,8 @@
                     "remove_unused_layer_styles",
                     "remove_unused_text_styles",
                     "-",
-                    "reset_style",
                     "update_style",
+                    "reset_style",
                     "reset_all_layer_styles",
                     "reset_all_text_styles",
                     "-",
@@ -1589,6 +1599,7 @@
                     "resize_fit_text_height",
                     "toggle_text_auto_and_fixed",
                     "-",
+                    "fixed_layer_name",
                     "unfixed_layer_name",
                     "-",
                     "character_count"
@@ -1649,6 +1660,7 @@
                     "copy_objectid_or_symbolid",
                     "-",
                     "show_layer_info",
+                    "change_document_id",
                     "-",
                     "plugin_dev_setting",
                     "reload_plugins"

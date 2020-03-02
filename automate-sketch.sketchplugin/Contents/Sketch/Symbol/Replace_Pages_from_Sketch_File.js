@@ -43,7 +43,7 @@ var onRun = function(context) {
         }
     }
 
-    document.loadLayerListPanel();
+    // document.loadLayerListPanel();
     document.showMessage("Replace " + ((count > 1) ? (count + " pages.") : (count + " page.")));
 
 };

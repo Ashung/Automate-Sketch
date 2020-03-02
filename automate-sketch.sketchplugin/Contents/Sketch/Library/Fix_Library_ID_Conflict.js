@@ -9,7 +9,7 @@ var onRun = function(context) {
     var document = context.document;
 
     if (MSApplicationMetadata.metadata().appVersion < 48) {
-        document.showMessage("😮 You have to update to Sketch 48+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 48+ to use this feature.");
         return;
     }
 
@@ -36,7 +36,7 @@ var onRun = function(context) {
         "Fix Library ID Conflict",
         "Change the library ID, will cause symbol's auto update to break.",
         viewWidth,
-        ["Cancel"]
+        ["Close"]
     );
 
     var scrollView = ui.scrollView([], [0, 0, viewWidth, viewHeight]);
@@ -72,8 +72,8 @@ var onRun = function(context) {
         imageView.layer().setBorderWidth(1);
         imageView.layer().setBorderColor(CGColorCreateGenericRGB(0, 0, 0, 0.05));
         var imageSrc = NSImageView.alloc().initWithFrame(NSMakeRect(0, 0, previewImageWidth, previewImageHeight));
-        var document = MSDocumentReader.readerForDocumentAtURL(library.locationOnDisk());
-        var image = document.libraryPreviewImage();
+        var libraryDocument = MSDocumentReader.readerForDocumentAtURL(library.locationOnDisk());
+        var image = libraryDocument.libraryPreviewImage();
         imageSrc.setImage(image);
         imageView.addSubview(imageSrc);
         itemView.addSubview(imageView);
@@ -95,7 +95,7 @@ var onRun = function(context) {
             });
         } else {
             openButtonView.setCOSJSTargetFunction(function(sender) {
-                context.document.showMessage("You can't edit this file.");
+                document.showMessage("You can't edit this file.");
             });
         }
 
@@ -152,9 +152,13 @@ var onRun = function(context) {
             changeButton.setTitle("Change ID");
             changeButton.setCOSJSTargetFunction(function(sender) {
                 var targetLibraryPath = sender.superview().subviews().objectAtIndex(0).stringValue();
-                var newID = changeDocumentID(targetLibraryPath);
-                var idView = sender.superview().subviews().objectAtIndex(4);
-                idView.setStringValue(newID);
+                var newID = changeDocumentID(document, targetLibraryPath);
+                if (newID) {
+                    var idView = sender.superview().subviews().objectAtIndex(4);
+                    idView.setStringValue(newID);
+                } else {
+                    document.showMessage("Error: can't read data from file. You can open library file and run Development - Change Document ID");
+                }
             });
             itemView.addSubview(changeButton);
         }
@@ -190,58 +194,66 @@ function librariesWithConflictID() {
     librariesCopy.sortUsingDescriptors(NSArray.arrayWithObject(sortByID));
 
     var librariesCopy2 = librariesCopy.mutableCopy();
-    librariesCopy2.forEach(function(library, index, array) {
-        if (index == 0) {
-            if (!library.libraryID().isEqualToString(librariesCopy2[index + 1].libraryID())) {
-                librariesCopy.removeObject(library);
-            }
-        } else if (index == librariesCopy2.count() - 1) {
-            if (!library.libraryID().isEqualToString(librariesCopy2[index - 1].libraryID())) {
-                librariesCopy.removeObject(library);
+    librariesCopy2.forEach(function(library, index) {
+        if (library.libraryID()) {
+            if (index == 0) {
+                if (!library.libraryID().isEqual(librariesCopy2[index + 1].libraryID())) {
+                    librariesCopy.removeObject(library);
+                }
+            } else if (index == librariesCopy2.count() - 1) {
+                if (!library.libraryID().isEqual(librariesCopy2[index - 1].libraryID())) {
+                    librariesCopy.removeObject(library);
+                }
+            } else {
+                if (
+                    !library.libraryID().isEqual(librariesCopy2[index + 1].libraryID()) &&
+                    !library.libraryID().isEqual(librariesCopy2[index - 1].libraryID())
+                ) {
+                    librariesCopy.removeObject(library);
+                }
             }
         } else {
-            if (
-                !library.libraryID().isEqualToString(librariesCopy2[index + 1].libraryID()) &&
-                !library.libraryID().isEqualToString(librariesCopy2[index - 1].libraryID())
-            ) {
-                librariesCopy.removeObject(library);
-            }
+            librariesCopy.removeObject(library);
         }
     });
 
     return librariesCopy;
 }
 
-function changeDocumentID(documentPath) {
+function changeDocumentID(document, documentPath) {
     var newID = NSUUID.UUID().UUIDString();
     var documentController = NSDocumentController.sharedDocumentController();
     var fileURL = NSURL.fileURLWithPath(documentPath);
 
-    // If document is opened
-    var document = documentController.documentForURL(fileURL);
-    if (document) {
-        document.documentData().setObjectID(newID);
-        document.saveDocument(nil);
+    // If library document is opened
+    var libraryDocument = documentController.documentForURL(fileURL);
+    if (libraryDocument) {
+        libraryDocument.documentData().setObjectID(newID);
+        libraryDocument.saveDocument(nil);
         return newID;
     } else {
         var error = MOPointer.alloc().init();
-        var document = MSDocument.alloc().init();
+        var newDocument = MSDocument.alloc().init();
         var type = "com.bohemiancoding.sketch.drawing";
-        document.readFromURL_ofType_error(fileURL, type, error);
+        newDocument.readFromURL_ofType_error(fileURL, type, error);
 
         if (error.value() != null) {
             document.showMessage("Error: " + error.value());
             return;
         }
 
-        document.documentData().setObjectID(newID);
+        if (newDocument.documentData().documentIsEmpty()) {
+            return;
+        }
+
+        newDocument.documentData().setObjectID(newID);
 
         // Hack
-        document.addBlankPage();
-        document.removePage(document.pages().lastObject());
+        newDocument.addBlankPage();
+        newDocument.documentData().removePage(document.pages().lastObject());
 
         var error2 = MOPointer.alloc().init();
-        var writeToNewDocument = document.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
+        var writeToNewDocument = newDocument.writeToURL_ofType_forSaveOperation_originalContentsURL_error(
             fileURL, type, NSSaveOperation, nil, error2
         );
 

@@ -165,7 +165,10 @@ add_space_between_cjk_and_western_character:
   - 中西文字体间增加空格
 unfixed_layer_name:
   - Unfixed Layer Name
-  - 取消当页固定图层名
+  - 取消固定图层名
+fixed_layer_name:
+  - Fixed Layer Name
+  - 固定图层名
 clear_slices:
   - Remove All Slices
   - 清除当页所有切片
@@ -682,12 +685,6 @@ add_colors_or_gradients_from_selected_layers_to_document:
 find_and_replace_layer_name:
   - Find and Replace Layer Name
   - 查找并替换图层名
-reset_style:
-  - Reset Style
-  - 重置样式
-update_style:
-  - Update Style
-  - 更新样式
 toggle_adjust_content_on_resize:
   - Toggle Adjust Content on Resize
   - 开关根据尺寸适配内容
@@ -769,12 +766,18 @@ export_artboard_to_icns_file:
 toggle_mask_for_selected_layers:
   - Toggle Mask for Selected Layers
   - 选中图层设置或取消蒙版
+reset_style:
+  - Reset Style for Selected Layers
+  - 重置选中样式
 reset_all_layer_styles:
   - Reset All Layer Styles
   - 重置所有图层样式
 reset_all_text_styles:
   - Reset All Text Styles
   - 重置所有文本样式
+update_style:
+  - Update Style for Selected Layers
+  - 更新样式
 find_and_replace_layer_style:
   - Find and Replace Layer Style
   - 查找并替换图层样式
@@ -799,3 +802,6 @@ find_and_replace_symbol:
 update_imported_objects_from_library:
   - Update Imported Objects from Library
   - 从库更新导入对象
+change_document_id:
+  - Change Document ID
+  - 更改文档 ID
