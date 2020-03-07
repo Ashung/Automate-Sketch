@@ -1292,6 +1292,31 @@
             "name": "{{change_document_id}}",
             "identifier": "change_document_id",
             "script": "Development/Change_Document_ID.js"
+        },
+        {
+            "name": "{{copy_document_url}}",
+            "identifier": "copy_document_url",
+            "script": "Utilities/Copy_Document_URL.js"
+        },
+        {
+            "name": "{{copy_text_from_layer}}",
+            "identifier": "copy_text_from_layer",
+            "script": "Data/Copy_Text_From_Layer.js"
+        },
+        {
+            "name": "{{copy_text_from_override}}",
+            "identifier": "copy_text_from_override",
+            "script": "Data/Copy_Text_From_Layer.js"
+        },
+        {
+            "name": "{{divide_slice}}",
+            "identifier": "divide_slice",
+            "script": "Slice/Divide_Slice.js"
+        },
+        {
+            "name": "{{add_styles_from_selected_layers}}",
+            "identifier": "add_styles_from_selected_layers",
+            "script": "Style/Add_Styles_from_Selected_Layers.js"
         }
     ],
     "menu": {
@@ -1535,6 +1560,7 @@
                     "create_style_guide",
                     "create_typography_guide",
                     "-",
+                    "add_styles_from_selected_layers",
                     "add_colors_or_gradients_from_selected_layers_to_document",
                     "import_document_assets_from_sketch_file",
                     "import_text_styles_from_sketch_file",
@@ -1620,6 +1646,8 @@
                     "clear_slices",
                     "clear_exportables",
                     "-",
+                    "divide_slice",
+                    "-",
                     "save_export_presets",
                     "load_export_presets"
                 ]
@@ -1627,6 +1655,9 @@
             {
                 "title": "{{data}}",
                 "items": [
+                    "copy_text_from_layer",
+                    "copy_text_from_override",
+                    "-",
                     "export_data_from_text_layers",
                     "export_image_from_layers",
                     "export_data_from_symbol_instances"
@@ -1669,6 +1700,8 @@
             {
                 "title": "{{utilities}}",
                 "items": [
+                    "copy_document_url",
+                    "-",
                     "shortcuts_manager",
                     "-",
                     "insert_layers_from_svg_code",

@@ -234,6 +234,7 @@ function changeDocumentID(document, documentPath) {
     } else {
         var error = MOPointer.alloc().init();
         var newDocument = MSDocument.alloc().init();
+        newDocument.setDisplayName(documentPath.slice(documentPath.lastIndexOf("/") + 1));
         var type = "com.bohemiancoding.sketch.drawing";
         newDocument.readFromURL_ofType_error(fileURL, type, error);
 

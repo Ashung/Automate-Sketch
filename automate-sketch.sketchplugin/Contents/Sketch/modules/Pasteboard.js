@@ -7,10 +7,20 @@ module.exports.pbcopy = function(text) {
 };
 
 module.exports.layersFromPasteboard = function(context){
+    var version = MSApplicationMetadata.metadata().appVersion;
     var pasteboardManager = AppController.sharedInstance().pasteboardManager();
-    var pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(
-        pasteboard, context.document.colorSpace(), nil
-    );
+    var pasteboardLayers;
+    if (version >= 64) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options_convertColorSpace(
+            pasteboard, context.document.colorSpace(), nil, true
+        );
+    } else if (version >= 48) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(
+            pasteboard, context.document.colorSpace(), nil
+        );
+    } else {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
+    }
     if (pasteboardLayers == null) {
         return;
     }

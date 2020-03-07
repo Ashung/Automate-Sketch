@@ -86,9 +86,11 @@ var onRun = function(context) {
             layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), false
         );
         var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
+        backgroundImage.setSize(CGSizeMake(backgroundImage.size().width / 2, backgroundImage.size().height / 2));
         imageView.setWantsLayer(true);
         imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
         imageView.setImage(symbolPreviewImage);
+        imageView.setFlipped(true);
         itemView.addSubview(imageView);
 
         // Library symbol icon

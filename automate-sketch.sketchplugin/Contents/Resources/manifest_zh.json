@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "63.1.20200302",
+  "version": "64.0.20200307",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1535,6 +1535,36 @@
       "identifier": "change_document_id",
       "script": "Development/Change_Document_ID.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "拷贝文档链接",
+      "identifier": "copy_document_url",
+      "script": "Utilities/Copy_Document_URL.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从图层拷贝文本",
+      "identifier": "copy_text_from_layer",
+      "script": "Data/Copy_Text_From_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从覆盖拷贝文本",
+      "identifier": "copy_text_from_override",
+      "script": "Data/Copy_Text_From_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "划分切片",
+      "identifier": "divide_slice",
+      "script": "Slice/Divide_Slice.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从选中图层添加样式",
+      "identifier": "add_styles_from_selected_layers",
+      "script": "Style/Add_Styles_from_Selected_Layers.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1778,6 +1808,7 @@
           "create_style_guide",
           "create_typography_guide",
           "-",
+          "add_styles_from_selected_layers",
           "add_colors_or_gradients_from_selected_layers_to_document",
           "import_document_assets_from_sketch_file",
           "import_text_styles_from_sketch_file",
@@ -1863,6 +1894,8 @@
           "clear_slices",
           "clear_exportables",
           "-",
+          "divide_slice",
+          "-",
           "save_export_presets",
           "load_export_presets"
         ]
@@ -1870,6 +1903,9 @@
       {
         "title": "数据",
         "items": [
+          "copy_text_from_layer",
+          "copy_text_from_override",
+          "-",
           "export_data_from_text_layers",
           "export_image_from_layers",
           "export_data_from_symbol_instances"
@@ -1912,6 +1948,8 @@
       {
         "title": "实用工具",
         "items": [
+          "copy_document_url",
+          "-",
           "shortcuts_manager",
           "-",
           "insert_layers_from_svg_code",

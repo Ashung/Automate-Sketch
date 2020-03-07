@@ -805,3 +805,18 @@ update_imported_objects_from_library:
 change_document_id:
   - Change Document ID
   - 更改文档 ID
+copy_document_url:
+  - Copy Document URL
+  - 拷贝文档链接
+copy_text_from_override:
+  - Copy Text from Override
+  - 从覆盖拷贝文本
+copy_text_from_layer:
+  - Copy Text from Layer
+  - 从图层拷贝文本
+divide_slice:
+  - Divide Slice
+  - 划分切片
+add_styles_from_selected_layers:
+  - Add Styles From Selected Layers
+  - 从选中图层添加样式

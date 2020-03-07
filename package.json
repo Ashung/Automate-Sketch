@@ -4,7 +4,9 @@
   "main": "make_manifest.js",
   "author": "Ashung Hung",
   "scripts": {
-    "make": "sh make.sh"
+    "make": "sh make.sh",
+    "make-beta": "sh make.sh beta",
+    "make-private": "sh make.sh private"
   },
   "devDependencies": {
     "js-yaml": "^3.6.1",
