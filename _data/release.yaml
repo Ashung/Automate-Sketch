@@ -1,9 +1,29 @@
 -
+  version: 64.0.20200309
+  description:
+    - Add Change Document ID.
+    - Add Copy Document URL.
+    - Add Add Styles from Selected Layers.
+    - Add Fix Layer Name.
+    - Add Copy Text from Layer/Override.
+    - Add Divide Slice.
+    - Change Update Style to Update Style for Selected Layers.
+    - Change Reset Style to Reset Style for Selected Layers.
+    - Improved Find and Replace Style.
+    - Improved Find and Replace Symbol.
+    - Rewrite Replace Library.
+    - Fixed Fix Library ID Conflict bug.
+    - Fixed bugs the some feature will broken the layer list.
+    - "Fixed Paste and Replace not work in v64. fix #246"
+    - "Create Symbols from Selected Layers now support artboard. fix #245"
+  commitID: a79f2c84e9bc84ad9e9a9fad281866a1e8a1bf74
+
+-
   version: 62.0.20200211
   description:
-    - Add Update Imported Objects from Library. #222
-    - Fix Add Library Preview. #244
-    - Fix Replace Library bug. #213 #224
+    - "Add Update Imported Objects from Library. #222"
+    - "Fix Add Library Preview. #244"
+    - "Fix Replace Library bug. #213 #224"
   commitID: 06338669c20304c6531960a0509b9d2771aefb6f
 
 -
