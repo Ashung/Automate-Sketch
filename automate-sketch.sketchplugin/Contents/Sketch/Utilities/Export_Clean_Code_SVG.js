@@ -301,7 +301,7 @@ var onRun = function(context) {
                 }
 
                 if (flattenAllLayer.state() == NSOnState && type.isShape(children)) {
-                    if (children.canFlatten()) {
+                    if (children.canFlatten() && children.class() == "MSShapeGroup") {
                         children.flatten();
                     }
                 }

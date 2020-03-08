@@ -21,37 +21,43 @@ var onRun = function(context) {
         "Split selected text layers to multiple layer, use new line and separator."
     );
 
-    var splitSpace = ui.checkBox(true, 'Split blank space, "a b c".');
+    var splitNewLine = ui.checkBox(true, 'Split new line.');
+    dialog.addView(splitNewLine);
+
+    var splitSpace = ui.checkBox(false, 'Split new line and blank space, "a b c".');
     dialog.addView(splitSpace);
 
-    var splitComma = ui.checkBox(false, 'Split comma, "a, b, c".');
+    var splitComma = ui.checkBox(false, 'Split new line and comma, "a, b, c".');
     dialog.addView(splitComma);
 
-    var splitLine = ui.checkBox(false, 'Split vertical line. "a | b | c"');
-    dialog.addView(splitLine);
+    var splitVerticalLine = ui.checkBox(false, 'Split new line and vertical line. "a | b | c"');
+    dialog.addView(splitVerticalLine);
 
+    splitNewLine.setCOSJSTargetFunction(function(sender) {
+        unCheckedAllViews([splitSpace, splitComma, splitVerticalLine]);
+    });
     splitSpace.setCOSJSTargetFunction(function(sender) {
-        unCheckedAllViews(dialog.accessoryView().subviews());
-        sender.setState(NSOnState);
+        unCheckedAllViews([splitNewLine, splitComma, splitVerticalLine]);
     });
     splitComma.setCOSJSTargetFunction(function(sender) {
-        unCheckedAllViews(dialog.accessoryView().subviews());
-        sender.setState(NSOnState);
+        unCheckedAllViews([splitNewLine, splitSpace, splitVerticalLine]);
     });
-    splitLine.setCOSJSTargetFunction(function(sender) {
-        unCheckedAllViews(dialog.accessoryView().subviews());
-        sender.setState(NSOnState);
+    splitVerticalLine.setCOSJSTargetFunction(function(sender) {
+        unCheckedAllViews([splitNewLine, splitSpace, splitComma]);
     });
 
     // Run
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
-        var separator = " ";
+        var separator;
+        if (splitSpace.state() == NSOnState) {
+            separator = " ";
+        }
         if (splitComma.state() == NSOnState) {
             separator = ",";
         }
-        if (splitLine.state() == NSOnState) {
+        if (splitVerticalLine.state() == NSOnState) {
             separator = "|";
         }
 
@@ -80,27 +86,28 @@ var onRun = function(context) {
                     textLayer.parentGroup().addLayer(newLineTextLayer);
                     newLineTextLayer.select_byExtendingSelection(true, true);
 
-                    var textColumns = textForNewLine.split(separator);
-                    while (textColumns.length > 0) {
-                        var textForNewColumn = textColumns.pop();
-                        newLineTextLayer.setStringValue(textColumns.join(separator) + " ");
-                        var rectColumn = CGRectMake(newLineTextLayer.frame().maxX(), newLineTextLayer.frame().y(), 10, 10);
-                        if (textColumns.length == 0) {
-                            rectColumn.origin.x = newLineTextLayer.frame().x();
+                    if (separator) {
+                        var textColumns = textForNewLine.split(separator);
+                        while (textColumns.length > 0) {
+                            var textForNewColumn = textColumns.pop();
+                            newLineTextLayer.setStringValue(textColumns.join(separator) + " ");
+                            var rectColumn = CGRectMake(newLineTextLayer.frame().maxX(), newLineTextLayer.frame().y(), 10, 10);
+                            if (textColumns.length == 0) {
+                                rectColumn.origin.x = newLineTextLayer.frame().x();
+                            }
+                            textForNewColumn = textForNewColumn.trim();
+                            if (textForNewColumn != "") {
+                                var newColumnTextLayer = MSTextLayer.alloc().initWithFrame(rectColumn);
+                                newColumnTextLayer.setStringValue(textForNewColumn);
+                                newColumnTextLayer.setName(textForNewColumn);
+                                newColumnTextLayer.setStyle(textLayer.style());
+                                newColumnTextLayer.adjustFrameToFit();
+                                textLayer.parentGroup().addLayer(newColumnTextLayer);
+                                newColumnTextLayer.select_byExtendingSelection(true, true);
+                            }
                         }
-                        textForNewColumn = textForNewColumn.trim();
-                        if (textForNewColumn != "") {
-                            var newColumnTextLayer = MSTextLayer.alloc().initWithFrame(rectColumn);
-                            newColumnTextLayer.setStringValue(textForNewColumn);
-                            newColumnTextLayer.setName(textForNewColumn);
-                            newColumnTextLayer.setStyle(textLayer.style());
-                            newColumnTextLayer.adjustFrameToFit();
-                            textLayer.parentGroup().addLayer(newColumnTextLayer);
-                            newColumnTextLayer.select_byExtendingSelection(true, true);
-                        }
+                        newLineTextLayer.removeFromParent();
                     }
-
-                    newLineTextLayer.removeFromParent();
 
                 }
 

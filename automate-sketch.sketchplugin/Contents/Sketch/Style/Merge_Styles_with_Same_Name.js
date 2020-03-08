@@ -54,13 +54,13 @@ var onRun = function(context) {
 
     // Dialog
     var dialogTitle;
-    var dialogDescription = "Select a style to replace other styles with same name.";
+    var dialogDescription = "Select a style you want to keep it.";
     if (identifier == "merge_layer_styles_with_same_name") {
         dialogTitle = "Merge Local Layer Styles with Same Name";
     } else {
         dialogTitle = "Merge Local Text Styles with Same Name";
     }
-    var dialog = new Dialog(dialogTitle, dialogDescription, 400, ["Cancel"]);
+    var dialog = new Dialog(dialogTitle, dialogDescription, 400, ["Close"]);
 
     var scrollView = ui.scrollView([], [400, 150]);
     dialog.addView(scrollView);
@@ -125,9 +125,15 @@ var onRun = function(context) {
                         layer.style = selectedStyle.style;
                         layer.sharedStyleId = (selectedStyle.id);
                     });
-                    var indexInDocument = styles.indexOf(style);
                     removedStyleIds.push(style.id);
-                    styles.splice(indexInDocument, 1);
+
+                    // Remove style
+                    var indexInDocument = styles.indexOf(style);
+                    if (identifier == "merge_layer_styles_with_same_name") {
+                        document.sharedLayerStyles.splice(indexInDocument, 1);
+                    } else {
+                        document.sharedTextStyles.splice(indexInDocument, 1);
+                    }
                 }
             });
 

@@ -307,9 +307,6 @@ export_all_artboards_to_html:
 copy_selected_layer_name:
   - Copy Selected Layer Name
   - 复制选中图层的名称
-copy_slice_as_base64:
-  - Copy Slice As Base64
-  - 复制切片的 Base64
 copy_objectid_or_symbolid:
   - Copy Object ID or Symbol ID
   - 复制对象 ID 或组件 ID
@@ -634,9 +631,6 @@ rename_layers:
 change_texts:
   - Change Texts
   - 更改文本
-copy_svg_path_data:
-  - Copy SVG Path Data
-  - 复制 SVG 路径数据
 insert_layer_from_svg_path_data:
   - Insert Layer from SVG Path Data
   - 从 SVG 路径数据插入图层
@@ -715,12 +709,6 @@ resize_with_ratio:
 move_to_page:
   - Move to Page
   - 移动到页面
-copy_svg_code:
-  - Copy Slice as SVG Code
-  - 拷贝切片的 SVG 代码
-copy_svg_code_url_encoded:
-  - Copy SVG Code (URL-encoded)
-  - 拷贝切片的 SVG 代码 (URL-encoded)
 insert_symbols_from_library:
   - Insert Symbols From Library
   - 从库插入组件
@@ -751,6 +739,15 @@ copy_as_png_2x:
 copy_as_svg:
   - Copy as SVG
   - 拷贝 SVG
+copy_as_path_data:
+  - Copy as Path Data
+  - 复制路径数据
+copy_as_svg_url_encoded:
+  - Copy as SVG (URL-encoded)
+  - 拷贝 SVG (URL-encoded)
+copy_as_base64:
+  - Copy as Base64
+  - 复制 Base64
 new_guides_from_layer:
   - New Guides From Layer
   - 从图层创建辅助线
@@ -768,7 +765,7 @@ toggle_mask_for_selected_layers:
   - 选中图层设置或取消蒙版
 reset_style:
   - Reset Style for Selected Layers
-  - 重置选中样式
+  - 重置选中图层样式
 reset_all_layer_styles:
   - Reset All Layer Styles
   - 重置所有图层样式
@@ -777,7 +774,7 @@ reset_all_text_styles:
   - 重置所有文本样式
 update_style:
   - Update Style for Selected Layers
-  - 更新样式
+  - 更新选中图层样式
 find_and_replace_layer_style:
   - Find and Replace Layer Style
   - 查找并替换图层样式
