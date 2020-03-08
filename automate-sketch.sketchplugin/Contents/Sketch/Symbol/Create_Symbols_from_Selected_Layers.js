@@ -3,30 +3,16 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
-    var Dialog = require("../modules/Dialog").dialog;
-    var ui = require("../modules/Dialog").ui;
-
+    var util = require("util");
     var document = context.document;
     var selection = context.selection;
     var documentData = document.documentData();
 
-    if (selection.count() == 0) {
-        document.showMessage("Please select a layer.");
-        return;
-    }
-
-    var layers = NSMutableArray.alloc().init();;
-    selection.forEach(function(layer) {
-        if (
-            layer.class() != "MSArtboardGroup" &&
-            layer.class() != "MSSymbolMaster"
-        ) {
-            layers.addObject(layer);
-        }
+    var layers = util.toArray(selection).filter(function(layer) {
+        return layer.class() != "MSSymbolMaster";
     });
-
-    if (layers.count() == 0) {
-        document.showMessage("Selected layer must not be an artboard or symbol master.");
+    if (layers.length == 0) {
+        document.showMessage("Please select at least 1 layer except symbol master.");
         return;
     }
 
@@ -34,6 +20,9 @@ var onRun = function(context) {
     var symbolPage = documentData.symbolsPage();
     var targetPage;
     if (currentPage != symbolPage) {
+        var Dialog = require("../modules/Dialog").dialog;
+        var ui = require("../modules/Dialog").ui;
+    
         var dialog = new Dialog(
             "Create Symbols from Selected Layers"
         );
@@ -49,43 +38,54 @@ var onRun = function(context) {
                 if (MSApplicationMetadata.metadata().appVersion < 54) {
                     document.pageTreeLayoutDidChange();
                 }
-            }
-            else {
+            } else {
                 targetPage = currentPage;
             }
         }
-    }
-    else {
+    } else {
         targetPage = symbolPage;
     }
 
     if (targetPage) {
         layers.forEach(function(layer) {
+
             var parent = layer.parentGroup();
 
-            var tmplayer = MSLayer.alloc().init();
-            parent.addLayer(tmplayer);
-            tmplayer.moveToLayer_beforeLayer(parent, layer);
+            if (currentPage != documentData.symbolsPage()) {
+                var tempLayer = MSLayer.alloc().init();
+                parent.addLayer(tempLayer);
+                tempLayer.moveToLayer_beforeLayer(parent, layer);
+            }
 
             var frame = layer.frame().rect();
-            var symbolmaster = MSSymbolMaster.alloc().initWithFrame(frame);
-            symbolmaster.setName(layer.name());
-            layer.moveToLayer_beforeLayer(symbolmaster, nil);
-            layer.frame().setX(0);
-            layer.frame().setY(0);
             var position = targetPage.originForNewArtboardWithSize(frame.size);
-            targetPage.addLayer(symbolmaster);
-            symbolmaster.frame().setX(position.x);
-            symbolmaster.frame().setY(position.y);
 
-            var instance = symbolmaster.newSymbolInstance();
-            parent.addLayer(instance);
-            instance.frame().setX(frame.origin.x);
-            instance.frame().setY(frame.origin.y);
-            instance.moveToLayer_beforeLayer(parent, tmplayer);
+            var symbolMaster;
+            if (layer.class() == "MSArtboardGroup") {
+                symbolMaster = MSSymbolMaster.convertArtboardToSymbol(layer);
+                symbolMaster.moveToLayer_beforeLayer(targetPage, nil);
+            } else {
+                symbolMaster = MSSymbolMaster.alloc().initWithFrame(frame);
+                symbolMaster.setName(layer.name());
+                layer.moveToLayer_beforeLayer(symbolMaster, nil);
+                layer.frame().setX(0);
+                layer.frame().setY(0);
+                targetPage.addLayer(symbolMaster);
+            }
 
-            tmplayer.removeFromParent();
+            if (currentPage != documentData.symbolsPage()) {
+
+                symbolMaster.frame().setX(position.x);
+                symbolMaster.frame().setY(position.y);
+
+                var instance = symbolMaster.newSymbolInstance();
+                parent.addLayer(instance);
+                instance.frame().setX(frame.origin.x);
+                instance.frame().setY(frame.origin.y);
+                instance.moveToLayer_beforeLayer(parent, tempLayer);
+
+                tempLayer.removeFromParent();
+            }
         });
     }
-
 };
