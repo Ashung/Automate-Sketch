@@ -8,6 +8,18 @@ var onRun = function(context) {
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var symbols = document.getSymbols();
+    symbols = symbols.sort(function(a, b) {
+        var _a = a.getLibrary() ? "zzz" + a.getLibrary().name + "-" + a.name : a.name;
+        var _b = b.getLibrary() ? "zzz" + b.getLibrary().name + "-" + b.name : b.name;
+        if (_a < _b) {
+            return -1;
+        }
+        if (_a > _b) {
+            return 1;
+        }
+        return 0;
+    });
+
     var localSymbols = symbols.filter(function(symbol) {
         return !symbol.getLibrary();
     });
@@ -26,13 +38,33 @@ var onRun = function(context) {
     loadSelectMenuData(findSymbolView, symbols);
     dialog.addView(findSymbolView);
 
+    // Filter
+    dialog.addLabel("Find symbols in:");
+    var findFilterView = ui.popupButton([
+        "Selected layers",
+        "Child layers of selected layer",
+        "Current page",
+        "Document"
+    ]);
+    dialog.addView(findFilterView);
+
+    dialog.addLabel("Find symbol layer or override:");
+    var replaceFilterView = ui.popupButton([
+        "Both symbol layer and override",
+        "Symbol layer",
+        "Symbol override"
+    ]);
+    dialog.addView(replaceFilterView);
+
+    dialog.addView(ui.divider());
+
     // Library
     var libraries = sketch.getLibraries();
     var enabledLibraries = libraries.filter(function(library) {
         return library.enabled == true;
     });
 
-    dialog.addLabel("Replace symbol from library or document:");
+    dialog.addLabel("Replace symbol from document or library:");
     var namesOfEnabledLibraries = enabledLibraries.map(function(library) {
         return library.name;
     });
@@ -58,27 +90,20 @@ var onRun = function(context) {
         } else {
             selectedLibrary = enabledLibraries[selectedIndex - 1];
             symbolReferences = selectedLibrary.getImportableSymbolReferencesForDocument(document);
+            symbolReferences = symbolReferences.sort(function(a, b) {
+                if (a.name < b.name) {
+                    return -1;
+                }
+                if (a.name > b.name) {
+                    return 1;
+                }
+                return 0;
+            });
             loadSelectMenuData(targetSymbolView, symbolReferences);
         }
     });
 
-    // Filter
-    dialog.addLabel("Find symbols in:");
-    var findFilterView = ui.popupButton([
-        "Selected layers",
-        "Child layers of selected layer",
-        "Current page",
-        "Document"
-    ]);
-    dialog.addView(findFilterView);
-
-    dialog.addLabel("Replace symbol layer or override:");
-    var replaceFilterView = ui.popupButton([
-        "Both symbol layer and override",
-        "Symbol layer",
-        "Symbol override"
-    ]);
-    dialog.addView(replaceFilterView);
+    dialog.addView(ui.divider());
 
     var sizeView = ui.checkBox(false, "Swap at Original Size. (For symbol layer)");
     dialog.addView(sizeView);

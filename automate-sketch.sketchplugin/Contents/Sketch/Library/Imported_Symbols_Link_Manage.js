@@ -9,7 +9,7 @@ var onRun = function(context) {
 
     var document = context.document;
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use this feature.");
         return;
     }
 

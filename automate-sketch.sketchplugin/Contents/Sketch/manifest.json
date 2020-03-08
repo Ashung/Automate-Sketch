@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "62.0.20200211",
+  "version": "64.0.20200309",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -253,6 +253,12 @@
       "name": "Add Space Between CJK and Latin Character",
       "identifier": "add_space_between_cjk_and_western_character",
       "script": "Text/Add_Space_Between_CJK_and_Western_Character.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Fixed Layer Name",
+      "identifier": "fixed_layer_name",
+      "script": "Text/Unfixed_Layer_Name.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1285,7 +1291,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Update Style",
+      "name": "Update Style for Selected Layers",
       "identifier": "update_style",
       "script": "Style/Update_Style.js",
       "icon": "icon_runner.png"
@@ -1453,7 +1459,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Reset Style",
+      "name": "Reset Style for Selected Layers",
       "identifier": "reset_style",
       "script": "Style/Reset_Style.js",
       "icon": "icon_runner.png"
@@ -1522,6 +1528,42 @@
       "name": "Update Imported Objects from Library",
       "identifier": "update_imported_objects_from_library",
       "script": "Library/Update_Imported_Objects_from_Library.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Document ID",
+      "identifier": "change_document_id",
+      "script": "Development/Change_Document_ID.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy Document URL",
+      "identifier": "copy_document_url",
+      "script": "Utilities/Copy_Document_URL.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy Text from Layer",
+      "identifier": "copy_text_from_layer",
+      "script": "Data/Copy_Text_From_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy Text from Override",
+      "identifier": "copy_text_from_override",
+      "script": "Data/Copy_Text_From_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Divide Slice",
+      "identifier": "divide_slice",
+      "script": "Slice/Divide_Slice.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Add Styles From Selected Layers",
+      "identifier": "add_styles_from_selected_layers",
+      "script": "Style/Add_Styles_from_Selected_Layers.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1750,8 +1792,8 @@
           "remove_unused_layer_styles",
           "remove_unused_text_styles",
           "-",
-          "reset_style",
           "update_style",
+          "reset_style",
           "reset_all_layer_styles",
           "reset_all_text_styles",
           "-",
@@ -1766,6 +1808,7 @@
           "create_style_guide",
           "create_typography_guide",
           "-",
+          "add_styles_from_selected_layers",
           "add_colors_or_gradients_from_selected_layers_to_document",
           "import_document_assets_from_sketch_file",
           "import_text_styles_from_sketch_file",
@@ -1830,6 +1873,7 @@
           "resize_fit_text_height",
           "toggle_text_auto_and_fixed",
           "-",
+          "fixed_layer_name",
           "unfixed_layer_name",
           "-",
           "character_count"
@@ -1850,6 +1894,8 @@
           "clear_slices",
           "clear_exportables",
           "-",
+          "divide_slice",
+          "-",
           "save_export_presets",
           "load_export_presets"
         ]
@@ -1857,6 +1903,9 @@
       {
         "title": "Data",
         "items": [
+          "copy_text_from_layer",
+          "copy_text_from_override",
+          "-",
           "export_data_from_text_layers",
           "export_image_from_layers",
           "export_data_from_symbol_instances"
@@ -1890,6 +1939,7 @@
           "copy_objectid_or_symbolid",
           "-",
           "show_layer_info",
+          "change_document_id",
           "-",
           "plugin_dev_setting",
           "reload_plugins"
@@ -1898,6 +1948,8 @@
       {
         "title": "Utilities",
         "items": [
+          "copy_document_url",
+          "-",
           "shortcuts_manager",
           "-",
           "insert_layers_from_svg_code",

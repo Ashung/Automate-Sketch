@@ -76,7 +76,7 @@ Make your workflow more efficient.
 | Replace Fonts                                                | Replace Fonts.                                               |
 | Resize to Fit Text Height                                    | Resize text layer to fit text field height.                  |
 | Toggle Auto and Fixed                                        | Toggle selected text layers auto and fixed.                  |
-| Unfixed Layer Name                                           | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
+| Fixed / Unfixed Layer Name                                   | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
 | Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
@@ -85,6 +85,7 @@ Make your workflow more efficient.
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
 | Remove All Slices                                            | Clear all slices.                                            |
 | Clear All Exportables                                        | Clear all Exportable settings.                               |
+| Divide Slice                                                 | Divide slice.                                                |
 | Save/Load Export Presets                                     | Save and load export presets.                                |
 | **Artboard**                                                 |                                                              |
 | Paste as Artboards                                           | Copy layers, image files or photos from iOS devices via Handoff, then paste them as artboards. |
@@ -145,8 +146,8 @@ Make your workflow more efficient.
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
 | Remove All Disabled Styles                                   | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
-| Reset Style                                                  | Reset style for selected layers.                             |
-| Update Style                                                 | Update or unlink and update for selected layers.             |
+| Update Style for Selected Layers                             | Update style for selected layers.                            |
+| Reset Style for Selected Layers                              | Reset style for selected layers.                             |
 | Reset All Layer / Text Styles                                | Reset all layer or text styles in document.                  |
 | Find and Replace Layer/Text Style                            | Find and replace layer or text style (include overrides) in current page, document or selected layers. |
 | Merge Local Layer/Text Style with Same Name                  | Merge local styles with same name.                           |
@@ -154,6 +155,7 @@ Make your workflow more efficient.
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
+| Add Styles from Selected Layers                              | Create styles from selected layers, use layer name as style name. |
 | Add Colors or Gradients from Selected Layers to Document     | Create document colors or gradients from selected layers.    |
 | Import Document Assets from Sketch File                      | Import resources (colors, gradients, and patterns) from Sketch files. |
 | Import Text Styles from Sketch File                          | Import text styles from Sketch files.                        |
@@ -168,6 +170,7 @@ Make your workflow more efficient.
 | New Guide Layout                                             | Create a guide layout.                                       |
 | New Guides From Layer                                        | Create guides base selected layers.                          |
 | **Data**                                                     |                                                              |
+| Copy Text from Layer/Override                                | Copy text from selected text layer or text override in symbol instance. |
 | Export Data From Text Layers                                 | Export text file from the content of selected text layers.   |
 | Export Image From Layers                                     | Export images from selected bitmap or image-fill layers.     |
 | Export Data From Symbol Instances                            | Export override texts and images from selected symbol instances. |
@@ -189,9 +192,11 @@ Make your workflow more efficient.
 | Copy Selected Layer Name                                     | Copy the selected layer name to the clipboard.               |
 | Copy ObjectID or SymbolID                                    | When you select a layer, copy the ObjectID or SymbolID of the layer to the clipboard. |
 | Show and Change Layer Info                                   | Show and change layer's objectID, symbolID etc.              |
+| Change Document ID                                           | Show and change document ID.                                 |
 | Plugin Dev Setting                                           | Some environment configs for Sketch plugin development.      |
 | Reload Plugins                                               | Reload all plugins.                                          |
 | **Utilities**                                                |                                                              |
+| Copy Document URL                                            | Use this url to open local document or publich cloud document in Sketch. |
 | Shortcuts Manager                                            | A shortcuts manager.                                         |
 | Insert Layers from SVG Code                                  | Insert shape layers from SVG code.                           |
 | Insert Layer from SVG Path Data                              | Insert a shape layer from SVG path data code.                |

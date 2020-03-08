@@ -195,7 +195,7 @@ var onRun = function(context) {
             }
         });
 
-        document.loadLayerListPanel();
+        // document.loadLayerListPanel();
 
         document.showMessage("Updated " + newSymbolMastersWillAddToDocument.count() + " symbol masters.");
 

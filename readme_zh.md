@@ -77,7 +77,7 @@
 | Replace Fonts                                                | **替换字体**                                                 |
 | Resize to Fit Text Height                                    | **自适应文本高度**                                           |
 | Toggle Auto and Fixed                                        | **切换自动和固定** 切换选中文本图层的宽度自动和固定。        |
-| Unfixed Layer Name                                           | **取消当页固定图层名** 取消文本图层的固定图层名，让文本的图层名跟随内容。 |
+| Fixed / Unfixed Layer Name                                   | **固定图层名 / 取消固定图层名** 取消文本图层的固定图层名，让文本的图层名跟随内容。 |
 | Charater Count                                               | **字符统计**                                                 |
 | **Slice**                                                    | **切片**                                                     |
 | Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
@@ -86,6 +86,7 @@
 | Slice Setting                                                | **切片设置** 设置切片名称、预设和图层列表位置。              |
 | Remove All Slices                                            | **清除当页所有切片**                                         |
 | Clear All Exportables                                        | **清除全部可导出设置**                                       |
+| Divide Slice                                                 | **划分切片**                                                 |
 | Save/Load Export Presets                                     | **保存/载入导出预设** 用于不同用户或电脑之间预设共享。       |
 | **Artboard**                                                 | **画板**                                                     |
 | Paste as Artboards                                           | **粘贴为画板** 复制图层、图片文件或从 iOS 设备使用连续互通复制照片，然后将其粘贴为画板。 |
@@ -146,8 +147,8 @@
 | Swap Fill and Border                                         | **互换填充和描边**                                           |
 | Remove All Disabled Styles                                   | **清除无效样式** 删除当前页所有图层中禁用样式。              |
 | Remove Unused Layer / Text Styles                            | **删除未使用图层样式/文本样式** 删除文档中未使用的图层样式或文本样式。 |
-| Reset Style                                                  | **重置样式** 重置选中图层的样式。                            |
-| Update Style                                                 | **更新样式**  更新选中图层的样式，库样式会自动更新至本地样式。 |
+| Update Style for Selected Layers                             | **更新选中图层样式**  更新选中图层的样式。                   |
+| Reset Style for Selected Layers                              | **重置选中图层样式** 重置选中图层的样式。                    |
 | Reset All Layer / Text Styles                                | **重置所有图层/文本样式**                                    |
 | Find and Replace Layer/Text Style                            | **查找并替换图层/文本样式** 在当前页面、文档或选中图层中查找并替换图层/文本样式(包括样式覆盖)。 |
 | Merge Local Layer/Text Style with Same Name                  | **合并本地同名图层/文本样式**                                |
@@ -155,6 +156,7 @@
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |
 | Create Typography Guide                                      | **创建字体指南** 从文本样式创建字体样式指南。                |
+| Add Styles from Selected Layers                              | **从选中图层添加样式** 以图层名作为样式名，批量创建图层或文本样式。 |
 | Add Colors or Gradients from Selected Layers to Document     | **将选中图层的颜色或渐变添加至文档**                         |
 | Import Document Assets from Sketch File                      | **从 Sketch 文档导入资源** 导入色彩、渐变及图案。            |
 | Import Text Styles from Sketch File                          | **从 Sketch 文档导入文本样式**                               |
@@ -169,6 +171,7 @@
 | New Guide Layout                                             | **新建辅助线布局**                                           |
 | New Guides From Layer                                        | **从图层创建辅助线**                                         |
 | **Data**                                                     | **数据**                                                     |
+| Copy Text from Layer/Override                                | **从图层/覆盖拷贝文本**                                      |
 | Export Data From Text Layers                                 | **从文本图层导出数据** 将选中的文本图层内容导出到 TXT 文件。 |
 | Export Image From Layers                                     | **从图层导出图片** 导出选中的位图或位图填充图层内的图片。    |
 | Export Data From Symbol Instances                            | **从组件导出数据** 导出选中组件 override 上的文本和图片。    |
@@ -190,9 +193,11 @@
 | Copy Selected Layer Name                                     | **复制选中图层的名称** 复制选中的图层名到剪贴板。            |
 | Copy ObjectID or SymbolID                                    | **复制对象 ID 或组件 ID** 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。 |
 | Show and Change Layer Info                                   | **显示和修改图层信息** 显示和修改图层的 ObjectID 或 SymbolID 等等。 |
+| Change Document ID                                           | **更改文档 ID** 显示和修改文档 ID。                          |
 | Plugin Dev Setting                                           | **插件开发设置** 针对 Sketch 插件开发的部分环境配置。        |
 | Reload Plugins                                               | **重新载入插件** 重载所有插件。                              |
 | **Utilities**                                                | **实用工具**                                                 |
+| Copy Document URL                                            | **拷贝文档链接** 使用链接在网页或其他程序上使用 Sketch 打开文档，用于打开本地文档或分享公开的云文档。 |
 | Shortcuts Manager                                            | **快捷键管理器**                                             |
 | Insert Layers from SVG Code                                  | **从 SVG 代码插入图层** 使用 SVG 代码插入图层。              |
 | Insert Layer from SVG Path Data                              | **从 SVG 路径数据插入图层** 使用 SVG 路径数据代码插入图层。  |

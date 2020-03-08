@@ -23,5 +23,5 @@ var onRun = function(context) {
         });
     });
 
-    document.sketchObject.loadLayerListPanel();
+    // document.sketchObject.loadLayerListPanel();
 };

@@ -15,7 +15,7 @@ var onRun = function(context) {
         currentPage.layers.forEach(function(layer) {
             layer.sketchObject.setLayerListExpandedType(1);
         });
-        context.document.loadLayerListPanel();
+        // context.document.loadLayerListPanel();
     });
 
     document.selectedPage = currentPage;

@@ -33,6 +33,18 @@ var onRun = function(context) {
         return;
     }
 
+    styles = styles.sort(function(a, b) {
+        var _a = a.getLibrary() ? "zzz" + a.getLibrary().name + "-" + a.name : a.name;
+        var _b = b.getLibrary() ? "zzz" + b.getLibrary().name + "-" + b.name : b.name;
+        if (_a < _b) {
+            return -1;
+        }
+        if (_a > _b) {
+            return 1;
+        }
+        return 0;
+    });
+
     // Style use in override
     var stylesInOverride = {};
     sketch.find("SymbolInstance").forEach(function(instance) {
@@ -67,6 +79,18 @@ var onRun = function(context) {
     loadSelectMenuData(findStyleView, styles, stylesInOverride);
     dialog.addView(findStyleView);
 
+    // Filter
+    dialog.addLabel("Only find style in:");
+    var filterView = ui.popupButton([
+        "Selected layers",
+        "Child layers of selected layer",
+        "Current page",
+        "Document"
+    ]);
+    dialog.addView(filterView);
+
+    dialog.addView(ui.divider());
+
     // Library
     var libraries = sketch.getLibraries();
     var enabledLibraries = libraries.filter(function(library) {
@@ -77,7 +101,7 @@ var onRun = function(context) {
     var namesOfEnabledLibraries = enabledLibraries.map(function(library) {
         return "(Library) " + library.name;
     });
-    namesOfEnabledLibraries.push("Document");
+    namesOfEnabledLibraries.unshift("Document");
     var libraryView = ui.popupButton(namesOfEnabledLibraries);
     dialog.addView(libraryView);
 
@@ -90,8 +114,6 @@ var onRun = function(context) {
     var selectedLibrary;
     var styleReferences;
     if (enabledLibraries.length == 0) {
-        loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
-    } else {
         selectedLibrary = enabledLibraries[0];
         if (identifier == "find_and_replace_layer_style") {
             styleReferences = selectedLibrary.getImportableLayerStyleReferencesForDocument(document);
@@ -99,11 +121,13 @@ var onRun = function(context) {
             styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
         }
         loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
+    } else {
+        loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
     }
 
     libraryView.setCOSJSTargetFunction(function(sender) {
         var selectedIndex = sender.indexOfSelectedItem();
-        if (selectedIndex == enabledLibraries.length) {
+        if (selectedIndex == 0) {
             loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
             selectedLibrary = undefined;
         } else {
@@ -116,16 +140,6 @@ var onRun = function(context) {
             loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
         }
     });
-
-    // Filter
-    dialog.addLabel("Only find style in:");
-    var filterView = ui.popupButton([
-        "Selected layers",
-        "Child layers of selected layer",
-        "Current page",
-        "Document"
-    ]);
-    dialog.addView(filterView);
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {

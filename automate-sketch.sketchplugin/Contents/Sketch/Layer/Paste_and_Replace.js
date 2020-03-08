@@ -5,7 +5,6 @@ var onRun = function(context) {
 
     var preferences = require("../modules/Preferences");
     var type = require("../modules/Type");
-
     var appVersion = MSApplicationMetadata.metadata().appVersion;
     var document = context.document;
     var selection = context.selection;
@@ -40,7 +39,7 @@ var onRun = function(context) {
                     var pasteboardLayers = getPasteboardLayers(context);
                     var parentGroup = oldLayer.parentGroup();
 
-                    if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                    if (appVersion >= 50) {
                         pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
                             parentGroup,
                             oldLayer.frame().rect().origin,
@@ -57,7 +56,7 @@ var onRun = function(context) {
                     }
 
                     var group;
-                    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                    if (appVersion >= 52) {
                         group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
                     } else {
                         group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
@@ -106,7 +105,7 @@ var onRun = function(context) {
                     newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
 
                     if (parentGroup.class() == "MSLayerGroup") {
-                        if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                        if (appVersion >= 53) {
                             parentGroup.fixGeometryWithOptions(1);
                         } else {
                             parentGroup.resizeToFitChildrenWithOption(1);
@@ -140,12 +139,18 @@ var onRun = function(context) {
 };
 
 function getPasteboardLayers(context) {
+    var version = MSApplicationMetadata.metadata().appVersion;
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;
-    if (MSApplicationMetadata.metadata().appVersion >= 48) {
-        var document = context.document;
-        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(pasteboard, document.colorSpace(), nil);
+    if (version >= 64) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options_convertColorSpace(
+            pasteboard, context.document.colorSpace(), nil, true
+        );
+    } else if (version >= 48) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(
+            pasteboard, context.document.colorSpace(), nil
+        );
     } else {
         pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
     }
