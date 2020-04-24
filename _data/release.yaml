@@ -1,4 +1,16 @@
 -
+  version: 64.0.20200424
+  description:
+    - "Split Text Layer support split by line break. #258"
+    - Fixed Export Clean Code SVG.
+    - "Fixed Merge Styles with Same Name does not remove style. #252"
+    - "Export All Artboards support using prefix/suffix. fixed #254"
+    - "Add Calendar data supplier. # 257"
+    - Quick Export support name convert.
+    - Replace Library only show valid library.
+  commitID: b3576dc62c6aca029a1d9da5502575a070137165
+
+-
   version: 64.0.20200309
   description:
     - Add Change Document ID.
