@@ -10,7 +10,7 @@ var onRun = function(context) {
     var selection = document.selectedLayers.layers;
 
     if (document.sketchObject.isCloudDoc()) {
-        console.log(document.sketchObject.cloudShare().class())
+        // console.log(document.sketchObject.cloudShare().class())
         // sketch://sketch.cloud/s/<shortId>
         var shortId = document.sketchObject.UIMetadata().document.cloudShare.shortId;
         var isPrivate = document.sketchObject.UIMetadata().document.cloudShare.shortId;

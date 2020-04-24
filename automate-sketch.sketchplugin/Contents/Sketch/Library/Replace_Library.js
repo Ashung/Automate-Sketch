@@ -7,15 +7,16 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
 
     var sketch = require("sketch/dom");
-    var libraries = require('sketch/dom').getLibraries();
     var toast = require("sketch/ui").message;
     var document = sketch.getSelectedDocument();
 
+    var libraries = sketch.getLibraries().filter(function(library) {
+        return library.valid;
+    });
     if (libraries.length == 0) {
-        toast('These are no library in "Preferences" - "Libraries".');
+        toast('These are no valid library in "Preferences" - "Libraries".');
         return;
     }
-
     var allLibrariesNames = libraries.map(function(item) {
         return item.name + (!item.enabled ? " (Disabled)" : "");
     });

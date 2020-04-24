@@ -454,6 +454,24 @@ ui.circle = function(color, size) {
 };
 
 /**
+ * @param  {Array|Number} size Optional
+ * @return  {NSDatePicker}
+ */
+ui.datePicker = function(size) {
+    var frame;
+    if (size && Array.isArray(size)) {
+        frame = this.rect(size);
+    } else {
+        frame = this.rect([0, 0, size || 120 , size || 24]);
+    }
+    var datePicker = NSDatePicker.alloc().initWithFrame(frame);
+    datePicker.setDatePickerStyle(NSTextFieldAndStepperDatePickerStyle);
+    datePicker.setDatePickerElements(NSYearMonthDayDatePickerElementFlag|NSYearMonthDatePickerElementFlag);
+    datePicker.setDateValue(NSDate.date());
+    return datePicker;
+};
+
+/**
  * @param  {String} message
  * @param  {String} info
  * @param  {Number} width Optional default is 300.

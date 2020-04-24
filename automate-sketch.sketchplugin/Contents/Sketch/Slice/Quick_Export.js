@@ -7,7 +7,7 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var preferences = require("../modules/Preferences");
     var system = require("../modules/System");
-    var identifier = context.command.identifier();
+    var identifier = __command.identifier();
     var util = require("util");
     var sketch = require("sketch");
 
@@ -20,6 +20,7 @@ var onRun = function(context) {
     var presetDefaultIndex = 0;
     var preset1Index = preferences.get("quickExportPreset1") || 1;
     var preset2Index = preferences.get("quickExportPreset2") || 2;
+    var nameFormatIndex = preferences.get("nameFormatIndex") || 0;
     var isShowInFinder = preferences.get("quickExportShowInFinder");
 
     var exportPresetsTitles = [];
@@ -44,15 +45,23 @@ var onRun = function(context) {
             'You can go to "Preferences" - "Presets" to add more export preset. The default preset end with a "*" sign.'
         );
 
-        var presetLabel1 = ui.textLabel("Preset 1");
-        dialog.addView(presetLabel1);
+        dialog.addLabel("Preset 1");
         var preset1 = ui.popupButton(exportPresetsTitles, 300);
         dialog.addView(preset1);
 
-        var presetLabel2 = ui.textLabel("Preset 2");
-        dialog.addView(presetLabel2);
+        dialog.addLabel("Preset 2");
         var preset2 = ui.popupButton(exportPresetsTitles, 300);
         dialog.addView(preset2);
+
+        dialog.addLabel("Asset Name Format");
+        var nameFormats = ui.popupButton([
+            "Default",
+            "group_name_base_name",
+            "group-name-base-name",
+            "base_name",
+            "base-name"
+        ]);
+        dialog.addView(nameFormats);
 
         var showInFinder = ui.checkBox(isShowInFinder == null ? true : isShowInFinder, "Show in Finder after export.");
         dialog.addView(showInFinder);
@@ -63,11 +72,13 @@ var onRun = function(context) {
         if (preset2Index < exportPresets.count()) {
             preset2.selectItemAtIndex(preset2Index);
         }
+        nameFormats.selectItemAtIndex(nameFormatIndex);
 
         var responseCode = dialog.run();
         if (responseCode == 1000) {
             preferences.set("quickExportPreset1", preset1.indexOfSelectedItem());
             preferences.set("quickExportPreset2", preset2.indexOfSelectedItem());
+            preferences.set("nameFormatIndex", nameFormats.indexOfSelectedItem());
             preferences.set("quickExportShowInFinder", showInFinder.state() == NSOnState ? true : false);
         }
 
@@ -106,7 +117,7 @@ var onRun = function(context) {
     }
 
     selection.layers.forEach(function(layer) {
-        exportLayer(document.sketchObject, layer.sketchObject, destFolder, preset);
+        exportLayer(document.sketchObject, layer.sketchObject, destFolder, nameFormatIndex, preset);
     });
 
     if (isShowInFinder == true || isShowInFinder == null) {
@@ -117,14 +128,46 @@ var onRun = function(context) {
 
 };
 
-function exportLayer(document, layer, destFolder, preset) {
-    var exportRequests = MSExportRequest.exportRequestsFromLayerAncestry_exportFormats_inRect(
-        layer.ancestry(),
-        preset.exportFormats(),
-        layer.absoluteInfluenceRect()
-    );
-    exportRequests.forEach(function(exportRequest) {
-        var filePath = destFolder + "/" + exportRequest.name() + "." + exportRequest.format();
+function exportLayer(document, layer, destFolder, nameFormat, preset) {
+    preset.exportFormats().forEach(function(exportFormat) {
+        var exportRequest = MSExportRequest.exportRequestFromLayerAncestry_exportFormat_inRect(
+            layer.ancestry(),
+            exportFormat,
+            layer.absoluteInfluenceRect()
+        );
+        var filePath = "";
+        if (nameFormat == 1) {
+            filePath += nameParts(layer.name()).map(formatNameUnderLine).join("_");
+        } else if (nameFormat == 2) {
+            filePath += nameParts(layer.name()).map(formatNameUnderLine).join("-");
+        } else if (nameFormat == 3) {
+            filePath = formatNameUnderLine(nameParts(layer.name()).pop());
+        } else if (nameFormat == 4) {
+            filePath = formatNameUnderLine(nameParts(layer.name()).pop());
+        } else {
+            filePath += layer.name();
+        }
+        if (exportFormat.namingScheme() == 0) {
+            filePath += exportFormat.name();
+        } else {
+            filePath = exportFormat.name() + filePath;
+        }
+        filePath = destFolder + "/" + filePath + "." + exportRequest.format();
         document.saveExportRequest_toFile(exportRequest, filePath);
     });
+}
+
+function nameParts(name) {
+    var regSlash = /\s?[\/\\]+\s?/;
+    return name.trim().split(regSlash).filter(function(item) {
+        return item != "";
+    });
+}
+
+function formatNameUnderLine(name) {
+    return name.trim().replace(/\s+/g, "_").replace(/-/g, "_").toLowerCase();
+}
+
+function formatNameDash(name) {
+    return name.trim().replace(/\s+/g, "-").replace(/_/g, "-").toLowerCase();
 }

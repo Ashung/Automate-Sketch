@@ -6,51 +6,84 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var system = require("../modules/System");
-    var doc = context.document;
-    var documentData = doc.documentData();
+    var util = require("util");
+    var sketch = require("sketch");
+    var document = sketch.getSelectedDocument();
+    var documentData = document._getMSDocumentData();
 
     if (documentData.allArtboards().count() == 0) {
-        doc.showMessage("No artboards in current document.");
+        sketch.UI.message("No artboards in current document.");
         return;
     }
 
-    var types = ["Artboard", "Symbol Master", "Artboard & Symbol Master"];
-    var scales = [1, 0.5, 1.5, 2, 2.5, 3, 4];
-    var formats = ["png", "jpg", "tif", "webp", "pdf", "eps", "svg"];
-    var scaleStrings = scales.map(function(scale) {
-        return scale + "x";
-    });
-
     // Dialog
     var dialog = new Dialog(
-        "Export All Artboards",
-        "Export all artboards, symbol masters or both."
+        "Export All Artboards"
     );
 
-    var labelView1 = ui.textLabel("Export:");
-    dialog.addView(labelView1);
+    dialog.addLabel('Export:');
+    var typesView = ui.popupButton([
+        "Artboards",
+        "Symbol Masters",
+        "Artboards & Symbol Masters",
+        "Artboards in Current Page",
+        "Symbol Masters in Current Page",
+        "Artboards & Symbol Masters in Current Page",
+    ]);
+    dialog.addView(typesView);
 
-    var selectBoxTypes = ui.popupButton(types, 200);
-    dialog.addView(selectBoxTypes);
+    dialog.addLabel('Choose a Format and Scale:');
+    var groupView1 = ui.view(25);
+    var formatsView = ui.popupButton(["PNG", "JPG", "PDF", "SVG"], [0, 0, 100, 25]);
+    var scales = [1, 1.5, 2, 2.5, 3, 4];
+    var scalesView = ui.popupButton(scales.map(function(scale) {
+        return scale + "x";
+    }), [110, 0, 100, 25]);
+    groupView1.addSubview(formatsView);
+    groupView1.addSubview(scalesView);
+    dialog.addView(groupView1);
 
-    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
+    dialog.addLabel('Prefix and Suffix of Artboard:');
+    var groupView2 = ui.view(25);
+    var prefixView = ui.textField("pre-", [0, 0, 100, 24]);
+    var suffixView = ui.textField("-suf", [110, 0, 100, 24]);
+    groupView2.addSubview(prefixView);
+    groupView2.addSubview(suffixView);
+    dialog.addView(groupView2);
 
-    var labelView2 = ui.textLabel("Format:", [0, 25, 100, 25]);
-    view.addSubview(labelView2);
+    dialog.addLabel('Convert Asset Name to:');
+    var nameFormats = [
+        "No convert",
+        "[prefix]group_name/layer_name[suffix]",
+        "[prefix]group-name/layer-name[suffix]",
+        "[prefix]group_name_layer_name[suffix]",
+        "[prefix]group-name-layer-name[suffix]",
+        "[prefix]layer_name[suffix]",
+        "[prefix]layer-name[suffix]"
+    ];
+    var nameFormatsWithPage = [
+        "No convert",
+        "page_name/[prefix]group_name/layer_name[suffix]",
+        "page-name/[prefix]group-name/layer-name[suffix]",
+        "page_name_[prefix]group_name_layer_name[suffix]",
+        "page-name-[prefix]group-name-layer-name[suffix]",
+        "page_name/[prefix]layer_name[suffix]",
+        "page-name/[prefix]layer-name[suffix]",
+        "page_name_[prefix]layer_name[suffix]",
+        "page-name-[prefix]layer-name[suffix]",
+    ];
+    var pageView = ui.checkBox(false, 'Include Page Name.');
+    dialog.addView(pageView);
+    var convertView = ui.popupButton(nameFormats);
+    dialog.addView(convertView);
 
-    var selectBoxFormats = ui.popupButton(formats, [0, 0, 100, 25]);
-    view.addSubview(selectBoxFormats);
-
-    var labelView3 = ui.textLabel("Scale:", [110, 25, 100, 25]);
-    view.addSubview(labelView3);
-
-    var selectBoxScales = ui.popupButton(scaleStrings, [110, 0, 100, 25]);
-    view.addSubview(selectBoxScales);
-
-    dialog.addView(view);
-
-    var checkboxBackground = ui.checkBox(false, "Include background color of artboard.")
-    dialog.addView(checkboxBackground);
+    pageView.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOffState) {
+            ui.setItems_forPopupButton(nameFormats, convertView);
+        } else {
+            ui.setItems_forPopupButton(nameFormatsWithPage, convertView);
+        }
+    });
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
@@ -58,23 +91,30 @@ var onRun = function(context) {
         var savePath = system.chooseFolder();
         if (savePath) {
 
-            var scale = scales[selectBoxScales.indexOfSelectedItem()];
-            var format = selectBoxFormats.titleOfSelectedItem();
-
-            var exportLayers = documentData.allArtboards();
-            var typeIndex = selectBoxTypes.indexOfSelectedItem();
+            var scale = scales[scalesView.indexOfSelectedItem()];
+            var format = formatsView.titleOfSelectedItem();
+            var prefix = prefixView.stringValue();
+            var suffix = suffixView.stringValue();
+            var exportLayers;
+            var artboardsInCurrentPage = document.selectedPage.sketchObject.artboards();
+            var typeIndex = typesView.indexOfSelectedItem();
             if (typeIndex == 0) {
-                exportLayers = exportLayers.mutableCopy();
+                exportLayers = documentData.allArtboards().mutableCopy();
                 exportLayers.removeObjectsInArray(documentData.localSymbols());
-            }
-            if (typeIndex == 1) {
+            } else if (typeIndex == 1) {
                 exportLayers = documentData.localSymbols();
+            } else if (typeIndex == 2) {
+                exportLayers = documentData.allArtboards();
+            } else if (typeIndex == 3) {
+                var predicate = NSPredicate.predicateWithFormat("className == %@", "MSArtboardGroup");
+                exportLayers = artboardsInCurrentPage.filteredArrayUsingPredicate(predicate);
+            } else if (typeIndex == 4) {
+                var predicate = NSPredicate.predicateWithFormat("className == %@", "MSSymbolMaster");
+                exportLayers = artboardsInCurrentPage.filteredArrayUsingPredicate(predicate);
+            } else if (typeIndex == 5) {
+                exportLayers = document.selectedPage.sketchObject.artboards();
             }
-
-            var loopExportLayers = exportLayers.objectEnumerator();
-            var layer;
-            while (layer = loopExportLayers.nextObject()) {
-
+            util.toArray(exportLayers).forEach(function(layer) {
                 var exportFormat = MSExportFormat.alloc().init();
                 var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
                     exportFormat, layer, layer.frame().rect(), false
@@ -83,28 +123,80 @@ var onRun = function(context) {
                 exportRequest.setFormat(format);
                 exportRequest.setScale(scale);
 
-                if (checkboxBackground.state() == 1) {
-                    exportRequest.setIncludeArtboardBackground(true);
+                var regSlash = /\s?[\/\\]+\s?/;
+                var fullPath;
+                var pathParts;
+                var nameFormat = convertView.indexOfSelectedItem();
+
+                if (pageView.state() == NSOffState) {
+                    if (nameFormat == 1) {
+                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 2) {
+                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 3) {
+                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("_");
+                    } else if (nameFormat == 4) {
+                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("-");
+                    } else if (nameFormat == 5) {
+                        pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("");
+                    } else if (nameFormat == 6) {
+                        pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("");
+                    } else {
+                        fullPath = prefix + layer.name().trim() + suffix;
+                    }
+                } else {
+                    var pageName = layer.parentPage().name();
+                    if (nameFormat == 1) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 2) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 3) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("_");
+                    } else if (nameFormat == 4) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("-");
+                    } else if (nameFormat == 5) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 6) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("/");
+                    } else if (nameFormat == 7) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                        fullPath = pathParts.join("_");
+                    } else if (nameFormat == 8) {
+                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                        fullPath = pathParts.join("-");
+                    } else {
+                        fullPath = pageName + '/' + prefix + layer.name() + suffix;
+                    }
                 }
-
-                var layerName = layer.name()
-                    .replace(/\s*\/\s*/g, "\/")
-                    .replace(/^(\/)/, "")
-                    .replace(/\/$/, "")
-                    .replace(/\/\./g, "\/")
-                    .replace(/(\/){2,}/g, "\/")
-                    .trim();
-
-                doc.saveExportRequest_toFile(
-                    exportRequest,
-                    savePath + "/" + layerName + "." + format
-                );
-
-            }
+                fullPath = savePath + '/' + fullPath + '.' + format.toLowerCase();
+                document.sketchObject.saveExportRequest_toFile(exportRequest, fullPath);
+            });
 
             system.showInFinder(savePath);
-
         }
     }
-
 };
+
+function removeEmpty(name) {
+    return name != "";
+}
+
+function formatNameUnderLine(name) {
+    return name.trim().replace(/\s+/g, "_").replace(/-/g, "_").toLowerCase();
+}
+
+function formatNameDash(name) {
+    return name.trim().replace(/\s+/g, "-").replace(/_/g, "-").toLowerCase();
+}
