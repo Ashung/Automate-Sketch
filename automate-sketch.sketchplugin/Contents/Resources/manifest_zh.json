@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "64.0.20200309",
+  "version": "64.0.20200424",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -511,12 +511,6 @@
       "name": "复制选中图层的名称",
       "identifier": "copy_selected_layer_name",
       "script": "Development/Copy_Selected_Layer_Name.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "复制切片的 Base64",
-      "identifier": "copy_slice_as_base64",
-      "script": "Development/Copy_Slice_As_Base64.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1106,7 +1100,8 @@
           "SupplyTextFromFile": "onSupplyTextFromFile",
           "SupplyImageFromFolder": "onSupplyImageFromFolder",
           "SupplyRandomTextFromFile": "onSupplyRandomTextFromFile",
-          "SupplyRandomImageFromFolder": "onSupplyRandomImageFromFolder"
+          "SupplyRandomImageFromFolder": "onSupplyRandomImageFromFolder",
+          "SupplyCalendar": "onSupplyCalendar"
         }
       }
     },
@@ -1186,18 +1181,6 @@
       "name": "更改文本",
       "identifier": "change_texts",
       "script": "Text/Change_Texts.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "复制 SVG 路径数据",
-      "identifier": "copy_svg_path_data",
-      "script": "Development/Copy_SVG_Path_Data.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "从 SVG 代码插入图层",
-      "identifier": "insert_layers_from_svg_code",
-      "script": "Utilities/Insert_Layers_from_SVG_Code.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1357,18 +1340,6 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "拷贝切片的 SVG 代码",
-      "identifier": "copy_svg_code",
-      "script": "Development/Copy_SVG_Code.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "拷贝切片的 SVG 代码 (URL-encoded)",
-      "identifier": "copy_svg_code_url_encoded",
-      "script": "Development/Copy_SVG_Code.js",
-      "icon": "icon_runner.png"
-    },
-    {
       "name": "从库插入组件",
       "identifier": "insert_symbols_from_library",
       "script": "Library/Insert_Symbols_From_Library.js",
@@ -1413,19 +1384,37 @@
     {
       "name": "拷贝 PNG",
       "identifier": "copy_as_png",
-      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "拷贝 2 倍 PNG",
       "identifier": "copy_as_png_2x",
-      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "拷贝 SVG",
       "identifier": "copy_as_svg",
-      "script": "Development/Copy_as_PNG_or_SVG.js",
+      "script": "Development/Copy_as.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "拷贝 SVG (URL-encoded)",
+      "identifier": "copy_as_svg_url_encoded",
+      "script": "Development/Copy_as.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "复制路径数据",
+      "identifier": "copy_as_path_data",
+      "script": "Development/Copy_as.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "复制 Base64",
+      "identifier": "copy_as_base64",
+      "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1926,11 +1915,9 @@
           "copy_as_png",
           "copy_as_png_2x",
           "copy_as_svg",
-          "copy_svg_path_data",
-          "-",
-          "copy_svg_code",
-          "copy_svg_code_url_encoded",
-          "copy_slice_as_base64",
+          "copy_as_svg_url_encoded",
+          "copy_as_path_data",
+          "copy_as_base64",
           "-",
           "export_artboard_to_icns_file",
           "-",
@@ -1952,7 +1939,6 @@
           "-",
           "shortcuts_manager",
           "-",
-          "insert_layers_from_svg_code",
           "insert_layer_from_svg_path_data",
           "-",
           "export_clean_code_svg",
