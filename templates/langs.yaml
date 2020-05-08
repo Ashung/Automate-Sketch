@@ -817,3 +817,6 @@ divide_slice:
 add_styles_from_selected_layers:
   - Add Styles From Selected Layers
   - 从选中图层添加样式
+group_selected_layers_in_each_artboard:
+  - Group Selected Layers in Each Artboard
+  - 将每个画板的选中图层编组

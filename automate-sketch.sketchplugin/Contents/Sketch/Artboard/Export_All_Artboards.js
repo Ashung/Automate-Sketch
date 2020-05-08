@@ -21,7 +21,7 @@ var onRun = function(context) {
         "Export All Artboards"
     );
 
-    dialog.addLabel('Export:');
+    dialog.addLabel("Export:");
     var typesView = ui.popupButton([
         "Artboards",
         "Symbol Masters",
@@ -32,7 +32,12 @@ var onRun = function(context) {
     ]);
     dialog.addView(typesView);
 
-    dialog.addLabel('Choose a Format and Scale:');
+    dialog.addDivider();
+
+    var useExportPresets = ui.checkBox(false, "Use artboard export settings.");
+    dialog.addView(useExportPresets);
+
+    dialog.addLabel("Choose a Format and Scale:");
     var groupView1 = ui.view(25);
     var formatsView = ui.popupButton(["PNG", "JPG", "PDF", "SVG"], [0, 0, 100, 25]);
     var scales = [1, 1.5, 2, 2.5, 3, 4];
@@ -45,11 +50,13 @@ var onRun = function(context) {
 
     dialog.addLabel('Prefix and Suffix of Artboard:');
     var groupView2 = ui.view(25);
-    var prefixView = ui.textField("pre-", [0, 0, 100, 24]);
-    var suffixView = ui.textField("-suf", [110, 0, 100, 24]);
+    var prefixView = ui.textField("", [0, 0, 100, 24]);
+    var suffixView = ui.textField("", [110, 0, 100, 24]);
     groupView2.addSubview(prefixView);
     groupView2.addSubview(suffixView);
     dialog.addView(groupView2);
+
+    dialog.addDivider();
 
     dialog.addLabel('Convert Asset Name to:');
     var nameFormats = [
@@ -77,6 +84,20 @@ var onRun = function(context) {
     var convertView = ui.popupButton(nameFormats);
     dialog.addView(convertView);
 
+    useExportPresets.setCOSJSTargetFunction(function(sender) {
+        if (sender.state() == NSOffState) {
+            formatsView.setEnabled(true);
+            scalesView.setEnabled(true);
+            prefixView.setEnabled(true);
+            suffixView.setEnabled(true);
+        } else {
+            formatsView.setEnabled(false);
+            scalesView.setEnabled(false);
+            prefixView.setEnabled(false);
+            suffixView.setEnabled(false);
+        }
+    })
+
     pageView.setCOSJSTargetFunction(function(sender) {
         if (sender.state() == NSOffState) {
             ui.setItems_forPopupButton(nameFormats, convertView);
@@ -87,14 +108,8 @@ var onRun = function(context) {
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
-
         var savePath = system.chooseFolder();
         if (savePath) {
-
-            var scale = scales[scalesView.indexOfSelectedItem()];
-            var format = formatsView.titleOfSelectedItem();
-            var prefix = prefixView.stringValue();
-            var suffix = suffixView.stringValue();
             var exportLayers;
             var artboardsInCurrentPage = document.selectedPage.sketchObject.artboards();
             var typeIndex = typesView.indexOfSelectedItem();
@@ -115,75 +130,150 @@ var onRun = function(context) {
                 exportLayers = document.selectedPage.sketchObject.artboards();
             }
             util.toArray(exportLayers).forEach(function(layer) {
-                var exportFormat = MSExportFormat.alloc().init();
-                var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
-                    exportFormat, layer, layer.frame().rect(), false
-                );
-                exportRequest.setShouldTrim(false);
-                exportRequest.setFormat(format);
-                exportRequest.setScale(scale);
+                if (useExportPresets.state() == NSOffState) {
+                    var scale = scales[scalesView.indexOfSelectedItem()];
+                    var format = formatsView.titleOfSelectedItem();
+                    var prefix = prefixView.stringValue();
+                    var suffix = suffixView.stringValue();
+                    var exportFormat = MSExportFormat.alloc().init();
+                    var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
+                        exportFormat, layer, layer.frame().rect(), false
+                    );
+                    exportRequest.setShouldTrim(false);
+                    exportRequest.setFormat(format);
+                    exportRequest.setScale(scale);
 
-                var regSlash = /\s?[\/\\]+\s?/;
-                var fullPath;
-                var pathParts;
-                var nameFormat = convertView.indexOfSelectedItem();
-
-                if (pageView.state() == NSOffState) {
-                    if (nameFormat == 1) {
-                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 2) {
-                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 3) {
-                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("_");
-                    } else if (nameFormat == 4) {
-                        pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("-");
-                    } else if (nameFormat == 5) {
-                        pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("");
-                    } else if (nameFormat == 6) {
-                        pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("");
+                    var nameFormat = convertView.indexOfSelectedItem();
+                    var regSlash = /\s?[\/\\]+\s?/;
+                    var fullPath;
+                    var pathParts;
+                    if (pageView.state() == NSOffState) {
+                        if (nameFormat == 1) {
+                            pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 2) {
+                            pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 3) {
+                            pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("_");
+                        } else if (nameFormat == 4) {
+                            pathParts = (prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("-");
+                        } else if (nameFormat == 5) {
+                            pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("");
+                        } else if (nameFormat == 6) {
+                            pathParts = (prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("");
+                        } else {
+                            fullPath = prefix + layer.name().trim() + suffix;
+                        }
                     } else {
-                        fullPath = prefix + layer.name().trim() + suffix;
+                        var pageName = layer.parentPage().name();
+                        if (nameFormat == 1) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 2) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 3) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("_");
+                        } else if (nameFormat == 4) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("-");
+                        } else if (nameFormat == 5) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 6) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("/");
+                        } else if (nameFormat == 7) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                            fullPath = pathParts.join("_");
+                        } else if (nameFormat == 8) {
+                            pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                            fullPath = pathParts.join("-");
+                        } else {
+                            fullPath = pageName + '/' + prefix + layer.name() + suffix;
+                        }
                     }
+                    fullPath = savePath + '/' + fullPath + '.' + format.toLowerCase();
+                    document.sketchObject.saveExportRequest_toFile(exportRequest, fullPath);
                 } else {
-                    var pageName = layer.parentPage().name();
-                    if (nameFormat == 1) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 2) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 3) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("_");
-                    } else if (nameFormat == 4) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("-");
-                    } else if (nameFormat == 5) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 6) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("/");
-                    } else if (nameFormat == 7) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
-                        fullPath = pathParts.join("_");
-                    } else if (nameFormat == 8) {
-                        pathParts = (pageName + '/' + prefix + layer.name().trim().split(regSlash).pop() + suffix).split(regSlash).filter(removeEmpty).map(formatNameDash);
-                        fullPath = pathParts.join("-");
-                    } else {
-                        fullPath = pageName + '/' + prefix + layer.name() + suffix;
+                    var exportRequests = MSExportRequest.exportRequestsFromLayerAncestry_exportFormats_inRect(
+                        layer.ancestry(), layer.exportOptions().exportFormats(), layer.frame().rect()
+                    );
+                    if (exportRequests.count() == 0) {
+                        var exportFormat = MSExportFormat.alloc().init();
+                        var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
+                            exportFormat, layer, layer.frame().rect(), false
+                        );
+                        exportRequests.addObject(exportRequest);
                     }
+                    util.toArray(exportRequests).forEach(function(exportRequest) {
+                        var nameFormat = convertView.indexOfSelectedItem();
+                        var regSlash = /\s?[\/\\]+\s?/;
+                        var fullPath;
+                        var pathParts;
+                        if (pageView.state() == NSOffState) {
+                            if (nameFormat == 1) {
+                                pathParts = exportRequest.name().trim().split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 2) {
+                                pathParts = exportRequest.name().trim().split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 3) {
+                                pathParts = exportRequest.name().trim().split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("_");
+                            } else if (nameFormat == 4) {
+                                pathParts = exportRequest.name().trim().split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("-");
+                            } else if (nameFormat == 5) {
+                                pathParts = exportRequest.name().trim().split(regSlash).pop().split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("");
+                            } else if (nameFormat == 6) {
+                                pathParts = exportRequest.name().trim().split(regSlash).pop().split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("");
+                            } else {
+                                fullPath = exportRequest.name().trim();
+                            }
+                        } else {
+                            var pageName = layer.parentPage().name();
+                            if (nameFormat == 1) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim()).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 2) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim()).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 3) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim()).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("_");
+                            } else if (nameFormat == 4) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim()).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("-");
+                            } else if (nameFormat == 5) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim().split(regSlash).pop()).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 6) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim().split(regSlash).pop()).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("/");
+                            } else if (nameFormat == 7) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim().split(regSlash).pop()).split(regSlash).filter(removeEmpty).map(formatNameUnderLine);
+                                fullPath = pathParts.join("_");
+                            } else if (nameFormat == 8) {
+                                pathParts = (pageName + '/' + exportRequest.name().trim().split(regSlash).pop()).split(regSlash).filter(removeEmpty).map(formatNameDash);
+                                fullPath = pathParts.join("-");
+                            } else {
+                                fullPath = pageName + '/' + exportRequest.name();
+                            }
+                        }
+                        fullPath = savePath + '/' + fullPath + '.' + exportRequest.format();
+                        document.sketchObject.saveExportRequest_toFile(exportRequest, fullPath);
+                    });
                 }
-                fullPath = savePath + '/' + fullPath + '.' + format.toLowerCase();
-                document.sketchObject.saveExportRequest_toFile(exportRequest, fullPath);
             });
-
             system.showInFinder(savePath);
         }
     }
