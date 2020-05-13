@@ -820,3 +820,12 @@ add_styles_from_selected_layers:
 group_selected_layers_in_each_artboard:
   - Group Selected Layers in Each Artboard
   - 将每个画板的选中图层编组
+convert_artboards_to_symbols:
+  - Convert Artboards to Symbols
+  - 画板转为组件
+change_library_symbols_to_local:
+  - Change Library Symbols to Local
+  - 库组件转为本地组件
+insert_artboard_from_library:
+  - Insert Artboard from Library
+  - 从库中插入画板

@@ -12,9 +12,10 @@ var onRun = function(context) {
     if (document.sketchObject.isCloudDoc()) {
         // console.log(document.sketchObject.cloudShare().class())
         // sketch://sketch.cloud/s/<shortId>
+        // sketch://sketch.com/s/<shortId>
         var shortId = document.sketchObject.UIMetadata().document.cloudShare.shortId;
         var isPrivate = document.sketchObject.UIMetadata().document.cloudShare.shortId;
-        var url = "sketch://sketch.cloud/s/" + shortId;
+        var url = "sketch://sketch.com/s/" + shortId;
         if (selection.length == 1) {
             url += "?centerOnLayer=" + (selection[0].id);
             url += "&zoom=" + zoom.zoomValue.toFixed(1);

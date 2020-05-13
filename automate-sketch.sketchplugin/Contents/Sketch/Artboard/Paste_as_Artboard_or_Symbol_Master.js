@@ -4,19 +4,21 @@ var onRun = function(context) {
     ga("Artboard");
 
     var pasteboard = require("../modules/Pasteboard");
-    var util = require("util");
-    var sketch = require("sketch");
     var zoom = require("../modules/Zoom");
-    var Artboard = require("sketch/dom").Artboard;
-    var SymbolMaster = require("sketch/dom").SymbolMaster;
-    var Rectangle = require('sketch/dom').Rectangle;
+
+    var util = require("util");
+    var sketch = require("sketch/dom");
+    var message = require("sketch/ui").message;
+    var Artboard = sketch.Artboard;
+    var SymbolMaster = sketch.SymbolMaster;
+    var Rectangle = sketch.Rectangle;
     var document = sketch.getSelectedDocument();
     var page = document.selectedPage;
-    var identifier = context.command.identifier();
+    var identifier = __command.identifier();
 
     var layersFromPasteboard = pasteboard.layersFromPasteboard(context);
     if (!layersFromPasteboard) {
-        sketch.UI.message("Pasteboard is empty.");
+        message("Pasteboard is empty.");
         return;
     }
 
@@ -37,9 +39,15 @@ var onRun = function(context) {
                 layerInfluenceRect.size.width,
                 layerInfluenceRect.size.height
             ),
-            layers: [sketch.fromNative(layer)],
             selected: true
         };
+        if (layer.className() == "MSArtboardGroup" || layer.className() == "MSSymbolMaster") {
+            properties.layers = util.toArray(layer.layers()).map(function(item) {
+                return sketch.fromNative(item);
+            })
+        } else {
+            properties.layers = [sketch.fromNative(layer)];
+        }
         var artboard;
         if (identifier == "paste_as_artboards") {
             artboard = new Artboard(properties);

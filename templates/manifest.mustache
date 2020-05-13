@@ -1313,6 +1313,21 @@
             "name": "{{group_selected_layers_in_each_artboard}}",
             "identifier": "group_selected_layers_in_each_artboard",
             "script": "Artboard/Group_Selected_Layers_in_Each_Artboard.js"
+        },
+        {
+            "name": "{{convert_artboards_to_symbols}}",
+            "identifier": "convert_artboards_to_symbols",
+            "script": "Symbol/Convert_Artboards_to_Symbols.js"
+        },
+        {
+            "name": "{{change_library_symbols_to_local}}",
+            "identifier": "change_library_symbols_to_local",
+            "script": "Library/Change_Library_Symbols_to_Local.js"
+        },
+        {
+            "name": "{{insert_artboard_from_library}}",
+            "identifier": "insert_artboard_from_library",
+            "script": "Library/Insert_Artboard_from_Library.js"
         }
     ],
     "menu": {
@@ -1453,6 +1468,7 @@
                     "-",
                     "create_symbols_from_selected_layers",
                     "selection_to_symbol_master",
+                    "convert_artboards_to_symbols",
                     "-",
                     "detach_all_symbols",
                     "detach_unused_symbol_master",
@@ -1484,6 +1500,8 @@
                     "add_library_preview",
                     "-",
                     "insert_symbols_from_library",
+                    "insert_artboard_from_library",
+                    "change_library_symbols_to_local",
                     "-",
                     "update_selected_library_symbol",
                     "update_selected_symbol_overrides",

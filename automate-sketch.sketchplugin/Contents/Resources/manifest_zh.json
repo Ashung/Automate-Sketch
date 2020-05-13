@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "65.0.20200428",
+  "version": "65.1.20200513",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1560,6 +1560,24 @@
       "identifier": "group_selected_layers_in_each_artboard",
       "script": "Artboard/Group_Selected_Layers_in_Each_Artboard.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "画板转为组件",
+      "identifier": "convert_artboards_to_symbols",
+      "script": "Symbol/Convert_Artboards_to_Symbols.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "库组件转为本地组件",
+      "identifier": "change_library_symbols_to_local",
+      "script": "Library/Change_Library_Symbols_to_Local.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "从库中插入画板",
+      "identifier": "insert_artboard_from_library",
+      "script": "Library/Insert_Artboard_from_Library.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1700,6 +1718,7 @@
           "-",
           "create_symbols_from_selected_layers",
           "selection_to_symbol_master",
+          "convert_artboards_to_symbols",
           "-",
           "detach_all_symbols",
           "detach_unused_symbol_master",
@@ -1731,6 +1750,8 @@
           "add_library_preview",
           "-",
           "insert_symbols_from_library",
+          "insert_artboard_from_library",
+          "change_library_symbols_to_local",
           "-",
           "update_selected_library_symbol",
           "update_selected_symbol_overrides",
