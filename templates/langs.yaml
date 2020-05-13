@@ -824,7 +824,7 @@ convert_artboards_to_symbols:
   - Convert Artboards to Symbols
   - 画板转为组件
 change_library_symbols_to_local:
-  - Change Library Symbols to Local
+  - Change Library Symbols to Local Symbol
   - 库组件转为本地组件
 insert_artboard_from_library:
   - Insert Artboard from Library
