@@ -1,4 +1,16 @@
 -
+  version: 65.1.20200513
+  commitID: 9322959ea08001e8802e33ba432e7557e209848d
+  description:
+    - "Add Change Library Symbols to Local Symbol. #263"
+    - "Add Insert Artboard from Library. #247"
+    - "Add Convert Artboards to Symbols. #260"
+    - "Add Group Selected Layers in Each Artboard. #191"
+    - Export All Artboard now can use export setting.
+    - Paste as Artboard/Symbol support copy artboard and symbol master.
+    - Copy Document URL update sketch cloud url.
+
+-
   version: 64.0.20200424
   description:
     - "Split Text Layer support split by line break. #258"
