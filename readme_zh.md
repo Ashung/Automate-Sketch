@@ -100,6 +100,7 @@
 | Toggle Adjust Content on Resize                              | **开关根据尺寸适配内容** 开启或关闭选中画板或组件母版的“根据尺寸适配内容”设置。 |
 | Move Artboards to Bottom of Anther                           | **移动画板至另一画板下方** 移动画板或组件模版至另一画板下方。 |
 | Move to Page                                                 | **移动到页面** 将选中画报或组件移动到其他页面。              |
+| Group Selected Layers in Each Artboard                       | **将每个画板的选中图层编组**                                 |
 | Export All Artboards                                         | **导出所有画板** 将所有画板导出为 PNG 或 SVG，可设置缩放比例。 |
 | Export All Artboards to HTML                                 | **将所有画板导出为 HTML** 导出展示用 HTML，可搜索。当使用 SVG 格式时，可直接拖入 Sktech。 |
 | **Symbol**                                                   | **组件**                                                     |
@@ -115,6 +116,7 @@
 | Rename Instances Use Text Override                           | **使用文本覆盖值重命名实例** 以选择的文本覆盖值重命名实例，如果实例仅有一个文本覆盖则使用此值。 |
 | Create Symbols from Selected Layers                          | **从选中图层批量创建组件**                                   |
 | Selection to Symbol Master                                   | **将选中图层直接变为组件** 将选中图层在原位置直接变为组件。  |
+| Convert Artboards to Symbols                                 | **画板转为组件** 批量直接将画板转为组件。                    |
 | Detach All Symbols in Page or Artboard                       | **分离页面或画板内所有组件**                                 |
 | Detach Unused Symbol Master                                  | **将选中的未用组件转为组**                                   |
 | Remove Unused Symbols                                        | **删除未用组件** 针对 Sketch 48 以上版本的删除未使用组件，可以预览组件，并选择是否保留某些组件。 |
@@ -127,13 +129,15 @@
 | Imported Symbols Link Manage                                 | **库组件链接管理** 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
 | Replace Library                                              | **替换库** 将所有库组件、样式从一个库替换链接到另一个库。    |
 | Replace Symbol With Library Symbol                           | **使用库组件替换内部组件** 将选中组件替换为任意的库组件。    |
-| Change symbols to Library Symbol Base Symbol ID              | **基于 Symbol ID 将内部组件转为库组件** 根据组件 ID，将选中或全部组件转为库组件。 |
+| Change Local Symbols to Library Symbol                       | **本地组件转为库组件** 根据组件 ID 或命名，将选中或全部组件转为库组件。 |
+| Change Library Symbols to Local Symbol                       | **库组件转为本地组件**                                       |
 | Change Local Text Style to Library Text Style                | **本地文本样式转为库样式** 将本地文本样式转为指定库中的相同样式。 |
 | Change Local Layer Style to Library Layer Style              | **本地图层样式转为库样式** 将本地图层样式转为指定库中的相同样式。 |
 | Import Document Assets from Library                          | **从库导入文档资源** 从库导入色彩、渐变和图案填充等文档资源， |
 | Import Styles from Library                                   | **从库导入样式** 从库导入图层样式和文本样式。                |
 | Add Library Preview                                          | **添加库预览图** 增加一个画板用于库的预览图。                |
 | Insert Symbols From Library                                  | **从库插入组件** 从选择的库中插入于用户输入名称匹配的组件。  |
+| Insert Artboard from Library                                 | **从库中插入画板** 画板内的组件将自动转为库组件。            |
 | Update Selected Library Symbol                               | **更新选中的库组件** 只更新选中的库组件。                    |
 | Update Selected Symbol Overrides                             | **更新选中的覆盖组件**                                       |
 | Check For Library Updates                                    | **检查库更新**                                               |

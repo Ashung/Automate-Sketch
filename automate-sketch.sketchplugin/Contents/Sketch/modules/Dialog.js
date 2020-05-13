@@ -519,6 +519,11 @@ dialog.prototype.addLabel = function(text) {
     this.views.push(view);
 };
 
+dialog.prototype.addDivider = function() {
+    var view = ui.divider(this.width);
+    this.views.push(view);
+}
+
 /**
  * @return  {Object} { responseCode: 1000 | 1001 | 1002, self: NSAlert }
  */

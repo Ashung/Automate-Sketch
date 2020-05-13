@@ -23,7 +23,6 @@ var onRun = function(context) {
 
     // Dialog
     var viewWidth = 350,
-        viewHeight = 400,
         rowHeight = 50;
 
 

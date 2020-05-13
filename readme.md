@@ -99,6 +99,7 @@ Make your workflow more efficient.
 | Toggle Adjust Content on Resize                              | Turn on/off for all selected artboard and symbol master.     |
 | Move Artboards to Bottom of Anther                           | Move selected artboards or symbol masters to the bottom of another one. |
 | Move to Page                                                 | Move selected artboards or symbol masters to another page.   |
+| Group Selected Layers in Each Artboard                       | Group selected layers in each artboard.                      |
 | Export all Artboards                                         | Export all artboards, symbols to PNG / SVG.                  |
 | Export all Artboards to HTML                                 | Export show with HTML, searchable. When using SVG format, you can drag directly into Sketch. |
 | **Symbol**                                                   |                                                              |
@@ -114,6 +115,7 @@ Make your workflow more efficient.
 | Rename Instances Use Text Override                           | Rename seleted symbol instances with the vaule of selected text override, if instance have only one text override rename the instance with this value. |
 | Create Symbols from Selected Layers                          | Create symbol masters from selected layers.                  |
 | Selection to Symbol Master                                   | Change the selected layer directly into the symbol in its original position. |
+| Convert Artboards to Symbols                                 | Batch convert selected artboards to symbol master.           |
 | Detach All Symbols in Page or Artboard                       | Detach all symbol instances in current page or artboard.     |
 | Detach Unused Symbol Master                                  | Converts unused symbol templates to groups.                  |
 | Remove Unused Symbols                                        | Remove unused symbols, for Sketch 48+, with symbol preview.  |
@@ -126,13 +128,15 @@ Make your workflow more efficient.
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
 | Replace Library                                              | Swap all foreign symbols, styles from one library to another. |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
-| Change symbols to Library Symbol Base Symbol ID              | Change the selected/all symbols to library symbol base on symbol ID. |
+| Change Local Symbols to Library Symbol                       | Change local symbols to library symbol with same symbol id or name. |
+| Change Library Symbols to Local Symbol                       | Change library symbols to local symbol, batch make local.    |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
 | Change Local Layer Style to Library Layer Style              | Change local layer styles to same library layer style from selected library. |
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
 | Import Styles from Library                                   | Import text styles and layer styles from any library.        |
 | Add Library Preview                                          | Add a artboard for library preview image.                    |
 | Insert Symbols From Library                                  | Insert symbol that name match the regular expression from the choose library. |
+| Insert Artboard from Library                                 | Insert a artboad from library, symbols in the artboard will became library symbol. |
 | Update Selected Library Symbol                               | Only update the selected library symbols.                    |
 | Update Selected Symbol Overrides                             | Update selected symbol overrides.                            |
 | Check For Library Updates                                    | Check for library updates.                                   |

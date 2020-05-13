@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "64.0.20200424",
+  "version": "65.1.20200513",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1554,6 +1554,30 @@
       "identifier": "add_styles_from_selected_layers",
       "script": "Style/Add_Styles_from_Selected_Layers.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Group Selected Layers in Each Artboard",
+      "identifier": "group_selected_layers_in_each_artboard",
+      "script": "Artboard/Group_Selected_Layers_in_Each_Artboard.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Convert Artboards to Symbols",
+      "identifier": "convert_artboards_to_symbols",
+      "script": "Symbol/Convert_Artboards_to_Symbols.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Library Symbols to Local Symbol",
+      "identifier": "change_library_symbols_to_local",
+      "script": "Library/Change_Library_Symbols_to_Local.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Insert Artboard from Library",
+      "identifier": "insert_artboard_from_library",
+      "script": "Library/Insert_Artboard_from_Library.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1694,6 +1718,7 @@
           "-",
           "create_symbols_from_selected_layers",
           "selection_to_symbol_master",
+          "convert_artboards_to_symbols",
           "-",
           "detach_all_symbols",
           "detach_unused_symbol_master",
@@ -1716,6 +1741,7 @@
           "-",
           "replace_symbol_with_library_symbol",
           "change_symbols_to_library_symbol",
+          "change_library_symbols_to_local",
           "-",
           "change_local_text_style_to_library_text_style",
           "change_local_layer_style_to_library_layer_style",
@@ -1725,6 +1751,7 @@
           "add_library_preview",
           "-",
           "insert_symbols_from_library",
+          "insert_artboard_from_library",
           "-",
           "update_selected_library_symbol",
           "update_selected_symbol_overrides",
@@ -1751,6 +1778,8 @@
           "-",
           "move_artboards_to_bottom_of_another",
           "move_to_page",
+          "-",
+          "group_selected_layers_in_each_artboard",
           "-",
           "export_all_artboards",
           "export_all_artboards_to_html"
