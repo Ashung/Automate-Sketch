@@ -176,10 +176,10 @@ clear_exportables:
   - Clear All Exportables
   - 清除全部可导出设置
 artboard_from_selection:
-  - Artboard From Selection
+  - Artboard from Selection
   - 从选择对象新建画板
 artboard_from_group:
-  - Artboard From Group
+  - Artboard from Group
   - 从组新建画板
 artboard_to_group:
   - Artboard To Group
@@ -293,7 +293,7 @@ import_layer_styles_from_sketch_file:
   - Import Layer Styles from Sketch File
   - 从 Sketch 文档导入图层样式
 replace_pages_from_sketch_file:
-  - Replace Pages with Same Name From Sketch File
+  - Replace Pages with Same Name from Sketch File
   - 从 Sketch 文档替换同名页面
 create_color_guide:
   - Create Color Guide
@@ -533,61 +533,61 @@ adjust_sizes:
   - Adjust Sizes
   - 调整尺寸
 small_increase_width_from_right:
-  - Small Increase Width From Right
+  - Small Increase Width from Right
   - 由右侧增宽 (小)
 large_increase_width_from_right:
-  - Large Increase Width From Right
+  - Large Increase Width from Right
   - 由右侧增宽 (大)
 small_increase_width_from_center:
-  - Small Increase Width From Center
+  - Small Increase Width from Center
   - 由中心增宽 (小)
 large_increase_width_from_center:
-  - Large Increase Width From Center
+  - Large Increase Width from Center
   - 由中心增宽 (大)
 small_increase_height_from_bottom:
-  - Small Increase Height From Bottom
+  - Small Increase Height from Bottom
   - 由底部增高 (小)
 large_increase_height_from_bottom:
-  - Large Increase Height From Bottom
+  - Large Increase Height from Bottom
   - 由底部增高 (大)
 small_increase_height_from_center:
-  - Small Increase Height From Center
+  - Small Increase Height from Center
   - 由中心增高 (小)
 large_increase_height_from_center:
-  - Large Increase Height From Center
+  - Large Increase Height from Center
   - 由中心增高 (大)
 small_decrease_width_from_right:
-  - Small Decrease Width From Right
+  - Small Decrease Width from Right
   - 由右侧减宽 (小)
 large_decrease_width_from_right:
-  - Large Decrease Width From Right
+  - Large Decrease Width from Right
   - 由右侧减宽 (大)
 small_decrease_width_from_center:
-  - Small Decrease Width From Center
+  - Small Decrease Width from Center
   - 由中心减宽 (小)
 large_decrease_width_from_center:
-  - Large Decrease Width From Center
+  - Large Decrease Width from Center
   - 由中心减宽 (大)
 small_decrease_height_from_bottom:
-  - Small Decrease Height From Bottom
+  - Small Decrease Height from Bottom
   - 由底部减高 (小)
 large_decrease_height_from_bottom:
-  - Large Decrease Height From Bottom
+  - Large Decrease Height from Bottom
   - 由底部减高 (大)
 small_decrease_height_from_center:
-  - Small Decrease Height From Center
+  - Small Decrease Height from Center
   - 由中心减高 (小)
 large_decrease_height_from_center:
-  - Large Decrease Height From Center
+  - Large Decrease Height from Center
   - 由中心减高 (大)
 export_data_from_text_layers:
-  - Export Data From Text Layers
+  - Export Data from Text Layers
   - 从文本图层导出数据
 export_image_from_layers:
-  - Export Image From Layers
+  - Export Image from Layers
   - 从图层导出图片
 export_data_from_symbol_instances:
-  - Export Data From Symbol Instances
+  - Export Data from Symbol Instances
   - 从组件导出数据
 toggle_text_auto_and_fixed:
   - Toggle Auto and Fixed
@@ -710,7 +710,7 @@ move_to_page:
   - Move to Page
   - 移动到页面
 insert_symbols_from_library:
-  - Insert Symbols From Library
+  - Insert Symbols from Library
   - 从库插入组件
 insert_symbols:
   - Insert Symbols
@@ -749,7 +749,7 @@ copy_as_base64:
   - Copy as Base64
   - 复制 Base64
 new_guides_from_layer:
-  - New Guides From Layer
+  - New Guides from Layer
   - 从图层创建辅助线
 shrink_instance_to_fit_content:
   - Shrink Instance to Fit Content
@@ -815,7 +815,7 @@ divide_slice:
   - Divide Slice
   - 划分切片
 add_styles_from_selected_layers:
-  - Add Styles From Selected Layers
+  - Add Styles from Selected Layers
   - 从选中图层添加样式
 group_selected_layers_in_each_artboard:
   - Group Selected Layers in Each Artboard
@@ -829,3 +829,9 @@ change_library_symbols_to_local:
 insert_artboard_from_library:
   - Insert Artboard from Library
   - 从库中插入画板
+insert_instance_of_selected_symbol:
+  - Insert Instance of Selected Symbol
+  - 插入选中组件的实例
+selected_symbol_overrides_to_none:
+  - Selected Symbol Overrides to None
+  - 将选中组件覆盖设为无

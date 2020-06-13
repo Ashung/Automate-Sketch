@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "65.1.20200513",
+  "version": "66.1.20200613",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1578,6 +1578,18 @@
       "identifier": "insert_artboard_from_library",
       "script": "Library/Insert_Artboard_from_Library.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "插入选中组件的实例",
+      "identifier": "insert_instance_of_selected_symbol",
+      "script": "Symbol/Insert_Instance_of_Selected_Symbol.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "将选中组件覆盖设为无",
+      "identifier": "selected_symbol_overrides_to_none",
+      "script": "Symbol/Selected_Symbol_Overrides_to_None.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1710,6 +1722,7 @@
           "reset_overrides",
           "disable_or_enable_all_overrides",
           "disable_selected_overrides",
+          "selected_symbol_overrides_to_none",
           "-",
           "select_all_instances_of_symbol",
           "select_same_instances_in_current_page",
@@ -1727,6 +1740,7 @@
           "export_all_symbols_as_png",
           "-",
           "insert_symbols",
+          "insert_instance_of_selected_symbol",
           "-",
           "sync_symbol_master_from_sketch_file",
           "replace_pages_from_sketch_file"

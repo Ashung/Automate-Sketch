@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "65.1.20200513",
+  "version": "66.1.20200613",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -286,13 +286,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Artboard From Selection",
+      "name": "Artboard from Selection",
       "identifier": "artboard_from_selection",
       "script": "Artboard/Artboard_from_Selection.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Artboard From Group",
+      "name": "Artboard from Group",
       "identifier": "artboard_from_group",
       "script": "Artboard/Artboard_From_Group.js",
       "icon": "icon_runner.png"
@@ -394,7 +394,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Replace Pages with Same Name From Sketch File",
+      "name": "Replace Pages with Same Name from Sketch File",
       "identifier": "replace_pages_from_sketch_file",
       "script": "Symbol/Replace_Pages_from_Sketch_File.js",
       "icon": "icon_runner.png"
@@ -944,131 +944,131 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Increase Width From Right",
+      "name": "Small Increase Width from Right",
       "identifier": "small_increase_width_from_right",
       "handler": "smallIncreaseWidthFromRight",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Increase Width From Right",
+      "name": "Large Increase Width from Right",
       "identifier": "large_increase_width_from_right",
       "handler": "largeIncreaseWidthFromRight",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Increase Width From Center",
+      "name": "Small Increase Width from Center",
       "identifier": "small_increase_width_from_center",
       "handler": "smallIncreaseWidthFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Increase Width From Center",
+      "name": "Large Increase Width from Center",
       "identifier": "large_increase_width_from_center",
       "handler": "largeIncreaseWidthFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Increase Height From Bottom",
+      "name": "Small Increase Height from Bottom",
       "identifier": "small_increase_height_from_bottom",
       "handler": "smallIncreaseHeightFromBottom",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Increase Height From Bottom",
+      "name": "Large Increase Height from Bottom",
       "identifier": "large_increase_height_from_bottom",
       "handler": "largeIncreaseHeightFromBottom",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Increase Height From Center",
+      "name": "Small Increase Height from Center",
       "identifier": "small_increase_height_from_center",
       "handler": "smallIncreaseHeightFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Increase Height From Center",
+      "name": "Large Increase Height from Center",
       "identifier": "large_increase_height_from_center",
       "handler": "largeIncreaseHeightFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Decrease Width From Right",
+      "name": "Small Decrease Width from Right",
       "identifier": "small_decrease_width_from_right",
       "handler": "smallDecreaseWidthFromRight",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Decrease Width From Right",
+      "name": "Large Decrease Width from Right",
       "identifier": "large_decrease_width_from_right",
       "handler": "largeDecreaseWidthFromRight",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Decrease Width From Center",
+      "name": "Small Decrease Width from Center",
       "identifier": "small_decrease_width_from_center",
       "handler": "smallDecreaseWidthFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Decrease Width From Center",
+      "name": "Large Decrease Width from Center",
       "identifier": "large_decrease_width_from_center",
       "handler": "largeDecreaseWidthFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Decrease Height From Bottom",
+      "name": "Small Decrease Height from Bottom",
       "identifier": "small_decrease_height_from_bottom",
       "handler": "smallDecreaseHeightFromBottom",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Decrease Height From Bottom",
+      "name": "Large Decrease Height from Bottom",
       "identifier": "large_decrease_height_from_bottom",
       "handler": "largeDecreaseHeightFromBottom",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Small Decrease Height From Center",
+      "name": "Small Decrease Height from Center",
       "identifier": "small_decrease_height_from_center",
       "handler": "smallDecreaseHeightFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Large Decrease Height From Center",
+      "name": "Large Decrease Height from Center",
       "identifier": "large_decrease_height_from_center",
       "handler": "largeDecreaseHeightFromCenter",
       "script": "Layer/Adjust_Sizes.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Export Data From Text Layers",
+      "name": "Export Data from Text Layers",
       "identifier": "export_data_from_text_layers",
       "script": "Data/Export_Data_From_Text_Layers.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Export Image From Layers",
+      "name": "Export Image from Layers",
       "identifier": "export_image_from_layers",
       "script": "Data/Export_Image_From_Layers.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Export Data From Symbol Instances",
+      "name": "Export Data from Symbol Instances",
       "identifier": "export_data_from_symbol_instances",
       "script": "Data/Export_Data_From_Symbol_Instances.js",
       "icon": "icon_runner.png"
@@ -1340,7 +1340,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Insert Symbols From Library",
+      "name": "Insert Symbols from Library",
       "identifier": "insert_symbols_from_library",
       "script": "Library/Insert_Symbols_From_Library.js",
       "icon": "icon_runner.png"
@@ -1418,7 +1418,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "New Guides From Layer",
+      "name": "New Guides from Layer",
       "identifier": "new_guides_from_layer",
       "script": "Guide/New_Guides_From_Layer.js",
       "icon": "icon_runner.png"
@@ -1550,7 +1550,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Add Styles From Selected Layers",
+      "name": "Add Styles from Selected Layers",
       "identifier": "add_styles_from_selected_layers",
       "script": "Style/Add_Styles_from_Selected_Layers.js",
       "icon": "icon_runner.png"
@@ -1577,6 +1577,18 @@
       "name": "Insert Artboard from Library",
       "identifier": "insert_artboard_from_library",
       "script": "Library/Insert_Artboard_from_Library.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Insert Instance of Selected Symbol",
+      "identifier": "insert_instance_of_selected_symbol",
+      "script": "Symbol/Insert_Instance_of_Selected_Symbol.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Selected Symbol Overrides to None",
+      "identifier": "selected_symbol_overrides_to_none",
+      "script": "Symbol/Selected_Symbol_Overrides_to_None.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1710,6 +1722,7 @@
           "reset_overrides",
           "disable_or_enable_all_overrides",
           "disable_selected_overrides",
+          "selected_symbol_overrides_to_none",
           "-",
           "select_all_instances_of_symbol",
           "select_same_instances_in_current_page",
@@ -1727,6 +1740,7 @@
           "export_all_symbols_as_png",
           "-",
           "insert_symbols",
+          "insert_instance_of_selected_symbol",
           "-",
           "sync_symbol_master_from_sketch_file",
           "replace_pages_from_sketch_file"
