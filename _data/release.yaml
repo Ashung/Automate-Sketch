@@ -1,4 +1,12 @@
 -
+  version: 66.1.20200613
+  commitID: 42c49d0b6e42103572b943dfd8477d60250c59d9
+  description:
+    - Add Insert Instance of Selected Symbol.
+    - Add Selected Symbol Overrides to None.
+    - Improve Rename Layers history.
+
+-
   version: 65.1.20200513
   commitID: 9322959ea08001e8802e33ba432e7557e209848d
   description:
