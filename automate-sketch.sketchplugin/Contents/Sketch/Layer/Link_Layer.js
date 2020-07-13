@@ -4,8 +4,6 @@ var createLinkLayer = function(context) {
     ga("Layer");
 
     var document = context.document;
-    var documentData = document.documentData();
-    var page = document.currentPage();
     var selection = context.selection;
 
     if (

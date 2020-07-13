@@ -85,12 +85,15 @@ var onRun = function(context) {
 
     var responseCode = dialog.run();
     if (responseCode == 1000) {
-
         var customTemplate = String(nameView.stringValue());
         histories.push(customTemplate);
-        histories = histories.filter(function(item, index, array) {
-            return array.lastIndexOf(item) === index;
+        // Remove duplicate items
+        histories = histories.map(function(item) {
+            return String(item);
+        }).filter(function(item, index, arr) {
+            return arr.lastIndexOf(item) == index;
         });
+        // Last 10 item
         histories.splice(0, histories.length - maxHistory);
 
         preferences.set("renameLayerHistories", histories);
