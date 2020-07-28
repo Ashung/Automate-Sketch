@@ -6,7 +6,7 @@ module.exports.pbcopy = function(text) {
     pasteboard.setString_forType(text, NSPasteboardTypeString);
 };
 
-module.exports.layersFromPasteboard = function(context){
+module.exports.getLayers = function(context){
     var version = MSApplicationMetadata.metadata().appVersion;
     var pasteboardManager = AppController.sharedInstance().pasteboardManager();
     var pasteboardLayers;
@@ -27,13 +27,6 @@ module.exports.layersFromPasteboard = function(context){
     return pasteboardLayers.layers().layers();
 };
 
-module.exports.textsFromPasteboard = function() {
-    var data = pasteboard.dataForType(NSPasteboardTypeString);
-    var text = NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding);
-    var texts = text.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet());
-    return texts;
-};
-
 module.exports.setImage = function(nsData) {
     pasteboard.clearContents();
     pasteboard.setData_forType(nsData, NSPasteboardTypePNG);
@@ -42,4 +35,18 @@ module.exports.setImage = function(nsData) {
 module.exports.setText = function(text) {
     pasteboard.clearContents();
     pasteboard.setString_forType(text, NSPasteboardTypeString);
+};
+
+module.exports.getTextsNsArray = function() {
+    var data = pasteboard.dataForType(NSPasteboardTypeString);
+    var text = NSString.alloc().initWithData_encoding(data, NSUTF8StringEncoding);
+    var texts = text.componentsSeparatedByCharactersInSet(NSCharacterSet.newlineCharacterSet());
+    return texts;
+};
+
+module.exports.getText = function() {
+    var pasteboardItems = pasteboard.pasteboardItems();
+    if (pasteboardItems.count() > 0) {
+        return pasteboardItems.firstObject().stringForType(NSPasteboardTypeString);
+    }
 };

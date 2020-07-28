@@ -835,3 +835,9 @@ insert_instance_of_selected_symbol:
 selected_symbol_overrides_to_none:
   - Selected Symbol Overrides to None
   - 将选中组件覆盖设为无
+copy_layer_position_and_size:
+  - Copy Layer Position and Size
+  - 拷贝图层位置与尺寸
+paste_layer_position_and_size:
+  - Paste Layer Position and Size
+  - 粘贴图层位置与尺寸

@@ -16,7 +16,7 @@ var onRun = function(context) {
     var page = document.selectedPage;
     var identifier = __command.identifier();
 
-    var layersFromPasteboard = pasteboard.layersFromPasteboard(context);
+    var layersFromPasteboard = pasteboard.getLayers(context);
     if (!layersFromPasteboard) {
         message("Pasteboard is empty.");
         return;

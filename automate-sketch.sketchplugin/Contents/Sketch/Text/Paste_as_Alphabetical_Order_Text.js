@@ -2,7 +2,7 @@ var onRun = function(context) {
     var document = require('sketch/dom').getSelectedDocument();
     var Text = require('sketch/dom').Text;
     var pasteboard = require("../modules/Pasteboard");
-    var texts = pasteboard.textsFromPasteboard();
+    var texts = pasteboard.getTextsNsArray();
     var predicate = NSPredicate.predicateWithFormat("SELF != ''");
     texts = texts.filteredArrayUsingPredicate(predicate);
     if (texts.count() == 0) {

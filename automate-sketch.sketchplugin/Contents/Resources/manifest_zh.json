@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "66.1.20200613",
+  "version": "67.2.20200716",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1590,6 +1590,18 @@
       "identifier": "selected_symbol_overrides_to_none",
       "script": "Symbol/Selected_Symbol_Overrides_to_None.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "拷贝图层位置与尺寸",
+      "identifier": "copy_layer_position_and_size",
+      "script": "Layer/Copy_Paste_Position_and_Size.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "粘贴图层位置与尺寸",
+      "identifier": "paste_layer_position_and_size",
+      "script": "Layer/Copy_Paste_Position_and_Size.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1693,6 +1705,9 @@
           "-",
           "paste_and_replace",
           "paste_and_replace_setting",
+          "-",
+          "copy_layer_position_and_size",
+          "paste_layer_position_and_size",
           "-",
           "remove_redundant_groups",
           "remove_empty_groups",
