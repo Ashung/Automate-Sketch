@@ -17,7 +17,7 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         "Rename Layers",
-        "Rename selected layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010. {{N}} for desc order."
+        "Rename selected layers use custom template, use {{nnn}} for 001, {{nnn10}} for 010. {{N}} for reverse order."
     );
 
     var layoutView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 50));
@@ -133,7 +133,7 @@ var onRun = function(context) {
                 }
                 if (/{{N+\d*}}/.test(keyword)) {
                     var length = keyword.match(/N/g).length;
-                    var begin = keyword.match(/\d+/g) == null ? selectedLayers.length : parseInt(keyword.match(/\d+/g)[0]);
+                    var begin = keyword.match(/\d+/g) == null ? selectedLayers.length : selectedLayers.length + parseInt(keyword.match(/\d+/g)[0]) - 1;
                     var value = formatNumber(begin - index, length);
                     resultName = resultName.replace(match[0], value);
                 }
@@ -148,6 +148,10 @@ var onRun = function(context) {
                 resultName = " ";
             }
             layer.name = resultName;
+
+            if (layer.type == 'Text') {
+                layer.sketchObject.setNameIsFixed(1);
+            }
 
         });
 
