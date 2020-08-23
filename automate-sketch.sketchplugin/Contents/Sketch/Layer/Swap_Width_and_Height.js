@@ -7,7 +7,7 @@ var onRun = function(context) {
     var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
 
     if (selectedLayers.length == 0) {
-        sketch.UI.message("Please select at least 1 layer.")
+        sketch.UI.message("Please select at least 1 layer.");
         return;
     }
 

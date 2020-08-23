@@ -841,3 +841,12 @@ copy_layer_position_and_size:
 paste_layer_position_and_size:
   - Paste Layer Position and Size
   - 粘贴图层位置与尺寸
+show_layers:
+  - Show All Layers
+  - 显示所有图层
+distribute_layers_horizontally_and_fit_width:
+  - Distribute Layers Horizontally and Fit Width
+  - 水平分布图层并适应宽度
+distribute_layers_vertically_and_fit_height:
+  - Distribute Layers Vertically and Fit Height
+  - 垂直分布图层并适应高度

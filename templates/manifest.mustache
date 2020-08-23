@@ -1348,6 +1348,21 @@
             "name": "{{paste_layer_position_and_size}}",
             "identifier": "paste_layer_position_and_size",
             "script": "Layer/Copy_Paste_Position_and_Size.js"
+        },
+        {
+            "name": "{{show_layers}}",
+            "identifier": "show_layers",
+            "script": "Layer/show_Layers.js"
+        },
+        {
+            "name": "{{distribute_layers_horizontally_and_fit_width}}",
+            "identifier": "distribute_layers_horizontally_and_fit_width",
+            "script": "Arrange/Distribute_Layers_and_Fit_Size.js"
+        },
+        {
+            "name": "{{distribute_layers_vertically_and_fit_height}}",
+            "identifier": "distribute_layers_vertically_and_fit_height",
+            "script": "Arrange/Distribute_Layers_and_Fit_Size.js"
         }
     ],
     "menu": {
@@ -1365,6 +1380,9 @@
                     "tile_layers_by_position_y",
                     "tile_layers_horizontally_by_index",
                     "tile_layers_vertically_by_index",
+                    "-",
+                    "distribute_layers_horizontally_and_fit_width",
+                    "distribute_layers_vertically_and_fit_height",
                     "-",
                     "arrange_objects",
                     "-",
@@ -1387,6 +1405,7 @@
             {
                 "title": "{{layer}}",
                 "items": [
+                    "fit_to_artboard_with_margin",
                     "fit_to_parent_with_margin",
                     "fit_to_parent_width_with_margin",
                     "fit_to_parent_height_with_margin",
@@ -1421,6 +1440,7 @@
                     "reset_bounding_box",
                     "-",
                     "unlock_all_layers",
+                    "show_layers",
                     "-",
                     "toggle_layer_constrain_proportions",
                     "toggle_select_groups_content_on_click",
