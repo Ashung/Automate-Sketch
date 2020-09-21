@@ -156,6 +156,13 @@
       "icon": "icon_runner.png"
     },
     {
+      "name": "Convert To Outlines",
+      "identifier": "convert_to_outlines",
+      "handler": "convertToOutlinesHandler",
+      "script": "Layer/convert_to_outlines.js",
+      "icon": "icon_runner.png"
+    },
+    {
       "name": "Remove Hidden Layers",
       "identifier": "remove_hidden_layers",
       "script": "Layer/Remove_Hidden_Layers.js",
@@ -1711,6 +1718,7 @@
           "remove_empty_groups",
           "remove_all_groups",
           "union_layer",
+          "convert_to_outlines",
           "remove_hidden_layers",
           "remove_transparency_layers",
           "-",
