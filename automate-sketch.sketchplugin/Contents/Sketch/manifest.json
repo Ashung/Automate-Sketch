@@ -143,6 +143,19 @@
       "icon": "icon_runner.png"
     },
     {
+      "name": "Remove All Groups",
+      "identifier": "remove_all_groups",
+      "script": "Layer/Remove_All_Groups.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Union Layer",
+      "identifier": "union_layer",
+      "handler": "unionLayerHandler",
+      "script": "Layer/Union_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
       "name": "Remove Hidden Layers",
       "identifier": "remove_hidden_layers",
       "script": "Layer/Remove_Hidden_Layers.js",
@@ -1696,6 +1709,8 @@
           "-",
           "remove_redundant_groups",
           "remove_empty_groups",
+          "remove_all_groups",
+          "union_layer",
           "remove_hidden_layers",
           "remove_transparency_layers",
           "-",
