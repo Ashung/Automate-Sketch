@@ -850,3 +850,15 @@ distribute_layers_horizontally_and_fit_width:
 distribute_layers_vertically_and_fit_height:
   - Distribute Layers Vertically and Fit Height
   - 垂直分布图层并适应高度
+union_layer:
+  - Union Layer
+  - 合并图层
+convert_to_outlines:
+  - Convert to Outlines
+  - 转为轮廓
+remove_all_groups:
+  - Remove All Groups
+  - 删除所有组
+remove_layouts:
+  - Remove Layouts
+  - 删除布局

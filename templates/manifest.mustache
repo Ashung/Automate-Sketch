@@ -1363,6 +1363,26 @@
             "name": "{{distribute_layers_vertically_and_fit_height}}",
             "identifier": "distribute_layers_vertically_and_fit_height",
             "script": "Arrange/Distribute_Layers_and_Fit_Size.js"
+        },
+        {
+            "name": "{{union_layer}}",
+            "identifier": "union_layer",
+            "script": "Layer/Union_Layer.js"
+        },
+        {
+            "name": "{{convert_to_outlines}}",
+            "identifier": "convert_to_outlines",
+            "script": "Layer/Convert_to_Outlines.js"
+        },
+        {
+            "name": "{{remove_all_groups}}",
+            "identifier": "remove_all_groups",
+            "script": "Layer/Remove_All_Groups.js"
+        },
+        {
+            "name": "{{remove_layouts}}",
+            "identifier": "remove_layouts",
+            "script": "Guide/Remove_Layouts.js"
         }
     ],
     "menu": {
@@ -1477,12 +1497,16 @@
                     "-",
                     "remove_redundant_groups",
                     "remove_empty_groups",
+                    "remove_all_groups",
                     "remove_hidden_layers",
                     "remove_transparency_layers",
                     "-",
                     "rename_layers",
                     "find_and_replace_layer_name",
                     "clear_layer_name",
+                    "-",
+                    "union_layer",
+                    "convert_to_outlines",
                     "-",
                     "toggle_mask_for_selected_layers",
                     "-",
@@ -1638,6 +1662,7 @@
                     "-",
                     "copy_layout_setting",
                     "paste_layout_setting",
+                    "remove_layouts",
                     "-",
                     "copy_guide_setting",
                     "paste_guide_setting",

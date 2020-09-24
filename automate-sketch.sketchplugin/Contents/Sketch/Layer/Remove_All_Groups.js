@@ -1,4 +1,4 @@
-var onRun = function(context) {
+var onRun = function (context) {
 
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
@@ -13,13 +13,13 @@ var onRun = function(context) {
 
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            deleteEmptyGroups(layer, function(_count) {
+            deleteGroups(layer, function (_count) {
                 count += _count;
             });
         }
 
     } else {
-        deleteEmptyGroups(page, function(_count) {
+        deleteGroups(page, function (_count) {
             count = _count;
         });
     }
@@ -27,26 +27,26 @@ var onRun = function(context) {
 
     var message;
     if (count > 1) {
-        message = "🎉 " + count + " empty groups removed.";
+        message = "🎉 " + count + " groups removed.";
     } else if (count == 1) {
-        message = "😊 1 empty group removed.";
+        message = "😊 1 group removed.";
     } else {
-        message = "👍 Your document has no empty group.";
+        message = "👍 Your document has no group.";
     }
     doc.showMessage(message);
 
 };
 
-function deleteEmptyGroups(layer, callback) {
+function deleteGroups(layer, callback) {
 
     var count = 0;
 
-    if (layer.class() == "MSLayerGroup" && !layer.containsLayers()) {
-        layer.removeFromParent();
-        count ++;
+    if (layer.class() == "MSLayerGroup") {
+        layer.ungroup();
+        count++;
     } else {
         if (
-            layer.containsLayers() && 
+            layer.containsLayers() &&
             (
                 layer.class() != "MSShapeGroup" ||
                 layer.class() != "MSRectangleShape" ||
@@ -56,9 +56,10 @@ function deleteEmptyGroups(layer, callback) {
         ) {
             var loopChildren = layer.children().objectEnumerator();
             while (childLayer = loopChildren.nextObject()) {
-                if (childLayer.class() == "MSLayerGroup" && !childLayer.containsLayers()) {
-                    childLayer.removeFromParent();
-                    count ++;
+
+                if (childLayer.class() == "MSLayerGroup") {
+                    childLayer.ungroup();
+                    count++;
                 }
             }
         }
@@ -66,3 +67,4 @@ function deleteEmptyGroups(layer, callback) {
 
     callback(count);
 }
+
