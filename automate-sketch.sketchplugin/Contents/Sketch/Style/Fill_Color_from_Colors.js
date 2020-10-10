@@ -103,3 +103,6 @@ function setFillColor(layer, color) {
         layer.changeTextColorTo(color.NSColorWithColorSpace(nil));
     }
 }
+
+
+// TODO: color

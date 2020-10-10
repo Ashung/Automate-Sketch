@@ -289,3 +289,5 @@ function RGBToHSL(r, g, b) {
     }
     return [Math.round(h * 360), Math.round(s * 100), Math.round(l * 100)];
 }
+
+//TODO： color
