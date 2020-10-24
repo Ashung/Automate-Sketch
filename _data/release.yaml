@@ -1,3 +1,19 @@
+ -
+  version: 69.1.20201024
+  commitID: 277542a57527f27b12d5483545f150ed188d8cc5
+  description:
+    - Add Colors from Selected Layers to Document now support Sketch 69, update color variables with same name also supported.
+    - Create Color Guide now support Sketch 69.
+    - Add Copy / Paste Layer Position and Size.
+    - Add Show All Layers. 
+    - Add Distribute Layers Horizontally/Vertically and Fit Width/Height.
+    - Add Remove All Groups.
+    - Add Union Layer.
+    - Add Convert to Outlines.
+    - Add Remove Layouts.
+    - Fix rename layers bug.
+    - Remove Fill color from document/global colors.
+
 -
   version: 66.1.20200613
   commitID: 42c49d0b6e42103572b943dfd8477d60250c59d9
