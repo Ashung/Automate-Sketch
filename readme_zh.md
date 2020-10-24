@@ -28,6 +28,7 @@
 | Ungroup Shape Layer                                          | **取消形状图层组** 解决手动取消组出现的图层位置偏移。        |
 | Reset Bounding Box                                           | **重设调节框** 删除选中组和形状图层的所有变形，但保存图层外观。 |
 | Unlock All Layers                                            | **解锁当页所有图层**                                         |
+| Show All Layers                                              | **显示所有图层** 显示选中图层或当前页面内的所有图层。        |
 | Toggle Layer Constrain Proportions                           | **图层比例限制开关** 锁定或解锁选中图层的比例约束。          |
 | Toggle Select Group’s Content on Click                       | **点击时选择组内容开关**                                     |
 | Select All Layers In Selection By Type                       | **基于类型选择选中对象内所有图层** 根据类型（组、文本、形状、位图、组件、切片、可导出图层、隐藏图层）选择图层。 |
@@ -41,13 +42,17 @@
 | Select None                                                  | **取消选择**                                                 |
 | Paste and Replace                                            | **粘贴并替换** 将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Paste and Replace Setting                                    | **粘贴并替换设置** 设置新图层的位置，默认原点对齐或居中对齐。 |
+| Copy / Paste Layer Position and Size                         | **拷贝/粘贴图层位置与尺寸**                                  |
 | Remove Redundant Groups                                      | **删除不必要的嵌套组** 自动删除多余的嵌套组。                |
 | Remove Empty Groups                                          | **清除空图层组**                                             |
+| Remove All Groups                                            | **删除所有组** 取消画板内的分组。                            |
 | Remove Hidden Layers                                         | **清除隐藏图层**                                             |
 | Remove Transparency Layers                                   | **删除透明图层** 删除完全透明的图层。                        |
 | Rename Layers                                                | **重命名图层** 使用自定义模版变量修改选中的图层名。          |
 | Find and Replace Layer Name                                  | **查找并替换图层名**                                         |
 | Clear Layer Name                                             | **清理图层名** 删除图层名后的 copy。                         |
+| Union Layer                                                  | **合并图层** 合并画板内的所有图层。                          |
+| Convert to Outlines                                          | **转为轮廓** 将画板内的所有图层转为轮廓。                    |
 | Toggle Mask for Selected Layers                              | **选中图层设置或取消蒙版**                                   |
 | Create / Sync Link Layer                                     | **创建/同步引用图层** 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
 | **Arrange**                                                  | **排列**                                                     |
@@ -55,6 +60,7 @@
 | Tile Objects                                                 | **排列对象** 使用网格或任意方向排列对象，可设置按命名排列。  |
 | Tile Objects by Position X (Y)                               | **水平（垂直）排列对象** 水平或垂直平铺对象。                |
 | Tile Objects Horizontally (Vertically) by Index              | **据图层列表顺序水平（垂直）排列对象**                       |
+| Distribute Layers Horizontally/Vertically and Fit Width/Height | **水平分布图层并适应宽度，垂直分布图层并适应高度** 按指定的间隔平均图层到选中图层的区域。 |
 | Arrange Objects                                              | **智能排列对象** 智能排列图层或画板。                        |
 | Order Layers By ...                                          | **调整列表顺序据对象的...** 根据对象 X / Y 值、名称、类型，更改图层列表中的位置。 |
 | Reverse Layer Order                                          | **反转列表顺序** 反转图层列表中的位置。                      |
@@ -147,7 +153,6 @@
 | Select Layers with Same Style                                | **相同共享样式选择的图层** 选择当前页面中与选中图层有相同共享样式的图层。 |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color/ Text F0nt | **粘贴填充/描边/投影/内阴影/模糊/文本样式/文本颜色/文本字体** 在运行 "Edit" - "Copy" - "Copy Style ⌥⌘C" 或右键菜单 "Copy Style" 之后，可以分别粘贴填充、描边、投影，内阴影和模糊等到选中的图层。 |
 | Add Solid Fill from CSS Color                                | **从 CSS 色值添加单色填充**                                  |
-| Fill Color from Global (Document) Colors                     | **从全局（文档）色版快速填充** 从全局 (文档) 色版快速填充。  |
 | Swap Fill and Border                                         | **互换填充和描边**                                           |
 | Remove All Disabled Styles                                   | **清除无效样式** 删除当前页所有图层中禁用样式。              |
 | Remove Unused Layer / Text Styles                            | **删除未使用图层样式/文本样式** 删除文档中未使用的图层样式或文本样式。 |
@@ -169,6 +174,7 @@
 | Clear Guides                                                 | **清除辅助线** 清除所有辅助线。                              |
 | Grid Presets                                                 | **网格预设** 常用网格预设，例如 8x8、10x10 等等。            |
 | Hide or Show All Grid/Layout                                 | **显示或隐藏所有网格/布局** 隐藏或显示所有画板的网格或布局。 |
+| Remove Layouts                                               | **删除布局** 删除(重置)选中画板的布局。                      |
 | Copy Grid/Layout/Guide                                       | **复制网格/布局/辅助线** 复制选中画板的网格、布局或辅助线信息。 |
 | Paste Grid/Layout/Guide                                      | **粘贴网格/布局/辅助线** 为选中的画板添加网格、布局或辅助线，需要先运行 “Copy Grid/Layout/Guide”。 |
 | New Guide                                                    | **新建辅助线**                                               |

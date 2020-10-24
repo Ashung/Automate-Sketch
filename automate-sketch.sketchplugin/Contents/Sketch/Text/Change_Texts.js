@@ -112,7 +112,7 @@ var onRun = function(context) {
                 "{{page}}": layer.sketchObject.parentPage().name(),
                 "{{parent}}": layer.parent.name,
                 "{{name}}": layer.name,
-                "{{lorem}}": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar enim id mollis aliquam.",
+                "{{loremIpsum}}": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam pulvinar enim id mollis aliquam.",
                 "{{fontStyle}}": function() {
                     var fontDisplayName = layer.style.sketchObject.textStyle().attributes().NSFont.displayName();
                     var result = fontDisplayName.replace(layer.style.fontFamily, "").trim();

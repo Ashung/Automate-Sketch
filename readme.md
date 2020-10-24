@@ -27,6 +27,7 @@ Make your workflow more efficient.
 | Ungroup Shape Layer                                          | Ungroup shape layer.                                         |
 | Reset Bounding Box                                           | Remove all transform for selected group and shape layers, but not change the appearance. |
 | Unlock All Layers                                            | Unlock all layers.                                           |
+| Show All Layers                                              | Show all layers in current page or selected group, artboard. |
 | Toggle Layer Constrain Proportions                           | Lock or unlock constrain proportions for selected layers.    |
 | Toggle Select Group’s Content on Click                       | Toggle "select group’s content on click" option.             |
 | Select All Layers In Selection By Type                       | Select all groups, text, shapes, bitmaps, symbol instances, slices, exportable layers, hidden layers. |
@@ -40,13 +41,17 @@ Make your workflow more efficient.
 | Select None                                                  | Select none.                                                 |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
+| Copy / Paste Layer Position and Size                         | Copy and paste the position and size of selected layer.      |
 | Remove Redundant Groups                                      | Remove redundant nested groups.                              |
 | Remove Empty Groups                                          | Remove empty group.                                          |
+| Remove All Groups                                            | Ungroup all groups in artboard.                              |
 | Remove Hidden Layers                                         | Remove hidden layers.                                        |
 | Remove Transparency Layers                                   | Remove transparency layers.                                  |
 | Rename Layers                                                | Rename selected layers use custom template.                  |
 | Find and Replace Layer Name                                  | Find and replace layer name.                                 |
 | Clear Layer Name                                             | Clears the layer name and removes the "copy" after the layer name. |
+| Union Layer                                                  | Union layers in artboard.                                    |
+| Convert to Outlines                                          | Convert layers to outline in artboard.                       |
 | Toggle Mask for Selected Layers                              | Toggle mask or unmask for selected layers.                   |
 | Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
 | **Arrange**                                                  |                                                              |
@@ -54,6 +59,7 @@ Make your workflow more efficient.
 | Tile Objects                                                 | Tile objects with grid or any orientations.                  |
 | Tile Objects by Position X (Y)                               | Horizontal or vertical tiling objects.                       |
 | Tile Objects Horizontally (Vertically) by Index              | Horizontal or vertical tile based on layer list location.    |
+| Distribute Layers Horizontally/Vertically and Fit Width/Height | Distribute select layers with same width/height and space to fit select bound. |
 | Arrange Objects                                              | Arrange selected layers or artboard.                         |
 | Order Layers By ...                                          | Change the position in the layer list based on the object X / Y value, name, type. |
 | Reverse Layer Order                                          | Invert the position in the layer list.                       |
@@ -146,7 +152,6 @@ Make your workflow more efficient.
 | Select Layers with Same Style                                | Select layers in current page with same shared style of selected layer. |
 | Paste Fills / Borders / Shadows / Inner Shadows / Blur / Text Style / Text Color / Text Font | After run "Edit" - "Copy" - "Copy Style ⌥⌘C", you can paste the fills, borders, shadows, inner shadows, blur to selected layers. |
 | Add Solid Fill from CSS Color                                | Fill from CSS color code.                                    |
-| Fill Color from Global (Document) Colors                     | Fill from the global (document) color fast.                  |
 | Swap Fill and Border                                         | Swap fills and borders.                                      |
 | Remove All Disabled Styles                                   | Remove disabled styles in all layers of the current page.    |
 | Remove Unused Layer / Text Styles                            | Remove unused layer styles and text styles.                  |
@@ -168,6 +173,7 @@ Make your workflow more efficient.
 | Clear Guides                                                 | Clear all guides.                                            |
 | Grid Presets                                                 | Common Grid Presets, like 8x8, 10x10 etc.                    |
 | Hide or Show All Grid/Layout                                 | Hide or show all grid or layout of artboard.                 |
+| Remove Layouts                                               | Reset the layout in selected artboards.                      |
 | Copy Grid/Layout/Guide                                       | Copy the grid/layout/guide from seleted artboard.            |
 | Paste Grid/Layout/Guide                                      | Apply the grid/layout/guide for seleted artboards, you must run Copy Grid/Layout/Guide first. |
 | New Guide                                                    | Create new guides.                                           |

@@ -36,9 +36,9 @@ var onRun = function (context) {
     if (totalCount == 0) {
         doc.showMessage(`No shape found.`);
     } else if (totalCount == 1) {
-        doc.showMessage(`Union 1 layer group.`);
+        doc.showMessage(`1 layer converted.`);
     } else {
-        doc.showMessage(`Union ${totalCount} layer groups.`);
+        doc.showMessage(`Converted ${totalCount} layers.`);
     }
 
 
@@ -101,19 +101,10 @@ function selectSubLayer(subGroup, select) {
 
         if (
             (layerType.isText(subLayer)) ||
-            (layerType.isShape(subLayer)) ||
-            (layerType.isBitmap(subLayer)) ||
-            (layerType.isSlice(subLayer)) ||
-            (layerType.isSymbolInstance(subLayer))
+            (layerType.isShape(subLayer))
         ) {
-            // Fix Sketch 45
-            if (appVersion < 45) {
-                subLayer.select_byExpandingSelection(select, select);
-            } else {
-                subLayer.select_byExtendingSelection(select, select);
-            }
+            subLayer.layersByConvertingToOutlines();
         }
     }
 
 }
-

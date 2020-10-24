@@ -3,6 +3,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var selectedLayers = document.selectedLayers;
@@ -14,28 +16,83 @@ var onRun = function(context) {
 
     var colorAssets = document.colors;
     var gradientAssets = document.gradients;
-    var colorCount =  colorAssets.length;
-    var gradientCount = gradientAssets.length;
+    var colorCount =  0;
+    var gradientCount = 0;
+    var updateCount = 0;
+    
+    var Swatch;
+    var swatches;
+    var swatchNames;
+    if (sketch.version.sketch >= 69) {
+        Swatch = require("sketch/dom").Swatch;
+        swatches = document.swatches;
+        swatchNames = swatches.map(function(item) { return item.name });
+    }
+    
     selectedLayers.forEach(function(layer) {
         layer.style.fills.forEach(function(fill) {
             if (fill.fill == "Color") {
-                colorAssets.push({
-                    name: null,
-                    color: fill.color
-                });
+                // For Sketch 69 color variables
+                if (sketch.version.sketch >= 69) {
+                    if (swatchNames.includes(layer.name)) {
+                        var dialog = new Dialog(
+                            "Update Color Variables",
+                            'Update the exists color variable that named "' + layer.name + '".',
+                            300,
+                            ["Update", "Cancel", "Add"]
+                        );
+                        var responseCode = dialog.run();
+                        if (responseCode == 1000) {
+                            var mscolor = MSImmutableColor.colorWithSVGString(fill.color).newMutableCounterpart();
+                            var swatch = swatches.find(function(item) {
+                                return item.name == layer.name
+                            });
+                            swatch.sketchObject.updateWithColor(mscolor);
+                            fill.color = swatch.referencingColor;
+                            let swatchContainer = document._getMSDocumentData().sharedSwatches();
+                            swatchContainer.updateReferencesToSwatch(swatch.sketchObject);
+                            updateCount ++;
+                        }
+                        if (responseCode == 1002) {
+                            var swatch = Swatch.from({
+                                name: layer.name,
+                                color: fill.color
+                            });
+                            swatches.push(swatch);
+                            fill.color = swatch.referencingColor;
+                            colorCount ++;
+                        }
+                    } else {
+                        var swatch = Swatch.from({
+                            name: layer.name,
+                            color: fill.color
+                        });
+                        swatches.push(swatch);
+                        fill.color = swatch.referencingColor;
+                        colorCount ++;
+                    }
+                } else {
+                    colorAssets.push({
+                        name: layer.name,
+                        color: fill.color
+                    });
+                    colorCount ++;
+                }
             }
             if (fill.fill == "Gradient") {
                 gradientAssets.push({
-                    name: null,
+                    name: layer.name,
                     gradient: fill.gradient
                 });
+                gradientCount ++;
             }
         });
     });
 
     sketch.UI.message(
-        "Add " + (document.colors.length - colorCount) + " colors and " + 
-        (document.gradients.length - gradientCount) + " gradients."
+        "Add " + colorCount + " colors, " +
+        "Update " + updateCount + " colors, " +
+        "Add " + gradientCount + " gradients."
     );
     
 };

@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "66.1.20200613",
+  "version": "69.1.20201024",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -403,20 +403,6 @@
       "name": "Add Solid Fill from CSS Color",
       "identifier": "add_solid_fill_from_css_color",
       "script": "Style/Add_Solid_Fill_from_CSS_Color.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Fill Color from Global Colors",
-      "identifier": "fill_color_from_global_colors",
-      "handler": "fillColorFromGlobalColors",
-      "script": "Style/Fill_Color_from_Colors.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Fill Color from Document Colors",
-      "identifier": "fill_color_from_document_colors",
-      "handler": "fillColorFromDocumentColors",
-      "script": "Style/Fill_Color_from_Colors.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1590,6 +1576,60 @@
       "identifier": "selected_symbol_overrides_to_none",
       "script": "Symbol/Selected_Symbol_Overrides_to_None.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Copy Layer Position and Size",
+      "identifier": "copy_layer_position_and_size",
+      "script": "Layer/Copy_Paste_Position_and_Size.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Paste Layer Position and Size",
+      "identifier": "paste_layer_position_and_size",
+      "script": "Layer/Copy_Paste_Position_and_Size.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Show All Layers",
+      "identifier": "show_layers",
+      "script": "Layer/show_Layers.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Distribute Layers Horizontally and Fit Width",
+      "identifier": "distribute_layers_horizontally_and_fit_width",
+      "script": "Arrange/Distribute_Layers_and_Fit_Size.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Distribute Layers Vertically and Fit Height",
+      "identifier": "distribute_layers_vertically_and_fit_height",
+      "script": "Arrange/Distribute_Layers_and_Fit_Size.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Union Layer",
+      "identifier": "union_layer",
+      "script": "Layer/Union_Layer.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Convert to Outlines",
+      "identifier": "convert_to_outlines",
+      "script": "Layer/Convert_to_Outlines.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Remove All Groups",
+      "identifier": "remove_all_groups",
+      "script": "Layer/Remove_All_Groups.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Remove Layouts",
+      "identifier": "remove_layouts",
+      "script": "Guide/Remove_Layouts.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1607,6 +1647,9 @@
           "tile_layers_by_position_y",
           "tile_layers_horizontally_by_index",
           "tile_layers_vertically_by_index",
+          "-",
+          "distribute_layers_horizontally_and_fit_width",
+          "distribute_layers_vertically_and_fit_height",
           "-",
           "arrange_objects",
           "-",
@@ -1629,6 +1672,7 @@
       {
         "title": "Layer",
         "items": [
+          "fit_to_artboard_with_margin",
           "fit_to_parent_with_margin",
           "fit_to_parent_width_with_margin",
           "fit_to_parent_height_with_margin",
@@ -1663,6 +1707,7 @@
           "reset_bounding_box",
           "-",
           "unlock_all_layers",
+          "show_layers",
           "-",
           "toggle_layer_constrain_proportions",
           "toggle_select_groups_content_on_click",
@@ -1694,14 +1739,21 @@
           "paste_and_replace",
           "paste_and_replace_setting",
           "-",
+          "copy_layer_position_and_size",
+          "paste_layer_position_and_size",
+          "-",
           "remove_redundant_groups",
           "remove_empty_groups",
+          "remove_all_groups",
           "remove_hidden_layers",
           "remove_transparency_layers",
           "-",
           "rename_layers",
           "find_and_replace_layer_name",
           "clear_layer_name",
+          "-",
+          "union_layer",
+          "convert_to_outlines",
           "-",
           "toggle_mask_for_selected_layers",
           "-",
@@ -1816,8 +1868,6 @@
           "paste_text_font",
           "-",
           "add_solid_fill_from_css_color",
-          "fill_color_from_global_colors",
-          "fill_color_from_document_colors",
           "swap_fill_and_border",
           "-",
           "remove_all_disabled_styles",
@@ -1857,6 +1907,7 @@
           "-",
           "copy_layout_setting",
           "paste_layout_setting",
+          "remove_layouts",
           "-",
           "copy_guide_setting",
           "paste_guide_setting",

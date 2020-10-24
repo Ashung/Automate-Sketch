@@ -13,13 +13,13 @@ var onRun = function(context) {
 
         var loop = selection.objectEnumerator();
         while (layer = loop.nextObject()) {
-            delecteEmptyGroups(layer, function(_count) {
+            deleteEmptyGroups(layer, function(_count) {
                 count += _count;
             });
         }
 
     } else {
-        delecteEmptyGroups(page, function(_count) {
+        deleteEmptyGroups(page, function(_count) {
             count = _count;
         });
     }
@@ -37,7 +37,7 @@ var onRun = function(context) {
 
 };
 
-function delecteEmptyGroups(layer, callback) {
+function deleteEmptyGroups(layer, callback) {
 
     var count = 0;
 

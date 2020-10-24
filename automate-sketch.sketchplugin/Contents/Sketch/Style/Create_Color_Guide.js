@@ -11,13 +11,15 @@ var onRun = function(context) {
     var document = context.document;
 
     var documentColors;
-    if (appVersion >= 53) {
+    if (appVersion >= 69) {
+        documentColors = document.documentData().sharedSwatches().swatches();
+    } else if (appVersion >= 53) {
         documentColors = document.documentData().assets().colorAssets();
     } else {
         documentColors = document.documentData().assets().colors();
     }
     if (documentColors.count() == 0) {
-        document.showMessage("No document colors or gradients in current document.");
+        document.showMessage("No document colors in current document.");
         return;
     }
 
@@ -94,15 +96,18 @@ var onRun = function(context) {
         while (color = loopDocumentColors.nextObject()) {
 
             var mscolor;
-            if (color.class() == "MSColorAsset") {
+            if (color.class() == "MSSwatch") {
+                mscolor = color.color();
+            } else if (color.class() == "MSColorAsset") {
                 mscolor = color.color();
             } else {
                 mscolor = color;
             }
 
             // Add layer group
+            var colorName = color.name() || MSColorToHEX(color);
             var paletteGroup = MSLayerGroup.alloc().init();
-            paletteGroup.setName("color");
+            paletteGroup.setName(colorName);
             paletteGroup.setRect(CGRectMake(palettePositionX, palettePositionY, paletteWidth, paletteHeight));
             page.addLayer(paletteGroup);
 
@@ -119,29 +124,26 @@ var onRun = function(context) {
             }
             palette.style().addStylePartOfType(0);
             palette.style().fills().firstObject().setColor(mscolor);
-            palette.setName("palette");
+            if (color.class() == "MSSwatch") {
+                palette.style().fills().firstObject().setColor(color.makeReferencingColor());
+            }
+            palette.setName(colorName);
             paletteGroup.addLayer(palette);
 
             // Add name layer
-            if (color.class() == "MSColorAsset" && color.name()) {
-                var name = MSTextLayer.alloc().init();
-                name.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
-                name.setStringValue(color.name());
-                name.setLineHeight(textHeight);
-                name.setFontPostscriptName(textFontName);
-                name.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
-                name.setFontSize(textFontSize);
-                name.setName("name");
-                paletteGroup.insertLayer_beforeLayer(name, palette);
-            }
+            var name = MSTextLayer.alloc().init();
+            name.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
+            name.setStringValue(colorName);
+            name.setLineHeight(textHeight);
+            name.setFontPostscriptName(textFontName);
+            name.changeTextColorTo(textColor.NSColorWithColorSpace(nil));
+            name.setFontSize(textFontSize);
+            name.setName("name");
+            paletteGroup.insertLayer_beforeLayer(name, palette);
 
-            // Add text layer
+            // Add label layer
             var text = MSTextLayer.alloc().init();
-            if (color.class() == "MSColorAsset" && color.name()) {
-                text.setRect(CGRectMake(0, paletteHeight + textHeight + spaceBetweenPaletteAndText * 2, paletteWidth, textHeight));
-            } else {
-                text.setRect(CGRectMake(0, paletteHeight + spaceBetweenPaletteAndText, paletteWidth, textHeight));
-            }
+            text.setRect(CGRectMake(0, paletteHeight + textHeight + spaceBetweenPaletteAndText * 2, paletteWidth, textHeight));
             var stringValue;
             switch (colorFormatIndex) {
                 case 0:
