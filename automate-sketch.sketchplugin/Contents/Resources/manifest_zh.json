@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "68.2.20200922",
+  "version": "69.1.20201024",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -403,20 +403,6 @@
       "name": "从 CSS 色值添加单色填充",
       "identifier": "add_solid_fill_from_css_color",
       "script": "Style/Add_Solid_Fill_from_CSS_Color.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "从全局色版快速填充",
-      "identifier": "fill_color_from_global_colors",
-      "handler": "fillColorFromGlobalColors",
-      "script": "Style/Fill_Color_from_Colors.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "从文档色版快速填充",
-      "identifier": "fill_color_from_document_colors",
-      "handler": "fillColorFromDocumentColors",
-      "script": "Style/Fill_Color_from_Colors.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1638,6 +1624,12 @@
       "identifier": "remove_all_groups",
       "script": "Layer/Remove_All_Groups.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "删除布局",
+      "identifier": "remove_layouts",
+      "script": "Guide/Remove_Layouts.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1876,8 +1868,6 @@
           "paste_text_font",
           "-",
           "add_solid_fill_from_css_color",
-          "fill_color_from_global_colors",
-          "fill_color_from_document_colors",
           "swap_fill_and_border",
           "-",
           "remove_all_disabled_styles",
@@ -1917,6 +1907,7 @@
           "-",
           "copy_layout_setting",
           "paste_layout_setting",
+          "remove_layouts",
           "-",
           "copy_guide_setting",
           "paste_guide_setting",
