@@ -131,12 +131,13 @@ var onRun = function(context) {
             loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
             selectedLibrary = undefined;
         } else {
-            selectedLibrary = enabledLibraries[selectedIndex];
+            selectedLibrary = enabledLibraries[selectedIndex-1];
             if (identifier == "find_and_replace_layer_style") {
                 styleReferences = selectedLibrary.getImportableLayerStyleReferencesForDocument(document);
             } else {
                 styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
             }
+            styleReferences.sort((a,b) => a.name > b.name)
             loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
         }
     });
