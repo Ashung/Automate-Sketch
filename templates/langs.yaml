@@ -862,3 +862,6 @@ remove_all_groups:
 remove_layouts:
   - Remove Layouts
   - 删除布局
+fit_to_artboard_with_margin:
+  - Fit to Artboard with Margin
+  - 带边距适配画板
