@@ -27,21 +27,31 @@ var onRun = function(context) {
         Swatch = require("sketch/dom").Swatch;
         swatches = document.swatches;
         swatchNames = swatches.map(function(item) { return item.name });
-    }
     
+        var selectedLayersNames = selectedLayers.map(function(layer) {
+            return layer.name;
+        });
+        var showConfirmDialog = selectedLayersNames.some(function(name) {
+            return swatchNames.includes(name);
+        });
+        var responseCode;
+        if (showConfirmDialog) {
+            var dialog = new Dialog(
+                "Update Color Variables",
+                'Update the exists color variable with the same name as layer.',
+                300,
+                ["Update", "Cancel", "Add"]
+            );
+            responseCode = dialog.run();
+        }
+    }
+
     selectedLayers.forEach(function(layer) {
         layer.style.fills.forEach(function(fill) {
             if (fill.fill == "Color") {
                 // For Sketch 69 color variables
                 if (sketch.version.sketch >= 69) {
-                    if (swatchNames.includes(layer.name)) {
-                        var dialog = new Dialog(
-                            "Update Color Variables",
-                            'Update the exists color variable that named "' + layer.name + '".',
-                            300,
-                            ["Update", "Cancel", "Add"]
-                        );
-                        var responseCode = dialog.run();
+                    if (showConfirmDialog) {
                         if (responseCode == 1000) {
                             var mscolor = MSImmutableColor.colorWithSVGString(fill.color).newMutableCounterpart();
                             var swatch = swatches.find(function(item) {

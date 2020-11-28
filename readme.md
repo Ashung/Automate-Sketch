@@ -17,8 +17,9 @@ Make your workflow more efficient.
 | Menu                                                         | Notes                                                        |
 | ------------------------------------------------------------ | ------------------------------------------------------------ |
 | **Layer**                                                    |                                                              |
-| Fix to Parent with Margin                                    | Fix the width and height of the parent, and set the margins. |
-| Fix to Parent Width (Height) with Margin                     | Fix the width or height of the parent, and set the margins.  |
+| Fit to Artboard with Margin                                  | Fit the width and height to the parent artboard with a margin. |
+| Fit to Parent with Margin                                    | Fit the width and height to the parent, and set the margins. |
+| Fit to Parent Width (Height) with Margin                     | Fit the width or height to the parent, and set the margins.  |
 | Swap Width and Height                                        | Swap width and height for all selected layers.               |
 | Resize With Ratio                                            | Resize selected layers with an aspect ratio.                 |
 | Adjust Sizes                                                 | Increase/decrease width/height for selected layers from right/bottom/center origin, the increase/decrease value can be changed in "Preferences" - "Nudging". |
@@ -136,6 +137,7 @@ Make your workflow more efficient.
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change Local Symbols to Library Symbol                       | Change local symbols to library symbol with same symbol id or name. |
 | Change Library Symbols to Local Symbol                       | Change library symbols to local symbol, batch make local.    |
+| Swap Color Variables from Library                            | Swap color variables from library with same name.            |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
 | Change Local Layer Style to Library Layer Style              | Change local layer styles to same library layer style from selected library. |
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
