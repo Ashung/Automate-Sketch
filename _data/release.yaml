@@ -1,4 +1,12 @@
- -
+-
+  version:  70.1.20201128
+  commitID: 7b596637819432ad67dcfb68db39a065991f6d5c
+  description:
+    - Add Swap Color Variables from Library.
+    - Add Fit to Artboard with Margin.
+    - Show confirm dialog once when add colors/gradients for selected layers.	
+
+-
   version: 69.1.20201024
   commitID: 277542a57527f27b12d5483545f150ed188d8cc5
   description:
