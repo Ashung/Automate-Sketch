@@ -8,7 +8,6 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
 
     var sketch = require("sketch");
-    var document = sketch.getSelectedDocument();
     var selectedLayers = sketch.getSelectedDocument().selectedLayers.layers;
 
     if (selectedLayers.length == 0) {
@@ -18,7 +17,7 @@ var onRun = function(context) {
 
     var dialog = new Dialog(
         "Fit to Artboard with Margin",
-        'Syntax: "<all>", "<top>;<right>;<bottom>;<left>", "<top>;<right|left>;<bottom>", "<top|bottom>;<right|left>".'
+        'Syntax: "<all>", "<top>;<right>;<bottom>;<left>", "<top>;<right|left>;<bottom>", "<top|bottom>;<right|left>". use empty value to keep original margin, like "8;8;;8".'
     );
 
     var defaultMargin = preferences.get("fitToArtboardMargin") || "8";

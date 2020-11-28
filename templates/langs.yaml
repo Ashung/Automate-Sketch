@@ -865,3 +865,6 @@ remove_layouts:
 fit_to_artboard_with_margin:
   - Fit to Artboard with Margin
   - 带边距适配画板
+swap_color_variables_from_library:
+  - Swap Color Variables from Library
+  - 从库替换色彩变量
