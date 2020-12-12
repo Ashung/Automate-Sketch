@@ -137,7 +137,6 @@ var onRun = function(context) {
             } else {
                 styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
             }
-            styleReferences.sort((a,b) => a.name > b.name)
             loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
         }
     });
@@ -229,6 +228,7 @@ var onRun = function(context) {
 function loadSelectMenuData(popupButton, styles, stylesInOverride) {
     var preview = require("../modules/Preview");
     popupButton.removeAllItems();
+    styles.sort((a,b) => a.name > b.name);
     styles.forEach(function(style) {
         var menuItem = NSMenuItem.alloc().init();
         var menuTitle;
