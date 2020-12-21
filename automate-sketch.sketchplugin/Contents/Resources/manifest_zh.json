@@ -394,6 +394,12 @@
       "icon": "icon_runner.png"
     },
     {
+        "name": "Re-link all symbols instances to master by name",
+        "identifier": "sync_symbol_masters_by_name",
+        "script": "Symbol/Sync_Symbol_Master_by_Name.js",
+        "icon": "icon_runner.png"
+    },
+    {
       "name": "从 Sketch 文档替换同名页面",
       "identifier": "replace_pages_from_sketch_file",
       "script": "Symbol/Replace_Pages_from_Sketch_File.js",
@@ -1807,7 +1813,8 @@
           "insert_instance_of_selected_symbol",
           "-",
           "sync_symbol_master_from_sketch_file",
-          "replace_pages_from_sketch_file"
+          "replace_pages_from_sketch_file",
+          "sync_symbol_masters_by_name"
         ]
       },
       {
