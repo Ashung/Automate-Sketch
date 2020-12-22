@@ -868,3 +868,5 @@ fit_to_artboard_with_margin:
 swap_color_variables_from_library:
   - Swap Color Variables from Library
   - 从库替换色彩变量
+sync_symbol_masters_by_name:
+  - Re-link All Symbol Instances to Master By Name
