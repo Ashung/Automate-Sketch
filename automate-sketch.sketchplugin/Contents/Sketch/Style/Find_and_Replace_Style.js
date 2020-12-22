@@ -120,8 +120,10 @@ var onRun = function(context) {
         } else {
             styleReferences = selectedLibrary.getImportableTextStyleReferencesForDocument(document);
         }
+        styleReferences.sort((a,b) => a.name > b.name)
         loadSelectMenuData(targetStyleView, styleReferences, stylesInOverride);
     } else {
+        localStyles.sort((a,b) => a.name > b.name)
         loadSelectMenuData(targetStyleView, localStyles, stylesInOverride);
     }
 
