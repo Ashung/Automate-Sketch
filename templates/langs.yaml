@@ -868,5 +868,12 @@ fit_to_artboard_with_margin:
 swap_color_variables_from_library:
   - Swap Color Variables from Library
   - 从库替换色彩变量
-sync_symbol_masters_by_name:
-  - Re-link All Symbol Instances to Master By Name
+fix_broken_library_symbols_by_name:
+  - Fix Broken Library Symbols by Name
+  - 按命名解决无法更新的库组件
+link_color_variable:
+  - Link Color Variables
+  - 链接色彩变量
+detach_color_variable:
+  - Detach Color Variables
+  - 取消色彩变量

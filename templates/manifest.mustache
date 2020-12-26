@@ -1383,9 +1383,19 @@
             "script": "Library/Swap_Color_Variables_from_Library.js"
         },
         {
-            "name": "{{sync_symbol_masters_by_name}}",
-            "identifier": "sync_symbol_masters_by_name",
-            "script": "Symbol/Sync_Symbol_Master_by_Name.js",
+            "name": "{{fix_broken_library_symbols_by_name}}",
+            "identifier": "fix_broken_library_symbols_by_name",
+            "script": "Library/Fix_Broken_Library_Symbols_By_Name.js"
+        },
+        {
+            "name": "{{link_color_variable}}",
+            "identifier": "link_color_variable",
+            "script": "Style/Link_Color_Variable.js"
+        },
+        {
+            "name": "{{detach_color_variable}}",
+            "identifier": "detach_color_variable",
+            "script": "Style/Detach_Color_Variable.js"
         }
     ],
     "menu": {
@@ -1561,6 +1571,8 @@
                     "imported_symbols_link_manage",
                     "replace_library",
                     "-",
+                    "fix_broken_library_symbols_by_name",
+                    "-",
                     "replace_symbol_with_library_symbol",
                     "change_symbols_to_library_symbol",
                     "change_library_symbols_to_local",
@@ -1647,6 +1659,9 @@
                     "create_color_guide",
                     "create_style_guide",
                     "create_typography_guide",
+                    "-",
+                    "link_color_variable",
+                    "detach_color_variable",
                     "-",
                     "add_styles_from_selected_layers",
                     "add_colors_or_gradients_from_selected_layers_to_document",

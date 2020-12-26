@@ -12,6 +12,7 @@ var onRun = function(context) {
     var util = require("util");
     var Swatch = sketch.Swatch;
 
+    // Document swatches and imported swatches
     var allSwatches = util.toArray(document._getMSDocumentData().allSwatches()).map(function(swatch) {
         return Swatch.fromNative(swatch);
     });

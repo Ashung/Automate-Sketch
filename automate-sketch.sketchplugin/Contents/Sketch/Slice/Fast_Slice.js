@@ -19,7 +19,7 @@ var runFastSlice = function(context) {
     else {
         var defaultPreset = exportPresets.objectAtIndex(sliceExportPresetIndex);
         if (defaultPreset) {
-            if (defaultPreset.name() != sliceExportPresetName) {
+            if (String(defaultPreset.name()) != sliceExportPresetName) {
                 runSettingFirst = true;
             }
         }
@@ -85,10 +85,16 @@ var runFastSlice = function(context) {
                     slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
                 }
             } else {
-                if (preferences.get("sliceLayerOrder") == "1") {
-                    var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
-                    var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
-                    slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
+                if (preferences.get("sliceLayerOrder") == "0") {
+                    var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
+                    var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    newGroup.setName(layer.name());
+                    slice.exportOptions().setLayerOptions(2);
+                } else if (preferences.get("sliceLayerOrder") == "1") {
+                    var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
+                    var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    newGroup.setName(layer.name());
+                    slice.exportOptions().setLayerOptions(2);
                 } else {
                     slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
                 }
@@ -197,8 +203,8 @@ function sliceSetting(context) {
         nameFormat.selectItemAtIndex(sliceNameFormat);
     }
 
-    var layerOrderlabel = ui.textLabel("Order of New Slice Layer");
-    dialog.addView(layerOrderlabel);
+    var layerOrderLabel = ui.textLabel("Order of New Slice Layer");
+    dialog.addView(layerOrderLabel);
     var sliceOrder = ui.popupButton(["Bottom, inside a group. (default)", "Top, inside a group.", "Top of layer list."]);
     dialog.addView(sliceOrder);
     sliceOrder.selectItemAtIndex(parseInt(preferences.get("sliceLayerOrder")) || 0);

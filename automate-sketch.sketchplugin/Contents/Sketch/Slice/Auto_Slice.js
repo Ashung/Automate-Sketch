@@ -128,10 +128,19 @@ var onRun = function(context) {
                         slice.moveToLayer_beforeLayer(layer, layer.firstLayer());
                     }
                 } else {
-                    if (preferences.get("sliceLayerOrder") == "1") {
-                        var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
-                        var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
-                        slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
+                    if (preferences.get("sliceLayerOrder") == "0") {
+                        var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
+                        var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        newGroup.setName(layer.name());
+                        slice.exportOptions().setLayerOptions(2);
+                    } else if (preferences.get("sliceLayerOrder") == "1") {
+                        var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
+                        var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        newGroup.setName(layer.name());
+                        slice.exportOptions().setLayerOptions(2);
+                        // var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
+                        // var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
+                        // slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
                     } else {
                         slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
                     }

@@ -139,11 +139,11 @@ function exportLayer(document, layer, destFolder, nameFormat, preset) {
         if (nameFormat == 1) {
             filePath += nameParts(layer.name()).map(formatNameUnderLine).join("_");
         } else if (nameFormat == 2) {
-            filePath += nameParts(layer.name()).map(formatNameUnderLine).join("-");
+            filePath += nameParts(layer.name()).map(formatNameDash).join("-");
         } else if (nameFormat == 3) {
             filePath = formatNameUnderLine(nameParts(layer.name()).pop());
         } else if (nameFormat == 4) {
-            filePath = formatNameUnderLine(nameParts(layer.name()).pop());
+            filePath = formatNameDash(nameParts(layer.name()).pop());
         } else {
             filePath += layer.name();
         }
