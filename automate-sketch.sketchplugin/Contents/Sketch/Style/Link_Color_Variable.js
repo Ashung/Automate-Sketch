@@ -102,9 +102,9 @@ var onRun = function(context) {
                     }
                 }
             });
-    
+
             // Text colors
-    
+
             // Override colors
     
         });
