@@ -43,7 +43,7 @@ var onRun = function(context) {
     var selectLibraryView = ui.popupButton(allLibrariesNames);
     dialog.addView(selectLibraryView);
 
-    var ignoreNumberView = ui.checkBox(true, "Ignore the number before color variables name and match case.")
+    var ignoreNumberView = ui.checkBox(true, "Ignore the number before color name.")
     dialog.addView(ignoreNumberView);
 
     // Run
@@ -52,6 +52,7 @@ var onRun = function(context) {
 
         var targetLibrary = libraries[selectLibraryView.indexOfSelectedItem()];
         var swatchRefs = targetLibrary.getImportableSwatchReferencesForDocument(document);
+        // console.log(swatchRefs)
 
         if (swatchRefs.length == 0) {
             toast('These are no color variables in this library.');
@@ -59,7 +60,7 @@ var onRun = function(context) {
         }
 
         var fullMatchName = ignoreNumberView.state() == NSOffState;
- 
+        console.log(allSwatches.length)
         var count = 0;
         allSwatches.forEach(function(swatch) {
             var importableSwatch;

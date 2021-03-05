@@ -16,18 +16,20 @@ var onRun = function(context) {
         return;
     }
 
+    // Document / library have color variable
+    var targetList = [];
     var swatches = document.swatches;
+    if (swatches.length > 0) {
+        targetList.push(`This Document (${swatches.length})`);
+    }
+
     var libraries = sketch.getLibraries().filter(function(library) {
         return library.valid && library.enabled && library.getImportableSwatchReferencesForDocument(document).length > 0;
     });
-    
-    var targetList = [];
-    if (swatches.length > 0) {
-        targetList.push("This Document");
-    }
     if (libraries.length > 0) {
         targetList = targetList.concat(libraries.map(function(library) {
-            return library.name;
+            let count = library.getImportableSwatchReferencesForDocument(document).length;
+            return `${library.name} (${count})`;
         }));
     }
 
@@ -51,10 +53,11 @@ var onRun = function(context) {
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
+        var colors = {};
         var library;
-        var swatchReferences;
-        var swatchReferencesToColors;
-        var swatchesToColors;
+        // var swatchReferences;
+        // var swatchReferencesToColors;
+        // var swatchesToColors;
         if (swatches.length == 0) {
             library = libraries[listView.indexOfSelectedItem()];
         } else {
@@ -63,22 +66,23 @@ var onRun = function(context) {
             }
         }
         if (library) {
-            swatchReferences = library.getImportableSwatchReferencesForDocument(document);
-        }
-        if (swatchReferences) {
-            swatchReferencesToColors = swatchReferences.map(function(swatchReference) {
-                return colorToString(swatchReference.sketchObject.color());
+            library.getImportableSwatchReferencesForDocument(document).forEach(function(item) {
+                var key = colorToString(item.sketchObject.color());
+                colors[key] = {
+                    isReference: true,
+                    value: item,
+                }
             });
-        }
-        if (!swatchReferencesToColors) {
-            swatchesToColors = swatches.map(function(swatch) {
-                return swatch.color;
+        } else {
+            swatches.forEach(function(item) {
+                colors[item.color] = {
+                    isReference: false,
+                    value: item,
+                };
             });
         }
 
-
-        console.log(swatchesToColors);
-        console.log(swatchReferencesToColors);
+        console.log(colors)
 
         var count = {
             fill: 0,
@@ -90,24 +94,54 @@ var onRun = function(context) {
             // Fill and tint colors
             layer.style.fills.forEach(function(fill) {
                 if (fill.fillType == "Color") {
-                    console.log(fill.color);
-                    if (swatchesToColors) {
-                        // TODO: Link Color Variables
-                    } else {
-                        if (swatchReferencesToColors.includes(fill.color)) {
-                            var swatchReference = swatchReferences[swatchReferencesToColors.indexOf(fill.color)];
-                            var newSwatch = swatchReference.import();
-                            fill.color = newSwatch.referencingColor;
+                    if (colors[fill.color]) {
+                        var swatch = colors[fill.color].value;
+                        if (colors[fill.color].isReference) {
+                            swatch = swatch.import();
                         }
+                        fill.color = swatch.referencingColor;
+                    }
+                    if (layer.type == "Group" || layer.type == "SymbolInstance") {
+                        count.tint += 1;
+                    } else {
+                        count.fill += 1;
                     }
                 }
             });
 
             // Text colors
+            if (layer.style.textColor && colors[layer.style.textColor]) {
+                var swatch = colors[layer.style.textColor].value;
+                if (colors[layer.style.textColor].isReference) {
+                    swatch = swatch.import();
+                }
+                layer.style.textColor = swatch.referencingColor;
+                count.text += 1;
+            }
 
             // Override colors
-    
+            if (layer.overrides) {
+                layer.overrides.forEach(function(o) {
+                    if (o.property == 'fillColor' && o.editable) {
+                        var key = colorToString(o.sketchObject.currentValue());
+                        if (colors[key]) {
+                            var swatch = colors[key].value;
+                            if (colors[key].isReference) {
+                                swatch = swatch.import();
+                            }
+                            o.value = swatch.sketchObject.makeReferencingColor().immutableModelObject();
+                            count.override += 1;
+                        }
+                    }
+                });
+            }
         });
+
+        var message = '';
+        if (count.fill > 0) {
+            
+        }
+        toast(message);
         
     }
 
@@ -115,12 +149,12 @@ var onRun = function(context) {
 
 function colorToString(value) {
     function toHex(v) {
-      // eslint-disable-next-line
-      return (Math.round(v * 255) | (1 << 8)).toString(16).slice(1)
+        // eslint-disable-next-line
+        return (Math.round(v * 255) | (1 << 8)).toString(16).slice(1);
     }
-    const red = toHex(value.red())
-    const green = toHex(value.green())
-    const blue = toHex(value.blue())
-    const alpha = toHex(value.alpha())
-    return `#${red}${green}${blue}${alpha}`
+    const red = toHex(value.red());
+    const green = toHex(value.green());
+    const blue = toHex(value.blue());
+    const alpha = toHex(value.alpha());
+    return `#${red}${green}${blue}${alpha}`;
 }
