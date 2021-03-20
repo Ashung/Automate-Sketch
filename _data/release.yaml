@@ -1,5 +1,19 @@
 -
-  version:  70.1.20201128
+  version: 70.6.20210320
+  commitID: d6b1fe7ef2abb1cbf150e2969358b9a315a16cfc
+  description:
+    - Add Convert to Color Variable.
+    - Add Fix Broken Library Symbols by Name.
+    - 'Auto Slice and Fast Slice will create a group when choose "Top/bottom inside group".'
+    - 'Fixed bugs that Auto Slice and Fast Slice setting use "-" will became "\_".'
+    - Fix Shortcut Manager bug.
+    - Re-link symbol instances to new symbols by the original master name.
+    - Sorting fix for Find and Replace Styles
+    - Fit to Artboard with Margin support text layer.
+    - Find and Replace Style dropdown is ordered.
+
+-
+  version: 70.1.20201128
   commitID: 133b743827e8e81820316d1e7b156056724c17bc
   description:
     - Add Swap Color Variables from Library.
