@@ -40,20 +40,35 @@ var onRun = function(context) {
     var portraitView = ui.checkBox(false, "Portrait orientation.");
     dialog.addView(portraitView);
 
+    var lockHeightView = ui.checkBox(false, "Lock height.");
+    dialog.addView(lockHeightView);
+
     var responseCode = dialog.run();
     if (responseCode == 1000) {
 
         selectedLayers.forEach(function(layer) {
             var selectIndex = ratioPresetsView.indexOfSelectedItem();
-            var width = layer.frame.width;
-            var height = Math.round(width * ratios[selectIndex].h / ratios[selectIndex].w);
-            if (portraitView.state() == NSOnState) {
-                height = Math.round(width * ratios[selectIndex].w / ratios[selectIndex].h);
+            if (lockHeightView.state() == NSOffState) {
+                var width = layer.frame.width;
+                var height = Math.round(width * ratios[selectIndex].h / ratios[selectIndex].w);
+                if (portraitView.state() == NSOnState) {
+                    height = Math.round(width * ratios[selectIndex].w / ratios[selectIndex].h);
+                }
+                if (layer.sketchObject.constrainProportions()) {
+                    layer.sketchObject.setConstrainProportions(false);
+                }
+                layer.frame.height = height;
+            } else {
+                var height = layer.frame.height;
+                var width = Math.round(height * ratios[selectIndex].w / ratios[selectIndex].h);
+                if (portraitView.state() == NSOnState) {
+                    width = Math.round(height * ratios[selectIndex].h / ratios[selectIndex].w);
+                }
+                if (layer.sketchObject.constrainProportions()) {
+                    layer.sketchObject.setConstrainProportions(false);
+                }
+                layer.frame.width = width;
             }
-            if (layer.sketchObject.constrainProportions()) {
-                layer.sketchObject.setConstrainProportions(false);
-            }
-            layer.frame.height = height;
         });
 
         

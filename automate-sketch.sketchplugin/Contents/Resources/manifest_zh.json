@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "70.1.20201128",
+  "version": "70.6.20210320",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -392,12 +392,6 @@
       "identifier": "sync_symbol_master_from_sketch_file",
       "script": "Symbol/Sync_Symbol_Master_from_Sketch_File.js",
       "icon": "icon_runner.png"
-    },
-    {
-        "name": "Re-link all symbols instances to master by name",
-        "identifier": "sync_symbol_masters_by_name",
-        "script": "Symbol/Sync_Symbol_Master_by_Name.js",
-        "icon": "icon_runner.png"
     },
     {
       "name": "从 Sketch 文档替换同名页面",
@@ -1648,6 +1642,23 @@
       "identifier": "swap_color_variables_from_library",
       "script": "Library/Swap_Color_Variables_from_Library.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "按命名解决无法更新的库组件",
+      "identifier": "fix_broken_library_symbols_by_name",
+      "script": "Library/Fix_Broken_Library_Symbols_By_Name.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "转为色彩变量",
+      "identifier": "convert_to_color_variable",
+      "script": "Style/Convert_to_Color_Variable.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "",
+      "identifier": "detach_color_variable",
+      "script": "Style/Detach_Color_Variable.js"
     }
   ],
   "menu": {
@@ -1813,8 +1824,7 @@
           "insert_instance_of_selected_symbol",
           "-",
           "sync_symbol_master_from_sketch_file",
-          "replace_pages_from_sketch_file",
-          "sync_symbol_masters_by_name"
+          "replace_pages_from_sketch_file"
         ]
       },
       {
@@ -1823,6 +1833,8 @@
           "fix_library_id_conflict",
           "imported_symbols_link_manage",
           "replace_library",
+          "-",
+          "fix_broken_library_symbols_by_name",
           "-",
           "replace_symbol_with_library_symbol",
           "change_symbols_to_library_symbol",
@@ -1910,6 +1922,9 @@
           "create_color_guide",
           "create_style_guide",
           "create_typography_guide",
+          "-",
+          "convert_to_color_variable",
+          "detach_color_variable",
           "-",
           "add_styles_from_selected_layers",
           "add_colors_or_gradients_from_selected_layers_to_document",

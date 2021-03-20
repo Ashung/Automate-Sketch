@@ -134,6 +134,7 @@ Make your workflow more efficient.
 | Fix Library ID Conflict                                      | Fix library file with same document ID.                      |
 | Imported Symbols Link Manage                                 | Link imported symbols to another library, or fix the library not found error. |
 | Replace Library                                              | Swap all foreign symbols, styles from one library to another. |
+| Fix Broken Library Symbols by Name                           | Fix library symbol can't sync from library, replace with symbol have a same name. |
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change Local Symbols to Library Symbol                       | Change local symbols to library symbol with same symbol id or name. |
 | Change Library Symbols to Local Symbol                       | Change library symbols to local symbol, batch make local.    |
@@ -166,6 +167,7 @@ Make your workflow more efficient.
 | Create Color Guide                                           | Create a color guide from document colors.                   |
 | Create Style Guide                                           | Greate style guide from layer styles in current document.    |
 | Create Typography Guide                                      | Create typography style guide from text styles in current document. |
+| Convert to Color Variable                                    | Convert fill, tint, text and override colors from selected layers to color variables with same value in document or library. |
 | Add Styles from Selected Layers                              | Create styles from selected layers, use layer name as style name. |
 | Add Colors or Gradients from Selected Layers to Document     | Create document colors or gradients from selected layers.    |
 | Import Document Assets from Sketch File                      | Import resources (colors, gradients, and patterns) from Sketch files. |

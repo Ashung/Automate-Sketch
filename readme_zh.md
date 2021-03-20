@@ -135,6 +135,7 @@
 | Fix Library ID Conflict                                      | **解决库 ID 冲突** 库中存在同 ID 的文件，会导致同 ID 的库影响组件的更新。 |
 | Imported Symbols Link Manage                                 | **库组件链接管理** 管理库组件和库的链接关系，可用于解决库组件更新问题，或提示找不到库。 |
 | Replace Library                                              | **替换库** 将所有库组件、样式从一个库替换链接到另一个库。    |
+| Fix Broken Library Symbols by Name                           | **按命名解决无法更新的库组件** 使用从库中查找同名的组件替换，来解决某种组件因原本组件在库被删除导致无法更新的问题。 |
 | Replace Symbol With Library Symbol                           | **使用库组件替换内部组件** 将选中组件替换为任意的库组件。    |
 | Change Local Symbols to Library Symbol                       | **本地组件转为库组件** 根据组件 ID 或命名，将选中或全部组件转为库组件。 |
 | Change Library Symbols to Local Symbol                       | **库组件转为本地组件**                                       |
@@ -167,6 +168,7 @@
 | Create Color Guide                                           | **创建色彩指南** 从文档颜色创建色彩指南。                    |
 | Create Style Guide                                           | **创建样式指南** 从文档图层样式创建样式指南。                |
 | Create Typography Guide                                      | **创建字体指南** 从文本样式创建字体样式指南。                |
+| Convert to Color Variable                                    | **转为色彩变量** 将选中图层的填充、文本色、覆盖转为文档或库中相同色值的色彩变量 |
 | Add Styles from Selected Layers                              | **从选中图层添加样式** 以图层名作为样式名，批量创建图层或文本样式。 |
 | Add Colors or Gradients from Selected Layers to Document     | **将选中图层的颜色或渐变添加至文档**                         |
 | Import Document Assets from Sketch File                      | **从 Sketch 文档导入资源** 导入色彩、渐变及图案。            |

@@ -21,7 +21,7 @@ var onRun = function(context) {
     var commands = __command.pluginBundle().commands();
     var manifest = require("../manifest.json");
     var sketchLanguage = String(userDefaults.objectForKey("AppleLanguages").firstObject());
-    var pluginMenu = sketchLanguage == "en" ? "Plugins" : "插件";
+    var pluginMenu = /^zh/.test(sketchLanguage) ? "插件" :  "Plugins";
     var pluginName = manifest.menu.title;
     var commandViews = [];
 
@@ -79,7 +79,7 @@ var onRun = function(context) {
     if (responseCode == 1000) {
         var shortcutsCopy = shortcuts.mutableCopy();
         commandViews.forEach(function(item) {
-            var key = ["", pluginMenu, pluginName].concat(item.subviews().objectAtIndex(0).stringValue().split("->")).join("\u001b");
+            var key = ["", pluginMenu, pluginName].concat(item.subviews().objectAtIndex(0).title().split("->")).join("\u001b");
             var value = item.subviews().objectAtIndex(1).stringValue();
             if (value != "") {
                 shortcutsCopy.setValue_forKey(value, key);

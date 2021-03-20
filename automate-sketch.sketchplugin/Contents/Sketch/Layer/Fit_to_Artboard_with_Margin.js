@@ -57,11 +57,20 @@ var onRun = function(context) {
             if (artboard) {
                 var aw = artboard.frame().width();
                 var ah = artboard.frame().height();
-                var x = left != undefined ? left : layer.frame.x;
-                var y = top != undefined ? top : layer.frame.y;
+                var x = left != undefined ? left : (layer.sketchObject.absoluteRect().x() - artboard.absoluteRect().x());
+                var y = top != undefined ? top : (layer.sketchObject.absoluteRect().y() - artboard.absoluteRect().y());
                 var width = aw - x - (right != undefined ? right : aw - layer.frame.x - layer.frame.width);
                 var height = ah - y - (bottom != undefined ? bottom : ah - layer.frame.y - layer.frame.height);
-                layer.frame = { x, y, width, height };
+                layer.sketchObject.absoluteRect().setX(artboard.absoluteRect().x() + x);
+                layer.sketchObject.absoluteRect().setY(artboard.absoluteRect().y() + y);
+                layer.sketchObject.frame().setWidth(width);
+                layer.sketchObject.frame().setHeight(height);
+                if (layer.type == "Text") {
+                    layer.sketchObject.setTextBehaviour_mayAdjustFrame(1, false);
+                }
+                if (layer.sketchObject.parentGroup().className() == "MSLayerGroup") {
+                    layer.sketchObject.parentGroup().fixGeometryWithOptions(1);
+                }
             }
         });
 
