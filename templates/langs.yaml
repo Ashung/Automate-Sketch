@@ -871,9 +871,6 @@ swap_color_variables_from_library:
 fix_broken_library_symbols_by_name:
   - Fix Broken Library Symbols by Name
   - 按命名解决无法更新的库组件
-link_color_variable:
-  - Link Color Variables
-  - 链接色彩变量
-detach_color_variable:
-  - Detach Color Variables
-  - 取消色彩变量
+convert_to_color_variable:
+  - Convert to Color Variable
+  - 转为色彩变量

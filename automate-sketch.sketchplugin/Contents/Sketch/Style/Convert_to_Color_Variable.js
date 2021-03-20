@@ -40,8 +40,8 @@ var onRun = function(context) {
 
     // Dialog
     var dialog = new Dialog(
-        "Link Color Variables",
-        "Link fill colors, tint, text color and override color to color variables with same value."
+        "Convert to Color Variable",
+        "Convert fill color, tint, text color and override color to existing color variable with same value."
     );
 
     dialog.addLabel("Find Color Variables From");
@@ -55,9 +55,6 @@ var onRun = function(context) {
 
         var colors = {};
         var library;
-        // var swatchReferences;
-        // var swatchReferencesToColors;
-        // var swatchesToColors;
         if (swatches.length == 0) {
             library = libraries[listView.indexOfSelectedItem()];
         } else {
@@ -137,14 +134,22 @@ var onRun = function(context) {
             }
         });
 
-        var message = '';
+        var messages = [];
         if (count.fill > 0) {
-            
+            messages.push(`${count.fill} fill color${count.fill > 1 ? 's' : ''}` );
         }
-        toast(message);
+        if (count.tint > 0) {
+            messages.push(`${count.tint} tint color${count.tint > 1 ? 's' : ''}` );
+        }
+        if (count.text > 0) {
+            messages.push(`${count.text} text color${count.text > 1 ? 's' : ''}` );
+        }
+        if (count.override > 0) {
+            messages.push(`${count.override} override color${count.override > 1 ? 's' : ''}` );
+        }
+        toast(`Convert ${messages.join(', ')}.`);
         
     }
-
 };
 
 function colorToString(value) {

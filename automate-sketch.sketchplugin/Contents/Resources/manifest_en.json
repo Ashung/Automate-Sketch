@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "70.3.20201226",
+  "version": "70.6.20210320",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1650,16 +1650,15 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Link Color Variables",
-      "identifier": "link_color_variable",
-      "script": "Style/Link_Color_Variable.js",
+      "name": "Convert to Color Variable",
+      "identifier": "convert_to_color_variable",
+      "script": "Style/Convert_to_Color_Variable.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Detach Color Variables",
+      "name": "",
       "identifier": "detach_color_variable",
-      "script": "Style/Detach_Color_Variable.js",
-      "icon": "icon_runner.png"
+      "script": "Style/Detach_Color_Variable.js"
     }
   ],
   "menu": {
@@ -1924,7 +1923,7 @@
           "create_style_guide",
           "create_typography_guide",
           "-",
-          "link_color_variable",
+          "convert_to_color_variable",
           "detach_color_variable",
           "-",
           "add_styles_from_selected_layers",
