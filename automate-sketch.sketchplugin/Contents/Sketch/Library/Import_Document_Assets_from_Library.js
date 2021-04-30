@@ -7,8 +7,9 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
     var document = context.document;
+    
     if (MSApplicationMetadata.metadata().appVersion < 47) {
-        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use this feature.");
         return;
     }
 
@@ -50,63 +51,54 @@ var onRun = function(context) {
     if (responseCode == 1000) {
 
         var assets = document.documentData().assets();
-        var colors = assets.colors();
-        var gradients = assets.gradients();
-        var images = assets.images();
-
         var selectedLibrary = availableLibraries.objectAtIndex(selectBox.indexOfSelectedItem());
         var libraryAssets = selectedLibrary.document().assets();
 
-        if (checkboxColors.state() && libraryAssets.colors().count() > 0) {
-            var loopLibraryColors = libraryAssets.colors().objectEnumerator();
-            var color;
-            while (color = loopLibraryColors.nextObject()) {
-                if (!colors.containsObject(color)) {
-                    colors.addObject(color);
+        var countColor = 0;
+        var countGradient = libraryAssets.gradientAssets().count();
+        var countImage = libraryAssets.images().count();
+
+        if (checkboxColors.state()) {
+            if (MSApplicationMetadata.metadata().appVersion >= 69) {
+                // Color variables
+                var swatches = selectedLibrary.document().documentData().sharedSwatches().objectsSortedByName();
+                document.documentData().sharedSwatches().addSharedObjects(swatches);
+                countColor = swatches.count();
+            } else {
+                // Color
+                countColor = libraryAssets.colorAssets().count();
+                var loopLibraryColors = libraryAssets.colorAssets().objectEnumerator();
+                var color;
+                while (color = loopLibraryColors.nextObject()) {
+                    assets.colors().addObject(color);
                 }
             }
         }
 
-        if (checkboxGradients.state() && libraryAssets.gradients().count() > 0) {
-            var loopLibraryGradients = libraryAssets.gradients().objectEnumerator();
+        if (checkboxGradients.state() && countGradient > 0) {
+            var loopLibraryGradients = libraryAssets.gradientAssets().objectEnumerator();
             var gradient;
             while (gradient = loopLibraryGradients.nextObject()) {
-                var containsObject = false;
-                var loopDocumentGradients = gradients.objectEnumerator();
-                var documentGradient;
-                while (documentGradient = loopDocumentGradients.nextObject()) {
-                    if (documentGradient.isAssetEqual(gradient)) {
-                        containsObject = true;
-                        break;
-                    }
-                }
-                if (!containsObject) {
-                    gradients.addObject(gradient);
-                }
+                assets.gradients().addObject(gradient);
             }
         }
 
-        if (checkboxImages.state() && libraryAssets.images().count() > 0) {
+        if (checkboxImages.state() && countImage > 0) {
             var loopLibraryImages = libraryAssets.images().objectEnumerator();
             var image;
             while (image = loopLibraryImages.nextObject()) {
-                if (!images.containsObject(image)) {
-                    assets.addAsset(image);
-                }
+                assets.images().addObject(image);
             }
         }
 
         document.reloadInspector();
 
         document.showMessage(
-            "Imported " + libraryAssets.colors().count() + " colors, " +
-            libraryAssets.gradients().count() + " gradients, " +
-            libraryAssets.images().count() + " patterns from library \"" +
+            "Imported " + countColor + " colors, " +
+            countGradient + " gradients, " +
+            countImage + " images from library \"" +
             selectedLibrary.name() + "\"."
         );
 
     }
-
 };
-
-// TODO：color variables

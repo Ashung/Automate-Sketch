@@ -841,6 +841,12 @@ copy_layer_position_and_size:
 paste_layer_position_and_size:
   - Paste Layer Position and Size
   - 粘贴图层位置与尺寸
+paste_layer_position:
+  - Paste Layer Position
+  - 粘贴图层位置
+paste_layer_size:
+  - Paste Layer Size
+  - 粘贴图层尺寸
 show_layers:
   - Show All Layers
   - 显示所有图层

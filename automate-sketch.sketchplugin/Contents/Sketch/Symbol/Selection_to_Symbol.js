@@ -45,7 +45,9 @@ var onRun = function(context) {
 
             if (layer.class() == "MSLayerGroup") {
                 var layerGroup = symbolMaster.layers().firstObject();
-                layerGroup.ungroup();
+                if (layerGroup.class() == "MSLayerGroup") {
+                    layerGroup.ungroup();
+                }
             }
 
             if (layer.class() == "MSArtboardGroup") {

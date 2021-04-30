@@ -1338,6 +1338,16 @@
             "script": "Layer/Copy_Paste_Position_and_Size.js"
         },
         {
+            "name": "{{paste_layer_position}}",
+            "identifier": "paste_layer_position",
+            "script": "Layer/Copy_Paste_Position_and_Size.js"
+        },
+        {
+            "name": "{{paste_layer_size}}",
+            "identifier": "paste_layer_size",
+            "script": "Layer/Copy_Paste_Position_and_Size.js"
+        },
+        {
             "name": "{{show_layers}}",
             "identifier": "show_layers",
             "script": "Layer/show_Layers.js"
@@ -1391,11 +1401,6 @@
             "name": "{{convert_to_color_variable}}",
             "identifier": "convert_to_color_variable",
             "script": "Style/Convert_to_Color_Variable.js"
-        },
-        {
-            "name": "{{detach_color_variable}}",
-            "identifier": "detach_color_variable",
-            "script": "Style/Detach_Color_Variable.js"
         }
     ],
     "menu": {
@@ -1507,6 +1512,8 @@
                     "-",
                     "copy_layer_position_and_size",
                     "paste_layer_position_and_size",
+                    "paste_layer_position",
+                    "paste_layer_size",
                     "-",
                     "remove_redundant_groups",
                     "remove_empty_groups",
@@ -1661,7 +1668,6 @@
                     "create_typography_guide",
                     "-",
                     "convert_to_color_variable",
-                    "detach_color_variable",
                     "-",
                     "add_styles_from_selected_layers",
                     "add_colors_or_gradients_from_selected_layers_to_document",
