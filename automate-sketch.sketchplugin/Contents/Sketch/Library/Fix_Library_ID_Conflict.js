@@ -8,6 +8,7 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
+    var sketch = require("sketch");
     var document = context.document;
 
     if (sketch.version.sketch < 48) {

@@ -20,29 +20,47 @@ var onRun = function(context) {
         message("Layer position and size copied.");
     }
 
-    if (identifier == "paste_layer_position_and_size") {
-        var data = pasteboard.getText();
-        if (data) {
+    var data = pasteboard.getText();
+    if (data) {
+        if (identifier == "paste_layer_position_and_size") {
             try {
                 var frame = JSON.parse(data);
-                console.log(frame);
-                // if (frame.x && frame.y && frame.width && frame.height) {
                 if (frame.x >= 0 && frame.y >= 0 && frame.width > 0 && frame.height > 0) {
                     document.selectedLayers.forEach(function(layer) {
                         layer.frame = frame;
                     });
                 }
-                // } else {
-                //     message("No position and size data, please copy a position and size of 1 layer first.");
-                // }
-
             } catch (err) {
                 message("Please copy a position and size of 1 layer first.");
             }
-        } else {
-            message("Not text in pasteboard.");
         }
+        if (identifier == "paste_layer_position") {
+            try {
+                var frame = JSON.parse(data);
+                if (frame.x >= 0 && frame.y >= 0) {
+                    document.selectedLayers.forEach(function(layer) {
+                        layer.frame.x = frame.x;
+                        layer.frame.y = frame.y;
+                    });
+                }
+            } catch (err) {
+                message("Please copy a position and size of 1 layer first.");
+            }
+        }
+        if (identifier == "paste_layer_size") {
+            try {
+                var frame = JSON.parse(data);
+                if (frame.width > 0 && frame.height > 0) {
+                    document.selectedLayers.forEach(function(layer) {
+                        layer.frame.width = frame.width;
+                        layer.frame.height = frame.height;
+                    });
+                }
+            } catch (err) {
+                message("Please copy a position and size of 1 layer first.");
+            }
+        }
+    } else {
+        message("Not text in pasteboard.");
     }
-
-
 }

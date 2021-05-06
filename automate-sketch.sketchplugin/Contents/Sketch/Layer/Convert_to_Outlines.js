@@ -94,7 +94,6 @@ function selectGroup(group, context, page, callback) {
 function selectSubLayer(subGroup, select) {
 
     var layerType = require("../modules/Type");
-
     var appVersion = sketch.version.sketch;
 
     var loopChildren = subGroup.children().objectEnumerator();

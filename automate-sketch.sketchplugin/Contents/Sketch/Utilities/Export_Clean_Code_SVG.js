@@ -7,6 +7,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Utilities");
 
+    var sketch = require("sketch");
     var type = require("../modules/Type");
     var svgConfigPath = context.plugin.urlForResourceNamed("svgo_config.json").path();
 

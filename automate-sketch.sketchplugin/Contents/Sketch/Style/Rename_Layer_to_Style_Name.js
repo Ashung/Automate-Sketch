@@ -5,6 +5,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     var selection = context.selection;

@@ -5,6 +5,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var doc = context.document;

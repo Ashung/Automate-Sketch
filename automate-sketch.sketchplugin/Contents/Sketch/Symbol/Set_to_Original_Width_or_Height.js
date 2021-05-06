@@ -5,6 +5,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var sketch = require("sketch");
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();

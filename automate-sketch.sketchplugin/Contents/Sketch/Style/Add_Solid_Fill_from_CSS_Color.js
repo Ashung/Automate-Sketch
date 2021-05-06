@@ -154,6 +154,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var type = require("../modules/Type");
     var sketchUI = require("sketch/ui");
 

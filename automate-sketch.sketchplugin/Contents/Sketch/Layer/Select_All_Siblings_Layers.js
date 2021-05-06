@@ -4,6 +4,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var document = context.document;
     var page = document.currentPage();
     var selection = context.selection;

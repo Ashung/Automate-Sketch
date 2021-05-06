@@ -5,6 +5,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var system = require("../modules/System");
     var document = context.document;
 
@@ -33,12 +34,19 @@ var onRun = function(context) {
         var countColor = 0;
         var countGradient = 0;
         var countImage = 0;
-        newAssetCollection.colorAssets().forEach(function(item) {
-            if(!assetCollection.colorAssets().containsObject(item)) {
-                assetCollection.addColorAsset(item);
-                countColor ++;
-            }
-        });
+
+        if (sketch.version.sketch >= 69) {
+            var swatches = newDocument.documentData().sharedSwatches().objectsSortedByName();
+            document.documentData().sharedSwatches().addSharedObjects(swatches);
+            countColor = swatches.count();
+        } else {
+            newAssetCollection.colorAssets().forEach(function(item) {
+                if(!assetCollection.colorAssets().containsObject(item)) {
+                    assetCollection.addColorAsset(item);
+                    countColor ++;
+                }
+            });
+        }
 
         newAssetCollection.gradientAssets().forEach(function(item) {
             if(!assetCollection.gradientAssets().containsObject(item)) {
@@ -47,18 +55,19 @@ var onRun = function(context) {
             }
         });
 
-        // newAssetCollection.images().forEach(function(item) {
-        //     if(!assetCollection.images().containsObject(item)) {
-        //         assetCollection.images().addObject(item);
-        //         countImage ++;
-        //     }
-        // });
+        newAssetCollection.images().forEach(function(item) {
+            if(!assetCollection.images().containsObject(item)) {
+                assetCollection.images().addObject(item);
+                countImage ++;
+            }
+        });
 
         document.reloadInspector();
 
         document.showMessage(
             "Imported " + countColor + " colors, " +
-            countGradient + " gradients."
+            countGradient + " gradients," +
+            countImage + " images."
         );
 
     } else {
@@ -112,6 +121,3 @@ var onRun = function(context) {
     }
 
 };
-
-
-// TODO: color

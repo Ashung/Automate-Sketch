@@ -4,6 +4,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 
+    var sketch = require("sketch/dom");
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();

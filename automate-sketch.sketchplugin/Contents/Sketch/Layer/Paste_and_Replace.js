@@ -37,7 +37,7 @@ var onRun = function(context) {
                 var loopSelection = selection.objectEnumerator();
                 while (oldLayer = loopSelection.nextObject()) {
 
-                    var pasteboardLayers = getPasteboardLayers(context);
+                    var pasteboardLayers = getPasteboardLayers(context, appVersion);
                     var parentGroup = oldLayer.parentGroup();
 
                     if (appVersion >= 50) {

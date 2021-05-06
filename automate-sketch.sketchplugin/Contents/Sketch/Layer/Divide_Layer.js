@@ -4,6 +4,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var type = require("../modules/Type");
     var sketchUI = require("sketch/ui");

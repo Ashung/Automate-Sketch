@@ -210,7 +210,7 @@ function tileLayer(context, orientation) {
     ga("Arrange");
 
     var preferences = require("../modules/Preferences");
-
+    var sketch = require("sketch/dom");
     var version = parseFloat(require("sketch").version.sketch);
     var UI = require("sketch/ui");
     var doc = context.document;

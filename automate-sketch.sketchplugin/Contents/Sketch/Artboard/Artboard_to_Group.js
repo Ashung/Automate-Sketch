@@ -4,6 +4,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Artboard");
 
+    var sketch = require("sketch");
+
     var document = context.document;
     var selection = context.selection;
     

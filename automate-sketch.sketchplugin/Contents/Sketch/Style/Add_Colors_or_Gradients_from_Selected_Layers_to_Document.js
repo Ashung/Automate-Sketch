@@ -6,7 +6,6 @@ var onRun = function(context) {
     ga("Style");
 
     var Dialog = require("../modules/Dialog").dialog;
-    var ui = require("../modules/Dialog").ui;
     var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var selectedLayers = document.selectedLayers;

@@ -118,6 +118,7 @@ var onRun = function(context) {
 };
 
 function centerRect_byLayers(document, layers) {
+    var sketch = require("sketch");
     var rects = layers.map(function(item) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
