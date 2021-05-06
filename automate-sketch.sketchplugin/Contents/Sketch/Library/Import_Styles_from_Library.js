@@ -3,11 +3,12 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
+    var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
     var document = context.document;
-    if (MSApplicationMetadata.metadata().appVersion < 47) {
+    if (sketch.version.sketch < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }

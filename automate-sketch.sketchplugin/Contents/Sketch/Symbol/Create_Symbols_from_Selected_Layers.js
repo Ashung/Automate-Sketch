@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var sketch = require("sketch");
     var util = require("util");
     var document = context.document;
     var selection = context.selection;
@@ -35,7 +36,7 @@ var onRun = function(context) {
         if (responseCode == 1000) {
             if (sendToSymbolPage.state() == NSOnState) {
                 targetPage = documentData.symbolsPageOrCreateIfNecessary();
-                if (MSApplicationMetadata.metadata().appVersion < 54) {
+                if (sketch.version.sketch < 54) {
                     document.pageTreeLayoutDidChange();
                 }
             } else {

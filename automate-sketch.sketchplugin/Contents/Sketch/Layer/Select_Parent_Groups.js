@@ -44,7 +44,8 @@ var onRun = function(context) {
 };
 
 function selectLayer(layer) {
-    if (MSApplicationMetadata.metadata().appVersion < 45) {
+    var sketch = require("sketch");
+    if (sketch.version.sketch < 45) {
         layer.select_byExpendingSelection(true, true);
         if (!layer.selectedInLayerList()) {
             deselectAllChildAndSelf(layer, true);
@@ -60,13 +61,14 @@ function selectLayer(layer) {
 }
 
 function deselectAllChildAndSelf(layer, self) {
+    var sketch = require("sketch");
     var loop = layer.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {
         if (self == false && child == layer) {
             continue;
         }
-        if (MSApplicationMetadata.metadata().appVersion < 45) {
+        if (sketch.version.sketch < 45) {
             child.select_byExpendingSelection(false, true);
         } else {
             child.select_byExtendingSelection(false, true);

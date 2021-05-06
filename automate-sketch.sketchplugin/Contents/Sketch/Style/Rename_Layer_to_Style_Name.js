@@ -3,12 +3,13 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     var selection = context.selection;
 
     var predicate;
-    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+    if (sketch.version.sketch >= 52) {
         predicate = NSPredicate.predicateWithFormat("sharedStyle.objectID != nil");
     } else {
         predicate = NSPredicate.predicateWithFormat("style.sharedObjectID != nil");
@@ -30,7 +31,7 @@ var onRun = function(context) {
         // Foreign shared style
         else {
             var sharedStyleId;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 sharedStyleId = layer.sharedStyle().objectID();
             } else {
                 sharedStyleId = layer.style().sharedObjectID();

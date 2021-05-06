@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 
+    var sketch = require("sketch/dom");
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -77,7 +78,7 @@ var onRun = function(context) {
     var selectedLayer;
     while (selectedLayer = loopSelection.nextObject()) {
         if (selectedLayer.parentGroup().class() == "MSLayerGroup") {
-            if (MSApplicationMetadata.metadata().appVersion >= 53) {
+            if (sketch.version.sketch >= 53) {
                 selectedLayer.parentGroup().fixGeometryWithOptions(1);
             } else {
                 selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);

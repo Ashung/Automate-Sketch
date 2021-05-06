@@ -6,10 +6,11 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
+    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
 
-    if (MSApplicationMetadata.metadata().appVersion < 48) {
+    if (sketch.version.sketch < 48) {
         document.showMessage("😮 You have to update to Sketch 48+ to use thie feature.");
         return;
     }
@@ -149,7 +150,7 @@ var onRun = function(context) {
             var state = unusedSymbolView.subviews().firstObject().state();
             if (state) {
                 var unusedSymbolsWillRemoved = unusedSymbols.objectAtIndex(unusedSymbolIndex);
-                if (MSApplicationMetadata.metadata().appVersion >= 49) {
+                if (sketch.version.sketch >= 49) {
                     unusedSymbolsWillRemoved.removeFromParent();
                 } else {
                     if (unusedSymbolsWillRemoved.isForeign()) {
@@ -175,10 +176,11 @@ var onRun = function(context) {
 
 function getAllUnusedSymbols(context) {
 
+    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     // In Sketch 49, unused Symbols imported from Libraries are now cleared when saving a document
-    if (MSApplicationMetadata.metadata().appVersion >= 49) {
+    if (sketch.version.sketch >= 49) {
         var allSymbols = documentData.localSymbols();
     } else {
         var allSymbols = documentData.allSymbols();

@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var system = require("../modules/System");
     var document = context.document;
 
@@ -24,7 +25,7 @@ var onRun = function(context) {
         return;
     }
 
-    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+    if (sketch.version.sketch >= 53) {
         var assetCollection = document.documentData().assets();
         var newAssetCollection = newDocument.documentData().assets();
 
@@ -32,7 +33,7 @@ var onRun = function(context) {
         var countGradient = 0;
         var countImage = 0;
 
-        if (MSApplicationMetadata.metadata().appVersion >= 69) {
+        if (sketch.version.sketch >= 69) {
             var swatches = newDocument.documentData().sharedSwatches().objectsSortedByName();
             document.documentData().sharedSwatches().addSharedObjects(swatches);
             countColor = swatches.count();

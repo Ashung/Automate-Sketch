@@ -5,6 +5,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Utilities");
 
+    var sketch = require("sketch");
     var type = require("../modules/Type");
     var svgConfigPath = context.plugin.urlForResourceNamed("svgo_config.json").path();
 
@@ -292,7 +293,7 @@ var onRun = function(context) {
 
                 // Advanced Options
                 if (changeFillRule.state() == NSOnState && type.isShape(children)) {
-                    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+                    if (sketch.version.sketch >= 51) {
                         children.style().setWindingRule(0);
                     }
                     else {

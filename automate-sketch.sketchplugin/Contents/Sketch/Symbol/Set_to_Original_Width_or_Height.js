@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
+    var sketch = require("sketch");
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -34,7 +35,7 @@ var onRun = function(context) {
             layer.setScale(1);
 
             if (layer.parentGroup().class() == "MSLayerGroup") {
-                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                if (sketch.version.sketch >= 53) {
                     layer.parentGroup().fixGeometryWithOptions(1);
                 } else {
                     layer.parentGroup().resizeToFitChildrenWithOption(1);

@@ -1,6 +1,6 @@
 
 module.exports.isShape = function(layer) {
-    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+    if (BCSketchInfo.shared().metadata().appVersion >= 52) {
         if (
             layer.class() == "MSShapeGroup" ||
             (

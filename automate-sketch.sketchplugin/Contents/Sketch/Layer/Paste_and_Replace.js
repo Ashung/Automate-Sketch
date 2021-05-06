@@ -5,7 +5,8 @@ var onRun = function(context) {
 
     var preferences = require("../modules/Preferences");
     var type = require("../modules/Type");
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var sketch = require("sketch");
+    var appVersion = sketch.version.sketch;
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
@@ -36,7 +37,7 @@ var onRun = function(context) {
                 var loopSelection = selection.objectEnumerator();
                 while (oldLayer = loopSelection.nextObject()) {
 
-                    var pasteboardLayers = getPasteboardLayers(context);
+                    var pasteboardLayers = getPasteboardLayers(context, appVersion);
                     var parentGroup = oldLayer.parentGroup();
 
                     if (appVersion >= 50) {
@@ -138,8 +139,7 @@ var onRun = function(context) {
 
 };
 
-function getPasteboardLayers(context) {
-    var version = MSApplicationMetadata.metadata().appVersion;
+function getPasteboardLayers(context, version) {
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;

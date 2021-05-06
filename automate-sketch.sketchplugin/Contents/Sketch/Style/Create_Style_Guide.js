@@ -55,7 +55,7 @@ var onRun = function(context) {
         }
         preferences.set("paletteSize", userInputString.toString());
 
-        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+        if (sketch.version.sketch >= 49) {
             point = page.originForNewArtboardWithSize(CGSizeMake(paletteWidth, paletteHeight));
         } else {
             point = page.originForNewArtboard();
@@ -80,13 +80,13 @@ var onRun = function(context) {
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
             var palette;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 palette = rectangle;
             } else {
                 palette = MSShapeGroup.shapeWithPath(rectangle);
             }
             palette.setStyle(style.style());
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 palette.setSharedStyleID(style.objectID());
             } else {
                 palette.style().setSharedObjectID(style.objectID());
@@ -116,11 +116,12 @@ var onRun = function(context) {
 };
 
 function centerRect_byLayers(document, layers) {
+    var sketch = require("sketch");
     var rects = layers.map(function(item) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
     var rect = MSRect.rectWithUnionOfRects(rects).rect();
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = sketch.version.sketch;
     if (appVersion >= 48) {
         document.contentDrawView().centerRect_animated(rect, true);
     } else {

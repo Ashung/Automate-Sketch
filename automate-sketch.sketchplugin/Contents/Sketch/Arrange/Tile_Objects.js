@@ -209,7 +209,7 @@ function tileLayer(context, orientation) {
     ga("Arrange");
 
     var preferences = require("../modules/Preferences");
-
+    var sketch = require("sketch/dom");
     var version = parseFloat(require("sketch").version.sketch);
     var UI = require("sketch/ui");
     var doc = context.document;
@@ -306,7 +306,7 @@ function tileLayer(context, orientation) {
         var selectedLayer;
         while (selectedLayer = loopSelection.nextObject()) {
             if (selectedLayer.parentGroup().class() == "MSLayerGroup") {
-                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                if (sketch.version.sketch >= 53) {
                     selectedLayer.parentGroup().fixGeometryWithOptions(1);
                 } else {
                     selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);
