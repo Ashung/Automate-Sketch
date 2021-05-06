@@ -1,4 +1,13 @@
 -
+  version: 72.0.20210506
+  commitID: 138002bc6e08ffee248df27fbf9aaeff46a70262
+  description:
+    - Add Paste Layer Position/Size.
+    - Fixed Selection to Symbol bug.
+    - Import Document Assets From Sketch/Library now support color variables.
+    - Fixed Sketch 72 error.
+
+-
   version: 70.6.20210320
   commitID: d6b1fe7ef2abb1cbf150e2969358b9a315a16cfc
   description:
