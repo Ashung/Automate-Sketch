@@ -94,7 +94,7 @@ function selectSubLayer(subGroup, select) {
 
     var layerType = require("../modules/Type");
 
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = BCSketchInfo.shared().metadata().appVersion;
 
     var loopChildren = subGroup.children().objectEnumerator();
     while (subLayer = loopChildren.nextObject()) {

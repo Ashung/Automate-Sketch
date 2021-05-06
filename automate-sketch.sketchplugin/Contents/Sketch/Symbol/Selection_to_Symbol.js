@@ -27,7 +27,7 @@ var onRun = function(context) {
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(0, 0, symbolProperties.width, symbolProperties.height));
             var tempLayer;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                 tempLayer = rectangle;
             } else {
                 tempLayer = MSShapeGroup.shapeWithPath(rectangle);

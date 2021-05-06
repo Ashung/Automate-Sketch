@@ -12,7 +12,7 @@ var onRun = function(context) {
     button.setCOSJSTargetFunction(function(obj) {
 
         var pickColor;
-        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+        if (BCSketchInfo.shared().metadata().appVersion >= 52) {
             pickColor = obj.color();
         } else {
             pickColor = obj.chosenColor();

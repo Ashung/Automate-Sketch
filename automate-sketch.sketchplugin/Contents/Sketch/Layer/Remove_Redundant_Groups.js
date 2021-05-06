@@ -57,7 +57,7 @@ function groupIsSafeToUngroup(group) {
         noExportOptions = (group.exportOptions().exportFormats().count() == 0);
 
     // Sketch 44+ resizing constraint
-    if (MSApplicationMetadata.metadata().appVersion >= 44) {
+    if (BCSketchInfo.shared().metadata().appVersion >= 44) {
         var noResizingConstraint = (group.resizingConstraint() == 63);
         return noOpacity && noBlending && noShadows && noResizingConstraint && noExportOptions;
     } else {

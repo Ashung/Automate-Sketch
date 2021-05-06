@@ -34,7 +34,7 @@ var onRun = function(context) {
             layer.setScale(1);
 
             if (layer.parentGroup().class() == "MSLayerGroup") {
-                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                if (BCSketchInfo.shared().metadata().appVersion >= 53) {
                     layer.parentGroup().fixGeometryWithOptions(1);
                 } else {
                     layer.parentGroup().resizeToFitChildrenWithOption(1);

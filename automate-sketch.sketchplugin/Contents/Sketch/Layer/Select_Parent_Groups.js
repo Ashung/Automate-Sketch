@@ -44,7 +44,7 @@ var onRun = function(context) {
 };
 
 function selectLayer(layer) {
-    if (MSApplicationMetadata.metadata().appVersion < 45) {
+    if (BCSketchInfo.shared().metadata().appVersion < 45) {
         layer.select_byExpendingSelection(true, true);
         if (!layer.selectedInLayerList()) {
             deselectAllChildAndSelf(layer, true);
@@ -66,7 +66,7 @@ function deselectAllChildAndSelf(layer, self) {
         if (self == false && child == layer) {
             continue;
         }
-        if (MSApplicationMetadata.metadata().appVersion < 45) {
+        if (BCSketchInfo.shared().metadata().appVersion < 45) {
             child.select_byExpendingSelection(false, true);
         } else {
             child.select_byExtendingSelection(false, true);

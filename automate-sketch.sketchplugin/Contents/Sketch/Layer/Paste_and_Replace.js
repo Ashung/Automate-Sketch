@@ -5,7 +5,7 @@ var onRun = function(context) {
 
     var preferences = require("../modules/Preferences");
     var type = require("../modules/Type");
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = BCSketchInfo.shared().metadata().appVersion;
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
@@ -139,7 +139,7 @@ var onRun = function(context) {
 };
 
 function getPasteboardLayers(context) {
-    var version = MSApplicationMetadata.metadata().appVersion;
+    var version = BCSketchInfo.shared().metadata().appVersion;
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;

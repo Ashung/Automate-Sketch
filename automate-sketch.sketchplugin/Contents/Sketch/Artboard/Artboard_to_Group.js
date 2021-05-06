@@ -22,7 +22,7 @@ var onRun = function(context) {
             rectangle.setRect(CGRectMake(0, 0, artboard.frame().width(), artboard.frame().height()));
             
             var backgroundLayer;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                 backgroundLayer = rectangle;
             } else {
                 backgroundLayer = MSShapeGroup.shapeWithPath(rectangle);
@@ -37,7 +37,7 @@ var onRun = function(context) {
         // Create new group for all layers in artboard
         var newGroup;
         var layerArray = MSLayerArray.arrayWithLayers(artboard.layers());
-        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+        if (BCSketchInfo.shared().metadata().appVersion >= 52) {
             newGroup = MSLayerGroup.groupWithLayers(layerArray);
         } else {
             newGroup = MSLayerGroup.groupFromLayers(layerArray);

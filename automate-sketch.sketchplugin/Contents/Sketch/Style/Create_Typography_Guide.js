@@ -50,7 +50,7 @@ var onRun = function(context) {
         var page = document.sketchObject.currentPage();
 
         var point;
-        if (MSApplicationMetadata.metadata().appVersion >= 49) {
+        if (BCSketchInfo.shared().metadata().appVersion >= 49) {
             point = page.originForNewArtboardWithSize(CGSizeMake(100,100));
         } else {
             point = page.originForNewArtboard();
@@ -97,7 +97,7 @@ var onRun = function(context) {
                 typography.setStringValue(previewText);
             }
             typography.setStyle(textStyle.style());
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                 typography.setSharedStyleID(textStyle.objectID());
             } else {
                 typography.style().setSharedObjectID(textStyle.objectID());
@@ -118,7 +118,7 @@ var onRun = function(context) {
             text.frame().setY(typography.frame().height() + spaceBetweenTypographyAndText);
             typographyGroup.insertLayer_beforeLayer(text, typography);
 
-            if (MSApplicationMetadata.metadata().appVersion >= 53) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 53) {
                 typographyGroup.fixGeometryWithOptions(1);
             } else {
                 typographyGroup.resizeToFitChildrenWithOption(1);
@@ -140,7 +140,7 @@ function centerRect_byLayers(document, layers) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
     var rect = MSRect.rectWithUnionOfRects(rects).rect();
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = BCSketchInfo.shared().metadata().appVersion;
     if (appVersion >= 48) {
         document.contentDrawView().centerRect_animated(rect, true);
     } else {

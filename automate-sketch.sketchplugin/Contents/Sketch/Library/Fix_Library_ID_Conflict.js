@@ -8,7 +8,7 @@ var onRun = function(context) {
 
     var document = context.document;
 
-    if (MSApplicationMetadata.metadata().appVersion < 48) {
+    if (BCSketchInfo.shared().metadata().appVersion < 48) {
         document.showMessage("😮 You have to update to Sketch 48+ to use this feature.");
         return;
     }

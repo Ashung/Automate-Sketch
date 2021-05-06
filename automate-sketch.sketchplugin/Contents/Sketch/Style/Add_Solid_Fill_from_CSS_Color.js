@@ -288,7 +288,7 @@ var onRun = function(context) {
             doc.reloadInspector();
 
             // Fix Sketch 45
-            if (MSApplicationMetadata.metadata().appVersion < 45) {
+            if (BCSketchInfo.shared().metadata().appVersion < 45) {
                 layer.select_byExpandingSelection(true, true);
             } else {
                 layer.select_byExtendingSelection(true, true);
