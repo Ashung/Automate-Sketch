@@ -77,7 +77,7 @@ var onRun = function(context) {
     var selectedLayer;
     while (selectedLayer = loopSelection.nextObject()) {
         if (selectedLayer.parentGroup().class() == "MSLayerGroup") {
-            if (MSApplicationMetadata.metadata().appVersion >= 53) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 53) {
                 selectedLayer.parentGroup().fixGeometryWithOptions(1);
             } else {
                 selectedLayer.parentGroup().resizeToFitChildrenWithOption(1);

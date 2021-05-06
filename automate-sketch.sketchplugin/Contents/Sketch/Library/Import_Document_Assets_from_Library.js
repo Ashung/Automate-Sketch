@@ -7,7 +7,7 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
     var document = context.document;
-    if (MSApplicationMetadata.metadata().appVersion < 47) {
+    if (BCSketchInfo.shared().metadata().appVersion < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }

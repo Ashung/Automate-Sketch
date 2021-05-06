@@ -295,7 +295,7 @@ var onRun = function(context) {
             var sharedStyle = styleToLibraryDict["" + item.objectID()];
             if (sharedStyle) {
                 item.allLayersInstances().forEach(function(layer) {
-                    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                    if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                         var localStyleID = layer.sharedStyleID();
                         if (resetStyleView.state() == NSOffState) {
                             layer.setSharedStyleID(localStyleIDToForeignStyleMapping[localStyleID].localShareID());

@@ -29,7 +29,7 @@ var onRun = function(context) {
                 var child;
                 while (child = loopChild.nextObject()) {
                     // Fix Sketch 45
-                    if (MSApplicationMetadata.metadata().appVersion < 45) {
+                    if (BCSketchInfo.shared().metadata().appVersion < 45) {
                         child.select_byExpendingSelection(true, true);
                     } else {
                         child.select_byExtendingSelection(true, true);

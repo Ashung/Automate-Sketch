@@ -7,7 +7,7 @@ module.exports.pbcopy = function(text) {
 };
 
 module.exports.getLayers = function(context){
-    var version = MSApplicationMetadata.metadata().appVersion;
+    var version = BCSketchInfo.shared().metadata().appVersion;
     var pasteboardManager = AppController.sharedInstance().pasteboardManager();
     var pasteboardLayers;
     if (version >= 64) {

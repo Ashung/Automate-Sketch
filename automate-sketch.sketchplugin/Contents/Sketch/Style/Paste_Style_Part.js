@@ -134,7 +134,7 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
 
                         if (Sketch.isShapeLayer(layer)) {
-                            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+                            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                                 var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                                 layer.style().setBlur(style.blur());
                             } else {

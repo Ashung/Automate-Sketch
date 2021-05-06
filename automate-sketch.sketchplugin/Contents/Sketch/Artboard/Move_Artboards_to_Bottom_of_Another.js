@@ -106,7 +106,7 @@ function selectLayers(context, layers) {
 }
 
 function selectLayer(layer, add) {
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = BCSketchInfo.shared().metadata().appVersion;
     if (appVersion < 45) {
         layer.select_byExpandingSelection(true, add);
     } else {

@@ -292,7 +292,7 @@ var onRun = function(context) {
 
                 // Advanced Options
                 if (changeFillRule.state() == NSOnState && type.isShape(children)) {
-                    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+                    if (BCSketchInfo.shared().metadata().appVersion >= 51) {
                         children.style().setWindingRule(0);
                     }
                     else {

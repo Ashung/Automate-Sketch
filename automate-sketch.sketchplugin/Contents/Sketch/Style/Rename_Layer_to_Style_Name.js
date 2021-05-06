@@ -8,7 +8,7 @@ var onRun = function(context) {
     var selection = context.selection;
 
     var predicate;
-    if (MSApplicationMetadata.metadata().appVersion >= 52) {
+    if (BCSketchInfo.shared().metadata().appVersion >= 52) {
         predicate = NSPredicate.predicateWithFormat("sharedStyle.objectID != nil");
     } else {
         predicate = NSPredicate.predicateWithFormat("style.sharedObjectID != nil");
@@ -30,7 +30,7 @@ var onRun = function(context) {
         // Foreign shared style
         else {
             var sharedStyleId;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
                 sharedStyleId = layer.sharedStyle().objectID();
             } else {
                 sharedStyleId = layer.style().sharedObjectID();

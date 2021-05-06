@@ -35,7 +35,7 @@ var onRun = function(context) {
         if (responseCode == 1000) {
             if (sendToSymbolPage.state() == NSOnState) {
                 targetPage = documentData.symbolsPageOrCreateIfNecessary();
-                if (MSApplicationMetadata.metadata().appVersion < 54) {
+                if (BCSketchInfo.shared().metadata().appVersion < 54) {
                     document.pageTreeLayoutDidChange();
                 }
             } else {

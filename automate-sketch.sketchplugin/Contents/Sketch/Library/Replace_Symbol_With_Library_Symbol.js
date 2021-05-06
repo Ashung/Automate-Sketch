@@ -9,7 +9,7 @@ var onRun = function(context) {
     var document = context.document;
     var documentData = document.documentData();
 
-    if (MSApplicationMetadata.metadata().appVersion < 47) {
+    if (BCSketchInfo.shared().metadata().appVersion < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
@@ -214,7 +214,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
                 }
             }
 
-            if (MSApplicationMetadata.metadata().appVersion >= 50) {
+            if (BCSketchInfo.shared().metadata().appVersion >= 50) {
                 var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
                     library.document().symbolWithID(importedSymbolID),
                     library

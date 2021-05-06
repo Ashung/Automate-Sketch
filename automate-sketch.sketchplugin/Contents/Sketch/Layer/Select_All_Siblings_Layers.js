@@ -25,7 +25,7 @@ var onRun = function(context) {
     var loopChild = parent.layers().objectEnumerator();
     var child;
     while (child = loopChild.nextObject()) {
-        if (MSApplicationMetadata.metadata().appVersion < 45) {
+        if (BCSketchInfo.shared().metadata().appVersion < 45) {
             child.select_byExpendingSelection(true, true);
         } else {
             child.select_byExtendingSelection(true, true);

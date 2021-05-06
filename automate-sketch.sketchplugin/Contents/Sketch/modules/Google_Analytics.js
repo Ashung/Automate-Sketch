@@ -46,7 +46,7 @@ module.exports = function(eventCategory) {
         // Tracking ID
         url += "&tid=" + trackingID;
         // Source
-        url += "&ds=sketch" + MSApplicationMetadata.metadata().appVersion;
+        url += "&ds=sketch" + BCSketchInfo.shared().metadata().appVersion;
         // Client ID
         url += "&cid=" + uuid;
         // User GEO location

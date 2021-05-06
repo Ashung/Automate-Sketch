@@ -238,7 +238,7 @@ var onRun = function(context) {
 
                 // Import symbol
                 var importedSymbol;
-                if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                if (BCSketchInfo.shared().metadata().appVersion >= 50) {
                     var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
                         remoteSymbol, selectedLibrary
                     );

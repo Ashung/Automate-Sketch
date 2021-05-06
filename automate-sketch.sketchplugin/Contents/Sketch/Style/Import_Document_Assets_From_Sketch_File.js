@@ -24,7 +24,7 @@ var onRun = function(context) {
         return;
     }
 
-    if (MSApplicationMetadata.metadata().appVersion >= 53) {
+    if (BCSketchInfo.shared().metadata().appVersion >= 53) {
         var assetCollection = document.documentData().assets();
         var newAssetCollection = newDocument.documentData().assets();
 

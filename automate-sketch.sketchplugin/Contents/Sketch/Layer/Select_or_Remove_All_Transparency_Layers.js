@@ -73,7 +73,7 @@ function selectTransparencyLayers(layer) {
     if (layer.isKindOfClass(MSStyledLayer)) {
         if (layerIsTransparency(layer)) {
             // Fix Sketch 45
-            if (MSApplicationMetadata.metadata().appVersion < 45) {
+            if (BCSketchInfo.shared().metadata().appVersion < 45) {
                 layer.select_byExpandingSelection(true, true);
             } else {
                 layer.select_byExtendingSelection(true, true);
@@ -85,7 +85,7 @@ function selectTransparencyLayers(layer) {
                 if (childLayer.isKindOfClass(MSStyledLayer)) {
                     if (layerIsTransparency(childLayer)) {
                         // Fix Sketch 45
-                        if (MSApplicationMetadata.metadata().appVersion < 45) {
+                        if (BCSketchInfo.shared().metadata().appVersion < 45) {
                             childLayer.select_byExpandingSelection(true, true);
                         } else {
                             childLayer.select_byExtendingSelection(true, true);
