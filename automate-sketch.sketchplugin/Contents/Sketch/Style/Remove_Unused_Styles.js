@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -45,14 +47,14 @@ function createDialog(context, type) {
     while (page = loopPages.nextObject()) {
         var predicate;
         if (type == 0) {
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 predicate = NSPredicate.predicateWithFormat('className != "MSTextLayer" && sharedStyle.objectID != nil');
             } else {
                 predicate = NSPredicate.predicateWithFormat('className != "MSTextLayer" && style.sharedObjectID != nil')
             }
         }
         if (type == 1) {
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer" && sharedStyle.objectID != nil');
             } else {
                 predicate = NSPredicate.predicateWithFormat('className == "MSTextLayer" && style.sharedObjectID != nil')
@@ -63,7 +65,7 @@ function createDialog(context, type) {
         var layer;
         while (layer = loopLayers.nextObject()) {
             var style;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 style = styles.sharedObjectWithID(layer.sharedStyleID());
             } else {
                 style = styles.sharedObjectWithID(layer.style().sharedObjectID());
@@ -200,7 +202,7 @@ function createDataView(items, type, selectAll, checkedStatus) {
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(2, 2, 20, 20));
             var previewLayer;
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 previewLayer = rectangle;
             } else {
                 previewLayer = MSShapeGroup.shapeWithPath(rectangle);

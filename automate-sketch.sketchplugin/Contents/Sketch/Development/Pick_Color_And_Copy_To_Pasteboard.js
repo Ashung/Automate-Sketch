@@ -1,5 +1,6 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Development");
 
@@ -12,7 +13,7 @@ var onRun = function(context) {
     button.setCOSJSTargetFunction(function(obj) {
 
         var pickColor;
-        if (MSApplicationMetadata.metadata().appVersion >= 52) {
+        if ( sketch.version.sketch >= 52) {
             pickColor = obj.color();
         } else {
             pickColor = obj.chosenColor();

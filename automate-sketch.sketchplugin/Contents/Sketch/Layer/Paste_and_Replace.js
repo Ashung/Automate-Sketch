@@ -1,11 +1,12 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
     var preferences = require("../modules/Preferences");
     var type = require("../modules/Type");
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = sketch.version.sketch;
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
@@ -139,7 +140,7 @@ var onRun = function(context) {
 };
 
 function getPasteboardLayers(context) {
-    var version = MSApplicationMetadata.metadata().appVersion;
+    var version = sketch.version.sketch;
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;

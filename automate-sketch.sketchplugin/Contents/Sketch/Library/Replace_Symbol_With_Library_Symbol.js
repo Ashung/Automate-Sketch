@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -9,7 +11,7 @@ var onRun = function(context) {
     var document = context.document;
     var documentData = document.documentData();
 
-    if (MSApplicationMetadata.metadata().appVersion < 47) {
+    if (sketch.version.sketch < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
@@ -214,7 +216,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
                 }
             }
 
-            if (MSApplicationMetadata.metadata().appVersion >= 50) {
+            if (sketch.version.sketch >= 50) {
                 var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
                     library.document().symbolWithID(importedSymbolID),
                     library

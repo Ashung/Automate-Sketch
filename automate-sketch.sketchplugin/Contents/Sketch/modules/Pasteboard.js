@@ -1,4 +1,4 @@
-
+var sketch = require('sketch')
 var pasteboard = NSPasteboard.generalPasteboard();
 
 module.exports.pbcopy = function(text) {
@@ -7,7 +7,7 @@ module.exports.pbcopy = function(text) {
 };
 
 module.exports.getLayers = function(context){
-    var version = MSApplicationMetadata.metadata().appVersion;
+    var version = sketch.version.sketch;
     var pasteboardManager = AppController.sharedInstance().pasteboardManager();
     var pasteboardLayers;
     if (version >= 64) {

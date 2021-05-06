@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -34,7 +36,7 @@ var onRun = function(context) {
             layer.setScale(1);
 
             if (layer.parentGroup().class() == "MSLayerGroup") {
-                if (MSApplicationMetadata.metadata().appVersion >= 53) {
+                if (sketch.version.sketch >= 53) {
                     layer.parentGroup().fixGeometryWithOptions(1);
                 } else {
                     layer.parentGroup().resizeToFitChildrenWithOption(1);

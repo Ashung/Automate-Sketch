@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var removeTransparencyLayersHandler = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -73,7 +75,7 @@ function selectTransparencyLayers(layer) {
     if (layer.isKindOfClass(MSStyledLayer)) {
         if (layerIsTransparency(layer)) {
             // Fix Sketch 45
-            if (MSApplicationMetadata.metadata().appVersion < 45) {
+            if (sketch.version.sketch < 45) {
                 layer.select_byExpandingSelection(true, true);
             } else {
                 layer.select_byExtendingSelection(true, true);
@@ -85,7 +87,7 @@ function selectTransparencyLayers(layer) {
                 if (childLayer.isKindOfClass(MSStyledLayer)) {
                     if (layerIsTransparency(childLayer)) {
                         // Fix Sketch 45
-                        if (MSApplicationMetadata.metadata().appVersion < 45) {
+                        if (sketch.version.sketch < 45) {
                             childLayer.select_byExpandingSelection(true, true);
                         } else {
                             childLayer.select_byExtendingSelection(true, true);

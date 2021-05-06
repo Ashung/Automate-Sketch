@@ -1,5 +1,7 @@
 @import "../Layer/Select_or_Remove_All_Transparency_Layers.js";
 
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -292,7 +294,7 @@ var onRun = function(context) {
 
                 // Advanced Options
                 if (changeFillRule.state() == NSOnState && type.isShape(children)) {
-                    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+                    if (sketch.version.sketch >= 51) {
                         children.style().setWindingRule(0);
                     }
                     else {

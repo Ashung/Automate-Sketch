@@ -1,3 +1,5 @@
+var sketch = require("sketch")
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -7,7 +9,6 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var system = require("../modules/System");
     var util = require("util");
-    var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var documentData = document._getMSDocumentData();
 

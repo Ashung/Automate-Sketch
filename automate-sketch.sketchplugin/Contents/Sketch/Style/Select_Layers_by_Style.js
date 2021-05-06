@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var selectLayersByLayerStyle = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
@@ -5,7 +7,7 @@ var selectLayersByLayerStyle = function(context) {
     var documentData = document.documentData();
     var layerStyles = NSMutableArray.alloc().init();
     layerStyles.addObjectsFromArray(documentData.layerStyles().sharedStyles());
-    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+    if (sketch.version.sketch >= 51) {
         layerStyles.addObjectsFromArray(documentData.foreignLayerStyles());
     }
     if (layerStyles.count() > 0) {
@@ -22,7 +24,7 @@ var selectLayersByTextStyle = function(context) {
     var documentData = document.documentData();
     var textStyles = NSMutableArray.alloc().init();
     textStyles.addObjectsFromArray(documentData.layerTextStyles().sharedStyles());
-    if (MSApplicationMetadata.metadata().appVersion >= 51) {
+    if (sketch.version.sketch >= 51) {
         textStyles.addObjectsFromArray(documentData.foreignTextStyles());
     }
     if (textStyles.count() > 0) {
@@ -111,14 +113,14 @@ function main(context, styles, title, message) {
 
         var predicate;
         if (selectedStyle.class() == "MSSharedStyle") {
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 predicate = NSPredicate.predicateWithFormat("sharedStyle.objectID == %@", selectedStyle.objectID());
             } else {
                 predicate = NSPredicate.predicateWithFormat("style.sharedObjectID == %@", selectedStyle.objectID());
             }
         }
         if (selectedStyle.class() == "MSForeignTextStyle" || selectedStyle.class() == "MSForeignLayerStyle") {
-            if (MSApplicationMetadata.metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 predicate = NSPredicate.predicateWithFormat("sharedStyleID == %@", selectedStyle.localShareID());
             } else {
                 predicate = NSPredicate.predicateWithFormat("style.sharedObjectID == %@", selectedStyle.localShareID());

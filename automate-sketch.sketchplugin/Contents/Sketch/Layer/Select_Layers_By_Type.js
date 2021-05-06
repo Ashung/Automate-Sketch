@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var selectAllGroupsInSelection = function(context) {
     selectLayersInSelectionByType(context, "group");
 };
@@ -30,7 +32,7 @@ var selectAllExportableInSelection = function(context) {
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = sketch.version.sketch;
 
     var totalCount = 0;
 
@@ -130,7 +132,7 @@ function selectLayersInParent_byType(parent, type, callback) {
 
     var layerType = require("../modules/Type");
 
-    var appVersion = MSApplicationMetadata.metadata().appVersion;
+    var appVersion = sketch.version.sketch;
 
     var count = 0;
 

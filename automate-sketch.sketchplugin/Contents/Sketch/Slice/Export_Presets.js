@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var saveExportPresetsToFile = function(context) {
 
     var ga = require("../modules/Google_Analytics");

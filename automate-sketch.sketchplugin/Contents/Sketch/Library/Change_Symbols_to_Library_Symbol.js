@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -238,7 +240,7 @@ var onRun = function(context) {
 
                 // Import symbol
                 var importedSymbol;
-                if (MSApplicationMetadata.metadata().appVersion >= 50) {
+                if (sketch.version.sketch >= 50) {
                     var shareableObjectReference = MSShareableObjectReference.referenceForShareableObject_inLibrary(
                         remoteSymbol, selectedLibrary
                     );

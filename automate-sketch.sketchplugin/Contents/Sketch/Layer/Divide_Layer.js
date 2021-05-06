@@ -58,7 +58,7 @@ var onRun = function(context) {
                         cellLayer.frame().setHeight(cellHeight);
 
                         // Fix Sketch 45
-                        if (MSApplicationMetadata.metadata().appVersion < 45) {
+                        if (sketch.version.sketch < 45) {
                             cellLayer.select_byExpandingSelection(true, true);
                         } else {
                             cellLayer.select_byExtendingSelection(true, true);

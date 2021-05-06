@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -8,7 +10,7 @@ var onRun = function(context) {
 
     var document = context.document;
 
-    if (MSApplicationMetadata.metadata().appVersion < 48) {
+    if (sketch.version.sketch < 48) {
         document.showMessage("😮 You have to update to Sketch 48+ to use this feature.");
         return;
     }
