@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var document = context.document;
     var page = document.currentPage();
     var selection = context.selection;
@@ -25,7 +26,7 @@ var onRun = function(context) {
     var loopChild = parent.layers().objectEnumerator();
     var child;
     while (child = loopChild.nextObject()) {
-        if (BCSketchInfo.shared().metadata().appVersion < 45) {
+        if (sketch.version.sketch < 45) {
             child.select_byExpendingSelection(true, true);
         } else {
             child.select_byExtendingSelection(true, true);

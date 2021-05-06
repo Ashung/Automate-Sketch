@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Development");
 
+    var sketch = require("sketch");
     var document = context.document;
 
     coscript.pushAsCurrentCOScript();
@@ -12,7 +13,7 @@ var onRun = function(context) {
     button.setCOSJSTargetFunction(function(obj) {
 
         var pickColor;
-        if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+        if (sketch.version.sketch >= 52) {
             pickColor = obj.color();
         } else {
             pickColor = obj.chosenColor();

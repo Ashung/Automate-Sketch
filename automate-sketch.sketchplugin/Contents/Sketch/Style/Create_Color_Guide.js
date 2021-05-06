@@ -7,7 +7,8 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
-    var appVersion = BCSketchInfo.shared().metadata().appVersion;
+    var sketch = require("sketch");
+    var appVersion = sketch.version.sketch;
     var document = context.document;
 
     var documentColors;
@@ -59,7 +60,7 @@ var onRun = function(context) {
         var page = document.currentPage();
 
         var point;
-        if (BCSketchInfo.shared().metadata().appVersion >= 49) {
+        if (appVersion >= 49) {
             point = page.originForNewArtboardWithSize(CGSizeMake(100,100));
         } else {
             point = page.originForNewArtboard();
@@ -117,7 +118,7 @@ var onRun = function(context) {
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(0, 0, paletteWidth, paletteHeight));
             var palette;
-            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+            if (appVersion >= 52) {
                 palette = rectangle;
             } else {
                 palette = MSShapeGroup.shapeWithPath(rectangle);
@@ -201,13 +202,13 @@ var onRun = function(context) {
 };
 
 function centerRect_byLayers(document, layers) {
-
+    var sketch = require("sketch");
     var rects = layers.map(function(item) {
         return MSRect.alloc().initWithRect(item.absoluteRect().rect());
     });
     var rect = MSRect.rectWithUnionOfRects(rects).rect();
 
-    var appVersion = BCSketchInfo.shared().metadata().appVersion;
+    var appVersion = sketch.version.sketch;
     if (appVersion >= 48) {
         document.contentDrawView().centerRect_animated(rect, true);
     } else {

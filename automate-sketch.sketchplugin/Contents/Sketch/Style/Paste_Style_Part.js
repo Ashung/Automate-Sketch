@@ -4,7 +4,7 @@ var onRun = function(context) {
     ga("Style");
 
     var type = require("../modules/Type");
-
+    var sketch = require("sketch");
     var doc = context.document;
     var selection = context.selection;
     var pluginIdentifier = context.command.identifier();
@@ -134,7 +134,7 @@ var onRun = function(context) {
                     while (layer = loopSelection.nextObject()) {
 
                         if (Sketch.isShapeLayer(layer)) {
-                            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+                            if (sketch.version.sketch >= 52) {
                                 var style = MSStyle.alloc().initWithImmutableModelObject(decoded);
                                 layer.style().setBlur(style.blur());
                             } else {

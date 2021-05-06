@@ -3,12 +3,13 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Library");
     
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
     var document = context.document;
-    if (BCSketchInfo.shared().metadata().appVersion < 47) {
+    if (sketch.version.sketch < 47) {
         document.showMessage("😮 You have to update to Sketch 47+ to use this feature.");
         return;
     }
@@ -35,7 +36,7 @@ var onRun = function(context) {
     var loopAllImportedSymbols = allImportedSymbols.objectEnumerator();
     var importedSymbol;
     while (importedSymbol = loopAllImportedSymbols.nextObject()) {
-        if (BCSketchInfo.shared().metadata().appVersion >= 49) {
+        if (sketch.version.sketch >= 49) {
             var libraryForSymbol = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
         } else {
             var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
@@ -116,7 +117,7 @@ function loadData(scrollView, symbols) {
     var i = 0;
     while (importedSymbol = loopImportedSymbols.nextObject()) {
 
-        if (BCSketchInfo.shared().metadata().appVersion >= 49) {
+        if (sketch.version.sketch >= 49) {
             var libraryForSymbol = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
         } else {
             var libraryForSymbol = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());
@@ -194,7 +195,7 @@ function loadData(scrollView, symbols) {
             var tipView = sender.superview().subviews().objectAtIndex(1);
             var importedSymbolIndex = parseInt(sender.superview().subviews().objectAtIndex(0).stringValue());
             var importedSymbol = symbols.objectAtIndex(importedSymbolIndex);
-            if (BCSketchInfo.shared().metadata().appVersion >= 49) {
+            if (sketch.version.sketch >= 49) {
                 var originalLibrary = assetLibraryController.libraryForShareableObject(importedSymbol.symbolMaster());
             } else {
                 var originalLibrary = assetLibraryController.libraryForSymbol(importedSymbol.symbolMaster());

@@ -51,13 +51,14 @@ function removeRedundantGroups(layer) {
 }
 
 function groupIsSafeToUngroup(group) {
+    var sketch = require("sketch");
     var noOpacity = (group.style().contextSettings().opacity() == 1),
         noBlending = (group.style().hasBlending() == 0),
         noShadows = (group.style().hasEnabledShadow() == 0),
         noExportOptions = (group.exportOptions().exportFormats().count() == 0);
 
     // Sketch 44+ resizing constraint
-    if (BCSketchInfo.shared().metadata().appVersion >= 44) {
+    if (sketch.version.sketch >= 44) {
         var noResizingConstraint = (group.resizingConstraint() == 63);
         return noOpacity && noBlending && noShadows && noResizingConstraint && noExportOptions;
     } else {

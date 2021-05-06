@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var doc = context.document;
@@ -51,7 +52,7 @@ var onRun = function(context) {
 
             // Resize group to fit children
             if (selection.firstObject().parentGroup().class() == "MSLayerGroup") {
-                if (BCSketchInfo.shared().metadata().appVersion >= 53) {
+                if (sketch.version.sketch >= 53) {
                     selection.firstObject().parentGroup().fixGeometryWithOptions(1);
                 } else {
                     selection.firstObject().parentGroup().resizeToFitChildrenWithOption(1);

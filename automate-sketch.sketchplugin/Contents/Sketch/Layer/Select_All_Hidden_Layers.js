@@ -24,9 +24,10 @@ var onRun = function(context) {
 };
 
 function selectHiddenLayer(layer) {
+    var sketch = require("sketch");
     if (!layer.isVisible()) {
         // Fix Sketch 45
-        if (BCSketchInfo.shared().metadata().appVersion < 45) {
+        if (sketch.version.sketch < 45) {
             layer.select_byExpandingSelection(true, true);
         } else {
             layer.select_byExtendingSelection(true, true);
@@ -36,7 +37,7 @@ function selectHiddenLayer(layer) {
         while (childLayer = loopChildren.nextObject()) {
             if (!childLayer.isVisible()) {
                 // Fix Sketch 45
-                if (BCSketchInfo.shared().metadata().appVersion < 45) {
+                if (sketch.version.sketch < 45) {
                     childLayer.select_byExpandingSelection(true, true);
                 } else {
                     childLayer.select_byExtendingSelection(true, true);

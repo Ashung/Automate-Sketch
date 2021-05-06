@@ -27,10 +27,11 @@ var selectAllExportableInSelection = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
-    var appVersion = BCSketchInfo.shared().metadata().appVersion;
+    var appVersion = sketch.version.sketch;
 
     var totalCount = 0;
 
@@ -128,9 +129,10 @@ function selectLayersInSelectionByType(context, type) {
 
 function selectLayersInParent_byType(parent, type, callback) {
 
+    var sketch = require("sketch");
     var layerType = require("../modules/Type");
 
-    var appVersion = BCSketchInfo.shared().metadata().appVersion;
+    var appVersion = sketch.version.sketch;
 
     var count = 0;
 

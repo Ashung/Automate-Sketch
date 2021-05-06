@@ -152,6 +152,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var type = require("../modules/Type");
     var sketchUI = require("sketch/ui");
 
@@ -288,7 +289,7 @@ var onRun = function(context) {
             doc.reloadInspector();
 
             // Fix Sketch 45
-            if (BCSketchInfo.shared().metadata().appVersion < 45) {
+            if (sketch.version.sketch < 45) {
                 layer.select_byExpandingSelection(true, true);
             } else {
                 layer.select_byExtendingSelection(true, true);

@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -29,7 +30,7 @@ var onRun = function(context) {
                 var child;
                 while (child = loopChild.nextObject()) {
                     // Fix Sketch 45
-                    if (BCSketchInfo.shared().metadata().appVersion < 45) {
+                    if (sketch.version.sketch < 45) {
                         child.select_byExpendingSelection(true, true);
                     } else {
                         child.select_byExtendingSelection(true, true);

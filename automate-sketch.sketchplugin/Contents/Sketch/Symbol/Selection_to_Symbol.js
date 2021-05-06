@@ -3,7 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
-    var document = context.document;
+    var sketch = require("sketch");
     var selection = context.selection;
 
     var loopSelection = selection.objectEnumerator();
@@ -27,7 +27,7 @@ var onRun = function(context) {
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(0, 0, symbolProperties.width, symbolProperties.height));
             var tempLayer;
-            if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+            if (sketch.version.sketch >= 52) {
                 tempLayer = rectangle;
             } else {
                 tempLayer = MSShapeGroup.shapeWithPath(rectangle);
@@ -45,7 +45,9 @@ var onRun = function(context) {
 
             if (layer.class() == "MSLayerGroup") {
                 var layerGroup = symbolMaster.layers().firstObject();
-                layerGroup.ungroup();
+                if (layerGroup.class() == "MSLayerGroup") {
+                    layerGroup.ungroup();
+                }
             }
 
             if (layer.class() == "MSArtboardGroup") {

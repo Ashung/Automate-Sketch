@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var boundsLayerName = "#";
 
@@ -91,7 +92,7 @@ var onRun = function(context) {
                 rectangle.setRect(newBounds);
 
                 var boundsLayer;
-                if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+                if (sketch.version.sketch >= 52) {
                     boundsLayer = rectangle;
                 } else {
                     boundsLayer = MSShapeGroup.shapeWithPath(rectangle);
@@ -102,7 +103,7 @@ var onRun = function(context) {
                 // Select boundsLayer
                 if (boundsLayer.parentGroup() != layer){
                     // Fix Sketch 45
-                    if (BCSketchInfo.shared().metadata().appVersion < 45) {
+                    if (sketch.version.sketch < 45) {
                         boundsLayer.select_byExpandingSelection(true, false);
                     } else {
                         boundsLayer.select_byExtendingSelection(true, false);
@@ -125,7 +126,7 @@ var onRun = function(context) {
                 // Fix layer group bounds
                 if (layer.class() == "MSLayerGroup") {
                     // reset bounds
-                    if (BCSketchInfo.shared().metadata().appVersion >= 53) {
+                    if (sketch.version.sketch >= 53) {
                         layer.fixGeometryWithOptions(1);
                     } else {
                         layer.resizeToFitChildrenWithOption(1);
@@ -141,7 +142,7 @@ var onRun = function(context) {
                         var name = layer.name();
                         layer.ungroup();
                         var newGroup;
-                        if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+                        if (sketch.version.sketch >= 52) {
                             newGroup = MSLayerGroup.groupWithLayers(children);
                         } else {
                             newGroup = MSLayerGroup.groupFromLayers(children);
@@ -150,7 +151,7 @@ var onRun = function(context) {
                     }
                 }
                 if (layer.parentGroup().class() == "MSLayerGroup") {
-                    if (BCSketchInfo.shared().metadata().appVersion >= 53) {
+                    if (sketch.version.sketch >= 53) {
                         layer.parentGroup().fixGeometryWithOptions(1);
                     } else {
                         layer.parentGroup().resizeToFitChildrenWithOption(1);
