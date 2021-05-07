@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var removeTransparencyLayersHandler = function(context) {
 
     var ga = require("../modules/Google_Analytics");

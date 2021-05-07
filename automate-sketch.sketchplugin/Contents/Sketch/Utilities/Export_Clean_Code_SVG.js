@@ -1,5 +1,7 @@
 @import "../Layer/Select_or_Remove_All_Transparency_Layers.js";
 
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");

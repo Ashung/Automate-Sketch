@@ -1,7 +1,8 @@
+var sketchapi = require('sketch')
 var Sketch = {};
 
 Sketch.isShapeLayer = function(layer) {
-    if (BCSketchInfo.shared().metadata().appVersion >= 52) {
+    if (sketchapi.version.sketch >= 52) {
         if (
             layer.class() == "MSShapeGroup" ||
             (

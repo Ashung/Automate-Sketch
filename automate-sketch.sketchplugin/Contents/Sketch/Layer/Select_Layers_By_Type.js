@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var selectAllGroupsInSelection = function(context) {
     selectLayersInSelectionByType(context, "group");
 };

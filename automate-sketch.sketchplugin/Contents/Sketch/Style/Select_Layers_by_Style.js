@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var selectLayersByLayerStyle = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");

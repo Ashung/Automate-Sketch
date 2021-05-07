@@ -1,5 +1,6 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 

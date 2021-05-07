@@ -1,5 +1,6 @@
 var doc = null
 var libSymbolReferences = {}
+var sketch = require('sketch')
 
 var onRun = function (context) {
 
@@ -9,7 +10,6 @@ var onRun = function (context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var system = require("../modules/System");
-    var sketch = require('sketch')
     var document = context.document
     doc = sketch.fromNative(document)
     var updatedCounter = 0

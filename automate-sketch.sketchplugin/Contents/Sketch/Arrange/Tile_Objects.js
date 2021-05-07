@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var tileLayersByPositionY = function(context) {
     tileLayer(context, "posy");
 };
@@ -204,7 +206,6 @@ var customTileLayers = function(context) {
 };
 
 function tileLayer(context, orientation) {
-
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
 

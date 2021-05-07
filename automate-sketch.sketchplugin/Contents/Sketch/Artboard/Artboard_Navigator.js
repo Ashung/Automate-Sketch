@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -65,7 +67,6 @@ var onRun = function(context) {
 };
 
 function loadData(context, scrollView, page) {
-    var sketch = require("sketch");
     var zoom = require("../modules/Zoom");
     var ui = require("../modules/Dialog").ui;
     var artboards = page.artboards().reverseObjectEnumerator().allObjects().mutableCopy();

@@ -1,5 +1,6 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Symbol");
 
@@ -106,7 +107,6 @@ function selectLayers(context, layers) {
 }
 
 function selectLayer(layer, add) {
-    var sketch = require("sketch");
     var appVersion = sketch.version.sketch;
     if (appVersion < 45) {
         layer.select_byExpandingSelection(true, add);

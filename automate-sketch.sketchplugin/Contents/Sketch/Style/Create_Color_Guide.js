@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -7,7 +9,6 @@ var onRun = function(context) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
-    var sketch = require("sketch");
     var appVersion = sketch.version.sketch;
     var document = context.document;
 
