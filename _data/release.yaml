@@ -1,4 +1,10 @@
 -
+  version: 72.0.20210508
+  commitID: 2803e2d10bdaeec8b2dd0e8c9337f63ccbb50ca2
+  description:
+    - Fixes broken plugin in Sketch 72.
+
+-
   version: 72.0.20210506
   commitID: 138002bc6e08ffee248df27fbf9aaeff46a70262
   description:
