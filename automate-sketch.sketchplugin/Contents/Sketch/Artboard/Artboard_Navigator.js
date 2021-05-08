@@ -1,4 +1,4 @@
-var sketch = require('sketch')
+var sketch = require('sketch');
 
 var onRun = function(context) {
 

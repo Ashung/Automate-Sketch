@@ -72,8 +72,8 @@ module.exports.textStyleSmall = function(textStyle) {
         textLayer.setFontSize(18);
     }
     var artboard = artboardWithLayer(24, 24, textLayer);
-    textLayer.frame().setMidX(12);
-    textLayer.frame().setMidY(12);
+    textLayer.frame().setX(12 - textLayer.frame().width() / 2);
+    textLayer.frame().setY(12 - textLayer.frame().height() / 2);
     var textColor = MSColor.alloc().initWithImmutableObject(textLayer.textColor());
     if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
         var rectangle = MSRectangleShape.shapeWithRect_fillColor(CGRectMake(0, 0, 24, 24), MSColor.colorWithRed_green_blue_alpha(0.67, 0.67, 0.67, 1));

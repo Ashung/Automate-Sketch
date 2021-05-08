@@ -3,6 +3,7 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Artboard");
 
+    var help = require("../modules/Help");
     var identifier = __command.identifier();
     var doc = context.document;
     var selection = context.selection;
@@ -13,7 +14,7 @@ var onRun = function(context) {
         var artboard = layer.parentArtboard();
 
         if (artboard) {
-            var rectOfChildLayers = getRectFromLayers(artboard);
+            var rectOfChildLayers = help.getMSRectFromMSLayers(artboard.layers());
             var width = Math.ceil(rectOfChildLayers.x() + rectOfChildLayers.width());
             var height = Math.ceil(rectOfChildLayers.y() + rectOfChildLayers.height());
             // Adjust content on resize
@@ -41,20 +42,3 @@ var onRun = function(context) {
     }
 
 };
-
-function getRectFromLayers(parentGroup) {
-
-    var rectArray = NSMutableArray.alloc().init();
-
-    var loopLayers = parentGroup.layers().objectEnumerator();
-    var layer;
-    while (layer = loopLayers.nextObject()) {
-        rectArray.addObject(layer.frame());
-    }
-
-    var rect = MSRect.rectWithUnionOfRects(rectArray);
-
-    // Return {x, y, width, height}
-    return rect;
-
-}

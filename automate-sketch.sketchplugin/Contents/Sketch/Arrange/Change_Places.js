@@ -1,5 +1,3 @@
-var sketch = require('sketch')
-
 var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Arrange");
@@ -37,12 +35,8 @@ var onRun = function(context) {
 
     var x1 = selection[0].frame().x(),
         y1 = selection[0].frame().y(),
-        midX1 = selection[0].frame().midX(),
-        midY1 = selection[0].frame().midY(),
         x2 = selection[1].frame().x(),
-        y2 = selection[1].frame().y(),
-        midX2 = selection[1].frame().midX(),
-        midY2 = selection[1].frame().midY();
+        y2 = selection[1].frame().y();
 
     // Change places base top-left
     if (pluginIdentifier == "change_layer_places") {
@@ -54,10 +48,10 @@ var onRun = function(context) {
 
     // Change places base middle-center
     if (pluginIdentifier == "change_layer_places_center") {
-        selection[0].frame().midX = midX2;
-        selection[0].frame().midY = midY2;
-        selection[1].frame().midX = midX1;
-        selection[1].frame().midY = midY1;
+        selection[0].frame().x = (x2 + selection[1].frame().width()/2) - selection[0].frame().width()/2;
+        selection[0].frame().y = (y2 + selection[1].frame().height()/2) - selection[0].frame().height()/2;
+        selection[1].frame().x = (x1 + selection[0].frame().width()/2) - selection[1].frame().width()/2;
+        selection[1].frame().y = (y1 + selection[0].frame().height()/2) - selection[1].frame().height()/2;
     }
 
     if (layer1Artboard) {

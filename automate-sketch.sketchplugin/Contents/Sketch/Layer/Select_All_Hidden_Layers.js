@@ -25,7 +25,6 @@ var onRun = function(context) {
 };
 
 function selectHiddenLayer(layer) {
-    var sketch = require("sketch");
     if (!layer.isVisible()) {
         // Fix Sketch 45
         if (sketch.version.sketch < 45) {

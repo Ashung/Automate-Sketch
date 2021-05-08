@@ -1,5 +1,3 @@
-var sketch = require('sketch')
-
 var colorKeywords = {
     "black": "#000000",
     "silver": "#c0c0c0",

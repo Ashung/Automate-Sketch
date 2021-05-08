@@ -4,6 +4,7 @@ var onRun = function(context) {
 
     var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
+    var help = require("../modules/Help");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var document = sketch.getSelectedDocument();
@@ -39,18 +40,16 @@ var onRun = function(context) {
         var minSize = selectedLayers.length + (selectedLayers.length - 1) * gap;
 
         // Get rect of selected layers
-        var rect = MSRect.rectWithUnionOfRects(selectedLayers.map(function(layer) {
-            return layer.sketchObject.frame();
-        }));
+        var rect = help.getRectFromLayers(selectedLayers);
 
         if (identifier == "distribute_layers_horizontally_and_fit_width") {
-            if (minSize > rect.width()) {
-                var value = rect.width() - selectedLayers.length - (selectedLayers.length - 1) * gap;
+            if (minSize > rect.width) {
+                var value = rect.width - selectedLayers.length - (selectedLayers.length - 1) * gap;
                 sketch.UI.message("Gap must less then " + value + ".");
                 return;
             }
             var layerWidth = Math.round(
-                (rect.width() - (selectedLayers.length - 1) * gap) / selectedLayers.length
+                (rect.width - (selectedLayers.length - 1) * gap) / selectedLayers.length
             );
             selectedLayers.sort(function(a, b) {
                 if (a.frame.x > b.frame.x) return 1;
@@ -58,9 +57,9 @@ var onRun = function(context) {
                 return 0;
             });
             selectedLayers.forEach(function(layer, index) {
-                layer.frame.x = rect.x() + (layerWidth + gap) * index;
+                layer.frame.x = rect.x + (layerWidth + gap) * index;
                 if (index == selectedLayers.length - 1) {
-                    layer.frame.width = rect.width() - (layerWidth + gap) * index;
+                    layer.frame.width = rect.width - (layerWidth + gap) * index;
                 } else {
                     layer.frame.width = layerWidth;
                 }
@@ -68,13 +67,13 @@ var onRun = function(context) {
         }
     
         if (identifier == "distribute_layers_vertically_and_fit_height") {
-            if (minSize > rect.height()) {
-                var value = rect.height() - selectedLayers.length - (selectedLayers.length - 1) * gap;
+            if (minSize > rect.height) {
+                var value = rect.height - selectedLayers.length - (selectedLayers.length - 1) * gap;
                 sketch.UI.message("Gap must less then " + value + ".");
                 return;
             }
             var layerHeight = Math.round(
-                (rect.height() - (selectedLayers.length - 1) * gap) / selectedLayers.length
+                (rect.height - (selectedLayers.length - 1) * gap) / selectedLayers.length
             );
             selectedLayers.sort(function(a, b) {
                 if (a.frame.y > b.frame.y) return 1;
@@ -82,15 +81,13 @@ var onRun = function(context) {
                 return 0;
             });
             selectedLayers.forEach(function(layer, index) {
-                layer.frame.y = rect.y() + (layerHeight + gap) * index;
+                layer.frame.y = rect.y + (layerHeight + gap) * index;
                 if (index == selectedLayers.length - 1) {
-                    layer.frame.height = rect.height() - (layerHeight + gap) * index;
+                    layer.frame.height = rect.height - (layerHeight + gap) * index;
                 } else {
                     layer.frame.height = layerHeight;
                 }
             });
         }
-
     }
-
 };

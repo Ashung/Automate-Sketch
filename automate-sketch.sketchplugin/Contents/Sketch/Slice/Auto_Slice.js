@@ -6,6 +6,7 @@ var onRun = function(context) {
     ga("Slice");
 
     var preferences = require("../modules/Preferences");
+    var help = require("../modules/Help");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
@@ -84,25 +85,19 @@ var onRun = function(context) {
                 return;
             }
 
-            var midX = layer.frame().midX(),
-                midY = layer.frame().midY();
-
             var slice = MSSliceLayer.sliceLayerFromLayer(layer);
             allSlices.push(slice);
             
-            var msRect = MSRect.rectWithUnionOfRects([
-                MSRect.alloc().initWithRect(slice.absoluteRect().rect()),
-                MSRect.alloc().initWithRect(layer.absoluteRect().rect())
-            ]);
+            var msRect = help.getMSRectFromMSLayers([slice, layer]);
             slice.absoluteRect().setRect(msRect.rect());
 
             if (sliceWith > 0) {
                 slice.frame().setWidth(sliceWith);
-                slice.frame().setMidX(midX);
+                slice.frame().setX(layer.frame().x() + layer.frame().width() / 2 - sliceWith / 2);
             }
             if (sliceHeight > 0) {
                 slice.frame().setHeight(sliceHeight);
-                slice.frame().setMidY(midY);
+                slice.frame().setY(layer.frame().y() + layer.frame().height() / 2 - sliceHeight / 2);
             }
 
             slice.frame().setX(Math.round(slice.frame().x()));
@@ -138,9 +133,6 @@ var onRun = function(context) {
                         var newGroup = MSLayerGroup.groupWithLayers(layerArray);
                         newGroup.setName(layer.name());
                         slice.exportOptions().setLayerOptions(2);
-                        // var layerIndex = layer.parentGroup().layers().indexOfObject(layer);
-                        // var topSiblingLayer = layer.parentGroup().layers().objectAtIndex(layerIndex + 1);
-                        // slice.moveToLayer_beforeLayer(layer.parentGroup(), topSiblingLayer);
                     } else {
                         slice.moveToLayer_beforeLayer(layer.parentGroup(), layer);
                     }

@@ -74,7 +74,7 @@ var onRun = function(context) {
         var target = artboards.objectAtIndex(selectBox.indexOfSelectedItem());
         var space = parseInt(textField.stringValue());
         var positionX = target.frame().x();
-        var positionY = target.frame().maxY() + space;
+        var positionY = target.frame().y() + target.frame().height() + space;
 
         var loopSelectedArtboards = selectedArtboards.objectEnumerator();
         var selectedArtboard;
@@ -107,8 +107,7 @@ function selectLayers(context, layers) {
 }
 
 function selectLayer(layer, add) {
-    var appVersion = sketch.version.sketch;
-    if (appVersion < 45) {
+    if (sketch.version.sketch < 45) {
         layer.select_byExpandingSelection(true, add);
     } else {
         layer.select_byExtendingSelection(true, add);

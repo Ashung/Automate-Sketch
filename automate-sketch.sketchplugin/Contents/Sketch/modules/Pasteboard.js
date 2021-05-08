@@ -1,4 +1,4 @@
-var sketch = require('sketch')
+var sketch = require("sketch");
 var pasteboard = NSPasteboard.generalPasteboard();
 
 module.exports.pbcopy = function(text) {

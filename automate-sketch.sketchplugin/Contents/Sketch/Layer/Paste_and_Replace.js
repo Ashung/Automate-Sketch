@@ -66,8 +66,8 @@ var onRun = function(context) {
                     
                     // Position
                     if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
-                        group.frame().setMidX(Math.round(oldLayer.frame().midX()));
-                        group.frame().setMidY(Math.round(oldLayer.frame().midY()));
+                        group.frame().setX(Math.round(oldLayer.frame().x() + oldLayer.frame().width() / 2) - group.frame().width() / 2);
+                        group.frame().setY(Math.round(oldLayer.frame().y() + oldLayer.frame().height() / 2) - group.frame().height() / 2);
                     } else {
                         group.frame().setX(Math.round(oldLayer.frame().x()));
                         group.frame().setY(Math.round(oldLayer.frame().y()));

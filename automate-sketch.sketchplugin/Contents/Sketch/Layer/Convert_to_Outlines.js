@@ -1,5 +1,3 @@
-var sketch = require('sketch')
-
 var onRun = function (context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
@@ -91,14 +89,10 @@ function selectGroup(group, context, page, callback) {
 
 }
 
-function selectSubLayer(subGroup, select) {
-
+function selectSubLayer(subGroup) {
     var layerType = require("../modules/Type");
-    var appVersion = sketch.version.sketch;
-
     var loopChildren = subGroup.children().objectEnumerator();
     while (subLayer = loopChildren.nextObject()) {
-
         if (
             (layerType.isText(subLayer)) ||
             (layerType.isShape(subLayer))
@@ -106,5 +100,4 @@ function selectSubLayer(subGroup, select) {
             subLayer.layersByConvertingToOutlines();
         }
     }
-
 }

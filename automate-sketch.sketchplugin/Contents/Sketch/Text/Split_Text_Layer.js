@@ -71,7 +71,7 @@ var onRun = function(context) {
             while (textLines.length > 0) {
                 var textForNewLine = textLines.pop();
                 textLayer.setStringValue(textLines.join("\n"));
-                var rectLine = CGRectMake(textLayer.frame().x(), textLayer.frame().maxY(), textLayer.frame().width(), 10);
+                var rectLine = CGRectMake(textLayer.frame().x(), textLayer.frame().y() + textLayer.frame().height(), textLayer.frame().width(), 10);
                 if (textLines.length == 0) {
                     rectLine.origin.y = textLayer.frame().y();
                 }
@@ -91,7 +91,7 @@ var onRun = function(context) {
                         while (textColumns.length > 0) {
                             var textForNewColumn = textColumns.pop();
                             newLineTextLayer.setStringValue(textColumns.join(separator) + " ");
-                            var rectColumn = CGRectMake(newLineTextLayer.frame().maxX(), newLineTextLayer.frame().y(), 10, 10);
+                            var rectColumn = CGRectMake(newLineTextLayer.frame().x() + newLineTextLayer.frame().width(), newLineTextLayer.frame().y(), 10, 10);
                             if (textColumns.length == 0) {
                                 rectColumn.origin.x = newLineTextLayer.frame().x();
                             }

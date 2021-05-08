@@ -22,6 +22,7 @@ var customTileLayers = function(context) {
     ga("Arrange");
 
     var preferences = require("../modules/Preferences");
+    var help = require("../modules/Help");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var document = context.document;
@@ -92,11 +93,11 @@ var customTileLayers = function(context) {
 
         var tileType = selectTileType.indexOfSelectedItem();
 
-        var rect = getRectFromLayers(layers);
+        var rect = help.getMSRectFromMSLayers(layers);
         var x = rect.x();
         var y = rect.y();
-        var right = rect.maxX();
-        var bottom = rect.maxY();
+        var right = help.maxXOfRect(rect);
+        var bottom = help.maxYOfRect(rect);
 
         // Grid
         if (tileType == 0) {
@@ -140,7 +141,7 @@ var customTileLayers = function(context) {
         if (tileType == 3) {
             for (var i = 0; i < layers.count(); i++) {
                 var layer = layers[i];
-                layer.frame().setMaxX(right);
+                layer.frame().setX(right - layer.frame().width());
                 layer.frame().setY(y);
                 right = right - layer.frame().width() - marginX;
             }
@@ -152,7 +153,7 @@ var customTileLayers = function(context) {
                 var layer = layers[i];
                 log(`${layer.name()} (${x}, ${bottom})`);
                 layer.frame().setX(x);
-                layer.frame().setMaxY(bottom);
+                layer.frame().setY(bottom - layer.frame().height());
                 bottom = bottom - layer.frame().height() - marginY;
             }
         }
@@ -172,8 +173,8 @@ var customTileLayers = function(context) {
         if (tileType == 6) {
             for (var i = 0; i < layers.count(); i++) {
                 var layer = layers[i];
-                layer.frame().setMaxX(right);
-                layer.frame().setMaxY(bottom);
+                layer.frame().setX(right - layer.frame().width());
+                layer.frame().setY(bottom - layer.frame().height());
                 right = right - layer.frame().width() - marginX;
                 bottom = bottom - layer.frame().height() - marginY;
             }
@@ -184,7 +185,7 @@ var customTileLayers = function(context) {
             for (var i = 0; i < layers.count(); i++) {
                 var layer = layers[i];
                 layer.frame().setX(x);
-                layer.frame().setMaxY(bottom);
+                layer.frame().setY(bottom - layer.frame().height());
                 x = x + layer.frame().width() + marginX;
                 bottom = bottom - layer.frame().height() - marginY;
             }
@@ -194,7 +195,7 @@ var customTileLayers = function(context) {
         if (tileType == 8) {
             for (var i = 0; i < layers.count(); i++) {
                 var layer = layers[i];
-                layer.frame().setMaxX(right);
+                layer.frame().setX(right - layer.frame().width());
                 layer.frame().setY(y);
                 right = right - layer.frame().width() - marginX;
                 y = y + layer.frame().height() + marginY;
@@ -210,8 +211,6 @@ function tileLayer(context, orientation) {
     ga("Arrange");
 
     var preferences = require("../modules/Preferences");
-    var sketch = require("sketch/dom");
-    var version = parseFloat(require("sketch").version.sketch);
     var UI = require("sketch/ui");
     var doc = context.document;
     var selection = context.selection;
@@ -221,7 +220,7 @@ function tileLayer(context, orientation) {
 
         var defaultGap = preferences.get("gap") || "0";
         var gap;
-        if (version >= 53) {
+        if (sketch.version.sketch >= 53) {
             UI.getInputFromUser(
                 "Tile Objects",
                 {
@@ -327,14 +326,4 @@ function andInputGroup(view, x, width, label, defaultString) {
     inputView.setFormatter(formatter);
     view.addSubview(inputView);
     return inputView;
-}
-
-function getRectFromLayers(layers) {
-    var rectArray = NSMutableArray.alloc().init();
-    var loopLayers = layers.objectEnumerator();
-    var layer;
-    while (layer = loopLayers.nextObject()) {
-        rectArray.addObject(layer.frame());
-    }
-    return MSRect.rectWithUnionOfRects(rectArray);
 }

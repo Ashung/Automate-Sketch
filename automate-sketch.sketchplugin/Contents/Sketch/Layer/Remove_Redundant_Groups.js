@@ -52,7 +52,6 @@ function removeRedundantGroups(layer) {
 }
 
 function groupIsSafeToUngroup(group) {
-    var sketch = require("sketch");
     var noOpacity = (group.style().contextSettings().opacity() == 1),
         noBlending = (group.style().hasBlending() == 0),
         noShadows = (group.style().hasEnabledShadow() == 0),

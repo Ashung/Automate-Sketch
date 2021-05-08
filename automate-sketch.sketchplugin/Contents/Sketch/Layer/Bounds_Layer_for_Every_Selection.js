@@ -1,10 +1,9 @@
-var sketch = require('sketch')
+var sketch = require("sketch");
 
 var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
-    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var boundsLayerName = "#";
 
@@ -51,8 +50,8 @@ var onRun = function(context) {
                 var originalBounds = CGRectMake(
                     Math.floor(layer.frame().x()),
                     Math.floor(layer.frame().y()),
-                    Math.ceil(layer.frame().maxX()) - Math.floor(layer.frame().minX()),
-                    Math.ceil(layer.frame().maxY()) - Math.floor(layer.frame().minY())
+                    Math.ceil(layer.frame().x() + layer.frame().width()) - Math.floor(layer.frame().x()),
+                    Math.ceil(layer.frame().y() + layer.frame().height()) - Math.floor(layer.frame().y())
                 );
 
                 var parent = layer.parentGroup();
@@ -136,8 +135,8 @@ var onRun = function(context) {
                     if (
                         layer.frame().x() - Math.floor(layer.frame().x()) != 0 ||
                         layer.frame().y() - Math.floor(layer.frame().y()) != 0 ||
-                        layer.frame().maxX() - Math.floor(layer.frame().maxX()) != 0 ||
-                        layer.frame().maxY() - Math.floor(layer.frame().maxY()) != 0
+                        layer.frame().x() + layer.frame().width() - Math.floor(layer.frame().x() + layer.frame().width()) != 0 ||
+                        layer.frame().y() + layer.frame().height() - Math.floor(layer.frame().y() + layer.frame().height()) != 0
                     ) {
                         var children = MSLayerArray.arrayWithLayers(layer.containedLayers());
                         var name = layer.name();

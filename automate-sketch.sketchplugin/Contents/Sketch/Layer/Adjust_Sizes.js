@@ -1,3 +1,6 @@
+var sketch = require("sketch");
+var version = sketch.version.sketch;
+
 var smallIncreaseWidthFromRight = function(context) {
     runActionForSelection(context, function(layer) {
         adjustWidthFromRight(layer, nudgeDistanceSmall());
@@ -114,35 +117,67 @@ function runActionForSelection(context, action) {
 }
 
 function adjustWidthFromRight(layer, val) {
-    layer.setConstrainProportions(false);
-    var right = layer.frame().maxX();
-    var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
-    layer.frame().setWidth(result);
-    layer.frame().setMaxX(right);
+    if (version >= 72) {
+        layer.setShouldConstrainProportions(false);
+        var right = layer.maxX();
+        var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
+        layer.frame().setWidth(result);
+        layer.setMaxX(right);
+    } else {
+        layer.setConstrainProportions(false);
+        var right = layer.frame().maxX();
+        var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
+        layer.frame().setWidth(result);
+        layer.frame().setMaxX(right);
+    }
 }
 
 function adjustWidthFromCenter(layer, val) {
-    layer.setConstrainProportions(false);
-    var center = layer.frame().midX();
-    var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
-    layer.frame().setWidth(result);
-    layer.frame().setMidX(center);
+    if (version >= 72) {
+        layer.setShouldConstrainProportions(false);
+        var center = layer.midX();
+        var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
+        layer.frame().setWidth(result);
+        layer.setMidX(center);
+    } else {
+        layer.setConstrainProportions(false);
+        var center = layer.frame().midX();
+        var result = layer.frame().width() > val * -1 ? layer.frame().width() + val : 1;
+        layer.frame().setWidth(result);
+        layer.frame().setMidX(center);
+    }
 }
 
 function adjustHeightFromBottom(layer, val) {
-    layer.setConstrainProportions(false);
-    var bottom = layer.frame().maxY();
-    var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
-    layer.frame().setHeight(result);
-    layer.frame().setMaxY(bottom);
+    if (version >= 72) {
+        layer.setShouldConstrainProportions(false);
+        var bottom = layer.maxY();
+        var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
+        layer.frame().setHeight(result);
+        layer.setMaxY(bottom);
+    } else {
+        layer.setConstrainProportions(false);
+        var bottom = layer.frame().maxY();
+        var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
+        layer.frame().setHeight(result);
+        layer.frame().setMaxY(bottom);
+    }
 }
 
 function adjustHeightFromCenter(layer, val) {
-    layer.setConstrainProportions(false);
-    var center = layer.frame().midY();
-    var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
-    layer.frame().setHeight(result);
-    layer.frame().setMidY(center);
+    if (version >= 72) {
+        layer.setShouldConstrainProportions(false);
+        var center = layer.midY();
+        var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
+        layer.frame().setHeight(result);
+        layer.setMidY(center);
+    } else {
+        layer.setConstrainProportions(false);
+        var center = layer.frame().midY();
+        var result = layer.frame().height() > val * -1 ? layer.frame().height() + val : 1;
+        layer.frame().setHeight(result);
+        layer.frame().setMidY(center);
+    }
 }
 
 function nudgeDistanceBig() {

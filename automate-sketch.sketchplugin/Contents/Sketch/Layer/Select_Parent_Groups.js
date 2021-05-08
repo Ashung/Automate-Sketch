@@ -62,7 +62,6 @@ function selectLayer(layer) {
 }
 
 function deselectAllChildAndSelf(layer, self) {
-    var sketch = require("sketch");
     var loop = layer.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {

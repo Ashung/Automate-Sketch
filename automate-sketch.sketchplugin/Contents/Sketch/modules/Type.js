@@ -1,7 +1,7 @@
-var sketch = require('sketch')
+var version = require("sketch").version.sketch;
 
 module.exports.isShape = function(layer) {
-    if (sketch.version.sketch >= 52) {
+    if (version >= 52) {
         if (
             layer.class() == "MSShapeGroup" ||
             (

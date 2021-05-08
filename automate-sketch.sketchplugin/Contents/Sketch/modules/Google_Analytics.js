@@ -1,5 +1,5 @@
 module.exports = function(eventCategory) {
-    var sketch = require('sketch')
+    var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
 
     var identifier = __command.pluginBundle().identifier();
