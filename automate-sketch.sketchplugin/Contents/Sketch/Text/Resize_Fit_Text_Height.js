@@ -20,8 +20,8 @@ var onRun = function(context) {
 
                 var verticalAlignment = 0,
                     originalLeft = layer.frame().x(),
-                    originalMiddle = layer.frame().midY(),
-                    originalBottom = layer.frame().maxY(),
+                    originalMiddle = layer.frame().y() + layer.frame().height() / 2,
+                    originalBottom = layer.frame().y() + layer.frame().height(),
                     originalWidth = layer.frame().width();
 
                 // If vertical alignment support

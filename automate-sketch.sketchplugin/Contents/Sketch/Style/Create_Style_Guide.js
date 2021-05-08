@@ -3,11 +3,12 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
+    var help = require("../modules/Help");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
-    var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
     var styles = document.sharedLayerStyles;
     var page = document.selectedPage.sketchObject;
@@ -109,22 +110,8 @@ var onRun = function(context) {
 
         });
 
-        centerRect_byLayers(document.sketchObject, paletteGroupLayers);
+        help.centerMSLayers(paletteGroupLayers);
 
     }
 
 };
-
-function centerRect_byLayers(document, layers) {
-    var sketch = require("sketch");
-    var rects = layers.map(function(item) {
-        return MSRect.alloc().initWithRect(item.absoluteRect().rect());
-    });
-    var rect = MSRect.rectWithUnionOfRects(rects).rect();
-    var appVersion = sketch.version.sketch;
-    if (appVersion >= 48) {
-        document.contentDrawView().centerRect_animated(rect, true);
-    } else {
-        document.currentView().centerRect_animated(rect, true);
-    }
-}

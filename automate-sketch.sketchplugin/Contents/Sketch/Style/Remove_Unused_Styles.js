@@ -1,3 +1,5 @@
+var sketch = require("sketch");
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -35,7 +37,6 @@ function createDialog(context, type) {
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
-    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     var styles = (type == 0) ? documentData.layerStyles() : documentData.layerTextStyles();
@@ -171,7 +172,6 @@ function createDialog(context, type) {
 
 function createDataView(items, type, selectAll, checkedStatus) {
 
-    var sketch = require("sketch");
     var itemHeight = 40;
 
     var itemsCount = items.count();

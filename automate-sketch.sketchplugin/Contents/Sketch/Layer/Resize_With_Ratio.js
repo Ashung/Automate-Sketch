@@ -14,6 +14,8 @@ var onRun = function(context) {
         { w: 16, h: 9 }
     ];
 
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var sketch = require("sketch");
@@ -54,8 +56,14 @@ var onRun = function(context) {
                 if (portraitView.state() == NSOnState) {
                     height = Math.round(width * ratios[selectIndex].w / ratios[selectIndex].h);
                 }
-                if (layer.sketchObject.constrainProportions()) {
-                    layer.sketchObject.setConstrainProportions(false);
+                if (version >= 72) {
+                    if (layer.sketchObject.shouldConstrainProportions()) {
+                        layer.sketchObject.setShouldConstrainProportions(false);
+                    }
+                } else {
+                    if (layer.sketchObject.constrainProportions()) {
+                        layer.sketchObject.setConstrainProportions(false);
+                    }
                 }
                 layer.frame.height = height;
             } else {
@@ -64,8 +72,14 @@ var onRun = function(context) {
                 if (portraitView.state() == NSOnState) {
                     width = Math.round(height * ratios[selectIndex].h / ratios[selectIndex].w);
                 }
-                if (layer.sketchObject.constrainProportions()) {
-                    layer.sketchObject.setConstrainProportions(false);
+                if (version >= 72) {
+                    if (layer.sketchObject.shouldConstrainProportions()) {
+                        layer.sketchObject.setShouldConstrainProportions(false);
+                    }
+                } else {
+                    if (layer.sketchObject.constrainProportions()) {
+                        layer.sketchObject.setConstrainProportions(false);
+                    }
                 }
                 layer.frame.width = width;
             }

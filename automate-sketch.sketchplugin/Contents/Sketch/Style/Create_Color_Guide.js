@@ -3,12 +3,12 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
-    var preferences = require("../modules/Preferences");
-    var Dialog = require("../modules/Dialog").dialog;
-    var ui = require("../modules/Dialog").ui;
-
     var sketch = require("sketch");
     var appVersion = sketch.version.sketch;
+    var preferences = require("../modules/Preferences");
+    var help = require("../modules/Help");
+    var Dialog = require("../modules/Dialog").dialog;
+    var ui = require("../modules/Dialog").ui;
     var document = context.document;
 
     var documentColors;
@@ -195,27 +195,11 @@ var onRun = function(context) {
 
         }
 
-        centerRect_byLayers(document, paletteGroupLayers);
+        help.centerMSLayers(paletteGroupLayers);
 
     }
 
 };
-
-function centerRect_byLayers(document, layers) {
-    var sketch = require("sketch");
-    var rects = layers.map(function(item) {
-        return MSRect.alloc().initWithRect(item.absoluteRect().rect());
-    });
-    var rect = MSRect.rectWithUnionOfRects(rects).rect();
-
-    var appVersion = sketch.version.sketch;
-    if (appVersion >= 48) {
-        document.contentDrawView().centerRect_animated(rect, true);
-    } else {
-        document.currentView().centerRect_animated(rect, true);
-    }
-
-}
 
 function MSColorToHEX(mscolor) {
     var alpha = mscolor.alpha() < 1 ? " (alpha:" + Math.round(mscolor.alpha() * 100) + "%)" : "";

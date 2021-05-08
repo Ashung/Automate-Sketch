@@ -1,3 +1,5 @@
+var sketch = require("sketch");
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -5,8 +7,6 @@ var onRun = function(context) {
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
-
-    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
 
@@ -175,8 +175,6 @@ var onRun = function(context) {
 };
 
 function getAllUnusedSymbols(context) {
-
-    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     // In Sketch 49, unused Symbols imported from Libraries are now cleared when saving a document

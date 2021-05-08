@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var removeTransparencyLayersHandler = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -70,7 +72,6 @@ var selectTransparencyLayersHandler = function(context) {
 };
 
 function selectTransparencyLayers(layer) {
-    var sketch = require("sketch");
     if (layer.isKindOfClass(MSStyledLayer)) {
         if (layerIsTransparency(layer)) {
             // Fix Sketch 45

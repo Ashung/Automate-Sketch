@@ -1,5 +1,5 @@
 module.exports = function(eventCategory) {
-
+    var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
 
     var identifier = __command.pluginBundle().identifier();
@@ -46,7 +46,7 @@ module.exports = function(eventCategory) {
         // Tracking ID
         url += "&tid=" + trackingID;
         // Source
-        url += "&ds=sketch" + BCSketchInfo.shared().metadata().appVersion;
+        url += "&ds=sketch" + sketch.version.sketch;
         // Client ID
         url += "&cid=" + uuid;
         // User GEO location

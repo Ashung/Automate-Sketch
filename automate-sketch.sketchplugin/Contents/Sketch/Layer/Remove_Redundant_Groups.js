@@ -1,5 +1,6 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
@@ -51,7 +52,6 @@ function removeRedundantGroups(layer) {
 }
 
 function groupIsSafeToUngroup(group) {
-    var sketch = require("sketch");
     var noOpacity = (group.style().contextSettings().opacity() == 1),
         noBlending = (group.style().hasBlending() == 0),
         noShadows = (group.style().hasEnabledShadow() == 0),

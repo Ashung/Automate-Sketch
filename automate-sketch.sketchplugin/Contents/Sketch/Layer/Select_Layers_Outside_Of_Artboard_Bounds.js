@@ -29,8 +29,8 @@ var onRun = function(context) {
                     if (
                         child.frame().y() >= height ||
                         child.frame().x() >= width ||
-                        child.frame().maxY() <= 0 ||
-                        child.frame().maxX() <= 0
+                        child.frame().y() + child.frame().height() <= 0 ||
+                        child.frame().x() + child.frame().width() <= 0
                     ) {
                         child.moveToLayer_beforeLayer(page, nil);
                         layerCount ++;

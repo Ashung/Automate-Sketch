@@ -1,10 +1,11 @@
+var sketch = require("sketch");
+
 var saveExportPresetsToFile = function(context) {
 
     var ga = require("../modules/Google_Analytics");
     ga("Slice");
 
     var util = require("util");
-    var sketch = require("sketch");
     var system = require("../modules/System");
 
     var exportPresets = MSExportPreset.allExportPresets();
@@ -61,7 +62,6 @@ var loadExportPresetsFromFile = function(context) {
     ga("Slice");
 
     var util = require("util");
-    var sketch = require("sketch");
     var path = require("path");
     var system = require("../modules/System");
 

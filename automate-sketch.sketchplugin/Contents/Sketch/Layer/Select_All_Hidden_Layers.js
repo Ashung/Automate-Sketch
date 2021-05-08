@@ -1,5 +1,6 @@
-var onRun = function(context) {
+var sketch = require('sketch')
 
+var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
@@ -24,7 +25,6 @@ var onRun = function(context) {
 };
 
 function selectHiddenLayer(layer) {
-    var sketch = require("sketch");
     if (!layer.isVisible()) {
         // Fix Sketch 45
         if (sketch.version.sketch < 45) {

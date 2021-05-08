@@ -19,8 +19,8 @@ var onRun = function(context) {
 
     // Bounds
     var top = selectedTextLayers[0].frame().y(),
-        right = selectedTextLayers[0].frame().maxX(),
-        bottom = selectedTextLayers[0].frame().maxY(),
+        right = selectedTextLayers[0].frame().x() + selectedTextLayers[0].frame().width(),
+        bottom = selectedTextLayers[0].frame().y() + selectedTextLayers[0].frame().height(),
         left = selectedTextLayers[0].frame().x();
 
     // Row
@@ -32,7 +32,7 @@ var onRun = function(context) {
             rows[row].push(item);
         }
         else {
-            if (item.frame().y() < selectedTextLayers[i - 1].frame().maxY()) {
+            if (item.frame().y() < selectedTextLayers[i - 1].frame().y() + selectedTextLayers[i - 1].frame().height()) {
                 rows[row].push(item);
             }
             else {
@@ -43,8 +43,8 @@ var onRun = function(context) {
         }
 
         if (item.frame().y() < top) { top = item.frame().y() }
-        if (item.frame().maxX() > right) { right = item.frame().maxX() }
-        if (item.frame().maxY() > bottom) { bottom = item.frame().maxY() }
+        if (item.frame().x() + item.frame().width() > right) { right = item.frame().x() + item.frame().width() }
+        if (item.frame().y() + item.frame().height() > bottom) { bottom = item.frame().y() + item.frame().height() }
         if (item.frame().x() < left) { left = item.frame().x() }
 
     });

@@ -8,9 +8,8 @@ var onRun = function(context) {
     var ui = require("../modules/Dialog").ui;
     var util = require("util");
     var document = context.document;
-    
     if (sketch.version.sketch < 47) {
-        document.showMessage("😮 You have to update to Sketch 47+ to use this feature.");
+        document.showMessage("😮 You have to update to Sketch 47+ to use thie feature.");
         return;
     }
 

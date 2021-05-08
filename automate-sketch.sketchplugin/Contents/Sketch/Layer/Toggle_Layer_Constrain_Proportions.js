@@ -3,6 +3,8 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
     var document = context.document;
     var selection = context.selection;
 
@@ -13,8 +15,14 @@ var onRun = function(context) {
 
     var lockConstrainProportionsLayerCount = 0;
     selection.forEach(function(layer){
-        if (layer.constrainProportions()) {
-            lockConstrainProportionsLayerCount ++;
+        if (version >= 72) {
+            if (layer.shouldConstrainProportions()) {
+                lockConstrainProportionsLayerCount ++;
+            }
+        } else {
+            if (layer.constrainProportions()) {
+                lockConstrainProportionsLayerCount ++;
+            }
         }
     });
 
@@ -22,15 +30,22 @@ var onRun = function(context) {
 
     if (doLock) {
         selection.forEach(function(layer){
-            layer.setConstrainProportions(true);
+            if (version >= 72) {
+                layer.setShouldConstrainProportions(true);
+            } else {
+                layer.setConstrainProportions(true);
+            }
         });
         document.showMessage("Layer constrain proportions set to LOCK");
     }
     else {
         selection.forEach(function(layer){
-            layer.setConstrainProportions(false);
+            if (version >= 72) {
+                layer.setShouldConstrainProportions(false);
+            } else {
+                layer.setConstrainProportions(false);
+            }
         });
         document.showMessage("Layer constrain proportions set to UNLOCK");
     }
-
 };

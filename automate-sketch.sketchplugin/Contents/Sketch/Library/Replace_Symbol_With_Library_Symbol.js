@@ -1,9 +1,10 @@
+var sketch = require("sketch");
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
     ga("Library");
 
-    var sketch = require("sketch");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
     var util = require("util");

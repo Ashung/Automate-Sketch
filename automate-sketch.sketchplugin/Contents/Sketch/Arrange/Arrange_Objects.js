@@ -1,3 +1,5 @@
+var help = require("../modules/Help");
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -42,7 +44,7 @@ var onRun = function(context) {
             preferences.set("arrangeObjectGapX", gapX);
             preferences.set("arrangeObjectGapY", gapY);
 
-            var origin = getRectFromLayers(selection);
+            var origin = help.getMSRectFromMSLayers(selection);
             var globalLeft = Math.round(origin.x()),
                 globalTop = Math.round(origin.y());
 
@@ -77,16 +79,6 @@ function andInputGroup(view, x, width, length, label, defaultString) {
     inputView.setFormatter(formatter);
     view.addSubview(inputView);
     return inputView;
-}
-
-function getRectFromLayers(layers) {
-    var rectArray = NSMutableArray.alloc().init();
-    var loopLayers = layers.objectEnumerator();
-    var layer;
-    while (layer = loopLayers.nextObject()) {
-        rectArray.addObject(layer.frame());
-    }
-    return MSRect.rectWithUnionOfRects(rectArray);
 }
 
 function getMinHeightFromLayers(layers) {
@@ -131,7 +123,7 @@ function arrangeLayers(layers, originX, originY, gapX, gapY, rowTop, snapDistanc
     layers.removeObjectsInArray(rowGroup);
 
     if (layers.count() > 0) {
-        arrangeLayers(layers, originX, getRectFromLayers(layers).y(), gapX, gapY, newRowTop, snapDistance)
+        arrangeLayers(layers, originX, help.getMSRectFromMSLayers(layers).y(), gapX, gapY, newRowTop, snapDistance)
     }
 
 }

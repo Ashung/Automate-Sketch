@@ -1,3 +1,5 @@
+var sketch = require('sketch')
+
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
@@ -44,7 +46,6 @@ var onRun = function(context) {
 };
 
 function selectLayer(layer) {
-    var sketch = require("sketch");
     if (sketch.version.sketch < 45) {
         layer.select_byExpendingSelection(true, true);
         if (!layer.selectedInLayerList()) {
@@ -61,7 +62,6 @@ function selectLayer(layer) {
 }
 
 function deselectAllChildAndSelf(layer, self) {
-    var sketch = require("sketch");
     var loop = layer.children().objectEnumerator();
     var child;
     while (child = loop.nextObject()) {

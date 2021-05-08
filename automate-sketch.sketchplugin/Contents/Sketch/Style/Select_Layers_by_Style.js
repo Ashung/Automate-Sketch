@@ -1,8 +1,9 @@
+var sketch = require("sketch");
+
 var selectLayersByLayerStyle = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
-    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     var layerStyles = NSMutableArray.alloc().init();
@@ -21,7 +22,6 @@ var selectLayersByTextStyle = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
-    var sketch = require("sketch");
     var document = context.document;
     var documentData = document.documentData();
     var textStyles = NSMutableArray.alloc().init();

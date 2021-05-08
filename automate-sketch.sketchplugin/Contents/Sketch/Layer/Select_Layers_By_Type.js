@@ -1,3 +1,5 @@
+var sketch = require("sketch");
+
 var selectAllGroupsInSelection = function(context) {
     selectLayersInSelectionByType(context, "group");
 };
@@ -27,7 +29,6 @@ var selectAllExportableInSelection = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
-    var sketch = require("sketch");
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -129,11 +130,8 @@ function selectLayersInSelectionByType(context, type) {
 
 function selectLayersInParent_byType(parent, type, callback) {
 
-    var sketch = require("sketch");
     var layerType = require("../modules/Type");
-
     var appVersion = sketch.version.sketch;
-
     var count = 0;
 
     if (
