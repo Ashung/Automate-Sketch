@@ -4,7 +4,6 @@ var runFastSlice = function(context) {
     ga("Slice");
 
     var preferences = require("../modules/Preferences");
-    var help = require("../modules/Help");
     var document = context.document;
     var exportPresets = MSExportPreset.allExportPresets();
 
@@ -57,8 +56,6 @@ var runFastSlice = function(context) {
     while (layer = loopSelection.nextObject()) {
 
         var slice = MSSliceLayer.sliceLayerFromLayer(layer);
-        var msRect = help.getMSRectFromMSLayers([slice, layer]);
-        slice.absoluteRect().setRect(msRect.rect());
         slice.makeOriginIntegral();
 
         // layer order

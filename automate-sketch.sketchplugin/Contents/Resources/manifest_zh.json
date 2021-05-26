@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "72.0.20210508",
+  "version": "72.2.20210526",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -13,6 +13,14 @@
   "bundleVersion": "1",
   "scope": "application",
   "commands": [
+    {
+      "handlers": {
+        "actions": {
+          "OpenDocument": "onOpenDocument"
+        }
+      },
+      "script": "Help/Change_Languages.js"
+    },
     {
       "name": "带边距适配父级宽",
       "identifier": "fit_to_parent_width_with_margin",
@@ -485,12 +493,6 @@
       "identifier": "donate",
       "handler": "donate",
       "script": "Help/help.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "更改菜单语言",
-      "identifier": "change_language",
-      "script": "Help/Change_Languages.js",
       "icon": "icon_runner.png"
     },
     {
@@ -2095,8 +2097,6 @@
           "web_site",
           "change_log",
           "report_issue",
-          "-",
-          "change_language",
           "-",
           "disable_google_analytics",
           "-",
