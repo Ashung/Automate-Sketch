@@ -1,4 +1,12 @@
 -
+  version: 72.3.20210529
+  commitID: 206a8130687c26ee8a13b49e54669778f3cab7a5
+  description:
+    - Fix Auto Slice and Fast Slice bug.
+    - Add Select locked layers.
+    - Plugin menu language will same as Sketch language setting.
+
+-
   version: 72.0.20210508
   commitID: 2803e2d10bdaeec8b2dd0e8c9337f63ccbb50ca2
   description:
