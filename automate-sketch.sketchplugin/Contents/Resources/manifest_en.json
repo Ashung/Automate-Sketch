@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "72.0.20210508",
+  "version": "72.3.20210529",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -13,6 +13,14 @@
   "bundleVersion": "1",
   "scope": "application",
   "commands": [
+    {
+      "handlers": {
+        "actions": {
+          "OpenDocument": "onOpenDocument"
+        }
+      },
+      "script": "Help/Change_Languages.js"
+    },
     {
       "name": "Fit to Parent Width with Margin",
       "identifier": "fit_to_parent_width_with_margin",
@@ -97,6 +105,13 @@
       "name": "Exportable Layers",
       "identifier": "select_layers_by_type_exportable",
       "handler": "selectAllExportableInSelection",
+      "script": "Layer/Select_Layers_By_Type.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Locked Layers",
+      "identifier": "select_layers_by_type_locked",
+      "handler": "selectAllLockedLayerInSelection",
       "script": "Layer/Select_Layers_By_Type.js",
       "icon": "icon_runner.png"
     },
@@ -485,12 +500,6 @@
       "identifier": "donate",
       "handler": "donate",
       "script": "Help/help.js",
-      "icon": "icon_runner.png"
-    },
-    {
-      "name": "Change Menu Language",
-      "identifier": "change_language",
-      "script": "Help/Change_Languages.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1759,6 +1768,7 @@
               "select_layers_by_type_slice",
               "select_layers_by_type_exportable",
               "-",
+              "select_layers_by_type_locked",
               "select_all_hidden_layers",
               "select_transparency_layers"
             ]
@@ -2095,8 +2105,6 @@
           "web_site",
           "change_log",
           "report_issue",
-          "-",
-          "change_language",
           "-",
           "disable_google_analytics",
           "-",

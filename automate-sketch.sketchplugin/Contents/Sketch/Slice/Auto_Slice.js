@@ -6,7 +6,6 @@ var onRun = function(context) {
     ga("Slice");
 
     var preferences = require("../modules/Preferences");
-    var help = require("../modules/Help");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
 
@@ -86,10 +85,8 @@ var onRun = function(context) {
             }
 
             var slice = MSSliceLayer.sliceLayerFromLayer(layer);
+            slice.makeOriginIntegral();
             allSlices.push(slice);
-            
-            var msRect = help.getMSRectFromMSLayers([slice, layer]);
-            slice.absoluteRect().setRect(msRect.rect());
 
             if (sliceWith > 0) {
                 slice.frame().setWidth(sliceWith);

@@ -11,11 +11,14 @@ var onRun = function(context) {
 
     var userDefaults = NSUserDefaults.standardUserDefaults();
     var shortcuts = userDefaults.dictionaryForKey("NSUserKeyEquivalents");
-    var shortcutMenuTitles;
+
+    var shortcutMenuTitles = [];
     if (shortcuts) {
         shortcutMenuTitles = util.toArray(shortcuts.allKeys()).map(function(item) {
             return String(item).split("\u001b").splice(3).join("->");
         });
+    } else {
+        shortcuts = NSDictionary.alloc().init();
     }
 
     var commands = __command.pluginBundle().commands();
