@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "72.2.20210526",
+  "version": "72.3.20210529",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -105,6 +105,13 @@
       "name": "Exportable Layers",
       "identifier": "select_layers_by_type_exportable",
       "handler": "selectAllExportableInSelection",
+      "script": "Layer/Select_Layers_By_Type.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Locked Layers",
+      "identifier": "select_layers_by_type_locked",
+      "handler": "selectAllLockedLayerInSelection",
       "script": "Layer/Select_Layers_By_Type.js",
       "icon": "icon_runner.png"
     },
@@ -1761,6 +1768,7 @@
               "select_layers_by_type_slice",
               "select_layers_by_type_exportable",
               "-",
+              "select_layers_by_type_locked",
               "select_all_hidden_layers",
               "select_transparency_layers"
             ]

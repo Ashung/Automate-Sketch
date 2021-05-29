@@ -72,7 +72,6 @@ var selectAllExportableInSelection = function(context) {
                 } else {
                     child.select_byExtendingSelection(true, true);
                 }
-
                 totalCount ++;
             }
         }
@@ -84,6 +83,43 @@ var selectAllExportableInSelection = function(context) {
         doc.showMessage("Select 1 exportable layer.");
     } else {
         doc.showMessage("Select " + totalCount + " exportable layers.");
+    }
+
+};
+
+var selectAllLockedLayerInSelection = function(context) {
+    var ga = require("../modules/Google_Analytics");
+    ga("Layer");
+
+    var doc = context.document;
+    var page = doc.currentPage();
+    var selection = context.selection;
+
+    page.deselectAllLayers();
+
+    var count = 0;
+    if (selection.count() > 0) {
+        selection.forEach(function(layer) {
+            layer.children().forEach(function(child) {
+                if (child.isLocked()) {
+                    child.select_byExtendingSelection(true, true);
+                    count ++;
+                }
+            });
+        });
+    } else {
+        page.children().forEach(function(child) {
+            if (child.isLocked()) {
+                child.select_byExtendingSelection(true, true);
+                count ++;
+            }
+        }); 
+    }
+
+    if (count == 0) {
+        doc.showMessage("No locked layer found.");
+    } else {
+        doc.showMessage("Select " + totalCount + " locked layer" + (count > 1 ? "s" : "") + ".");
     }
 
 };
@@ -125,15 +161,15 @@ function selectLayersInSelectionByType(context, type) {
     } else {
         doc.showMessage(`Select ${totalCount} ${type} layers.`);
     }
-
+    
 }
 
 function selectLayersInParent_byType(parent, type, callback) {
-
+    
     var layerType = require("../modules/Type");
     var appVersion = sketch.version.sketch;
     var count = 0;
-
+    
     if (
         parent.containsLayers() && parent.class() != "MSShapeGroup"
     ) {

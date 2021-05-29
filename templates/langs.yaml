@@ -145,6 +145,9 @@ select_layers_by_type_slice:
 select_layers_by_type_exportable:
   - Exportable Layers
   - 可导出图层
+select_layers_by_type_locked:
+  - Locked Layers
+  - 锁定图层
 select_layers_by_name:
   - Select Layers By Name
   - 基于名称选择图层
