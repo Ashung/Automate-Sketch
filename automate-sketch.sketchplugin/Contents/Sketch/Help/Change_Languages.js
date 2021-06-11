@@ -2,13 +2,11 @@ var onOpenDocument = function(context) {
 
     var preferences = require("../modules/Preferences");
     var userDefaults = NSUserDefaults.standardUserDefaults();
-    var sketchLanguage = String(userDefaults.objectForKey("AppleLanguages").firstObject()).replace(/-\w*/, "");
+    var sketchLanguage = String(userDefaults.objectForKey("AppleLanguages").firstObject()).replace(/-\w*/g, "");
     var pluginLanguage = preferences.get("pluginLanguage");
 
     if (pluginLanguage != sketchLanguage) {
         var languageFileURL = context.plugin.urlForResourceNamed("manifest_" + sketchLanguage + ".json");
-
-        console.log(languageFileURL)
         if (languageFileURL) {
             var manifestFilePath = context.plugin.url().path() + "/Contents/Sketch/manifest.json";
             var languageFilePath = languageFileURL.path();
@@ -22,5 +20,4 @@ var onOpenDocument = function(context) {
             preferences.set("pluginLanguage", sketchLanguage);
         }
     }
-
 };

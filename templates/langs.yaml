@@ -828,7 +828,7 @@ convert_artboards_to_symbols:
   - 画板转为组件
 change_library_symbols_to_local:
   - Change Library Symbols to Local Symbol
-  - 库组件转为本地组件
+  - 将库组件转为本地组件
 insert_artboard_from_library:
   - Insert Artboard from Library
   - 从库中插入画板
@@ -883,3 +883,9 @@ fix_broken_library_symbols_by_name:
 convert_to_color_variable:
   - Convert to Color Variable
   - 转为色彩变量
+change_library_text_style_to_local_text_style:
+  - Change Library Text Styles to Local Text Style
+  - 将库文本样式转为本地文本样式
+change_library_layer_style_to_local_layer_style:
+  - Change Library Layer Styles to Local Layer Style
+  - 将库图层样式转为本地图层样式
