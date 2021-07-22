@@ -1,4 +1,12 @@
 -
+  version: 74.1.20210722
+  commitID: 2f5fa03e725e9d1e976d648bf0307aa5a56f1f66
+  description:
+    - Fix menu language bug.
+    - Fix select locked layer bug.
+    - Fix Paste and Replace not work in Sketch 74.
+
+-
   version: 72.3.20210529
   commitID: 206a8130687c26ee8a13b49e54669778f3cab7a5
   description:
