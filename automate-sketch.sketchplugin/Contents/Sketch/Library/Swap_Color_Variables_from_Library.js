@@ -22,10 +22,13 @@ var onRun = function(context) {
     }
 
     var libraries = sketch.getLibraries().filter(function(library) {
-        return library.valid && library.enabled;
+        return library.valid && library.enabled && library.getImportableSwatchReferencesForDocument(document).length > 0;
+    });
+    libraries.sort(function(a, b) {
+        return a.name > b.name;
     });
     if (libraries.length == 0) {
-        toast('These are no enabled library in "Preferences" - "Libraries".');
+        toast('These are no enabled library with color variables in "Preferences" - "Libraries".');
         return;
     }
 
@@ -52,15 +55,9 @@ var onRun = function(context) {
 
         var targetLibrary = libraries[selectLibraryView.indexOfSelectedItem()];
         var swatchRefs = targetLibrary.getImportableSwatchReferencesForDocument(document);
-        // console.log(swatchRefs)
-
-        if (swatchRefs.length == 0) {
-            toast('These are no color variables in this library.');
-            return;
-        }
 
         var fullMatchName = ignoreNumberView.state() == NSOffState;
-        console.log(allSwatches.length)
+
         var count = 0;
         allSwatches.forEach(function(swatch) {
             var importableSwatch;
