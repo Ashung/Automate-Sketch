@@ -95,7 +95,7 @@ var selectAllLockedLayerInSelection = function(context) {
     var page = doc.currentPage();
     var selection = context.selection;
 
-    page.deselectAllLayers();
+    page.changeSelectionBySelectingLayers(nil);
 
     var count = 0;
     if (selection.count() > 0) {
