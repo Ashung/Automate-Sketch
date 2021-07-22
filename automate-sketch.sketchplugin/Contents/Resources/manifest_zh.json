@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "72.3.20210529",
+  "version": "74.1.20210722",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -503,7 +503,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "复制选中图层的名称",
+      "name": "拷贝选中图层的名称",
       "identifier": "copy_selected_layer_name",
       "script": "Development/Copy_Selected_Layer_Name.js",
       "icon": "icon_runner.png"
@@ -515,7 +515,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "复制对象 ID 或组件 ID",
+      "name": "拷贝对象 ID 或组件 ID",
       "identifier": "copy_objectid_or_symbolid",
       "script": "Development/Copy_ObjectID_or_SymbolID.js",
       "icon": "icon_runner.png"
@@ -729,7 +729,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "屏幕取色并复制色彩代码",
+      "name": "屏幕取色并拷贝色彩代码",
       "identifier": "pick_color_and_copy",
       "script": "Development/Pick_Color_And_Copy_To_Pasteboard.js",
       "icon": "icon_runner.png"
@@ -1401,13 +1401,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "复制路径数据",
+      "name": "拷贝路径数据",
       "identifier": "copy_as_path_data",
       "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "复制 Base64",
+      "name": "拷贝 Base64",
       "identifier": "copy_as_base64",
       "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
@@ -1563,7 +1563,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "库组件转为本地组件",
+      "name": "将库组件转为本地组件",
       "identifier": "change_library_symbols_to_local",
       "script": "Library/Change_Library_Symbols_to_Local.js",
       "icon": "icon_runner.png"

@@ -37,7 +37,7 @@ var onRun = function(context) {
                 var loopSelection = selection.objectEnumerator();
                 while (oldLayer = loopSelection.nextObject()) {
 
-                    var pasteboardLayers = getPasteboardLayers(context, appVersion);
+                    var pasteboardLayers = getPasteboardLayers(context);
                     var parentGroup = oldLayer.parentGroup();
 
                     if (appVersion >= 50) {
@@ -144,7 +144,11 @@ function getPasteboardLayers(context) {
     var pasteboard = NSPasteboard.generalPasteboard();
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;
-    if (version >= 64) {
+    if (version >= 74) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_document_options(
+            pasteboard, context.document, nil
+        );
+    } else if (version >= 64) {
         pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options_convertColorSpace(
             pasteboard, context.document.colorSpace(), nil, true
         );

@@ -10,7 +10,11 @@ module.exports.getLayers = function(context){
     var version = sketch.version.sketch;
     var pasteboardManager = AppController.sharedInstance().pasteboardManager();
     var pasteboardLayers;
-    if (version >= 64) {
+    if (version >= 74) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_document_options(
+            pasteboard, context.document, nil
+        );
+    } else if (version >= 64) {
         pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options_convertColorSpace(
             pasteboard, context.document.colorSpace(), nil, true
         );

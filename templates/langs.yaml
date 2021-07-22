@@ -309,10 +309,10 @@ export_all_artboards_to_html:
   - 将所有画板导出为 HTML
 copy_selected_layer_name:
   - Copy Selected Layer Name
-  - 复制选中图层的名称
+  - 拷贝选中图层的名称
 copy_objectid_or_symbolid:
   - Copy Object ID or Symbol ID
-  - 复制对象 ID 或组件 ID
+  - 拷贝对象 ID 或组件 ID
 grid_setting:
   - Grid Presets
   - 网格预设
@@ -435,7 +435,7 @@ select_transparency_layers:
   - 透明图层
 pick_color_and_copy:
   - Pick Color and Copy the HEX Code
-  - 屏幕取色并复制色彩代码
+  - 屏幕取色并拷贝色彩代码
 reset_overrides:
   - Reset Overrides
   - 重置覆盖
@@ -744,13 +744,13 @@ copy_as_svg:
   - 拷贝 SVG
 copy_as_path_data:
   - Copy as Path Data
-  - 复制路径数据
+  - 拷贝路径数据
 copy_as_svg_url_encoded:
   - Copy as SVG (URL-encoded)
   - 拷贝 SVG (URL-encoded)
 copy_as_base64:
   - Copy as Base64
-  - 复制 Base64
+  - 拷贝 Base64
 new_guides_from_layer:
   - New Guides from Layer
   - 从图层创建辅助线
