@@ -26,14 +26,13 @@ var onRun = function(context) {
     var viewWidth = 350,
         rowHeight = 50;
 
-
     var dialog = new Dialog(
         "Remove Unused Symbols",
         "Check the symbol to remove it.",
         350
     );
 
-    var scrollView = ui.scrollView([], [350, 400]);
+    var scrollView = ui.scrollView([], [350, 300]);
     dialog.addView(scrollView);
 
     var selectAll = ui.checkBox(true, "Select / Deselect All Unused Symbols.");

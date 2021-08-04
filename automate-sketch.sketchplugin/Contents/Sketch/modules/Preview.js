@@ -1,3 +1,5 @@
+var sketch = require("sketch");
+
 /**
  * @param  {MSSymbolMaster} symbolMaster
  * @param  {Number} size Optional
@@ -56,7 +58,7 @@ module.exports.textStyle = function(textStyle) {
         artboard.setHasBackgroundColor(true);
         artboard.setBackgroundColor(MSColor.colorWithRed_green_blue_alpha(0.67, 0.67, 0.67, 1));
     }
-    return artboardPreviewGenerator(artboard, width * 2, height * 2);
+    return artboardPreviewGenerator(artboard, width, height, true);
 };
 
 /**
@@ -82,7 +84,7 @@ module.exports.textStyleSmall = function(textStyle) {
         });
         artboard.insertLayer_beforeLayer(rectangle, textLayer);
     }
-    return artboardPreviewGenerator(artboard, 24, 24);
+    return artboardPreviewGenerator(artboard, 24, 24, true);
 };
 
 /**
@@ -99,7 +101,7 @@ module.exports.layerStyle = function(layerStyle, size) {
         curvePoint.setCornerRadius(2);
     });
     var artboard = artboardWithLayer(size, size, rectangle);
-    return artboardPreviewGenerator(artboard, size, size);
+    return artboardPreviewGenerator(artboard, size, size, true);
 };
 
 /**
@@ -136,7 +138,7 @@ function previewFill(fillType, fillContent) {
     innerShadow.setBlurRadius(0);
     innerShadow.setSpread(1);
     var artboard = artboardWithLayer(20, 20, oval);
-    return artboardPreviewGenerator(artboard, 40, 40);
+    return artboardPreviewGenerator(artboard, 40, 40, true);
 }
 
 function artboardWithLayer(width, height, layer) {
@@ -147,8 +149,21 @@ function artboardWithLayer(width, height, layer) {
     return artboard;
 }
 
-function artboardPreviewGenerator(artboard, width, height) {
-    return MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+function artboardPreviewGenerator(artboard, width, height, remove) {
+    if (remove) {
+        var document = sketch.getSelectedDocument();
+        var page = document.selectedPage;
+        page.sketchObject.addLayer(artboard);
+    }
+    var image = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
         artboard.ancestry(), CGSizeMake(width, height), NSColorSpace.sRGBColorSpace(), false
     );
-} 
+    var image2x = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
+        artboard.ancestry(), CGSizeMake(width * 2, height * 2), NSColorSpace.sRGBColorSpace(), false
+    );
+    image.addRepresentations(image2x.representations());
+    if (remove) {
+        artboard.removeFromParent();
+    }
+    return image;
+}

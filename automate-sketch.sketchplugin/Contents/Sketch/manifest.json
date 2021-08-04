@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "74.1.20210722",
+  "version": "74.1.20210804",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -20,6 +20,12 @@
         }
       },
       "script": "Help/Change_Languages.js"
+    },
+    {
+      "name": "Change Menu Language",
+      "identifier": "change_language",
+      "script": "Help/Change_Languages.js",
+      "icon": "icon_runner.png"
     },
     {
       "name": "Fit to Parent Width with Margin",
@@ -1675,6 +1681,18 @@
       "identifier": "convert_to_color_variable",
       "script": "Style/Convert_to_Color_Variable.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Library Layer Styles to Local Layer Style",
+      "identifier": "change_library_layer_style_to_local_layer_style",
+      "script": "Library/Change_Library_Style_to_Local_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Change Library Text Styles to Local Text Style",
+      "identifier": "change_library_text_style_to_local_text_style",
+      "script": "Library/Change_Library_Style_to_Local_Style.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1863,6 +1881,8 @@
           "-",
           "change_local_text_style_to_library_text_style",
           "change_local_layer_style_to_library_layer_style",
+          "change_library_text_style_to_local_text_style",
+          "change_library_layer_style_to_local_layer_style",
           "import_styles_from_library",
           "import_document_assets_from_library",
           "-",
@@ -2105,6 +2125,8 @@
           "web_site",
           "change_log",
           "report_issue",
+          "-",
+          "change_language",
           "-",
           "disable_google_analytics",
           "-",
