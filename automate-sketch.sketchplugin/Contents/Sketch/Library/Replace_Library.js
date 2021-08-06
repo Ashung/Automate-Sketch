@@ -11,14 +11,17 @@ var onRun = function(context) {
     var document = sketch.getSelectedDocument();
 
     var libraries = sketch.getLibraries().filter(function(library) {
-        return library.valid;
+        return library.valid && library.enabled;
     });
     if (libraries.length == 0) {
         toast('These are no valid library in "Preferences" - "Libraries".');
         return;
     }
+    libraries.sort(function(a, b) {
+        return a.name > b.name;
+    });
     var allLibrariesNames = libraries.map(function(item) {
-        return item.name + (!item.enabled ? " (Disabled)" : "");
+        return item.name;
     });
 
     // All libraries of imported symbols
@@ -64,7 +67,7 @@ var onRun = function(context) {
     // Dialog
     var dialog = new Dialog(
         "Replace Library",
-        "Change the library of imported symbols, styles to anther library."
+        "Force change the library of imported symbols, styles to anther library, the appearance do not changed."
     );
 
     dialog.addLabel("Apply to");
