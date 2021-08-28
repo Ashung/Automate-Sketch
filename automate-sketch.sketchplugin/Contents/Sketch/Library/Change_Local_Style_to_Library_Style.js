@@ -89,14 +89,14 @@ var onRun = function(context) {
         var imageStyle;
         if (styleType == "text") {
             checkBoxStyle = ui.checkBox(true, " ", [5, 10, 30, 30]);
-            imageStyle = ui.imageButton(preview.textStyle(style), [30, 10, 360, 30]);
+            imageStyle = ui.imageButton(preview.textStyle(style), [28, 10, 360, 30]);
         } else {
             checkBoxStyle = ui.checkBox(true, "            " + style.name(), [5, 10, 380, 30]);
-            imageStyle = ui.imageButton(preview.layerStyle(style, 48), [30, 10, 30, 30]);
+            imageStyle = ui.imageButton(preview.layerStyle(style, 48), [28, 10, 30, 30]);
         }
 
         // Add status view
-        var status = ui.circle("#00000000", [380, 21, 8, 8]);
+        var status = ui.circle("#00000000", [60, 22, 6, 6]);
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         var matchLibraryStyle;
         if (selectBoxChangeType.indexOfSelectedItem() == 0) {

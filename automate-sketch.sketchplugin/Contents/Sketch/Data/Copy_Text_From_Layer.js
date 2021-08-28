@@ -21,7 +21,7 @@ var onRun = function(context) {
         selectedTextLayer.forEach(function(layer) {
             text.push(layer.text);
         });
-        pasteboard.pbcopy(text.join("\n"));
+        pasteboard.copy(text.join("\n"));
         sketch.UI.message("Text copied.");
     }
 
@@ -41,7 +41,7 @@ var onRun = function(context) {
                 }
             });
         });
-        pasteboard.pbcopy(text.join("\n"));
+        pasteboard.copy(text.join("\n"));
         sketch.UI.message("Text copied.");
     }
 };

@@ -40,6 +40,7 @@ Make your workflow more efficient.
 | Select Layers Outside of Artboard Bounds                     | Select and reveal layers which is outside of the artboard bounds. |
 | Select Reverse                                               | Select reverse.                                              |
 | Select None                                                  | Select none.                                                 |
+| Paste into Artboard                                          | Paste layers into selected artboards.                        |
 | Paste and Replace                                            | Paste and replace, replace the selected layer with the Sketch layer on the clipboard. |
 | Paste and Replace Setting                                    | Change the position of new layer relative to the old one.    |
 | Copy / Paste Layer Position and Size                         | Copy and paste the position and size of selected layer.      |
@@ -141,6 +142,8 @@ Make your workflow more efficient.
 | Swap Color Variables from Library                            | Swap color variables from library with same name.            |
 | Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
 | Change Local Layer Style to Library Layer Style              | Change local layer styles to same library layer style from selected library. |
+| Change Library Layer Style to Local Layer Style              | Make library layer style to local.                           |
+| Change Library Text Style to Local Text Style                | Make library text style to local.                            |
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
 | Import Styles from Library                                   | Import text styles and layer styles from any library.        |
 | Add Library Preview                                          | Add a artboard for library preview image.                    |

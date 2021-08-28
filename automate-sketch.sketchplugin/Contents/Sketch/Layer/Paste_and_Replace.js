@@ -1,166 +1,173 @@
-var sketch = require('sketch')
-
 var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require('sketch');
     var preferences = require("../modules/Preferences");
+    var pasteboard = require("../modules/Pasteboard");
     var type = require("../modules/Type");
     var appVersion = sketch.version.sketch;
     var document = context.document;
     var selection = context.selection;
     var page = document.currentPage();
 
-    var pasteboard = NSPasteboard.generalPasteboard();
-    if (pasteboard.pasteboardItems().count() > 0) {
+    if (pasteboard.isEmpty()) {
+        sketch.UI.message("Clipboard is empty.");
+        return;
+    }
 
-        // Check Pasteboard type
-        var pasteboardType = pasteboard.pasteboardItems().firstObject().types().firstObject();
-        var supportedPasteboardTypes = [
-            "public.jpeg",
-            "public.gif",
-            "public.png",
-            "public.tiff", // Photoshop
-            "com.adobe.pdf",
-            "com.adobe.illustrator.aicb", // Illustrator
-            "com.bohemiancoding.sketch.v3", // Sketch
-            "com.seriflabs.persona.nodes" // Affinity Designer
-        ];
+    if (!pasteboard.isSupportedType()) {
+        sketch.UI.message("Please copy a Sketch layer first.");
+        return;
+    }
 
-        if (supportedPasteboardTypes.indexOf(String(pasteboardType))) {
+    if (selection.count() == 0) {
+        sketch.UI.message("Please select at least 1 layer.");
+        return;
+    }
 
-            if (selection.count() > 0) {
+    // Layer will be selected.
+    var newLayers = NSMutableArray.alloc().init();
 
-                // Layer will be selected.
-                var newLayers = NSMutableArray.alloc().init();
+    var loopSelection = selection.objectEnumerator();
+    while (oldLayer = loopSelection.nextObject()) {
 
-                var loopSelection = selection.objectEnumerator();
-                while (oldLayer = loopSelection.nextObject()) {
+        var pasteboardLayers = pasteboard.getPasteboardLayers();
+        var parentGroup = oldLayer.parentGroup();
 
-                    var pasteboardLayers = getPasteboardLayers(context);
-                    var parentGroup = oldLayer.parentGroup();
-
-                    if (appVersion >= 50) {
-                        pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
-                            parentGroup,
-                            oldLayer.frame().rect().origin,
-                            oldLayer,
-                            document.contentDrawView().viewPort(),
-                            false
-                        );
-                    } else {
-                        pasteboardLayers.insertInGroup_atPosition_afterLayer(
-                            parentGroup,
-                            oldLayer.frame().rect().origin,
-                            oldLayer
-                        );
-                    }
-
-                    var group;
-                    if (appVersion >= 52) {
-                        group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
-                    } else {
-                        group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
-                    }
-                    group.moveToLayer_beforeLayer(parentGroup, oldLayer);
-                    
-                    // Position
-                    if (preferences.get("pasteAndReplaceLayerPosition") == "1") {
-                        group.frame().setX(Math.round(oldLayer.frame().x() + oldLayer.frame().width() / 2) - group.frame().width() / 2);
-                        group.frame().setY(Math.round(oldLayer.frame().y() + oldLayer.frame().height() / 2) - group.frame().height() / 2);
-                    } else {
-                        group.frame().setX(Math.round(oldLayer.frame().x()));
-                        group.frame().setY(Math.round(oldLayer.frame().y()));
-                    }
-
-                    // oldLayer is a mask
-                    if (
-                        oldLayer.hasClippingMask() &&
-                        pasteboardLayers.layers().layers().count() == 1 &&
-                        type.isShape(group.layers().firstObject())
-                    ) {
-                        group.layers().firstObject().setHasClippingMask(true);
-                    }
-
-                    group.ungroup();
-
-                    // Replace symbol master
-                    if (oldLayer.class() == "MSSymbolMaster") {
-                        var newSymbolMaster = pasteboardLayers.layers().firstLayer();
-                        var oldSymbolMaster = oldLayer;
-                        // Replace with another symbol master
-                        if (
-                            pasteboardLayers.layers().layers().count() == 1 &&
-                            pasteboardLayers.layers().firstLayer().class() == "MSSymbolMaster"
-                        ) {
-                            changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster);
-                        }
-                        // Change symbol's instances into group
-                        else {
-                            changeAllInstancesToGroup(context, oldSymbolMaster);
-                        }
-                    }
-
-                    oldLayer.removeFromParent();
-
-                    newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
-
-                    if (parentGroup.class() == "MSLayerGroup") {
-                        if (appVersion >= 53) {
-                            parentGroup.fixGeometryWithOptions(1);
-                        } else {
-                            parentGroup.resizeToFitChildrenWithOption(1);
-                        }
-                    }
-
-                }
-
-                if (appVersion >= 45) {
-                    page.changeSelectionBySelectingLayers(newLayers);
-                } else {
-                    var loopNewLayers = newLayers.objectEnumerator();
-                    while (layer = loopNewLayers.nextObject()) {
-                        layer.select_byExpandingSelection(true, true);
-                    }
-                }
-
-            } else {
-                document.showMessage("Please select at least 1 layer.");
-            }
-
-
+        if (appVersion >= 50) {
+            pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
+                parentGroup,
+                oldLayer.frame().rect().origin,
+                oldLayer,
+                document.contentDrawView().viewPort(),
+                false
+            );
         } else {
-            document.showMessage("Please copy a Sketch layer first.");
+            pasteboardLayers.insertInGroup_atPosition_afterLayer(
+                parentGroup,
+                oldLayer.frame().rect().origin,
+                oldLayer
+            );
         }
 
+        var group;
+        if (appVersion >= 52) {
+            group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
+        } else {
+            group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
+        }
+        group.moveToLayer_beforeLayer(parentGroup, oldLayer);
+        
+        // Position
+        var position = preferences.get("pasteAndReplaceLayerPosition");
+        var x, y;
+        var left = oldLayer.frame().x();
+        var right = oldLayer.frame().x() + oldLayer.frame().width() - group.frame().width();
+        var top = oldLayer.frame().y();
+        var bottom = oldLayer.frame().y() + oldLayer.frame().height() - group.frame().height();
+        var centerX = oldLayer.frame().x() + oldLayer.frame().width() / 2 - group.frame().width() / 2;
+        var centerY = oldLayer.frame().y() + oldLayer.frame().height() / 2 - group.frame().height() / 2;
+        // Bottom-right
+        if (position == "8") {
+            x = right;
+            y = bottom;
+        }
+        // Bottom-center
+        else if (position == "7") {
+            x = centerX;
+            y = bottom;
+        }
+        // Bottom-left
+        else if (position == "6") {
+            x = left;
+            y = bottom;
+        }
+        // Right-center
+        else if (position == "5") {
+            x = right;
+            y = centerY;
+        }
+        // Left-center
+        else if (position == "4") {
+            x = left;
+            y = centerY;
+        }
+        // Top-right
+        else if (position == "3") {
+            x = right;
+            y = top;
+        }
+        // Top-center
+        else if (position == "2") {
+            x = centerX;
+            y = top;
+        }
+        // Center
+        else if (position == "1") {
+            x = centerX;
+            y = centerY;
+        }
+        // Top-left
+        else {
+            x = left;
+            y = top;
+        }
+        group.frame().setX(Math.round(x));
+        group.frame().setY(Math.round(y));
+
+        // oldLayer is a mask
+        if (
+            oldLayer.hasClippingMask() &&
+            pasteboardLayers.layers().layers().count() == 1 &&
+            type.isShape(group.layers().firstObject())
+        ) {
+            group.layers().firstObject().setHasClippingMask(true);
+        }
+
+        group.ungroup();
+
+        // Replace symbol master
+        if (oldLayer.class() == "MSSymbolMaster") {
+            var newSymbolMaster = pasteboardLayers.layers().firstLayer();
+            var oldSymbolMaster = oldLayer;
+            // Replace with another symbol master
+            if (
+                pasteboardLayers.layers().layers().count() == 1 &&
+                pasteboardLayers.layers().firstLayer().class() == "MSSymbolMaster"
+            ) {
+                changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster);
+            }
+            // Change symbol's instances into group
+            else {
+                changeAllInstancesToGroup(context, oldSymbolMaster);
+            }
+        }
+
+        oldLayer.removeFromParent();
+
+        newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
+
+        if (parentGroup.class() == "MSLayerGroup") {
+            if (appVersion >= 53) {
+                parentGroup.fixGeometryWithOptions(1);
+            } else {
+                parentGroup.resizeToFitChildrenWithOption(1);
+            }
+        }
+
+    }
+
+    if (appVersion >= 45) {
+        page.changeSelectionBySelectingLayers(newLayers);
     } else {
-        document.showMessage("Clipboard is empty.");
+        var loopNewLayers = newLayers.objectEnumerator();
+        while (layer = loopNewLayers.nextObject()) {
+            layer.select_byExpandingSelection(true, true);
+        }
     }
 
 };
-
-function getPasteboardLayers(context) {
-    var version = sketch.version.sketch;
-    var pasteboard = NSPasteboard.generalPasteboard();
-    var pasteboardManager = NSApp.delegate().pasteboardManager();
-    var pasteboardLayers;
-    if (version >= 74) {
-        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_document_options(
-            pasteboard, context.document, nil
-        );
-    } else if (version >= 64) {
-        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options_convertColorSpace(
-            pasteboard, context.document.colorSpace(), nil, true
-        );
-    } else if (version >= 48) {
-        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_colorSpace_options(
-            pasteboard, context.document.colorSpace(), nil
-        );
-    } else {
-        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_options(pasteboard, nil);
-    }
-    return pasteboardLayers;
-}
 
 function changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster) {
     var loopPages = context.document.pages().objectEnumerator();

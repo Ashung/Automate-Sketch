@@ -79,8 +79,6 @@ var onRun = function(context) {
             });
         }
 
-        console.log(colors)
-
         var count = {
             fill: 0,
             tint: 0,

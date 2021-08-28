@@ -1,4 +1,6 @@
 var sketch = require("sketch");
+var document = sketch.getSelectedDocument()
+var page = document.selectedPage;
 
 var onRun = function(context) {
 
@@ -201,21 +203,21 @@ function createDataView(items, type, selectAll, checkedStatus) {
             layerStyleTempLayer.frame().setHeight(24);
             var rectangle = MSRectangleShape.alloc().init();
             rectangle.setRect(CGRectMake(2, 2, 20, 20));
-            var previewLayer;
-            if (sketch.version.sketch >= 52) {
-                previewLayer = rectangle;
-            } else {
-                previewLayer = MSShapeGroup.shapeWithPath(rectangle);
-            }
-            previewLayer.setStyle(item.style());
-            layerStyleTempLayer.addLayer(previewLayer);
+            rectangle.setStyle(item.style());
+          
+            layerStyleTempLayer.addLayer(rectangle);
+            page.sketchObject.addLayer(layerStyleTempLayer);
+
             var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));
             var layerAncestry = layerStyleTempLayer.ancestry();
             var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
                 layerAncestry, CGSizeMake(48, 48), NSColorSpace.sRGBColorSpace(), false
             );
+
             imageView.setImage(previewImage);
             itemView.addSubview(imageView);
+
+            layerStyleTempLayer.removeFromParent();
         }
 
         if (type == 1) {
@@ -231,6 +233,8 @@ function createDataView(items, type, selectAll, checkedStatus) {
             textStyleTempArtboard.frame().setWidth(textLayerWidth);
             textStyleTempArtboard.frame().setHeight(textLayerHeight);
             textStyleTempLayer.moveToLayer_beforeLayer(textStyleTempArtboard, nil);
+
+            page.sketchObject.addLayer(textStyleTempArtboard);
             var layerAncestry = textStyleTempArtboard.ancestry();
             var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
                 layerAncestry, CGSizeMake(textLayerWidth * 2, textLayerHeight * 2), NSColorSpace.sRGBColorSpace(), false
@@ -252,6 +256,8 @@ function createDataView(items, type, selectAll, checkedStatus) {
             }
 
             itemView.addSubview(imageView);
+
+            textStyleTempArtboard.removeFromParent();
         }
 
         checkbox.setCOSJSTargetFunction(function(sender) {

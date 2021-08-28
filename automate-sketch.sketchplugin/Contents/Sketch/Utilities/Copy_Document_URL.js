@@ -20,7 +20,7 @@ var onRun = function(context) {
             url += "?centerOnLayer=" + (selection[0].id);
             url += "&zoom=" + zoom.zoomValue.toFixed(1);
         }
-        pasteboard.pbcopy(url);
+        pasteboard.copy(url);
         if (isPrivate) {
             sketch.UI.message('Document URL copied. This is a private document.');
         } else {
@@ -34,7 +34,7 @@ var onRun = function(context) {
                 url += "?centerOnLayer=" + (selection[0].id);
                 url += "&zoom=" + zoom.zoomValue.toFixed(1);
             }
-            pasteboard.pbcopy(url);
+            pasteboard.copy(url);
             sketch.UI.message('Document URL copied. You can use it in web page or other app to open this document in Sketch.');
         } else {
             sketch.UI.message("Save document first.");

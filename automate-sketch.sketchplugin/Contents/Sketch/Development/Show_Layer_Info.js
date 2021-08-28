@@ -185,6 +185,6 @@ function textFieldView(text, editable) {
 function copyToPasteboard(content) {
     var ui = require("sketch/ui");
     var pasteboard = require("../modules/Pasteboard");
-    pasteboard.pbcopy(content);
+    pasteboard.copy(content);
     ui.message("ID \"" + content + "\" copied.");
 }

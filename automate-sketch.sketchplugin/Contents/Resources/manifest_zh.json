@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "74.1.20210722",
+  "version": "74.1.20210828",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -20,6 +20,12 @@
         }
       },
       "script": "Help/Change_Languages.js"
+    },
+    {
+      "name": "更改菜单语言",
+      "identifier": "change_language",
+      "script": "Help/Change_Languages.js",
+      "icon": "icon_runner.png"
     },
     {
       "name": "带边距适配父级宽",
@@ -1675,6 +1681,24 @@
       "identifier": "convert_to_color_variable",
       "script": "Style/Convert_to_Color_Variable.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "将库图层样式转为本地图层样式",
+      "identifier": "change_library_layer_style_to_local_layer_style",
+      "script": "Library/Change_Library_Style_to_Local_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "将库文本样式转为本地文本样式",
+      "identifier": "change_library_text_style_to_local_text_style",
+      "script": "Library/Change_Library_Style_to_Local_Style.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "粘贴至画板内",
+      "identifier": "paste_into_artboard",
+      "script": "Layer/Paste_into_Artboard.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -1782,6 +1806,7 @@
           "select_reverse",
           "select_none",
           "-",
+          "paste_into_artboard",
           "paste_and_replace",
           "paste_and_replace_setting",
           "-",
@@ -1863,6 +1888,8 @@
           "-",
           "change_local_text_style_to_library_text_style",
           "change_local_layer_style_to_library_layer_style",
+          "change_library_text_style_to_local_text_style",
+          "change_library_layer_style_to_local_layer_style",
           "import_styles_from_library",
           "import_document_assets_from_library",
           "-",
@@ -2105,6 +2132,8 @@
           "web_site",
           "change_log",
           "report_issue",
+          "-",
+          "change_language",
           "-",
           "disable_google_analytics",
           "-",

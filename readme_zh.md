@@ -41,6 +41,7 @@
 | Select Layers Outside of Artboard Bounds                     | **选择画板边界外的图层** 选择并显示隐藏在画板边界外的图层。  |
 | Select Reverse                                               | **反选**                                                     |
 | Select None                                                  | **取消选择**                                                 |
+| Paste into Artboard                                          | **粘贴至画板内**                                             |
 | Paste and Replace                                            | **粘贴并替换** 将选中图层替换为剪贴板上的 Sketch 图层。可用于替换不同文件的组件。 |
 | Paste and Replace Setting                                    | **粘贴并替换设置** 设置新图层的位置，默认原点对齐或居中对齐。 |
 | Copy / Paste Layer Position and Size                         | **拷贝/粘贴图层位置与尺寸**                                  |
@@ -142,6 +143,8 @@
 | Swap Color Variables from Library                            | **从库替换色彩变量** 从选择的库按照命名替换色彩变量，用于更改 UI 的主题。 |
 | Change Local Text Style to Library Text Style                | **本地文本样式转为库样式** 将本地文本样式转为指定库中的相同样式。 |
 | Change Local Layer Style to Library Layer Style              | **本地图层样式转为库样式** 将本地图层样式转为指定库中的相同样式。 |
+| Change Library Layer Style to Local Layer Style              | **将库图层样式转为本地图层样式**                             |
+| Change Library Text Style to Local Text Style                | **将库文本样式转为本地文本样式**                             |
 | Import Document Assets from Library                          | **从库导入文档资源** 从库导入色彩、渐变和图案填充等文档资源， |
 | Import Styles from Library                                   | **从库导入样式** 从库导入图层样式和文本样式。                |
 | Add Library Preview                                          | **添加库预览图** 增加一个画板用于库的预览图。                |

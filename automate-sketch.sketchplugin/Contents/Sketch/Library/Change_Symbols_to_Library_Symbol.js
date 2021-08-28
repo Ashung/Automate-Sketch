@@ -78,11 +78,11 @@ var onRun = function(context) {
     var views = [];
     util.toArray(localSymbols).forEach(function(symbol) {
         var wrapper = ui.view([400, 70]);
-        var imageSymbol = ui.imageButton(preview.symbol(symbol, 50), [30, 10, 50, 50]);
+        var imageSymbol = ui.imageButton(preview.symbol(symbol, 50), [28, 10, 50, 50]);
         var checkBoxSymbol = ui.checkBox(true, "                   " + symbol.name(), [5, 10, 380, 50]);
         
         // Add status view
-        var status = ui.circle("#00000000", [380, 31, 8, 8]);
+        var status = ui.circle("#00000000", [82, 32, 6, 6]);
         var selectedLibrary = availableLibraries.objectAtIndex(selectBoxLibrary.indexOfSelectedItem());
         var matchLibrarySymbol;
         if (selectBoxNameOrId.indexOfSelectedItem() == 0) {

@@ -27,8 +27,7 @@ var onRun = function(context) {
     selectAll.setAllowsMixedState(true);
     dialog.addView(selectAll);
 
-    var symbolsWillMakeLocal = librarySymbols;
-    var selectedItemsCount = librarySymbols.length;
+    var symbolsWillMakeLocal = librarySymbols.slice(0);
     var views = [];
     librarySymbols.forEach(function(symbol) {
         var wrapper = ui.view([300, 50]);
@@ -40,16 +39,14 @@ var onRun = function(context) {
 
         checkBoxSymbol.setCOSJSTargetFunction(function(sender) {
             if (sender.state() == NSOffState) {
-                selectedItemsCount --;
                 removeSymbol(symbolsWillMakeLocal, symbol);
             }
             if (sender.state() == NSOnState) {
-                selectedItemsCount ++;
                 symbolsWillMakeLocal.push(symbol);
             }
-            if (selectedItemsCount == librarySymbols.length) {
+            if (symbolsWillMakeLocal.length == librarySymbols.length) {
                 selectAll.setState(NSOnState);
-            } else if (selectedItemsCount == 0) {
+            } else if (symbolsWillMakeLocal.length == 0) {
                 selectAll.setState(NSOffState);
             } else {
                 selectAll.setState(NSMixedState);
@@ -59,16 +56,14 @@ var onRun = function(context) {
             var checkBox = sender.superview().subviews().firstObject();
             checkBox.setState(checkBox.state() == NSOnState ? NSOffState : NSOnState);
             if (checkBox.state() == NSOffState) {
-                selectedItemsCount --;
                 removeSymbol(symbolsWillMakeLocal, symbol);
             }
             if (checkBox.state() == NSOnState) {
-                selectedItemsCount ++;
                 symbolsWillMakeLocal.push(symbol);
             }
-            if (selectedItemsCount == librarySymbols.length) {
+            if (symbolsWillMakeLocal.length == librarySymbols.length) {
                 selectAll.setState(NSOnState);
-            } else if (selectedItemsCount == 0) {
+            } else if (symbolsWillMakeLocal.length == 0) {
                 selectAll.setState(NSOffState);
             } else {
                 selectAll.setState(NSMixedState);

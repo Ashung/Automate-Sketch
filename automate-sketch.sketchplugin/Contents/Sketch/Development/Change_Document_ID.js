@@ -38,7 +38,7 @@ var onRun = function(context) {
     dialog.addView(buttons);
 
     buttonCopy.setCOSJSTargetFunction(function(sender) {
-        pasteboard.pbcopy(idView.stringValue());
+        pasteboard.copy(idView.stringValue());
         sketch.UI.message("ID \"" + idView.stringValue() + "\" copied.");
     });
 
