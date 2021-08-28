@@ -14,8 +14,15 @@ var onRun = function(context) {
     );
 
     var layerPosition = ui.popupButton([
-        "Top-left on the old one (default).",
-        "Center on the old one."
+        "↖️ Top-left (default)",
+        "⏺ Center",
+        "⬆️ Top-center",
+        "↗️ Top-right",
+        "⬅️ Left-center",
+        "➡️ Right-center",
+        "↙️ Bottom-left",
+        "⬇️ Bottom-center",
+        "↘️ Bottom-right"
     ]);
     dialog.addView(layerPosition);
     layerPosition.selectItemAtIndex(parseInt(preferences.get("pasteAndReplaceLayerPosition")) || 0);

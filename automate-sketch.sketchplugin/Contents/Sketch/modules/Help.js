@@ -24,26 +24,11 @@ module.exports.getMSRectFromMSLayers = function (layers) {
 };
 
 module.exports.getRectFromLayers = function (layers) {
-    var rect = { x: 0, y: 0, width: 0, height: 0 };
-    if (layers.length === 1) {
-        rect = {...layers[0].frame}; 
+    var cgRect = CGRectMake(0, 0, 0, 0);
+    for (var i = 0; i < layers.length; i++) {
+        cgRect = NSUnionRect(cgRect, layers[i].sketchObject.rect());
     }
-    if (layers.length > 1) {
-        rect = {...layers[0].frame};
-        var right = rect.x + rect.width;
-        var bottom = rect.y + rect.height;
-        for (var i = 1; i < layers.length; i++) {
-            var _rect = {...layers[i].frame};
-            var _right = _rect.x + _rect.width;
-            var _bottom = _rect.y + _rect.height;
-            rect = {
-                x: Math.min(rect.x, _rect.x),
-                y: Math.min(rect.y, _rect.y),
-                width: Math.max(right, _right) - Math.min(rect.x, _rect.x),
-                height: Math.max(bottom, _bottom) - Math.min(rect.y, _rect.y)
-            }
-        } 
-    }
+    var rect = { x: cgRect.origin.x, y: cgRect.origin.y, width: cgRect.size.width, height: cgRect.size.height };
     return rect;
 };
 

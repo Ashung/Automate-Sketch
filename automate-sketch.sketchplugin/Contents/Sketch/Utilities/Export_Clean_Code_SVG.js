@@ -350,7 +350,7 @@ var onRun = function(context) {
             layerCopy.removeFromParent();
 
             if (responseCode == 1002 && selection.count() == 1) {
-                pasteboard.pbcopy(svgCode);
+                pasteboard.copy(svgCode);
             }
 
             if (savePath) {

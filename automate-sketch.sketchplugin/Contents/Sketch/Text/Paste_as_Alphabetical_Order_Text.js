@@ -11,7 +11,7 @@ var onRun = function(context) {
     texts = texts.sortedArrayUsingSelector("localizedStandardCompare:");
 
     var textsToString = texts.componentsJoinedByString('\n');
-    pasteboard.pbcopy(textsToString);
+    pasteboard.copy(textsToString);
 
     var layer = new Text({
         text: String(textsToString),

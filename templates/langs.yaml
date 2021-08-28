@@ -889,3 +889,6 @@ change_library_text_style_to_local_text_style:
 change_library_layer_style_to_local_layer_style:
   - Change Library Layer Styles to Local Layer Style
   - 将库图层样式转为本地图层样式
+paste_into_artboard:
+  - Paste into Artboard
+  - 粘贴至画板内

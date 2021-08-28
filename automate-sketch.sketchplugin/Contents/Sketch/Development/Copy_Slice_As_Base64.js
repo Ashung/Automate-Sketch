@@ -38,7 +38,7 @@ var onRun = function(context) {
         }
 
         // Paste board
-        pasteboard.pbcopy(base64Code);
+        pasteboard.copy(base64Code);
 
         doc.showMessage("The base64 code \"" + base64Preview + "\" of slice copied.");
 

@@ -57,7 +57,7 @@ var onRun = function(context) {
             .replace(/%3D/g, "=")
             .replace(/%3A/g, ":")
             .replace(/%2F/g, "/");
-        pasteboard.pbcopy(code);
+        pasteboard.copy(code);
         sketch.UI.message("URL-encoded SVG code copied.");
     }
 
@@ -68,7 +68,7 @@ var onRun = function(context) {
         }
         var bezierPath = NSBezierPath.bezierPathWithPath(layer.sketchObject.pathInBounds());
         var pathData = String(bezierPath.svgPathAttribute()).replace(/^d="/, "").replace(/"$/, "");
-        pasteboard.pbcopy(pathData);
+        pasteboard.copy(pathData);
         sketch.UI.message("SVG path data copied.");
     }
 
@@ -115,7 +115,7 @@ var onRun = function(context) {
                 base64Code = "data:image/png;base64," + base64Code;
         }
 
-        pasteboard.pbcopy(base64Code);
+        pasteboard.copy(base64Code);
         sketch.UI.message("The base64 code \"" + base64Preview + "\" of slice copied.");
     }
 

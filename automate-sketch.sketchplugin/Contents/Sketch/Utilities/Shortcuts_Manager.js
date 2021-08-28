@@ -47,7 +47,7 @@ var onRun = function(context) {
                 labelView.sizeToFit();
                 labelView.setCOSJSTargetFunction(function(sender) {
                     var menu = pluginMenu + "->" + pluginName + "->" + sender.title();
-                    pasteboard.pbcopy(menu);
+                    pasteboard.copy(menu);
                     sketch.UI.message('"' + menu + '" copied.');
                 });
                 var shortcutView = ui.textField("", [400, 10, 80, 20]);
