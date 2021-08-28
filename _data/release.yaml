@@ -1,4 +1,20 @@
 -
+  version: 74.1.20210828
+  commitID: 635353a90f3d0bafee2819dd310239c41eb0cc6b
+  description:
+    - Add Paste into Artboard.
+    - Add Change Library Style to Local Style.
+    - Fixed Style preview not work in Sketch 74.
+    - Change Menu Language.
+    - Change red/green dot position in Change Local Style to Library Style and Change Symbols to Library Symbol.
+    - Fixed Remove Unused Symbols not show select all checkbox.
+    - Replace Library remove disabled libraries.
+    - Swap Color Variables from Library, remove library without color.
+    - More position in Paste and Replace Setting.
+    - Fix Distribute Layer and Fit Width/Height bug.
+    - Fix selection all instances of symbol bug.
+
+-
   version: 74.1.20210722
   commitID: 2f5fa03e725e9d1e976d648bf0307aa5a56f1f66
   description:
