@@ -21,17 +21,25 @@ var onRun = function(context) {
 
     var document = context.document;
     var documentData = document.documentData();
-    var allLocalTextStyles = documentData.layerTextStyles().objects();
-    var allLocalLayerStyles = documentData.layerStyles().objects();
     var allLocalStyle;
     var styleType;
     var pluginIdentifier = context.command.identifier();
     if (pluginIdentifier == "change_local_text_style_to_library_text_style") {
-        allLocalStyle = allLocalTextStyles;
+        allLocalStyle = NSArray.arrayWithArray(
+            sketch
+                .getSelectedDocument()
+                .sharedTextStyles.filter((style) => style.getAllInstancesLayers().length > 0)
+                .map((s) => s.sketchObject)
+        );
         styleType = "text";
     }
     if (pluginIdentifier == "change_local_layer_style_to_library_layer_style") {
-        allLocalStyle = allLocalLayerStyles;
+        allLocalStyle = NSArray.arrayWithArray(
+            sketch
+                .getSelectedDocument()
+                .sharedLayerStyles.filter((style) => style.getAllInstancesLayers().length > 0)
+                .map((s) => s.sketchObject)
+        );
         styleType = "layer";
     }
     if (allLocalStyle.count() == 0) {
@@ -50,10 +58,10 @@ var onRun = function(context) {
     }
 
     var dialog = new Dialog(
-        `Change Local ${capitalize(styleType)} Style to Library ${capitalize(styleType)} Style`,
-        `Change the following local ${styleType} styles to to foreign ${styleType} style from library.` +
-        "\n\nGreen • : Have match style in current library, and same properties." +
-        "\nRed • : Have match style in current library, but different properties.",
+        `Swap ${capitalize(styleType)} Styles`,
+        `Swap ${styleType} styles used in the current document with matching ones from a library.` +
+        "\n\nGreen • : Matching style found with the same properties." +
+        "\nRed • : Matching style found with different properties.",
         400
     );
 
@@ -68,7 +76,7 @@ var onRun = function(context) {
     dialog.addView(selectBoxLibrary);
 
     // Choose name, properties, id
-    var labelChangeType = ui.textLabel("Replace library style with same...");
+    var labelChangeType = ui.textLabel("Match library style with same...");
     dialog.addView(labelChangeType);
     var selectBoxChangeType = ui.popupButton(["Name", "Properties", "ID"], 200);
     dialog.addView(selectBoxChangeType);
