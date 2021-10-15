@@ -892,3 +892,9 @@ change_library_layer_style_to_local_layer_style:
 paste_into_artboard:
   - Paste into Artboard
   - 粘贴至画板内
+export:
+  - Export Layer
+  - 导出图层
+export_setting:
+  - Export Layer Setting
+  - 导出图层设置

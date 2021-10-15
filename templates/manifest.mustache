@@ -1430,6 +1430,16 @@
             "name": "{{paste_into_artboard}}",
             "identifier": "paste_into_artboard",
             "script": "Layer/Paste_into_Artboard.js"
+        },
+        {
+            "name": "{{export}}",
+            "identifier": "export",
+            "script": "Slice/Export.js"
+        },
+        {
+            "name": "{{export_setting}}",
+            "identifier": "export_setting",
+            "script": "Slice/Export.js"
         }
     ],
     "menu": {
@@ -1777,6 +1787,9 @@
             {
                 "title": "{{slice}}",
                 "items": [
+                    "export",
+                    "export_setting",
+                    "-",
                     "quick_export_default",
                     "quick_export_1",
                     "quick_export_2",
