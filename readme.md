@@ -139,9 +139,9 @@ Make your workflow more efficient.
 | Replace Symbol With Library Symbol                           | Replace symbol with any library symbol.                      |
 | Change Local Symbols to Library Symbol                       | Change local symbols to library symbol with same symbol id or name. |
 | Change Library Symbols to Local Symbol                       | Change library symbols to local symbol, batch make local.    |
-| Swap Color Variables from Library                            | Swap color variables from library with same name.            |
-| Change Local Text Style to Library Text Style                | Change local text styles to same library text style from selected library. |
-| Change Local Layer Style to Library Layer Style              | Change local layer styles to same library layer style from selected library. |
+| Swap Color Variables Used in Document With Those From Library | Swap color variables used in the current document with matching ones from a chosen library. |
+| Swap Text Styles Used in Document With Those From Library    | Swap text styles used in the current document with matching ones from a chosen library. |
+| Swap Layer Styles Used in Document With Those From Library   | Swap layer styles used in the current document with matching ones from a chosen library. |
 | Change Library Layer Style to Local Layer Style              | Make library layer style to local.                           |
 | Change Library Text Style to Local Text Style                | Make library text style to local.                            |
 | Import Document Assets from Library                          | Import document assets like colors, gradients and images from any library. |
