@@ -1,4 +1,12 @@
 -
+  version: 79.0.20211105
+  commitID: 29d6f0e6a4fbb0c502e58439ed272b8eba9e3608
+  description:
+    - Add Export Layer.
+    - Changed style swapping to work on styles that come from the local document OR a library.
+    - Fix Fit to Artboard with Margin bug.
+
+-
   version: 74.1.20210828
   commitID: 635353a90f3d0bafee2819dd310239c41eb0cc6b
   description:
