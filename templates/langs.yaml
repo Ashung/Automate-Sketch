@@ -488,11 +488,11 @@ toggle_layer_constrain_proportions:
   - Toggle Layer Constrain Proportions
   - 图层比例限制开关
 change_local_text_style_to_library_text_style:
-  - Change Local Text Style to Library Text Style
-  - 将本地文本样式转为库样式
+  - Swap Text Styles Used in Document With Those From Library
+  - 将文本样式转为库样式
 change_local_layer_style_to_library_layer_style:
-  - Change Local Layer Style to Library Layer Style
-  - 将本地图层样式转为库样式
+  - Swap Layer Styes Used in Document With Those From Library
+  - 将图层样式转为库样式
 check_for_library_updates:
   - Check For Library Updates
   - 检查库更新
@@ -875,7 +875,7 @@ fit_to_artboard_with_margin:
   - Fit to Artboard with Margin
   - 带边距适配画板
 swap_color_variables_from_library:
-  - Swap Color Variables from Library
+  - Swap Color Variables Used in Document With Those From Library
   - 从库替换色彩变量
 fix_broken_library_symbols_by_name:
   - Fix Broken Library Symbols by Name

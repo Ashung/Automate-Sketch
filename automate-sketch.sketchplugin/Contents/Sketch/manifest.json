@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "78.0.20211015",
+  "version": "79.0.20211105",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -855,13 +855,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change Local Text Style to Library Text Style",
+      "name": "Swap Text Styles Used in Document With Those From Library",
       "identifier": "change_local_text_style_to_library_text_style",
       "script": "Library/Change_Local_Style_to_Library_Style.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "Change Local Layer Style to Library Layer Style",
+      "name": "Swap Layer Styes Used in Document With Those From Library",
       "identifier": "change_local_layer_style_to_library_layer_style",
       "script": "Library/Change_Local_Style_to_Library_Style.js",
       "icon": "icon_runner.png"
@@ -1665,7 +1665,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Swap Color Variables from Library",
+      "name": "Swap Color Variables Used in Document With Those From Library",
       "identifier": "swap_color_variables_from_library",
       "script": "Library/Swap_Color_Variables_from_Library.js",
       "icon": "icon_runner.png"
@@ -1897,9 +1897,9 @@
           "change_library_symbols_to_local",
           "-",
           "swap_color_variables_from_library",
-          "-",
           "change_local_text_style_to_library_text_style",
           "change_local_layer_style_to_library_layer_style",
+          "-",
           "change_library_text_style_to_local_text_style",
           "change_library_layer_style_to_local_layer_style",
           "import_styles_from_library",
