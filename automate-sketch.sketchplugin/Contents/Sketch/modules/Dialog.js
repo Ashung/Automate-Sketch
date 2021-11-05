@@ -358,6 +358,33 @@ ui.colorPicker = function(size, hexColor) {
 };
 
 /**
+ * @param  {Number} maxValue
+ * @param  {Number} minValue
+ * @param  {Number} initValue
+ * @return  {Object} { view: NSView, slider: NSSlider}
+ */
+ui.slider = function(maxValue, minValue, initValue) {
+    var view = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, 30));
+    var sliderView = NSSlider.alloc().initWithFrame(NSMakeRect(0, 0, 200, 30));
+    sliderView.setMaxValue(maxValue);
+    sliderView.setMinValue(minValue);
+    sliderView.setIntValue(initValue);
+    var textView = this.textField(initValue, [210, 5, 50, 25]);
+    textView.setEditable(false);
+    textView.setSelectable(false);
+    view.addSubview(textView);
+    view.addSubview(sliderView);
+    sliderView.setCOSJSTargetFunction(function(sender) {
+        textView.setStringValue(sender.intValue());
+    });
+    return {
+        view: view,
+        slider: sliderView,
+        text: textView
+    };
+}
+
+/**
  * @param  {NSImage} nsImage
  * @param  {Array|Number} size Optional
  * @return  {NSImageView}

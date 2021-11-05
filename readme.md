@@ -87,6 +87,8 @@ Make your workflow more efficient.
 | Fixed / Unfixed Layer Name                                   | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
+| Export Layer                                                 | Export selected layer.                                       |
+| Export Layer Setting                                         | Settings from export selected layer.                         |
 | Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |

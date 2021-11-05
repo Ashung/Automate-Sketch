@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "74.1.20210828",
+  "version": "79.0.20211105",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -855,13 +855,13 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "将本地文本样式转为库样式",
+      "name": "将文本样式转为库样式",
       "identifier": "change_local_text_style_to_library_text_style",
       "script": "Library/Change_Local_Style_to_Library_Style.js",
       "icon": "icon_runner.png"
     },
     {
-      "name": "将本地图层样式转为库样式",
+      "name": "将图层样式转为库样式",
       "identifier": "change_local_layer_style_to_library_layer_style",
       "script": "Library/Change_Local_Style_to_Library_Style.js",
       "icon": "icon_runner.png"
@@ -1699,6 +1699,18 @@
       "identifier": "paste_into_artboard",
       "script": "Layer/Paste_into_Artboard.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "导出图层",
+      "identifier": "export",
+      "script": "Slice/Export.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "导出图层设置",
+      "identifier": "export_setting",
+      "script": "Slice/Export.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -2046,6 +2058,9 @@
       {
         "title": "切片",
         "items": [
+          "export",
+          "export_setting",
+          "-",
           "quick_export_default",
           "quick_export_1",
           "quick_export_2",

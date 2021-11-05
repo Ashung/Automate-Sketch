@@ -88,6 +88,8 @@
 | Fixed / Unfixed Layer Name                                   | **固定图层名 / 取消固定图层名** 取消文本图层的固定图层名，让文本的图层名跟随内容。 |
 | Charater Count                                               | **字符统计**                                                 |
 | **Slice**                                                    | **切片**                                                     |
+| Export Layer                                                 | **导出图层** 导出选择的图层。                                |
+| Export Layer Setting                                         | **导出图层设置**                                             |
 | Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
 | Auto Slice                                                   | **自动切片** 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。 |
 | Fast slice                                                   | **快速切片** 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
@@ -140,9 +142,9 @@
 | Replace Symbol With Library Symbol                           | **使用库组件替换内部组件** 将选中组件替换为任意的库组件。    |
 | Change Local Symbols to Library Symbol                       | **本地组件转为库组件** 根据组件 ID 或命名，将选中或全部组件转为库组件。 |
 | Change Library Symbols to Local Symbol                       | **库组件转为本地组件**                                       |
-| Swap Color Variables from Library                            | **从库替换色彩变量** 从选择的库按照命名替换色彩变量，用于更改 UI 的主题。 |
-| Change Local Text Style to Library Text Style                | **本地文本样式转为库样式** 将本地文本样式转为指定库中的相同样式。 |
-| Change Local Layer Style to Library Layer Style              | **本地图层样式转为库样式** 将本地图层样式转为指定库中的相同样式。 |
+| Swap Color Variables Used in Document With Those From Library | **从库替换色彩变量** 从选择的库按照命名替换色彩变量，用于更改 UI 的主题。 |
+| Swap Text Styles Used in Document With Those From Library    | **文本样式转为库样式** 将文本样式转为指定库中的相同样式。    |
+| Swap Layer Styles Used in Document With Those From Library   | **图层样式转为库样式** 将图层样式转为指定库中的相同样式。    |
 | Change Library Layer Style to Local Layer Style              | **将库图层样式转为本地图层样式**                             |
 | Change Library Text Style to Local Text Style                | **将库文本样式转为本地文本样式**                             |
 | Import Document Assets from Library                          | **从库导入文档资源** 从库导入色彩、渐变和图案填充等文档资源， |
