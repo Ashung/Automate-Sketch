@@ -59,11 +59,13 @@ var onRun = function(context) {
         // Convert to local symbol
         var newSymbolMaster = newInstance.master;
         newSymbolMaster.unlinkFromLibrary();
-        currentPage.layers.push(newSymbolMaster);
         newInstance.remove();
 
         // Covert to artboard
         var newArtboard = newSymbolMaster.toArtboard();
+        if (currentPage.id != newArtboard.sketchObject.parentPage().objectID()) {
+            currentPage.layers.push(newArtboard);
+        }
         newArtboard.frame.x = originForNewArtboard.x;
         newArtboard.frame.y = originForNewArtboard.y;
         newArtboard.selected = true;
@@ -71,7 +73,6 @@ var onRun = function(context) {
         selectedArtboard.remove();
 
         zoom.toSelection();
-
     }
 };
 

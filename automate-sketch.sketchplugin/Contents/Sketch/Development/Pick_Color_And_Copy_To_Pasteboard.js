@@ -10,17 +10,19 @@ var onRun = function(context) {
 
     var button = BCMagnifierButton.alloc().initWithFrame(NSZeroRect);
     button.setCOSJSTargetFunction(function(obj) {
-
         var pickColor;
         if (sketch.version.sketch >= 52) {
             pickColor = obj.color();
         } else {
             pickColor = obj.chosenColor();
         }
-        var color = MSColor.colorWithRed_green_blue_alpha(pickColor.red(), pickColor.green(), pickColor.blue(), 1);
+        var color;
+        if (sketch.version.sketch >= 52) {
+            color = pickColor.msColor();
+        } else {
+            color = MSColor.colorWithRed_green_blue_alpha(pickColor.red(), pickColor.green(), pickColor.blue(), 1);
+        }
         var hexValue = "#" + color.immutableModelObject().hexValue();
-
-        // log(hexValue)
 
         var pboard = NSPasteboard.generalPasteboard();
         pboard.clearContents();
@@ -32,5 +34,4 @@ var onRun = function(context) {
 
     });
     button.performClick(null);
-
 };

@@ -57,6 +57,7 @@
 | Convert to Outlines                                          | **转为轮廓** 将画板内的所有图层转为轮廓。                    |
 | Toggle Mask for Selected Layers                              | **选中图层设置或取消蒙版**                                   |
 | Create / Sync Link Layer                                     | **创建/同步引用图层** 从组或画板创建引用的库组件，用于解决设计中重复拷贝的组和画板，可自动更新引用库组件的内容。 |
+| Adjust Layer Width/Height to Max/Min                         | **调整图层宽/高度到最大/小** 调整选中图层的宽/高度到选中图层中最大/小的值。 |
 | **Arrange**                                                  | **排列**                                                     |
 | Change Places Between Two Layers                             | **两对象互换位置** 根据中点或坐标原点，两个对象交换位置。    |
 | Tile Objects                                                 | **排列对象** 使用网格或任意方向排列对象，可设置按命名排列。  |
@@ -203,11 +204,7 @@
 | Remove All Hotspot                                           | **删除所有热区** 删除所有热区图层和设置。                    |
 | Remove Hotspot in Selected Artboards                         | **删除选中画板内所有热区** 删除选中画板和组件内的所有热区。  |
 | **Development**                                              | **开发**                                                     |
-| Copy as PNG, PNG @2x, SVG                                    | **拷贝 PNG** , **拷贝 2 倍 PNG**, **拷贝 SVG**               |
-| Copy SVG Path Data                                           | **复制 SVG 路径数据** 复制选中形状图层的 SVG 路径数据代码。  |
-| Copy Slice as SVG Code                                       | **拷贝 SVG 代码** 从选中的切片图层拷贝 SVG 代码。            |
-| Copy SVG Code (URL-encoded)                                  | **拷贝 SVG 代码 (URL-encoded)** 从选中的切片图层拷贝用于 CSS 背景的 URL-encoded SVG 代码。 |
-| Copy Slice as Base64                                         | **复制切片的 Base64** 切片图像复制为 Base64，根据切片第一项设置的格式和缩放，可以得到不同图像。 |
+| Copy to Clipboard                                            | **拷贝至剪贴板** 复制选中形状图层的 png, 2x png, svg, svg path data, png base64. |
 | Export Artboard to ICNS File                                 | **画板导出为 ICNS 文件**                                     |
 | Pick Color and Copy the HEX Code                             | **屏幕取色并复制色彩代码** 从屏幕取色并负责色彩的十六进制值。 |
 | Copy Selected Layer Name                                     | **复制选中图层的名称** 复制选中的图层名到剪贴板。            |

@@ -56,6 +56,7 @@ Make your workflow more efficient.
 | Convert to Outlines                                          | Convert layers to outline in artboard.                       |
 | Toggle Mask for Selected Layers                              | Toggle mask or unmask for selected layers.                   |
 | Create / Sync Link Layer                                     | Create a link symbol layer from select group or artboard, and update the link symbol layers. |
+| Adjust Layer Width/Height to Max/Min                         | Adjust width/height of selected layers to max/min value.     |
 | **Arrange**                                                  |                                                              |
 | Change Places Between Two Layers                             | Change two objects positions based on midpoint or coordinate origin. |
 | Tile Objects                                                 | Tile objects with grid or any orientations.                  |
@@ -202,11 +203,7 @@ Make your workflow more efficient.
 | Remove All Hotspot                                           | Remove all hotspot layer.                                    |
 | Remove Hotspot in Selected Artboards                         | Remove hotspot in selected artboards or symbol masters.      |
 | **Development**                                              |                                                              |
-| Copy as PNG, PNG @2x, SVG                                    | Copy seleceted layer as png, 2x png, svg.                    |
-| Copy SVG Path Data                                           | Copy SVG path data code from a selected shape layer.         |
-| Copy Slice as SVG Code                                       | Copy SVG Code from selected slice layer.                     |
-| Copy SVG Code (URL-encoded)                                  | Copy URL-encoded SVG Code from selected slice layer for CSS background image. |
-| Copy Slice as Base64                                         | The slice image is copied to Base64, depending on the format and scale of the first item of the slice, you can get a different image. |
+| Copy to Clipboard                                            | Copy seleceted layer as png, 2x png, svg, svg path data, png base64. |
 | Export Artboard to ICNS File                                 | Export selected artboard to icns file.                       |
 | Pick Color and Copy the HEX Code                             | Pick a color from screen and copy the HEX code.              |
 | Copy Selected Layer Name                                     | Copy the selected layer name to the clipboard.               |
