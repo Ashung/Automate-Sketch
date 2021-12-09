@@ -534,7 +534,7 @@ toggle_select_groups_content_on_click:
   - 点击时选择组内容开关
 adjust_sizes:
   - Adjust Sizes
-  - 调整尺寸
+  - 微调尺寸
 small_increase_width_from_right:
   - Small Increase Width from Right
   - 由右侧增宽 (小)
@@ -677,8 +677,8 @@ plugin_dev_setting:
   - Plugin Dev Setting
   - 插件开发设置
 add_colors_or_gradients_from_selected_layers_to_document:
-  - Add Colors or Gradients from Selected to Document
-  - 将选中图层的颜色或渐变添加至文档
+  - Add Colors or Gradients from Selected Layers
+  - 添加选中图层的颜色或渐变
 find_and_replace_layer_name:
   - Find and Replace Layer Name
   - 查找并替换图层名
@@ -734,23 +734,23 @@ detach_all_symbols:
   - Detach All Symbols in Page or Artboard
   - 分离页面或画板内所有组件
 copy_as_png:
-  - Copy as PNG
-  - 拷贝 PNG
+  - Copy Layer as PNG
+  - 拷贝图层 PNG
 copy_as_png_2x:
-  - Copy as PNG @2x
-  - 拷贝 2 倍 PNG 
+  - Copy Layer as PNG @2x
+  - 拷贝图层 2 倍 PNG 
 copy_as_svg:
-  - Copy as SVG
-  - 拷贝 SVG
+  - Copy Layer as SVG
+  - 拷贝图层 SVG
 copy_as_path_data:
-  - Copy as Path Data
-  - 拷贝路径数据
+  - Copy Layer as Path Data
+  - 拷贝图层路径数据
 copy_as_svg_url_encoded:
-  - Copy as SVG (URL-encoded)
-  - 拷贝 SVG (URL-encoded)
+  - Copy Layer as SVG (URL-encoded)
+  - 拷贝图层 SVG (URL-encoded)
 copy_as_base64:
-  - Copy as Base64
-  - 拷贝 Base64
+  - Copy Layer as PNG Base64
+  - 拷贝图层 PNG Base64
 new_guides_from_layer:
   - New Guides from Layer
   - 从图层创建辅助线
@@ -855,10 +855,10 @@ show_layers:
   - 显示所有图层
 distribute_layers_horizontally_and_fit_width:
   - Distribute Layers Horizontally and Fit Width
-  - 水平分布图层并适应宽度
+  - 水平排布图层并适应宽度
 distribute_layers_vertically_and_fit_height:
   - Distribute Layers Vertically and Fit Height
-  - 垂直分布图层并适应高度
+  - 垂直排布图层并适应高度
 union_layer:
   - Union Layer
   - 合并图层
@@ -898,3 +898,84 @@ export:
 export_setting:
   - Export Layer Setting
   - 导出图层设置
+change_places:
+  - Change Places
+  - 互换位置
+tile_objects:
+  - Tile Objects
+  - 排列图层
+distribute_layers:
+  - Distribute Layers
+  - 排布图层
+fit_to_parent:
+  - Fit to Parent
+  - 适配父级
+resize_layers:
+  - Resize Layers
+  - 更改图层尺寸
+select_layers:
+  - Select Layers
+  - 选择图层
+remove_layers:
+  - Remove Layers
+  - 删除图层
+more:
+  - More...
+  - 更多
+resize_symbol_instances:
+  - Resize Symbol Instances
+  - 调整组件实例尺寸
+create_symbol:
+  - Create Symbol
+  - 创建组件
+library_symbol:
+  - Library Symbol
+  - 库组件
+library_style_and_color:
+  - Library Style and Color
+  - 库样式与色彩
+library_update:
+  - Library Update
+  - 库更新
+create_artboard:
+  - Create Artboard
+  - 创建画板
+select_artboard:
+  - Select Artboard
+  - 选择画板
+paste_style:
+  - Paste Style
+  - 粘贴样式
+create_style_and_color:
+  - Create Style and Color
+  - 创建样式与颜色
+grid:
+  - Grid
+  - 网格
+layout:
+  - Layout
+  - 布局
+adjust_properties:
+  - Adjust Properties
+  - 调整属性
+truncate_text:
+  - Truncate Text
+  - 文本省略
+add_slice:
+  - Add Slice
+  - 添加切片
+copy_to_clipboard:
+  - Copy to Clipboard
+  - 拷贝至剪贴板
+adjust_width_to_max:
+  - Adjust Layer Width to Max
+  - 调整图层宽度到最大
+adjust_width_to_min:
+  - Adjust Layer Width to Min
+  - 调整图层宽度到最小
+adjust_height_to_max:
+  - Adjust Layer Height to Max
+  - 调整图层高度到最大
+adjust_height_to_min:
+  - Adjust Layer Height to Min
+  - 调整图层高度到最小

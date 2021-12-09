@@ -1440,6 +1440,26 @@
             "name": "{{export_setting}}",
             "identifier": "export_setting",
             "script": "Slice/Export.js"
+        },
+        {
+            "name": "{{adjust_width_to_max}}",
+            "identifier": "adjust_width_to_max",
+            "script": "Layer/Adjust_Width_Height_to_Max_Min.js"
+        },
+        {
+            "name": "{{adjust_width_to_min}}",
+            "identifier": "adjust_width_to_min",
+            "script": "Layer/Adjust_Width_Height_to_Max_Min.js"
+        },
+        {
+            "name": "{{adjust_height_to_max}}",
+            "identifier": "adjust_height_to_max",
+            "script": "Layer/Adjust_Width_Height_to_Max_Min.js"
+        },
+        {
+            "name": "{{adjust_height_to_min}}",
+            "identifier": "adjust_height_to_min",
+            "script": "Layer/Adjust_Width_Height_to_Max_Min.js"
         }
     ],
     "menu": {
@@ -1449,18 +1469,30 @@
             {
                 "title": "{{arrange}}",
                 "items": [
-                    "change_layer_places",
-                    "change_layer_places_center",
-                    "-",
-                    "tile_layers",
-                    "tile_layers_by_position_x",
-                    "tile_layers_by_position_y",
-                    "tile_layers_horizontally_by_index",
-                    "tile_layers_vertically_by_index",
-                    "-",
-                    "distribute_layers_horizontally_and_fit_width",
-                    "distribute_layers_vertically_and_fit_height",
-                    "-",
+                    {
+                        "title": "{{change_places}}",
+                        "items": [
+                            "change_layer_places",
+                            "change_layer_places_center"
+                        ]
+                    },
+                    {
+                        "title": "{{tile_objects}}",
+                        "items": [
+                            "tile_layers",
+                            "tile_layers_by_position_x",
+                            "tile_layers_by_position_y",
+                            "tile_layers_horizontally_by_index",
+                            "tile_layers_vertically_by_index"
+                        ]
+                    },
+                    {
+                        "title": "{{distribute_layers}}",
+                        "items": [
+                            "distribute_layers_horizontally_and_fit_width",
+                            "distribute_layers_vertically_and_fit_height"
+                        ]
+                    },
                     "arrange_objects",
                     "-",
                     {
@@ -1482,12 +1514,33 @@
             {
                 "title": "{{layer}}",
                 "items": [
-                    "fit_to_artboard_with_margin",
-                    "fit_to_parent_with_margin",
-                    "fit_to_parent_width_with_margin",
-                    "fit_to_parent_height_with_margin",
-                    "swap_width_and_height",
-                    "resize_with_ratio",
+                    {
+                        "title": "{{fit_to_parent}}",
+                        "items": [
+                            "fit_to_artboard_with_margin",
+                            "-",
+                            "fit_to_parent_with_margin",
+                            "fit_to_parent_width_with_margin",
+                            "fit_to_parent_height_with_margin"
+                        ]
+                    },
+                    {
+                        "title": "{{resize_layers}}",
+                        "items": [
+                            "swap_width_and_height",
+                            "resize_with_ratio",
+                            "-",
+                            "copy_layer_position_and_size",
+                            "paste_layer_position_and_size",
+                            "paste_layer_position",
+                            "paste_layer_size",
+                            "-",
+                            "adjust_width_to_max",
+                            "adjust_width_to_min",
+                            "adjust_height_to_max",
+                            "adjust_height_to_min"
+                        ]
+                    },
                     {
                         "title": "{{adjust_sizes}}",
                         "items": [
@@ -1511,17 +1564,6 @@
                         ]
                     },
                     "-",
-                    "bounds_layer_for_every_selection",
-                    "divide_layer",
-                    "-",
-                    "reset_bounding_box",
-                    "-",
-                    "unlock_all_layers",
-                    "show_layers",
-                    "-",
-                    "toggle_layer_constrain_proportions",
-                    "toggle_select_groups_content_on_click",
-                    "-",
                     {
                         "title": "{{select_layers_by_type}}",
                         "items": [
@@ -1538,270 +1580,399 @@
                             "select_transparency_layers"
                         ]
                     },
-                    "select_layers_by_name",
-                    "select_all_child_layers",
-                    "select_all_siblings_layers",
-                    "select_parent_groups",
-                    "select_layers_below",
-                    "select_layers_outside_of_artboard_bounds",
-                    "select_reverse",
-                    "select_none",
+                    {
+                        "title": "{{select_layers}}",
+                        "items": [
+                            "select_layers_by_name",
+                            "select_all_child_layers",
+                            "select_all_siblings_layers",
+                            "select_parent_groups",
+                            "select_layers_below",
+                            "select_layers_outside_of_artboard_bounds",
+                            "-",
+                            "select_layers_by_layer_style",
+                            "select_layers_by_text_style",
+                            "select_layers_with_same_shared_style",
+                            "-",
+                            "select_reverse",
+                            "select_none"
+                        ]
+                    },
+                    {
+                        "title": "{{remove_layers}}",
+                        "items": [
+                            "remove_redundant_groups",
+                            "remove_empty_groups",
+                            "remove_all_groups",
+                            "remove_hidden_layers",
+                            "remove_transparency_layers",
+                            "clear_slices",
+                            "remove_all_hotspot"
+                        ]
+                    },
+                    {
+                        "title": "{{rename_layers}}",
+                        "items": [
+                            "rename_layers",
+                            "-",
+                            "rename_instances",
+                            "rename_instances_use_text_override",
+                            "-",
+                            "find_and_replace_layer_name",
+                            "-",
+                            "clear_layer_name"
+                        ]
+                    },
                     "-",
                     "paste_into_artboard",
                     "paste_and_replace",
                     "paste_and_replace_setting",
                     "-",
-                    "copy_layer_position_and_size",
-                    "paste_layer_position_and_size",
-                    "paste_layer_position",
-                    "paste_layer_size",
-                    "-",
-                    "remove_redundant_groups",
-                    "remove_empty_groups",
-                    "remove_all_groups",
-                    "remove_hidden_layers",
-                    "remove_transparency_layers",
-                    "-",
-                    "rename_layers",
-                    "find_and_replace_layer_name",
-                    "clear_layer_name",
-                    "-",
-                    "union_layer",
-                    "convert_to_outlines",
-                    "-",
-                    "toggle_mask_for_selected_layers",
-                    "-",
-                    "create_link_layer",
-                    "sync_link_layers"
+                    {
+                        "title": "{{more}}",
+                        "items": [
+                            "bounds_layer_for_every_selection",
+                            "reset_bounding_box",
+                            "divide_layer",
+                            "-",
+                            "unlock_all_layers",
+                            "show_layers",
+                            "-",
+                            "toggle_layer_constrain_proportions",
+                            "toggle_select_groups_content_on_click",
+                            "-",
+                            "union_layer",
+                            "convert_to_outlines",
+                            "-",
+                            "toggle_mask_for_selected_layers",
+                            "-",
+                            "create_link_layer",
+                            "sync_link_layers"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{symbol}}",
                 "items": [
-                    "set_to_original_width",
-                    "set_to_original_height",
-                    "set_to_original_size",
-                    "shrink_instance_to_fit_content",
+                    {
+                        "title": "{{create_symbol}}",
+                        "items": [
+                            "create_symbols_from_selected_layers",
+                            "selection_to_symbol_master",
+                            "convert_artboards_to_symbols",
+                            "-",
+                            "paste_as_symbol_masters"
+                        ]
+                    },
+                    "remove_unused_symbols",
+                    "-",
+                    "insert_symbols",
+                    "insert_symbols_from_library",
+                    "insert_instance_of_selected_symbol",
                     "-",
                     "find_and_replace_symbol",
+                    "select_all_instances_of_symbol",
+                    "select_same_instances_in_current_page",
+                    {
+                        "title": "{{resize_symbol_instances}}",
+                        "items": [
+                            "set_to_original_width",
+                            "set_to_original_height",
+                            "set_to_original_size",
+                            "shrink_instance_to_fit_content"
+                        ]
+                    },
                     "-",
                     "reset_overrides",
                     "disable_or_enable_all_overrides",
                     "disable_selected_overrides",
                     "selected_symbol_overrides_to_none",
                     "-",
-                    "select_all_instances_of_symbol",
-                    "select_same_instances_in_current_page",
-                    "rename_instances",
-                    "rename_instances_use_text_override",
-                    "-",
-                    "create_symbols_from_selected_layers",
-                    "selection_to_symbol_master",
-                    "convert_artboards_to_symbols",
-                    "-",
-                    "detach_all_symbols",
-                    "detach_unused_symbol_master",
-                    "remove_unused_symbols",
-                    "-",
-                    "export_all_symbols_as_png",
-                    "-",
-                    "insert_symbols",
-                    "insert_instance_of_selected_symbol",
-                    "-",
-                    "sync_symbol_master_from_sketch_file",
-                    "replace_pages_from_sketch_file"
+                    {
+                        "title": "{{more}}",
+                        "items": [
+                            "detach_unused_symbol_master",
+                            "detach_all_symbols",
+                            "-",
+                            "export_all_symbols_as_png",
+                            "-",
+                            "sync_symbol_master_from_sketch_file",
+                            "replace_pages_from_sketch_file"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{library}}",
                 "items": [
+                    "add_library_preview",
+                    "-",
                     "fix_library_id_conflict",
                     "imported_symbols_link_manage",
                     "replace_library",
                     "-",
-                    "fix_broken_library_symbols_by_name",
-                    "-",
-                    "replace_symbol_with_library_symbol",
-                    "change_symbols_to_library_symbol",
-                    "change_library_symbols_to_local",
-                    "-",
-                    "swap_color_variables_from_library",
-                    "change_local_text_style_to_library_text_style",
-                    "change_local_layer_style_to_library_layer_style",
-                    "-",
-                    "change_library_text_style_to_local_text_style",
-                    "change_library_layer_style_to_local_layer_style",
-                    "import_styles_from_library",
-                    "import_document_assets_from_library",
-                    "-",
-                    "add_library_preview",
-                    "-",
-                    "insert_symbols_from_library",
-                    "insert_artboard_from_library",
-                    "-",
-                    "update_selected_library_symbol",
-                    "update_selected_symbol_overrides",
-                    "check_for_library_updates",
-                    "update_imported_objects_from_library"
+                    {
+                        "title": "{{library_symbol}}",
+                        "items": [
+                            "fix_broken_library_symbols_by_name",
+                            "-",
+                            "replace_symbol_with_library_symbol",
+                            "change_symbols_to_library_symbol",
+                            "change_library_symbols_to_local"
+                        ]
+                    },
+                    {
+                        "title": "{{library_style_and_color}}",
+                        "items": [
+                            "swap_color_variables_from_library",
+                            "change_local_text_style_to_library_text_style",
+                            "change_local_layer_style_to_library_layer_style",
+                            "-",
+                            "change_library_text_style_to_local_text_style",
+                            "change_library_layer_style_to_local_layer_style",
+                            "-",
+                            "import_styles_from_library",
+                            "import_document_assets_from_library"
+                        ]
+                    },
+                    {
+                        "title": "{{library_update}}",
+                        "items": [
+                            "update_selected_library_symbol",
+                            "update_selected_symbol_overrides",
+                            "check_for_library_updates",
+                            "update_imported_objects_from_library"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{artboard}}",
                 "items": [
-                    "paste_as_artboards",
-                    "paste_as_symbol_masters",
-                    "-",
-                    "artboard_from_selection",
-                    "artboard_from_group",
-                    "artboard_to_group",
-                    "-",
-                    "select_parent_artboard",
-                    "artboard_navigator",
+                    {
+                        "title": "{{create_artboard}}",
+                        "items": [
+                            "paste_as_artboards",
+                            "-",
+                            "artboard_from_selection",
+                            "artboard_from_group",
+                            "-",
+                            "insert_artboard_from_library"
+                        ]
+                    },
+                    {
+                        "title": "{{select_artboard}}",
+                        "items": [
+                            "select_parent_artboard",
+                            "artboard_navigator"
+                        ]
+                    },
                     "-",
                     "resize_to_fit_width",
                     "resize_to_fit_height",
-                    "toggle_adjust_content_on_resize",
                     "-",
-                    "move_artboards_to_bottom_of_another",
-                    "move_to_page",
-                    "-",
-                    "group_selected_layers_in_each_artboard",
-                    "-",
-                    "export_all_artboards",
-                    "export_all_artboards_to_html"
+                    {
+                        "title": "{{more}}",
+                        "items": [
+                            "artboard_to_group",
+                            "-",
+                            "toggle_adjust_content_on_resize",
+                            "-",
+                            "move_artboards_to_bottom_of_another",
+                            "move_to_page",
+                            "-",
+                            "group_selected_layers_in_each_artboard",
+                            "-",
+                            "export_all_artboards",
+                            "export_all_artboards_to_html"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{style}}",
                 "items": [
-                    "select_layers_by_layer_style",
-                    "select_layers_by_text_style",
-                    "select_layers_with_same_shared_style",
-                    "-",
-                    "paste_style_fills",
-                    "paste_style_borders",
-                    "paste_style_shadows",
-                    "paste_style_innershadows",
-                    "paste_style_blur",
-                    "paste_text_style",
-                    "paste_text_color",
-                    "paste_text_font",
-                    "-",
-                    "add_solid_fill_from_css_color",
-                    "swap_fill_and_border",
+                    {
+                        "title": "{{create_style_and_color}}",
+                        "items": [
+                            "add_styles_from_selected_layers",
+                            "add_colors_or_gradients_from_selected_layers_to_document",
+                            "-",
+                            "import_document_assets_from_sketch_file",
+                            "import_text_styles_from_sketch_file",
+                            "import_layer_styles_from_sketch_file"
+                        ]
+                    },
+                    {
+                        "title": "{{paste_style}}",
+                        "items": [
+                            "paste_style_fills",
+                            "paste_style_borders",
+                            "paste_style_shadows",
+                            "paste_style_innershadows",
+                            "paste_style_blur",
+                            "paste_text_style",
+                            "paste_text_color",
+                            "paste_text_font"
+                        ]
+                    },
                     "-",
                     "remove_all_disabled_styles",
                     "remove_unused_layer_styles",
                     "remove_unused_text_styles",
-                    "-",
-                    "update_style",
-                    "reset_style",
-                    "reset_all_layer_styles",
-                    "reset_all_text_styles",
                     "-",
                     "find_and_replace_layer_style",
                     "find_and_replace_text_style",
                     "merge_layer_styles_with_same_name",
                     "merge_text_styles_with_same_name",
                     "-",
-                    "change_layer_blend_mode",
-                    "-",
-                    "create_color_guide",
-                    "create_style_guide",
-                    "create_typography_guide",
-                    "-",
-                    "convert_to_color_variable",
-                    "-",
-                    "add_styles_from_selected_layers",
-                    "add_colors_or_gradients_from_selected_layers_to_document",
-                    "import_document_assets_from_sketch_file",
-                    "import_text_styles_from_sketch_file",
-                    "import_layer_styles_from_sketch_file"
+                    {
+                        "title": "{{more}}",
+                        "items": [
+                            "add_solid_fill_from_css_color",
+                            "swap_fill_and_border",
+                            "-",
+                            "update_style",
+                            "reset_style",
+                            "reset_all_layer_styles",
+                            "reset_all_text_styles",
+                            "-",
+                            "convert_to_color_variable",
+                            "-",
+                            "change_layer_blend_mode",
+                            "-",
+                            "create_color_guide",
+                            "create_style_guide",
+                            "create_typography_guide"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{guide}}",
                 "items": [
-                    "grid_setting",
-                    "-",
-                    "copy_grid_setting",
-                    "paste_grid_setting",
-                    "-",
-                    "copy_layout_setting",
-                    "paste_layout_setting",
-                    "remove_layouts",
-                    "-",
-                    "copy_guide_setting",
-                    "paste_guide_setting",
-                    "clear_guides",
-                    "new_guide",
-                    "new_guide_layout",
-                    "new_guides_from_layer",
-                    "-",
-                    "hide_or_show_all_grid",
-                    "hide_or_show_all_layout"
+                    {
+                        "title": "{{grid}}",
+                        "items": [
+                            "grid_setting",
+                            "-",
+                            "copy_grid_setting",
+                            "paste_grid_setting",
+                            "-",
+                            "hide_or_show_all_grid"
+                        ]
+                    },
+                    {
+                        "title": "{{layout}}",
+                        "items": [
+                            "copy_layout_setting",
+                            "paste_layout_setting",
+                            "remove_layouts",
+                            "-",
+                            "hide_or_show_all_layout"
+                        ]
+                    },
+                    {
+                        "title": "{{guide}}",
+                        "items": [
+                            "copy_guide_setting",
+                            "paste_guide_setting",
+                            "-",
+                            "new_guide",
+                            "new_guide_layout",
+                            "new_guides_from_layer",
+                            "-",
+                            "clear_guides"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{text}}",
                 "items": [
                     "change_texts",
-                    "paste_as_alphabetical_order_text",
-                    "-",
-                    "increase_line_height",
-                    "decrease_line_height",
-                    "increase_letter_spacing",
-                    "decrease_letter_spacing",
-                    "increase_horizontally_scale",
-                    "decrease_horizontally_scale",
-                    "reset_horizontally_scale",
-                    "-",
-                    "truncate_text_not",
-                    "truncate_text_at_start",
-                    "truncate_text_at_middle",
-                    "truncate_text_at_end",
-                    "-",
-                    "split_text_layer",
-                    "combine_text_layer",
-                    "-",
-                    "capitalize",
-                    "-",
-                    "change_text_orientation",
-                    "change_typeface_for_the_latin_character_set",
-                    "add_space_between_cjk_and_western_character",
-                    "-",
-                    "increase_font_weight",
-                    "decrease_font_weight",
-                    "-",
                     "replace_fonts",
                     "-",
-                    "resize_fit_text_height",
-                    "toggle_text_auto_and_fixed",
+                    {
+                        "title": "{{adjust_properties}}",
+                        "items": [
+                            "increase_font_weight",
+                            "decrease_font_weight",
+                            "-",
+                            "increase_line_height",
+                            "decrease_line_height",
+                            "-",
+                            "increase_letter_spacing",
+                            "decrease_letter_spacing",
+                            "-",
+                            "increase_horizontally_scale",
+                            "decrease_horizontally_scale",
+                            "reset_horizontally_scale"
+                        ]
+                    },
+                    {
+                        "title": "{{truncate_text}}",
+                        "items": [
+                            "truncate_text_at_start",
+                            "truncate_text_at_middle",
+                            "truncate_text_at_end",
+                            "-",
+                            "truncate_text_not"
+                        ]
+                    },
                     "-",
-                    "fixed_layer_name",
-                    "unfixed_layer_name",
-                    "-",
-                    "character_count"
+                    {
+                        "title": "{{more}}",
+                        "items": [
+                            "paste_as_alphabetical_order_text",
+                            "-",
+                            "capitalize",
+                            "-",
+                            "split_text_layer",
+                            "combine_text_layer",
+                            "-",
+                            "change_text_orientation",
+                            "change_typeface_for_the_latin_character_set",
+                            "add_space_between_cjk_and_western_character",
+                            "-",
+                            "resize_fit_text_height",
+                            "toggle_text_auto_and_fixed",
+                            "-",
+                            "fixed_layer_name",
+                            "unfixed_layer_name",
+                            "-",
+                            "character_count"
+                        ]
+                    }
                 ]
             },
             {
                 "title": "{{slice}}",
                 "items": [
-                    "export",
-                    "export_setting",
-                    "-",
-                    "quick_export_default",
-                    "quick_export_1",
-                    "quick_export_2",
-                    "quick_export_setting",
-                    "-",
-                    "auto_slice",
-                    "fast_slice",
-                    "slice_setting",
-                    "-",
+                    {
+                        "title": "{{add_slice}}",
+                        "items": [
+                            "auto_slice",
+                            "fast_slice",
+                            "-",
+                            "slice_setting"
+                        ]
+                    },
+                    {
+                        "title": "{{export}}",
+                        "items": [
+                            "export",
+                            "export_setting",
+                            "-",
+                            "quick_export_default",
+                            "quick_export_1",
+                            "quick_export_2",
+                            "quick_export_setting"
+                        ]
+                    },
                     "clear_slices",
                     "clear_exportables",
-                    "-",
                     "divide_slice",
                     "-",
                     "save_export_presets",
@@ -1831,18 +2002,25 @@
             {
                 "title": "{{development}}",
                 "items": [
-                    "copy_as_png",
-                    "copy_as_png_2x",
-                    "copy_as_svg",
-                    "copy_as_svg_url_encoded",
-                    "copy_as_path_data",
-                    "copy_as_base64",
+                    {
+                        "title": "{{copy_to_clipboard}}",
+                        "items": [
+                            "copy_as_png",
+                            "copy_as_png_2x",
+                            "-",
+                            "copy_as_svg",
+                            "copy_as_svg_url_encoded",
+                            "copy_as_path_data",
+                            "copy_as_base64",
+                            "-",
+                            "pick_color_and_copy",
+                            "-",
+                            "copy_selected_layer_name",
+                            "copy_objectid_or_symbolid"
+                        ]
+                    },
                     "-",
                     "export_artboard_to_icns_file",
-                    "-",
-                    "pick_color_and_copy",
-                    "copy_selected_layer_name",
-                    "copy_objectid_or_symbolid",
                     "-",
                     "show_layer_info",
                     "change_document_id",
