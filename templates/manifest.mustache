@@ -1460,6 +1460,56 @@
             "name": "{{adjust_height_to_min}}",
             "identifier": "adjust_height_to_min",
             "script": "Layer/Adjust_Width_Height_to_Max_Min.js"
+        },
+        {
+            "name": "{{copy_color_as_css_hex}}",
+            "identifier": "copy_color_as_css_hex",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_css_hex8}}",
+            "identifier": "copy_color_as_css_hex8",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_css_rgb}}",
+            "identifier": "copy_color_as_css_rgb",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_css_hsl}}",
+            "identifier": "copy_color_as_css_hsl",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_nscolor_objective_c}}",
+            "identifier": "copy_color_as_nscolor_objective_c",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_uicolor_objective_c}}",
+            "identifier": "copy_color_as_uicolor_objective_c",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_nscolor_swift}}",
+            "identifier": "copy_color_as_nscolor_swift",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_uicolor_swift}}",
+            "identifier": "copy_color_as_uicolor_swift",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_android_xml}}",
+            "identifier": "copy_color_as_android_xml",
+            "script": "Development/Copy_Color.js"
+        },
+        {
+            "name": "{{copy_color_as_android_color}}",
+            "identifier": "copy_color_as_android_color",
+            "script": "Development/Copy_Color.js"
         }
     ],
     "menu": {
@@ -1628,13 +1678,13 @@
                     "paste_and_replace",
                     "paste_and_replace_setting",
                     "-",
+                    "bounds_layer_for_every_selection",
+                    "reset_bounding_box",
+                    "divide_layer",
+                    "-",
                     {
                         "title": "{{more}}",
                         "items": [
-                            "bounds_layer_for_every_selection",
-                            "reset_bounding_box",
-                            "divide_layer",
-                            "-",
                             "unlock_all_layers",
                             "show_layers",
                             "-",
@@ -1827,18 +1877,18 @@
                     "merge_layer_styles_with_same_name",
                     "merge_text_styles_with_same_name",
                     "-",
+                    "add_solid_fill_from_css_color",
+                    "swap_fill_and_border",
+                    "-",
+                    "convert_to_color_variable",
+                    "-",
                     {
                         "title": "{{more}}",
                         "items": [
-                            "add_solid_fill_from_css_color",
-                            "swap_fill_and_border",
-                            "-",
                             "update_style",
                             "reset_style",
                             "reset_all_layer_styles",
                             "reset_all_text_styles",
-                            "-",
-                            "convert_to_color_variable",
                             "-",
                             "change_layer_blend_mode",
                             "-",
@@ -1922,19 +1972,19 @@
                         ]
                     },
                     "-",
+                    "split_text_layer",
+                    "combine_text_layer",
+                    "-",
+                    "change_text_orientation",
+                    "change_typeface_for_the_latin_character_set",
+                    "add_space_between_cjk_and_western_character",
+                    "-",
                     {
                         "title": "{{more}}",
                         "items": [
                             "paste_as_alphabetical_order_text",
                             "-",
                             "capitalize",
-                            "-",
-                            "split_text_layer",
-                            "combine_text_layer",
-                            "-",
-                            "change_text_orientation",
-                            "change_typeface_for_the_latin_character_set",
-                            "add_space_between_cjk_and_western_character",
                             "-",
                             "resize_fit_text_height",
                             "toggle_text_auto_and_fixed",
@@ -1951,15 +2001,6 @@
                 "title": "{{slice}}",
                 "items": [
                     {
-                        "title": "{{add_slice}}",
-                        "items": [
-                            "auto_slice",
-                            "fast_slice",
-                            "-",
-                            "slice_setting"
-                        ]
-                    },
-                    {
                         "title": "{{export}}",
                         "items": [
                             "export",
@@ -1971,9 +2012,20 @@
                             "quick_export_setting"
                         ]
                     },
+                    "-",
+                    {
+                        "title": "{{add_slice}}",
+                        "items": [
+                            "auto_slice",
+                            "fast_slice",
+                            "-",
+                            "slice_setting"
+                        ]
+                    },
                     "clear_slices",
-                    "clear_exportables",
                     "divide_slice",
+                    "-",
+                    "clear_exportables",
                     "-",
                     "save_export_presets",
                     "load_export_presets"
@@ -2011,41 +2063,52 @@
                             "copy_as_svg",
                             "copy_as_svg_url_encoded",
                             "copy_as_path_data",
-                            "copy_as_base64",
+                            "copy_as_base64"
+                        ]
+                    },
+                    {
+                        "title": "{{copy_color_as}}",
+                        "items": [
+                            "copy_color_as_css_hex",
+                            "copy_color_as_css_hex8",
+                            "copy_color_as_css_rgb",
+                            "copy_color_as_css_hsl",
                             "-",
-                            "pick_color_and_copy",
+                            "copy_color_as_nscolor_objective_c",
+                            "copy_color_as_uicolor_objective_c",
+                            "copy_color_as_nscolor_swift",
+                            "copy_color_as_uicolor_swift",
                             "-",
-                            "copy_selected_layer_name",
-                            "copy_objectid_or_symbolid"
+                            "copy_color_as_android_xml",
+                            "copy_color_as_android_color"
                         ]
                     },
                     "-",
-                    "export_artboard_to_icns_file",
+                    "pick_color_and_copy",
                     "-",
-                    "show_layer_info",
-                    "change_document_id",
-                    "-",
-                    "plugin_dev_setting",
-                    "reload_plugins"
+                    "copy_selected_layer_name",
+                    "copy_objectid_or_symbolid"
                 ]
             },
             {
                 "title": "{{utilities}}",
                 "items": [
                     "copy_document_url",
-                    "-",
                     "shortcuts_manager",
-                    "-",
                     "insert_layer_from_svg_path_data",
-                    "-",
+                    "export_artboard_to_icns_file",
                     "export_clean_code_svg",
                     "svg_export_setting",
-                    "-",
                     "nine_slice_from_bitmap_layer",
-                    "-",
                     "open_terminal_at_file_folder",
                     "-",
-                    "switch_language"
+                    "switch_language",
+                    "-",
+                    "show_layer_info",
+                    "change_document_id",
+                    "-",
+                    "plugin_dev_setting",
+                    "reload_plugins"
                 ]
             },
             {

@@ -965,8 +965,8 @@ add_slice:
   - Add Slice
   - 添加切片
 copy_to_clipboard:
-  - Copy to Clipboard
-  - 拷贝至剪贴板
+  - Copy Layer to Clipboard
+  - 拷贝图层至剪贴板
 adjust_width_to_max:
   - Adjust Layer Width to Max
   - 调整图层宽度到最大
@@ -979,3 +979,39 @@ adjust_height_to_max:
 adjust_height_to_min:
   - Adjust Layer Height to Min
   - 调整图层高度到最小
+copy_color_to_clipboard:
+  - Copy Color to Clipboard
+  - 拷贝色彩至剪贴板
+copy_color_as:
+  - Copy Color as
+  - 拷贝色彩为
+copy_color_as_css_hex:
+  - Copy Color as CSS HEX
+  - 拷贝色彩为 CSS 16 进制
+copy_color_as_css_hex8:
+  - Copy Color as CSS HEX 8
+  - 拷贝色彩为 CSS 8 位 16 进制
+copy_color_as_css_rgb:
+  - Copy Color as CSS RGB
+  - 拷贝色彩为 CSS RGB
+copy_color_as_css_hsl:
+  - Copy Color as CSS HSL
+  - 拷贝色彩为 CSS HSL
+copy_color_as_nscolor_objective_c:
+  - Copy Color as NSColor objective-c
+  - 拷贝色彩为 NSColor objective-c
+copy_color_as_nscolor_swift:
+  - Copy Color as NSColor swift
+  - 拷贝色彩为 NSColor swift
+copy_color_as_uicolor_objective_c:
+  - Copy Color as UIColor objective-c
+  - 拷贝色彩为 UIColor objective-c
+copy_color_as_uicolor_swift:
+  - Copy Color as UIColor swift
+  - 拷贝色彩为 UIColor swift
+copy_color_as_android_xml:
+  - Copy Color as Android XML
+  - 拷贝色彩为 Android XML
+copy_color_as_android_color:
+  - Copy Color as Android Color
+  - 拷贝色彩为 Android Color
