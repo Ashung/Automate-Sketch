@@ -1012,6 +1012,3 @@ copy_color_as_uicolor_swift:
 copy_color_as_android_xml:
   - Copy Color as Android XML
   - 拷贝色彩为 Android XML
-copy_color_as_android_color:
-  - Copy Color as Android Color
-  - 拷贝色彩为 Android Color

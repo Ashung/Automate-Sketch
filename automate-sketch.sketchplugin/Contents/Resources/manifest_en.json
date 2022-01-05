@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "81.1.20211224",
+  "version": "81.1.20220105",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1789,12 +1789,6 @@
       "identifier": "copy_color_as_android_xml",
       "script": "Development/Copy_Color.js",
       "icon": "icon_runner.png"
-    },
-    {
-      "name": "Copy Color as Android Color",
-      "identifier": "copy_color_as_android_color",
-      "script": "Development/Copy_Color.js",
-      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -2364,8 +2358,7 @@
               "copy_color_as_nscolor_swift",
               "copy_color_as_uicolor_swift",
               "-",
-              "copy_color_as_android_xml",
-              "copy_color_as_android_color"
+              "copy_color_as_android_xml"
             ]
           },
           "-",
