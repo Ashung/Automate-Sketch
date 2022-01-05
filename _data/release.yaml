@@ -1,4 +1,14 @@
 -
+  version: 81.1.20220105
+  commitID: e8b40b777bbe103277d504882d7f67188922fd01
+  description:
+    - Add Copy Color as HEX HSL...
+    - Add Adjust Layer Width/height to Max/Min.
+    - New Menu.
+    - Fixed Pick Color bug.
+    - Fixed Insert Artboard from Library bug.
+
+-
   version: 79.0.20211105
   commitID: 29d6f0e6a4fbb0c502e58439ed272b8eba9e3608
   description:
