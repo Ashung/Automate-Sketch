@@ -35,7 +35,7 @@ var onRun = function(context) {
     }
     
     // Export data
-    var exportFolder = System.chooseFolder(true);
+    var exportFolder = System.chooseFolder();
     if (exportFolder) {
         var loopImages = images.objectEnumerator();
         var image;

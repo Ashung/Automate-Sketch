@@ -1012,3 +1012,6 @@ copy_color_as_uicolor_swift:
 copy_color_as_android_xml:
   - Copy Color as Android XML
   - 拷贝色彩为 Android XML
+export_json_data:
+  - Export JSON Data from Layers
+  - 从图层导出 JSON 数据
