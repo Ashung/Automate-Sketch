@@ -194,6 +194,7 @@ Make your workflow more efficient.
 | Export Data From Text Layers                                 | Export text file from the content of selected text layers.   |
 | Export Image From Layers                                     | Export images from selected bitmap or image-fill layers.     |
 | Export Data From Symbol Instances                            | Export override texts and images from selected symbol instances. |
+| Export JSON From Layers                                      | Export JSON from selected group or symbol instance layers.   |
 | Data - Calendar                                              | Insert year, month, day, week day ... to text layer or override. |
 | Data - (Random) Image From Folder                            | Apply image data to shape layer or overrides from image folder. |
 | Data - (Random) Text From File                               | Apply text data to text layer or overrides from text file.   |

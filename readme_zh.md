@@ -195,6 +195,7 @@
 | Export Data From Text Layers                                 | **从文本图层导出数据** 将选中的文本图层内容导出到 TXT 文件。 |
 | Export Image From Layers                                     | **从图层导出图片** 导出选中的位图或位图填充图层内的图片。    |
 | Export Data From Symbol Instances                            | **从组件导出数据** 导出选中组件 override 上的文本和图片。    |
+| Export JSON From Layers                                      | **从图层导出 JSON** 从选中的组或组件导出 JSON 数据。         |
 | Data - Calendar                                              | 插入年、月、日、星期、农历日月、干支纪年等到文本图层或组件 override 上。 |
 | Data - (Random) Image From Folder                            | 从图片文件夹获取图片数据，并随机或有序应用到形状图层或组件 override 上。 |
 | Data - (Random) Text From File                               | 从文本文件获取文本数据，并随机或有序应用到文本图层或组件 override 上。 |

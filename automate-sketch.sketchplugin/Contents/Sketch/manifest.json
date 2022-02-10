@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "81.1.20220105",
+  "version": "83.1.20220210",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1789,6 +1789,12 @@
       "identifier": "copy_color_as_android_xml",
       "script": "Development/Copy_Color.js",
       "icon": "icon_runner.png"
+    },
+    {
+      "name": "Export JSON Data from Layers",
+      "identifier": "export_json_data",
+      "script": "Data/Export_JSON_Data.js",
+      "icon": "icon_runner.png"
     }
   ],
   "menu": {
@@ -2315,6 +2321,8 @@
         "items": [
           "copy_text_from_layer",
           "copy_text_from_override",
+          "-",
+          "export_json_data",
           "-",
           "export_data_from_text_layers",
           "export_image_from_layers",

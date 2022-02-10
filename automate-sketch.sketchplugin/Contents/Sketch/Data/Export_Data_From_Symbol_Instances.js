@@ -39,7 +39,7 @@ var onRun = function(context) {
     }
 
     // Export
-    var exportFolder = System.chooseFolder(true);
+    var exportFolder = System.chooseFolder();
     if (exportFolder) {
         for (item in overrideData) {
             if (overrideData[item]["type"] == "stringValue") {

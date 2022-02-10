@@ -129,4 +129,16 @@ System.fileExists = function(path) {
     return NSFileManager.defaultManager().fileExistsAtPath(path);
 }
 
+System.exportImageDataAsJpg = function(imageData, path, quality) {
+    var rep = NSBitmapImageRep.imageRepWithData(imageData.nsdata);
+    var jpg = rep.representationUsingType_properties(NSBitmapImageFileTypeJPEG, { NSImageCompressionFactor: quality || 0.75 });
+    jpg.writeToFile_atomically(path, "YES");
+}
+
+System.exportImageDataAsPng = function(imageData, path) {
+    var rep = NSBitmapImageRep.imageRepWithData(imageData.nsdata);
+    var png = rep.representationUsingType_properties(NSBitmapImageFileTypePNG, {});
+    png.writeToFile_atomically(path, "YES");
+}
+
 module.exports = System;
