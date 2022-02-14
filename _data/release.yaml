@@ -1,4 +1,10 @@
 -
+  version: 83.2.20220214
+  commitID: 11f2cc7d72312083ebc1c427e49d0250d1b4b524
+  description:
+    - Fix Sketch 83 bugs.
+
+-
   version: 83.1.20220210
   commitID: 0cff7bf7e4c8759c3f7535c5bcbc68d66ed6540f
   description:
