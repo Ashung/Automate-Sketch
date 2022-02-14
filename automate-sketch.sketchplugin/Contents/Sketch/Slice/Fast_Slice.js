@@ -3,8 +3,10 @@ var runFastSlice = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Slice");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var document = context.document;
+    var version = sketch.version.sketch;
     var exportPresets = MSExportPreset.allExportPresets();
 
     // Checking if need to run setting first.
@@ -80,12 +82,22 @@ var runFastSlice = function(context) {
             } else {
                 if (preferences.get("sliceLayerOrder") == "0") {
                     var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
-                    var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    var newGroup;
+                    if (version >= 83) {
+                        newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+                    } else {
+                        newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    }
                     newGroup.setName(layer.name());
                     slice.exportOptions().setLayerOptions(2);
                 } else if (preferences.get("sliceLayerOrder") == "1") {
                     var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
-                    var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    var newGroup;
+                    if (version >= 83) {
+                        newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+                    } else {
+                        newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                    }
                     newGroup.setName(layer.name());
                     slice.exportOptions().setLayerOptions(2);
                 } else {

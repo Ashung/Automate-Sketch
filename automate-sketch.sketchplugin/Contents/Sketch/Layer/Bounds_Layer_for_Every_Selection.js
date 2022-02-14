@@ -142,7 +142,9 @@ var onRun = function(context) {
                         var name = layer.name();
                         layer.ungroup();
                         var newGroup;
-                        if (sketch.version.sketch >= 52) {
+                        if (sketch.version.sketch >= 83) {
+                            newGroup = MSLayerGroup.groupWithLayers(children.layers());
+                        } else if (sketch.version.sketch >= 52) {
                             newGroup = MSLayerGroup.groupWithLayers(children);
                         } else {
                             newGroup = MSLayerGroup.groupFromLayers(children);
