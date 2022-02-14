@@ -5,9 +5,11 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Slice");
 
+    var sketch = require("sketch");
     var preferences = require("../modules/Preferences");
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
+    var version = sketch.version.sketch;
 
     var document = context.document;
     var selection = context.selection;
@@ -122,12 +124,22 @@ var onRun = function(context) {
                 } else {
                     if (preferences.get("sliceLayerOrder") == "0") {
                         var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
-                        var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        var newGroup;
+                        if (version >= 83) {
+                            newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+                        } else {
+                            newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        }
                         newGroup.setName(layer.name());
                         slice.exportOptions().setLayerOptions(2);
                     } else if (preferences.get("sliceLayerOrder") == "1") {
                         var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
-                        var newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        var newGroup;
+                        if (version >= 83) {
+                            newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+                        } else {
+                            newGroup = MSLayerGroup.groupWithLayers(layerArray);
+                        }
                         newGroup.setName(layer.name());
                         slice.exportOptions().setLayerOptions(2);
                     } else {

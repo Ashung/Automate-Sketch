@@ -34,6 +34,8 @@ var onRun = function(context) {
 
         var pasteboardLayers = pasteboard.getPasteboardLayers();
         var parentGroup = oldLayer.parentGroup();
+        console.log(pasteboardLayers.layers())
+        
 
         if (appVersion >= 50) {
             pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
@@ -52,7 +54,10 @@ var onRun = function(context) {
         }
 
         var group;
-        if (appVersion >= 52) {
+        if (appVersion >= 83) {
+            group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers().layers());
+        }
+        else if (appVersion >= 52) {
             group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
         } else {
             group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());

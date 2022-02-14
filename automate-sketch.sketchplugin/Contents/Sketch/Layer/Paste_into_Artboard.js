@@ -90,7 +90,9 @@ var onRun = function(context) {
             }
 
             var group;
-            if (version >= 52) {
+            if (version >= 83) {
+                group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers().layers());
+            } else if (version >= 52) {
                 group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
             } else {
                 group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());

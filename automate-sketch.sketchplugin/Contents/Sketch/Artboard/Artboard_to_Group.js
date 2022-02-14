@@ -38,7 +38,9 @@ var onRun = function(context) {
         // Create new group for all layers in artboard
         var newGroup;
         var layerArray = MSLayerArray.arrayWithLayers(artboard.layers());
-        if (sketch.version.sketch >= 52) {
+        if (sketch.version.sketch >= 83) {
+            newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+        } else if (sketch.version.sketch >= 52) {
             newGroup = MSLayerGroup.groupWithLayers(layerArray);
         } else {
             newGroup = MSLayerGroup.groupFromLayers(layerArray);
