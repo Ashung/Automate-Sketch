@@ -37,13 +37,17 @@ var onRun = function(context) {
 
         // Create new group for all layers in artboard
         var newGroup;
-        var layerArray = MSLayerArray.arrayWithLayers(artboard.layers());
-        if (sketch.version.sketch >= 83) {
-            newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
-        } else if (sketch.version.sketch >= 52) {
-            newGroup = MSLayerGroup.groupWithLayers(layerArray);
+        if (sketch.version.sketch >= 84) {
+            newGroup = MSLayerGroup.groupWithLayers(artboard.layers());
         } else {
-            newGroup = MSLayerGroup.groupFromLayers(layerArray);
+            var layerArray = MSLayerArray.arrayWithLayers(artboard.layers());
+            if (sketch.version.sketch >= 83) {
+                newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
+            } else if (sketch.version.sketch >= 52) {
+                newGroup = MSLayerGroup.groupWithLayers(layerArray);
+            } else {
+                newGroup = MSLayerGroup.groupFromLayers(layerArray);
+            }
         }
         newGroup.setName(artboard.name());
 

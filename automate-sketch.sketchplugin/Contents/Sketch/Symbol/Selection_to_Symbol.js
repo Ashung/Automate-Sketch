@@ -5,6 +5,7 @@ var onRun = function(context) {
 
     var sketch = require("sketch");
     var selection = context.selection;
+    var version = sketch.version.sketch;
 
     var loopSelection = selection.objectEnumerator();
     var layer;
@@ -16,7 +17,12 @@ var onRun = function(context) {
             width: layer.frame().width(),
             height: layer.frame().height()
         };
-        var layers = MSLayerArray.arrayWithLayers([layer]);
+        var layers;
+        if (version >= 84) {
+            layers = [layer];
+        } else {
+            layers = MSLayerArray.arrayWithLayers([layer]);
+        }
         if (layer.class() == "MSArtboardGroup") {
             symbolProperties.hasBackgroundColor = layer.hasBackgroundColor();
             symbolProperties.backgroundColor = layer.backgroundColor();
@@ -34,7 +40,11 @@ var onRun = function(context) {
             }
             layer.addLayer(tempLayer);
 
-            layers = MSLayerArray.arrayWithLayers(layer.layers());
+            if (version >= 84) {
+                layers = layer.layers();
+            } else {
+                layers = MSLayerArray.arrayWithLayers(layer.layers());
+            }
             layer.ungroup();
         }
 

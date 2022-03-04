@@ -81,21 +81,28 @@ var runFastSlice = function(context) {
                 }
             } else {
                 if (preferences.get("sliceLayerOrder") == "0") {
-                    var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
                     var newGroup;
-                    if (version >= 83) {
+                    if (version >= 84) {
+                        newGroup = MSLayerGroup.groupWithLayers([slice, layer]);
+                    } else if (version >= 83) {
+                        var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
                         newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
                     } else {
+                        var layerArray = MSLayerArray.arrayWithLayers([slice, layer]);
                         newGroup = MSLayerGroup.groupWithLayers(layerArray);
                     }
                     newGroup.setName(layer.name());
                     slice.exportOptions().setLayerOptions(2);
                 } else if (preferences.get("sliceLayerOrder") == "1") {
-                    var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
+                    
                     var newGroup;
-                    if (version >= 83) {
+                    if (version >= 84) {
+                        newGroup = MSLayerGroup.groupWithLayers([layer, slice]);
+                    } else if (version >= 83) {
+                        var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
                         newGroup = MSLayerGroup.groupWithLayers(layerArray.layers());
                     } else {
+                        var layerArray = MSLayerArray.arrayWithLayers([layer, slice]);
                         newGroup = MSLayerGroup.groupWithLayers(layerArray);
                     }
                     newGroup.setName(layer.name());

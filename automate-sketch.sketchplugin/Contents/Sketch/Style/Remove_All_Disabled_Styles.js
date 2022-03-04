@@ -3,10 +3,17 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Style");
 
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
     var document = context.document;
     var currentPage = document.currentPage();
     var selection = context.selection;
-    var selectedLayers = currentPage.selectedLayers().layers();
+    var selectedLayers;
+    if (version >= 84) {
+        selectedLayers = currentPage.selectedLayers();
+    } else {
+        selectedLayers = currentPage.selectedLayers().layers();
+    }
 
     // Selected layer
     if (selection.count() > 0) {

@@ -66,7 +66,7 @@ var onSupplyCalendar = function(context) {
     dialog.addLabel("Insert:");
     var insertTypeView = ui.popupButton([
         `Year`, // 0 y
-        `Month：numerical`, // 1 M
+        `Month: numerical`, // 1 M
         `Month: 2 numerical`, // 2 MM
         `Month: 1 letter`, // 3 MMMMM
         `Month: 3 letters`, // 4 MMMM*
@@ -206,10 +206,17 @@ var onSupplyCalendar = function(context) {
 };
 
 function supplyOrderedData(context, data) {
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
     for (var i = 0; i < context.data.requestedCount; i++) {
         var dataIndex;
         if (context.data.isSymbolInstanceOverride == 1) {
-            var selection = NSDocumentController.sharedDocumentController().currentDocument().selectedLayers().layers();
+            var selection;
+            if (version >= 84) {
+                selection = NSDocumentController.sharedDocumentController().currentDocument().selectedLayers();
+            } else {
+                selection = NSDocumentController.sharedDocumentController().currentDocument().selectedLayers().layers();
+            }
             dataIndex = selection.indexOfObject(context.data.items.objectAtIndex(i).symbolInstance());
         } else {
             dataIndex = i;
