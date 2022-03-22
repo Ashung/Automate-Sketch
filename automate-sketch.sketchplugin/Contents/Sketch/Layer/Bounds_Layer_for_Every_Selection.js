@@ -138,10 +138,15 @@ var onRun = function(context) {
                         layer.frame().x() + layer.frame().width() - Math.floor(layer.frame().x() + layer.frame().width()) != 0 ||
                         layer.frame().y() + layer.frame().height() - Math.floor(layer.frame().y() + layer.frame().height()) != 0
                     ) {
-                        var children = MSLayerArray.arrayWithLayers(layer.containedLayers());
+                        var children;
                         var name = layer.name();
                         layer.ungroup();
                         var newGroup;
+                        if (sketch.version.sketch >= 84) {
+                            newGroup = MSLayerGroup.groupWithLayers(layer.containedLayers());
+                        } else {
+                            children = MSLayerArray.arrayWithLayers(layer.containedLayers())
+                        }
                         if (sketch.version.sketch >= 83) {
                             newGroup = MSLayerGroup.groupWithLayers(children.layers());
                         } else if (sketch.version.sketch >= 52) {

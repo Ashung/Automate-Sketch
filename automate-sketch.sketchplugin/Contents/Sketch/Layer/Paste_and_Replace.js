@@ -34,8 +34,6 @@ var onRun = function(context) {
 
         var pasteboardLayers = pasteboard.getPasteboardLayers();
         var parentGroup = oldLayer.parentGroup();
-        console.log(pasteboardLayers.layers())
-        
 
         if (appVersion >= 50) {
             pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
@@ -54,10 +52,11 @@ var onRun = function(context) {
         }
 
         var group;
-        if (appVersion >= 83) {
+        if (appVersion >= 84) {
+            group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
+        } else if (appVersion >= 83) {
             group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers().layers());
-        }
-        else if (appVersion >= 52) {
+        } else if (appVersion >= 52) {
             group = MSLayerGroup.groupWithLayers(pasteboardLayers.layers());
         } else {
             group = MSLayerGroup.groupFromLayers(pasteboardLayers.layers());
@@ -122,9 +121,15 @@ var onRun = function(context) {
         group.frame().setY(Math.round(y));
 
         // oldLayer is a mask
+        var count;
+        if (appVersion >= 84) {
+            count = pasteboardLayers.layers().count();
+        } else {
+            count = pasteboardLayers.layers().layers().count();
+        }
         if (
             oldLayer.hasClippingMask() &&
-            pasteboardLayers.layers().layers().count() == 1 &&
+            count == 1 &&
             type.isShape(group.layers().firstObject())
         ) {
             group.layers().firstObject().setHasClippingMask(true);
@@ -137,21 +142,27 @@ var onRun = function(context) {
             var newSymbolMaster = pasteboardLayers.layers().firstLayer();
             var oldSymbolMaster = oldLayer;
             // Replace with another symbol master
-            if (
-                pasteboardLayers.layers().layers().count() == 1 &&
-                pasteboardLayers.layers().firstLayer().class() == "MSSymbolMaster"
-            ) {
-                changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster);
+            var doChangeAllInstancesToSymbol;
+            if (appVersion >= 84) {
+                doChangeAllInstancesToSymbol = pasteboardLayers.layers().count() == 1 && pasteboardLayers.layers().firstObject().class() == "MSSymbolMaster";
+            } else {
+                doChangeAllInstancesToSymbol = pasteboardLayers.layers().layers().count() == 1 && pasteboardLayers.layers().firstLayer().class() == "MSSymbolMaster";
             }
-            // Change symbol's instances into group
-            else {
+            if (doChangeAllInstancesToSymbol) {
+                changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster);
+            } else {
+                // Change symbol's instances into group
                 changeAllInstancesToGroup(context, oldSymbolMaster);
             }
         }
 
         oldLayer.removeFromParent();
 
-        newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
+        if (appVersion >= 84) {
+            newLayers.addObjectsFromArray(pasteboardLayers.layers());
+        } else {
+            newLayers.addObjectsFromArray(pasteboardLayers.layers().layers());
+        }
 
         if (parentGroup.class() == "MSLayerGroup") {
             if (appVersion >= 53) {
@@ -192,6 +203,8 @@ function changeAllInstancesToSymbol(context, oldSymbolMaster, newSymbolMaster) {
 }
 
 function changeAllInstancesToGroup(context, symbolMaster) {
+    var sketch = require('sketch');
+    var version = sketch.version.sketch;
     var loopPages = context.document.pages().objectEnumerator();
     var page;
     while (page = loopPages.nextObject()) {
@@ -201,7 +214,13 @@ function changeAllInstancesToGroup(context, symbolMaster) {
         while (instance = loopInstances.nextObject()) {
             if (instance.symbolMaster()) {
                 if (instance.symbolMaster() == symbolMaster) {
-                    instance.detachByReplacingWithGroup();
+                    if (version >= 76) {
+                        instance.detachStylesAndReplaceWithGroup();
+                    } else if (version >= 53) {
+                        instance.detachStylesAndReplaceWithGroupRecursively(false);
+                    } else {
+                        instance.detachByReplacingWithGroup();
+                    }
                 }
             }
         }

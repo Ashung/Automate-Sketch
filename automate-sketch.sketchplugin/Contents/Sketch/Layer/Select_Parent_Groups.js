@@ -5,6 +5,9 @@ var onRun = function(context) {
     var ga = require("../modules/Google_Analytics");
     ga("Layer");
 
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
+
     var doc = context.document;
     var page = doc.currentPage();
     var selection = context.selection;
@@ -32,7 +35,12 @@ var onRun = function(context) {
         }
 
         // Deselect child layers.
-        var newSelectedLayers = page.selectedLayers().layers();
+        var newSelectedLayers;
+        if (version >= 84) {
+            newSelectedLayers = page.selectedLayers();
+        } else {
+            newSelectedLayers = page.selectedLayers().layers();
+        }
         var loopSelectedLayers = newSelectedLayers.objectEnumerator();
         var selectedLayer;
         while (selectedLayer = loopSelectedLayers.nextObject()) {
