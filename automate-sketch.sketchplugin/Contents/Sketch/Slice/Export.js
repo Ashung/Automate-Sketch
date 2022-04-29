@@ -1,5 +1,6 @@
 var sketch = require("sketch");
 var document = sketch.getSelectedDocument();
+var version = sketch.version.sketch;
 
 var onRun = function(context) {
 
@@ -36,7 +37,7 @@ var onRun = function(context) {
         var path = system.savePanel(layer.name);
         if (path) {
             let output = path + (path.endsWith(`.${format}`) ? '' : `.${format}`);
-            log(scale);
+
             exportLayer(layer, {
                 output,
                 format,
@@ -89,6 +90,12 @@ function exportLayer(layer, option) {
     exportRequest.setScale(option.scale);
     exportRequest.setCompression(option.compression);
     exportRequest.setShouldTrim(false);
-    var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, document.sketchObject.colorSpace());
+    var colorSpace;
+    if (version >= 86) {
+        colorSpace = document.sketchObject.colorSpace().CGColorSpace();
+    } else {
+        colorSpace = document.sketchObject.colorSpace();
+    }
+    var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, colorSpace);
     exporter.exportToFileURL(NSURL.fileURLWithPath(option.output));
 }

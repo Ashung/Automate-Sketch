@@ -749,8 +749,8 @@ copy_as_svg_url_encoded:
   - Copy Layer as SVG (URL-encoded)
   - 拷贝图层 SVG (URL-encoded)
 copy_as_base64:
-  - Copy Layer as PNG Base64
-  - 拷贝图层 PNG Base64
+  - Copy Layer as Base64
+  - 拷贝图层 Base64
 new_guides_from_layer:
   - New Guides from Layer
   - 从图层创建辅助线

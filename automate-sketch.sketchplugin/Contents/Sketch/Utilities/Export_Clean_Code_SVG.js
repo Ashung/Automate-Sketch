@@ -6,6 +6,7 @@ var onRun = function(context) {
     ga("Utilities");
 
     var sketch = require("sketch");
+    var version = sketch.version.sketch;
     var type = require("../modules/Type");
     var svgConfigPath = context.plugin.urlForResourceNamed("svgo_config.json").path();
 
@@ -322,7 +323,12 @@ var onRun = function(context) {
             var ancestry = layerCopy.ancestry();
             var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
             exportRequest.setFormat("svg");
-            var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, NSColorSpace.sRGBColorSpace());
+            if (version >= 86) {
+                colorSpace = NSColorSpace.sRGBColorSpace().CGColorSpace();
+            } else {
+                colorSpace = NSColorSpace.sRGBColorSpace();
+            }
+            var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, colorSpace);
             var svgData = exporter.data();
             var svgCode = NSString.alloc().initWithData_encoding(svgData, NSUTF8StringEncoding);
 

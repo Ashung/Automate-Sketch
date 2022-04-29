@@ -4,6 +4,8 @@ var onRun = function(context) {
     ga("Utilities");
 
     var Dialog = require("../modules/Dialog").dialog;
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
 
     var document = context.document;
     var selection = context.selection;
@@ -17,8 +19,12 @@ var onRun = function(context) {
             return;
         }
     }
-
-    var image = layer.NSImage();
+    var image;
+    if (version >= 82) {
+        image = layer.image().image();
+    } else {
+        image = layer.NSImage();
+    }
     var imageWidth = image.size().width;
     var imageHeight = image.size().height;
     var layerWidth = layer.frame().width();
