@@ -1015,3 +1015,6 @@ copy_color_as_android_xml:
 export_json_data:
   - Export JSON Data from Layers
   - 从图层导出 JSON 数据
+fill_rule_to_non_zero:
+  - Fill Rule to Non-Zero
+  - 填充规则设为非零

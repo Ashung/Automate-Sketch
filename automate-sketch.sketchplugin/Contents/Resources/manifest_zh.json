@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "84.0.20220303",
+  "version": "86.0.20220506",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1413,7 +1413,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "拷贝图层 PNG Base64",
+      "name": "拷贝图层 Base64",
       "identifier": "copy_as_base64",
       "script": "Development/Copy_as.js",
       "icon": "icon_runner.png"
@@ -1794,6 +1794,12 @@
       "name": "从图层导出 JSON 数据",
       "identifier": "export_json_data",
       "script": "Data/Export_JSON_Data.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "填充规则设为非零",
+      "identifier": "fill_rule_to_non_zero",
+      "script": "Development/Fill_Rule_to_Non_Zero.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -2373,7 +2379,9 @@
           "pick_color_and_copy",
           "-",
           "copy_selected_layer_name",
-          "copy_objectid_or_symbolid"
+          "copy_objectid_or_symbolid",
+          "-",
+          "fill_rule_to_non_zero"
         ]
       },
       {
