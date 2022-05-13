@@ -141,4 +141,15 @@ System.exportImageDataAsPng = function(imageData, path) {
     png.writeToFile_atomically(path, "YES");
 }
 
+System.rm = function(path) {
+    NSFileManager.defaultManager().removeItemAtPath_error(path, nil);
+}
+
+System.cp = function(from, to) {
+    if (this.fileExists(to)) {
+        this.rm(to);
+    }
+    NSFileManager.defaultManager().copyItemAtPath_toPath_error(from, to, nil);
+}
+
 module.exports = System;

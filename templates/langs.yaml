@@ -806,8 +806,8 @@ change_document_id:
   - Change Document ID
   - 更改文档 ID
 copy_document_url:
-  - Copy Document URL
-  - 拷贝文档链接
+  - Copy Document URL (sketch URL Scheme)
+  - 拷贝文档链接 (sketch 协议)
 copy_text_from_override:
   - Copy Text from Override
   - 从覆盖拷贝文本
@@ -1018,3 +1018,9 @@ export_json_data:
 fill_rule_to_non_zero:
   - Fill Rule to Non-Zero
   - 填充规则设为非零
+save_cloud_document_to_local:
+  - Save Cloud Document to Local
+  - 保存云端文档到本地
+copy_cloud_document_share_url:
+  - Copy Cloud Document Share URL
+  - 拷贝云端文档共享链接

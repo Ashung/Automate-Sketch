@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "86.0.20220506",
+  "version": "87.1.20220513",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1527,7 +1527,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "拷贝文档链接",
+      "name": "拷贝文档链接 (sketch 协议)",
       "identifier": "copy_document_url",
       "script": "Utilities/Copy_Document_URL.js",
       "icon": "icon_runner.png"
@@ -1800,6 +1800,12 @@
       "name": "填充规则设为非零",
       "identifier": "fill_rule_to_non_zero",
       "script": "Development/Fill_Rule_to_Non_Zero.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "保存云端文档到本地",
+      "identifier": "save_cloud_document_to_local",
+      "script": "Utilities/Save_Cloud_Document_to_Local.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -2387,7 +2393,9 @@
       {
         "title": "实用工具",
         "items": [
+          "save_cloud_document_to_local",
           "copy_document_url",
+          "-",
           "shortcuts_manager",
           "insert_layer_from_svg_path_data",
           "export_artboard_to_icns_file",

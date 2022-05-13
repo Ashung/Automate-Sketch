@@ -1515,6 +1515,11 @@
             "name": "{{fill_rule_to_non_zero}}",
             "identifier": "fill_rule_to_non_zero",
             "script": "Development/Fill_Rule_to_Non_Zero.js"
+        },
+        {
+            "name": "{{save_cloud_document_to_local}}",
+            "identifier": "save_cloud_document_to_local",
+            "script": "Utilities/Save_Cloud_Document_to_Local.js"
         }
     ],
     "menu": {
@@ -2101,7 +2106,9 @@
             {
                 "title": "{{utilities}}",
                 "items": [
+                    "save_cloud_document_to_local",
                     "copy_document_url",
+                    "-",
                     "shortcuts_manager",
                     "insert_layer_from_svg_path_data",
                     "export_artboard_to_icns_file",
