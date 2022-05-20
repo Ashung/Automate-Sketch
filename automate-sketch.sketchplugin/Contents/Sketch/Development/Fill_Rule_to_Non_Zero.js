@@ -8,10 +8,23 @@ var onRun = function(context) {
     var selectedLayers = document.selectedLayers.layers;
 
     selectedLayers.forEach(function(layer) {
-        if (layer.style) {
-            layer.style.sketchObject.setWindingRule(0);
-        }
+        traverse(layer.sketchObject);
     });
 
-    sketch.UI.message('Change fill rule to Non-Zero.');
+    function traverse(layer) {
+        layer.children().forEach(function(child) {
+            var shapeTypes = ["MSShapeGroup", "MSRectangleShape", "MSOvalShape", "MSShapePathLayer", "MSTriangleShape", "MSStarShape", "MSPolygonShape"];
+            if (shapeTypes.includes(String(child.className())) && child.parentGroup().className() != "MSShapeGroup") {
+                child.style().setWindingRule(0);
+                sketch.UI.message('"' + child.name() + '" fill rule change to Non-Zero.');
+            }
+            if (child.className() == "MSSymbolInstance") {
+                if (child.symbolMaster().isForeign()) {
+                    sketch.UI.message('"' + child.name() + '" is library symbol.');
+                } else {
+                    traverse(child.symbolMaster());
+                }
+            }
+        });    
+    }
 }

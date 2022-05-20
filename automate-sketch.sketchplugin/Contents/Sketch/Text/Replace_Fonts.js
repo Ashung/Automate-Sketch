@@ -68,7 +68,7 @@ var onRun = function(context) {
         doc.showMessage('Complete replace of "' + selectedFont + '" with ' + '"' + replaceFont + '".');
 
     }
-    
+
 };
 
 function getStylesFromFamilyName(name) {

@@ -131,6 +131,8 @@ function main(context, styles, title, message) {
         }
         var childLayersWithStyle = childLayers.filteredArrayUsingPredicate(predicate);
 
+        page.changeSelectionBySelectingLayers(null);
+
         if (childLayersWithStyle.count() > 1) {
             page.changeSelectionBySelectingLayers(childLayersWithStyle);
             document.showMessage(`Select ${childLayersWithStyle.count()} layers with ${styleType} "${selectedStyleName}"${messageAddon}.`);
