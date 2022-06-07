@@ -70,9 +70,9 @@ var onRun = function(context) {
         preferences.set("pasteIntoArtboardFitArtboardWidth", fitWidth.state() == NSOnState);
         preferences.set("pasteIntoArtboardFitArtboardHeight", fitHeight.state() == NSOnState);
 
-        var pasteboardLayers = pasteboard.getPasteboardLayers();
         var position = matrixFormat.cells().indexOfObject(matrixFormat.selectedCell());
         artboards.forEach(function(artboard) {
+            var pasteboardLayers = pasteboard.getPasteboardLayers();
             if (version >= 50) {
                 pasteboardLayers.insertInGroup_atPosition_afterLayer_viewport_fitToParent(
                     artboard.sketchObject,

@@ -1,5 +1,6 @@
 var sketch = require("sketch");
 var document = sketch.getSelectedDocument();
+var version = sketch.version.sketch;
 
 var onRun = function(context) {
 
@@ -13,36 +14,36 @@ var onRun = function(context) {
     var supportFormats = ["png", "jpg", "tiff", "eps", "pdf", "webp", "svg"];
 
     if (identifier == "export") {
-        if (document.selectedLayers.length != 1) {
-            sketch.UI.message("Please select 1 layer.");
-            return;
-        }
-        var layer = document.selectedLayers.layers[0];
         var format = supportFormats[preferences.get("exportFormat") || 0];
         var quality = preferences.get("exportJpgQuality") || 100;
-        var scale;
         var defaultScale = preferences.get("exportScale") || 1;
-        if (defaultScale.endsWith("x")) {
-            scale = parseInt(defaultScale, 10);
-        } else if (defaultScale.endsWith("w")) {
-            scale = parseInt(defaultScale, 10) / layer.frame.width;
-        } else if (defaultScale.endsWith("h")) {
-            scale = parseInt(defaultScale, 10) / layer.frame.height;
+        if (document.selectedLayers.length == 1) {
+            var layer = document.selectedLayers.layers[0];
+            var path = system.savePanel(layer.name);
+            var scale = getScale(defaultScale, layer);
+            if (path) {
+                var output = path + (path.endsWith(`.${format}`) ? '' : `.${format}`);
+                exportLayer(layer, {
+                    output,
+                    format,
+                    scale,
+                    compression: quality / 100
+                });
+            }
         } else {
-            scale = parseInt(defaultScale, 10) || 1;
-        }
-        scale = scale || 1;
-        
-        var path = system.savePanel(layer.name);
-        if (path) {
-            let output = path + (path.endsWith(`.${format}`) ? '' : `.${format}`);
-            log(scale);
-            exportLayer(layer, {
-                output,
-                format,
-                scale,
-                compression: quality / 100
-            });
+            var path = system.chooseFolder();
+            if (path) {
+                document.selectedLayers.forEach(function(layer) {
+                    var scale = getScale(defaultScale, layer);
+                    var output = path + "/" + layer.name.split("/").map(name => name.trim()).join("/") + "." + format;
+                    exportLayer(layer, {
+                        output,
+                        format,
+                        scale,
+                        compression: quality / 100
+                    });
+                });
+            }
         }
     }
 
@@ -82,6 +83,21 @@ var onRun = function(context) {
 
 };
 
+function getScale(defaultScale, layer) {
+    var scale = 1;
+    if (defaultScale.endsWith("x")) {
+        scale = parseInt(defaultScale, 10);
+    } else if (defaultScale.endsWith("w")) {
+        scale = parseInt(defaultScale, 10) / layer.frame.width;
+    } else if (defaultScale.endsWith("h")) {
+        scale = parseInt(defaultScale, 10) / layer.frame.height;
+    } else {
+        scale = parseInt(defaultScale, 10) || 1;
+    }
+    scale = scale || 1;
+    return scale;
+}
+
 function exportLayer(layer, option) {
     const ancestry = layer.sketchObject.ancestry();
     const exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(ancestry).firstObject();
@@ -89,6 +105,12 @@ function exportLayer(layer, option) {
     exportRequest.setScale(option.scale);
     exportRequest.setCompression(option.compression);
     exportRequest.setShouldTrim(false);
-    var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, document.sketchObject.colorSpace());
+    var colorSpace;
+    if (version >= 86) {
+        colorSpace = document.sketchObject.colorSpace().CGColorSpace();
+    } else {
+        colorSpace = document.sketchObject.colorSpace();
+    }
+    var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, colorSpace);
     exporter.exportToFileURL(NSURL.fileURLWithPath(option.output));
 }
