@@ -1,6 +1,6 @@
 var ui = {};
 
-ui.width = 300;
+ui.width = 400;
 
 /**
  * @param  {Array|Number} size Array [w], [w, h], [y, w, h], [x, y, w, h]
@@ -405,6 +405,22 @@ ui.image = function(nsImage, size) {
 /**
  * @param  {NSImage} nsImage
  * @param  {Array|Number} size Optional
+ * @return  {NSImageView}
+ */
+ui.transparentImage = function(nsImage, size) {
+    var imageView = this.image(nsImage, size);
+    var backgroundImage = NSImage.alloc().initWithContentsOfURL(__command.pluginBundle().urlForResourceNamed("bg_alpha.png"));
+    backgroundImage.setSize(CGSizeMake(backgroundImage.size().width / 2, backgroundImage.size().height / 2));
+    imageView.setWantsLayer(true);
+    imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
+    imageView.setImage(nsImage);
+    imageView.setFlipped(true);
+    return imageView;
+}
+
+/**
+ * @param  {NSImage} nsImage
+ * @param  {Array|Number} size Optional
  * @return  {NSButton}
  */
 ui.imageButton = function(nsImage, size) {
@@ -508,7 +524,7 @@ function dialog (message, info, width, buttons) {
     this.views = [];
     this.message = message || "Message Text";
     this.info = info;
-    this.width = width || 300;
+    this.width = width || ui.width;
     if (buttons instanceof Array && buttons.length > 0) {
         this.buttons = buttons;
     } else {

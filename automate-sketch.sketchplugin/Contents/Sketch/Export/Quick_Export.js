@@ -1,7 +1,7 @@
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga("Slice");
+    ga("Export");
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;

@@ -892,9 +892,6 @@ change_library_layer_style_to_local_layer_style:
 paste_into_artboard:
   - Paste into Artboard
   - 粘贴至画板内
-export:
-  - Export Layer
-  - 导出图层
 export_setting:
   - Export Layer Setting
   - 导出图层设置
@@ -1024,3 +1021,18 @@ save_cloud_document_to_local:
 copy_cloud_document_share_url:
   - Copy Cloud Document Share URL
   - 拷贝云端文档共享链接
+bitmap_to_pattern_fill:
+  - Bitmap to Pattern Fill
+  - 位图转图像填充
+pattern_fill_to_bitmap:
+  - Pattern Fill to Bitmap
+  - 图像填充转位图
+export:
+  - Export
+  - 导出
+export_selected_layers:
+  - Export Selected Layers
+  - 导出选中图层
+theme_switcher:
+  - Theme Switcher
+  - 主题切换

@@ -5,18 +5,22 @@ var version = sketch.version.sketch;
 var onRun = function(context) {
 
     var ga = require("../modules/Google_Analytics");
-    ga("Slice");
+    ga("Export");
 
     var preferences = require("../modules/Preferences");
     var system = require("../modules/System");
     var identifier = __command.identifier();
 
-    var supportFormats = ["png", "jpg", "tiff", "eps", "pdf", "webp", "svg"];
+    var supportFormats = ["png", "jpg", "tiff", "webp", "pdf", "eps", "svg"];
 
     if (identifier == "export") {
         var format = supportFormats[preferences.get("exportFormat") || 0];
         var quality = preferences.get("exportJpgQuality") || 100;
         var defaultScale = preferences.get("exportScale") || 1;
+        if (document.selectedLayers.length == 0) {
+            sketch.UI.message("Please select at least 1 layer.");
+            return;
+        }
         if (document.selectedLayers.length == 1) {
             var layer = document.selectedLayers.layers[0];
             var path = system.savePanel(layer.name);

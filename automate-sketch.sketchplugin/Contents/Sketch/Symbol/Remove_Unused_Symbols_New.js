@@ -7,6 +7,7 @@ var onRun = function(context) {
 
     var Dialog = require("../modules/Dialog").dialog;
     var ui = require("../modules/Dialog").ui;
+    var preview = require("../modules/preview");
     var document = context.document;
     var documentData = document.documentData();
 
@@ -79,17 +80,7 @@ var onRun = function(context) {
 
         // Preview image
         var imageSize = rowHeight - 10;
-        var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 5, imageSize, imageSize));
-        var layerAncestry = unusedSymbol.ancestry();
-        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake(imageSize * 2, imageSize * 2), NSColorSpace.sRGBColorSpace(), false
-        );
-        var backgroundImage = NSImage.alloc().initWithContentsOfURL(context.plugin.urlForResourceNamed("bg_alpha.png"));
-        backgroundImage.setSize(CGSizeMake(backgroundImage.size().width / 2, backgroundImage.size().height / 2));
-        imageView.setWantsLayer(true);
-        imageView.setBackgroundColor(NSColor.colorWithPatternImage(backgroundImage));
-        imageView.setImage(symbolPreviewImage);
-        imageView.setFlipped(true);
+        var imageView = ui.transparentImage(preview.symbol(unusedSymbol, imageSize), [35, 5, imageSize, imageSize]);
         itemView.addSubview(imageView);
 
         // Library symbol icon
@@ -104,9 +95,7 @@ var onRun = function(context) {
         }
 
         // Divider line
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, rowHeight - 1, viewWidth, 1));
-        divider.setWantsLayer(true);
-        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+        var divider = ui.divider([0, rowHeight - 1, viewWidth, 1]);
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);
