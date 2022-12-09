@@ -1,4 +1,12 @@
 -
+  version: 93.0.20220921
+  commitID: 490cbc79f8e6b9ce1ede2294ab416bdc91b13522
+  description:
+    - Add Export Selected Layers.
+    - Add Bitmap to Pattern Fill, Pattern Fill to Bitmap.
+    - Fixed symbol, style preview bug.
+
+-
   version: 87.1.20220513
   commitID: c29d6218744ebb4cd7b70c46186645c68225c780
   description:
