@@ -1,4 +1,5 @@
 var sketch = require("sketch");
+var preview = require("../modules/preview");
 
 var onRun = function(context) {
 
@@ -160,10 +161,7 @@ function reloadSymbolData(context, view, symbol, library, checkboxSize) {
 
         // Preview image
         var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(5, 5, itemHeight - 10, itemHeight - 10));
-        var layerAncestry = symbol_2.ancestry();
-        var symbolPreviewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-            layerAncestry, CGSizeMake((itemHeight - 10) * 2, (itemHeight - 10) * 2), NSColorSpace.sRGBColorSpace(), false
-        );
+        var symbolPreviewImage = preview.symbol(symbol_2, (itemHeight - 10) * 2);
         imageView.setImage(symbolPreviewImage);
         itemView.addSubview(imageView);
 

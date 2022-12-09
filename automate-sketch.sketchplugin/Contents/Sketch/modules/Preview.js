@@ -1,4 +1,5 @@
 var sketch = require("sketch");
+var version = sketch.version.sketch;
 
 /**
  * @param  {MSSymbolMaster} symbolMaster
@@ -7,7 +8,7 @@ var sketch = require("sketch");
  */
 module.exports.symbol = function(symbolMaster, size) {
     size = size || Math.max(symbolMaster.frame().width(), symbolMaster.frame().height());
-    return artboardPreviewGenerator(symbolMaster, size, size);
+    return artboardPreviewGenerator(symbolMaster, size, size, false);
 };
 
 /**
@@ -50,9 +51,14 @@ module.exports.textStyle = function(textStyle) {
     var textLayer = MSTextLayer.alloc().init();
     textLayer.setStringValue(textStyle.name());
     textLayer.setStyle(textStyle.style());
+    if (textLayer.frame().height() > 32) {
+        textLayer.setFontSize(textLayer.fontSize * (32 / textLayer.frame().height()));
+    }
     var width = textLayer.frame().width();
     var height = textLayer.frame().height();
     var artboard = artboardWithLayer(width, height, textLayer);
+    textLayer.frame().setX(0);
+    textLayer.frame().setY(0);
     var textColor = MSColor.alloc().initWithImmutableObject(textLayer.textColor());
     if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
         artboard.setHasBackgroundColor(true);
@@ -142,26 +148,27 @@ function previewFill(fillType, fillContent) {
 }
 
 function artboardWithLayer(width, height, layer) {
-    var artboard = MSArtboardGroup.alloc().init();
-    artboard.frame().setWidth(width);
-    artboard.frame().setHeight(height);
+    var artboard = MSArtboardGroup.alloc().initWithFrame(CGRectMake(0, 0, width, height));
     artboard.addLayer(layer);
     return artboard;
 }
 
 function artboardPreviewGenerator(artboard, width, height, remove) {
+    var document = sketch.getSelectedDocument();
     if (remove) {
-        var document = sketch.getSelectedDocument();
-        var page = document.selectedPage;
-        page.sketchObject.addLayer(artboard);
+        document.selectedPage.sketchObject.addLayer(artboard);
     }
-    var image = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-        artboard.ancestry(), CGSizeMake(width, height), NSColorSpace.sRGBColorSpace(), false
-    );
-    var image2x = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-        artboard.ancestry(), CGSizeMake(width * 2, height * 2), NSColorSpace.sRGBColorSpace(), false
-    );
-    image.addRepresentations(image2x.representations());
+    var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(artboard.ancestry()).firstObject();
+    var scale = Math.min(width / artboard.frame().width(), height / artboard.frame().height());
+    exportRequest.setScale(scale * 2);
+    var colorSpace;
+    if (version >= 86) {
+        colorSpace = document.sketchObject.colorSpace().CGColorSpace();
+    } else {
+        colorSpace = document.sketchObject.colorSpace();
+    }
+    var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, colorSpace);
+    var image = exporter.image();
     if (remove) {
         artboard.removeFromParent();
     }

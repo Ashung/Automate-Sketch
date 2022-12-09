@@ -88,9 +88,6 @@ Make your workflow more efficient.
 | Fixed / Unfixed Layer Name                                   | Cancels the fixed layer name of the text layer so that the layer name of the text follows the content. |
 | Charater Count                                               | Charater cout from selected text layer or select range.      |
 | **Slice**                                                    |                                                              |
-| Export Layer                                                 | Export selected layer.                                       |
-| Export Layer Setting                                         | Settings from export selected layer.                         |
-| Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
 | Auto Slice                                                   | Create a slice based on layer with export preset.            |
 | Fast slice                                                   | Create a URL-friendly slice based on layer with export preset, without modal window. |
 | Slice Setting                                                | Setting the name, layer order and export option of new slice layer. |
@@ -189,6 +186,10 @@ Make your workflow more efficient.
 | New Guide                                                    | Create new guides.                                           |
 | New Guide Layout                                             | Create a guide layout.                                       |
 | New Guides From Layer                                        | Create guides base selected layers.                          |
+| **Export**                                                   |                                                              |
+| Export Layer                                                 | Export selected layer.                                       |
+| Quick Export                                                 | Direct export selected layers use export perset, not need to add slice or exportable. |
+| Export Selected Layers                                       | Export selected layers with custom name.                     |
 | **Data**                                                     |                                                              |
 | Copy Text from Layer/Override                                | Copy text from selected text layer or text override in symbol instance. |
 | Export Data From Text Layers                                 | Export text file from the content of selected text layers.   |

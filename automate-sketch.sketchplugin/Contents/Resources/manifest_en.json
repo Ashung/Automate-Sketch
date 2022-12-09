@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "87.1.20220513",
+  "version": "93.0.20220921",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -1217,25 +1217,25 @@
     {
       "name": "Quick Export (Default)",
       "identifier": "quick_export_default",
-      "script": "Slice/Quick_Export.js",
+      "script": "Export/Quick_Export.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Quick Export (Preset 1)",
       "identifier": "quick_export_1",
-      "script": "Slice/Quick_Export.js",
+      "script": "Export/Quick_Export.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Quick Export (Preset 2)",
       "identifier": "quick_export_2",
-      "script": "Slice/Quick_Export.js",
+      "script": "Export/Quick_Export.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Quick Export Setting",
       "identifier": "quick_export_setting",
-      "script": "Slice/Quick_Export.js",
+      "script": "Export/Quick_Export.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1701,15 +1701,15 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "Export Layer",
+      "name": "Export",
       "identifier": "export",
-      "script": "Slice/Export.js",
+      "script": "Export/Export.js",
       "icon": "icon_runner.png"
     },
     {
       "name": "Export Layer Setting",
       "identifier": "export_setting",
-      "script": "Slice/Export.js",
+      "script": "Export/Export.js",
       "icon": "icon_runner.png"
     },
     {
@@ -1806,6 +1806,30 @@
       "name": "Save Cloud Document to Local",
       "identifier": "save_cloud_document_to_local",
       "script": "Utilities/Save_Cloud_Document_to_Local.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Bitmap to Pattern Fill",
+      "identifier": "bitmap_to_pattern_fill",
+      "script": "Layer/Bitmap_to_Pattern_Fill.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Pattern Fill to Bitmap",
+      "identifier": "pattern_fill_to_bitmap",
+      "script": "Layer/Bitmap_to_Pattern_Fill.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Export Selected Layers",
+      "identifier": "export_selected_layers",
+      "script": "Export/Export_Selected_Layers.js",
+      "icon": "icon_runner.png"
+    },
+    {
+      "name": "Theme Switcher",
+      "identifier": "theme_switcher",
+      "script": "Library/Theme_Switcher.js",
       "icon": "icon_runner.png"
     }
   ],
@@ -1978,6 +2002,9 @@
           "bounds_layer_for_every_selection",
           "reset_bounding_box",
           "divide_layer",
+          "-",
+          "bitmap_to_pattern_fill",
+          "pattern_fill_to_bitmap",
           "-",
           {
             "title": "More...",
@@ -2298,19 +2325,6 @@
         "title": "Slice",
         "items": [
           {
-            "title": "Export Layer",
-            "items": [
-              "export",
-              "export_setting",
-              "-",
-              "quick_export_default",
-              "quick_export_1",
-              "quick_export_2",
-              "quick_export_setting"
-            ]
-          },
-          "-",
-          {
             "title": "Add Slice",
             "items": [
               "auto_slice",
@@ -2326,6 +2340,20 @@
           "-",
           "save_export_presets",
           "load_export_presets"
+        ]
+      },
+      {
+        "title": "Export",
+        "items": [
+          "export",
+          "export_setting",
+          "-",
+          "quick_export_default",
+          "quick_export_1",
+          "quick_export_2",
+          "quick_export_setting",
+          "-",
+          "export_selected_layers"
         ]
       },
       {

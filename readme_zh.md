@@ -89,9 +89,6 @@
 | Fixed / Unfixed Layer Name                                   | **固定图层名 / 取消固定图层名** 取消文本图层的固定图层名，让文本的图层名跟随内容。 |
 | Charater Count                                               | **字符统计**                                                 |
 | **Slice**                                                    | **切片**                                                     |
-| Export Layer                                                 | **导出图层** 导出选择的图层。                                |
-| Export Layer Setting                                         | **导出图层设置**                                             |
-| Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
 | Auto Slice                                                   | **自动切片** 基于图层新建切片，并自动添加切片预设，可自定义切图尺寸。 |
 | Fast slice                                                   | **快速切片** 快速新建基于图层的切片，并自动添加切片预设，切片名称会根据设置修改会开发友好名称。 |
 | Slice Setting                                                | **切片设置** 设置切片名称、预设和图层列表位置。              |
@@ -190,6 +187,10 @@
 | New Guide                                                    | **新建辅助线**                                               |
 | New Guide Layout                                             | **新建辅助线布局**                                           |
 | New Guides From Layer                                        | **从图层创建辅助线**                                         |
+| **Export**                                                   | **导出**                                                     |
+| Export Layer                                                 | **导出图层** 导出选择的图层。                                |
+| Quick Export                                                 | **快速导出** 直接使用导出预设导出选中的图层，不需要添加切片或设置可导出。 |
+| Export Selected Layers                                       | **导出选中图层** 按图册位置、顺序导出，并自定义命名。        |
 | **Data**                                                     | **数据**                                                     |
 | Copy Text from Layer/Override                                | **从图层/覆盖拷贝文本**                                      |
 | Export Data From Text Layers                                 | **从文本图层导出数据** 将选中的文本图层内容导出到 TXT 文件。 |
@@ -205,26 +206,27 @@
 | Remove All Hotspot                                           | **删除所有热区** 删除所有热区图层和设置。                    |
 | Remove Hotspot in Selected Artboards                         | **删除选中画板内所有热区** 删除选中画板和组件内的所有热区。  |
 | **Development**                                              | **开发**                                                     |
-| Copy to Clipboard                                            | **拷贝至剪贴板** 复制选中形状图层的 png, 2x png, svg, svg path data, png base64. |
-| Export Artboard to ICNS File                                 | **画板导出为 ICNS 文件**                                     |
+| Copy Layer to Clipboard                                      | **拷贝至剪贴板** 复制选中形状图层的 png, 2x png, svg, svg path data, png base64. |
+| Copy Color as                                                |                                                              |
 | Pick Color and Copy the HEX Code                             | **屏幕取色并复制色彩代码** 从屏幕取色并负责色彩的十六进制值。 |
 | Copy Selected Layer Name                                     | **复制选中图层的名称** 复制选中的图层名到剪贴板。            |
 | Copy ObjectID or SymbolID                                    | **复制对象 ID 或组件 ID** 当选择图层时复制图层的 ObjectID 或 SymbolID 到剪贴板。 |
+| Fill Rule to Non-Zero                                        | **填充规则设为非零**                                         |
+| **Utilities**                                                | **实用工具**                                                 |
+| Save Cloud Document to Local                                 | **保存云端文档到本地**                                       |
+| Copy Document URL (Sketch URL Scheme)                        | **拷贝文档链接** 使用链接在网页或其他程序上使用 Sketch 打开文档，用于打开本地文档或分享公开的云文档。 |
+| Shortcuts Manager                                            | **快捷键管理器**                                             |
+| Insert Layer from SVG Path Data                              | **从 SVG 路径数据插入图层** 使用 SVG 路径数据代码插入图层。  |
+| Export Artboard to ICNS File                                 | **画板导出为 ICNS 文件**                                     |
+| Export Clean Code SVG                                        | **导出代码整洁的 SVG** 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码 (较慢)。 |
+| SVG Export Setting                                           | **SVG 导出设置**                                             |
+| Nine-Slice from Bitmap Layer                                 | **从位图创建九宫格拉伸图层** 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。 |
+| Open Termianl at File Folder                                 | **在终端打开** 打开终端，并切换到当前文档的目录。            |
+| Switch Language                                              | **切换语言**（Sketch 45+）切换 Sketch 界面语言，默认 Sketch 自动适应系统语言，该功能用于切换到英文版，或者支持的语言直接切换。 |
 | Show and Change Layer Info                                   | **显示和修改图层信息** 显示和修改图层的 ObjectID 或 SymbolID 等等。 |
 | Change Document ID                                           | **更改文档 ID** 显示和修改文档 ID。                          |
 | Plugin Dev Setting                                           | **插件开发设置** 针对 Sketch 插件开发的部分环境配置。        |
 | Reload Plugins                                               | **重新载入插件** 重载所有插件。                              |
-| **Utilities**                                                | **实用工具**                                                 |
-| Copy Document URL                                            | **拷贝文档链接** 使用链接在网页或其他程序上使用 Sketch 打开文档，用于打开本地文档或分享公开的云文档。 |
-| Shortcuts Manager                                            | **快捷键管理器**                                             |
-| Insert Layers from SVG Code                                  | **从 SVG 代码插入图层** 使用 SVG 代码插入图层。              |
-| Insert Layer from SVG Path Data                              | **从 SVG 路径数据插入图层** 使用 SVG 路径数据代码插入图层。  |
-| Export Clean Code SVG                                        | **导出代码整洁的 SVG** 导出或复制整洁代码的 SVG，可以根据类型或名称选择忽略某些图层，也可以通过 SVGO 进一步优化代码 (较慢)。 |
-| SVG Export Setting                                           | **SVG 导出设置**                                             |
-| Nine-Slice from Bitmap Layer                                 | **从位图创建九宫格拉伸图层** 将位图图层按用户设定位置切成 9 份，并设置可拉伸选项。 |
-| Convert Sketch File to Other Version                         | **转换 Sketch 文件至其他版本** 转为 Sketch 文件为 43 以后的任意版本，可以打开高版本文件，或转为低版本，注意某些文档可能高版本特有功能在低版本打开会丢失。 |
-| Open Termianl at File Folder                                 | **在终端打开** 打开终端，并切换到当前文档的目录。            |
-| Switch Language                                              | **切换语言**（Sketch 45+）切换 Sketch 界面语言，默认 Sketch 自动适应系统语言，该功能用于切换到英文版，或者支持的语言直接切换。 |
 
 ## 版权声明
 

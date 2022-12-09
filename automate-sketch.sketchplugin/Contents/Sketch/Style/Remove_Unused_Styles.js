@@ -1,6 +1,4 @@
-var sketch = require("sketch");
-var document = sketch.getSelectedDocument()
-var page = document.selectedPage;
+var sketch = require("sketch");;
 
 var onRun = function(context) {
 
@@ -174,10 +172,13 @@ function createDialog(context, type) {
 
 function createDataView(items, type, selectAll, checkedStatus) {
 
+    var ui = require("../modules/Dialog").ui;
+    var preview = require("../modules/preview");
+
     var itemHeight = 40;
 
     var itemsCount = items.count();
-    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 300, (itemsCount + 0.5) * itemHeight));
+    var contentView = NSView.alloc().initWithFrame(NSMakeRect(0, 0, 400, (itemsCount + 0.5) * itemHeight));
     contentView.setFlipped(true);
 
     var loopItems = items.objectEnumerator();
@@ -185,80 +186,29 @@ function createDataView(items, type, selectAll, checkedStatus) {
     while (item = loopItems.nextObject()) {
 
         var index = items.indexOfObject(item);
-        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 300, itemHeight));
+        var itemView = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight * index, 400, itemHeight));
         itemView.setFlipped(true);
 
         // Title
-        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 300, itemHeight));
+        var checkbox = NSButton.alloc().initWithFrame(NSMakeRect(10, 0, 400, itemHeight));
         checkbox.setButtonType(NSSwitchButton);
         checkbox.setState(NSOnState);
         itemView.addSubview(checkbox);
 
+        var previewImage;
+        var imageView;
         if (type == 0) {
             checkbox.setTitle("         " + item.name());
-
-            // Preview image
-            var layerStyleTempLayer = MSArtboardGroup.alloc().init();
-            layerStyleTempLayer.frame().setWidth(24);
-            layerStyleTempLayer.frame().setHeight(24);
-            var rectangle = MSRectangleShape.alloc().init();
-            rectangle.setRect(CGRectMake(2, 2, 20, 20));
-            rectangle.setStyle(item.style());
-          
-            layerStyleTempLayer.addLayer(rectangle);
-            page.sketchObject.addLayer(layerStyleTempLayer);
-
-            var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));
-            var layerAncestry = layerStyleTempLayer.ancestry();
-            var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                layerAncestry, CGSizeMake(48, 48), NSColorSpace.sRGBColorSpace(), false
-            );
-
-            imageView.setImage(previewImage);
-            itemView.addSubview(imageView);
-
-            layerStyleTempLayer.removeFromParent();
+            previewImage = preview.layerStyle(item);
+            imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, 24, 24));
         }
-
         if (type == 1) {
             checkbox.setTitle("");
-
-            // Preview image
-            var textStyleTempLayer = MSTextLayer.alloc().init();
-            textStyleTempLayer.setStringValue(item.name());
-            textStyleTempLayer.setStyle(item.style());
-            var textLayerWidth = textStyleTempLayer.frame().width();
-            var textLayerHeight = textStyleTempLayer.frame().height();
-            var textStyleTempArtboard = MSArtboardGroup.alloc().init();
-            textStyleTempArtboard.frame().setWidth(textLayerWidth);
-            textStyleTempArtboard.frame().setHeight(textLayerHeight);
-            textStyleTempLayer.moveToLayer_beforeLayer(textStyleTempArtboard, nil);
-
-            page.sketchObject.addLayer(textStyleTempArtboard);
-            var layerAncestry = textStyleTempArtboard.ancestry();
-            var previewImage = MSSymbolPreviewGenerator.imageForSymbolAncestry_withSize_colorSpace_trimmed(
-                layerAncestry, CGSizeMake(textLayerWidth * 2, textLayerHeight * 2), NSColorSpace.sRGBColorSpace(), false
-            );
-            if (textLayerWidth <= 260 || textLayerHeight <= itemHeight) {
-                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, (itemHeight - textLayerHeight)/2, textLayerWidth, textLayerHeight));
-            } else {
-                var imageView = NSImageView.alloc().initWithFrame(NSMakeRect(35, 0, 260, itemHeight));
-            }
-            imageView.setImage(previewImage);
-            imageView.setWantsLayer(true);
-
-            // Add gray background color
-            var textColor = MSColor.alloc().initWithImmutableObject(textStyleTempLayer.textColor());
-            if (textColor.fuzzyIsEqualExcludingAlpha(MSColor.whiteColor())) {
-                imageView.setBackgroundColor(NSColor.grayColor());
-            } else {
-                imageView.setBackgroundColor(NSColor.whiteColor());
-            }
-
-            itemView.addSubview(imageView);
-
-            textStyleTempArtboard.removeFromParent();
+            previewImage = preview.textStyle(item);
+            imageView = NSImageView.alloc().initWithFrame(NSMakeRect(32, 8, previewImage.size().width, previewImage.size().height));
         }
+        imageView.setImage(previewImage);
+        itemView.addSubview(imageView);
 
         checkbox.setCOSJSTargetFunction(function(sender) {
             if (sender.state() == NSOffState) {
@@ -278,9 +228,8 @@ function createDataView(items, type, selectAll, checkedStatus) {
             }
         });
 
-        var divider = NSView.alloc().initWithFrame(NSMakeRect(0, itemHeight - 1, 300, 1));
-        divider.setWantsLayer(1);
-        divider.layer().setBackgroundColor(CGColorCreateGenericRGB(0, 0, 0, 0.1));
+
+        var divider = ui.divider([0, itemHeight - 1, 400, 1]);
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);

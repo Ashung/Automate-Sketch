@@ -57,15 +57,15 @@ var onRun = function(context) {
     }
 
     // Dialog
-    var viewWidth = 350;
-    var rowHeight = 150;
+    var viewWidth = 450;
+    var rowHeight = 85;
     var dialog = new Dialog(
         "Fix Broken Library Symbols by Name",
         'If can\'t find a library symbol with same name, you can use "Symbol" - "Find and Replace Symbol".',
         viewWidth
     );
 
-    var scrollView = ui.scrollView([], [viewWidth, 400]);
+    var scrollView = ui.scrollView([], [viewWidth, 350]);
     dialog.addView(scrollView);
 
     var selectAll = ui.checkBox(true, "Select / Deselect All Symbols.");
@@ -91,7 +91,7 @@ var onRun = function(context) {
         itemView.setFlipped(true);
 
         // Checkbox
-        var checkbox = ui.checkBox(true, `${symbol.library.name} ▶︎ ${symbol.brokenSymbol.symbolMaster().name()}`, [10, 10, viewWidth - 10, 30]);
+        var checkbox = ui.checkBox(true, `${symbol.library.name} ▶︎ ${symbol.brokenSymbol.symbolMaster().name()}`, [10, 5, viewWidth - 10, 30]);
         itemView.addSubview(checkbox);
         if (symbol.symbolReferenceWithSameName == undefined) {
             checkbox.setTitle(`(Not found!) ${symbol.library.name} ▶︎ ${symbol.brokenSymbol.symbolMaster().name()}`);
@@ -117,10 +117,10 @@ var onRun = function(context) {
         });
 
         // Preview
-        var symbolPreview1 = ui.image(preview.symbol(symbol.brokenSymbol.symbolMaster(), 200), [10, 30, 100, 100]);
+        var symbolPreview1 = ui.transparentImage(preview.symbol(symbol.brokenSymbol.symbolMaster(), 200), [10, 35, 40, 40]);
         itemView.addSubview(symbolPreview1);
         if (symbol.symbolReferenceWithSameName) {
-            var symbolPreview2 = ui.image(preview.symbol(symbol.symbolReferenceWithSameName.sketchObject.symbolMaster(), 200), [140, 30, 100, 100]);
+            var symbolPreview2 = ui.transparentImage(preview.symbol(symbol.symbolReferenceWithSameName.sketchObject.symbolMaster(), 200), [60, 35, 40, 40]);
             itemView.addSubview(symbolPreview2);
         }
 
@@ -128,6 +128,7 @@ var onRun = function(context) {
         itemView.addSubview(divider);
 
         contentView.addSubview(itemView);
+        
     });
 
     // Select / Deselect
