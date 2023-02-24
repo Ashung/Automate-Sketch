@@ -30,7 +30,7 @@ var onRun = function(context) {
         var cells = matrixFormat.cells();
             cells.objectAtIndex(0).setTitle("PNG, recommend for UI desigin.");
             cells.objectAtIndex(1).setTitle("SVG, recommend for icon design.");
-        dialog.setView(matrixFormat);
+        dialog.addView(matrixFormat);
 
         var responseCode = dialog.run();
         if (responseCode == 1000) {
@@ -73,19 +73,15 @@ var onRun = function(context) {
 
                         var name = artboard.name().replace(/[<>\\\|:""*\?]/g, "_").substring(0, 255);
 
-                        var exportFormat = MSExportFormat.alloc().init();
-                        var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
-                            exportFormat, artboard, artboard.frame().rect(), false
-                        );
-
+                        var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(artboard.ancestry()).firstObject();
                         exportRequest.setShouldTrim(false);
                         exportRequest.setFormat(imageFormat);
                         exportRequest.setScale(2);
 
                         // Artboard background color
-                        if (selectedRadioIndex == 0) {
-                            exportRequest.setBackgroundColor(artboard.backgroundColor());
-                        }
+                        // if (selectedRadioIndex == 0) {
+                        //     exportRequest.setBackgroundColor(artboard.backgroundColor());
+                        // }
 
                         doc.saveExportRequest_toFile(exportRequest, savePath + "/assets/" + name + "." + imageFormat);
 

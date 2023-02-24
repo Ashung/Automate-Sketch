@@ -136,10 +136,7 @@ var onRun = function(context) {
                     var format = formatsView.titleOfSelectedItem();
                     var prefix = prefixView.stringValue();
                     var suffix = suffixView.stringValue();
-                    var exportFormat = MSExportFormat.alloc().init();
-                    var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
-                        exportFormat, layer, layer.frame().rect(), false
-                    );
+                    var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(layer.ancestry()).firstObject();
                     exportRequest.setShouldTrim(false);
                     exportRequest.setFormat(format);
                     exportRequest.setScale(scale);
@@ -203,16 +200,7 @@ var onRun = function(context) {
                     fullPath = savePath + '/' + fullPath + '.' + format.toLowerCase();
                     document.sketchObject.saveExportRequest_toFile(exportRequest, fullPath);
                 } else {
-                    var exportRequests = MSExportRequest.exportRequestsFromLayerAncestry_exportFormats_inRect(
-                        layer.ancestry(), layer.exportOptions().exportFormats(), layer.frame().rect()
-                    );
-                    if (exportRequests.count() == 0) {
-                        var exportFormat = MSExportFormat.alloc().init();
-                        var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(
-                            exportFormat, layer, layer.frame().rect(), false
-                        );
-                        exportRequests.addObject(exportRequest);
-                    }
+                    var exportRequests = MSExportRequest.exportRequestsFromLayerAncestry(layer.ancestry());
                     util.toArray(exportRequests).forEach(function(exportRequest) {
                         var nameFormat = convertView.indexOfSelectedItem();
                         var regSlash = /\s?[\/\\]+\s?/;

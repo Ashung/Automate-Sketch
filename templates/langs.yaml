@@ -179,8 +179,8 @@ clear_exportables:
   - Clear All Exportables
   - 清除全部可导出设置
 artboard_from_selection:
-  - Artboard from Selection
-  - 从选择对象新建画板
+  - Artboards from Selection
+  - 从选择对象新建多画板
 artboard_from_group:
   - Artboard from Group
   - 从组新建画板
