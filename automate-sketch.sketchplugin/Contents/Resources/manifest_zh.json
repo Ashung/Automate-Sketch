@@ -5,7 +5,7 @@
   "email": "Ashung.hung@gmail.com",
   "homepage": "https://github.com/Ashung/Automate-Sketch",
   "appcast": "https://ashung.github.io/Automate-Sketch/appcast.xml",
-  "version": "93.0.20220921",
+  "version": "95.3.20230320",
   "identifier": "com.ashung.hung.automate_sketch",
   "icon": "icon.png",
   "suppliesData": true,
@@ -307,7 +307,7 @@
       "icon": "icon_runner.png"
     },
     {
-      "name": "从选择对象新建画板",
+      "name": "从选择对象新建多画板",
       "identifier": "artboard_from_selection",
       "script": "Artboard/Artboard_from_Selection.js",
       "icon": "icon_runner.png"

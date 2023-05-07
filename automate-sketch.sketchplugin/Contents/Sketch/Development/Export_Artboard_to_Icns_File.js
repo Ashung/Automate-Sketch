@@ -41,7 +41,7 @@ var onRun = function(context) {
     ];
     options.forEach(function(option) {
         var exportFormat = MSExportFormat.alloc().initWithScale_name_fileFormat(option.size / 512, "", "png");
-        var exportRequest = MSExportRequest.exportRequestFromLayerAncestry_exportFormat_inRect(artboard.ancestry(), exportFormat, artboard.frame().rect());
+        var exportRequest = MSExportRequest.exportRequestFromExportFormat_layer_inRect_useIDForName(exportFormat, artboard, artboard.frame().rect(), false);
         var filePath = destFolder + "/icon.iconset/icon_" + option.name + ".png";
         document.sketchObject.saveExportRequest_toFile(exportRequest, filePath);
     });

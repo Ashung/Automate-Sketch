@@ -17,7 +17,7 @@ var onRun = function(context) {
     }
 
     selectedSymbolInstances.forEach(function(layer) {
-        layer.sketchObject.resizeToFitContentsIfNeededNoCache();
+        layer.resizeWithSmartLayout();
     });
 
 };
