@@ -7,7 +7,7 @@ var version = sketch.version.sketch;
  * @return  {NSImage}
  */
 module.exports.symbol = function(symbolMaster, size) {
-    size = size || Math.max(symbolMaster.frame().width(), symbolMaster.frame().height());
+    // size = size || Math.max(symbolMaster.frame().width(), symbolMaster.frame().height());
     return artboardPreviewGenerator(symbolMaster, size, size, false);
 };
 
@@ -159,8 +159,8 @@ function artboardPreviewGenerator(artboard, width, height, remove) {
         document.selectedPage.sketchObject.addLayer(artboard);
     }
     var exportRequest = MSExportRequest.exportRequestsFromLayerAncestry(artboard.ancestry()).firstObject();
-    var scale = Math.min(width / artboard.frame().width(), height / artboard.frame().height());
-    exportRequest.setScale(scale * 2);
+    // var scale = Math.min(width / artboard.frame().width(), height / artboard.frame().height());
+    // exportRequest.setScale(scale * 2);
     var colorSpace;
     if (version >= 86) {
         colorSpace = document.sketchObject.colorSpace().CGColorSpace();
@@ -168,7 +168,12 @@ function artboardPreviewGenerator(artboard, width, height, remove) {
         colorSpace = document.sketchObject.colorSpace();
     }
     var exporter = MSExporter.exporterForRequest_colorSpace(exportRequest, colorSpace);
-    var image = exporter.image();
+    var image;
+    if (version >= 96) {
+        image = NSImage.alloc().initWithData(exporter.data());
+    } else {
+        image = exporter.image();
+    }
     if (remove) {
         artboard.removeFromParent();
     }

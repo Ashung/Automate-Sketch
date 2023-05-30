@@ -129,11 +129,20 @@ var onRun = function(context) {
 };
 
 function exportLayer(document, layer, destFolder, nameFormat, preset) {
+    var sketch = require("sketch");
+    var version = sketch.version.sketch;
     preset.exportFormats().forEach(function(exportFormat) {
+        var absoluteInfluenceRect;
+        if (version >= 96) {
+            var relativeInfluenceRect = layer.immutableModelObject().influenceRectForBoundsInDocument(layer.documentData());
+            absoluteInfluenceRect = layer.convertRect_toLayer(relativeInfluenceRect, null);
+        } else {
+            absoluteInfluenceRect = layer.absoluteInfluenceRect();
+        }
         var exportRequest = MSExportRequest.exportRequestFromLayerAncestry_exportFormat_inRect(
             layer.ancestry(),
             exportFormat,
-            layer.absoluteInfluenceRect()
+            absoluteInfluenceRect
         );
         var filePath = "";
         if (nameFormat == 1) {
