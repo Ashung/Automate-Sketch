@@ -8,6 +8,7 @@ var onRun = function(context) {
 
     var util = require("util");
     var sketch = require("sketch/dom");
+    var version = sketch.version.sketch;
     var message = require("sketch/ui").message;
     var Artboard = sketch.Artboard;
     var SymbolMaster = sketch.SymbolMaster;
@@ -25,7 +26,13 @@ var onRun = function(context) {
     document.selectedLayers.clear();
 
     util.toArray(layersFromPasteboard).forEach(function(layer) {
-        var layerInfluenceRect = layer.absoluteInfluenceRect();
+        var layerInfluenceRect;
+        if (version >= 96) {
+            var relativeInfluenceRect = layer.immutableModelObject().influenceRectForBoundsInDocument(layer.documentData());
+            layerInfluenceRect = layer.convertRect_toLayer(relativeInfluenceRect, null);
+        } else {
+            layerInfluenceRect = layer.absoluteInfluenceRect();
+        }
         var layerRect = layer.rect();
         var originForNewArtboard = page.sketchObject.originForNewArtboardWithSize(layerInfluenceRect.size);
         layer.frame().setX(Math.round(layerRect.origin.x) - layerInfluenceRect.origin.x);

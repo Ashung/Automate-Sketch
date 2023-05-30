@@ -79,7 +79,7 @@ var onRun = function(context) {
                     boundsLayerHeight = userCustomHeight;
                 }
 
-                if (layer.class() == "MSLayerGroup" || layer.class() == "MSArtboardGroup") {
+                if (layer.class() == "MSLayerGroup" || layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
                     parent = layer;
                     beforeLayer = layer.firstLayer();
                     boundsLayerX = 0 - layer.frame().x() + Math.floor(layer.frame().x()) - boundsOffsetLeft;
@@ -111,7 +111,7 @@ var onRun = function(context) {
                 }
 
                 // Artboard
-                if (layer.class() == "MSArtboardGroup") {
+                if (layer.class() == "MSArtboardGroup" || layer.class() == "MSSymbolMaster") {
                     layer.frame().setX(layer.frame().x() - boundsOffsetLeft);
                     layer.frame().setY(layer.frame().y() - boundsOffsetTop);
                     layer.frame().setWidth(boundsLayerWidth);

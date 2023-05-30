@@ -1,3 +1,5 @@
+var sketch = require("sketch");
+var version = sketch.version.sketch;
 var pasteboard = NSPasteboard.generalPasteboard();
 
 module.exports.copy = function(text) {
@@ -6,12 +8,14 @@ module.exports.copy = function(text) {
 };
 
 module.exports.getPasteboardLayers = function() {
-    var sketch = require("sketch");
     var document = sketch.getSelectedDocument();
-    var version = sketch.version.sketch;
     var pasteboardManager = NSApp.delegate().pasteboardManager();
     var pasteboardLayers;
-    if (version >= 74) {
+    if (version >= 96) {
+        pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_document_options(
+            pasteboard, nil, nil
+        );
+    } else if (version >= 74) {
         pasteboardLayers = pasteboardManager.readPasteboardLayersFromPasteboard_document_options(
             pasteboard, document.sketchObject, nil
         );
@@ -30,7 +34,11 @@ module.exports.getPasteboardLayers = function() {
 }
 
 module.exports.getLayers = function() {
-    return this.getPasteboardLayers().layers().layers();
+    if (version >= 96) {
+        return this.getPasteboardLayers().layers();
+    } else {
+        return this.getPasteboardLayers().layers().layers();
+    }
 };
 
 module.exports.setImage = function(nsData) {

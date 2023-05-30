@@ -21,7 +21,6 @@ var onRun = function(context) {
             var symbolMaster = layer.symbolMaster();
             var originalWidth = symbolMaster.frame().width();
             var originalHeight = symbolMaster.frame().height();
-
             layer.frame().setConstrainProportions(false);
 
             if (pluginIdentifier == "set_to_original_width" || pluginIdentifier == "set_to_original_size") {
